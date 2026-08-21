@@ -4,8 +4,8 @@ type: project
 status: active
 owner: otonom
 created_at: "2026-08-21"
-updated_at: "2026-08-21T16:01:38+03:00"
-current_phase: fix-004-accepted-next-queue-validation
+updated_at: "2026-08-21T16:16:52+03:00"
+current_phase: fix-005a-local-activation
 canonical_status_scope: operational-tracker
 tags:
   - silbo/project
@@ -48,6 +48,9 @@ Zotero Local API (salt-okunur)
 | SILBO-FIX-004 uygulaması | IMPLEMENTED | Immutable `T=85625d7...`, `H=ddad3ab...` |
 | SILBO-FIX-004 bağımsız review | APPROVED | Sealed Fable review `efb87f2`; exact T/H doğrulandı |
 | SILBO-FIX-004 idari quorum | PASS / ACCEPTED | Review `933f17f` ile governed soyda; exact quorum PASS |
+| SILBO-FIX-004 state uzlaştırması | PASS | Ledger/queue/state commit `b96b989`; preflight PASS |
+| Sıradaki yerel iş | SILBO-FIX-005a | Repair ölçümünden önce controller korumaları |
+| GitHub yayını | KULLANICI KARARI BEKLENİYOR | Hesap ve repo verilmeden push/PR/merge yok |
 | Tam AIRL-OS commissioning | BAŞLAMADI / PLAN | WP seviyesinde bağımsız kabul yok |
 | Production cutover | YETKİLİ DEĞİL | 40 ACC, restore tatbikatları ve kritik bulgu kapanışları gerekli |
 
@@ -96,11 +99,16 @@ Aktif, actor-owned worktree:
 ```text
 /home/otonom/silbo-fix-004
 branch: codex/fix-004
-HEAD/H: ddad3abb49e53043e668a597432b9848ad43fb6a
+current local HEAD: b96b989
 implementation target/T: 85625d7a30fd9d77c9179ccff94d08b27ac0b1fd
+handoff/H: ddad3abb49e53043e668a597432b9848ad43fb6a
+review import: 933f17f3fe7b6b25b60e4ec293db0e6ad4b9acf5
+closeout: 5737757
 ```
 
 Shared `/home/otonom/silbo-ai` çalışma alanında toplu stage, cleanup veya uygulama yapılmaz.
+Kullanıcı GitHub hesabı ve hedef repoyu ayrıca bildirecektir; o zamana kadar
+hiçbir remote push, PR veya merge yapılmaz.
 
 ## 4. Kurulan yerel literatür V0
 
@@ -282,6 +290,18 @@ Bir bağımlılık forward-reference uyarısı görülmüştür; test hatası de
 - Quorum çıktısı: `status: PASS`, `errors: []`, reviewer kümesi: `["fable"]`.
 - FIX-004 exact target/handoff üçlüsü bu kanıtla `ACCEPTED` durumundadır; yeni target veya handoff bu onayı geçersiz kılar.
 
+### Adım 13 — FIX-004 state/queue uzlaştırması
+
+- Final closeout ve ham quorum kaydı yerel commit `5737757` içinde tutuldu.
+- `FABLE_ERROR_LEDGER.md` üzerinde E-F16 ve E-F20 exact target/quorum kanıtıyla `CLOSED` olarak işlendi.
+- `FIX_QUEUE.md`, `PROJECT_STATE.md`, `state.json` ve reinterpretation kayıtları güncellendi.
+- Wrapper invocation false-negative riski engelleyici olmayan `AIR-013 CANDIDATE` olarak kaydedildi; FIX-004 yeniden açılmadı.
+- Protokol tutarlılığı ve Codex coordinator attestation `PASS` verdi.
+- Tam preflight `PASS`; tek waiver daha önce tanımlı `G6 → SILBO-FIX-006`.
+- Uzlaştırma yerel commit'i: `b96b989`.
+- Kuyruk bağımlılığına göre sıradaki tek bounded iş `SILBO-FIX-005a`; `SILBO-FIX-005` bunun kabulünden önce başlatılamaz.
+- Kullanıcının GitHub hedefi bekleniyor; tüm commit'ler yerel, remote write yapılmadı.
+
 ## 6. SILBO ürün reposunun güncel yönetilen durumu
 
 ### Kabul edilmiş geçmiş
@@ -292,7 +312,7 @@ Bir bağımlılık forward-reference uyarısı görülmüştür; test hatası de
 | SILBO-FIX-002 | Kabul edildi |
 | SILBO-FIX-003 | Exact target/handoff, sealed Fable review ve quorum ile kabul edildi |
 
-### Aktif döngü: SILBO-FIX-004
+### Kabul edilen döngü: SILBO-FIX-004
 
 ```text
 BASE = 410ef3f83b230ef14564b3a1e5375031af906113
@@ -314,9 +334,13 @@ Fable bu sonuçları bağımsız olarak yeniden üretmiş ve exact `T/H/manifest
 
 Review sırasında bir adet engelleyici olmayan `MINOR` bulgu kaydedildi: `executes()` predicate'i `sh -c ...` gibi wrapper invocation biçimlerini tanımıyor. Arşivde bu biçimi kullanan kayıt bulunmadığı ve standart yol `run_python` olduğu için FIX-004 kabulünü engellemedi; ADR-008 reopen koşuluyla uyumlu bir `CANDIDATE` olarak ele alınacaktır.
 
+### Sıradaki döngü: SILBO-FIX-005a
+
+FIX-005a; repair path, sonuç sınıflandırması ve runtime'ın iç doğrulama çıktısının model bağlamına sızmasını önleyen context-isolation sınırını mutation-proven testlerle koruyacaktır. Bu paket CPU-local instrument çalışmasıdır; repair deneyini, model inference'ını veya GPU training'i içermez.
+
 ### Bilinen açık guard
 
-`G6`, SILBO-FIX-006 kapsamındaki 9/21 çözümlenmemiş provenance fact nedeniyle kırmızıdır. FIX-004 review sırasında bunun dışında yeni failure kabul edilemez.
+`G6`, SILBO-FIX-006 kapsamındaki 9/21 çözümlenmemiş provenance fact nedeniyle kırmızıdır. Son preflight bunu açık waiver olarak gösterdi ve başka unwaived guard failure bulunmadı.
 
 ### Yayın sistemi
 
@@ -347,11 +371,12 @@ Review sırasında bir adet engelleyici olmayan `MINOR` bulgu kaydedildi: `execu
 2. ~~Review commit'ini exact identity ve machine header ile doğrula.~~ `PASS`
 3. ~~Review bytesını değiştirmeden governed lineage'a al.~~ `PASS`
 4. ~~Exact `T/H/manifest/review` quorum komutunu çalıştır.~~ `PASS`
-5. **E-F16/E-F20 kapanışını state/queue kayıtlarında uzlaştır ve executable guardlarla sıradaki paketi doğrula.** `NEXT`
+5. ~~E-F16/E-F20 kapanışını state/queue kayıtlarında uzlaştır ve executable guardlarla sıradaki paketi doğrula.~~ `PASS`
 6. Blocking finding varsa Codex için yeni `T2/H2` döngüsü oluştur; eski approvalı taşıma.
-7. Guardlarla kuyruğu yeniden sırala.
-8. Sırayla FIX-005a, FIX-005, FIX-006, FIX-006b, FIX-007, FIX-008 ve kalan FIX-009 ailesini ele al.
-9. Instrument/security kuyruğu kapanmadan yeni pahalı ölçüm veya GPU training başlatma.
+7. ~~Guardlarla sıradaki paketi doğrula.~~ `PASS — FIX-005a`
+8. **FIX-005a için actor-owned yerel branch/worktree oluştur ve activation record'u üretim değişikliklerinden önce kaydet.** `NEXT`
+9. Sırayla FIX-005a, FIX-005, FIX-006, FIX-006b, FIX-007, FIX-008 ve kalan FIX-009 ailesini ele al.
+10. Instrument/security kuyruğu kapanmadan yeni pahalı ölçüm veya GPU training başlatma.
 
 ### Faz B — Formal commissioning başlangıcı
 
@@ -422,6 +447,8 @@ Aşağıdaki işlemler kendiliğinden yapılmayacaktır:
 - İnsan karar hakkını etkileyen policy seçimi.
 
 Her biri exact hedef, rollback, maliyet ve kabul kanıtı tanımlandıktan sonra ayrıca yürütülür.
+Özellikle GitHub hesabı ve hedef repo kullanıcı tarafından bildirilene kadar
+mevcut `origin` veya `mirror` dahil hiçbir remote hedefe yazılmaz.
 
 ## 10. Başlıca riskler ve kontroller
 
@@ -480,9 +507,12 @@ Bir adım `PASS`, `PARTIAL`, `BLOCKED` veya `FAIL` olarak açıkça etiketlenir.
 | 2026-08-21 15:59 +03 | FIX-004 Fable review tamamlandı | APPROVED | Review `efb87f2`, sealed exact T/H, yalnız review dosyası |
 | 2026-08-21 16:01 +03 | FIX-004 review governed soya alındı | PASS | Commit `933f17f`, review byte hash eşit |
 | 2026-08-21 16:01 +03 | FIX-004 exact review quorum | ACCEPTED | `status: PASS`, `errors: []`, reviewer `fable` |
+| 2026-08-21 16:16 +03 | FIX-004 closeout kaydı | PASS | Yerel commit `5737757`; ham quorum + final sonuç |
+| 2026-08-21 16:16 +03 | Ledger/queue/state uzlaştırması | PASS | Yerel commit `b96b989`; preflight PASS |
+| 2026-08-21 16:16 +03 | GitHub yayın sınırı | USER DECISION | Hesap/repo verilene kadar remote write yok |
 
 ## 14. Sonraki exact adım
 
-**FIX-004 kabulünden sonra `coordination/STATE.md`, görev kuyruğu, defect register ve executable guardları yeniden okuyarak E-F16/E-F20 state kapanışını ve sıradaki tek yetkili iş paketini doğrula.**
+**Kabul edilmiş yerel `b96b989` soyundan `SILBO-FIX-005a` için actor-owned branch/worktree oluştur; production editinden önce task activation kaydını scope, risk, rollback, resource boundary ve A1–A4 challenge planıyla commit et.**
 
-Bu doğrulama yapılmadan yeni FIX, training veya tam AIRL altyapı implementasyon dalı açılmaz.
+GitHub hesabı ve hedef repo bildirilmeden hiçbir remote write yapılmaz. FIX-005a kabul edilmeden FIX-005 repair ölçümü, yeni training veya tam AIRL altyapı implementasyonu başlatılmaz.
