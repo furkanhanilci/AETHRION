@@ -4,8 +4,8 @@ type: project
 status: active
 owner: otonom
 created_at: "2026-08-21"
-updated_at: "2026-08-21T21:20:27+03:00"
-current_phase: fix-005a-accepted-fix-005-preflight
+updated_at: "2026-08-21T21:34:33+03:00"
+current_phase: fix-005-active-runner-preparation
 canonical_status_scope: operational-tracker
 tags:
   - silbo/project
@@ -23,7 +23,7 @@ tags:
 
 SILBO çalışması iki ayrı fakat ilişkili düzlemde ilerlemektedir:
 
-1. **Mevcut SILBO ürün reposu:** Eğitim, değerlendirme, verifier güvenilirliği ve yayın kalitesinde kanıt üretimi için daha önce geliştirilmiş gerçek kod tabanı. `SILBO-FIX-004` ve `SILBO-FIX-005a` exact sealed Fable quorum ile kabul edilmiştir. Sıradaki aday `SILBO-FIX-005` henüz aktive edilmemiştir.
+1. **Mevcut SILBO ürün reposu:** Eğitim, değerlendirme, verifier güvenilirliği ve yayın kalitesinde kanıt üretimi için daha önce geliştirilmiş gerçek kod tabanı. `SILBO-FIX-004` ve `SILBO-FIX-005a` exact sealed Fable quorum ile kabul edilmiştir. `SILBO-FIX-005` challenge sonrası yerelde aktive edilmiştir; inference başlamadan yeni runner, rapor sözleşmesi, test, mutation ve dry-run kanıtı hazırlanacaktır.
 2. **AIRL-OS devreye alma programı:** 130 iş paketi ve 40 uçtan uca kabul senaryosuyla tam araştırma işletim sistemini tarif eden commissioning planı. Bu planın tamamı henüz kurulmamıştır.
 
 Bunlara ek olarak, kullanılabilir bir ilk dikey dilim olarak **yerel literatür V0 sistemi** kurulmuştur:
@@ -51,7 +51,8 @@ Zotero Local API (salt-okunur)
 | SILBO-FIX-004 state uzlaştırması | PASS | Ledger/queue/state commit `b96b989`; preflight PASS |
 | SILBO-FIX-005a | ACCEPTED | `T=ff5f959`, `H=e8e614c`, Fable `1309853`, closeout `b803846`; exact quorum PASS |
 | SILBO-FIX-005b follow-up | WRITTEN / NON-BLOCKING | AIR-014; constructor mismatch guard testi, 005a'yı reopen etmez |
-| Genel framework GitHub yayını | AKTİF / PRIVATE | `furkanhanilci/AI-Research-Framework`, son kayıt `main=ab52fb3` |
+| SILBO-FIX-005 | ACTIVE / PRE-INFERENCE | Challenge ve activation `f598869`; `RUN-FIX005-B3-001`, 20 kayıt, 2× görev-token tavanı, 3 saat aggregate cap |
+| Genel framework GitHub yayını | AKTİF / PRIVATE | `furkanhanilci/AI-Research-Framework`, bu güncelleme öncesi `main=813b17f` |
 | SILBO model reposu | AYRI / DOKUNULMADI | Genel framework remote'u olarak kullanılmıyor |
 | Tam AIRL-OS commissioning | BAŞLAMADI / PLAN | WP seviyesinde bağımsız kabul yok |
 | Production cutover | YETKİLİ DEĞİL | 40 ACC, restore tatbikatları ve kritik bulgu kapanışları gerekli |
@@ -494,9 +495,11 @@ aktive edilmeyecek, model koşusu başlatılmayacaktır.
 13. ~~Exact `T=ff5f959…` ve `H=e8e614c…` çiftini ayrı worktree'de sealed Fable review'e yönlendir.~~ `PASS — 1309853`
 14. ~~Review-only commit'leri governed soya byte-identical alıp exact quorum'u ve temiz closeout preflight'ini çalıştır.~~ `PASS — b803846`
 15. ~~Non-blocking Fable F1 bulgusunu ayrı kayıt/task olarak kuyruğa bağla.~~ `PASS — AIR-014 / FIX-005b`
-16. **SILBO-FIX-005 taskını ve güncel resource/measurement önkoşullarını yeniden oku; üretim veya model koşusu öncesi challenge/activation kararı üret.** `NEXT`
-17. Sırayla FIX-005, FIX-006, FIX-006b, FIX-007, FIX-008 ve kalan FIX-009 ailesini ele al.
-18. Instrument/security kuyruğu kapanmadan yeni pahalı ölçüm veya GPU training başlatma.
+16. ~~SILBO-FIX-005 taskını ve güncel resource/measurement önkoşullarını yeniden oku; üretim veya model koşusu öncesi challenge/activation kararı üret.~~ `PASS — f598869`
+17. **Yeni run kimliği ve fail-closed capsule ile runner/rapor sözleşmesini uygula; test ve mutation kanıtından sonra dry-run pre-registration commit'ini dondur.** `NEXT`
+18. Readiness PASS olursa aynı sekiz görev/yirmi tohum kaydında B3 ölçümünü en çok üç saatlik aggregate sınırla çalıştır.
+19. Sırayla FIX-006, FIX-006b, FIX-007, FIX-008 ve kalan FIX-009 ailesini ele al.
+20. Instrument/security kuyruğu kapanmadan yeni GPU training başlatma.
 
 ### Faz B — Formal commissioning başlangıcı
 
@@ -647,9 +650,13 @@ Bir adım `PASS`, `PARTIAL`, `BLOCKED` veya `FAIL` olarak açıkça etiketlenir.
 | 2026-08-21 21:15 +03 | FIX-005a exact coordinator quorum | PASS / ACCEPTED | `errors: []`; exact T/H/manifest, reviewer `fable` |
 | 2026-08-21 21:20 +03 | Review import ve closeout | PASS | `f93ce5c`, `a59e6e7`, `b803846`; review hash eşit, preflight PASS |
 | 2026-08-21 21:20 +03 | Fable F1 follow-up kaydı | WRITTEN / NON-BLOCKING | AIR-014 / SILBO-FIX-005b; 005a reopen değil |
+| 2026-08-21 21:34 +03 | FIX-005 A1–A4 challenge | PASS TO ACTIVATE | 4/20 repair trigger; 3 token cap + 1 repeated action; post-repair write 0, ikinci verification 0; eski süre 1,048895 saat |
+| 2026-08-21 21:34 +03 | FIX-005 görev/spec düzeltmesi | PASS | İlgisiz ve kapalı E-F11 kapsamdan çıkarıldı; `~0,7 h` tahmini emekli edildi; `REPAIR_NOT_MEASURED` dalı ön-kayıtlandı |
+| 2026-08-21 21:34 +03 | FIX-005 yerel aktivasyonu | PASS | `codex/fix-005`, commit `f598869`; protocol PASS, runtime/evaluation preflight PASS, G6 yalnız FIX-006 feragati |
+| 2026-08-21 21:34 +03 | FIX-005 kaynak sınırı | PASS / INFERENCE NOT STARTED | 2×RTX A5000 erişilebilir; endpoint kapalı; yeni run `RUN-FIX005-B3-001`, yalnız görev-token cap 2×, aggregate cap 3 saat |
 
 ## 14. Sonraki exact adım
 
-**`coordination/tasks/SILBO-FIX-005.md` görevini immutable accepted base bağlamında tamamen yeniden oku; model/repair ölçümü çalıştırmadan önce task challenge, yürütme maliyeti, endpoint/model bağımlılığı, instrument/security gate ve actor-owned activation koşullarını doğrula.**
+**`RUN-FIX005-B3-001` için eski EXP-003 yoluna dokunmayan fail-closed runnerı ve her koşu için post-repair write, ikinci verification sonucu, exit reason ve token maliyetini üreten rapor sözleşmesini uygula; dar test, tam evaluation paketi ve mutation kanıtı geçmeden inference başlatma.**
 
-Yalnız `furkanhanilci/AI-Research-Framework` genel framework remote'u olarak yetkilidir. FIX-005a kabul edilmiştir; ancak FIX-005 kendi challenge/activation kaydı oluşmadan repair ölçümü, yeni training veya tam AIRL altyapı implementasyonu başlatılmaz.
+Yalnız `furkanhanilci/AI-Research-Framework` genel framework remote'u olarak yetkilidir. FIX-005 aktive edilmiştir; ancak dry-run/readiness pre-registration commit'i oluşmadan repair inference, yeni training veya tam AIRL altyapı implementasyonu başlatılmaz. SILBO model reposuna push yapılmaz.
