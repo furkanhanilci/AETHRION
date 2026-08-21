@@ -4,8 +4,8 @@ type: project
 status: active
 owner: otonom
 created_at: "2026-08-21"
-updated_at: "2026-08-21T16:34:38+03:00"
-current_phase: fix-005a-preimplementation-challenge
+updated_at: "2026-08-21T16:53:40+03:00"
+current_phase: fix-005a-test-implementation
 canonical_status_scope: operational-tracker
 tags:
   - silbo/project
@@ -23,7 +23,7 @@ tags:
 
 SILBO çalışması iki ayrı fakat ilişkili düzlemde ilerlemektedir:
 
-1. **Mevcut SILBO ürün reposu:** Eğitim, değerlendirme, verifier güvenilirliği ve yayın kalitesinde kanıt üretimi için daha önce geliştirilmiş gerçek kod tabanı. Bu repo şu anda `SILBO-FIX-004` bağımsız review aşamasındadır.
+1. **Mevcut SILBO ürün reposu:** Eğitim, değerlendirme, verifier güvenilirliği ve yayın kalitesinde kanıt üretimi için daha önce geliştirilmiş gerçek kod tabanı. `SILBO-FIX-004` kabul edilmiştir; `SILBO-FIX-005a` üretim değişikliği öncesi challenge aşamasını geçerek test uygulama aşamasına alınmıştır.
 2. **AIRL-OS devreye alma programı:** 130 iş paketi ve 40 uçtan uca kabul senaryosuyla tam araştırma işletim sistemini tarif eden commissioning planı. Bu planın tamamı henüz kurulmamıştır.
 
 Bunlara ek olarak, kullanılabilir bir ilk dikey dilim olarak **yerel literatür V0 sistemi** kurulmuştur:
@@ -49,8 +49,8 @@ Zotero Local API (salt-okunur)
 | SILBO-FIX-004 bağımsız review | APPROVED | Sealed Fable review `efb87f2`; exact T/H doğrulandı |
 | SILBO-FIX-004 idari quorum | PASS / ACCEPTED | Review `933f17f` ile governed soyda; exact quorum PASS |
 | SILBO-FIX-004 state uzlaştırması | PASS | Ledger/queue/state commit `b96b989`; preflight PASS |
-| SILBO-FIX-005a | IN_PROGRESS / LOCAL | Aktivasyon `d86f5be`; production öncesi A1–A4 challenge |
-| Genel framework GitHub yayını | AKTİF / PRIVATE | `furkanhanilci/AI-Research-Framework`, `main=038f0ce` |
+| SILBO-FIX-005a | CHALLENGE PASS / LOCAL | Kanıt `9f5ae8a`; A1 boşluğu doğrulandı, A2 5/5 gözlemlenebilir, A3 `DONE→PARTIAL` |
+| Genel framework GitHub yayını | AKTİF / PRIVATE | `furkanhanilci/AI-Research-Framework`, `main=7e5b39b` |
 | SILBO model reposu | AYRI / DOKUNULMADI | Genel framework remote'u olarak kullanılmıyor |
 | Tam AIRL-OS commissioning | BAŞLAMADI / PLAN | WP seviyesinde bağımsız kabul yok |
 | Production cutover | YETKİLİ DEĞİL | 40 ACC, restore tatbikatları ve kritik bulgu kapanışları gerekli |
@@ -423,9 +423,11 @@ FIX-005a; repair path, sonuç sınıflandırması ve runtime'ın iç doğrulama 
 5. ~~E-F16/E-F20 kapanışını state/queue kayıtlarında uzlaştır ve executable guardlarla sıradaki paketi doğrula.~~ `PASS`
 6. Blocking finding varsa Codex için yeni `T2/H2` döngüsü oluştur; eski approvalı taşıma.
 7. ~~Guardlarla sıradaki paketi doğrula.~~ `PASS — FIX-005a`
-8. **FIX-005a için actor-owned yerel branch/worktree oluştur ve activation record'u üretim değişikliklerinden önce kaydet.** `NEXT`
-9. Sırayla FIX-005a, FIX-005, FIX-006, FIX-006b, FIX-007, FIX-008 ve kalan FIX-009 ailesini ele al.
-10. Instrument/security kuyruğu kapanmadan yeni pahalı ölçüm veya GPU training başlatma.
+8. ~~FIX-005a için actor-owned yerel branch/worktree oluştur ve activation record'u üretim değişikliklerinden önce kaydet.~~ `PASS — d86f5be`
+9. ~~FIX-005a A1–A4 varsayımlarını üretim değişikliklerinden önce izole mutant/problarla sınayıp görev metnini kanıta göre düzelt.~~ `PASS — 9f5ae8a`
+10. **FIX-005a Groups 1–3 için iki yönlü, mutasyonla kanıtlanan testleri uygula.** `NEXT`
+11. Sırayla FIX-005a, FIX-005, FIX-006, FIX-006b, FIX-007, FIX-008 ve kalan FIX-009 ailesini ele al.
+12. Instrument/security kuyruğu kapanmadan yeni pahalı ölçüm veya GPU training başlatma.
 
 ### Faz B — Formal commissioning başlangıcı
 
@@ -566,9 +568,11 @@ Bir adım `PASS`, `PARTIAL`, `BLOCKED` veya `FAIL` olarak açıkça etiketlenir.
 | 2026-08-21 16:29 +03 | Commissioning plan import hazırlığı | PASS | `planning/commissioning/`, 186 dosya |
 | 2026-08-21 16:32 +03 | Genel framework plan yayını | PASS | Private remote `main=038f0ce`; 188 dosyalık commit |
 | 2026-08-21 16:34 +03 | FIX-005a yerel aktivasyonu | PASS | Worktree/branch, task/state, preflight; commit `d86f5be` |
+| 2026-08-21 16:53 +03 | FIX-005a A1–A4 ön-uygulama challenge | PASS | Commit `9f5ae8a`; A1 52/52+144/144 survived, A2 5/5, A3 `DONE→PARTIAL` |
+| 2026-08-21 16:53 +03 | FIX-005a spec düzeltmesi | PASS | Controller bench kapsamı 15 değil 8 görev; `≤40/165` ikincil eşik |
 
 ## 14. Sonraki exact adım
 
-**`d86f5be` tabanından ayrı disposable worktree oluştur; production editinden önce FIX-005a A1–A4 varsayımlarını mutation/probe ile sınayıp sonuçları `coordination/evidence/SILBO-FIX-005a-challenge.md` altında kaydet.**
+**`9f5ae8a` tabanında önce mevcut Controller mutation envanterini tamamla; ardından Groups 1–3 için bağlam izolasyonu, onarım kanıtı ve sonuç sınıflandırmasını iki yönlü testlerle koruyup her named mutantı MISSED durumundan caught durumuna geçir.**
 
 Yalnız `furkanhanilci/AI-Research-Framework` genel framework remote'u olarak yetkilidir. FIX-005a kabul edilmeden FIX-005 repair ölçümü, yeni training veya tam AIRL altyapı implementasyonu başlatılmaz.
