@@ -179,7 +179,7 @@ class ObsidianProjector:
             "provenance: airl-bridge-api",
             "---",
             "",
-            "# Kaynak Kataloğu",
+            "# Source Catalog",
             "",
             "> [!warning] Generated projection",
             "> Bu dosya Bridge API tarafından yeniden oluşturulur.",
@@ -212,14 +212,14 @@ class ObsidianProjector:
             "provenance: airl-bridge-api",
             "---",
             "",
-            "# Olası Kopyalar",
+            "# Potential Duplicates",
             "",
             "> [!important] İnceleme gerekli",
             "> Bu liste yalnız aynı normalize başlığa sahip kayıtları gösterir; Zotero kaydı otomatik birleştirilmez veya silinmez.",
         ]
         groups = duplicate_source_groups(sources)
         if not groups:
-            duplicate_lines.extend(["", "Olası kopya bulunmadı."])
+            duplicate_lines.extend(["", "No potential duplicates found."])
         for group in groups:
             duplicate_lines.extend(
                 ["", f"## {html.escape(' '.join(group[0].title.splitlines()))}", ""]
@@ -233,10 +233,10 @@ class ObsidianProjector:
                 )
 
         self._atomic_write(
-            dashboard_dir / "Kaynak Kataloğu.md", "\n".join(catalog_lines) + "\n"
+            dashboard_dir / "Source Catalog.md", "\n".join(catalog_lines) + "\n"
         )
         self._atomic_write(
-            dashboard_dir / "Olası Kopyalar.md",
+            dashboard_dir / "Potential Duplicates.md",
             "\n".join(duplicate_lines) + "\n",
         )
         return dashboard_dir

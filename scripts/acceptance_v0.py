@@ -28,9 +28,9 @@ def main() -> None:
     settings = Settings.from_env()
     generated = settings.obsidian_vault / settings.obsidian_generated_dir
     dashboard = generated / "00 - Control Dashboard"
-    home = settings.obsidian_vault / "00 - Home/AI Research Framework Home.md"
+    home = settings.obsidian_vault / "00 - Home/ai_research_framework_home.md"
     literature_index = (
-        settings.obsidian_vault / "70 - Literature Sets/Literature Sets.md"
+        settings.obsidian_vault / "70 - Literature Sets/literature_sets.md"
     )
 
     health = get("/health")
@@ -44,8 +44,8 @@ def main() -> None:
     require(home.is_file(), "AI Research Framework main page is missing")
     require(literature_index.is_file(), "Literature-set index is missing")
     require(not (settings.obsidian_vault / "80_Generated").exists(), "Legacy tree remains")
-    require((dashboard / "Kaynak Kataloğu.md").is_file(), "Catalog is missing")
-    require((dashboard / "Olası Kopyalar.md").is_file(), "Duplicate report is missing")
+    require((dashboard / "Source Catalog.md").is_file(), "Catalog is missing")
+    require((dashboard / "Potential Duplicates.md").is_file(), "Duplicate report is missing")
     require(bool(lidar_results), "Source search returned no LiDAR result")
 
     manifest_path = generated / MANIFEST_NAME

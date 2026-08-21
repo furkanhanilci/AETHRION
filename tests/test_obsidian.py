@@ -33,7 +33,7 @@ def test_projection_stays_in_generated_zone_and_escapes_abstract(settings, zoter
         settings.obsidian_vault
         / settings.obsidian_generated_dir
         / "00 - Control Dashboard"
-        / "Kaynak Kataloğu.md"
+        / "Source Catalog.md"
     )
     assert "A reproducible source" in dashboard.read_text(encoding="utf-8")
 
@@ -63,7 +63,7 @@ def test_same_title_sources_receive_stable_zotero_key_suffixes(settings, zotero_
         settings.obsidian_vault
         / settings.obsidian_generated_dir
         / "00 - Control Dashboard"
-        / "Olası Kopyalar.md"
+        / "Potential Duplicates.md"
     ).read_text(encoding="utf-8")
     assert "Zotero ABCD1234" in duplicates
     assert "Zotero EFGH5678" in duplicates
