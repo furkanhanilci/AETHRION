@@ -4,8 +4,8 @@ type: project
 status: active
 owner: otonom
 created_at: "2026-08-21"
-updated_at: "2026-08-21T16:53:40+03:00"
-current_phase: fix-005a-test-implementation
+updated_at: "2026-08-21T18:41:26+03:00"
+current_phase: fix-005a-mutation-verification
 canonical_status_scope: operational-tracker
 tags:
   - silbo/project
@@ -49,7 +49,7 @@ Zotero Local API (salt-okunur)
 | SILBO-FIX-004 bağımsız review | APPROVED | Sealed Fable review `efb87f2`; exact T/H doğrulandı |
 | SILBO-FIX-004 idari quorum | PASS / ACCEPTED | Review `933f17f` ile governed soyda; exact quorum PASS |
 | SILBO-FIX-004 state uzlaştırması | PASS | Ledger/queue/state commit `b96b989`; preflight PASS |
-| SILBO-FIX-005a | CHALLENGE PASS / LOCAL | Kanıt `9f5ae8a`; A1 boşluğu doğrulandı, A2 5/5 gözlemlenebilir, A3 `DONE→PARTIAL` |
+| SILBO-FIX-005a | TEST IMPLEMENTED / LOCAL | `a38913c`; Controller 33/33, runtime 72/72, evaluation 144/144; mutation recheck sırada |
 | Genel framework GitHub yayını | AKTİF / PRIVATE | `furkanhanilci/AI-Research-Framework`, `main=7e5b39b` |
 | SILBO model reposu | AYRI / DOKUNULMADI | Genel framework remote'u olarak kullanılmıyor |
 | Tam AIRL-OS commissioning | BAŞLAMADI / PLAN | WP seviyesinde bağımsız kabul yok |
@@ -425,9 +425,10 @@ FIX-005a; repair path, sonuç sınıflandırması ve runtime'ın iç doğrulama 
 7. ~~Guardlarla sıradaki paketi doğrula.~~ `PASS — FIX-005a`
 8. ~~FIX-005a için actor-owned yerel branch/worktree oluştur ve activation record'u üretim değişikliklerinden önce kaydet.~~ `PASS — d86f5be`
 9. ~~FIX-005a A1–A4 varsayımlarını üretim değişikliklerinden önce izole mutant/problarla sınayıp görev metnini kanıta göre düzelt.~~ `PASS — 9f5ae8a`
-10. **FIX-005a Groups 1–3 için iki yönlü, mutasyonla kanıtlanan testleri uygula.** `NEXT`
-11. Sırayla FIX-005a, FIX-005, FIX-006, FIX-006b, FIX-007, FIX-008 ve kalan FIX-009 ailesini ele al.
-12. Instrument/security kuyruğu kapanmadan yeni pahalı ölçüm veya GPU training başlatma.
+10. ~~FIX-005a Groups 1–3 için iki yönlü davranış testlerini uygula ve ölü kontrol akışını kaldır.~~ `PASS — a38913c`
+11. **Disposable worktree'de tam Controller auto-mutation taramasını yeniden çalıştır; Groups 1–3 survivor kalırsa testi daraltıp yinele.** `NEXT`
+12. Sırayla FIX-005a, FIX-005, FIX-006, FIX-006b, FIX-007, FIX-008 ve kalan FIX-009 ailesini ele al.
+13. Instrument/security kuyruğu kapanmadan yeni pahalı ölçüm veya GPU training başlatma.
 
 ### Faz B — Formal commissioning başlangıcı
 
@@ -570,9 +571,11 @@ Bir adım `PASS`, `PARTIAL`, `BLOCKED` veya `FAIL` olarak açıkça etiketlenir.
 | 2026-08-21 16:34 +03 | FIX-005a yerel aktivasyonu | PASS | Worktree/branch, task/state, preflight; commit `d86f5be` |
 | 2026-08-21 16:53 +03 | FIX-005a A1–A4 ön-uygulama challenge | PASS | Commit `9f5ae8a`; A1 52/52+144/144 survived, A2 5/5, A3 `DONE→PARTIAL` |
 | 2026-08-21 16:53 +03 | FIX-005a spec düzeltmesi | PASS | Controller bench kapsamı 15 değil 8 görev; `≤40/165` ikincil eşik |
+| 2026-08-21 18:41 +03 | FIX-005a executable baseline düzeltmesi | PASS | Güncel taban 83/165 değil 88/181 survivor |
+| 2026-08-21 18:41 +03 | FIX-005a Groups 1–3 test uygulaması | PASS / MUTATION PENDING | `a38913c`; 33/33 + 72/72 + 144/144, eşdeğer ölü dallar kaldırıldı |
 
 ## 14. Sonraki exact adım
 
-**`9f5ae8a` tabanında önce mevcut Controller mutation envanterini tamamla; ardından Groups 1–3 için bağlam izolasyonu, onarım kanıtı ve sonuç sınıflandırmasını iki yönlü testlerle koruyup her named mutantı MISSED durumundan caught durumuna geçir.**
+**`a38913c` için detached disposable worktree oluştur; `auto_mutation.py --file runtime/core/controller.py` ile tam survivor listesini üret, Groups 1–3'te kalan her mutantı hedefli iki yönlü testle kapat ve byte-exact restore'u doğrula.**
 
 Yalnız `furkanhanilci/AI-Research-Framework` genel framework remote'u olarak yetkilidir. FIX-005a kabul edilmeden FIX-005 repair ölçümü, yeni training veya tam AIRL altyapı implementasyonu başlatılmaz.
