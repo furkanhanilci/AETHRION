@@ -4,7 +4,7 @@ type: project
 status: active
 owner: otonom
 created_at: "2026-08-21"
-updated_at: "2026-08-21T22:33:00+03:00"
+updated_at: "2026-08-21T23:02:00+03:00"
 current_phase: fix-005-dry-run-preparation
 canonical_status_scope: operational-tracker
 tags:
@@ -690,9 +690,10 @@ Bir adım `PASS`, `PARTIAL`, `BLOCKED` veya `FAIL` olarak açıkça etiketlenir.
 | 2026-08-21 22:14 +03 | FIX-005 yerel ölçüm target'ı | PASS / MUTATION PENDING | `b14b0b34a115e7cc088008d0a29cf1769f912169`; 5 dosya, diff-check temiz, worktree temiz; SILBO push yok |
 | 2026-08-21 22:16 +03 | FIX-005 detached mutation kanıtı | PASS | Exact `b14b0b3`; baseline/final 11/11, 8/8 mutant caught, restore byte-exact; raw JSON SHA-256 `e142bf74…3b3f54` |
 | 2026-08-21 22:19 +03 | FIX-005 tam test paketleri | PASS | Exact `b14b0b3`; evaluation 155/155, runtime 72/72; ilk sandbox denemesi yalnız socket/NETLINK_ROUTE ortam kısıtı |
+| 2026-08-21 23:02 +03 | FIX-005 pre-inference capsule ve readiness kanıtı | PASS / INFERENCE GATED | 11/11 focused tests, 8/8 mutation, capsule CREATED→BYTE_IDENTICAL, drift rejection; 20 schedule, `inference_started=false`; result `SILBO-FIX-005-preinference-result.md` |
 
 ## 14. Sonraki exact adım
 
-**Mutation ve tam test özetini yerel evidence commit'ine bağla; exact `b14b0b34a115e7cc088008d0a29cf1769f912169` kaynaklarıyla yeni `RUN-FIX005-B3-001` kökünde inference başlatmayan dry-run capsule üret, byte-identical resume ve config-drift reddini doğrula.**
+**Exact `b14b0b34a115e7cc088008d0a29cf1769f912169` kaynaklarıyla bağımsız Fable review/handoff hazırla; review tamamlanmadan inference başlatma.**
 
 Yalnız `furkanhanilci/AI-Research-Framework` genel framework remote'u olarak yetkilidir. FIX-005 aktive edilmiştir; ancak dry-run/readiness pre-registration commit'i oluşmadan repair inference, yeni training veya tam AIRL altyapı implementasyonu başlatılmaz. SILBO model reposuna push yapılmaz.

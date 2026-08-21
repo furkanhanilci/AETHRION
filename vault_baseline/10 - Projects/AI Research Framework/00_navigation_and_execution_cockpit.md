@@ -4,7 +4,7 @@ type: project
 status: active
 owner: otonom
 created_at: "2026-08-21"
-updated_at: "2026-08-21T22:33:00+03:00"
+updated_at: "2026-08-21T23:02:00+03:00"
 canonical_plan_root: planning/commissioning
 obsidian_plan_root: 10 - Projects/AI Research Framework/01 - Commissioning
 plan_markdown_count: 184
@@ -31,12 +31,12 @@ tags:
 
 | Alan | Güncel değer |
 |---|---|
-| Son maddi adım | Obsidian ve yerel kök adlandırma standardizasyonu |
+| Son maddi adım | FIX-005 inference öncesi capsule/readiness doğrulaması |
 | SILBO kanıt commit'i | `b14b0b34a115e7cc088008d0a29cf1769f912169` |
 | Durum | `ACTIVE / PRE-INFERENCE / TEST+MUTATION PASS` |
-| Sıradaki exact adım | Evidence özetini yerel commit'e bağla; inference başlatmayan capsule dry-run + byte-identical resume + drift rejection çalıştır |
+| Sıradaki exact adım | Exact target için bağımsız Fable review/handoff hazırla; review olmadan inference yok |
 | Yasak sınır | Dry-run/readiness commit'i olmadan inference yok; SILBO remote push yok; training yok |
-| Son Obsidian senkronu | 2026-08-21 22:33 +03 — genel kök `AI_RESEARCH_FRAMEWORK`, English folders, acceptance PASS |
+| Son Obsidian senkronu | 2026-08-21 23:02 +03 — FIX-005 capsule PASS; inference başlatılmadı |
 
 ## Önce okunacak program belgeleri
 
