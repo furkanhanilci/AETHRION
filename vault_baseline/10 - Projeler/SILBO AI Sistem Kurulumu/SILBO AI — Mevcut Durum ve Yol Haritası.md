@@ -4,8 +4,8 @@ type: project
 status: active
 owner: otonom
 created_at: "2026-08-21"
-updated_at: "2026-08-21T20:08:45+03:00"
-current_phase: fix-005a-sealed-review-routing
+updated_at: "2026-08-21T21:20:27+03:00"
+current_phase: fix-005a-accepted-fix-005-preflight
 canonical_status_scope: operational-tracker
 tags:
   - silbo/project
@@ -23,7 +23,7 @@ tags:
 
 SILBO çalışması iki ayrı fakat ilişkili düzlemde ilerlemektedir:
 
-1. **Mevcut SILBO ürün reposu:** Eğitim, değerlendirme, verifier güvenilirliği ve yayın kalitesinde kanıt üretimi için daha önce geliştirilmiş gerçek kod tabanı. `SILBO-FIX-004` kabul edilmiştir; `SILBO-FIX-005a` immutable uygulama hedefi ve handoff olarak yerelde dondurulmuş, exact sealed Fable review aşamasına gelmiştir.
+1. **Mevcut SILBO ürün reposu:** Eğitim, değerlendirme, verifier güvenilirliği ve yayın kalitesinde kanıt üretimi için daha önce geliştirilmiş gerçek kod tabanı. `SILBO-FIX-004` ve `SILBO-FIX-005a` exact sealed Fable quorum ile kabul edilmiştir. Sıradaki aday `SILBO-FIX-005` henüz aktive edilmemiştir.
 2. **AIRL-OS devreye alma programı:** 130 iş paketi ve 40 uçtan uca kabul senaryosuyla tam araştırma işletim sistemini tarif eden commissioning planı. Bu planın tamamı henüz kurulmamıştır.
 
 Bunlara ek olarak, kullanılabilir bir ilk dikey dilim olarak **yerel literatür V0 sistemi** kurulmuştur:
@@ -49,8 +49,9 @@ Zotero Local API (salt-okunur)
 | SILBO-FIX-004 bağımsız review | APPROVED | Sealed Fable review `efb87f2`; exact T/H doğrulandı |
 | SILBO-FIX-004 idari quorum | PASS / ACCEPTED | Review `933f17f` ile governed soyda; exact quorum PASS |
 | SILBO-FIX-004 state uzlaştırması | PASS | Ledger/queue/state commit `b96b989`; preflight PASS |
-| SILBO-FIX-005a | IMPLEMENTED / REVIEW PENDING | `T=ff5f959`, `H=e8e614c`; 147/177 caught, 0 Group survivor, 41/41 + 72/72 + 144/144 |
-| Genel framework GitHub yayını | AKTİF / PRIVATE | `furkanhanilci/AI-Research-Framework`, son kayıt `main=2a2160e` |
+| SILBO-FIX-005a | ACCEPTED | `T=ff5f959`, `H=e8e614c`, Fable `1309853`, closeout `b803846`; exact quorum PASS |
+| SILBO-FIX-005b follow-up | WRITTEN / NON-BLOCKING | AIR-014; constructor mismatch guard testi, 005a'yı reopen etmez |
+| Genel framework GitHub yayını | AKTİF / PRIVATE | `furkanhanilci/AI-Research-Framework`, son kayıt `main=ab52fb3` |
 | SILBO model reposu | AYRI / DOKUNULMADI | Genel framework remote'u olarak kullanılmıyor |
 | Tam AIRL-OS commissioning | BAŞLAMADI / PLAN | WP seviyesinde bağımsız kabul yok |
 | Production cutover | YETKİLİ DEĞİL | 40 ACC, restore tatbikatları ve kritik bulgu kapanışları gerekli |
@@ -117,7 +118,10 @@ governed base: b96b9894378000451966ab2fba3132d29ac80b64
 activation commit: d86f5be
 implementation target/T: ff5f95904a5dd486d679056ee418b8c13dee699c
 handoff/H: e8e614c39ab5dde89236df1b89838e2c745aa317
-review state: sealed Fable review pending
+Fable final review: 13098532098a5882f75c946c9cbc9fa01fa22007
+review imports: f93ce5c6bc3513ea553665b4ef903aa0c89ca330, a59e6e741d7461e72073dd9cb79eaa65c63a1fc7
+closeout: b803846d6bd00d18fc2c3ee9074971616b47bef3
+review state: ACCEPTED — exact quorum PASS
 ```
 
 Shared `/home/otonom/silbo-ai` çalışma alanında toplu stage, cleanup veya uygulama yapılmaz.
@@ -132,7 +136,7 @@ visibility: private
 default branch: main
 remote: https://github.com/furkanhanilci/AI-Research-Framework.git
 first published commit: 5efd305d52aca1557576e3208668ee9e474344da
-current published framework commit before this status update: 2a2160e90b81234b809d9a9a8b447241d2d6ec00
+current published framework commit before this status update: ab52fb31460eed08865e97487c3b41b8a20d6c68
 ```
 
 İlk push öncesinde izlenen dosyalar kontrol edildi: `.env`, sanal ortam,
@@ -369,8 +373,29 @@ Bir bağımlılık forward-reference uyarısı görülmüştür; test hatası de
 - Codex ve Fable rol attestation'ları ile protokol tutarlılığı PASS verdi.
   `bwrap` testleri gerekli namespace yetkisi olmayan iç sandbox'ta çevresel
   olarak kırmızı, onaylı yerel test sınırında tam preflight PASS verdi.
-- FIX-005a henüz kabul edilmedi; exact T/H için tek sealed Fable review ve
-  coordinator quorum'u bekleniyor. SILBO remote'una push yapılmadı.
+- FIX-005a bu aşamada henüz kabul edilmemişti; aşağıdaki Adım 17'de sealed
+  Fable review ve coordinator quorum tamamlandı. SILBO remote'una push yapılmadı.
+
+### Adım 17 — SILBO-FIX-005a sealed Fable review ve kabul
+
+- Ayrı detached target ve reviewer-owned report worktree'leri exact T/H'de
+  oluşturuldu; reviewer ilk ölçümler bitene kadar Codex sonuç metninden sealed
+  tutuldu.
+- Fable 7/7 manifest hashini, runtime 72/72, evaluation 144/144, Controller
+  147/177, sıfır semantic Groups 1–3 survivor, named sweep 41/41 ve byte-exact
+  restore'u bağımsız olarak yeniden üretti.
+- On kritik hedefli prob, internal/external context-isolation, repair ve outcome
+  sınıflandırma sınırlarını iki yönde doğruladı. Preflight local `bwrap`
+  sınırında PASS verdi.
+- Final review `13098532098a5882f75c946c9cbc9fa01fa22007` yalnız review dosyasını
+  değiştirir; verdict `APPROVED WITH FOLLOW-UP`, `FOLLOW-UP-BLOCKING: false`.
+- Review baytları governed soya `f93ce5c` ve `a59e6e7` commit'leriyle
+  byte-identical alındı; coordinator exact quorum `status: PASS`, `errors: []`.
+- Fable'ın IMPORTANT fakat non-blocking constructor mismatch-guard test açığı
+  `AIR-014 / SILBO-FIX-005b` olarak ayrı kuyruk maddesine bağlandı.
+- Final local closeout `b803846d6bd00d18fc2c3ee9074971616b47bef3` üzerinde role/protocol/quorum
+  ve namespace yetkili preflight tam PASS. Yalnız FIX-006'nın mevcut G6 waiver'ı
+  kaldı. SILBO-FIX-005a ACCEPTED; SILBO remote'una push yapılmadı.
 
 ## 6. SILBO ürün reposunun güncel yönetilen durumu
 
@@ -404,7 +429,7 @@ Fable bu sonuçları bağımsız olarak yeniden üretmiş ve exact `T/H/manifest
 
 Review sırasında bir adet engelleyici olmayan `MINOR` bulgu kaydedildi: `executes()` predicate'i `sh -c ...` gibi wrapper invocation biçimlerini tanımıyor. Arşivde bu biçimi kullanan kayıt bulunmadığı ve standart yol `run_python` olduğu için FIX-004 kabulünü engellemedi; ADR-008 reopen koşuluyla uyumlu bir `CANDIDATE` olarak ele alınacaktır.
 
-### Aktif review döngüsü: SILBO-FIX-005a
+### Kabul edilen döngü: SILBO-FIX-005a
 
 ```text
 BASE = b96b9894378000451966ab2fba3132d29ac80b64
@@ -414,10 +439,16 @@ H    = e8e614c39ab5dde89236df1b89838e2c745aa317
 
 FIX-005a; repair path, sonuç sınıflandırması ve runtime'ın iç doğrulama
 çıktısının model bağlamına sızmasını önleyen context-isolation sınırını
-mutation-proven testlerle korur. Uygulama sonucu PASS olsa da bu implementer
-beyanı kabul değildir. Exact T/H/manifest için ayrı worktree'de sealed Fable
-review ve ardından coordinator quorum'u zorunludur. Paket CPU-local instrument
-çalışmasıdır; repair deneyini, model inference'ını veya GPU training'i içermez.
+mutation-proven testlerle korur. Fable aynı 147/177 sonucu ve 30-entry survivor
+listesini bağımsız üretti, bütün semantic Groups 1–3 survivorlarını sıfır
+doğruladı ve exact T/H/manifest quorum'u PASS verdi. Bu immutable çift için
+FIX-005a ACCEPTED'tır.
+
+Fable'ın non-blocking F1 bulgusu, base ile byte-identical constructor
+`display_command` guard'ının iki mutantının test edilmemesidir. Bu bulgu
+AIR-014/SILBO-FIX-005b olarak kuyruktadır; 005a'yı reopen etmez ve FIX-005/B3'ü
+bloklamaz. FIX-005 yine de kendi task/resource/measurement gate'leri okunmadan
+aktive edilmeyecek, model koşusu başlatılmayacaktır.
 
 ### Bilinen açık guard
 
@@ -460,10 +491,12 @@ review ve ardından coordinator quorum'u zorunludur. Paket CPU-local instrument
 10. ~~FIX-005a Groups 1–3 için iki yönlü davranış testlerini uygula ve ölü kontrol akışını kaldır.~~ `PASS — a38913c`
 11. ~~Disposable worktree'de tam Controller auto-mutation taramasını çalıştır, Groups 1–3 survivorlarını kapat, remainder'ı sınıflandır ve restore'u doğrula.~~ `PASS — 147/177, Group 0, T=ff5f959`
 12. ~~Result, makine kanıtı ve yedi-artifact manifestini H'de dondur; protocol/role/preflight kapılarını çalıştır.~~ `PASS — H=e8e614c`
-13. **Exact `T=ff5f959…` ve `H=e8e614c…` çiftini ayrı worktree'de sealed Fable review'e yönlendir.** `NEXT`
-14. Fable verdict'i blocking ise yeni T2/H2 döngüsü kur; approval ise review-only commit'i governed soya alıp exact quorum'u çalıştır.
-15. Sırayla FIX-005, FIX-006, FIX-006b, FIX-007, FIX-008 ve kalan FIX-009 ailesini ele al.
-16. Instrument/security kuyruğu kapanmadan yeni pahalı ölçüm veya GPU training başlatma.
+13. ~~Exact `T=ff5f959…` ve `H=e8e614c…` çiftini ayrı worktree'de sealed Fable review'e yönlendir.~~ `PASS — 1309853`
+14. ~~Review-only commit'leri governed soya byte-identical alıp exact quorum'u ve temiz closeout preflight'ini çalıştır.~~ `PASS — b803846`
+15. ~~Non-blocking Fable F1 bulgusunu ayrı kayıt/task olarak kuyruğa bağla.~~ `PASS — AIR-014 / FIX-005b`
+16. **SILBO-FIX-005 taskını ve güncel resource/measurement önkoşullarını yeniden oku; üretim veya model koşusu öncesi challenge/activation kararı üret.** `NEXT`
+17. Sırayla FIX-005, FIX-006, FIX-006b, FIX-007, FIX-008 ve kalan FIX-009 ailesini ele al.
+18. Instrument/security kuyruğu kapanmadan yeni pahalı ölçüm veya GPU training başlatma.
 
 ### Faz B — Formal commissioning başlangıcı
 
@@ -610,9 +643,13 @@ Bir adım `PASS`, `PARTIAL`, `BLOCKED` veya `FAIL` olarak açıkça etiketlenir.
 | 2026-08-21 18:41 +03 | FIX-005a Groups 1–3 test uygulaması | PASS / MUTATION PENDING | `a38913c`; 33/33 + 72/72 + 144/144, eşdeğer ölü dallar kaldırıldı |
 | 2026-08-21 20:08 +03 | FIX-005a immutable target | PASS | `T=ff5f959`; 147/177 caught, 30 attributed, Group 0, named 41/41 |
 | 2026-08-21 20:08 +03 | FIX-005a handoff ve manifest | PASS / REVIEW PENDING | `H=e8e614c`; 7/7 target hash, protocol/roles/preflight PASS |
+| 2026-08-21 21:13 +03 | FIX-005a sealed Fable review | APPROVED WITH FOLLOW-UP | `1309853`; follow-up non-blocking, subject edit 0 |
+| 2026-08-21 21:15 +03 | FIX-005a exact coordinator quorum | PASS / ACCEPTED | `errors: []`; exact T/H/manifest, reviewer `fable` |
+| 2026-08-21 21:20 +03 | Review import ve closeout | PASS | `f93ce5c`, `a59e6e7`, `b803846`; review hash eşit, preflight PASS |
+| 2026-08-21 21:20 +03 | Fable F1 follow-up kaydı | WRITTEN / NON-BLOCKING | AIR-014 / SILBO-FIX-005b; 005a reopen değil |
 
 ## 14. Sonraki exact adım
 
-**Exact `T=ff5f95904a5dd486d679056ee418b8c13dee699c` ve `H=e8e614c39ab5dde89236df1b89838e2c745aa317` çiftini, manifestteki 7/7 target hashini yeniden doğrulayacak ayrı target/report worktree'lerinde sealed Fable review'e yönlendir.**
+**`coordination/tasks/SILBO-FIX-005.md` görevini immutable accepted base bağlamında tamamen yeniden oku; model/repair ölçümü çalıştırmadan önce task challenge, yürütme maliyeti, endpoint/model bağımlılığı, instrument/security gate ve actor-owned activation koşullarını doğrula.**
 
-Yalnız `furkanhanilci/AI-Research-Framework` genel framework remote'u olarak yetkilidir. FIX-005a kabul edilmeden FIX-005 repair ölçümü, yeni training veya tam AIRL altyapı implementasyonu başlatılmaz.
+Yalnız `furkanhanilci/AI-Research-Framework` genel framework remote'u olarak yetkilidir. FIX-005a kabul edilmiştir; ancak FIX-005 kendi challenge/activation kaydı oluşmadan repair ölçümü, yeni training veya tam AIRL altyapı implementasyonu başlatılmaz.
