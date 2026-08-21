@@ -55,5 +55,5 @@ def test_search_get_categories_and_duplicates(settings, zotero_item):
     assert search.status_code == 200
     assert len(search.json()) == 2
     assert get_one.json()["zotero_key"] == "ABCD1234"
-    assert categories.json()[0]["display_name"] == "01 - Dergi Makaleleri"
+    assert categories.json()[0]["display_name"] == "01 - Journal Articles"
     assert duplicates.json()[0]["source_count"] == 2

@@ -158,7 +158,7 @@ class ObsidianProjector:
         assignments: list[tuple[SourceRecord, Path, str]],
     ) -> Path:
         vault = self.settings.obsidian_vault.resolve()
-        dashboard_dir = (target_dir / "00 - Kontrol Panosu").resolve()
+        dashboard_dir = (target_dir / "00 - Control Dashboard").resolve()
         try:
             dashboard_dir.relative_to(vault)
         except ValueError as exc:
@@ -310,7 +310,7 @@ creators:
 <h1>{title}</h1>
 
 > [!warning] Otomatik Zotero görünümü
-> Bu dosya SILBO kaynak kayıt defterinden yeniden üretilir; elle düzenlemeyin. İnsan sentezini `20 - Kaynak Notları` altında tutun.
+> Bu dosya SILBO kaynak kayıt defterinden yeniden üretilir; elle düzenlemeyin. İnsan sentezini `20 - Source Notes` altında tutun.
 
 - Zotero: [{source.zotero_key}]({zotero_uri})
 - Publication date: <code>{publication_date}</code>

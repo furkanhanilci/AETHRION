@@ -27,10 +27,10 @@ def require(condition: bool, message: str) -> None:
 def main() -> None:
     settings = Settings.from_env()
     generated = settings.obsidian_vault / settings.obsidian_generated_dir
-    dashboard = generated / "00 - Kontrol Panosu"
-    home = settings.obsidian_vault / "00 - Ana Sayfa/AI Research Framework Ana Sayfa.md"
+    dashboard = generated / "00 - Control Dashboard"
+    home = settings.obsidian_vault / "00 - Home/AI Research Framework Home.md"
     literature_index = (
-        settings.obsidian_vault / "70 - Literatür Setleri/Literatür Setleri.md"
+        settings.obsidian_vault / "70 - Literature Sets/Literature Sets.md"
     )
 
     health = get("/health")

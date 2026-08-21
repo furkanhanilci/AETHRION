@@ -14,7 +14,7 @@ AIRL Bridge API @ 127.0.0.1:8765
         |
         +--> SQLite/WAL kanonik kaynak kayıt defteri
         |
-        +--> Obsidian: 70 - Literatür Setleri/Zotero Kaynakları
+        +--> Obsidian: 70 - Literature Sets/Zotero Sources
         |
         +--> Hermes MCP: beş salt-okunur araç
 ```
@@ -22,36 +22,36 @@ AIRL Bridge API @ 127.0.0.1:8765
 ## Obsidian yerleşimi
 
 ```text
-00 - Ana Sayfa/
-  AI Research Framework Ana Sayfa.md
-01 - Gelen Kutusu/
-10 - Projeler/
+00 - Home/
+  AI Research Framework Home.md
+01 - Inbox/
+10 - Projects/
   AI Research Framework/
-    AI Research Framework — Mevcut Durum ve Yol Haritası.md
+    AI Research Framework — Current Status and Roadmap.md
     00 - Plan Navigasyonu ve Yürütme Kokpiti.md
-    01 - Commissioning Planı/
-20 - Kaynak Notları/                 # insan sentezi
-30 - Kavramlar/
-40 - İddialar/
-50 - Kararlar/
-60 - Çalıştırmalar/
-70 - Literatür Setleri/
-  Literatür Setleri.md               # insan kürasyonu
-  Zotero Kaynakları/                 # otomatik yönetilen dal
-    00 - Kontrol Panosu/
-    01 - Dergi Makaleleri/
-    02 - Konferans Bildirileri/
-    03 - Raporlar ve Ön Baskılar/
-90 - Arşiv/
-_Şablonlar/
+    01 - Commissioning/
+20 - Source Notes/                 # insan sentezi
+30 - Concepts/
+40 - Claims/
+50 - Decisions/
+60 - Runs/
+70 - Literature Sets/
+  Literature Sets.md               # insan kürasyonu
+  Zotero Sources/                 # otomatik yönetilen dal
+    00 - Control Dashboard/
+    01 - Journal Articles/
+    02 - Conference Papers/
+    03 - Reports and Preprints/
+90 - Archive/
+_Templates/
 ```
 
 ## Değişmezler
 
 1. Bridge ve Zotero bağlantıları yalnız yerel makinede dinler.
 2. Zotero'dan veri alma salt-okunurdur; API anahtarı ve yazma işlemi yoktur.
-3. `Zotero Kaynakları` dalı yeniden üretilebilir ve elle düzenlenmez.
-4. İnsan sentezi `20 - Kaynak Notları`, kürasyonlu setler `70 - Literatür
+3. `Zotero Sources` dalı yeniden üretilebilir ve elle düzenlenmez.
+4. İnsan sentezi `20 - Source Notes`, kürasyonlu setler `70 - Literatür
    Setleri` kökü altında tutulur.
 5. Üretilen dosyalar makale başlığıyla adlandırılır; yalnız aynı başlık
    çakışmalarında kararlı `Zotero ITEMKEY` eki kullanılır.

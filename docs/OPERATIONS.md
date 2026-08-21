@@ -15,13 +15,13 @@ curl -fsS -X POST 'http://127.0.0.1:8765/v1/sync?limit=100'
 ```
 
 Bu işlem Zotero'ya yazmaz. SQLite kayıt defterini günceller ve yalnız
-`70 - Literatür Setleri/Zotero Kaynakları` dalını yeniden üretir.
+`70 - Literature Sets/Zotero Sources` dalını yeniden üretir.
 
 ## Hermes doğrulama
 
 ```bash
 hermes mcp test airl_bridge
-cd /home/otonom/Desktop/FH/AIRL_OS_DEVREYE_ALMA_PLANI_v1.0/airl_bridge_api
+cd /home/otonom/Desktop/FH/AI_RESEARCH_FRAMEWORK/airl_bridge_api
 .venv/bin/python scripts/mcp_smoke.py
 ```
 

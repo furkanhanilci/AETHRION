@@ -52,7 +52,7 @@ class Settings:
         generated_rel = Path(
             os.getenv(
                 "AIRL_OBSIDIAN_GENERATED_DIR",
-                "70 - Literatür Setleri/Zotero Kaynakları",
+                "70 - Literature Sets/Zotero Sources",
             )
         )
         if generated_rel.is_absolute() or ".." in generated_rel.parts:

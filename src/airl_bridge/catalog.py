@@ -8,10 +8,10 @@ from .models import SourceRecord
 
 
 SOURCE_TYPE_FOLDERS = {
-    "journalArticle": "01 - Dergi Makaleleri",
-    "conferencePaper": "02 - Konferans Bildirileri",
-    "report": "03 - Raporlar ve Ön Baskılar",
-    "preprint": "03 - Raporlar ve Ön Baskılar",
+    "journalArticle": "01 - Journal Articles",
+    "conferencePaper": "02 - Conference Papers",
+    "report": "03 - Reports and Preprints",
+    "preprint": "03 - Reports and Preprints",
     "book": "04 - Kitaplar",
     "bookSection": "05 - Kitap Bölümleri",
     "thesis": "06 - Tezler",

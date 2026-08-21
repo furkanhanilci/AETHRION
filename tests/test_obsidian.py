@@ -16,7 +16,7 @@ def test_projection_stays_in_generated_zone_and_escapes_abstract(settings, zoter
     target = (
         settings.obsidian_vault
         / settings.obsidian_generated_dir
-        / "01 - Dergi Makaleleri"
+        / "01 - Journal Articles"
         / "A reproducible source.md"
     )
     content = target.read_text(encoding="utf-8")
@@ -26,13 +26,13 @@ def test_projection_stays_in_generated_zone_and_escapes_abstract(settings, zoter
     assert target.is_file()
     assert "<script>" not in content
     assert "&lt;script&gt;" in content
-    assert 'source_category: "01 - Dergi Makaleleri"' in content
+    assert 'source_category: "01 - Journal Articles"' in content
     assert 'zotero_tags:' in content
-    assert "İnsan sentezini `20 - Kaynak Notları` altında tutun" in content
+    assert "İnsan sentezini `20 - Source Notes` altında tutun" in content
     dashboard = (
         settings.obsidian_vault
         / settings.obsidian_generated_dir
-        / "00 - Kontrol Panosu"
+        / "00 - Control Dashboard"
         / "Kaynak Kataloğu.md"
     )
     assert "A reproducible source" in dashboard.read_text(encoding="utf-8")
@@ -51,7 +51,7 @@ def test_same_title_sources_receive_stable_zotero_key_suffixes(settings, zotero_
     category = (
         settings.obsidian_vault
         / settings.obsidian_generated_dir
-        / "01 - Dergi Makaleleri"
+        / "01 - Journal Articles"
     )
     names = sorted(path.name for path in category.glob("*.md"))
 
@@ -62,7 +62,7 @@ def test_same_title_sources_receive_stable_zotero_key_suffixes(settings, zotero_
     duplicates = (
         settings.obsidian_vault
         / settings.obsidian_generated_dir
-        / "00 - Kontrol Panosu"
+        / "00 - Control Dashboard"
         / "Olası Kopyalar.md"
     ).read_text(encoding="utf-8")
     assert "Zotero ABCD1234" in duplicates

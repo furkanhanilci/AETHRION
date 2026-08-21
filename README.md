@@ -25,7 +25,7 @@ The first implemented vertical slice is a local literature bridge:
 ```text
 Zotero Local API (read-only)
         -> SQLite canonical source registry
-        -> Obsidian 70 - Literatür Setleri/Zotero Kaynakları projections
+        -> Obsidian 70 - Literature Sets/Zotero Sources projections
 ```
 
 The V0 service binds only to `127.0.0.1`. It does not accept a Zotero API key
@@ -34,7 +34,7 @@ and contains no Zotero write operation.
 ## Install the Bridge V0
 
 ```bash
-cd /home/otonom/Desktop/FH/AIRL_OS_DEVREYE_ALMA_PLANI_v1.0/airl_bridge_api
+cd /home/otonom/Desktop/FH/AI_RESEARCH_FRAMEWORK/airl_bridge_api
 uv sync --extra dev
 ```
 
@@ -43,7 +43,7 @@ The local `.env` is already configured for:
 - Zotero Local API: `http://127.0.0.1:23119/api`
 - personal local library: `users/0`
 - Obsidian vault: `/home/otonom/Documents/Obsidian Vault`
-- generated notes: `70 - Literatür Setleri/Zotero Kaynakları`
+- generated notes: `70 - Literature Sets/Zotero Sources`
 - Bridge API: `http://127.0.0.1:8765`
 
 ## Enable Zotero Local API
@@ -103,10 +103,10 @@ uv run airl-bridge sync --limit 100
 ```
 
 Repeated sync is idempotent for the same Zotero library/item key. Zotero-derived
-files live under the automatically managed `Zotero Kaynakları` branch and are
+files live under the automatically managed `Zotero Sources` branch and are
 overwritten from the canonical registry. Human synthesis lives in
-`20 - Kaynak Notları`; curated literature-set notes live directly in
-`70 - Literatür Setleri`. Sources are grouped into readable Turkish
+`20 - Source Notes`; curated literature-set notes live directly in
+`70 - Literature Sets`. Sources are grouped into readable Turkish
 publication-type folders. File names begin with the Zotero title; only same-title
 collisions receive a stable `Zotero ITEMKEY` suffix.
 

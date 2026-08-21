@@ -17,7 +17,7 @@ def settings(tmp_path: Path) -> Settings:
         zotero_library_type="users",
         zotero_library_id="0",
         obsidian_vault=vault,
-        obsidian_generated_dir=Path("70 - Literatür Setleri/Zotero Kaynakları"),
+        obsidian_generated_dir=Path("70 - Literature Sets/Zotero Sources"),
     )
 
 
