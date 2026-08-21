@@ -4,7 +4,7 @@ type: project
 status: active
 owner: otonom
 created_at: "2026-08-21"
-updated_at: "2026-08-21T21:34:33+03:00"
+updated_at: "2026-08-21T21:52:25+03:00"
 current_phase: fix-005-active-runner-preparation
 canonical_status_scope: operational-tracker
 tags:
@@ -654,6 +654,8 @@ Bir adım `PASS`, `PARTIAL`, `BLOCKED` veya `FAIL` olarak açıkça etiketlenir.
 | 2026-08-21 21:34 +03 | FIX-005 görev/spec düzeltmesi | PASS | İlgisiz ve kapalı E-F11 kapsamdan çıkarıldı; `~0,7 h` tahmini emekli edildi; `REPAIR_NOT_MEASURED` dalı ön-kayıtlandı |
 | 2026-08-21 21:34 +03 | FIX-005 yerel aktivasyonu | PASS | `codex/fix-005`, commit `f598869`; protocol PASS, runtime/evaluation preflight PASS, G6 yalnız FIX-006 feragati |
 | 2026-08-21 21:34 +03 | FIX-005 kaynak sınırı | PASS / INFERENCE NOT STARTED | 2×RTX A5000 erişilebilir; endpoint kapalı; yeni run `RUN-FIX005-B3-001`, yalnız görev-token cap 2×, aggregate cap 3 saat |
+| 2026-08-21 21:52 +03 | Tüm commissioning Markdown planlarının Obsidian'a alınması | PASS | 184/184 MD, 13 bölüm + kök README; `AI Research Framework/01 - Commissioning Planı` |
+| 2026-08-21 21:52 +03 | Plan navigasyonu ve adım hafızası | PASS | `AI Research Framework — Plan Navigasyonu ve Yürütme Kokpiti`; her adım öncesi/sonrası kontrol döngüsü |
 
 ## 14. Sonraki exact adım
 
