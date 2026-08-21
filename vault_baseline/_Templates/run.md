@@ -10,7 +10,7 @@ artifact_refs: []
 started_at:
 completed_at:
 tags:
-  - silbo/run
+  - ai-framework/run
 ---
 
 # {{title}}

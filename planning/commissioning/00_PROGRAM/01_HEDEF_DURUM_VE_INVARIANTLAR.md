@@ -72,3 +72,4 @@ Zone geçişleri explicit identity, policy, schema ve audit olmadan yapılamaz.
 8. D3/D4 route ve T4/T5 action fail-closed davranır.
 9. Bütçe hard limitinde yeni pahalı iş açılmaz; workflow state kaybolmadan pause olur.
 10. Production cutover ancak tüm commissioning kanıtları imzalı olduğunda yapılır.
+

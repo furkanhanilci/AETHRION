@@ -9,7 +9,7 @@ generated_source:
 created_at: "{{date}}"
 updated_at: "{{date}}"
 tags:
-  - silbo/source-note
+  - ai-framework/source-note
 ---
 
 # {{title}}

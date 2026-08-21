@@ -55,3 +55,4 @@ Correction yalnız `VALIDATED` bulgular için açılır. Kritik bulgunun “muht
 ## İzlenebilirlik
 
 Her requirement `REQ-*`, control `CTL-*`, work package `WP-*`, test `TST-*`, acceptance scenario `ACC-*`, finding `FND-*` ve decision `DEC-*` kimliğiyle bağlanır. Go-live dossier en az `REQ → WP → TST/ACC → Evidence → Decision` zincirini sorgulayabilmelidir.
+

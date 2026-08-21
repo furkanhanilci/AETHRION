@@ -52,7 +52,12 @@ Bu matris, “bir bileşen veya yönetişim alanı plan dışında kaldı mı?�
 | Chaos/capacity/operational readiness | WP-116–118 | WP-119–120 |
 | Pilot/cutover/hypercare | WP-119–121 | Production |
 | Sürekli assurance ve işletim | WP-122–130 | Day-2 control evidence |
+| **Bildirim ve insan erişimi** | **WP-131–135** | **ACC-25, ACC-26, ACC-41–43** |
+| **Gelen içerik ve dış besleme** | **WP-136–137** | **ACC-04, ACC-05, ACC-31, ACC-36, ACC-44** |
+| **Dış kayıt ve kanıt mührü** | **WP-138–139** | **ACC-23, ACC-30, ACC-40, ACC-45** |
+| **Servis canlılığı** | **WP-140** | **ACC-43** |
 
 ## Eksiksizlik kuralı
 
 Yeni bir mimari alanı veya bağlayıcı invariant eklendiğinde bu matriste birincil uygulama paketi, entegrasyon paketi ve kabul/işletim kanıtı bulunmadan değişiklik baseline'a alınmaz.
+

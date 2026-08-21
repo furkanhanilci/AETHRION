@@ -28,7 +28,7 @@ konularında kıdemli bağımsız bir sistem denetçisisin.
 Bu görevin amacı, `/home/otonom/Desktop/FH/AI_RESEARCH_FRAMEWORK` altında
 tanımlanan AI Research Framework’ün planlarda tarif edilen hedef mimariyle
 gerçekte mevcut olan uygulama arasında tam ve kanıta dayalı bir fark analizi
-çıkarmaktır. İncelemeyi yalnızca `airl_bridge_api` dizinine veya Bridge
+çıkarmaktır. İncelemeyi yalnızca Bridge bileşenine (`src/airl_bridge/`) veya Bridge
 servisine indirgeme. Bridge mevcut sistemin yalnızca bir parçasıdır.
 
 ### 1. Değişmez inceleme ilkeleri
@@ -56,21 +56,21 @@ Aşağıdaki alanların tamamını incele:
 
 #### 2.1 Plan ve commissioning dokümanları
 
-- `AIRL_OS_DEVREYE_ALMA_PLANI/README.md`
-- `AIRL_OS_DEVREYE_ALMA_PLANI/00_PROGRAM/`
-- `AIRL_OS_DEVREYE_ALMA_PLANI/01_GOVERNANCE/`
-- `AIRL_OS_DEVREYE_ALMA_PLANI/02_CONTRACTS/`
-- `AIRL_OS_DEVREYE_ALMA_PLANI/03_FOUNDATION/`
-- `AIRL_OS_DEVREYE_ALMA_PLANI/04_CONTROL_EVENT/`
-- `AIRL_OS_DEVREYE_ALMA_PLANI/05_MODEL_AGENT_TOOL/`
-- `AIRL_OS_DEVREYE_ALMA_PLANI/06_EXECUTION_SECURITY/`
-- `AIRL_OS_DEVREYE_ALMA_PLANI/07_LITERATURE_KNOWLEDGE/`
-- `AIRL_OS_DEVREYE_ALMA_PLANI/08_EVIDENCE_ASSURANCE/`
-- `AIRL_OS_DEVREYE_ALMA_PLANI/09_OPERATIONS/`
-- `AIRL_OS_DEVREYE_ALMA_PLANI/10_INTEGRATION_CUTOVER/`
-- `AIRL_OS_DEVREYE_ALMA_PLANI/11_DECOMMISSION/`
-- `AIRL_OS_DEVREYE_ALMA_PLANI/12_ACCEPTANCE_SCENARIOS/`
-- `AIRL_OS_DEVREYE_ALMA_PLANI/13_CHANGE_CONTROL/`
+- `planning/commissioning/README.md`
+- `planning/commissioning/00_PROGRAM/`
+- `planning/commissioning/01_GOVERNANCE/`
+- `planning/commissioning/02_CONTRACTS/`
+- `planning/commissioning/03_FOUNDATION/`
+- `planning/commissioning/04_CONTROL_EVENT/`
+- `planning/commissioning/05_MODEL_AGENT_TOOL/`
+- `planning/commissioning/06_EXECUTION_SECURITY/`
+- `planning/commissioning/07_LITERATURE_KNOWLEDGE/`
+- `planning/commissioning/08_EVIDENCE_ASSURANCE/`
+- `planning/commissioning/09_OPERATIONS/`
+- `planning/commissioning/10_INTEGRATION_CUTOVER/`
+- `planning/commissioning/11_DECOMMISSION/`
+- `planning/commissioning/12_ACCEPTANCE_SCENARIOS/`
+- `planning/commissioning/13_CHANGE_CONTROL/`
 
 Dosya adları Türkçe olsa bile içerikleri, bağımlılıkları, teslimatları ve kabul
 kriterlerini okuyarak değerlendir. Özellikle şu belgelerden hedef durumu çıkar:
@@ -113,20 +113,15 @@ Her senaryo için:
 
 En az aşağıdaki alanları incele:
 
-- `airl_bridge_api/src/`
-- `airl_bridge_api/tests/`
-- `airl_bridge_api/scripts/`
-- `airl_bridge_api/services/`
-- `airl_bridge_api/workflows/`
-- `airl_bridge_api/agents/`
-- `airl_bridge_api/infra/`
-- `airl_bridge_api/policy/`
-- `airl_bridge_api/schemas/`
-- `airl_bridge_api/delivery/`
-- `airl_bridge_api/deploy/`
-- `airl_bridge_api/docs/`
-- `airl_bridge_api/pyproject.toml`
-- `airl_bridge_api/README.md`
+- `src/`
+- `tests/`
+- `scripts/`
+- `schemas/`
+- `delivery/`
+- `deploy/`
+- `docs/`
+- `pyproject.toml`
+- `README.md`
 
 Şunları doğrula:
 
@@ -145,7 +140,7 @@ En az aşağıdaki alanları incele:
 
 Hem repository içindeki vault baseline’ı hem de gerçek vault’u incele:
 
-- `/home/otonom/Desktop/FH/AI_RESEARCH_FRAMEWORK/airl_bridge_api/vault_baseline/`
+- `/home/otonom/Desktop/FH/AI_RESEARCH_FRAMEWORK/vault_baseline/`
 - `/home/otonom/Documents/Obsidian Vault/`
 
 AI Research Framework proje alanında şunları kontrol et:
@@ -195,14 +190,14 @@ git branch --show-current
 git log -10 --oneline --decorate
 git remote -v
 find . -maxdepth 3 -type f | sort
-rg --files AIRL_OS_DEVREYE_ALMA_PLANI airl_bridge_api
+rg --files planning/commissioning src skills docs
 ```
 
 Python projesi için mevcut sanal ortamı kullanarak:
 
 ```bash
-airl_bridge_api/.venv/bin/python -m pytest -q
-airl_bridge_api/.venv/bin/python -m unittest discover -s airl_bridge_api/tests -q
+.venv/bin/python -m pytest -q
+.venv/bin/python -m unittest discover -s tests -t . -q
 ```
 
 Varsa mevcut acceptance, link-check, schema-check ve preflight script’lerini
@@ -234,7 +229,7 @@ Her sınıflandırmada şu kanıt formatını kullan:
 
 ```text
 Durum: PARTIAL
-Kanıt: airl_bridge_api/src/...:satır, tests/...:satır, komut çıktısı
+Kanıt: src/...:satır, tests/...:satır, komut çıktısı
 Karşılanan: ...
 Eksik: ...
 Risk: ...

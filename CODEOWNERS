@@ -1,1 +1,24 @@
-# CODEOWNERS baseline — owners are placeholders until governance approval.
+# AI Research Framework — code ownership
+#
+# Roles are defined in docs/architecture/AIRL_OS_ROLE_MODEL_ASSIGNMENT.md
+# Until an independent verifier exists, @furkanhanilci owns every path.
+# This file is a REAL constraint, not a placeholder: a path with no owner
+# has no accountable reviewer and cannot reach ACCEPTED.
+
+*                       @furkanhanilci
+
+# Contract surface — changes here ripple across every plane.
+/src/airl_framework/    @furkanhanilci
+/schemas/               @furkanhanilci
+
+# Execution discipline — how agents behave.
+/skills/                @furkanhanilci
+
+# Canonical plan — hash-sealed; changes require re-sealing SHA256SUMS.txt
+/planning/              @furkanhanilci
+
+# Evidence — append-only in spirit; deletions require an integrity case.
+/delivery/              @furkanhanilci
+
+# Deployment — touches the running service.
+/deploy/                @furkanhanilci

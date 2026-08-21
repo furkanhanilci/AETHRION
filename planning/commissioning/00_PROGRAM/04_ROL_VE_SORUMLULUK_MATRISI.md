@@ -50,3 +50,4 @@ Implementer → Package Owner → Workstream Lead
 ```
 
 Timeout otomatik onaya dönüşmez. SLA dolduğunda karar bir üst role eskale olur veya workflow pause kalır.
+

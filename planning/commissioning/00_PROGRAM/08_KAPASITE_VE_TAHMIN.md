@@ -42,3 +42,4 @@ Her paket refinement'ta şu değerleri alır:
 6. Production tarihini WP-115 acceptance burn-down ve WP-119 rehearsal sonucuna göre doğrulayın.
 
 Takvim baskısı hedef yetenekleri sonraya atmak için kullanılamaz. Gerekirse kapsam değil, production tarihi değişir.
+

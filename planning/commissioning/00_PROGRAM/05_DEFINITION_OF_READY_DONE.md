@@ -52,3 +52,4 @@ Paket `ACCEPTED` olsa bile production-ready değildir. `COMMISSIONED` olmak içi
 - Reviewer'ın producer trace'ini görerek verdiği bağımsızlık iddiası.
 - Mock servisle geçen testin gerçek entegrasyon testi olarak kullanılması.
 - Yalnız happy-path demo.
+

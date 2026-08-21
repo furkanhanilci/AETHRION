@@ -107,7 +107,7 @@ Bu katalog 130 küçük iş paketinin owner, efor, hard dependency, gate ve tesl
 | [WP-069 — SearchProtocol ve LiteratureCampaign Orkestrasyonu](../07_LITERATURE_KNOWLEDGE/wp_069_search_protocol_campaign.md) | L | Evidence Lead | WP-013, WP-017, WP-032, WP-035, WP-046, WP-047, WP-049, WP-050, WP-061, WP-062 | Araştırma sorusu; veri tabanları, sorgular, tarih, dil, inclusion/exclusion, stop rule ve known-item testleriyle tekrar çalıştırılabilir literatür kampanyasına dönüşür. |
 | [WP-070 — İnsan + Agent Çift Yönlü Literatür Keşfi](../07_LITERATURE_KNOWLEDGE/wp_070_dual_directional_literature.md) | L | Evidence Lead | WP-007, WP-045, WP-047, WP-062, WP-065, WP-066, WP-069 | İnsan seed'leri agent genişletmesiyle, agent adayları insan seçim/karşı-kanıt aramasıyla birleşir; coverage ve provenance iki yönlü görünür olur. |
 | [WP-071 — Screening, Inclusion/Exclusion ve Coverage](../07_LITERATURE_KNOWLEDGE/wp_071_screening_inclusion.md) | L | Evidence Lead | WP-007, WP-017, WP-061, WP-062, WP-069, WP-070 | Title/abstract ve full-text screening; reason-coded inclusion/exclusion, disagreement, sampling ve risk bazlı bağımsız review ile frozen sete hazır hale gelir. |
-| [WP-072 — LiteratureSetManifest Freeze ve İnsan-Okunur Archive](../07_LITERATURE_KNOWLEDGE/wp_072_literature_manifest_freeze.md) | L | Evidence Lead | WP-014, WP-017, WP-026, WP-061, WP-062, WP-063, WP-067, WP-069, WP-070, WP-071 | Dahil/hariç kaynaklar, representation hash'leri, sorgular, screening kararları, status ve actor'larla immutable LiteratureSetManifest olur; Zotero 90_Frozen_View yalnız aynasıdır. |
+| [WP-072 — LiteratureSetManifest Freeze ve İnsan-Okunur Arşiv](../07_LITERATURE_KNOWLEDGE/wp_072_literature_manifest_freeze.md) | L | Evidence Lead | WP-014, WP-017, WP-026, WP-061, WP-062, WP-063, WP-067, WP-069, WP-070, WP-071 | Dahil/hariç kaynaklar, representation hash'leri, sorgular, screening kararları, status ve actor'larla immutable LiteratureSetManifest olur; Zotero 90_Frozen_View yalnız aynasıdır. |
 | [WP-073 — Obsidian Vault, Human/Generated Zones ve Şablonlar](../07_LITERATURE_KNOWLEDGE/wp_073_obsidian_vault_model.md) | M | Knowledge Lead | WP-012, WP-017, WP-022, WP-061, WP-072 | Obsidian insan sentezi; project, source, concept, claim, decision ve result note'larında stable AIRL IDs, Git history ve korunmuş human/generated bloklarla çalışır. |
 | [WP-074 — Obsidian Projection, Link Integrity ve Knowledge Write-Back](../07_LITERATURE_KNOWLEDGE/wp_074_obsidian_projection_sync.md) | L | Knowledge Platform Lead | WP-028, WP-030, WP-061, WP-072, WP-073 | Source/claim/run/decision değişiklikleri yalnız generated zone'ları günceller; insan synthesis linkleri kontrol edilir ve concept graph derived projection olarak yeniden kurulabilir. |
 
@@ -194,3 +194,21 @@ Bu katalog 130 küçük iş paketinin owner, efor, hard dependency, gate ve tesl
 - L üstü tahmin çıkan paket refinement'ta bölünür.
 - Production tarihi paketleri atlayarak öne çekilemez.
 - Day-2 paketleri cutover sonrasına ertelenmiş tasarım eksikleri değil; production ile birlikte başlayan kalıcı işletim kontrolleridir.
+
+## 13_TOOLING_INTEGRATION
+
+Bu bölüm denetim sonrası eklenmiştir. Kabul kriterleri, mevcut şablon
+kriterlerinden farklı olarak **ölçülebilir ve pakete özgüdür**.
+
+| Paket | Efor | Owner | Hard dependency | Beklenen sonuç |
+|---|---:|---|---|---|
+| [WP-131 — Notification Broker Temeli](../13_TOOLING_INTEGRATION/wp_131_notification_broker.md) | M | Platform Security Lead | WP-049, WP-016 | Ajanların insanlara ulaşması Tool Broker alt sınıfı üzerinden yürür; ajan niyet üretir, gönderimi yalnız broker yapar. |
+| [WP-132 — Kanal Kaydı ve Veri Sınıfı Tavanı](../13_TOOLING_INTEGRATION/wp_132_channel_registry_data_class_ceiling.md) | M | Safety & Governance Owner | WP-131, WP-006 | Her kanal için veri sınıfı tavanı kodda tanımlanır ve zorlanır; D3/D4 hiçbir mesajlaşma kanalına çıkamaz. |
+| [WP-133 — Giden Bildirim ve Periyodik Digest](../13_TOOLING_INTEGRATION/wp_133_outbound_notification_and_digest.md) | S | SRE Lead | WP-131, WP-132 | Operasyonel bildirim ve günlük/haftalık/aylık özetler salt-okunur türev olarak yayınlanır; aylık metascience karnesi dahil. |
+| [WP-134 — Eskalasyon ve Paging](../13_TOOLING_INTEGRATION/wp_134_escalation_and_paging.md) | M | SRE Lead | WP-131, WP-132, WP-004 | SLA aşımı, bütçe hard-stop ve bütünlük şüphesi tanımlı zincirde yükselir; zaman aşımı asla otomatik onaya dönüşmez. |
+| [WP-135 — Karar Yönlendirme ve İmzalı Derin Bağlantı](../13_TOOLING_INTEGRATION/wp_135_decision_routing_signed_deeplink.md) | M | Governance Lead | WP-131, WP-132, WP-055, WP-093 | Karar bildirimle duyurulur ama kimlik doğrulamalı yüzeyde verilir; mesajlaşma yetkilendirme kanalı değildir. |
+| [WP-136 — Gelen İçerik Karantinası ve Kanal Allowlist](../13_TOOLING_INTEGRATION/wp_136_inbound_content_quarantine.md) | M | Content Security Lead | WP-058, WP-131, WP-132 | Gelen her mesaj Zone 3 kabul edilir; gönderen doğrulanır, ek taranır, içerik untrusted işaretlenir ve talimat çıkarımı yapılmaz. |
+| [WP-137 — G10 Dış Besleme Konnektörleri](../13_TOOLING_INTEGRATION/wp_137_g10_external_feed_connectors.md) | M | Knowledge Monitoring Lead | WP-037, WP-063, WP-136 | Retraction, düzeltme, dataset drift, CVE ve model changelog beslemeleri sürümlü bağlanır; sessiz supersession yoktur. |
+| [WP-138 — Dış Kayıt ve Kalıcı Kimlik](../13_TOOLING_INTEGRATION/wp_138_external_records_persistent_identifiers.md) | M | Data Steward | WP-014, WP-090, WP-131 | OSF ön-kaydı, Zenodo arşivi ve ORCID kimliği ile iç kanıta bağımsız dış tanık eklenir; gönderim tam kelime insan onayı gerektirir. |
+| [WP-139 — Kanıt Zaman Damgalama ve Bağımsız Mühür](../13_TOOLING_INTEGRATION/wp_139_evidence_timestamping.md) | S | Data Platform Lead | WP-014, WP-026 | EvidenceManifest'in varlık zamanı OpenTimestamps ve RFC 3161 ile framework'e güvenmeden doğrulanabilir hale gelir. |
+| [WP-140 — Servis Canlılık İzleme ve Dead-Man's Switch](../13_TOOLING_INTEGRATION/wp_140_service_liveness_dead_mans_switch.md) | S | SRE Lead | WP-101, WP-131, WP-134 | Periyodik işlerin sessizce durması saatler içinde alarm üretir; kısmi başarı SUCCEEDED olarak raporlanamaz. |

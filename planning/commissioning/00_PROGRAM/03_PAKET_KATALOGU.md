@@ -194,3 +194,21 @@ Bu katalog 130 küçük iş paketinin owner, efor, hard dependency, gate ve tesl
 - L üstü tahmin çıkan paket refinement'ta bölünür.
 - Production tarihi paketleri atlayarak öne çekilemez.
 - Day-2 paketleri cutover sonrasına ertelenmiş tasarım eksikleri değil; production ile birlikte başlayan kalıcı işletim kontrolleridir.
+
+## 13_TOOLING_INTEGRATION
+
+Bu bölüm denetim sonrası eklenmiştir. Kabul kriterleri, mevcut şablon
+kriterlerinden farklı olarak **ölçülebilir ve pakete özgüdür**.
+
+| Paket | Efor | Owner | Hard dependency | Beklenen sonuç |
+|---|---:|---|---|---|
+| [WP-131 — Notification Broker Temeli](../13_TOOLING_INTEGRATION/WP-131_notification_broker.md) | M | Platform Security Lead | WP-049, WP-016 | Ajanların insanlara ulaşması Tool Broker alt sınıfı üzerinden yürür; ajan niyet üretir, gönderimi yalnız broker yapar. |
+| [WP-132 — Kanal Kaydı ve Veri Sınıfı Tavanı](../13_TOOLING_INTEGRATION/WP-132_channel_registry_data_class_ceiling.md) | M | Safety & Governance Owner | WP-131, WP-006 | Her kanal için veri sınıfı tavanı kodda tanımlanır ve zorlanır; D3/D4 hiçbir mesajlaşma kanalına çıkamaz. |
+| [WP-133 — Giden Bildirim ve Periyodik Digest](../13_TOOLING_INTEGRATION/WP-133_outbound_notification_and_digest.md) | S | SRE Lead | WP-131, WP-132 | Operasyonel bildirim ve günlük/haftalık/aylık özetler salt-okunur türev olarak yayınlanır; aylık metascience karnesi dahil. |
+| [WP-134 — Eskalasyon ve Paging](../13_TOOLING_INTEGRATION/WP-134_escalation_and_paging.md) | M | SRE Lead | WP-131, WP-132, WP-004 | SLA aşımı, bütçe hard-stop ve bütünlük şüphesi tanımlı zincirde yükselir; zaman aşımı asla otomatik onaya dönüşmez. |
+| [WP-135 — Karar Yönlendirme ve İmzalı Derin Bağlantı](../13_TOOLING_INTEGRATION/WP-135_decision_routing_signed_deeplink.md) | M | Governance Lead | WP-131, WP-132, WP-055, WP-093 | Karar bildirimle duyurulur ama kimlik doğrulamalı yüzeyde verilir; mesajlaşma yetkilendirme kanalı değildir. |
+| [WP-136 — Gelen İçerik Karantinası ve Kanal Allowlist](../13_TOOLING_INTEGRATION/WP-136_inbound_content_quarantine.md) | M | Content Security Lead | WP-058, WP-131, WP-132 | Gelen her mesaj Zone 3 kabul edilir; gönderen doğrulanır, ek taranır, içerik untrusted işaretlenir ve talimat çıkarımı yapılmaz. |
+| [WP-137 — G10 Dış Besleme Konnektörleri](../13_TOOLING_INTEGRATION/WP-137_g10_external_feed_connectors.md) | M | Knowledge Monitoring Lead | WP-037, WP-063, WP-136 | Retraction, düzeltme, dataset drift, CVE ve model changelog beslemeleri sürümlü bağlanır; sessiz supersession yoktur. |
+| [WP-138 — Dış Kayıt ve Kalıcı Kimlik](../13_TOOLING_INTEGRATION/WP-138_external_records_persistent_identifiers.md) | M | Data Steward | WP-014, WP-090, WP-131 | OSF ön-kaydı, Zenodo arşivi ve ORCID kimliği ile iç kanıta bağımsız dış tanık eklenir; gönderim tam kelime insan onayı gerektirir. |
+| [WP-139 — Kanıt Zaman Damgalama ve Bağımsız Mühür](../13_TOOLING_INTEGRATION/WP-139_evidence_timestamping.md) | S | Data Platform Lead | WP-014, WP-026 | EvidenceManifest'in varlık zamanı OpenTimestamps ve RFC 3161 ile framework'e güvenmeden doğrulanabilir hale gelir. |
+| [WP-140 — Servis Canlılık İzleme ve Dead-Man's Switch](../13_TOOLING_INTEGRATION/WP-140_service_liveness_dead_mans_switch.md) | S | SRE Lead | WP-101, WP-131, WP-134 | Periyodik işlerin sessizce durması saatler içinde alarm üretir; kısmi başarı SUCCEEDED olarak raporlanamaz. |

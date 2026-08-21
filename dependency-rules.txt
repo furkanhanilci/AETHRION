@@ -1,1 +1,19 @@
-src/airl_framework -> schemas, policy; src/airl_bridge -> services/knowledge; tests -> all owners
+# AI Research Framework — module dependency rules
+#
+# Enforced direction: outer layers may import inner layers, never the reverse.
+# NOT YET MACHINE-ENFORCED. See docs/review/ finding C3.
+# Target: import-linter or tach configuration wired into CI (WP-024).
+#
+#   src/airl_framework   ->  (nothing)          contract core; imports no sibling
+#   src/airl_bridge      ->  src/airl_framework  bridge consumes contracts
+#   scripts              ->  src/*               entry points
+#   tests                ->  src/*               tests import everything
+#
+# Forbidden:
+#   src/airl_framework   -/-> src/airl_bridge    contracts must not know consumers
+#   src/*                -/-> scripts            library must not import entrypoints
+#   src/*                -/-> tests
+#
+# Known violation (finding H4): src/airl_bridge does NOT import
+# src/airl_framework at all — the contract core has zero production
+# consumers. The rule above states the TARGET, not the current state.

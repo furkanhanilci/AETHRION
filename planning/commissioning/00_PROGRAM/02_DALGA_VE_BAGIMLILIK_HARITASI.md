@@ -55,3 +55,4 @@ WP-001
 ## Bağımlılık değişikliği kuralı
 
 Bir paket yeni hard dependency bulursa katalog güncellenir, etkilenen `READY` paketleri tekrar değerlendirilir ve program event'i üretilir. Tarih baskısı nedeniyle bağımlılık atlanamaz; yalnız açık geçici kontrol ve son kullanma tarihiyle staging deneyi yapılabilir.
+

@@ -35,3 +35,4 @@ Go-live toplantısı sunum onayı değildir. Commissioning Dossier içindeki tes
 - hypercare süresi ve exit kriterleri.
 
 Herhangi bir non-waivable blocker toplantı sırasında keşfedilirse sonuç `BLOCKED` olur; koşullu production açılışı yapılmaz.
+

@@ -1,116 +1,119 @@
 # AI Research Framework
 
-Local-first, auditable framework for AI-assisted research operations. The
-repository separates what already works from the larger commissioning plan:
+Kanıt-merkezli, denetlenebilir bir araştırma işletim sistemi (AIRL-OS).
+Temel tezi: **ajan üretir, makine doğrular, insan karar verir** — ve bu üçü
+yapısal olarak birbirine karışmaz.
 
-| Area | Status | Location |
+Bu depo, hedef mimariyi, yürütme disiplinini ve şu ana kadar gerçekten
+çalışan bileşenleri bir arada tutar. **Plan, uygulama kanıtı değildir**:
+aşağıdaki tablo ikisini ayırır.
+
+| Alan | Durum | Konum |
 |---|---|---|
-| Literature integration V0 | Working and locally accepted | `src/airl_bridge/` |
-| Zotero → Obsidian projection | Working, read-only at the Zotero boundary | `src/airl_bridge/obsidian.py` |
-| Hermes MCP access | Working, five read-only tools | `src/airl_bridge/mcp_server.py` |
-| Obsidian information architecture | V0 baseline | `vault_baseline/` |
-| Full AI research operating framework | Planned, not commissioned | `planning/commissioning/` |
+| Literatür köprüsü (Bridge) V0 | ✅ **Çalışıyor**, yerel olarak kabul edildi | `src/airl_bridge/` |
+| Zotero → Obsidian projeksiyonu | ✅ Çalışıyor, Zotero sınırında salt-okunur | `src/airl_bridge/obsidian.py` |
+| Hermes MCP erişimi | ✅ Çalışıyor, beş salt-okunur araç | `src/airl_bridge/mcp_server.py` |
+| Ortak contract çekirdeği | ⚠️ `TECH_COMPLETE` — üretim tüketicisi yok | `src/airl_framework/` |
+| Skill Registry (38 skill) | 📐 Yazıldı, **test edilmedi** | `skills/` |
+| Obsidian bilgi mimarisi | ✅ V0 hazır | `vault_baseline/` |
+| Hedef mimari ve skill katmanı | 📐 Tasarlandı, karar bekliyor | `docs/architecture/` |
+| Tam devreye alma programı | ⬜ Planlandı, başlatılmadı | `planning/commissioning/` |
 
-The commissioning tree contains the program, governance, contracts,
-foundation, control/event, model/agent/tool, execution/security,
-literature/knowledge, evidence/assurance, experience/observability,
-integration/cutover, Day-2 operations, and end-to-end acceptance packages.
-Those documents define intended work; they are not evidence that every package
-has been implemented.
-
-## Working vertical slice: Literature Bridge V0
-
-The first implemented vertical slice is a local literature bridge:
+## Yapı
 
 ```text
-Zotero Local API (read-only)
-        -> SQLite canonical source registry
-        -> Obsidian 70 - Literature Sets/Zotero Sources projections
+src/          Bridge ve ortak contract çekirdeği
+tests/        Test paketi
+skills/       38 yürütme skill'i — ajanların NASIL çalışacağı
+planning/     WP-001–130, ACC-01–40 (hash mühürlü kanonik plan)
+docs/         Mimari, review ve işletim dokümanları
+schemas/      Ortak contract şemaları
+delivery/     Paket başına kanıt paketleri
+deploy/       systemd unit dosyaları
+scripts/      Acceptance ve smoke betikleri
+vault_baseline/  Obsidian vault'un versiyonlanmış kopyası
 ```
 
-The V0 service binds only to `127.0.0.1`. It does not accept a Zotero API key
-and contains no Zotero write operation.
+## Nereden başlanır
 
-## Install the Bridge V0
+| Soru | Belge |
+|---|---|
+| Şu an gerçekten ne var, ne yok? | [`docs/review/FRAMEWORK_REVIEW_2026-08-21_CLAUDE.md`](docs/review/FRAMEWORK_REVIEW_2026-08-21_CLAUDE.md) |
+| Hedef mimariye **ne** eklenmeli? | [`docs/architecture/AIRL_OS_IDEAL_STRUCTURE.md`](docs/architecture/AIRL_OS_IDEAL_STRUCTURE.md) |
+| Ajanlar **nasıl** çalışmalı? | [`docs/architecture/AIRL_OS_SKILL_LAYER.md`](docs/architecture/AIRL_OS_SKILL_LAYER.md) · [`skills/README.md`](skills/README.md) |
+| Çalışan dikey dilimin mimarisi | [`docs/ARCHITECTURE_V0.md`](docs/ARCHITECTURE_V0.md) |
+| Günlük işletim | [`docs/OPERATIONS.md`](docs/OPERATIONS.md) |
+| Tam program planı | [`planning/commissioning/README.md`](planning/commissioning/README.md) |
+
+## Çalışan dikey dilim: Literature Bridge V0
+
+```text
+Zotero Local API (salt-okunur)
+        → SQLite kanonik kaynak kayıt defteri
+        → Obsidian "70 - Literature Sets/Zotero Sources" projeksiyonu
+        → Hermes MCP (beş salt-okunur araç)
+```
+
+Servis yalnız `127.0.0.1` üzerinde dinler. Zotero API anahtarı almaz ve
+kodda hiçbir Zotero yazma işlemi bulunmaz.
+
+### Kurulum
 
 ```bash
-cd /home/otonom/Desktop/FH/AI_RESEARCH_FRAMEWORK/airl_bridge_api
+cd /home/otonom/Desktop/FH/AI_RESEARCH_FRAMEWORK
 uv sync --extra dev
 ```
 
-The local `.env` is already configured for:
+`.env` yerel olarak şunlara ayarlıdır: Zotero Local API `http://127.0.0.1:23119/api`,
+kişisel kütüphane `users/0`, vault `/home/otonom/Documents/Obsidian Vault`,
+üretilen notlar `70 - Literature Sets/Zotero Sources`, API `http://127.0.0.1:8765`.
 
-- Zotero Local API: `http://127.0.0.1:23119/api`
-- personal local library: `users/0`
-- Obsidian vault: `/home/otonom/Documents/Obsidian Vault`
-- generated notes: `70 - Literature Sets/Zotero Sources`
-- Bridge API: `http://127.0.0.1:8765`
+### Zotero Local API'yi aç
 
-## Enable Zotero Local API
-
-1. Start Zotero.
-2. Open **Settings -> Advanced -> General**.
-3. Enable **Allow other applications on this computer to communicate with Zotero**.
-4. Keep port `23119` local; do not forward or expose it.
-
-Check all components:
+1. Zotero'yu başlat
+2. **Ayarlar → Gelişmiş → Genel**
+3. **Bu bilgisayardaki diğer uygulamaların Zotero ile iletişim kurmasına izin ver** seçeneğini aç
+4. Port `23119` yerel kalsın; yönlendirme veya dışa açma yapma
 
 ```bash
 uv run airl-bridge doctor
 ```
 
-## Start the API
+### Çalıştırma
 
 ```bash
 uv run airl-bridge serve
-```
 
-The installed user service can be managed with:
-
-```bash
 systemctl --user status airl-bridge.service
-systemctl --user restart airl-bridge.service
+systemctl --user status airl-bridge-sync.timer
 journalctl --user -u airl-bridge.service -n 50
 ```
 
-The user timer performs the same local synchronization every 30 minutes:
+Kullanıcı timer'ı aynı yerel senkronizasyonu 30 dakikada bir çalıştırır.
 
-```bash
-systemctl --user status airl-bridge-sync.timer
-systemctl --user list-timers airl-bridge-sync.timer
-journalctl --user -u airl-bridge-sync.service -n 50
-```
+Yerel adresler: [`/health`](http://127.0.0.1:8765/health) ·
+[`/ready`](http://127.0.0.1:8765/ready) · [`/docs`](http://127.0.0.1:8765/docs)
 
-Useful local URLs:
-
-- Health: <http://127.0.0.1:8765/health>
-- Readiness: <http://127.0.0.1:8765/ready>
-- OpenAPI UI: <http://127.0.0.1:8765/docs>
-
-## First synchronization
-
-With the server running:
+### İlk senkronizasyon
 
 ```bash
 curl -X POST 'http://127.0.0.1:8765/v1/sync?limit=100'
 curl 'http://127.0.0.1:8765/v1/sources?limit=10'
-```
 
-Or without starting the server:
-
-```bash
+# veya sunucu olmadan
 uv run airl-bridge sync --limit 100
 ```
 
-Repeated sync is idempotent for the same Zotero library/item key. Zotero-derived
-files live under the automatically managed `Zotero Sources` branch and are
-overwritten from the canonical registry. Human synthesis lives in
-`20 - Source Notes`; curated literature-set notes live directly in
-`70 - Literature Sets`. Sources are grouped into readable Turkish
-publication-type folders. File names begin with the Zotero title; only same-title
-collisions receive a stable `Zotero ITEMKEY` suffix.
+Tekrarlanan senkron aynı Zotero kütüphane/öğe anahtarı için idempotenttir.
+Zotero kaynaklı dosyalar otomatik yönetilen `Zotero Sources` dalında tutulur ve
+kanonik kayıt defterinden yeniden üretilir. İnsan sentezi `20 - Source Notes`,
+kürasyonlu setler `70 - Literature Sets` kökünde kalır.
 
-## Test
+> ⚠️ **Bilinen sınır:** Ingest 100 kayıtta sabit tavanlıdır; sayfalama ve
+> `since=` artımlı senkron yoktur. Kütüphane 100 kaynağı geçtiğinde senkron
+> sessizce eksik çalışır. Ayrıntı: denetim raporu bulgu **H1**.
+
+### Test
 
 ```bash
 uv run pytest
@@ -118,14 +121,16 @@ uv run python scripts/mcp_smoke.py
 uv run python scripts/acceptance_v0.py
 ```
 
-See [V0 architecture](docs/ARCHITECTURE_V0.md) and the
-[operations guide](docs/OPERATIONS.md) for boundaries, recovery, and routine
-checks.
+## Hermes MCP erişimi
 
-## Hermes MCP access
+Hermes, `airl-bridge-mcp` sunucusunu stdio üzerinden başlatır ve yalnız beş
+salt-okunur araç görür: durum, kaynak arama, kaynak ayrıntısı, kategori
+sayıları, olası kopya raporu. Senkronizasyon, yazma, silme veya Zotero
+mutasyon aracı sunulmaz. Hermes yapılandırmasında açık bir beş araçlık
+`tools.include` listesi vardır; MCP prompt ve resource yetenekleri kapalıdır.
 
-Hermes starts `airl-bridge-mcp` over stdio. The server exposes only five
-read-only tools: status, source search, source detail, category counts, and
-possible-duplicate reporting. It exposes no synchronization, write, delete,
-or Zotero mutation tool. The Hermes configuration also pins an explicit
-five-tool include list and disables MCP prompts and resources for this server.
+## Durum semantiği
+
+`ÇALIŞIYOR` bir bileşenin yerel olarak doğrulandığını söyler.
+`ACCEPTED` üreticiden bağımsız bir doğrulayıcının kanıt paketini kabul
+ettiğini söyler. Şu an **hiçbir iş paketi `ACCEPTED` değildir**.

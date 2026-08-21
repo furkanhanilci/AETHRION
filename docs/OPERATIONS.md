@@ -21,7 +21,7 @@ Bu işlem Zotero'ya yazmaz. SQLite kayıt defterini günceller ve yalnız
 
 ```bash
 hermes mcp test airl_bridge
-cd /home/otonom/Desktop/FH/AI_RESEARCH_FRAMEWORK/airl_bridge_api
+cd /home/otonom/Desktop/FH/AI_RESEARCH_FRAMEWORK
 .venv/bin/python scripts/mcp_smoke.py
 ```
 

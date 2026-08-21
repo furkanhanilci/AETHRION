@@ -7,7 +7,7 @@ owner:
 decision_date: "{{date}}"
 supersedes:
 tags:
-  - silbo/decision
+  - ai-framework/decision
 ---
 
 # {{title}}

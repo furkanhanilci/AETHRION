@@ -25,3 +25,4 @@ Program riskleri 1–5 impact ve likelihood ile takip edilir; ancak critical gü
 ## Risk kapanışı
 
 Risk yalnız “mitigation uygulandı” ile kapanmaz. Control effectiveness testi, evidence referansı, residual risk sahibi ve yeniden değerlendirme tarihi gerekir. Cutover gününde tüm critical riskler `CLOSED` veya policy tarafından açıkça `ACCEPTABLE` sınıfında olmalıdır; non-waivable riskler `ACCEPTABLE` olamaz.
+

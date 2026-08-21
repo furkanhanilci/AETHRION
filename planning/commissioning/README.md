@@ -1,8 +1,8 @@
 # AIRL-OS Devreye Alma Programı
 
-- **Sürüm:** 1.0
-- **Tarih:** 13 Ağustos 2026
-- **Durum:** Uygulama ve commissioning planı
+**Sürüm:** 1.0  
+**Tarih:** 13 Ağustos 2026  
+**Durum:** Uygulama ve commissioning planı  
 **Amaç:** AIRL-OS hedef mimarisini, bağımsız atanabilen ve nesnel kanıtla kapatılabilen küçük iş paketleri halinde devreye almak.
 
 ## 1. Bu teslim neyi çözer?
@@ -47,6 +47,7 @@ Plan aşağıdaki bağlayıcı kararları uygular:
 | `10_INTEGRATION_CUTOVER/` | WP-102–121: dikey dilimler, commissioning ve production cutover |
 | `11_DAY2_OPERATIONS/` | WP-122–130: sürekli işletim ve güvence |
 | `12_ACCEPTANCE_SCENARIOS/` | ACC-01–ACC-40: Given/When/Then sistem kabul senaryoları |
+| `13_TOOLING_INTEGRATION/` | WP-131–140: bildirim, iletişim, dış kayıt, kanıt mührü ve canlılık izleme |
 
 ## 4. Paket durum modeli
 
@@ -89,3 +90,4 @@ Hiçbir paket varsayılan olarak L'den büyük olmamalıdır. Refinement sonunda
 ## 7. Başlangıç komutu
 
 Programın ilk icra noktası `WP-001 Commissioning Charter`dır. WP-001 kabul edilmeden teknoloji kurulumuna başlanmaz; aksi durumda ortam, güvenlik ve takım seçimleri kapsam otoritesi olmadan ilerler.
+

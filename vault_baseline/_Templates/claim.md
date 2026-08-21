@@ -8,7 +8,7 @@ evidence_refs: []
 created_at: "{{date}}"
 updated_at: "{{date}}"
 tags:
-  - silbo/claim
+  - ai-framework/claim
 ---
 
 # {{title}}

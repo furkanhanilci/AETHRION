@@ -2,7 +2,7 @@
 type: daily-note
 date: "{{date}}"
 tags:
-  - silbo/daily
+  - ai-framework/daily
 ---
 
 # {{date}}

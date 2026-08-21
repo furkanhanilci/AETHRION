@@ -64,3 +64,4 @@ Bu plan dosyaları uygulama repository'sinin yerini almaz. Uygulama repository y
 ## Planın güncellenmesi
 
 Plan yaşayan bir uygulama artifact'ıdır. Paket kimliği yeniden kullanılmaz. Kapsam değişirse dosya sürümü ve değişiklik kaydı güncellenir; kabul edilmiş paketin geçmiş şartları silinmez. Hedef mimari invariant'ını değiştiren güncelleme önce ADR ve Architecture Decision Owner onayı ister.
+

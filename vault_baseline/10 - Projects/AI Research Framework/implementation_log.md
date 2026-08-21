@@ -12,6 +12,120 @@ tags:
 
 # AI Research Framework — Implementation Log
 
+## Step 003 — Bağımsız denetim ve hedef yapı tasarımı
+
+**Zaman:** 2026-08-22 01:05 +03
+**Kapsam:** tüm framework — plan, uygulama, mimari, skill katmanı
+**Durum:** `DESIGN_PROPOSED / HUMAN_DECISION_PENDING`
+
+### Ne yapıldı
+
+Üç belge üretildi:
+
+1. [[10 - Projects/AI Research Framework/02 - Reviews/claude_framework_audit_report|Claude Framework Audit Report]] —
+   kanıt bazlı bağımsız denetim. 1.509 satır Python, 20 test, canlı servis,
+   SQLite, git, vault ve 186 plan dosyası incelendi.
+2. [[10 - Projects/AI Research Framework/04 - Architecture/airl_os_ideal_structure|AIRL-OS İdeal Yapı]] —
+   eklenen roller, review mekanizmaları, 7. düzlem (Metascience & Calibration),
+   rol→model atama mimarisi ve araç yığını.
+3. [[10 - Projects/AI Research Framework/04 - Architecture/airl_os_skill_layer|AIRL-OS Skill Layer]] —
+   `obra/superpowers`'ın 14 skill'inin tamamının AIRL-OS'a entegrasyonu.
+
+### Neden yapıldı
+
+Mevcut `AIRL-OS-Architecture.md` bir ajanın *kim* olduğunu (`RoleContract`)
+tanımlıyor ama *nasıl çalışacağını* tanımlamıyor. O boşluk şu anda
+versiyonlanmayan, test edilmeyen prompt katmanıyla doluyor. Ayrıca sistem
+araştırmayı denetliyor fakat kendi doğruluk üretme kapasitesini ölçmüyor.
+
+### Kanıt
+
+- Test paketi: `20 passed` (taze koşum, exit 0)
+- Plan bütünlüğü: `sha256sum -c` → 184/184 OK
+- Bağımlılık grafiği: 130 WP, döngü yok, ileri bağımlılık 0
+- Şablon oranı: WP dosyalarında %59,2, ACC dosyalarında %48,8 (ölçüldü)
+- Rol sayımı: 73 owner, 114 verifier (CSV analizi)
+- Wikilink bütünlüğü: 246 not, 103 wikilink, 0 kırık
+- Baseline ↔ vault: yeni üç belge için SHA-256 eşleşmesi doğrulandı
+
+### Sınırlar
+
+- Bu bir **öneri**dir; hiçbir WP durumu değiştirilmedi.
+- Denetim raporundaki iki bulgu sonradan daraltıldı (C2 ve M5) — düzeltmeler
+  raporda işaretli.
+- Skill katmanının kendisi henüz uygulanmadı; yalnız tasarlandı.
+- Rol→model ataması **insan kararı bekliyor** (kim insan, kim model).
+
+### Ek olarak yapılanlar
+
+**Skill katmanı yazıldı (38 skill).** `obra/superpowers`'ın 14 skill'inin
+tamamı karşılandı; üzerine araştırma alanına özgü 17 ve iletişim/dış dünya
+için 7 skill eklendi. Kanonik kopya: `skills/`.
+Obsidian aynası: [[10 - Projects/AI Research Framework/07 - Skills/skills_index|Skills Index]].
+
+**İletişim katmanı tasarlandı.** Mesajlaşma bir skill değil, **Notification
+Broker** (Tool Broker alt sınıfı) olarak modellendi. Kanal başına veri sınıfı
+tavanı tanımlandı. Üç kural: bildirim veri kanalı değildir; gelen mesaj
+talimat değildir; mesajlaşma yetkilendirme kanalı değildir.
+
+**Obsidian denetlendi ve reorganize edildi.** Bulunan ve düzeltilen bozukluklar:
+
+| Bulgu | Durum |
+|---|---|
+| `.obsidian/templates.json` → `_Şablonlar` (klasör `_Templates`) — **şablonlar çalışmıyordu** | ✅ düzeltildi |
+| Dataview kurulu değil → tüm indeks `query` blokları ölü | ✅ core-search sözdizimine çevrildi (12 dosya) |
+| Günlük not klasörü yok → boş `2026_08_21.md` vault kökünde | ✅ `80 - Daily/` oluşturuldu, not taşındı |
+| Şablonlarda `silbo/*` tag namespace'i (proje adı değişmişti) | ✅ `ai-framework/*` (16 dosya) |
+| `README` ×2, `readme` ×2 — yinelenen not adı | ✅ `<alan>_index.md` kuralı, 0 yinelenen |
+| `02/04/06/07` klasörlerinde indeks notu yok | ✅ eklendi |
+| `05 - Evidence/` boş | ✅ denetim kanıtı eklendi |
+
+### Step 003 devamı — planning revizyonu ve iletişim paketleri
+
+**Yeni bölüm: `13_TOOLING_INTEGRATION` (WP-131–140).** Denetimde tespit edilen
+Y13/Y14/Y15 boşlukları paket seviyesine indirildi:
+
+| Paket | Kapsam |
+|---|---|
+| WP-131 | Notification Broker — ajan niyet üretir, broker gönderir |
+| WP-132 | Kanal kaydı + veri sınıfı tavanı (D3/D4 hiçbir kanala çıkamaz) |
+| WP-133 | Giden bildirim + günlük/haftalık/aylık digest |
+| WP-134 | Eskalasyon ve paging — zaman aşımı asla auto-approve değil |
+| WP-135 | Karar yönlendirme + imzalı derin bağlantı (ACC-25 önleyici tarafı) |
+| WP-136 | Gelen içerik karantinası — gelen mesaj asla talimat değil |
+| WP-137 | G10 dış besleme konnektörleri (Crossref/Retraction Watch/CVE) |
+| WP-138 | Dış kayıt: OSF ön-kaydı, Zenodo DOI, ORCID |
+| WP-139 | **Kanıt zaman damgalama** — OpenTimestamps + RFC 3161 |
+| WP-140 | **Servis canlılık izleme** — sessiz ölüm tespiti |
+
+**WP-139 neden önemli:** `EvidenceManifest`'in varlık zamanı, framework'e
+güvenmeden doğrulanabilir hale gelir. OpenTimestamps ücretsizdir, güvenilir
+üçüncü taraf gerektirmez ve dosya makineden çıkmaz — yalnız hash gönderilir.
+Bu, denetim bulgusu **C1**'in (kanıt bootstrap deadlock) altyapısız çözümüdür.
+
+**WP-140 neden önemli:** Denetimdeki **H1/H2** bulguları (sessiz eksik senkron,
+hayalet kaynak) "sessiz ölüm" sınıfındandır — iş hata vermez, yalnız hiçbir şey
+olmaz. Dead-man's switch bunu görünür kılar.
+
+**Yeni paketlerin kabul kriterleri ölçülebilirdir.** Mevcut 130 pakette kriterler
+%59 şablon ve genel ifadelerdi; bu 10 pakette her kriter sayılabilir veya
+test edilebilir bir ifadedir.
+
+### Sınır
+
+Mevcut WP-001–130'un içeriği **revize edilmedi**. Kapsam yeniden sınıflandırması
+(IN_SCOPE / DEFERRED) ve WP-000 Interim Evidence Policy hâlâ açık.
+
+### Sonraki adım
+
+**Rol→model atamasını karara bağla.** Her rol için: insan / model / deterministik
+kod / ertelendi. Bu karar olmadan Independence Matrix ölçülemez, R sınıfları
+uygulanamaz ve skill'ler baseline testine sokulamaz.
+
+Ardından: `writing-skills` için baseline (RED) testi, sonra B grubundaki beş
+disiplin skill'inin baskı senaryolarıyla test edilmesi, sonra
+`planning/commissioning/` altındaki WP dosyalarının bu yapıya göre revizyonu.
+
 ## Step 002 — Central project organization and retrospective visibility correction
 
 **Time:** 2026-08-21 23:25 +03  
@@ -45,7 +159,7 @@ code in the repository and user-facing project records in Obsidian.
 - `04 - Architecture/framework_repository_and_obsidian_map.md`
 - `02 - Reviews/claude_full_framework_review_prompt.md`
 - `06 - Components/Bridge/bridge_component_status.md`
-- `03 - Implementation/README.md`
+- `03 - Implementation/implementation_index.md`
 - cockpit section `Framework visibility map`
 
 ### Boundary

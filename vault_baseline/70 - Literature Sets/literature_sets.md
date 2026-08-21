@@ -8,7 +8,7 @@ Bu alan iki katmana ayrılır:
 ## Kürasyonlu setler
 
 ```query
-path:"70 - Literature Sets" type:literature-set
+path:"70 - Literature Sets" ["type":"literature-set"]
 ```
 
 ## Kalite kontrol

@@ -9,7 +9,7 @@ included_source_ids: []
 excluded_source_ids: []
 manifest_hash:
 tags:
-  - silbo/literature-set
+  - ai-framework/literature-set
 ---
 
 # {{title}}

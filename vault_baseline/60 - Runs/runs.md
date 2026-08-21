@@ -1,5 +1,5 @@
 # Runs
 
 ```query
-path:"60 - Runs" type:run
+path:"60 - Runs" ["type":"run"]
 ```

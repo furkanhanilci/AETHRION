@@ -44,3 +44,4 @@ Impact Scan açık workflow'ları, frozen literature setlerini, claim'leri, admi
 ## Plan dosyalarının sürümü
 
 Kabul edilmiş WP dosyası geriye dönük değiştirilmez. Yeni şart için dosya revision notu ve ilgili change ID eklenir; önceki evidence manifest hangi revision ile kabul edildiğini korur.
+

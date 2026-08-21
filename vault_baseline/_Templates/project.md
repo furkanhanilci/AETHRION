@@ -6,7 +6,7 @@ owner:
 created_at: "{{date}}"
 updated_at: "{{date}}"
 tags:
-  - silbo/project
+  - ai-framework/project
 ---
 
 # {{title}}

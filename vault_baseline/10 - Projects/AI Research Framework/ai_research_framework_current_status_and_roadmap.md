@@ -78,7 +78,7 @@ Bu dokümandaki `V0 HAZIR` veya `ÇALIŞIYOR` ifadeleri, 130 paketlik programın
 
 ```text
 /home/otonom/Desktop/FH/AI_RESEARCH_FRAMEWORK/
-  AIRL_OS_DEVREYE_ALMA_PLANI/
+  planning/commissioning/
 ```
 
 Bu alan hedef mimariyi, WP-001–WP-130 paketlerini ve ACC-01–ACC-40 kabul senaryolarını tanımlar.
@@ -87,7 +87,6 @@ Bu alan hedef mimariyi, WP-001–WP-130 paketlerini ve ACC-01–ACC-40 kabul sen
 
 ```text
 /home/otonom/Desktop/FH/AI_RESEARCH_FRAMEWORK/
-  airl_bridge_api/
 ```
 
 Yerel Git başlangıç commit'i:
@@ -343,7 +342,7 @@ Bir bağımlılık forward-reference uyarısı görülmüştür; test hatası de
 - Yanlış kapsamı çağrıştıran boş `SILBO-AI` repo adı, veri yüklenmeden önce `AI-Research-Framework` olarak değiştirildi.
 - Repo private oluşturuldu; kullanıcı hesabının yetkisi `ADMIN` olarak doğrulandı.
 - Repo açıklamasından SILBO ifadesi kaldırıldı ve genel araştırma framework kapsamı yazıldı.
-- `airl_bridge_api` deposu yalnız yeni framework repo'suna `origin` olarak bağlandı.
+- Framework deposu yalnız yeni framework repo'suna `origin` olarak bağlandı.
 - Temiz `main` dalı `5efd305` commit'iyle ilk kez push edildi ve uzak commit değeri API üzerinden doğrulandı.
 - Mevcut SILBO ürün reposunun `Mgh0x/Silbo-AI` remote'u değiştirilmedi ve oraya push yapılmadı.
 - Tam commissioning planının 184 Markdown, 1 CSV ve 1 TXT dosyası `planning/commissioning/` altında genel framework repo'suna alınmak üzere hazırlandı.
@@ -622,11 +621,11 @@ Eski Obsidian yerleşimi aşağıdaki yerel yedekte tutulur:
 
 ```text
 /home/otonom/Desktop/FH/AI_RESEARCH_FRAMEWORK/
-  airl_bridge_api/data/projection-backups/
+  data/projection-backups/
     vault-layout-before-silbo-main-20260821/
 ```
 
-Bridge database dosyaları ve WAL dosyaları Git dışında tutulur. Unit dosyalarının kaynak kopyaları `airl_bridge_api/deploy/` altındadır. V0 kodu yerel Git commit'iyle geri alınabilir.
+Bridge database dosyaları ve WAL dosyaları Git dışında tutulur. Unit dosyalarının kaynak kopyaları `deploy/` altındadır. V0 kodu yerel Git commit'iyle geri alınabilir.
 
 ## 12. Her adımdan sonra güncelleme protokolü
 
