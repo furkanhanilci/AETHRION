@@ -1,0 +1,154 @@
+---
+airl_id: AI-RESEARCH-FRAMEWORK-IMPLEMENTATION-LOG
+type: execution-log
+status: active
+owner: otonom
+updated_at: "2026-08-22T00:05:00+03:00"
+tags:
+  - ai-framework/execution
+  - ai-framework/contracts
+  - ai-framework/foundation
+---
+
+# AI Research Framework — Implementation Log
+
+Bu kayıt, plan dosyalarının yalnızca okunup unutulmaması için her maddi uygulama
+adımında güncellenir. Yeni adıma başlamadan önce son kayıt, kokpit ve ilgili WP
+dosyaları tekrar okunur. Her kayıt gözlenen kanıtı, yapılan yorumu, sınırı ve
+sonraki yürütülebilir adımı birbirinden ayırır.
+
+## Retroactive history — previous implementation steps
+
+Bu bölüm, Implementation Log ilk oluşturulmadan önce tamamlanmış maddi adımları
+geriye dönük olarak kaydeder. Tarihsel kayıtlar mevcut Git commitleri, test
+çıktıları, systemd durumları ve Obsidian hash karşılaştırmalarıyla sınırlıdır;
+kanıtı olmayan niyetler tamamlanmış iş olarak gösterilmez.
+
+### Step 000-A — Existing installation discovery
+
+- **What:** Zotero Local API, Hermes MCP, Obsidian vault, Bridge çalışma dizini,
+  systemd unit/timer ve mevcut dosya ağacı incelendi.
+- **Why:** Gerçek yolları ve mevcut kullanıcı verisini varsayımla ezmemek için.
+- **Evidence:** Başlangıç keşfi ve sonraki Bridge V0 commit zinciri.
+- **Limit:** Bu adım yalnız keşiftir; production mimarisi kurulmuş sayılmaz.
+- **Next:** Salt-okunur Zotero bağlantısını doğrulamak.
+
+### Step 000-B — Zotero Local API and read-only boundary
+
+- **What:** Zotero Local API loopback erişimi etkinleştirildi; Bridge yazma,
+  silme, merge veya Zotero insan alanı mutasyonu yapmayacak şekilde sınırlandı.
+- **Why:** Kullanıcının bibliyografik kayıtlarını otomatik ajan yazmasından korumak.
+- **Evidence:** `zotero_write_enabled=false`; canlı acceptance çıktısı.
+- **Limit:** Zotero hâlâ local tek makine kaynağıdır; HA/registry servisi değildir.
+- **Next:** Kanonik yerel source registry ve Obsidian projection.
+
+### Step 000-C — Literature Bridge V0
+
+- **What:** FastAPI Bridge, SQLite WAL registry, source identity/normalization,
+  category/duplicate endpoints ve Obsidian projection kuruldu.
+- **Why:** Büyük mimariye geçmeden ilk uçtan uca dikey dilimi çalıştırmak.
+- **Evidence:** `15d57af` başlangıç commit’i; acceptance `33 kaynak / 3 kategori`;
+  Bridge systemd service ve timer aktif.
+- **Limit:** SQLite V0; PostgreSQL, event bus, Temporal ve production cutover yok.
+- **Next:** İnsan ve generated Obsidian alanlarını ayırmak.
+
+### Step 000-D — Obsidian information architecture
+
+- **What:** `00 - Home`, `10 - Projects`, `20 - Source Notes`, `30 - Concepts`,
+  `40 - Claims`, `50 - Decisions`, `60 - Runs`, `70 - Literature Sets`,
+  `90 - Archive` ve `_Templates` yapısı oluşturuldu; Zotero üretimleri
+  `70 - Literature Sets/Zotero Sources` altına alındı.
+- **Why:** İnsan sentezi ile otomatik projection dosyalarının birbirini ezmemesi.
+- **Evidence:** `d3fc23a`, `2d64f02`; baseline/vault SHA-256 eşleşmeleri.
+- **Limit:** Bu bilgi mimarisi full claim/evidence graph değildir.
+- **Next:** Plan Markdown’ını Obsidian’a taşıyıp yürütme kokpiti oluşturmak.
+
+### Step 000-E — Commissioning plan import and cockpit
+
+- **What:** 130 WP ve 40 ACC içeren commissioning Markdown ağacı Obsidian’a
+  aktarıldı; navigation/execution cockpit ve yaşayan durum belgesi eklendi.
+- **Why:** Planın sohbet hafızasına bağlı kalmadan her adımda tekrar okunması.
+- **Evidence:** Obsidian’da 184 plan Markdown dosyası; cockpit’in okunma ve
+  adım kapanış kuralları.
+- **Limit:** Planın aktarılması, WP’lerin gerçek servis olarak kurulduğu anlamına gelmez.
+- **Next:** Planı WP bağımlılıklarına göre gerçek foundation contract dilimlerine çevirmek.
+
+### Step 000-F — Naming and repository consolidation
+
+- **What:** Genel kök `AI_RESEARCH_FRAMEWORK` olarak standardize edildi; Obsidian
+  klasör ve dosya adları lowercase İngilizce standardına taşındı; 240 notta
+  kırık link kontrolü sıfırlandı.
+- **Why:** SILBO model adıyla framework adını ayırmak ve dosya/klasör drift’ini önlemek.
+- **Evidence:** `d73b53e`; `notes=240, missing_links=0`; generated dashboard’lar
+  `Source Catalog.md` ve `Potential Duplicates.md`.
+- **Limit:** Zotero makale başlıkları bibliyografik özgün adlarıyla korunur.
+- **Next:** Foundation ve shared contract kodunu eklemek.
+
+### Step 000-G — SILBO readiness boundary
+
+- **What:** FIX-005 için capsule, mutation, byte-identical resume ve drift rejection
+  kanıtları oluşturuldu; inference başlatılmadı.
+- **Why:** Framework ilerlerken SILBO ölçüm hattının fail-closed kalması.
+- **Evidence:** SILBO target `b14b0b3`, evidence `3dd52e0`, handoff `ff696c7`.
+- **Limit:** SILBO bağımsız review olmadan inference yetkisi vermez.
+- **Next:** Framework contract foundation dilimini uygulamak; SILBO review sınırını
+  ayrı tutmak.
+
+## Step 001 — Foundation ve contract çekirdeği
+
+**Zaman:** 2026-08-22 00:05 +03
+**İlgili planlar:** WP-011, WP-014, WP-015, WP-020, WP-022
+**Durum:** `TECH_COMPLETE / INDEPENDENT_REVIEW_PENDING`
+
+### Ne yapıldı?
+
+- `src/airl_framework/contracts.py` altında ortak contract çekirdeği oluşturuldu:
+  - `Identity`: project/workflow/task/source/claim/run/artifact/review gibi kimlikleri
+    tek formatta doğrular ve deterministik correlation key üretir.
+  - `ArtifactManifest`: SHA-256, boyut, producer, source revision, parent lineage
+    ve `VALID/SUPERSEDED/REVOKED/QUARANTINED` durumunu zorunlu kılar.
+  - `EventEnvelope`: event type/schema version/actor/subject/payload reference,
+    causation ve correlation alanlarını taşır; payload’ı sessizce gömmek yerine
+    referansla bağlar.
+  - `SchemaRegistry`: şema sürümünü kaydeder, yeniden tanımlamayı reddeder ve
+    major-version uyumsuzluğunu kırıcı değişiklik olarak ele alır.
+- `src/airl_framework/__init__.py` ile bu contract yüzeyi import edilebilir hale getirildi.
+- WP-022 için ilk repository skeleton alanları eklendi:
+  `schemas/`, `policy/`, `infra/`, `services/`, `workflows/`, `agents/`, `delivery/`
+  ve `docs/architecture/`.
+- `CODEOWNERS` ve `dependency-rules.txt` başlangıç sınırları eklendi. Bunlar
+  governance onayı gelene kadar teknik placeholder’dır; üretim sahipliği olarak
+  kabul edilmemelidir.
+- `tests/test_contracts.py` ile kabul ve red yönleri test edildi.
+
+### Neden yapıldı?
+
+Planın hedef invariant’ları aynı korelasyon zinciri, immutable artifact lineage,
+versioned event ve canonical field authority gerektiriyor. Mevcut bridge yalnız
+literatür `SourceRecord` modeline sahipti; bu ortak çekirdek olmadan ileride
+claim, run, review ve decision servisleri birbirinden kopuk kimlikler üretirdi.
+Bu adım üretim altyapısının tamamı değildir; sonraki servislerin bağlanacağı ortak
+contract sınırını kurar.
+
+### Kanıt
+
+- `.venv/bin/python -m pytest -q` → **20 passed**.
+- `.venv/bin/python -m unittest discover -s tests -q` → **4 passed**.
+- Testler hem geçerli kimlik/artifact/event/schema kabulünü hem de lowercase kimlik,
+  bozuk digest, schema redefinition ve major-version eksikliği reddini kapsar.
+
+### Sınırlar ve açık noktalar
+
+- `SchemaRegistry` henüz kalıcı registry servisi veya database değildir; process içi
+  ilk contract prototipidir.
+- CODEOWNERS sahipleri placeholder’dır; WP-003 RACI ve WP-010 ADR kararıyla
+  kesinleştirilmelidir.
+- PostgreSQL, object store, event bus, policy engine ve Temporal henüz kurulmamıştır.
+- Bağımsız verifier kabulü yoktur; bu nedenle adım `ACCEPTED` değil `TECH_COMPLETE`.
+
+### Sonraki adım
+
+WP-011/014/015/020 contract yüzeyini JSON Schema ve machine-readable manifest
+dosyalarına taşımak; ardından WP-013 project/task/role contract’ını aynı registry’ye
+bağlamak. Sonraki adıma başlamadan önce bu kayıt, kokpit ve ilgili WP dosyaları
+tekrar okunacak; test ve artifact kanıtı yeniden yazılacaktır.

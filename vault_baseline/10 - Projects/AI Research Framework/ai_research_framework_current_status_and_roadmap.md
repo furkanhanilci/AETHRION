@@ -4,7 +4,7 @@ type: project
 status: active
 owner: otonom
 created_at: "2026-08-21"
-updated_at: "2026-08-21T23:12:00+03:00"
+updated_at: "2026-08-22T00:05:00+03:00"
 current_phase: fix-005-dry-run-preparation
 canonical_status_scope: operational-tracker
 tags:
@@ -692,6 +692,7 @@ Bir adım `PASS`, `PARTIAL`, `BLOCKED` veya `FAIL` olarak açıkça etiketlenir.
 | 2026-08-21 22:19 +03 | FIX-005 tam test paketleri | PASS | Exact `b14b0b3`; evaluation 155/155, runtime 72/72; ilk sandbox denemesi yalnız socket/NETLINK_ROUTE ortam kısıtı |
 | 2026-08-21 23:02 +03 | FIX-005 pre-inference capsule ve readiness kanıtı | PASS / INFERENCE GATED | 11/11 focused tests, 8/8 mutation, capsule CREATED→BYTE_IDENTICAL, drift rejection; 20 schedule, `inference_started=false`; result `SILBO-FIX-005-preinference-result.md` |
 | 2026-08-21 23:12 +03 | FIX-005 bağımsız review handoff hazırlığı | READY FOR REVIEW | Exact target `b14b0b3`, evidence commit `3dd52e0`, handoff `ff696c7`; inference/training başlatılmadı |
+| 2026-08-22 00:05 +03 | Step 001 foundation/contract çekirdeği | TECH_COMPLETE / REVIEW PENDING | WP-011/014/015/020/022; 20 pytest + 4 unittest PASS; [[10 - Projects/AI Research Framework/implementation_log|Implementation Log]] |
 
 ## 14. Sonraki exact adım
 

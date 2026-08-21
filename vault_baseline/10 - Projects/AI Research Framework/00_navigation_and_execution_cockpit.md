@@ -31,12 +31,12 @@ tags:
 
 | Alan | Güncel değer |
 |---|---|
-| Son maddi adım | FIX-005 bağımsız review handoff hazırlığı |
+| Son maddi adım | Step 001 — Foundation ve contract çekirdeği |
 | SILBO kanıt commit'i | `b14b0b34a115e7cc088008d0a29cf1769f912169` |
 | Durum | `ACTIVE / PRE-INFERENCE / TEST+MUTATION PASS` |
-| Sıradaki exact adım | `b14b0b3` / `3dd52e0` exact çiftini bağımsız Fable review’a gönder; review olmadan inference yok |
+| Sıradaki exact adım | WP-011/014/015/020 contract yüzeyini JSON Schema + manifest registry’ye taşı; sonra WP-013 project/task/role contract’ına bağla |
 | Yasak sınır | Dry-run/readiness commit'i olmadan inference yok; SILBO remote push yok; training yok |
-| Son Obsidian senkronu | 2026-08-21 23:12 +03 — FIX-005 handoff hazır; inference başlatılmadı |
+| Son Obsidian senkronu | 2026-08-22 00:05 +03 — Step 001 kaydı eklendi; 20 pytest + 4 unittest PASS |
 
 ## Önce okunacak program belgeleri
 
@@ -84,6 +84,9 @@ tags:
 | Production kararı | WP-109–121 ve ACC-01–40 aynı target üzerinde |
 
 ## Adım kapanış kontrolü
+
+Geniş uygulama adımları ayrıca [[10 - Projects/AI Research Framework/implementation_log|Implementation Log]]
+dosyasına; gözlenen kanıt, gerekçe, sınır ve sonraki exact adımla kaydedilir.
 
 - [ ] İlgili WP/ACC ve aktif görev okundu.
 - [ ] Yetki, maliyet, güvenlik ve geri alma sınırı çözüldü.

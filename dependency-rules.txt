@@ -1,0 +1,1 @@
+src/airl_framework -> schemas, policy; src/airl_bridge -> services/knowledge; tests -> all owners
