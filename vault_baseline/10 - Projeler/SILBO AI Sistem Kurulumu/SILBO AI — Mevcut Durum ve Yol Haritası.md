@@ -4,8 +4,8 @@ type: project
 status: active
 owner: otonom
 created_at: "2026-08-21"
-updated_at: "2026-08-21T16:16:52+03:00"
-current_phase: fix-005a-local-activation
+updated_at: "2026-08-21T16:29:51+03:00"
+current_phase: framework-repository-bootstrap-and-fix-005a-activation
 canonical_status_scope: operational-tracker
 tags:
   - silbo/project
@@ -50,7 +50,8 @@ Zotero Local API (salt-okunur)
 | SILBO-FIX-004 idari quorum | PASS / ACCEPTED | Review `933f17f` ile governed soyda; exact quorum PASS |
 | SILBO-FIX-004 state uzlaştırması | PASS | Ledger/queue/state commit `b96b989`; preflight PASS |
 | Sıradaki yerel iş | SILBO-FIX-005a | Repair ölçümünden önce controller korumaları |
-| GitHub yayını | KULLANICI KARARI BEKLENİYOR | Hesap ve repo verilmeden push/PR/merge yok |
+| Genel framework GitHub yayını | AKTİF / PRIVATE | `furkanhanilci/AI-Research-Framework`, `main=5efd305` |
+| SILBO model reposu | AYRI / DOKUNULMADI | Genel framework remote'u olarak kullanılmıyor |
 | Tam AIRL-OS commissioning | BAŞLAMADI / PLAN | WP seviyesinde bağımsız kabul yok |
 | Production cutover | YETKİLİ DEĞİL | 40 ACC, restore tatbikatları ve kritik bulgu kapanışları gerekli |
 
@@ -107,8 +108,22 @@ closeout: 5737757
 ```
 
 Shared `/home/otonom/silbo-ai` çalışma alanında toplu stage, cleanup veya uygulama yapılmaz.
-Kullanıcı GitHub hesabı ve hedef repoyu ayrıca bildirecektir; o zamana kadar
-hiçbir remote push, PR veya merge yapılmaz.
+SILBO model kodu ve remote'ları genel AI framework yayınından ayrı tutulur.
+
+### 3.4 Genel AI framework GitHub reposu
+
+```text
+account: furkanhanilci
+repository: AI-Research-Framework
+visibility: private
+default branch: main
+remote: https://github.com/furkanhanilci/AI-Research-Framework.git
+first published commit: 5efd305d52aca1557576e3208668ee9e474344da
+```
+
+İlk push öncesinde izlenen dosyalar kontrol edildi: `.env`, sanal ortam,
+SQLite/WAL verileri, pytest cache ve projeksiyon yedekleri ignore kapsamında.
+İzlenen dosyalarda yaygın credential/token imzası bulunmadı; 16/16 test geçti.
 
 ## 4. Kurulan yerel literatür V0
 
@@ -302,6 +317,17 @@ Bir bağımlılık forward-reference uyarısı görülmüştür; test hatası de
 - Kuyruk bağımlılığına göre sıradaki tek bounded iş `SILBO-FIX-005a`; `SILBO-FIX-005` bunun kabulünden önce başlatılamaz.
 - Kullanıcının GitHub hedefi bekleniyor; tüm commit'ler yerel, remote write yapılmadı.
 
+### Adım 14 — Genel framework GitHub kurulumu
+
+- GitHub web/device akışıyla `furkanhanilci` hesabı doğrulandı.
+- Yanlış kapsamı çağrıştıran boş `SILBO-AI` repo adı, veri yüklenmeden önce `AI-Research-Framework` olarak değiştirildi.
+- Repo private oluşturuldu; kullanıcı hesabının yetkisi `ADMIN` olarak doğrulandı.
+- Repo açıklamasından SILBO ifadesi kaldırıldı ve genel araştırma framework kapsamı yazıldı.
+- `airl_bridge_api` deposu yalnız yeni framework repo'suna `origin` olarak bağlandı.
+- Temiz `main` dalı `5efd305` commit'iyle ilk kez push edildi ve uzak commit değeri API üzerinden doğrulandı.
+- Mevcut SILBO ürün reposunun `Mgh0x/Silbo-AI` remote'u değiştirilmedi ve oraya push yapılmadı.
+- Tam commissioning planının 184 Markdown, 1 CSV ve 1 TXT dosyası `planning/commissioning/` altında genel framework repo'suna alınmak üzere hazırlandı.
+
 ## 6. SILBO ürün reposunun güncel yönetilen durumu
 
 ### Kabul edilmiş geçmiş
@@ -438,7 +464,7 @@ Bu fazda SQLite V0 verisi için kontrollü migration ve rollback planı hazırla
 
 Aşağıdaki işlemler kendiliğinden yapılmayacaktır:
 
-- Uzak repoya push veya merge.
+- Yetkilendirilmiş `furkanhanilci/AI-Research-Framework` dışındaki bir repoya push veya merge.
 - Production deploy veya dış ağdan API yayını.
 - Zotero kayıtlarına yazma, silme veya otomatik merge.
 - Büyük dependency/download veya bulut kaynağı açma.
@@ -447,8 +473,9 @@ Aşağıdaki işlemler kendiliğinden yapılmayacaktır:
 - İnsan karar hakkını etkileyen policy seçimi.
 
 Her biri exact hedef, rollback, maliyet ve kabul kanıtı tanımlandıktan sonra ayrıca yürütülür.
-Özellikle GitHub hesabı ve hedef repo kullanıcı tarafından bildirilene kadar
-mevcut `origin` veya `mirror` dahil hiçbir remote hedefe yazılmaz.
+Genel framework için izinli remote yalnız
+`furkanhanilci/AI-Research-Framework` adresidir. SILBO model deposu ayrı iş akışı
+ve ayrı yetki alanıdır; genel framework commit'leri oraya gönderilmez.
 
 ## 10. Başlıca riskler ve kontroller
 
@@ -510,9 +537,13 @@ Bir adım `PASS`, `PARTIAL`, `BLOCKED` veya `FAIL` olarak açıkça etiketlenir.
 | 2026-08-21 16:16 +03 | FIX-004 closeout kaydı | PASS | Yerel commit `5737757`; ham quorum + final sonuç |
 | 2026-08-21 16:16 +03 | Ledger/queue/state uzlaştırması | PASS | Yerel commit `b96b989`; preflight PASS |
 | 2026-08-21 16:16 +03 | GitHub yayın sınırı | USER DECISION | Hesap/repo verilene kadar remote write yok |
+| 2026-08-21 16:29 +03 | GitHub hesap doğrulaması | PASS | Aktif hesap `furkanhanilci` |
+| 2026-08-21 16:29 +03 | Genel private repo oluşturma | PASS | `furkanhanilci/AI-Research-Framework` |
+| 2026-08-21 16:29 +03 | İlk framework push | PASS | `main=5efd305`; 16/16 test, secret/ignore kontrolü |
+| 2026-08-21 16:29 +03 | Commissioning plan import hazırlığı | IN_PROGRESS | `planning/commissioning/`, 186 dosya |
 
 ## 14. Sonraki exact adım
 
-**Kabul edilmiş yerel `b96b989` soyundan `SILBO-FIX-005a` için actor-owned branch/worktree oluştur; production editinden önce task activation kaydını scope, risk, rollback, resource boundary ve A1–A4 challenge planıyla commit et.**
+**Genel framework README ve `planning/commissioning/` importunu doğrula, local commit/push ile yayınla; ardından oluşturulmuş `/home/otonom/silbo-fix-005a` worktree'sindeki activation kaydını commit edip A1–A4 challenge çalışmalarına geç.**
 
-GitHub hesabı ve hedef repo bildirilmeden hiçbir remote write yapılmaz. FIX-005a kabul edilmeden FIX-005 repair ölçümü, yeni training veya tam AIRL altyapı implementasyonu başlatılmaz.
+Yalnız `furkanhanilci/AI-Research-Framework` genel framework remote'u olarak yetkilidir. FIX-005a kabul edilmeden FIX-005 repair ölçümü, yeni training veya tam AIRL altyapı implementasyonu başlatılmaz.

@@ -1,6 +1,26 @@
-# AIRL Bridge API
+# AI Research Framework
 
-Local-first bridge for the first AIRL literature vertical slice:
+Local-first, auditable framework for AI-assisted research operations. The
+repository separates what already works from the larger commissioning plan:
+
+| Area | Status | Location |
+|---|---|---|
+| Literature integration V0 | Working and locally accepted | `src/airl_bridge/` |
+| Zotero → Obsidian projection | Working, read-only at the Zotero boundary | `src/airl_bridge/obsidian.py` |
+| Hermes MCP access | Working, five read-only tools | `src/airl_bridge/mcp_server.py` |
+| Obsidian information architecture | V0 baseline | `vault_baseline/` |
+| Full AI research operating framework | Planned, not commissioned | `planning/commissioning/` |
+
+The commissioning tree contains the program, governance, contracts,
+foundation, control/event, model/agent/tool, execution/security,
+literature/knowledge, evidence/assurance, experience/observability,
+integration/cutover, Day-2 operations, and end-to-end acceptance packages.
+Those documents define intended work; they are not evidence that every package
+has been implemented.
+
+## Working vertical slice: Literature Bridge V0
+
+The first implemented vertical slice is a local literature bridge:
 
 ```text
 Zotero Local API (read-only)
@@ -11,7 +31,7 @@ Zotero Local API (read-only)
 The V0 service binds only to `127.0.0.1`. It does not accept a Zotero API key
 and contains no Zotero write operation.
 
-## Install
+## Install the Bridge V0
 
 ```bash
 cd /home/otonom/Desktop/FH/AIRL_OS_DEVREYE_ALMA_PLANI_v1.0/airl_bridge_api
