@@ -1,0 +1,47 @@
+---
+airl_id: SILBO-HOME
+type: index
+status: active
+tags:
+  - silbo/index
+---
+
+# SILBO AI Main Page
+
+SILBO AI çalışma alanı; projeleri, literatürü, kavramları, kanıtları, kararları ve deney çalıştırmalarını tek bir izlenebilir bilgi yapısında toplar.
+
+## Çalışma alanları
+
+- [[01 - Gelen Kutusu/Gelen Kutusu|Gelen Kutusu]]
+- [[10 - Projeler/Projeler|Projeler]]
+- [[20 - Kaynak Notları/Kaynak Notları|İnsan Kaynak Notları]]
+- [[30 - Kavramlar/Kavramlar|Kavramlar]]
+- [[40 - İddialar/İddialar|İddialar ve Kanıt Bağları]]
+- [[50 - Kararlar/Kararlar|Kararlar]]
+- [[60 - Çalıştırmalar/Çalıştırmalar|Çalıştırmalar]]
+- [[70 - Literatür Setleri/Literatür Setleri|Literatür Setleri]]
+- [[70 - Literatür Setleri/Zotero Kaynakları/00 - Kontrol Panosu/Kaynak Kataloğu|Zotero Kaynak Kataloğu — Otomatik]]
+- [[70 - Literatür Setleri/Zotero Kaynakları/00 - Kontrol Panosu/Olası Kopyalar|Olası Kopyalar — İnceleme Kuyruğu]]
+- [[90 - Arşiv/Arşiv|Arşiv]]
+
+## Aktif projeler
+
+```query
+path:"10 - Projeler" status:active
+```
+
+## Önerilen iddialar
+
+```query
+path:"40 - İddialar" claim_status:proposed
+```
+
+## Açık kararlar
+
+```query
+path:"50 - Kararlar" decision_status:proposed
+```
+
+## Kullanım kuralı
+
+`70 - Literatür Setleri/Zotero Kaynakları` altındaki dosyalar Bridge API tarafından yeniden oluşturulur ve elle düzenlenmez. İnsan analizi `20 - Kaynak Notları`, kürasyonlu setler `70 - Literatür Setleri`, karar ve sentezler ise ilgili numaralı insan alanlarında tutulur.

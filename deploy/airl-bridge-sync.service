@@ -1,0 +1,15 @@
+[Unit]
+Description=Synchronize Zotero sources into the SILBO Obsidian literature tree
+Requires=airl-bridge.service
+After=airl-bridge.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/curl --fail --silent --show-error --max-time 90 --request POST http://127.0.0.1:8765/v1/sync?limit=100
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+RestrictSUIDSGID=true
+LockPersonality=true
+RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX

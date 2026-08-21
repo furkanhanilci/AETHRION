@@ -1,0 +1,24 @@
+[Unit]
+Description=AIRL Zotero to Obsidian Bridge API
+After=default.target
+
+[Service]
+Type=simple
+WorkingDirectory=/home/otonom/Desktop/FH/AIRL_OS_DEVREYE_ALMA_PLANI_v1.0/airl_bridge_api
+ExecStart=/home/otonom/Desktop/FH/AIRL_OS_DEVREYE_ALMA_PLANI_v1.0/airl_bridge_api/.venv/bin/airl-bridge serve
+Restart=on-failure
+RestartSec=5
+Environment=PYTHONUNBUFFERED=1
+UMask=0077
+
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=read-only
+ReadWritePaths=/home/otonom/Desktop/FH/AIRL_OS_DEVREYE_ALMA_PLANI_v1.0/airl_bridge_api/data
+ReadWritePaths="/home/otonom/Documents/Obsidian Vault/70 - Literatür Setleri/Zotero Kaynakları"
+RestrictSUIDSGID=true
+LockPersonality=true
+
+[Install]
+WantedBy=default.target
