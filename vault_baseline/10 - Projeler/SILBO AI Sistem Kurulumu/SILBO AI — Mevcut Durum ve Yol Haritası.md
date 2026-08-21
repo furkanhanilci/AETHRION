@@ -4,8 +4,8 @@ type: project
 status: active
 owner: otonom
 created_at: "2026-08-21"
-updated_at: "2026-08-21T16:32:08+03:00"
-current_phase: fix-005a-local-activation
+updated_at: "2026-08-21T16:34:38+03:00"
+current_phase: fix-005a-preimplementation-challenge
 canonical_status_scope: operational-tracker
 tags:
   - silbo/project
@@ -49,7 +49,7 @@ Zotero Local API (salt-okunur)
 | SILBO-FIX-004 bağımsız review | APPROVED | Sealed Fable review `efb87f2`; exact T/H doğrulandı |
 | SILBO-FIX-004 idari quorum | PASS / ACCEPTED | Review `933f17f` ile governed soyda; exact quorum PASS |
 | SILBO-FIX-004 state uzlaştırması | PASS | Ledger/queue/state commit `b96b989`; preflight PASS |
-| Sıradaki yerel iş | SILBO-FIX-005a | Repair ölçümünden önce controller korumaları |
+| SILBO-FIX-005a | IN_PROGRESS / LOCAL | Aktivasyon `d86f5be`; production öncesi A1–A4 challenge |
 | Genel framework GitHub yayını | AKTİF / PRIVATE | `furkanhanilci/AI-Research-Framework`, `main=038f0ce` |
 | SILBO model reposu | AYRI / DOKUNULMADI | Genel framework remote'u olarak kullanılmıyor |
 | Tam AIRL-OS commissioning | BAŞLAMADI / PLAN | WP seviyesinde bağımsız kabul yok |
@@ -95,7 +95,7 @@ Yerel Git başlangıç commit'i:
 
 ### 3.3 Mevcut SILBO ürün reposu
 
-Aktif, actor-owned worktree:
+Kabul edilmiş FIX-004 worktree'si:
 
 ```text
 /home/otonom/silbo-fix-004
@@ -105,6 +105,16 @@ implementation target/T: 85625d7a30fd9d77c9179ccff94d08b27ac0b1fd
 handoff/H: ddad3abb49e53043e668a597432b9848ad43fb6a
 review import: 933f17f3fe7b6b25b60e4ec293db0e6ad4b9acf5
 closeout: 5737757
+state reconciliation: b96b989
+```
+
+Aktif, actor-owned FIX-005a worktree'si:
+
+```text
+/home/otonom/silbo-fix-005a
+branch: codex/fix-005a
+governed base: b96b9894378000451966ab2fba3132d29ac80b64
+activation commit: d86f5be
 ```
 
 Shared `/home/otonom/silbo-ai` çalışma alanında toplu stage, cleanup veya uygulama yapılmaz.
@@ -331,6 +341,16 @@ Bir bağımlılık forward-reference uyarısı görülmüştür; test hatası de
 - Commissioning planı, genel README ve güncel living-status kaydı commit `038f0ce278af716b59ec78f6fc0b271b0f263e8b` ile `main` dalına yayınlandı.
 - GitHub API üzerinden remote `main` değerinin exact `038f0ce...` olduğu doğrulandı.
 
+### Adım 15 — SILBO-FIX-005a yerel aktivasyonu
+
+- Kabul edilmiş FIX-004 state commit'i `b96b989` temiz başlangıç olarak doğrulandı.
+- `/home/otonom/silbo-fix-005a` actor-owned worktree'si ve `codex/fix-005a` dalı oluşturuldu.
+- Production editinden önce scope, risk, rollback, CPU-only resource boundary, human-only remote sınırı ve immutable `T/H` teslim modeli task kaydına eklendi.
+- Aktif state ve queue yalnız bu tek implementation döngüsünü gösterecek şekilde güncellendi.
+- Implementer attestation, protocol consistency ve preflight `PASS`; yalnız mevcut `G6 → SILBO-FIX-006` waiver'ı var.
+- Aktivasyon yerel commit'i: `d86f5be`.
+- SILBO worktree'sinden herhangi bir remote'a push yapılmadı.
+
 ## 6. SILBO ürün reposunun güncel yönetilen durumu
 
 ### Kabul edilmiş geçmiş
@@ -545,9 +565,10 @@ Bir adım `PASS`, `PARTIAL`, `BLOCKED` veya `FAIL` olarak açıkça etiketlenir.
 | 2026-08-21 16:29 +03 | İlk framework push | PASS | `main=5efd305`; 16/16 test, secret/ignore kontrolü |
 | 2026-08-21 16:29 +03 | Commissioning plan import hazırlığı | PASS | `planning/commissioning/`, 186 dosya |
 | 2026-08-21 16:32 +03 | Genel framework plan yayını | PASS | Private remote `main=038f0ce`; 188 dosyalık commit |
+| 2026-08-21 16:34 +03 | FIX-005a yerel aktivasyonu | PASS | Worktree/branch, task/state, preflight; commit `d86f5be` |
 
 ## 14. Sonraki exact adım
 
-**Oluşturulmuş `/home/otonom/silbo-fix-005a` worktree'sindeki activation kaydını doğrulayıp yerel commit et; ardından production editinden önce A1–A4 challenge çalışmalarını yürüt ve kanıtlarını kaydet.**
+**`d86f5be` tabanından ayrı disposable worktree oluştur; production editinden önce FIX-005a A1–A4 varsayımlarını mutation/probe ile sınayıp sonuçları `coordination/evidence/SILBO-FIX-005a-challenge.md` altında kaydet.**
 
 Yalnız `furkanhanilci/AI-Research-Framework` genel framework remote'u olarak yetkilidir. FIX-005a kabul edilmeden FIX-005 repair ölçümü, yeni training veya tam AIRL altyapı implementasyonu başlatılmaz.
