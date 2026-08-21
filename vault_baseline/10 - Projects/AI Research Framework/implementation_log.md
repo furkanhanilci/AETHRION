@@ -12,6 +12,54 @@ tags:
 
 # AI Research Framework — Implementation Log
 
+## Step 002 — Central project organization and retrospective visibility correction
+
+**Time:** 2026-08-21 23:25 +03  
+**Scope:** all framework documentation, review, implementation, architecture,
+evidence and component records  
+**Status:** `DOCUMENTATION_VISIBLE / REVIEW_READY`
+
+### What changed
+
+- General framework records were placed in the central Obsidian project tree,
+  not only under the Bridge application repository.
+- Added `02 - Reviews/` for independent review prompts and results.
+- Added `03 - Implementation/` for implementation indexes and step records.
+- Added `04 - Architecture/` for repository and system maps.
+- Added `05 - Evidence/` for test, acceptance, hash and review evidence.
+- Added `06 - Components/Bridge/` so Bridge is explicitly represented as one
+  component rather than as the framework root.
+- Added the complete Claude review prompt and direct cockpit links.
+- The complete commissioning mirror remains under `01 - Commissioning/`,
+  including WP-001–WP-130 and ACC-01–ACC-40.
+
+### Why
+
+The previous layout made newly created general documents appear to belong to
+Bridge only, and the actual Obsidian vault had not yet received the new project
+folders. This separation makes the full project topology visible while keeping
+code in the repository and user-facing project records in Obsidian.
+
+### Evidence
+
+- `04 - Architecture/framework_repository_and_obsidian_map.md`
+- `02 - Reviews/claude_full_framework_review_prompt.md`
+- `06 - Components/Bridge/bridge_component_status.md`
+- `03 - Implementation/README.md`
+- cockpit section `Framework visibility map`
+
+### Boundary
+
+This is a documentation and navigation correction. It does not claim that all
+130 work packages or 40 acceptance scenarios are implemented. Implementation
+status remains evidence-based and is tracked separately.
+
+### Next
+
+Use the central tree for every subsequent step: read cockpit → relevant WP/ACC
+→ implement in the correct repository/component → test → record evidence and
+next step in this log → synchronize the Obsidian vault.
+
 Bu kayıt, plan dosyalarının yalnızca okunup unutulmaması için her maddi uygulama
 adımında güncellenir. Yeni adıma başlamadan önce son kayıt, kokpit ve ilgili WP
 dosyaları tekrar okunur. Her kayıt gözlenen kanıtı, yapılan yorumu, sınırı ve

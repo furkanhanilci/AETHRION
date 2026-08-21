@@ -4,7 +4,7 @@ type: project
 status: active
 owner: otonom
 created_at: "2026-08-21"
-updated_at: "2026-08-21T23:12:00+03:00"
+updated_at: "2026-08-21T23:25:00+03:00"
 canonical_plan_root: planning/commissioning
 obsidian_plan_root: 10 - Projects/AI Research Framework/01 - Commissioning
 plan_markdown_count: 184
@@ -37,6 +37,13 @@ tags:
 | Sıradaki exact adım | WP-011/014/015/020 contract yüzeyini JSON Schema + manifest registry’ye taşı; sonra WP-013 project/task/role contract’ına bağla |
 | Yasak sınır | Dry-run/readiness commit'i olmadan inference yok; SILBO remote push yok; training yok |
 | Son Obsidian senkronu | 2026-08-22 00:05 +03 — Step 001 kaydı eklendi; 20 pytest + 4 unittest PASS |
+
+## Framework görünürlük haritası
+
+- [[10 - Projects/AI Research Framework/04 - Architecture/framework_repository_and_obsidian_map|Repository and Obsidian Map]] — tüm framework alanlarının merkezi haritası
+- [[10 - Projects/AI Research Framework/02 - Reviews/claude_full_framework_review_prompt|Claude Full Framework Review Prompt]] — Bridge ile sınırlı olmayan bağımsız review talimatı
+- [[10 - Projects/AI Research Framework/06 - Components/Bridge/bridge_component_status|Bridge Component Status]] — Bridge’in framework içindeki gerçek sınırı
+- [[10 - Projects/AI Research Framework/03 - Implementation/README|Implementation Records]] — uygulama adımlarının proje görünümü
 
 ## Önce okunacak program belgeleri
 
