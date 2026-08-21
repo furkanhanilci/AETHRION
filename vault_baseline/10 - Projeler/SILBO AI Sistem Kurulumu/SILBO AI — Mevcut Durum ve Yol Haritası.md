@@ -4,8 +4,8 @@ type: project
 status: active
 owner: otonom
 created_at: "2026-08-21"
-updated_at: "2026-08-21T15:59:43+03:00"
-current_phase: fix-004-quorum-integration
+updated_at: "2026-08-21T16:01:38+03:00"
+current_phase: fix-004-accepted-next-queue-validation
 canonical_status_scope: operational-tracker
 tags:
   - silbo/project
@@ -47,7 +47,7 @@ Zotero Local API (salt-okunur)
 | Obsidian bilgi mimarisi | V0 HAZIR | İnsan ve otomatik alanlar ayrıldı |
 | SILBO-FIX-004 uygulaması | IMPLEMENTED | Immutable `T=85625d7...`, `H=ddad3ab...` |
 | SILBO-FIX-004 bağımsız review | APPROVED | Sealed Fable review `efb87f2`; exact T/H doğrulandı |
-| SILBO-FIX-004 idari quorum | SIRADAKİ ADIM | Review-only commit henüz governed lineage'a alınmadı |
+| SILBO-FIX-004 idari quorum | PASS / ACCEPTED | Review `933f17f` ile governed soyda; exact quorum PASS |
 | Tam AIRL-OS commissioning | BAŞLAMADI / PLAN | WP seviyesinde bağımsız kabul yok |
 | Production cutover | YETKİLİ DEĞİL | 40 ACC, restore tatbikatları ve kritik bulgu kapanışları gerekli |
 
@@ -273,6 +273,15 @@ Bir bağımlılık forward-reference uyarısı görülmüştür; test hatası de
 - Git baseline ve gerçek Obsidian kopyalarının SHA-256 değeri aynı bulundu: `571edd4cbc4167a14202ea234ab9e536a50b1b4adf0dcac9dc36113da26896fd`.
 - Belge, her maddi adım sonrasında yeni kanıt ve exact sonraki eylemle güncellenecek.
 
+### Adım 12 — FIX-004 review entegrasyonu ve quorum
+
+- Fable review-only commit'i governed `codex/fix-004` soyuna cherry-pick edildi: `933f17f3fe7b6b25b60e4ec293db0e6ad4b9acf5`.
+- Cherry-pick edilen review dosyası ile özgün reviewer dosyasının SHA-256 değeri aynı doğrulandı: `c43b4b2ab50d1aad19a4bd73482ae46df756c53559759a457f8dcb0e6958cba6`.
+- Yeni commit'in parent'ı exact handoff `ddad3abb49e53043e668a597432b9848ad43fb6a`; tek değişiklik Fable review kaydıdır.
+- Exact quorum komutu `implementer=codex`, exact `T/H`, handoff manifesti ve Fable review kaydıyla çalıştırıldı.
+- Quorum çıktısı: `status: PASS`, `errors: []`, reviewer kümesi: `["fable"]`.
+- FIX-004 exact target/handoff üçlüsü bu kanıtla `ACCEPTED` durumundadır; yeni target veya handoff bu onayı geçersiz kılar.
+
 ## 6. SILBO ürün reposunun güncel yönetilen durumu
 
 ### Kabul edilmiş geçmiş
@@ -301,7 +310,7 @@ Uygulama ve bağımsız review kanıtına göre:
 - Archived rescore: 104/104 uyumlu
 - E-F16/E-F20: executable-CLOSED
 
-Fable bu sonuçları bağımsız olarak yeniden üretmiş ve exact `T/H/manifest` üçlüsü için sealed `APPROVED` vermiştir. Bununla birlikte bu aşama henüz idari closure değildir: review-only commit governed lineage'a baytları değiştirilmeden alınmalı ve exact quorum doğrulaması geçmelidir.
+Fable bu sonuçları bağımsız olarak yeniden üretmiş ve exact `T/H/manifest` üçlüsü için sealed `APPROVED` vermiştir. Review-only commit governed lineage'a baytları değiştirilmeden alınmış ve exact quorum doğrulaması `PASS` vermiştir. Dolayısıyla FIX-004 bu immutable üçlü için kabul edilmiştir.
 
 Review sırasında bir adet engelleyici olmayan `MINOR` bulgu kaydedildi: `executes()` predicate'i `sh -c ...` gibi wrapper invocation biçimlerini tanımıyor. Arşivde bu biçimi kullanan kayıt bulunmadığı ve standart yol `run_python` olduğu için FIX-004 kabulünü engellemedi; ADR-008 reopen koşuluyla uyumlu bir `CANDIDATE` olarak ele alınacaktır.
 
@@ -336,9 +345,9 @@ Review sırasında bir adet engelleyici olmayan `MINOR` bulgu kaydedildi: `execu
 
 1. ~~FIX-004 Fable reviewünü tamamla.~~ `PASS`
 2. ~~Review commit'ini exact identity ve machine header ile doğrula.~~ `PASS`
-3. **Review bytesını değiştirmeden governed lineage'a al.** `NEXT`
-4. Exact `T/H/manifest/review` quorum komutunu çalıştır.
-5. Approval varsa E-F16/E-F20 ve state kayıtlarını kapat.
+3. ~~Review bytesını değiştirmeden governed lineage'a al.~~ `PASS`
+4. ~~Exact `T/H/manifest/review` quorum komutunu çalıştır.~~ `PASS`
+5. **E-F16/E-F20 kapanışını state/queue kayıtlarında uzlaştır ve executable guardlarla sıradaki paketi doğrula.** `NEXT`
 6. Blocking finding varsa Codex için yeni `T2/H2` döngüsü oluştur; eski approvalı taşıma.
 7. Guardlarla kuyruğu yeniden sırala.
 8. Sırayla FIX-005a, FIX-005, FIX-006, FIX-006b, FIX-007, FIX-008 ve kalan FIX-009 ailesini ele al.
@@ -469,9 +478,11 @@ Bir adım `PASS`, `PARTIAL`, `BLOCKED` veya `FAIL` olarak açıkça etiketlenir.
 | 2026-08-21 15:54 +03 | Yaşayan durum/yol haritası belgesi oluşturuldu | PASS | Obsidian `10 - Projeler` alanı |
 | 2026-08-21 15:59 +03 | Obsidian yerleşimi ve byte doğrulaması | PASS | Baseline/vault SHA-256 `571edd4c...` |
 | 2026-08-21 15:59 +03 | FIX-004 Fable review tamamlandı | APPROVED | Review `efb87f2`, sealed exact T/H, yalnız review dosyası |
+| 2026-08-21 16:01 +03 | FIX-004 review governed soya alındı | PASS | Commit `933f17f`, review byte hash eşit |
+| 2026-08-21 16:01 +03 | FIX-004 exact review quorum | ACCEPTED | `status: PASS`, `errors: []`, reviewer `fable` |
 
 ## 14. Sonraki exact adım
 
-**Review-only commit `efb87f2bab065fc658a0053cedb6357d995d34e1` dosya baytlarını değiştirmeden `codex/fix-004` governed lineage'ına al; ardından exact `T/H/manifest/review` quorum komutunu çalıştır.**
+**FIX-004 kabulünden sonra `coordination/STATE.md`, görev kuyruğu, defect register ve executable guardları yeniden okuyarak E-F16/E-F20 state kapanışını ve sıradaki tek yetkili iş paketini doğrula.**
 
-Quorum doğrulaması geçmeden yeni FIX, training veya tam AIRL altyapı implementasyon dalı açılmaz.
+Bu doğrulama yapılmadan yeni FIX, training veya tam AIRL altyapı implementasyon dalı açılmaz.
