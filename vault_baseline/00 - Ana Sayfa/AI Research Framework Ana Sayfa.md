@@ -1,14 +1,14 @@
 ---
-airl_id: SILBO-HOME
+airl_id: AI-RESEARCH-FRAMEWORK-HOME
 type: index
 status: active
 tags:
-  - silbo/index
+  - ai-framework/index
 ---
 
-# SILBO AI Main Page
+# AI Research Framework Ana Sayfa
 
-SILBO AI çalışma alanı; projeleri, literatürü, kavramları, kanıtları, kararları ve deney çalıştırmalarını tek bir izlenebilir bilgi yapısında toplar.
+AI Research Framework çalışma alanı; projeleri, literatürü, kavramları, kanıtları, kararları ve deney çalıştırmalarını tek bir izlenebilir bilgi yapısında toplar. SILBO model geliştirme hattı bu genel sistemin ayrı ve sınırlandırılmış alt çalışma alanlarından biridir.
 
 ## Çalışma alanları
 
@@ -27,7 +27,7 @@ SILBO AI çalışma alanı; projeleri, literatürü, kavramları, kanıtları, k
 ## Aktif projeler
 
 - [[10 - Projeler/AI Research Framework/00 - Plan Navigasyonu ve Yürütme Kokpiti|AI Research Framework — Plan Kokpiti]]
-- [[10 - Projeler/SILBO AI Sistem Kurulumu/SILBO AI — Mevcut Durum ve Yol Haritası|SILBO AI — Yaşayan Durum ve Yol Haritası]]
+- [[10 - Projeler/AI Research Framework/AI Research Framework — Mevcut Durum ve Yol Haritası|AI Research Framework — Yaşayan Durum ve Yol Haritası]]
 
 ```query
 path:"10 - Projeler" status:active

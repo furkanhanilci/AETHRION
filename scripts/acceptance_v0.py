@@ -28,7 +28,7 @@ def main() -> None:
     settings = Settings.from_env()
     generated = settings.obsidian_vault / settings.obsidian_generated_dir
     dashboard = generated / "00 - Kontrol Panosu"
-    home = settings.obsidian_vault / "00 - Ana Sayfa/SILBO AI Main Page.md"
+    home = settings.obsidian_vault / "00 - Ana Sayfa/AI Research Framework Ana Sayfa.md"
     literature_index = (
         settings.obsidian_vault / "70 - Literatür Setleri/Literatür Setleri.md"
     )
@@ -41,7 +41,7 @@ def main() -> None:
     require(health["zotero_write_enabled"] is False, "Zotero write must be off")
     require(ready["status"] == "ready", "Bridge is not ready")
     require(ready["zotero"] == "reachable", "Zotero is not reachable")
-    require(home.is_file(), "SILBO main page is missing")
+    require(home.is_file(), "AI Research Framework main page is missing")
     require(literature_index.is_file(), "Literature-set index is missing")
     require(not (settings.obsidian_vault / "80_Generated").exists(), "Legacy tree remains")
     require((dashboard / "Kaynak Kataloğu.md").is_file(), "Catalog is missing")

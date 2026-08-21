@@ -4,7 +4,7 @@ type: project
 status: active
 owner: otonom
 created_at: "2026-08-21"
-updated_at: "2026-08-21T21:52:25+03:00"
+updated_at: "2026-08-21T21:58:54+03:00"
 canonical_plan_root: planning/commissioning
 obsidian_plan_root: 10 - Projeler/AI Research Framework/01 - Commissioning Planı
 plan_markdown_count: 184
@@ -17,7 +17,7 @@ tags:
 # AI Research Framework — Plan Navigasyonu ve Yürütme Kokpiti
 
 > [!important] Her adımda kullanım kuralı
-> Her maddi çalışma adımından önce sırasıyla bu kokpit, [[10 - Projeler/SILBO AI Sistem Kurulumu/SILBO AI — Mevcut Durum ve Yol Haritası|Yaşayan Durum ve Yol Haritası]], aktif görev kaydı ve ilgili WP/ACC planı okunur. Adım tamamlandıktan sonra kanıt doğrulanır; yaşayan durum belgesi ve bu kokpitteki “Güncel yürütme işareti” güncellenir.
+> Her maddi çalışma adımından önce sırasıyla bu kokpit, [[10 - Projeler/AI Research Framework/AI Research Framework — Mevcut Durum ve Yol Haritası|Yaşayan Durum ve Yol Haritası]], aktif görev kaydı ve ilgili WP/ACC planı okunur. Adım tamamlandıktan sonra kanıt doğrulanır; yaşayan durum belgesi ve bu kokpitteki “Güncel yürütme işareti” güncellenir.
 
 ## Otorite ve senkron sınırı
 
@@ -31,12 +31,12 @@ tags:
 
 | Alan | Güncel değer |
 |---|---|
-| Son maddi adım | FIX-005 challenge/spec düzeltmesi ve yerel aktivasyon |
+| Son maddi adım | Obsidian genel framework klasör konsolidasyonu ve canlı kabul doğrulaması |
 | SILBO kanıt commit'i | `f598869` |
 | Durum | `ACTIVE / PRE-INFERENCE` |
 | Sıradaki exact adım | `RUN-FIX005-B3-001` runner ve mekanizma raporunu test/mutation kanıtıyla dondur |
 | Yasak sınır | Dry-run/readiness commit'i olmadan inference yok; SILBO remote push yok; training yok |
-| Son Obsidian plan senkronu | 2026-08-21 21:52 +03 |
+| Son Obsidian plan senkronu | 2026-08-21 21:58 +03 — 16/16 test ve canlı Bridge kabulü PASS |
 
 ## Önce okunacak program belgeleri
 

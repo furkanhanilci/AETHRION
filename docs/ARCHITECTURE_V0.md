@@ -1,4 +1,4 @@
-# SILBO Yerel Bilgi Mimarisi — V0
+# AI Research Framework Yerel Bilgi Mimarisi — V0
 
 ## Amaç
 
@@ -23,9 +23,13 @@ AIRL Bridge API @ 127.0.0.1:8765
 
 ```text
 00 - Ana Sayfa/
-  SILBO AI Main Page.md
+  AI Research Framework Ana Sayfa.md
 01 - Gelen Kutusu/
 10 - Projeler/
+  AI Research Framework/
+    AI Research Framework — Mevcut Durum ve Yol Haritası.md
+    00 - Plan Navigasyonu ve Yürütme Kokpiti.md
+    01 - Commissioning Planı/
 20 - Kaynak Notları/                 # insan sentezi
 30 - Kavramlar/
 40 - İddialar/

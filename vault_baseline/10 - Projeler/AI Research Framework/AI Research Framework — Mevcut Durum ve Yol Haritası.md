@@ -1,29 +1,30 @@
 ---
-airl_id: SILBO-PROJECT-SYSTEM-ROLLOUT
+airl_id: AI-RESEARCH-FRAMEWORK-SYSTEM-ROLLOUT
 type: project
 status: active
 owner: otonom
 created_at: "2026-08-21"
-updated_at: "2026-08-21T21:52:25+03:00"
+updated_at: "2026-08-21T21:58:54+03:00"
 current_phase: fix-005-active-runner-preparation
 canonical_status_scope: operational-tracker
 tags:
-  - silbo/project
-  - silbo/architecture
-  - silbo/status
-  - silbo/roadmap
+  - ai-framework/project
+  - ai-framework/architecture
+  - ai-framework/status
+  - ai-framework/roadmap
+  - silbo/subproject
 ---
 
-# SILBO AI — Mevcut Durum ve Yol Haritası
+# AI Research Framework — Mevcut Durum ve Yol Haritası
 
 > [!important] Yaşayan proje kaydı
 > Bu belge her maddi uygulama, test, review, kabul, rollback veya kapsam değişikliğinden sonra güncellenir. Bir iş yalnız niyet veya agent beyanıyla tamamlanmış sayılmaz; komut çıktısı, artifact ve gerekiyorsa bağımsız review ile desteklenir.
 
 ## 1. Yönetici özeti
 
-SILBO çalışması iki ayrı fakat ilişkili düzlemde ilerlemektedir:
+AI Research Framework iki ayrı fakat ilişkili düzlemde ilerlemektedir:
 
-1. **Mevcut SILBO ürün reposu:** Eğitim, değerlendirme, verifier güvenilirliği ve yayın kalitesinde kanıt üretimi için daha önce geliştirilmiş gerçek kod tabanı. `SILBO-FIX-004` ve `SILBO-FIX-005a` exact sealed Fable quorum ile kabul edilmiştir. `SILBO-FIX-005` challenge sonrası yerelde aktive edilmiştir; inference başlamadan yeni runner, rapor sözleşmesi, test, mutation ve dry-run kanıtı hazırlanacaktır.
+1. **SILBO model geliştirme alt hattı:** Eğitim, değerlendirme, verifier güvenilirliği ve yayın kalitesinde kanıt üretimi için daha önce geliştirilmiş ayrı gerçek kod tabanı. `SILBO-FIX-004` ve `SILBO-FIX-005a` exact sealed Fable quorum ile kabul edilmiştir. `SILBO-FIX-005` challenge sonrası yerelde aktive edilmiştir; inference başlamadan yeni runner, rapor sözleşmesi, test, mutation ve dry-run kanıtı hazırlanacaktır.
 2. **AIRL-OS devreye alma programı:** 130 iş paketi ve 40 uçtan uca kabul senaryosuyla tam araştırma işletim sistemini tarif eden commissioning planı. Bu planın tamamı henüz kurulmamıştır.
 
 Bunlara ek olarak, kullanılabilir bir ilk dikey dilim olarak **yerel literatür V0 sistemi** kurulmuştur:
@@ -167,7 +168,7 @@ SQLite/WAL verileri, pytest cache ve projeksiyon yedekleri ignore kapsamında.
 
 Ana çalışma yüzeyi:
 
-- [[00 - Ana Sayfa/SILBO AI Main Page|SILBO AI Main Page]]
+- [[00 - Ana Sayfa/AI Research Framework Ana Sayfa|AI Research Framework Ana Sayfa]]
 
 İnsan tarafından yönetilen alanlar:
 
@@ -267,7 +268,7 @@ Bir bağımlılık forward-reference uyarısı görülmüştür; test hatası de
 
 - İnsan sentezi ve otomatik projeksiyon sınırları tanımlandı.
 - Proje, kaynak notu, kavram, iddia, karar, çalıştırma, literatür seti ve günlük not şablonları oluşturuldu.
-- Ana sayfa `SILBO AI Main Page` olarak genelleştirildi.
+- Ana sayfa önce `SILBO AI Main Page` olarak oluşturuldu; 2026-08-21'de kapsamı doğru yansıtmak için `AI Research Framework Ana Sayfa` olarak yeniden adlandırıldı.
 - Zotero kaynakları kullanıcının kararıyla `70 - Literatür Setleri/Zotero Kaynakları` altına taşındı.
 
 ### Adım 6 — Hermes MCP bağlantısı
@@ -310,7 +311,7 @@ Bir bağımlılık forward-reference uyarısı görülmüştür; test hatası de
 
 ### Adım 11 — Yaşayan durum kaydı Obsidian'a eklendi
 
-- Bu kapsamlı durum/yol haritası kaydı `10 - Projeler/SILBO AI Sistem Kurulumu` altında oluşturuldu.
+- Bu kapsamlı durum/yol haritası kaydı önce `10 - Projeler/SILBO AI Sistem Kurulumu` altında oluşturuldu; daha sonra genel framework kapsamı nedeniyle `10 - Projeler/AI Research Framework` altına konsolide edildi.
 - `10 - Projeler/Projeler.md` içine kalıcı wiki bağlantısı eklendi.
 - Git baseline ve gerçek Obsidian kopyalarının SHA-256 değeri aynı bulundu: `571edd4cbc4167a14202ea234ab9e536a50b1b4adf0dcac9dc36113da26896fd`.
 - Belge, her maddi adım sonrasında yeni kanıt ve exact sonraki eylemle güncellenecek.
@@ -656,6 +657,9 @@ Bir adım `PASS`, `PARTIAL`, `BLOCKED` veya `FAIL` olarak açıkça etiketlenir.
 | 2026-08-21 21:34 +03 | FIX-005 kaynak sınırı | PASS / INFERENCE NOT STARTED | 2×RTX A5000 erişilebilir; endpoint kapalı; yeni run `RUN-FIX005-B3-001`, yalnız görev-token cap 2×, aggregate cap 3 saat |
 | 2026-08-21 21:52 +03 | Tüm commissioning Markdown planlarının Obsidian'a alınması | PASS | 184/184 MD, 13 bölüm + kök README; `AI Research Framework/01 - Commissioning Planı` |
 | 2026-08-21 21:52 +03 | Plan navigasyonu ve adım hafızası | PASS | `AI Research Framework — Plan Navigasyonu ve Yürütme Kokpiti`; her adım öncesi/sonrası kontrol döngüsü |
+| 2026-08-21 21:56 +03 | Obsidian proje sınıflandırması düzeltildi | PASS | `SILBO AI Sistem Kurulumu` üst klasörü kaldırıldı; yaşayan kayıt ve planlar `AI Research Framework` altında birleştirildi |
+| 2026-08-21 21:56 +03 | Genel ana sayfa adı düzeltildi | PASS | `AI Research Framework Ana Sayfa`; SILBO ayrı alt çalışma hattı olarak tutuldu |
+| 2026-08-21 21:58 +03 | Framework klasör konsolidasyonu test edildi | PASS | `.venv` ile 16/16 test; canlı `acceptance_v0.py` status `accepted`, 33 kaynak, 3 kategori, Zotero write kapalı |
 
 ## 14. Sonraki exact adım
 
