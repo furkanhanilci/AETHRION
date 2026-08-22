@@ -1,3 +1,23 @@
+---
+title: "AETHRION — operating manual for an agent"
+aliases:
+  - "AGENTS"
+  - "AGENTS.md"
+  - "Operating Manual"
+type: index
+category: project
+source: "AGENTS.md"
+generated: true
+provenance: mirror_vault.py
+tags:
+  - aethrion/project
+  - aethrion/index
+---
+
+> [!info] Generated view
+> This note is generated from `AGENTS.md` in the repository. Edit the
+> canonical file and regenerate; edits made here are overwritten.
+
 # AETHRION — operating manual for an agent
 
 > **Read this file completely before touching anything.** It is written for any

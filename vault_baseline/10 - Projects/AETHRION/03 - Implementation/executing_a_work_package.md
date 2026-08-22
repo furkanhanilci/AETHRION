@@ -1,14 +1,14 @@
 ---
 title: "Executing a Work Package"
 type: reference
-category: commissioning
+category: implementation
 status: WORKING
 summary: "V1 is the whole commissioning plan, and it is executed one work package at a time."
 source: "docs/EXECUTING_A_WORK_PACKAGE.md"
 generated: true
 provenance: mirror_vault.py
 tags:
-  - aethrion/commissioning
+  - aethrion/execution
 ---
 
 > [!info] Generated view

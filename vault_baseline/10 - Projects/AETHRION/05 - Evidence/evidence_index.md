@@ -61,3 +61,18 @@ Test, acceptance, hash, artifact, review and operational evidence.
 `acceptance/` is empty — none of ACC-01 to ACC-40 has been automated.
 The first candidate: **ACC-22 (Obsidian Human Edit Preservation)** — the existing
 test already does half of it.
+
+<!-- generated:folder-maps -->
+
+## The delivery folder — where evidence is actually written
+
+`delivery/` is where an accepted package leaves its manifest, its
+measurements and its specimen. These are its own indexes.
+
+- [[10 - Projects/AETHRION/05 - Evidence/delivery_index|Delivery — Evidence Packages]]
+- [[10 - Projects/AETHRION/05 - Evidence/delivery_wp_000_package|WP-000 evidence package]]
+- [[10 - Projects/AETHRION/05 - Evidence/measurements_index|Measurements]]
+- [[10 - Projects/AETHRION/05 - Evidence/specimen_index|Specimen document]]
+- [[10 - Projects/AETHRION/05 - Evidence/signing_keys_index|Interim signing keys]]
+
+<!-- /generated:folder-maps -->

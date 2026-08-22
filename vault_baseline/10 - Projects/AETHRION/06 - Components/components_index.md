@@ -46,3 +46,14 @@ mean it has been built.**
 
 The Bridge is the framework's **first vertical slice**, not its root. The Bridge
 working does not mean the 140 work packages have been built.
+
+<!-- generated:folder-maps -->
+
+## The source folders
+
+The two Python packages, each indexed by its own README.
+
+- [[10 - Projects/AETHRION/06 - Components/Bridge/bridge_index|`airl_bridge` — the working vertical slice]]
+- [[10 - Projects/AETHRION/06 - Components/framework_core_index|`airl_framework` — the shared contract core]]
+
+<!-- /generated:folder-maps -->

@@ -138,12 +138,30 @@ RULES: list[tuple[str, str, str, str]] = [
     ("docs/OPERATIONS.md", r"Expected: `(\d+) passed`", "tests", "tests"),
     ("docs/OPERATIONS.md", r"`(\d+) figures, 0 drift, 0 overflow`", "figures", "figures"),
 ]
-WORDS = {"one": 1, "two": 2, "three": 3, "four": 4, "five": 5, "six": 6,
-         "seven": 7, "eight": 8, "nine": 9, "ten": 10, "eleven": 11, "twelve": 12,
-         "thirty-five": 35, "thirty-six": 36, "thirty-seven": 37, "thirty-eight": 38,
-         "thirty-nine": 39, "forty": 40, "forty-one": 41, "forty-two": 42,
-         "forty-three": 43, "forty-four": 44, "forty-five": 45, "thirteen": 13,
-         "fourteen": 14, "fifteen": 15, "sixteen": 16}
+def _words() -> dict[str, int]:
+    """Every spelled-out number from one to ninety-nine.
+
+    This was a hand-written dictionary that happened to reach *forty-five*. The
+    suite then grew to forty-six, `tests/README.md` was updated correctly, and
+    the checker read the new word as an unknown and reported the old number —
+    a consistency check that fails a document for being right. The list of
+    numbers is not a judgement, so it is generated.
+    """
+    units = ["", "one", "two", "three", "four", "five", "six", "seven", "eight",
+             "nine"]
+    teens = ["ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen",
+             "sixteen", "seventeen", "eighteen", "nineteen"]
+    tens = ["", "", "twenty", "thirty", "forty", "fifty", "sixty", "seventy",
+            "eighty", "ninety"]
+    out = {units[n]: n for n in range(1, 10)}
+    out |= {teens[n - 10]: n for n in range(10, 20)}
+    for n in range(20, 100):
+        word = tens[n // 10] + (f"-{units[n % 10]}" if n % 10 else "")
+        out[word] = n
+    return out
+
+
+WORDS = _words()
 
 
 def check_counts(truth: dict[str, int]) -> list[str]:

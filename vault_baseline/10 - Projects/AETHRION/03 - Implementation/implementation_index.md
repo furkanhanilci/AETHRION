@@ -56,3 +56,17 @@ verifier's decision. See [[verification-before-completion]].
 
 > The Bridge is tracked here as **one component** of the framework, not as its
 > root.
+
+<!-- generated:folder-maps -->
+
+## The folders the implementation runs on
+
+Each is the repository's own index of a directory: what lives there, what
+it is for, and which of it runs.
+
+- [[10 - Projects/AETHRION/03 - Implementation/scripts_index|Scripts]]
+- [[10 - Projects/AETHRION/03 - Implementation/tests_index|Tests]]
+- [[10 - Projects/AETHRION/03 - Implementation/deployment_index|Deploy]]
+- [[10 - Projects/AETHRION/03 - Implementation/claude_harness_index|Harness configuration]]
+
+<!-- /generated:folder-maps -->

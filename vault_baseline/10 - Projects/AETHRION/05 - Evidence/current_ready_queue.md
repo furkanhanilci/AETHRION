@@ -1,13 +1,13 @@
 ---
 title: "Ready Queue"
 type: reference
-category: commissioning
+category: evidence
 summary: "V1 is the whole commissioning plan, and this page is the only place that answers what can I start today."
 source: "docs/READY.md"
 generated: true
 provenance: mirror_vault.py
 tags:
-  - aethrion/commissioning
+  - aethrion/evidence
 ---
 
 > [!info] Generated view

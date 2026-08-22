@@ -52,11 +52,23 @@ LIVE_VAULT = Path("/home/otonom/Documents/Obsidian Vault")
 BASELINE_VAULT = ROOT / "vault_baseline"
 
 # Canonical sources whose changes the vault projects.
+#
+# Derived from the mirror's own source map rather than listed here. The list was
+# written by hand and then the mirror grew eighteen sources outside `docs/` —
+# `AGENTS.md`, `scripts/README.md`, `src/*/README.md` — none of which this
+# watcher looked at, so editing the operating manual left the vault showing the
+# previous one with nothing reporting a difference. A watcher that does not watch
+# what the mirror reads is the silent-staleness failure one level down.
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import mirror_vault  # noqa: E402  (after sys.path)
+
 WATCHED = [
     ROOT / "planning" / "commissioning",
     ROOT / "docs",
     ROOT / "skills",
     ROOT / "delivery" / "progress.json",
+    *sorted({ROOT / src for src in mirror_vault.SOURCES.values()
+             if not src.startswith("docs/")}),
 ]
 
 PROJECT_SUBTREE = Path("10 - Projects") / "AETHRION"

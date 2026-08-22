@@ -42,3 +42,13 @@ unless it is independent of the producer.**
 A review result is accepted only when all three exist: the frozen package hash,
 a record of independence from the producer, and a `ProducerResponse` for every
 condition raised.
+
+<!-- generated:folder-maps -->
+
+## The review folder itself
+
+What `docs/review/` holds and the rule that keeps a frozen report frozen.
+
+- [[10 - Projects/AETHRION/02 - Reviews/review_corpus_index|Review records]]
+
+<!-- /generated:folder-maps -->

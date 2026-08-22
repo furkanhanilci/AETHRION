@@ -1,3 +1,23 @@
+---
+title: "AETHRION"
+aliases:
+  - "README"
+  - "Repository Index"
+type: index
+category: project
+summary: "A capable model's characteristic failure is not incompetence but plausibility: fluent, well-cited, confident output that is wrong, and that no amount of further model capability detects from the inside."
+source: "README.md"
+generated: true
+provenance: mirror_vault.py
+tags:
+  - aethrion/project
+  - aethrion/index
+---
+
+> [!info] Generated view
+> This note is generated from `README.md` in the repository. Edit the
+> canonical file and regenerate; edits made here are overwritten.
+
 <p align="center">
   <img src="docs/assets/branding/aethrion-logo.png" alt="AETHRION" width="150">
 </p>
@@ -16,7 +36,7 @@ verify, humans decide** — and those three roles are kept structurally separate
 as a technical term: the G0–G10 control layer is the *Agentic Intelligence
 Research Layer*, and the skill metadata namespace, the source-registry field and
 the bridge service all carry the `airl` prefix. It is not the product name.
-[`docs/branding.md`](docs/branding.md) records which is which.
+[`docs/branding.md`](04 - Architecture/aethrion_naming_and_terminology.md) records which is which.
 
 **In one paragraph.** A capable model's characteristic failure is not
 incompetence but plausibility: fluent, well-cited, confident output that is
@@ -36,10 +56,10 @@ can produce verifiable papers; AETHRION asks under what governance a claim may b
 believed at all, including its own. That is a broader question, harder to
 demonstrate, and today **answered only on paper**. The comparison, and where
 those systems are simply ahead, is in
-[`AETHRION_RELATED_SYSTEMS.md`](docs/architecture/AETHRION_RELATED_SYSTEMS.md).
+[`AETHRION_RELATED_SYSTEMS.md`](04 - Architecture/aethrion_related_systems.md).
 
 **A plan is not evidence of implementation**; the table below separates the two,
-and every document here is written under [`docs/DOCUMENT_STANDARD.md`](docs/DOCUMENT_STANDARD.md),
+and every document here is written under [`docs/DOCUMENT_STANDARD.md`](04 - Architecture/aethrion_document_standard.md),
 whose central rule is that distance from working software is stated rather than
 implied.
 
@@ -102,34 +122,34 @@ python3 scripts/progress.py show WP-001
 At t0: **one package ready** (WP-001, which authorises the programme), one
 `TECH_COMPLETE` (WP-000), **none accepted**. The loop that moves a package
 through those states, and the transitions it refuses, is
-[`docs/EXECUTING_A_WORK_PACKAGE.md`](docs/EXECUTING_A_WORK_PACKAGE.md).
+[`docs/EXECUTING_A_WORK_PACKAGE.md`](03 - Implementation/executing_a_work_package.md).
 
 ## Where to start
 
 | Question | Document |
 |---|---|
-| **What is this system?** — explained and diagrammed | [`docs/architecture/AETHRION_ARCHITECTURE.md`](docs/architecture/AETHRION_ARCHITECTURE.md) |
-| What actually exists today? | [`docs/review/2026-08-22_remediation_verification.md`](docs/review/2026-08-22_remediation_verification.md) — current state against the frozen audit |
-| **What** should be added to the target architecture? | [`docs/architecture/AETHRION_IDEAL_STRUCTURE.md`](docs/architecture/AETHRION_IDEAL_STRUCTURE.md) |
-| **How** should agents work? | [`docs/architecture/AETHRION_SKILL_LAYER.md`](docs/architecture/AETHRION_SKILL_LAYER.md) · [`skills/README.md`](skills/README.md) |
-| **Who** performs each role — human, model or code? | [Roles](#6-roles--who-is-accountable-for-what) below · [`AETHRION_ROLES.md`](docs/architecture/AETHRION_ROLES.md) — definitions and authority flows · [`AETHRION_ROLE_MODEL_ASSIGNMENT.md`](docs/architecture/AETHRION_ROLE_MODEL_ASSIGNMENT.md) — which model |
-| How are the figures produced? | [`docs/figures/README.md`](docs/figures/README.md) — inventory and design specification |
-| How are these documents written? | [`docs/DOCUMENT_STANDARD.md`](docs/DOCUMENT_STANDARD.md) — structure, status vocabulary, honesty rules |
-| What has been decided, and why? | [`ADR-001`](docs/architecture/ADR-001_solo_operator_independence.md) independence · [`ADR-002`](docs/architecture/ADR-002_bootstrap_verification_control.md) verification control · [`ADR-003`](docs/architecture/ADR-003_trusted_control_and_policy.md) trusted control and policy |
+| **What is this system?** — explained and diagrammed | [`docs/architecture/AETHRION_ARCHITECTURE.md`](04 - Architecture/aethrion_architecture.md) |
+| What actually exists today? | [`docs/review/2026-08-22_remediation_verification.md`](02 - Reviews/remediation_verification_2026-08-22.md) — current state against the frozen audit |
+| **What** should be added to the target architecture? | [`docs/architecture/AETHRION_IDEAL_STRUCTURE.md`](04 - Architecture/aethrion_ideal_structure.md) |
+| **How** should agents work? | [`docs/architecture/AETHRION_SKILL_LAYER.md`](04 - Architecture/aethrion_skill_layer.md) · [`skills/README.md`](skills/README.md) |
+| **Who** performs each role — human, model or code? | [Roles](#6-roles--who-is-accountable-for-what) below · [`AETHRION_ROLES.md`](04 - Architecture/aethrion_roles.md) — definitions and authority flows · [`AETHRION_ROLE_MODEL_ASSIGNMENT.md`](04 - Architecture/aethrion_role_model_assignment.md) — which model |
+| How are the figures produced? | [`docs/figures/README.md`](04 - Architecture/aethrion_figure_specification.md) — inventory and design specification |
+| How are these documents written? | [`docs/DOCUMENT_STANDARD.md`](04 - Architecture/aethrion_document_standard.md) — structure, status vocabulary, honesty rules |
+| What has been decided, and why? | [`ADR-001`](04 - Architecture/adr_001_solo_operator_independence.md) independence · [`ADR-002`](04 - Architecture/adr_002_bootstrap_verification_control.md) verification control · [`ADR-003`](04 - Architecture/adr_003_trusted_control_and_policy.md) trusted control and policy |
 | Licensing and attribution | [`NOTICE`](NOTICE) |
-| What is **adopted** rather than invented? | [`docs/architecture/AETHRION_EXTERNAL_STANDARDS.md`](docs/architecture/AETHRION_EXTERNAL_STANDARDS.md) |
-| How does this compare to Science One, PaperQA2, AI Scientist? | [`docs/architecture/AETHRION_RELATED_SYSTEMS.md`](docs/architecture/AETHRION_RELATED_SYSTEMS.md) |
-| Which mature components does it build on? | [`docs/architecture/AETHRION_COMPONENT_REUSE.md`](docs/architecture/AETHRION_COMPONENT_REUSE.md) |
+| What is **adopted** rather than invented? | [`docs/architecture/AETHRION_EXTERNAL_STANDARDS.md`](04 - Architecture/aethrion_external_standards.md) |
+| How does this compare to Science One, PaperQA2, AI Scientist? | [`docs/architecture/AETHRION_RELATED_SYSTEMS.md`](04 - Architecture/aethrion_related_systems.md) |
+| Which mature components does it build on? | [`docs/architecture/AETHRION_COMPONENT_REUSE.md`](04 - Architecture/aethrion_component_reuse.md) |
 | **What has actually been measured?** | [`delivery/measurements/`](delivery/measurements/) — one real result so far |
-| Architecture of the working vertical slice | [`docs/ARCHITECTURE_V0.md`](docs/ARCHITECTURE_V0.md) |
-| Day-to-day operation | [`docs/OPERATIONS.md`](docs/OPERATIONS.md) |
+| Architecture of the working vertical slice | [`docs/ARCHITECTURE_V0.md`](04 - Architecture/aethrion_architecture_v0.md) |
+| Day-to-day operation | [`docs/OPERATIONS.md`](03 - Implementation/operations_runbook.md) |
 | The full programme plan | [`planning/commissioning/README.md`](planning/commissioning/README.md) |
 
 ---
 
 # Architecture
 
-Full reference with every diagram: [`docs/architecture/AETHRION_ARCHITECTURE.md`](docs/architecture/AETHRION_ARCHITECTURE.md).
+Full reference with every diagram: [`docs/architecture/AETHRION_ARCHITECTURE.md`](04 - Architecture/aethrion_architecture.md).
 What follows is the shape of the system in one page.
 
 ## 1. Why this is not an assistant
@@ -452,7 +472,7 @@ one person may legally hold several of them.
 mechanical, **M** model, **H** human), and the constraint resolution that decides
 whether one operator may hold two roles at once. Full definitions — mandate,
 what each role decides, and what it may never do — are in
-[`docs/architecture/AETHRION_ROLES.md`](docs/architecture/AETHRION_ROLES.md).*
+[`docs/architecture/AETHRION_ROLES.md`](04 - Architecture/aethrion_roles.md).*
 
 ```mermaid
 flowchart TD
@@ -630,7 +650,7 @@ and tests. What this project owns is the control layer.
 one thing: a dependency, a standard, a pattern and a benchmark create entirely
 different obligations. Solid borders mark the three cells that are implemented;
 everything dashed is a decision, not a running component. Details and rationale
-in [`AETHRION_COMPONENT_REUSE.md`](docs/architecture/AETHRION_COMPONENT_REUSE.md).*
+in [`AETHRION_COMPONENT_REUSE.md`](04 - Architecture/aethrion_component_reuse.md).*
 
 > **AETHRION should not invent its own PDF parser, screening engine, policy
 > language, sandbox, experiment tracker or scholarly identifier.** Its
@@ -665,7 +685,7 @@ operation, is a decision no standard makes. What the architecture now supplies i
 its *shape* — independence expressed as `RoleBinding` separation constraints
 rather than headcount, so one person holding several roles can be modelled
 honestly. See
-[`AETHRION_EXTERNAL_STANDARDS.md`](docs/architecture/AETHRION_EXTERNAL_STANDARDS.md).
+[`AETHRION_EXTERNAL_STANDARDS.md`](04 - Architecture/aethrion_external_standards.md).
 
 ## 10. Target versus reality
 
@@ -818,7 +838,7 @@ python3 scripts/check_reporting_registry.py  # adopted components remain auditab
 
 They run by hand today. The first six are **written** as a push-triggered
 control — [`BVC-01`](deploy/bvc-01-verify.yml), a temporary measure under
-[`ADR-002`](docs/architecture/ADR-002_bootstrap_verification_control.md) with a
+[`ADR-002`](04 - Architecture/adr_002_bootstrap_verification_control.md) with a
 named expiry and WP-024 as its retirement package — but it is **staged, not
 active**: activating it needs a token with GitHub's `workflow` scope, and the
 activation command is in ADR-002 §6.
@@ -877,7 +897,7 @@ manifest carries its own `limitations` list so it cannot be read as more than it
 is.
 
 The *independence* half — finding **C2** — is now **decided** in
-[`ADR-001`](docs/architecture/ADR-001_solo_operator_independence.md): R1 solo;
+[`ADR-001`](04 - Architecture/adr_001_solo_operator_independence.md): R1 solo;
 R2 solo only under a declared partial-independence profile; **R3 `BLOCKED`
 unless an external verifier is named.** So packages have an acceptance path, and
 the laboratory does not claim independence it does not have.

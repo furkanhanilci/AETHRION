@@ -64,7 +64,7 @@ work belongs, not a commitment to a date.
 ## 3. Findings raised by the 2026-08-22 repository inspection
 
 A separate namespace, because the 2026-08-21 audit is frozen evidence and its
-`C`/`H`/`M`/`L` identifiers belong to it. All eight were fixed in the same pass
+`C`/`H`/`M`/`L` identifiers belong to it. All twelve were fixed in the same pass
 that raised them; each names the test or check that would catch a regression.
 
 | # | Finding | Fixed by | Regression guard |
@@ -77,6 +77,10 @@ that raised them; each names the test or check that would catch a regression.
 | **I6** | Six counts were stale across four documents while `check_doc_consistency.py` reported that documents agree: the test count in nine places, the bundle size in three, the attestation's subject count, and the figure count in the runbook. Every one was a number nobody had written a rule for | Fifteen rules added; `tests`, `bundle_checks` and `attestation_subjects` are now derived | `python3 scripts/check_doc_consistency.py` |
 | **I8** | `mirror_plan.py` replaced its target directory wholesale. Beyond the recorded data-loss hazard, it broke a running Obsidian's file watcher — the editor kept showing a stale index of files that no longer existed at those inodes, so a reader could not see their own updates | Both mirrors write **differentially**: only changed files, removing only what is no longer generated | `tests/test_mirrors.py` |
 | **I7** | `docs/figures/aethrion_verification.svg` drew ten rows for a twelve-check bundle and named `seal_commissioning_plan.py`, a script that does not exist | `fig_verification.py` derives its rows from `write_status.CHECKS` and **raises** if the bundle grows a check it has no prose for | `python3 scripts/make_figures.py --check` |
+| **I9** | The vault mirror carried every leaf document and none of the folder maps. `docs/architecture/README.md` indexes the twenty architecture notes, `docs/review/README.md` the reviews, `README.md` the repository — eighteen such documents, none projected. A reader who opened `04 - Architecture/` in Obsidian got an alphabetical list where the repository has a structure | The eighteen are mirrored, each landing in the vault folder it indexes, and linked from that folder's own index note | `python3 scripts/check_vault.py` reports **no orphan pages** |
+| **I10** | Two of those eighteen targets were the names of **hand-authored** vault notes, and the mirror overwrote both. They were recoverable only because `vault_baseline/` is tracked, which is luck rather than a control | The mirrored pages were renamed, and the mirror now **refuses** to write over any page whose frontmatter says `generated: false` | `tests/test_mirrors.py::test_vault_mirror_refuses_to_overwrite_a_hand_authored_note` |
+| **I11** | `watch_mirror.py` held a hand-written list of four watched sources. The mirror then read eighteen more — `AGENTS.md`, `scripts/README.md`, `src/*/README.md` — so editing the operating manual left the vault showing the previous one, with nothing reporting a difference | `WATCHED` is derived from the mirror's own source map | `tests/test_mirrors.py::test_the_watcher_watches_every_source_the_mirror_reads` |
+| **I12** | `check_doc_consistency.py` read spelled-out numbers from a hand-written table that reached *forty-five*. The suite grew to forty-six, the document was updated correctly, and the checker reported the **old** number — failing a document for being right | The table is generated for one to ninety-nine | `python3 scripts/check_doc_consistency.py` |
 
 ---
 
@@ -90,4 +94,4 @@ whether it still is. Two limits are worth stating plainly:
   because the MCP boundary is proven correct.
 - **The list is only as complete as the reviews that produced it.** An external
   reader once found two stale claims in a corpus whose status page reported
-  none, and this inspection found seven more. Assume the same is possible now.
+  none, and these inspections found eleven more. Assume the same is possible now.

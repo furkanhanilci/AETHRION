@@ -1,14 +1,22 @@
 #!/usr/bin/env python3
 """Generate the whole Obsidian project mirror from canonical repository content.
 
-The Obsidian project tree under
-``<vault>/10 - Projects/AETHRION/`` contains three generated areas:
+The Obsidian project tree under ``<vault>/10 - Projects/AETHRION/`` is generated
+area by area, and a page is generated exactly when this script or
+``mirror_plan.py`` names it:
 
 * ``01 - Commissioning/`` — the plan (delegated to ``mirror_plan.py``)
-* ``02 - Reviews/`` and ``04 - Architecture/`` — the ``docs/`` documents
+* ``02 - Reviews/``, ``04 - Architecture/``, ``03 - Implementation/``,
+  ``05 - Evidence/``, ``06 - Components/`` — documents from ``docs/`` and the
+  folder-level ``README``s that index the repository's own directories
 * ``07 - Skills/`` — the skill registry, grouped
+* the project root — ``README.md``, ``AGENTS.md``, ``CLAUDE.md`` and
+  ``docs/README.md``, the four maps a reader opens first
 
-Everything else in that tree is human-authored and is never touched here.
+Everything else in that tree is human-authored. The mirror refuses to write over
+a page whose frontmatter says ``generated: false``, because the areas above hold
+curated notes beside the projection and two of them once sat at names this map
+tried to claim.
 
 Links between mirrored documents are translated into vault-relative form, so a
 link that resolves in the repository also resolves in the vault. Links that
@@ -141,6 +149,54 @@ DOC_MAP = {
     "04 - Architecture/aethrion_architecture_v0.md": "ARCHITECTURE_V0.md",
 }
 
+# The folder-level documents, which live outside `docs/` and are therefore keyed
+# by a repository-relative path.
+#
+# These are the notes that make a folder navigable: `docs/architecture/README.md`
+# is the index of the twenty architecture notes, `docs/review/README.md` is the
+# index of the reviews, and `README.md` is the index of the repository itself.
+# The mirror carried every leaf document and none of the maps, so the vault held
+# twenty architecture notes in a folder with no way in, and a reader who opened
+# `04 - Architecture/` saw an alphabetical list rather than a structure. A
+# projection that omits precisely the documents describing the structure is not a
+# smaller projection; it is a flatter one.
+REPO_MAP = {
+    # The repository's own front door, its operating manual, and the harness note.
+    "aethrion_repository_index.md": "README.md",
+    "agent_operating_manual.md": "AGENTS.md",
+    "claude_code_operating_notes.md": "CLAUDE.md",
+    "documentation_index.md": "docs/README.md",
+
+    # Folder indexes, each landing in the vault folder it indexes.
+    # NOT `reviews_index.md` / `architecture_index.md`: the vault curates notes
+    # under those names by hand. The repository's index of a document folder and
+    # a reader's map of the same area are two documents, and the first must not
+    # take the second's name — on the first run of this map it overwrote both.
+    "02 - Reviews/review_corpus_index.md": "docs/review/README.md",
+    "04 - Architecture/architecture_corpus_index.md": "docs/architecture/README.md",
+    "04 - Architecture/schemas_index.md": "schemas/README.md",
+    "03 - Implementation/scripts_index.md": "scripts/README.md",
+    "03 - Implementation/tests_index.md": "tests/README.md",
+    "03 - Implementation/deployment_index.md": "deploy/README.md",
+    "03 - Implementation/claude_harness_index.md": ".claude/README.md",
+    "06 - Components/Bridge/bridge_index.md": "src/airl_bridge/README.md",
+    "06 - Components/framework_core_index.md": "src/airl_framework/README.md",
+
+    # The delivery area — the evidence the plan produces.
+    "05 - Evidence/delivery_index.md": "delivery/README.md",
+    # NOT `wp_000_...`: `vault_frontmatter.derive` reads that prefix as a work
+    # package and would give this page a package's type, tags and status.
+    "05 - Evidence/delivery_wp_000_package.md": "delivery/WP-000/README.md",
+    "05 - Evidence/measurements_index.md": "delivery/measurements/README.md",
+    "05 - Evidence/specimen_index.md": "delivery/specimen/README.md",
+    "05 - Evidence/signing_keys_index.md": "delivery/_keys/README.md",
+}
+
+# One map, repository-relative, so a link between any two mirrored documents can
+# be resolved without knowing which map it came from.
+SOURCES: dict[str, str] = {rel: f"docs/{src}" for rel, src in DOC_MAP.items()}
+SOURCES.update(REPO_MAP)
+
 BANNER = (
     "> [!info] Generated view\n"
     "> This note is generated from `{source}` in the repository. Edit the\n"
@@ -174,6 +230,24 @@ def _relink(text: str, src: str, rel: str, src_to_vault: dict[str, str]) -> str:
     return re.sub(r"\]\(([^)#\s]+\.md)(#[^)]*)?\)", repl, text)
 
 
+def _is_human_note(path: Path) -> bool:
+    """True when the file on disk declares itself hand-authored.
+
+    The vault holds curated notes beside the projection, and two of them —
+    `reviews_index.md` and `architecture_index.md` — sat at names this map tried
+    to claim. Nothing stopped the write; the notes were recoverable only because
+    `vault_baseline/` is tracked. A projection may create and replace its own
+    pages and must never replace anyone else's.
+    """
+    if not path.is_file() or path.suffix != ".md":
+        return False
+    try:
+        head = path.read_text(encoding="utf-8")[:2000]
+    except (OSError, UnicodeDecodeError):
+        return False
+    return bool(re.search(r"^generated:\s*false\s*$", head, re.M))
+
+
 def build() -> dict[str, bytes]:
     out: dict[str, bytes] = {}
 
@@ -181,19 +255,19 @@ def build() -> dict[str, bytes]:
     # the rename the mirror performs. Without this a link that resolves in the
     # repository lands on nothing in the vault, which is how the corpus grew a
     # set of broken links that only existed in the projection.
-    src_to_vault = {src: rel for rel, src in DOC_MAP.items()}
+    src_to_vault = {src: rel for rel, src in SOURCES.items()}
 
-    for rel, src in DOC_MAP.items():
-        text = (DOCS / src).read_text(encoding="utf-8")
+    for rel, src in SOURCES.items():
+        text = (REPO / src).read_text(encoding="utf-8")
         # Figures live beside the architecture notes in the vault, so the
         # repository-relative image paths are rewritten to vault-relative ones.
         text = text.replace("](../figures/", "](figures/").replace("](figures/README.md)",
                                                                    "](aethrion_figure_specification.md)")
         text = _relink(text, src, rel, src_to_vault)
         front = vault_frontmatter.derive(
-            vault_rel=rel, source=f"docs/{src}", text=text,
+            vault_rel=rel, source=src, text=text,
             generator="mirror_vault.py")
-        out[rel] = (front + BANNER.format(source=f"docs/{src}") + text).encode("utf-8")
+        out[rel] = (front + BANNER.format(source=src) + text).encode("utf-8")
 
     for group, names in GROUPS.items():
         for name in names:
@@ -230,7 +304,7 @@ def build() -> dict[str, bytes]:
     # skills/README.md reaches the architecture corpus as ``../docs/...``; the
     # same mapping used for the mirrored documents applies here.
     for src, vault in src_to_vault.items():
-        text = text.replace(f"](../docs/{src})", f"]({os.path.relpath(vault, '07 - Skills')})")
+        text = text.replace(f"](../{src})", f"]({os.path.relpath(vault, '07 - Skills')})")
     out["07 - Skills/skills_index.md"] = (
         vault_frontmatter.derive(
             vault_rel="07 - Skills/skills_index.md", source="skills/README.md",
@@ -262,6 +336,12 @@ def main() -> int:
             continue
         if path.is_file() and path.read_bytes() == payload:
             continue          # byte-identical: leave the file, and its mtime, alone
+        if _is_human_note(path):
+            raise SystemExit(
+                f"refusing to overwrite a hand-authored note: {rel}\n"
+                "  its frontmatter says `generated: false`, so it is somebody's\n"
+                "  writing, not a projection. Give the mirrored page its own name."
+            )
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_bytes(payload)
         written += 1

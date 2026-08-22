@@ -1,3 +1,21 @@
+---
+title: "Tests"
+type: index
+category: implementation
+status: WORKING
+summary: "Forty-six tests cover the components that exist: the bridge's database, projection, API and MCP boundary, the shared contract core, and the evidence attestation tooling."
+source: "tests/README.md"
+generated: true
+provenance: mirror_vault.py
+tags:
+  - aethrion/execution
+  - aethrion/index
+---
+
+> [!info] Generated view
+> This note is generated from `tests/README.md` in the repository. Edit the
+> canonical file and regenerate; edits made here are overwritten.
+
 # Tests
 
 | Field | Value |

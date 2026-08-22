@@ -66,3 +66,17 @@ The canonical copies of these notes live under `docs/architecture/`. The notes
 here are a generated Obsidian mirror, identical in content. **If content changes,
 the canonical file changes first** and the mirror is regenerated with
 `scripts/mirror_vault.py`.
+
+<!-- generated:folder-maps -->
+
+## The architecture folder itself
+
+The repository's index of the document corpus, the schema directory, and
+two notes this map did not previously reach.
+
+- [[10 - Projects/AETHRION/04 - Architecture/architecture_corpus_index|Architecture]]
+- [[10 - Projects/AETHRION/04 - Architecture/schemas_index|Shared Contract Schemas]]
+- [[10 - Projects/AETHRION/04 - Architecture/aethrion_foundation|Foundation Layer]]
+- [[10 - Projects/AETHRION/04 - Architecture/aethrion_branding_assets|Branding Assets]]
+
+<!-- /generated:folder-maps -->

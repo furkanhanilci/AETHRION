@@ -60,6 +60,21 @@ DERIVED_WITHOUT_A_SOURCE = ("_meta/taxonomy.md",
 
 FRONTMATTER = re.compile(r"^---\n(.*?)\n---", re.S)
 WIKILINK = re.compile(r"!?\[\[([^\]#|]+?)(?:\\?\|[^\]]*?)?(?:#[^\]]*?)?\]\]")
+
+
+# A fenced block is not prose. Mermaid writes a node as ``ID[["label"]]``, which
+# is character-for-character a wikilink, and the corpus draws mermaid diagrams in
+# `README.md`, the architecture notes and the plan. Scanning raw text reported
+# `README.md`'s "no such edge exists" node as a link to a missing page.
+FENCED = re.compile(r"^([ \t]*)(`{3,}|~{3,})[^\n]*\n.*?^\1\2[ \t]*$",
+                    re.S | re.M)
+INLINE_CODE = re.compile(r"`[^`\n]*`")
+
+
+def prose(text: str) -> str:
+    """`text` with fenced blocks and inline code removed, lines preserved."""
+    without = FENCED.sub(lambda m: "\n" * m.group(0).count("\n"), text)
+    return INLINE_CODE.sub("", without)
 # Link targets in this vault contain spaces — every top-level folder is named
 # like "07 - Skills" — so the target class must not exclude whitespace. Excluding
 # it silently matched nothing across the whole Skills tree and reported 42
@@ -142,7 +157,7 @@ def main() -> int:
         if title and not rel.startswith("_Templates/"):
             titles[title.strip().lower()].append(rel)
 
-        for raw in WIKILINK.findall(text):
+        for raw in WIKILINK.findall(prose(text)):
             target = slug(raw.split("/")[-1])
             if target == slug(path.stem):
                 continue

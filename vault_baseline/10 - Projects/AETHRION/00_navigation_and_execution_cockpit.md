@@ -157,3 +157,17 @@ with the observed evidence, the rationale, the limits and the exact next step.
 - [ ] The status and roadmap document has been updated.
 - [ ] The current execution marker in this cockpit has been updated.
 - [ ] The Git baseline and the Obsidian copies have been verified byte-identical.
+
+<!-- generated:folder-maps -->
+
+## The repository's own maps
+
+The four documents a reader opens first. They are projections of the
+repository root, so what they say is what the repository says.
+
+- [[10 - Projects/AETHRION/aethrion_repository_index|AETHRION]]
+- [[10 - Projects/AETHRION/agent_operating_manual|AETHRION — operating manual for an agent]]
+- [[10 - Projects/AETHRION/claude_code_operating_notes|Claude Code Operating Notes]]
+- [[10 - Projects/AETHRION/documentation_index|Documentation]]
+
+<!-- /generated:folder-maps -->

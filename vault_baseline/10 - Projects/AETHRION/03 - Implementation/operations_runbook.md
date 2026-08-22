@@ -1,14 +1,14 @@
 ---
 title: "Operations Guide"
 type: reference
-category: commissioning
+category: implementation
 status: WORKING
 summary: "Everything in this runbook concerns the one vertical slice that actually runs: the Zotero bridge, its canonical registry, the Obsidian projection and the read-only MCP surface."
 source: "docs/OPERATIONS.md"
 generated: true
 provenance: mirror_vault.py
 tags:
-  - aethrion/commissioning
+  - aethrion/execution
 ---
 
 > [!info] Generated view
@@ -203,7 +203,7 @@ the same commands without `--check`.
 Everything that currently produces real evidence, in one place:
 
 ```bash
-uv run pytest                                              # 44 tests
+uv run pytest                                              # 46 tests
 (cd planning/commissioning && sha256sum -c 00_PROGRAM/SHA256SUMS.txt)
 uv run python scripts/mcp_smoke.py
 uv run python scripts/acceptance_v0.py
@@ -220,7 +220,7 @@ python scripts/mirror_plan.py  "$V/01 - Commissioning" --check
 python scripts/mirror_vault.py "$V" --check
 ```
 
-Expected: `44 passed` · `221` OK · five MCP tools · 11 acceptance checks ·
+Expected: `46 passed` · `221` OK · five MCP tools · 11 acceptance checks ·
 `52 skills` conform · `9 figures, 0 drift, 0 overflow` · `plan semantics OK` ·
 `0 drift entries`
 twice (plan and vault mirrors, 0 drift).

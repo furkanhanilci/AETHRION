@@ -80,8 +80,22 @@ _PROGRESS = _progress()
 
 
 def _title(text: str, fallback: str) -> str:
-    match = re.search(r"^#\s+(.+?)\s*$", text, re.M)
-    return match.group(1).strip() if match else fallback
+    """The document's own title.
+
+    Two cases the naive "first ``#`` line" rule gets wrong, both found in the
+    corpus. ``README.md`` centres its title in an ``<h1>`` tag for GitHub and its
+    first Markdown heading is a section 130 lines down, so the naive rule titled
+    the repository index *Architecture* — colliding with the architecture index,
+    which is genuinely called that. And a document whose first heading is a
+    ``##`` has no title of its own; a ``#`` appearing later is a section.
+    """
+    html = re.search(r"<h1[^>]*>\s*(.+?)\s*</h1>", text, re.I | re.S)
+    first = re.search(r"^(#{1,6})\s+(.+?)\s*$", text, re.M)
+    if html and (first is None or html.start() < first.start()):
+        return re.sub(r"<[^>]+>", "", html.group(1)).strip()
+    if first and first.group(1) == "#":
+        return first.group(2).strip()
+    return fallback
 
 
 def _status(text: str) -> str:
@@ -135,6 +149,25 @@ def _work_package(pid: str, text: str) -> tuple[str, list[str], list[str], str]:
     tags.append(f"aethrion/state/{_slug(state)}")
     aliases = [pid, f"{pid} — {_title(text, pid).split('—', 1)[-1].strip()}"]
     return "work-package", tags, aliases, state
+
+
+# The project-root maps are cited across the corpus by their repository
+# filename. Without an alias `[[AGENTS]]` resolves to nothing in the vault.
+# `CLAUDE.md` opens with `# AETHRION` because it sits beside `README.md` in a
+# repository that is called that. As a page among 668 others the heading is not a
+# title — it collides with the repository index and tells a reader nothing about
+# what the note holds. Only a document whose repository heading is written for a
+# different context belongs here.
+_ROOT_TITLES = {
+    "claude_code_operating_notes.md": "Claude Code Operating Notes",
+}
+
+_ROOT_ALIASES = {
+    "aethrion_repository_index.md": ["README", "Repository Index"],
+    "agent_operating_manual.md": ["AGENTS", "AGENTS.md", "Operating Manual"],
+    "claude_code_operating_notes.md": ["CLAUDE", "CLAUDE.md"],
+    "documentation_index.md": ["docs/README", "Documentation Index"],
+}
 
 
 def derive(*, vault_rel: str, source: str, text: str, generator: str) -> str:
@@ -204,6 +237,26 @@ def derive(*, vault_rel: str, source: str, text: str, generator: str) -> str:
     elif vault_rel.startswith("04 - Architecture/"):
         page_type, category = "reference", "architecture"
         tags = ["aethrion/architecture"]
+    elif vault_rel.startswith("03 - Implementation/"):
+        page_type = "index" if stem.endswith("_index") else "reference"
+        category = "implementation"
+        tags = ["aethrion/execution"]
+    elif vault_rel.startswith("05 - Evidence/"):
+        page_type = "index" if stem.endswith("_index") else "reference"
+        category = "evidence"
+        tags = ["aethrion/evidence"]
+    elif vault_rel.startswith("06 - Components/"):
+        page_type = "index" if stem.endswith("_index") else "reference"
+        category = "component"
+        tags = ["aethrion/component"]
+    elif "/" not in vault_rel:
+        # The project root holds the repository's own maps: its front door, its
+        # operating manual and the index of `docs/`. They are the entry points to
+        # everything below, so they are typed as indexes wherever a reader lands.
+        page_type, category = "index", "project"
+        tags = ["aethrion/project"]
+        aliases = _ROOT_ALIASES.get(vault_rel, [])
+        title = _ROOT_TITLES.get(vault_rel, title)
     elif stem.endswith("_index") or stem == "commissioning_index":
         page_type, category = "index", "commissioning"
         tags = ["aethrion/index"]
@@ -213,6 +266,11 @@ def derive(*, vault_rel: str, source: str, text: str, generator: str) -> str:
     else:
         page_type, category = "reference", "commissioning"
         tags = ["aethrion/commissioning"]
+
+    # An index is an index in whichever area it lives, and the graph colours and
+    # the vault's own queries read this tag rather than the folder name.
+    if page_type == "index" and "aethrion/index" not in tags:
+        tags = tags + ["aethrion/index"]
 
     lines = ["---", f"title: {_yaml(title)}"]
     if aliases:

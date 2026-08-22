@@ -94,3 +94,49 @@ def test_vault_mirror_leaves_unchanged_files_alone(tmp_path: Path) -> None:
     changed = [rel for rel in before if after[rel] != before[rel]]
     assert changed == [], f"unchanged sources rewrote {len(changed)} files"
     assert "0 written" in result.stdout
+
+
+def test_vault_mirror_refuses_to_overwrite_a_hand_authored_note(tmp_path: Path) -> None:
+    """A projection may replace its own pages and nobody else's.
+
+    The vault curates notes beside the projection. When the mirror grew a map of
+    the repository's folder READMEs, two of its targets landed on the names of
+    curated notes — `reviews_index.md` and `architecture_index.md` — and nothing
+    stopped the write. They were recoverable only because `vault_baseline/` is
+    tracked, which is luck, not a control.
+    """
+    target = tmp_path / "AETHRION"
+    assert run("mirror_vault.py", target).returncode == 0
+
+    # Take a page the mirror owns and declare it hand-authored, exactly as a
+    # curated note does.
+    page = target / "05 - Evidence" / "delivery_index.md"
+    original = page.read_text(encoding="utf-8")
+    page.write_text(
+        original.replace("generated: true", "generated: false") + "\nmine\n",
+        encoding="utf-8")
+    mine = page.read_text(encoding="utf-8")
+
+    result = run("mirror_vault.py", target)
+    assert result.returncode != 0, "the mirror overwrote a hand-authored note"
+    assert "refusing to overwrite" in result.stderr + result.stdout
+    assert page.read_text(encoding="utf-8") == mine, "the note was modified anyway"
+
+
+def test_the_watcher_watches_every_source_the_mirror_reads() -> None:
+    """A watcher blind to a source is silent staleness, not a quiet vault.
+
+    `WATCHED` was a hand-written list of four paths. The mirror then grew
+    eighteen sources outside `docs/` — `AGENTS.md`, `scripts/README.md`,
+    `src/*/README.md` — so editing the operating manual left the vault showing
+    the previous one and nothing reported a difference.
+    """
+    sys.path.insert(0, str(ROOT / "scripts"))
+    import mirror_vault
+    import watch_mirror
+
+    watched = [p.resolve() for p in watch_mirror.WATCHED]
+    for src in mirror_vault.SOURCES.values():
+        path = (ROOT / src).resolve()
+        assert any(path == w or w in path.parents for w in watched), (
+            f"{src} is mirrored but nothing watches it")
