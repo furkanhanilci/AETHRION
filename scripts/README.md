@@ -33,6 +33,7 @@ defect rather than a shortcut.
 
 | Script | Generates | Drift check |
 |---|---|---|
+| `check_agent_guide.py` | every path, command and count in `AGENTS.md` and `CLAUDE.md` resolves against this repository | — |
 | `ready_queue.py` | which packages can be started today, from plan dependencies plus the unsealed ledger | `--check` |
 | `progress.py` | moves a package between states and **refuses** what the plan forbids, citing the document that forbids it | — |
 | `make_figures.py` | all nine figures, then runs containment | `--check` |

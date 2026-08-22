@@ -44,6 +44,7 @@ are not ranked, because ranking implies a plan and there is no V2 plan.
 | V2-03 | Rename the `airl.*` skill-metadata namespace | 52 skills, `validate_skills.py`, and eleven vendored skills whose upstream owns their frontmatter | Grows with the registry; the vendored eleven may never be renameable |
 | V2-04 | Retire the `airl-interim-v0.1` attestation profile in favour of a keyless, transparency-logged one | **Already V1**: WP-139 is in the baseline. Listed here only so nobody adds it twice | — |
 | V2-05 | Mirror the skill sub-resources (prompt templates, agent definitions) into the vault | Eleven links in the mirror point outside the mirrored subset and do not resolve in Obsidian. Cosmetic; the canonical files are one directory away in the repository | Constant. The alternative — deleting the links from the source documents — would make the repository worse to read |
+| V2-07 | Rename the `AIRL-GENERATED-*` note identifiers the bridge writes into the vault | Emitted by `src/airl_bridge/obsidian.py`; a code change plus a regeneration of every projected note | Constant, and bounded — two identifiers, two lines |
 | V2-06 | Rename the systemd unit files from `airl-bridge*` | Installed names on a running machine. A deployment change, not a documentation one | Grows with the number of machines; today that is one |
 
 ---
