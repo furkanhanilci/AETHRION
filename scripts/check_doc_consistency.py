@@ -23,22 +23,40 @@ Audit findings
     unmade after it had been taken. Both are exactly the drift
     `docs/DOCUMENT_STANDARD.md` §3 rule 2 forbids, so the rule now has a check.
 
+    A later inspection found the failure class this checker itself creates: it
+    catches exactly the numbers someone wrote a rule for, and every count that
+    had drifted — the test count in four documents, the bundle size in three, the
+    attestation's subject count, the figure count in the runbook — was one nobody
+    had. Rules for those now exist. The class does not close, which is why the
+    derived line is printed: the honest reading of a pass is "the registered
+    numbers agree", not "no number is stale".
+
 Exit codes
     0 — documents agree with the repository and with themselves.  1 — drift.
 """
 from __future__ import annotations
 
+import base64
+import json
 import re
 import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 PLAN = ROOT / "planning" / "commissioning"
+sys.path.insert(0, str(ROOT / "scripts"))
 
 
 def derive() -> dict[str, int]:
     """Ground truth, computed rather than recalled."""
-    packages = [p for p in PLAN.rglob("WP-*.md") if re.match(r"^WP-\d{3}_", p.name)]
+    def _is(kind: str, name: str) -> bool:
+        return bool(re.match(r"^WP-\d{3}_", name)) and name.endswith(f".{kind}.md")
+
+    all_wp = [p for p in PLAN.rglob("WP-*.md") if re.match(r"^WP-\d{3}_", p.name)]
+    test_procedures = [p for p in all_wp if _is("tests", p.name)]
+    acceptance_criteria = [p for p in all_wp if _is("acceptance", p.name)]
+    packages = [p for p in all_wp
+                if p not in test_procedures and p not in acceptance_criteria]
     scenarios = [p for p in (PLAN / "12_ACCEPTANCE_SCENARIOS").glob("ACC-*.md")
                  if re.match(r"^ACC-\d{2}_", p.name)]
     skills = [d for d in (ROOT / "skills").iterdir()
@@ -47,7 +65,23 @@ def derive() -> dict[str, int]:
     markdown = list(PLAN.rglob("*.md"))
     figures = list((ROOT / "docs" / "figures").glob("*.svg"))
     numbered = [p for p in packages if p.name != "WP-000_interim_evidence_policy.md"]
+
+    # Counts that drifted in six places while this checker reported "documents
+    # agree": nothing was wrong with the rules, there simply were none for these.
+    tests = sum(len(re.findall(r"^\s*def test_", p.read_text(encoding="utf-8"), re.M))
+                for p in sorted((ROOT / "tests").glob("test_*.py")))
+    import write_status                      # the bundle is the authority on its own size
+    bundle_checks = len(write_status.CHECKS) + 1         # + the seal, inserted at run time
+    envelope = json.loads((ROOT / "delivery" / "WP-000" / "evidence.dsse.json")
+                          .read_text(encoding="utf-8"))
+    subjects = len(json.loads(base64.b64decode(envelope["payload"]))["subject"])
+
     return {
+        "test_procedures": len(test_procedures),
+        "acceptance_criteria": len(acceptance_criteria),
+        "tests": tests,
+        "bundle_checks": bundle_checks,
+        "attestation_subjects": subjects,
         "packages": len(numbered),            # WP-001..140, excluding the bootstrap
         "package_documents": len(packages),   # including WP-000
         "scenarios": len(scenarios),
@@ -70,6 +104,10 @@ RULES: list[tuple[str, str, str, str]] = [
     ("planning/commissioning/README.md",
      r"\| Markdown files under this tree \| (\d+) \|", "plan_markdown", "plan markdown files"),
     ("planning/commissioning/README.md",
+     r"\| Test procedure documents \| \*\*(\d+)\*\*", "test_procedures", "test procedure documents"),
+    ("planning/commissioning/README.md",
+     r"\| Acceptance criteria documents \| \*\*(\d+)\*\*", "acceptance_criteria", "acceptance criteria documents"),
+    ("planning/commissioning/README.md",
      r"\| Files covered by the hash seal \| (\d+) ", "sealed", "sealed files"),
     ("README.md", r"(\d+) package documents, \d+ scenarios", "package_documents", "package documents"),
     ("README.md", r"\d+ package documents, (\d+) scenarios", "scenarios", "acceptance scenarios"),
@@ -80,9 +118,32 @@ RULES: list[tuple[str, str, str, str]] = [
     ("skills/README.md", r"All (\d+) conform to the Agent Skills", "skills", "skills"),
     ("skills/README.md", r"\| Scope \| All (\d+) skills", "skills", "skills"),
     ("docs/figures/README.md", r"There are (\w+) of them rather than one", "figures", "figures"),
+
+    # Added after an inspection found the test count stale in four documents and
+    # nine places, the bundle size stale in three, and the attestation's subject
+    # count stale in one — none of them covered by a rule above.
+    ("README.md", r"systemd units · (\d+) tests<br/>", "tests", "tests"),
+    ("README.md", r"uv run pytest\s+# (\d+) tests", "tests", "tests"),
+    ("README.md", r"(\d+)/\d+ tests pass", "tests", "tests"),
+    ("README.md", r"plan seal · (\d+) status checks", "bundle_checks", "bundle checks"),
+    ("README.md", r"One command runs all (\w+)\.", "bundle_checks", "bundle checks"),
+    ("README.md", r"signature OK, (\d+) subject digests OK", "attestation_subjects", "attestation subjects"),
+    ("docs/architecture/AETHRION_ARCHITECTURE.md", r"systemd units · (\d+) tests<br/>", "tests", "tests"),
+    ("docs/architecture/AETHRION_ARCHITECTURE.md", r"plan seal · (\d+) status checks", "bundle_checks", "bundle checks"),
+    ("tests/README.md", r"\| Scope \| The (\d+) tests that run today \|", "tests", "tests"),
+    ("tests/README.md", r"— (\d+) passing; coverage is narrow", "tests", "tests"),
+    ("tests/README.md", r"\*\*In one paragraph\.\*\* ([A-Za-z-]+) tests cover", "tests", "tests"),
+    ("tests/README.md", r"uv run pytest\s+# all (\d+)", "tests", "tests"),
+    ("docs/OPERATIONS.md", r"uv run pytest\s+# (\d+) tests", "tests", "tests"),
+    ("docs/OPERATIONS.md", r"Expected: `(\d+) passed`", "tests", "tests"),
+    ("docs/OPERATIONS.md", r"`(\d+) figures, 0 drift, 0 overflow`", "figures", "figures"),
 ]
 WORDS = {"one": 1, "two": 2, "three": 3, "four": 4, "five": 5, "six": 6,
-         "seven": 7, "eight": 8, "nine": 9, "ten": 10, "eleven": 11, "twelve": 12}
+         "seven": 7, "eight": 8, "nine": 9, "ten": 10, "eleven": 11, "twelve": 12,
+         "thirty-five": 35, "thirty-six": 36, "thirty-seven": 37, "thirty-eight": 38,
+         "thirty-nine": 39, "forty": 40, "forty-one": 41, "forty-two": 42,
+         "forty-three": 43, "forty-four": 44, "forty-five": 45, "thirteen": 13,
+         "fourteen": 14, "fifteen": 15, "sixteen": 16}
 
 
 def check_counts(truth: dict[str, int]) -> list[str]:

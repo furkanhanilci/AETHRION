@@ -6,6 +6,7 @@ a file anyone can type into. Each test names the rule it defends.
 from __future__ import annotations
 
 import json
+import os
 import shutil
 import subprocess
 import sys
@@ -14,21 +15,45 @@ from pathlib import Path
 import pytest
 
 ROOT = Path(__file__).resolve().parent.parent
-LEDGER = ROOT / "delivery" / "progress.json"
+PRODUCTION_LEDGER = ROOT / "delivery" / "progress.json"
+
+# Every test in this file runs against a **copy**. It did not: `start WP-011` was
+# run against the production ledger, and a run that did not reach its restore
+# left WP-011 `IN_PROGRESS` for good — after which this suite failed on every
+# subsequent run and `docs/READY.md` was wrong about the whole programme. A test
+# that can corrupt the state it is testing is not isolated, whatever it asserts.
+LEDGER: Path
+
+
+@pytest.fixture(autouse=True)
+def isolated_ledger(tmp_path, monkeypatch):
+    global LEDGER
+    copy = tmp_path / "progress.json"
+    copy.write_bytes(PRODUCTION_LEDGER.read_bytes())
+    monkeypatch.setenv("AIRL_PROGRESS_LEDGER", str(copy))
+    LEDGER = copy
+    yield copy
+    assert PRODUCTION_LEDGER.read_bytes() == ORIGINAL_LEDGER, (
+        "a test mutated the production ledger")
+    assert PRODUCTION_READY.read_bytes() == ORIGINAL_READY, (
+        "a test rewrote docs/READY.md — the generated queue must follow its ledger")
+
+
+ORIGINAL_LEDGER = PRODUCTION_LEDGER.read_bytes()
+PRODUCTION_READY = ROOT / "docs" / "READY.md"
+ORIGINAL_READY = PRODUCTION_READY.read_bytes()
 
 
 @pytest.fixture
 def ledger_restored():
-    backup = LEDGER.read_bytes()
+    """Retained for the tests that name it; isolation is now automatic."""
     yield
-    LEDGER.write_bytes(backup)
-    subprocess.run([sys.executable, "scripts/ready_queue.py"], cwd=ROOT, check=True,
-                   capture_output=True)
 
 
 def run(*args: str) -> subprocess.CompletedProcess:
     return subprocess.run([sys.executable, "scripts/progress.py", *args],
-                          cwd=ROOT, capture_output=True, text=True)
+                          cwd=ROOT, capture_output=True, text=True,
+                          env={**os.environ, "AIRL_PROGRESS_LEDGER": str(LEDGER)})
 
 
 def set_state(pid: str, state: str) -> None:

@@ -8,6 +8,13 @@ features:
   ``.airl-projection-manifest.json`` are removed. A human note sitting in the
   same folder survives, and there is a real test for that
   (``tests/test_obsidian.py``). This is the primary defence against data loss.
+* **Everything generated is in the manifest**, the two dashboards included. The
+  rule cuts both ways: the projector removes nothing it did not record, and it
+  records everything it writes, so a generated file it can no longer clean up
+  cannot exist.
+* **An unreadable manifest stops the run.** Parsing failure used to be swallowed
+  and the manifest overwritten, which orphaned every file the old one listed.
+  A projector that cannot read what it owns raises ``ProjectionError``.
 * **Atomic writes.** ``mkstemp`` + ``fsync`` + ``os.replace`` — a partially
   written Markdown file cannot appear.
 * **Path containment.** Every target path is resolved and checked to lie inside
@@ -33,7 +40,6 @@ import re
 import tempfile
 import unicodedata
 from collections import defaultdict
-from datetime import datetime, timezone
 from pathlib import Path
 
 from .catalog import duplicate_source_groups, source_category
@@ -77,9 +83,16 @@ class ObsidianProjector:
             target.parent.mkdir(parents=True, exist_ok=True)
             self._atomic_write(target, self._render(source, category))
             current_paths.add(relative_path.as_posix())
+        # The dashboards are written *before* the manifest is sealed so they
+        # enter it. A generated file outside the manifest is a file the
+        # projector creates and can never clean up.
+        generated_at = self._projection_timestamp(sources)
+        dashboard_dir, dashboard_paths = self._write_dashboards(
+            target_dir, assignments, generated_at
+        )
+        current_paths |= dashboard_paths
         removed_stale = self._remove_stale(target_dir, current_paths)
-        self._write_manifest(target_dir, current_paths)
-        dashboard_dir = self._write_dashboards(target_dir, assignments)
+        self._write_manifest(target_dir, current_paths, generated_at)
         return ProjectionResult(
             projected=len(sources),
             directory=str(target_dir),
@@ -138,12 +151,23 @@ class ObsidianProjector:
     def _remove_stale(self, target_dir: Path, current_paths: set[str]) -> int:
         manifest = target_dir / MANIFEST_NAME
         if not manifest.is_file():
+            # No manifest yet: this directory has never been projected into, so
+            # there is nothing this projector owns and nothing to remove.
             return 0
         try:
             payload = json.loads(manifest.read_text(encoding="utf-8"))
             previous_paths = set(payload.get("generated_files", []))
-        except (OSError, json.JSONDecodeError, TypeError):
-            return 0
+        except (OSError, json.JSONDecodeError, TypeError) as exc:
+            # Refuse rather than continue. Swallowing this returned 0 and then
+            # overwrote the manifest, which permanently orphaned every file the
+            # unreadable manifest listed: no longer current, no longer tracked,
+            # no longer removable. A projector that cannot read what it owns
+            # must not write.
+            raise ProjectionError(
+                f"projection manifest is unreadable and will not be overwritten: "
+                f"{manifest} ({exc}). Inspect it, then either repair it or remove "
+                f"it deliberately to re-adopt this directory."
+            ) from exc
         removed = 0
         for relative in sorted(previous_paths - current_paths):
             candidate = (target_dir / relative).resolve()
@@ -167,10 +191,25 @@ class ObsidianProjector:
                 return
             current = current.parent
 
-    def _write_manifest(self, target_dir: Path, current_paths: set[str]) -> None:
+    @staticmethod
+    def _projection_timestamp(sources: list[SourceRecord]) -> str:
+        """When the projected content was last current — not when it was written.
+
+        Every generated file used to stamp ``datetime.now()``, so a run that
+        changed nothing still rewrote the manifest and both dashboards. Deriving
+        the stamp from the newest ``synced_at`` makes the whole projection a
+        pure function of the registry: unchanged input, byte-identical output.
+        """
+        if not sources:
+            return "1970-01-01T00:00:00+00:00"
+        return max(source.synced_at for source in sources).isoformat()
+
+    def _write_manifest(
+        self, target_dir: Path, current_paths: set[str], generated_at: str
+    ) -> None:
         payload = {
             "schema_version": 1,
-            "generated_at": datetime.now(timezone.utc).isoformat(),
+            "generated_at": generated_at,
             "generated_files": sorted(current_paths),
         }
         self._atomic_write(
@@ -182,7 +221,8 @@ class ObsidianProjector:
         self,
         target_dir: Path,
         assignments: list[tuple[SourceRecord, Path, str]],
-    ) -> Path:
+        generated_at: str,
+    ) -> tuple[Path, set[str]]:
         vault = self.settings.obsidian_vault.resolve()
         dashboard_dir = (target_dir / "00 - Control Dashboard").resolve()
         try:
@@ -200,8 +240,12 @@ class ObsidianProjector:
         catalog_lines = [
             "---",
             "airl_id: AIRL-GENERATED-SOURCE-CATALOG",
+            "tags:",
+            "  - aethrion/index",
+            "  - aethrion/source",
+            "  - aethrion/source-catalog",
             "type: generated-index",
-            f'generated_at: {self._yaml_string(datetime.now(timezone.utc).isoformat())}',
+            f'generated_at: {self._yaml_string(generated_at)}',
             "provenance: airl-bridge-api",
             "---",
             "",
@@ -233,8 +277,12 @@ class ObsidianProjector:
         duplicate_lines = [
             "---",
             "airl_id: AIRL-GENERATED-POSSIBLE-DUPLICATES",
+            "tags:",
+            "  - aethrion/index",
+            "  - aethrion/source",
+            "  - aethrion/duplicate-review",
             "type: generated-quality-report",
-            f'generated_at: {self._yaml_string(datetime.now(timezone.utc).isoformat())}',
+            f'generated_at: {self._yaml_string(generated_at)}',
             "provenance: airl-bridge-api",
             "---",
             "",
@@ -265,7 +313,11 @@ class ObsidianProjector:
             dashboard_dir / "Potential Duplicates.md",
             "\n".join(duplicate_lines) + "\n",
         )
-        return dashboard_dir
+        written = {
+            (dashboard_dir / name).relative_to(target_dir).as_posix()
+            for name in ("Source Catalog.md", "Potential Duplicates.md")
+        }
+        return dashboard_dir, written
 
     def _obsidian_link(self, relative_path: Path) -> str:
         full_relative = self.settings.obsidian_generated_dir / relative_path
@@ -277,6 +329,15 @@ class ObsidianProjector:
 
     @staticmethod
     def _atomic_write(target: Path, content: str) -> None:
+        # Identical bytes are not rewritten. Rewriting them changed nothing a
+        # reader could see while still touching mtime on every timer run, which
+        # made "has the vault changed?" unanswerable by inspection.
+        if target.is_file():
+            try:
+                if target.read_text(encoding="utf-8") == content:
+                    return
+            except (OSError, UnicodeDecodeError):
+                pass
         descriptor, temporary_name = tempfile.mkstemp(
             prefix=f".{target.name}.", suffix=".tmp", dir=target.parent
         )
@@ -327,6 +388,8 @@ source_url: {self._yaml_string(source.url)}
 content_hash: {self._yaml_string(source.content_hash)}
 generated_at: {self._yaml_string(source.synced_at.isoformat())}
 provenance: airl-bridge-api
+tags:
+{self._obsidian_tags(source, category)}
 zotero_tags:
 {self._tag_lines(source)}
 creators:
@@ -346,6 +409,24 @@ creators:
 
 <pre>{abstract}</pre>
 """
+
+    @staticmethod
+    def _obsidian_tags(source: SourceRecord, category: str) -> str:
+        """Obsidian tags, kept separate from the Zotero author's own keywords.
+
+        ``zotero_tags`` is what a human wrote in Zotero and is reproduced
+        faithfully. ``tags`` is this vault's controlled vocabulary — without it
+        a projected source cannot be reached by tag, which is how 33 of the
+        vault's notes were invisible to every query that filtered on one.
+        """
+        slug = re.sub(r"[^a-z0-9]+", "-", category.lower()).strip("-")
+        item = re.sub(r"[^a-z0-9]+", "-", source.item_type.lower()).strip("-")
+        tags = ["aethrion/source", f"aethrion/source-category/{slug}"]
+        if item:
+            tags.append(f"aethrion/item-type/{item}")
+        if source.doi:
+            tags.append("aethrion/has-doi")
+        return "\n".join(f"  - {tag}" for tag in tags)
 
     def _tag_lines(self, source: SourceRecord) -> str:
         tag_values = [

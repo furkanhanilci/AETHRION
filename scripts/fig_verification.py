@@ -2,8 +2,15 @@
 """Figure 8 — the verification bundle: what the repository proves about itself.
 
 Five-second message
-    Ten checks keep the corpus honest about its own state; none of them can
-    tell you whether the research is any good.
+    The bundle keeps the corpus honest about its own state; none of its checks
+    can tell you whether the research is any good.
+
+Why the rows are derived
+    The row list is built from ``write_status.CHECKS`` — the bundle itself —
+    rather than retyped here, and the generator **raises** if the bundle grows a
+    check this figure has no prose for. The previous hand-kept copy drifted to
+    ten rows while the bundle ran twelve, and named a script that does not
+    exist. A figure describing a check set must not be able to disagree with it.
 
 Archetype
     A claim/evidence pairing with an explicit blind-spot column. The blind
@@ -25,28 +32,59 @@ from figure_kit import (BLUE, GREEN, INK, MUTE, ORANGE, PURPLE, RULE, VERM,
 ROOT = Path(__file__).resolve().parent.parent
 W, L = 1200, 24
 
-CHECKS = [
-    ("Test suite", "pytest", "the bridge code behaves as its tests describe",
-     "the tests were written by the same author as the code", GREEN),
-    ("Skill registry", "validate_skills.py", "every skill parses and carries the AIRL metadata contract",
-     "no skill has been run against a task and scored", BLUE),
-    ("Plan seal", "seal_commissioning_plan.py", "221 planning files are byte-identical to the sealed baseline",
-     "a sealed document can still be wrong", PURPLE),
-    ("Plan semantics", "validate_commissioning_plan.py", "identifiers resolve, references are bidirectional, the DAG is acyclic",
-     "feasibility of the work itself is not modelled", PURPLE),
-    ("Workstream indexes", "make_plan_indexes.py --check", "every generated index matches its directory",
-     "nothing about the content of what is indexed", MUTE),
-    ("Declared counts", "check_doc_consistency.py", "numbers written in prose match the repository",
-     "only the numbers that were registered as rules", ORANGE),
-    ("Stale claims", "check_stale_claims.py", "no document claims a state the repository has outgrown",
-     "a claim can be current and still false", ORANGE),
-    ("Figure drift", "check_doc_consistency.py", "the figure inventory matches the files on disk",
-     "whether a figure argues its point", BLUE),
-    ("Figure containment", "check_figures.py", "no glyph in any figure overflows its box, re-measured independently",
-     "typography, not meaning", BLUE),
-    ("Reporting register", "check_reporting_registry.py", "every external claim has a type, a source and a retrieval date",
-     "whether the source actually says it", GREEN),
-]
+import write_status
+
+# Prose is authored; the row set is not. Keyed by the bundle's own check names.
+PROSE = {
+    "Test suite": ("pytest", "the bridge code behaves as its tests describe",
+                   "the tests were written by the same author as the code", GREEN),
+    "Skill registry": ("validate_skills.py", "every skill parses and carries the AIRL metadata contract",
+                       "no skill has been run against a task and scored", BLUE),
+    "Commissioning plan seal": ("sha256sum -c 00_PROGRAM/SHA256SUMS.txt",
+                                "every sealed planning file is byte-identical to the baseline",
+                                "a sealed document can still be wrong", PURPLE),
+    "Commissioning plan semantics": ("validate_commissioning_plan.py",
+                                     "identifiers resolve, references are bidirectional, the DAG is acyclic",
+                                     "feasibility of the work itself is not modelled", PURPLE),
+    "Workstream indexes": ("make_plan_indexes.py --check", "every generated index matches its directory",
+                           "nothing about the content of what is indexed", MUTE),
+    "Declared counts": ("check_doc_consistency.py", "numbers written in prose match the repository",
+                        "only the numbers that were registered as rules", ORANGE),
+    "Stale claims": ("check_stale_claims.py", "no document claims a state the repository has outgrown",
+                     "a claim can be current and still false", ORANGE),
+    "Ready queue": ("ready_queue.py --check", "the queue follows the sealed dependencies and the progress ledger",
+                    "whether a package that is ready is worth starting", MUTE),
+    "Agent guide": ("check_agent_guide.py", "every path, command and count in AGENTS.md resolves here",
+                    "whether the guidance it gives is good advice", GREEN),
+    "Figures": ("make_figures.py --check", "every figure is byte-identical to what its generator produces",
+                "whether a figure argues its point", BLUE),
+    "Figure containment": ("check_figures.py", "no glyph in any figure overflows its box, re-measured independently",
+                           "typography, not meaning", BLUE),
+    "Reporting register": ("check_reporting_registry.py", "every external claim has a type, a source and a retrieval date",
+                           "whether the source actually says it", GREEN),
+    "Obsidian vault": ("check_vault.py", "every vault link resolves, every projected page names its source, every tag is in the vocabulary",
+                       "whether any note in it is worth reading", ORANGE),
+    "Package analysis blocks": ("expand_packages.py --check", "each package states its true prerequisite closure and what its acceptance releases",
+                                "whether the package is well designed", PURPLE),
+    "Package companions": ("make_package_companions.py --check", "every package carries a test procedure and an acceptance criteria document, both current",
+                           "whether the cases in them are the right cases", VERM),
+}
+
+
+def bundle_rows() -> list[tuple]:
+    """The bundle's check names, in the order STATUS.md prints them."""
+    names = [name for name, _, _ in write_status.CHECKS]
+    names.insert(2, "Commissioning plan seal")   # write_status inserts it here
+    missing = [n for n in names if n not in PROSE]
+    if missing:
+        raise SystemExit(
+            f"fig_verification: the bundle has checks this figure cannot describe: {missing}. "
+            "Add prose for each rather than letting the figure under-report the bundle."
+        )
+    return [(n, *PROSE[n]) for n in names]
+
+
+CHECKS = bundle_rows()
 
 
 def main() -> None:

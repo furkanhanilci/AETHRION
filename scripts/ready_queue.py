@@ -28,14 +28,29 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import re
 import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 PLAN = ROOT / "planning" / "commissioning"
-LEDGER = ROOT / "delivery" / "progress.json"
-OUT = ROOT / "docs" / "READY.md"
+# The ledger path is overridable so a test suite never mutates production
+# state. It did: `tests/test_progress_cli.py` ran `start WP-011` against the
+# real file, and a run that did not reach its restore left WP-011
+# `IN_PROGRESS` permanently — after which the test failed on every run and
+# the repository's own ready queue was wrong.
+LEDGER = Path(os.environ.get("AIRL_PROGRESS_LEDGER",
+                             ROOT / "delivery" / "progress.json"))
+# The output follows the ledger. When `AIRL_PROGRESS_LEDGER` points somewhere
+# else — a test, a what-if — the queue derived from it must not be written over
+# the repository's own. It was: the test suite rewrote `docs/READY.md` from a
+# temporary ledger, and the verification bundle then reported the queue stale
+# on every run that followed a test run.
+_LEDGER_OVERRIDDEN = "AIRL_PROGRESS_LEDGER" in os.environ
+OUT = Path(os.environ.get(
+    "AIRL_READY_QUEUE_OUT",
+    (LEDGER.parent / "READY.md") if _LEDGER_OVERRIDDEN else ROOT / "docs" / "READY.md"))
 
 WP_FILE = re.compile(r"^WP-(\d{3})_")
 WP_REF = re.compile(r"WP-(\d{3})")
@@ -50,6 +65,8 @@ def field(text: str, name: str) -> str:
 def load_plan() -> dict[str, dict]:
     packages: dict[str, dict] = {}
     for path in sorted(PLAN.rglob("WP-*.md")):
+        if path.name.endswith((".tests.md", ".acceptance.md")):
+            continue      # companions carry no header table; the card is the package
         if not WP_FILE.match(path.name):
             continue
         text = path.read_text(encoding="utf-8")
@@ -184,7 +201,7 @@ def main() -> int:
     if args.check:
         current = OUT.read_text(encoding="utf-8") if OUT.exists() else ""
         if current != text:
-            print("docs/READY.md is out of date — run scripts/ready_queue.py")
+            print(f"{OUT} is out of date — run scripts/ready_queue.py")
             return 1
         print(f"ready queue current — {text.count('| **WP-')} package rows")
         return 0

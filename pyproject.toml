@@ -8,6 +8,10 @@ license = { text = "Proprietary" }
 dependencies = [
     "fastapi>=0.115,<1",
     "httpx>=0.27,<1",
+    # Imported directly by airl_bridge.models. It arrives transitively through
+    # FastAPI, but a direct import is a direct dependency: declaring it is what
+    # stops a FastAPI change from breaking this package silently.
+    "pydantic>=2.7,<3",
     "mcp>=1.27,<2",
     "uvicorn>=0.30,<1",
 ]

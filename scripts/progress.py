@@ -30,13 +30,20 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import re
 import subprocess
 import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-LEDGER = ROOT / "delivery" / "progress.json"
+# The ledger path is overridable so a test suite never mutates production
+# state. It did: `tests/test_progress_cli.py` ran `start WP-011` against the
+# real file, and a run that did not reach its restore left WP-011
+# `IN_PROGRESS` permanently — after which the test failed on every run and
+# the repository's own ready queue was wrong.
+LEDGER = Path(os.environ.get("AIRL_PROGRESS_LEDGER",
+                             ROOT / "delivery" / "progress.json"))
 PLAN = ROOT / "planning" / "commissioning"
 RELEASES = {"ACCEPTED", "INTEGRATED"}
 
@@ -48,7 +55,12 @@ def refuse(message: str, authority: str) -> int:
 
 
 def plan_entry(pid: str) -> dict:
-    for path in PLAN.rglob(f"{pid}_*.md"):
+    for path in sorted(PLAN.rglob(f"{pid}_*.md")):
+        # The card only. A package is three documents and the companions carry
+        # no header table, so matching one of them returned an empty dependency
+        # list and `start` stopped refusing what the plan forbids.
+        if path.name.endswith((".tests.md", ".acceptance.md")):
+            continue
         text = path.read_text(encoding="utf-8")
 
         def field(name: str) -> str:

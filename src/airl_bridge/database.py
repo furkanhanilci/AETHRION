@@ -9,6 +9,11 @@ Design properties worth preserving:
 * **Idempotent upsert.** Insert/update/unchanged is decided by comparing
   ``content_hash``, with a UNIQUE constraint on
   ``(zotero_library_type, zotero_library_id, zotero_key)``.
+* **An unchanged record is not written.** ``synced_at`` records when the content
+  last *changed*, not when it was last looked at. The projection renders it as
+  each note's ``generated_at``, so refreshing it on every run rewrote the whole
+  vault every 30 minutes while the run reported ``unchanged``. A counter that
+  says nothing happened must be backed by nothing happening.
 * **Run history.** ``sync_runs`` records every ingest attempt with its counters,
   so a failed run is visible rather than silent.
 
@@ -108,7 +113,7 @@ class Database:
             for source, raw in sources:
                 existing = connection.execute(
                     """
-                    SELECT airl_id, content_hash FROM sources
+                    SELECT airl_id, content_hash, zotero_version FROM sources
                     WHERE zotero_library_type = ?
                       AND zotero_library_id = ?
                       AND zotero_key = ?
@@ -151,14 +156,18 @@ class Database:
                     )
                     counts["inserted"] += 1
                 elif existing["content_hash"] == source.content_hash:
-                    connection.execute(
-                        """
-                        UPDATE sources
-                        SET zotero_version = ?, synced_at = ?
-                        WHERE airl_id = ?
-                        """,
-                        (source.zotero_version, source.synced_at.isoformat(), existing["airl_id"]),
-                    )
+                    # An unchanged record is not written. ``synced_at`` is the
+                    # time the content last *changed*, not the time it was last
+                    # looked at, because the Obsidian projection renders it as
+                    # the note's ``generated_at``: refreshing it on every sync
+                    # rewrote all 33 notes every 30 minutes while this branch
+                    # reported that nothing had changed. Only the upstream
+                    # version is reconciled, and only when it actually moved.
+                    if existing["zotero_version"] != source.zotero_version:
+                        connection.execute(
+                            "UPDATE sources SET zotero_version = ? WHERE airl_id = ?",
+                            (source.zotero_version, existing["airl_id"]),
+                        )
                     counts["unchanged"] += 1
                 else:
                     connection.execute(

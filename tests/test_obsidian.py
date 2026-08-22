@@ -96,3 +96,102 @@ def test_manifest_removes_only_previous_generated_files(settings, zotero_item):
     assert result.removed_stale == 1
     assert human_file.read_text(encoding="utf-8") == "keep me"
     assert (root / ".airl-projection-manifest.json").is_file()
+
+
+def test_dashboards_are_recorded_in_the_manifest(settings, zotero_item):
+    """The projector records everything it writes, dashboards included.
+
+    Manifest-owned deletion cuts both ways: a generated file outside the
+    manifest is one the projector creates and can never clean up again.
+    """
+    import json
+
+    source, _ = normalize_item(zotero_item, settings)
+    ObsidianProjector(settings).project_sources([source])
+    root = settings.obsidian_vault / settings.obsidian_generated_dir
+    manifest = json.loads(
+        (root / ".airl-projection-manifest.json").read_text(encoding="utf-8")
+    )
+
+    assert "00 - Control Dashboard/Source Catalog.md" in manifest["generated_files"]
+    assert "00 - Control Dashboard/Potential Duplicates.md" in manifest["generated_files"]
+    for relative in manifest["generated_files"]:
+        assert (root / relative).is_file(), relative
+
+
+def test_unreadable_manifest_refuses_rather_than_orphaning_files(settings, zotero_item):
+    """Swallowing a parse failure overwrote the manifest and orphaned every file
+    the old one listed — no longer current, no longer tracked, no longer
+    removable. The run must stop instead."""
+    import pytest
+
+    from airl_bridge.obsidian import ProjectionError
+
+    source, _ = normalize_item(zotero_item, settings)
+    projector = ObsidianProjector(settings)
+    projector.project_sources([source])
+    root = settings.obsidian_vault / settings.obsidian_generated_dir
+    manifest = root / ".airl-projection-manifest.json"
+    manifest.write_text("{ this is not json", encoding="utf-8")
+
+    with pytest.raises(ProjectionError, match="unreadable"):
+        projector.project_sources([])
+
+    assert manifest.read_text(encoding="utf-8") == "{ this is not json"
+
+
+def test_projection_is_byte_stable_when_nothing_changed(settings, zotero_item):
+    """Unchanged registry in, byte-identical vault out — every generated file.
+
+    Each generated file used to carry a wall-clock `generated_at`, so a run that
+    changed nothing still rewrote all of them. That made the documented vault
+    parity check report a diff on every timer run, which teaches an operator to
+    ignore it.
+    """
+    source, _ = normalize_item(zotero_item, settings)
+    projector = ObsidianProjector(settings)
+    projector.project_sources([source])
+    root = settings.obsidian_vault / settings.obsidian_generated_dir
+    before = {
+        path: (path.read_bytes(), path.stat().st_mtime_ns)
+        for path in sorted(root.rglob("*"))
+        if path.is_file()
+    }
+    assert len(before) >= 4, "expected notes, two dashboards and the manifest"
+
+    projector.project_sources([source])
+
+    after = {
+        path: (path.read_bytes(), path.stat().st_mtime_ns)
+        for path in sorted(root.rglob("*"))
+        if path.is_file()
+    }
+    assert set(after) == set(before)
+    changed = [p.name for p in before if after[p][0] != before[p][0]]
+    rewritten = [p.name for p in before if after[p][1] != before[p][1]]
+    assert changed == [], f"content changed with no input change: {changed}"
+    assert rewritten == [], f"files rewritten with no input change: {rewritten}"
+
+
+def test_projected_note_carries_controlled_obsidian_tags(settings, zotero_item):
+    """A projected source must be reachable by tag.
+
+    `zotero_tags` reproduces what a human wrote in Zotero; `tags` is this
+    vault's controlled vocabulary. Without the second, every projected source
+    is invisible to any query that filters on a tag.
+    """
+    source, _ = normalize_item(zotero_item, settings)
+    ObsidianProjector(settings).project_sources([source])
+    note = (
+        settings.obsidian_vault
+        / settings.obsidian_generated_dir
+        / "01 - Journal Articles"
+        / "A reproducible source.md"
+    ).read_text(encoding="utf-8")
+
+    assert "\ntags:\n" in note
+    assert "  - aethrion/source\n" in note
+    assert "  - aethrion/source-category/01-journal-articles\n" in note
+    assert "  - aethrion/item-type/journalarticle\n" in note
+    assert "  - aethrion/has-doi\n" in note
+    assert "\nzotero_tags:\n" in note, "the human's own Zotero keywords stay separate"
