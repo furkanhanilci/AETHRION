@@ -305,6 +305,11 @@ including the Decision Owner, for the subset marked non-waivable.
 | **Assurance Lead** | ❌ | ❌ | ❌ | ❌ | ❌ | — | ⚠️ |
 | **Metascience Lead** | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ |
 
+> **Wording, not just structure.** Where one operator holds both sides of a
+> separation, the result is **internally separated verification**, never
+> *independent verification* — see `ADR-001` §6.2. The two must never appear
+> interchangeably in a manifest or a publication.
+
 The last two rows are the ones that bite in a one-person operation: **the
 Assurance Lead and the Metascience Lead cannot be the producer**, which is
 exactly the corner where finding **C2** lives. The available resolutions are to

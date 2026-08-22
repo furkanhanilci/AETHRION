@@ -8,7 +8,7 @@ zotero_version: 0
 doi: "10.1007/s00371-022-02672-2"
 source_url: ""
 content_hash: "sha256:57da7ce8986941916dd12c56decc5624dc4271d686feb7095856db373367ad18"
-generated_at: "2026-08-22T13:21:38.074552+00:00"
+generated_at: "2026-08-22T13:51:52.773896+00:00"
 provenance: airl-bridge-api
 zotero_tags:
   - "3D object detection"

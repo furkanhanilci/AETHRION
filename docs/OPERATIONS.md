@@ -164,6 +164,7 @@ uv run python scripts/acceptance_v0.py
 python3 scripts/validate_skills.py                         # 49 skills, format + metadata
 python3 scripts/make_figures.py --check                    # generators match, and text fits its box
 python3 scripts/validate_commissioning_plan.py             # plan references, phases and DAG
+python3 scripts/check_doc_consistency.py                   # declared counts vs reality
 uv run python scripts/evidence_manifest.py verify \
     --manifest delivery/WP-000/evidence.dsse.json --tamper-demo
 python scripts/mirror_plan.py  "$V/01 - Commissioning" --check
@@ -175,7 +176,7 @@ Expected: `25 passed` · `207` OK · five MCP tools · 11 acceptance checks ·
 `0 drift entries`
 twice (208 plan files, 67 skill/doc/figure files).
 
-The first five are written as a push-triggered control, **BVC-01**
+The first six are written as a push-triggered control, **BVC-01**
 (`deploy/bvc-01-verify.yml`), but it is **staged and not active** — activation
 needs a workflow-scoped token; see `architecture/ADR-002_bootstrap_verification_control.md` §6.
 

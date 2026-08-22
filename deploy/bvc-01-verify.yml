@@ -53,6 +53,9 @@ jobs:
       - name: Commissioning plan semantics
         run: uv run python scripts/validate_commissioning_plan.py
 
+      - name: Document consistency
+        run: uv run python scripts/check_doc_consistency.py
+
       - name: Commissioning plan seal
         working-directory: planning/commissioning
         run: sha256sum -c 00_PROGRAM/SHA256SUMS.txt

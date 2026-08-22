@@ -4,7 +4,7 @@ type: handover
 status: active
 owner: otonom
 created_at: "2026-08-22"
-content_valid_through_commit: 0d921aa
+content_valid_through_commit: pending-step-012
 tags:
   - ai-framework/handover
   - ai-framework/execution
@@ -28,7 +28,7 @@ tags:
 |---|---|
 | Repository | `/home/otonom/Desktop/FH/AI_RESEARCH_FRAMEWORK` |
 | Branch | `main`, working tree **clean** |
-| Content valid through | **`0d921aa`** — this note describes the tree at that commit. It does **not** track HEAD, because a field naming HEAD stales itself the moment it is committed |
+| Content valid through | **`pending`** — this note describes the tree at that commit. It does **not** track HEAD, because a field naming HEAD stales itself the moment it is committed |
 | Remote | `github.com/furkanhanilci/AI-Research-Framework` (private) — **the only authorised remote** |
 | Last steps | 004 English revision · 005 file-by-file review · 006 skill families + WP-000 · **007 commissioning baseline v1.0** |
 | Bridge service | `active` · sync timer `active` |
@@ -69,6 +69,8 @@ git log --oneline -1                                 # expect: aec0686 (or later
 uv run pytest                                        # expect: 20 passed
 python3 scripts/validate_skills.py                   # expect: 49 skills conform
 python3 scripts/make_figures.py --check              # expect: 0 drift, 0 overflow
+python3 scripts/validate_commissioning_plan.py       # expect: plan semantics OK
+python3 scripts/check_doc_consistency.py             # expect: documents agree
 (cd planning/commissioning && sha256sum -c 00_PROGRAM/SHA256SUMS.txt | grep -c ': OK$')
                                                      # expect: 207
 uv run python scripts/mcp_smoke.py     >/dev/null && echo "smoke OK"
@@ -115,6 +117,19 @@ reasoning than the version it replaced.
 - **ADR-001** (solo-operator independence — *blocks every acceptance*) and
   **ADR-002** (bootstrap verification control) written; **neither decided**.
 - `NOTICE` added for licensing and vendored attribution.
+
+### Step 012 — external positioning and a drift guard
+
+- `scripts/check_doc_consistency.py` — declared counts are now derived and
+  checked; a decision record whose status is `ACCEPTED` may no longer describe
+  itself as open. Both defects it found came from this repository's own drift.
+- **Chain-of-Evidence is not ours** — Science One / ScientistOne published it and
+  *measured* it (75 papers, 5 systems). `AIRL_OS_RELATED_SYSTEMS.md` states the
+  overlap and where those systems are ahead.
+- **CoE Audit adopted** as the external benchmark for G6-0 and G9. AIRL-OS has no
+  score on it, because it has produced nothing to audit.
+- ADR-001 §6.2: R1/R2 say **internally separated verification**, never
+  "independently verified".
 
 ### Step 011 — first working version
 

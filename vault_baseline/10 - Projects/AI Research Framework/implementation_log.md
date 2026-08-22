@@ -19,6 +19,116 @@ the last entry, the cockpit and the relevant WP files are read again.
 
 ---
 
+## Step 012 — External positioning, and a guard against the drift that keeps recurring
+
+**Time:** 2026-08-22
+**Scope:** independent review response — document drift made mechanically
+impossible · Science One positioning · CoE Audit adopted · terminology · licence
+
+### The review, and what it found that mattered
+
+An external reviewer assessed the repository from scratch, using no prior
+context. The verdict: **strong research-system architecture, small genuine
+working slice, very large implementation gap** — which matches this log. Two
+findings were worth more than the verdict.
+
+### Finding 1 — the drift is recurring, so the fix is not a fix
+
+Two documents disagreed with reality:
+
+- `planning/commissioning/README.md` said **46** acceptance scenarios while 51
+  existed. The cause is instructive: an earlier edit corrected the *range* to
+  `ACC-01 – ACC-51`, which broke the exact-match string the *count* edit depended
+  on. The count silently stayed behind.
+- `ADR-001`'s summary still said the record "leaves the decision field blank"
+  after the decision had been taken and its status set to `ACCEPTED`.
+
+Both violate `DOCUMENT_STANDARD.md` §3 rule 2 — *counts are derived, not
+remembered* — which this repository wrote and then broke twice.
+
+**So the rule now has a check.** `scripts/check_doc_consistency.py` derives the
+truth from the repository and compares it against every count a document states,
+and it fails a decision record whose status says `ACCEPTED` while its body still
+describes the decision as open. It found both defects on its first run, and a
+deliberately injected drift confirmed it fails when it should.
+
+### Finding 2 — Chain-of-Evidence is not ours
+
+Google Research published **Science One / ScientistOne** in mid-2026 around
+exactly the principle this architecture is built on: every claim traceable to its
+evidence source. Its **CoE Audit** measured four integrity checks across **75
+papers and five systems**, finding hallucinated-reference rates up to **21 %**,
+score verification passing in as few as **42 %** of papers, and method–code
+alignment between **20 % and 80 %** — while reporting **0/337** hallucinated
+references for itself.
+
+That is external evidence for the claim this repository has only asserted:
+**retrofitted verification does not work.** They demonstrated it; AIRL-OS argued
+it.
+
+`AIRL_OS_RELATED_SYSTEMS.md` now states the overlap plainly, names where those
+systems are ahead without qualification — end-to-end runs, measurement, an
+empirical outcome, a far more mature literature subsystem — and positions AIRL-OS
+by **scope** rather than by novelty: Science One asks whether an autonomous system
+can produce verifiable papers; AIRL-OS asks under what governance a claim may be
+believed at all.
+
+### CoE Audit adopted as the external benchmark
+
+The four checks — reference verification, score verification, specification
+violation, method–code alignment — are adopted verbatim into G6-0 and G9. They
+are concrete, published, and measure exactly what this framework claims to
+enforce.
+
+**Adopting a benchmark means agreeing to be measured by it.** AIRL-OS has no
+score on any of the four, because it has produced nothing to audit. The first
+end-to-end slice goes through CoE Audit, and the result is recorded whatever it
+says.
+
+### Terminology — the distinction that was about to be blurred
+
+The reviewer flagged that an outside reader seeing *"R2 independently verified"*
+would assume two people. ADR-001 §6.2 now separates three terms and binds R1/R2
+to the honest one:
+
+| Term | Permitted for |
+|---|---|
+| **Independent verification** — a different human or institution | R3 only, and only when named |
+| **Internally separated verification** — same operator, separated context, environment, model family, time | R1 and R2 |
+| **Cross-model corroboration** | a component of internal separation, never a substitute |
+
+### Licence positioning
+
+The README now answers the fair question rather than leaving it implicit: the
+architecture is meant to be read and reused; the implementation is one person's
+research infrastructure. **If this ever becomes something a community builds on,
+the licence has to change first** — a proprietary framework cannot credibly ask
+for the interoperability it preaches.
+
+### Evidence
+
+- `check_doc_consistency.py` → documents agree with the repository and with
+  themselves; drift injection correctly fails
+- 25/25 tests · plan semantics OK · seal 207/207 · skills 49/49 · figures 3/3
+- Mirror drift 0 (208 plan, 68 skill/doc/figure)
+
+### Limits
+
+- The reviewer's central point stands and is not addressed by this step: **the
+  gap is specification → executable mechanism → empirical evidence**, and nothing
+  here closes it. This step improved honesty and added a guard; it added no
+  capability.
+- No CoE Audit score exists. No end-to-end run exists.
+- BVC-01 is still staged, not active.
+
+### Next step
+
+Unchanged: activate BVC-01, sign WP-000's acceptance, then WP-001 — and after
+that, **stop specifying**. The next thing worth building is one end-to-end
+vertical slice thin enough to finish, run through CoE Audit.
+
+---
+
 ## Step 011 — The first working version: decisions taken, evidence actually issued
 
 **Time:** 2026-08-22

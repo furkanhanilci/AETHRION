@@ -14,11 +14,13 @@
 
 **In one paragraph.** Every Definition of Done requires an independent verifier,
 and the role model forbids the producer from verifying its own work. With one
-human operator those two rules meet head-on, and the result is that **no work
-package can be accepted at all** — audit finding **C2**. This record does not
-resolve that by weakening either rule. It sets out three models, states what each
-one costs, recommends one, and leaves the decision field blank, because a
-framework cannot grant itself independence.
+human operator those two rules meet head-on, and the result was that **no work
+package could be accepted at all** — audit finding **C2**. This record resolves
+that without weakening either rule: it sets out three models, states what each
+costs, and **adopts Model A + C** (§6) — solo acceptance at R1, solo acceptance
+at R2 only under a declared *partial* independence profile, and **R3 blocked**
+unless an external human verifier is named. What it deliberately does not do is
+manufacture independence the operation does not have.
 
 ---
 
@@ -168,6 +170,24 @@ Once taken, this record must be reflected in:
 
 **Unconditional:** an acceptance whose independence is partial declares that in
 the `EvidenceManifest` itself. A reader must never have to infer it.
+
+### 6.2 Terminology — the distinction this decision must not blur
+
+Cross-family model review, fresh context, a clean-room environment and temporal
+separation are **useful independence dimensions**. None of them is what science
+means by *independent verification by an independent investigator*.
+
+| Term | Means | May be used for |
+|---|---|---|
+| **Independent verification** | A different human or institution, with no stake in the outcome, reproduced or reviewed the work | R3 only, and only when that party is named |
+| **Internally separated verification** | The same operator, with context, environment, model family and time deliberately separated | R1 and R2 |
+| **Cross-model corroboration** | A different provider family reached the same conclusion | A *component* of internal separation, never a substitute for it |
+
+**R1 and R2 acceptances say "internally separated verification".** They do not
+say "independently verified", in the manifest, in a publication, or anywhere
+else. A reader encountering "R2 independently verified" would reasonably assume
+two people; that assumption would be false, and the framework's whole value rests
+on not creating it.
 
 > **What this unblocks, and what it does not.** Finding **C2** is now decided
 > rather than open, so R1 and R2 packages have a defined acceptance path and the

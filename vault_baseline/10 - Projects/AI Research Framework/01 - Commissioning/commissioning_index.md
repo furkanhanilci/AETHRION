@@ -55,7 +55,7 @@ zero open critical findings.
 | Bootstrap package | **1** (WP-000) — precedes the programme, depends on nothing |
 | Work packages | **140** (WP-001 – WP-140) |
 | Work package documents in total | **141** |
-| Acceptance scenarios | **46** (ACC-01 – ACC-51) |
+| Acceptance scenarios | **51** (ACC-01 – ACC-51) |
 | Programme documents | 12 |
 | Markdown files under this tree | 206 |
 | Files covered by the hash seal | 207 (206 Markdown + 1 CSV) |

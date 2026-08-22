@@ -15,6 +15,16 @@ forward to a signed attestation. This repository holds the target architecture
 for that system, the execution discipline agents work under, and the one vertical
 slice that actually runs today.
 
+**The evidence-chain idea is not original to this project.** Google Research
+published *Science One / ScientistOne* around the same principle —
+**Chain-of-Evidence** — and, unlike this repository, measured it on 75 generated
+papers. What differs here is scope: Science One asks whether an autonomous system
+can produce verifiable papers; AIRL-OS asks under what governance a claim may be
+believed at all, including its own. That is a broader question, harder to
+demonstrate, and today **answered only on paper**. The comparison, and where
+those systems are simply ahead, is in
+[`AIRL_OS_RELATED_SYSTEMS.md`](docs/architecture/AIRL_OS_RELATED_SYSTEMS.md).
+
 **A plan is not evidence of implementation**; the table below separates the two,
 and every document here is written under [`docs/DOCUMENT_STANDARD.md`](docs/DOCUMENT_STANDARD.md),
 whose central rule is that distance from working software is stated rather than
@@ -63,6 +73,7 @@ vault_baseline/  Versioned copy of the Obsidian vault
 | What has been decided, and why? | [`ADR-001`](docs/architecture/ADR-001_solo_operator_independence.md) — solo-operator independence · [`ADR-002`](docs/architecture/ADR-002_bootstrap_verification_control.md) — bootstrap verification control |
 | Licensing and attribution | [`NOTICE`](NOTICE) |
 | What is **adopted** rather than invented? | [`docs/architecture/AIRL_OS_EXTERNAL_STANDARDS.md`](docs/architecture/AIRL_OS_EXTERNAL_STANDARDS.md) |
+| How does this compare to Science One, PaperQA2, AI Scientist? | [`docs/architecture/AIRL_OS_RELATED_SYSTEMS.md`](docs/architecture/AIRL_OS_RELATED_SYSTEMS.md) |
 | Architecture of the working vertical slice | [`docs/ARCHITECTURE_V0.md`](docs/ARCHITECTURE_V0.md) |
 | Day-to-day operation | [`docs/OPERATIONS.md`](docs/OPERATIONS.md) |
 | The full programme plan | [`planning/commissioning/README.md`](planning/commissioning/README.md) |
@@ -649,12 +660,13 @@ uv run python scripts/acceptance_v0.py # data-independent structural acceptance
 python3 scripts/validate_skills.py     # Agent Skills format + AIRL metadata contract
 python3 scripts/make_figures.py --check # figures match generators, text fits its box
 python3 scripts/validate_commissioning_plan.py  # the plan is internally consistent
+python3 scripts/check_doc_consistency.py        # documents agree with the repository
 uv run python scripts/evidence_manifest.py verify \
     --manifest delivery/WP-000/evidence.dsse.json --tamper-demo
 (cd planning/commissioning && sha256sum -c 00_PROGRAM/SHA256SUMS.txt)
 ```
 
-All seven run by hand today. The first five are **written** as a push-triggered
+All eight run by hand today. The first six are **written** as a push-triggered
 control — [`BVC-01`](deploy/bvc-01-verify.yml), a temporary measure under
 [`ADR-002`](docs/architecture/ADR-002_bootstrap_verification_control.md) with a
 named expiry and WP-024 as its retirement package — but it is **staged, not
@@ -676,6 +688,25 @@ read-only tools: status, source search, source detail, category counts, and
 possible-duplicate reporting. No synchronisation, write, delete or Zotero
 mutation tool is exposed. The Hermes configuration pins an explicit five-tool
 include list; MCP prompt and resource capabilities are disabled.
+
+## Licensing and what this repository is for
+
+This repository is **public to read and proprietary to use** — see
+[`NOTICE`](NOTICE). That is a deliberate position and worth stating plainly,
+because a framework arguing for open standards, reproducibility and external
+verification while keeping its own implementation closed invites a fair
+question.
+
+The answer is that the two are different things. **The architecture is meant to
+be read, argued with and reused as a reference**; the implementation is one
+person's research infrastructure, not a product seeking adopters. Nothing here
+asks anyone to depend on it, and if this ever becomes something a community is
+expected to build on, the licence has to change first — a proprietary framework
+cannot credibly ask for the interoperability it preaches.
+
+Vendored third-party content keeps its own licence: the eleven engineering
+skills are MIT from `obra/superpowers`, pinned by commit and attributed in
+`NOTICE`.
 
 ## Status semantics
 
@@ -709,6 +740,7 @@ WP-000 attestation: signature OK, 3 subject digests OK, tamper rejected
 MCP smoke: 5 read-only tools, exits 1 when the Bridge is down
 Acceptance: 11 structural checks pass, data-independent
 Skills: 49/49 conform to the Agent Skills format and the AIRL metadata contract
+Documents: declared counts match the repository; no decision record contradicts itself
 Figures: 3/3 match their generators; 0 text overflows out of their boxes
 Mirror drift: 0 (208 plan files, 67 skill/doc/figure files)
 Obsidian baseline and vault identical

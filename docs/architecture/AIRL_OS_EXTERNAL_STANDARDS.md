@@ -179,6 +179,37 @@ screening_strategy:
 What is non-negotiable is not SAFE; it is that **the stopping rule exists, is
 declared before screening starts, and is checkable afterwards.**
 
+### 4.3 CoE Audit — an external benchmark for what this framework claims
+
+| | |
+|---|---|
+| Source | ScientistOne / Science One, Google Research 2026 — `AIRL_OS_RELATED_SYSTEMS.md` §3 |
+| Integration point | G6-0 mechanical checks · G9 publication conformance · the metascience plane |
+| Closes | AIRL-OS asserts that maintained evidence chains beat retrofitted ones, and measures nothing |
+| Status | **Adopted as the external benchmark**; not yet implemented |
+
+The four checks are adopted verbatim, because they are concrete, published, and
+measure precisely what this framework claims to enforce:
+
+| Check | Where it belongs in AIRL-OS |
+|---|---|
+| **Reference verification** — resolve every entry against Semantic Scholar, arXiv, OpenAlex, Crossref | G3 freeze and G9; a hallucinated citation must fail a gate, not a review |
+| **Score verification** — do the reported numbers follow from the artifacts? | G6-0, beside statcheck and GRIM |
+| **Specification violation** — were the declared constraints actually respected? | G6-0 against `ProtocolManifest` and `AnalysisPlanManifest` |
+| **Method–code alignment** — does the method section describe what the code does? | G9 scope conformance |
+
+**Why this matters more than the usual reason for adopting a standard.** The
+published benchmark found hallucinated-reference rates up to 21 %, score
+verification passing in as few as 42 % of papers, and method–code alignment
+between 20 % and 80 % across systems that all *intended* to be correct. That is
+external evidence for the central AIRL-OS claim — retrofitted verification does
+not work — and it is evidence this repository did not produce.
+
+> **Adopting the benchmark means agreeing to be measured by it.** AIRL-OS has no
+> score on any of the four checks, because it has produced nothing to audit. The
+> first end-to-end slice must be run through CoE Audit, and the result recorded
+> whatever it says.
+
 ---
 
 ## 5. Deferred queue — with the reason, not just the name
