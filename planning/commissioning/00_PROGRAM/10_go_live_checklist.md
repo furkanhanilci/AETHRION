@@ -3,9 +3,11 @@
 ## Mandatory entry conditions
 
 - [ ] WP-001–119 `COMMISSIONED` in their respective states.
-- [ ] ACC-01–ACC-46 PASS on the same release candidate.
+- [ ] Every `PRE_GO_LIVE` acceptance scenario PASSes on the same release candidate.
+- [ ] Every `DAY2_CONTINUOUS` scenario is **armed and scheduled**, not passed — a Day-2
+      rhythm cannot be a precondition of the go-live that precedes it.
 - [ ] Open critical findings = 0.
-- [ ] Open high findings = 0, or a time-boxed, non-waivable residual risk
+- [ ] Open high findings = 0, or a time-boxed, **waivable** residual risk
       accepted by the Commissioning Board.
 - [ ] Two independent restore rehearsals completed; RPO 0 for workflow state and
       the restore RTO target met.
@@ -31,7 +33,8 @@
 - [ ] **Interim evidence policy in place** — packages can actually reach
       `ACCEPTED` (WP-000).
 - [ ] **Independence measured, not assumed** — pairwise error correlation
-      measured for the reviewer pool (WP-132 / `measuring-agreement`).
+      measured for the reviewer pool (WP-043 initial qualification / `measuring-agreement`;
+      WP-126 owns the recurring recalibration in Day-2).
 - [ ] **Confidence scores calibrated** or displayed as `UNCALIBRATED`.
 - [ ] **Control injection running** — the lab's false positive and false negative
       rates are known numbers.

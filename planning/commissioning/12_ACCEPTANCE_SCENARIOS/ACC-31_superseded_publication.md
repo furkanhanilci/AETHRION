@@ -9,7 +9,8 @@
 | Severity | **High** |
 | Accountable owner | Publication Owner |
 | Independent witness / verifier | Archivist / Citation Auditor |
-| Related packages | `WP-090`, `WP-106`, `WP-108`, `WP-113` |
+| Related packages | `WP-037`, `WP-074`, `WP-075`, `WP-090`, `WP-095`, `WP-106`, `WP-108`, `WP-113`, `WP-137` |
+| Acceptance phase | `PRE_GO_LIVE` |
 | Production acceptance | A High scenario may be waived only by a time-bound residual risk accepted by the Commissioning Board |
 
 ## Purpose

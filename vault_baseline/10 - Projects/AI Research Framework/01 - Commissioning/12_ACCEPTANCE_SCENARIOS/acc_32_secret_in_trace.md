@@ -9,7 +9,8 @@
 | Severity | **Critical** |
 | Accountable owner | AI Observability Lead |
 | Independent witness / verifier | Privacy/Security Reviewer |
-| Related packages | `WP-057`, `WP-097`, `WP-112` |
+| Related packages | `WP-057`, `WP-060`, `WP-097`, `WP-104`, `WP-112` |
+| Acceptance phase | `PRE_GO_LIVE` |
 | Production acceptance | A Critical scenario can never be counted as PASS through a SKIP or a waiver |
 
 ## Purpose

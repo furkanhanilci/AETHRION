@@ -12,7 +12,7 @@
 | Hard dependencies | WP-003, WP-007, WP-013, WP-020, WP-042, WP-045, WP-046 |
 | Related gates | G1–G7 |
 | Related controls | CTL-GOV-02, CTL-MOD-01 |
-| Related acceptance scenarios | ACC-41, ACC-42, ACC-43, ACC-46, plus those assigned during the relevant vertical slice |
+| Related acceptance scenarios | ACC-46, ACC-47, ACC-48, ACC-51, plus those assigned during the relevant vertical slice |
 | Current status | `NOT_STARTED` |
 
 ## Purpose and expected outcome

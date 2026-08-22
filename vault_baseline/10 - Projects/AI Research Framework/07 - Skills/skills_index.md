@@ -41,9 +41,19 @@ Entry point for both: [`using-airl-os`](using-airl-os.md).
 ## Format — the Agent Skills open standard
 
 Every skill conforms to the [Agent Skills specification](https://agentskills.io/specification),
-so the same directory loads unmodified in Claude Code, Codex, OpenCode, Cursor,
-Copilot, Gemini CLI and Hermes Agent. **Conformance is the bootstrap** — a skill
-that does not load governs nothing.
+which Claude Code, Codex, OpenCode, Cursor, Copilot, Gemini CLI and Hermes Agent
+all implement, so the registry is **format-compatible** with each of them.
+**Conformance is the bootstrap** — a skill that does not load governs nothing.
+
+> **Format compatibility is not verified loading.** Only the Claude Code path is
+> wired, through `.claude/skills → ../skills`. Every other harness is
+> format-compatible and **unverified**; ACC-47 is the scenario that will
+> establish it, and it has never been run.
+
+| | Format conformance | Discovery wired | Loading verified | Behaviour verified |
+|---|---|---|---|---|
+| Claude Code | ✅ | ✅ | ❌ | ❌ |
+| Codex · OpenCode · Cursor · Copilot · Gemini CLI · Hermes | ✅ | ❌ | ❌ | ❌ |
 
 The spec permits six top-level fields; every AIRL field lives under `metadata`
 with an `airl.` prefix:
@@ -218,7 +228,7 @@ Whatever work you are doing, these hold:
 | | Engineering family | Scientific + shared |
 |---|---|---|
 | Format conformance | ✅ mechanically checked | ✅ mechanically checked |
-| Loads in a stock harness | ✅ | ✅ |
+| Discovery wired | Claude Code only | Claude Code only |
 | Behaviour baseline-tested | ⚠️ upstream ships pressure tests for `systematic-debugging` only | ❌ **not tested** |
 | Consumer today | ✅ this repository | ❌ waits on the Task Compiler (WP-047) |
 
@@ -236,8 +246,15 @@ Whatever work you are doing, these hold:
 
 ## Next steps
 
+Items 4 and 5 of the previous list are **done as specification** in commissioning
+baseline v1.0.1 — `TaskContract` skill binding is written into WP-013, the
+registry and compiler into WP-047, harness adapters into WP-048, behaviour
+evaluation into WP-043, and ACC-46 – ACC-51 cover the failure modes. What remains
+is execution:
+
 1. Baseline-test `writing-skills` first (meta-rule), then the shared discipline skills
-2. Run the engineering family against real work in this repository and record the rationalizations observed
+2. Run the engineering family against real work in this repository and record the
+   rationalizations observed, verbatim
 3. Replace anticipated rationalization tables with observed ones
-4. Add `skills_loaded` + `skill_bundle_hash` to `TaskContract` (WP-047)
-5. Reflect the skill layer into the sealed commissioning plan (WP-043 / WP-047 / WP-048)
+4. Wire discovery for a second harness and run ACC-47 against both
+5. Build the Skill Registry and Task Compiler specified in WP-047

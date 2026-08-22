@@ -9,7 +9,8 @@
 | Severity | **Medium** |
 | Accountable owner | Scientific Owner |
 | Independent witness / verifier | Methodologist / Project Decision Owner |
-| Related packages | `WP-081`, `WP-082`, `WP-083`, `WP-104`, `WP-113` |
+| Related packages | `WP-035`, `WP-081`, `WP-082`, `WP-083`, `WP-104`, `WP-113` |
+| Acceptance phase | `PRE_GO_LIVE` |
 | Production acceptance | A Medium scenario may be deferred with a named owner and an expiry date |
 
 ## Purpose

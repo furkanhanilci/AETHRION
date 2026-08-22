@@ -4,7 +4,7 @@ type: handover
 status: active
 owner: otonom
 created_at: "2026-08-22"
-session_end_commit: aaa2cdb
+content_valid_through_commit: pending-step-010
 tags:
   - ai-framework/handover
   - ai-framework/execution
@@ -28,13 +28,13 @@ tags:
 |---|---|
 | Repository | `/home/otonom/Desktop/FH/AI_RESEARCH_FRAMEWORK` |
 | Branch | `main`, working tree **clean** |
-| HEAD = origin/main | **`aaa2cdb`** — 0 ahead / 0 behind |
+| Content valid through | **`pending`** — this note describes the tree at that commit. It does **not** track HEAD, because a field naming HEAD stales itself the moment it is committed |
 | Remote | `github.com/furkanhanilci/AI-Research-Framework` (private) — **the only authorised remote** |
 | Last steps | 004 English revision · 005 file-by-file review · 006 skill families + WP-000 · **007 commissioning baseline v1.0** |
 | Bridge service | `active` · sync timer `active` |
 | Sources in registry | 33 |
 | Skills | **49** — 11 engineering · 28 scientific-research · 10 shared |
-| Plan | **commissioning baseline v1.0** — 141 WP documents, 46 scenarios, 202 sealed files |
+| Plan | **commissioning baseline v1.0.1** — 141 WP documents, 51 scenarios, 207 sealed files |
 
 ### The last three commits
 
@@ -70,7 +70,7 @@ uv run pytest                                        # expect: 20 passed
 python3 scripts/validate_skills.py                   # expect: 49 skills conform
 python3 scripts/make_figures.py --check              # expect: 0 drift, 0 overflow
 (cd planning/commissioning && sha256sum -c 00_PROGRAM/SHA256SUMS.txt | grep -c ': OK$')
-                                                     # expect: 202
+                                                     # expect: 207
 uv run python scripts/mcp_smoke.py     >/dev/null && echo "smoke OK"
 uv run python scripts/acceptance_v0.py >/dev/null && echo "acceptance OK"
 python3 scripts/mirror_plan.py  "$V/01 - Commissioning" --check | tail -1
@@ -79,7 +79,7 @@ python3 scripts/mirror_vault.py "$V" --check | tail -1
 systemctl --user is-active airl-bridge.service airl-bridge-sync.timer
 ```
 
-Expected end state: `20 passed`, `49 skills conform`, `202`, `smoke OK`,
+Expected end state: `20 passed`, `49 skills conform`, `207`, `plan semantics OK`, `smoke OK`,
 `acceptance OK`, `0 drift entries` twice (203 plan files, 65 skill/doc/figure files),
 `active active`.
 
@@ -102,6 +102,19 @@ reasoning than the version it replaced.
   the code
 - **two mirror generators added**: `scripts/mirror_plan.py` and
   `scripts/mirror_vault.py`, both with a `--check` drift mode
+
+### Step 010 — commissioning baseline v1.0.1
+
+- A readiness review returned **architecture freeze: GO · baseline v1.0 as-is:
+  NO-GO**, for three semantic defects the seal cannot see.
+- ACC identifier collision fixed (skills moved to ACC-46–51; ACC-41–45 written as
+  the tooling scenarios WP-131–140 already referenced) → **51 scenarios**.
+- Go-live/Day-2 dependency **cycle broken** with an `Acceptance phase` field.
+- **`scripts/validate_commissioning_plan.py`** — the plan now has semantics
+  checking, not just a seal. Both must pass. Seal is now **207/207**.
+- **ADR-001** (solo-operator independence — *blocks every acceptance*) and
+  **ADR-002** (bootstrap verification control) written; **neither decided**.
+- `NOTICE` added for licensing and vendored attribution.
 
 ### Step 009 — figures that cannot overflow, and a document standard
 
@@ -150,7 +163,7 @@ reasoning than the version it replaced.
   loaded **nowhere**, including in the sessions editing it.
 - New: `AIRL_OS_EXTERNAL_STANDARDS.md` (adopt before inventing) and
   `AIRL_OS_ARCHITECTURE.md` (the diagrammed explanatory entry point).
-- **WP-000 written into the plan** and the seal regenerated: 195 → **196**.
+- **WP-000 written into the plan** and the seal regenerated (195 → 196 at the time; the seal now stands at **207** after baseline v1.0.1).
 
 ### Step 005 — file-by-file review of every tracked file
 
@@ -195,7 +208,18 @@ either session. Nothing is `ACCEPTED`.
 
 ## 5. The next steps, in order
 
-### Step 0 — execute before specifying further 🔴
+### Step 0 — decide, then execute 🔴
+
+**ADR-001 must be decided first.** Until the solo-operator independence model is
+chosen, nothing can be `ACCEPTED` — including WP-000 — so executing WP-000 would
+produce a `TECH_COMPLETE` package and stop there.
+
+1. **Decide ADR-001** — this is yours, and no amount of engineering substitutes.
+2. **Implement ADR-002 / BVC-01** — the automatable checks on push.
+3. **Execute WP-000** — one specimen manifest, signed, logged, anchored with
+   WP-000's own interim anchor, plus the tamper case.
+
+### Step 0b — execute before specifying further
 
 Baseline v1.0 is a large amount of *specification*. The next two moves are the
 only ones that turn it into evidence, and they come before any further design:
@@ -235,8 +259,15 @@ something that cannot be delivered.
 
 The policy is written (`01_GOVERNANCE/WP-000_interim_evidence_policy.md`). What
 remains is to *run* it: issue one specimen `EvidenceManifest`, sign it, log it,
-anchor it through **WP-139**, and verify it end to end — including the tamper
-case. Until a manifest exists, nothing can still be accepted.
+**anchor it with WP-000's own interim time anchor**, and verify it end to end —
+including the tamper case.
+
+> ⚠️ **Do not route this through WP-139.** Baseline v1.0.1 deliberately removed
+> that dependency: a bootstrap package that depends on a downstream package
+> recreates the very deadlock it exists to break. WP-000 owns interim
+> timestamping; WP-139 takes ownership later.
+
+Until a manifest exists, nothing can be accepted.
 
 ### Step D — stand up CI 🔧 *highest leverage implementable step*
 

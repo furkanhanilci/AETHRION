@@ -9,7 +9,8 @@
 | Severity | **Critical** |
 | Accountable owner | Data Platform Lead |
 | Independent witness / verifier | Archivist / Security |
-| Related packages | `WP-026`, `WP-087`, `WP-104`, `WP-113` |
+| Related packages | `WP-014`, `WP-026`, `WP-087`, `WP-104`, `WP-107`, `WP-113`, `WP-139` |
+| Acceptance phase | `PRE_GO_LIVE` |
 | Production acceptance | A Critical scenario can never be counted as PASS through a SKIP or a waiver |
 
 ## Purpose

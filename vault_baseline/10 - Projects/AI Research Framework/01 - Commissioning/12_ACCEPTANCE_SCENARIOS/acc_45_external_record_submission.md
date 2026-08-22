@@ -1,36 +1,34 @@
-# ACC-46 — Upstream Change Invalidates a Derived Skill
+# ACC-45 — Irreversible External Record Submission
 
 ## Scenario card
 
 | Field | Value |
 |---|---|
-| Scenario | `ACC-46` |
-| Category | Agent/Skill Governance |
-| Severity | **High** |
-| Accountable owner | Knowledge Steward |
-| Independent witness / verifier | Assurance Lead |
-| Related packages | `WP-013`, `WP-047` |
+| Scenario | `ACC-45` |
+| Category | External/Governance |
+| Severity | **Critical** |
+| Accountable owner | Data Steward |
+| Independent witness / verifier | Project Decision Owner |
+| Related packages | `WP-138`, `WP-139` |
+| Acceptance phase | `PRE_GO_LIVE` |
 | Production acceptance | A Critical scenario can never be counted as PASS through a SKIP or a waiver |
 
 ## Purpose
 
-This scenario verifies the target architecture's fail-safe behaviour and its
-evidence production in the **Upstream Change Invalidates a Derived Skill** situation.
-
-Part of the registry is vendored from an upstream project and part is derived
-from it. When upstream moves, the question 'which of our procedures must be
-re-examined?' must have a mechanical answer rather than an archaeological one.
+Minting a persistent identifier or submitting an external record cannot be undone. This scenario verifies
+that no such submission occurs without explicit human approval, that a duplicate submission does not mint a
+second identifier, and that what was submitted is exactly what was approved.
 
 The test runs on the same release candidate, policy bundle, schema bundle and
 environment manifest as every other scenario in the same acceptance round.
 
 ## Given / When / Then
 
-**Given:** A registry containing vendored skills pinned to an upstream commit and AIRL skills declaring `airl.derived_from`.
+**Given:** A prepared external record submission with a resolved persistent identifier request.
 
-**When:** The upstream project advances to a commit that changes one of those skills.
+**When:** Submission is attempted without human approval, then with it, then repeated.
 
-**Then:** Every affected vendored and derived skill is flagged for re-examination, the pinned commit does not silently move, and a claim produced under the old bundle remains resolvable to the procedure that actually governed it.
+**Then:** The unapproved attempt is refused; the approved submission produces exactly one identifier; the repeat is idempotent; and the submitted payload hash matches the approved one.
 
 ## Preconditions
 
@@ -44,19 +42,19 @@ environment manifest as every other scenario in the same acceptance round.
 
 | # | Action | Evidence captured at this step |
 |---:|---|---|
-| 1 | Record the current pinned commit and the derived-skill map | Provenance snapshot |
-| 2 | Advance the simulated upstream commit | Upstream diff |
-| 3 | Run the provenance impact report | Impact report |
-| 4 | Confirm the pin does not move without an explicit, recorded change | Registry diff + audit record |
-| 5 | Resolve an old claim's `skill_bundle_hash` back to its exact procedure | Resolution proof |
+| 1 | Attempt submission with no approval record | Refusal record |
+| 2 | Obtain explicit approval and submit | Submission receipt |
+| 3 | Compare the submitted payload hash with the approved payload hash | Hash comparison |
+| 4 | Repeat the submission and assert idempotency | Identifier registry |
+| 5 | Assert the timestamp anchor covers the submission record | Anchor receipt |
 
 ## Mandatory invariants and assertions
 
-- [ ] Every vendored skill affected by the upstream change is flagged
-- [ ] Every derived skill declaring `airl.derived_from` for a changed upstream skill is flagged
-- [ ] The pinned commit never moves implicitly
-- [ ] A historical `skill_bundle_hash` still resolves to the exact procedure text
-- [ ] The impact report is machine-readable evidence, not a narrative
+- [ ] No external submission occurs without an explicit approval record
+- [ ] Exactly one identifier is minted for one approved record
+- [ ] The submitted payload hash equals the approved payload hash
+- [ ] A repeated submission mints nothing further
+- [ ] The submission record is time-anchored
 - [ ] The actual canonical state equals the expected state, or an explained safe failure state.
 - [ ] Duplicate, stale, forged or partial inputs produced no unsafe side effect.
 - [ ] Trace, event, audit and business records share one project/workflow/run correlation chain.
@@ -64,16 +62,16 @@ environment manifest as every other scenario in the same acceptance round.
 
 ## Expected canonical records
 
-- `SkillBundle`
-- `ProvenanceRecord`
-- `ImpactReport`
+- `ExternalRecordSubmission`
+- `PersistentIdentifier`
+- `ApprovalRecord`
 - `AuditRecord`
 
 ## Expected events
 
-- `skill.upstream.changed`
-- `skill.reexamination.required`
-- `provenance.pin.updated`
+- `external.submission.refused`
+- `external.submission.accepted`
+- `identifier.minted`
 
 Expected event counts, idempotency and ordering constraints live in the
 machine-readable assertion file inside the test registry. **A NATS event alone
@@ -82,11 +80,11 @@ commit is verified separately.
 
 ## Evidence package
 
-- `ACC-46-result.json`: PASS/FAIL, the RC digest and the assertion results.
-- `ACC-46-execution-log.jsonl`: time-ordered test, fault and decision records.
-- `ACC-46-state-before.json` and `ACC-46-state-after.json`.
-- `ACC-46-events.json`, `ACC-46-policy-decisions.json` and `ACC-46-audit-export.json`.
-- `ACC-46-evidence-manifest.json`: the hash, producer and environment reference of every file.
+- `ACC-45-result.json`: PASS/FAIL, the RC digest and the assertion results.
+- `ACC-45-execution-log.jsonl`: time-ordered test, fault and decision records.
+- `ACC-45-state-before.json` and `ACC-45-state-after.json`.
+- `ACC-45-events.json`, `ACC-45-policy-decisions.json` and `ACC-45-audit-export.json`.
+- `ACC-45-evidence-manifest.json`: the hash, producer and environment reference of every file.
 - The independent witness's `VerificationRecord`, plus any finding and disposition records.
 
 ## PASS criteria
@@ -107,7 +105,7 @@ affected regression set are rerun.
 
 ## Cleanup and reversal
 
-The simulated upstream is reverted; provenance and impact records are retained.
+Test submissions use a sandbox registry; identifiers minted there are recorded and never reused in production.
 
 Cleanup never deletes canonical evidence or audit history. Destructive test
 fixture operations run only against explicit test namespaces and identities, and

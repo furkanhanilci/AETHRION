@@ -9,7 +9,8 @@
 | Severity | **High** |
 | Accountable owner | Reproducibility Lead |
 | Independent witness / verifier | Assurance Lead / Statistician |
-| Related packages | `WP-084`, `WP-085`, `WP-105`, `WP-113` |
+| Related packages | `WP-019`, `WP-036`, `WP-077`, `WP-084`, `WP-085`, `WP-105`, `WP-113` |
+| Acceptance phase | `PRE_GO_LIVE` |
 | Production acceptance | A High scenario may be waived only by a time-bound residual risk accepted by the Commissioning Board |
 
 ## Purpose

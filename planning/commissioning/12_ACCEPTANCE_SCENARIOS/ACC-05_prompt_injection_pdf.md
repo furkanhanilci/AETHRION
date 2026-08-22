@@ -9,7 +9,8 @@
 | Severity | **Critical** |
 | Accountable owner | Content Security Lead |
 | Independent witness / verifier | Red Team |
-| Related packages | `WP-058`, `WP-060`, `WP-103` |
+| Related packages | `WP-049`, `WP-050`, `WP-051`, `WP-058`, `WP-060`, `WP-103`, `WP-136` |
+| Acceptance phase | `PRE_GO_LIVE` |
 | Production acceptance | A Critical scenario can never be counted as PASS through a SKIP or a waiver |
 
 ## Purpose

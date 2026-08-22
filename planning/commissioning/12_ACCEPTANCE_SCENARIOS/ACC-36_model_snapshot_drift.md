@@ -9,7 +9,9 @@
 | Severity | **Critical** |
 | Accountable owner | Eval Office |
 | Independent witness / verifier | Model Platform Lead / Safety |
-| Related packages | `WP-042`, `WP-044`, `WP-108`, `WP-124` |
+| Related packages | `WP-037`, `WP-042`, `WP-044`, `WP-106`, `WP-108`, `WP-137` |
+| Acceptance phase | `PRE_GO_LIVE` — initial qualification |
+| Recurring counterpart | `WP-124` · WP-124 runs the recurring requalification of the same measure in Day-2 |
 | Production acceptance | A Critical scenario can never be counted as PASS through a SKIP or a waiver |
 
 ## Purpose

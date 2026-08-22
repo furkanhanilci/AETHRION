@@ -9,7 +9,9 @@
 | Severity | **Critical** |
 | Accountable owner | Eval Office |
 | Independent witness / verifier | Security / Independent Auditor |
-| Related packages | `WP-043`, `WP-060`, `WP-112`, `WP-124` |
+| Related packages | `WP-043`, `WP-044`, `WP-060`, `WP-112` |
+| Acceptance phase | `PRE_GO_LIVE` — initial qualification |
+| Recurring counterpart | `WP-124` · WP-124 runs the recurring contamination sweep in Day-2 |
 | Production acceptance | A Critical scenario can never be counted as PASS through a SKIP or a waiver |
 
 ## Purpose

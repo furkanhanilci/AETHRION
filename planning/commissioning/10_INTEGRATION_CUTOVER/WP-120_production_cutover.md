@@ -12,7 +12,7 @@
 | Hard dependencies | WP-115, WP-116, WP-117, WP-118, WP-119 |
 | Related gates | Cutover |
 | Related controls | All controls |
-| Related acceptance scenarios | ACC-01..ACC-40 |
+| Related acceptance scenarios | every scenario whose `Acceptance phase` is `PRE_GO_LIVE` (ACC-01 – ACC-51 excluding the Day-2 set) |
 | Current status | `NOT_STARTED` |
 
 ## Purpose and expected outcome
@@ -69,7 +69,7 @@ On the strength of the signed commissioning dossier and the rehearsal, the chang
 ## Acceptance criteria
 
 - [ ] The Commissioning Dossier is READY.
-- [ ] 46/46 PASS with open critical findings = 0.
+- [ ] Every `PRE_GO_LIVE` scenario PASSes, with open critical findings = 0.
 - [ ] Every production digest is signed and pinned.
 - [ ] The go-live decision is taken by named executives, SRE and Safety.
 - [ ] All mandatory tests passed **on the same target revision**.

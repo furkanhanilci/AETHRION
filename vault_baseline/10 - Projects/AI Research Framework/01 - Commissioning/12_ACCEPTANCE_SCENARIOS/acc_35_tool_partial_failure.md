@@ -9,7 +9,8 @@
 | Severity | **Critical** |
 | Accountable owner | Tool Platform Lead |
 | Independent witness / verifier | SRE / Connector Owner |
-| Related packages | `WP-049`, `WP-050`, `WP-111` |
+| Related packages | `WP-038`, `WP-040`, `WP-049`, `WP-050`, `WP-066`, `WP-111` |
+| Acceptance phase | `PRE_GO_LIVE` |
 | Production acceptance | A Critical scenario can never be counted as PASS through a SKIP or a waiver |
 
 ## Purpose

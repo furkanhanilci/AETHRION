@@ -1,0 +1,41 @@
+# NOTICE
+
+## AIRL-OS / AI Research Framework
+
+Copyright (c) 2026 Furkan Hanilçi. **All rights reserved.**
+
+The contents of this repository — source code, the commissioning plan,
+architecture documents, skills authored here, and generated figures — are
+proprietary unless a file states otherwise. `pyproject.toml` records the same:
+`license = { text = "Proprietary" }`. No licence to use, copy, modify or
+distribute is granted by the repository being readable.
+
+## Third-party components included in this repository
+
+### `obra/superpowers` — MIT
+
+The eleven engineering skills under `skills/` carrying
+`airl.origin: "superpowers"` in their frontmatter are vendored verbatim from
+[`github.com/obra/superpowers`](https://github.com/obra/superpowers), pinned at
+commit `b36e0829c6d0140e93cfef2ca599b1b07d4a7797`.
+
+They remain under the MIT licence of that project, reproduced in full at
+[`skills/_vendor/LICENSE-superpowers.txt`](skills/_vendor/LICENSE-superpowers.txt),
+Copyright (c) 2025 Jesse Vincent. Each vendored skill declares
+`license: MIT` and its `airl.upstream_commit`, so provenance is machine-readable
+rather than a claim in prose.
+
+**Do not edit vendored content.** Changes belong upstream, or in an AIRL-native
+skill that records `airl.derived_from`.
+
+### Adopted external standards
+
+The framework conforms to public specifications — the Agent Skills format,
+in-toto attestations, DSSE, Sigstore, PRISMA reporting — without vendoring their
+implementations. Conformance is not a licence claim over those specifications.
+
+## Third-party dependencies
+
+Runtime and development dependencies are declared in `pyproject.toml` and
+resolved in `uv.lock`; each carries its own licence, and none is redistributed
+here.

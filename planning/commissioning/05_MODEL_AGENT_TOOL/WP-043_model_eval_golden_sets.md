@@ -12,7 +12,7 @@
 | Hard dependencies | WP-007, WP-014, WP-018, WP-019, WP-020, WP-029, WP-042 |
 | Related gates | Platform,G6 |
 | Related controls | CTL-MOD-01, CTL-EPI-04 |
-| Related acceptance scenarios | ACC-07, ACC-37 |
+| Related acceptance scenarios | ACC-07, ACC-37, ACC-48, ACC-49 |
 | Current status | `NOT_STARTED` |
 
 ## Purpose and expected outcome

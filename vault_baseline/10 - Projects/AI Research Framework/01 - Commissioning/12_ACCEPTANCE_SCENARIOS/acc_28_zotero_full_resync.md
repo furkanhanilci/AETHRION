@@ -9,7 +9,8 @@
 | Severity | **High** |
 | Accountable owner | Knowledge Platform Lead |
 | Independent witness / verifier | Knowledge Curator / SRE |
-| Related packages | `WP-067`, `WP-103`, `WP-114` |
+| Related packages | `WP-061`, `WP-062`, `WP-067`, `WP-094`, `WP-103`, `WP-114` |
+| Acceptance phase | `PRE_GO_LIVE` |
 | Production acceptance | A High scenario may be waived only by a time-bound residual risk accepted by the Commissioning Board |
 
 ## Purpose

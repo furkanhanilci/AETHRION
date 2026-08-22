@@ -9,7 +9,8 @@
 | Severity | **High** |
 | Accountable owner | Source Resolver Lead |
 | Independent witness / verifier | Knowledge Curator |
-| Related packages | `WP-062`, `WP-067`, `WP-094`, `WP-103` |
+| Related packages | `WP-012`, `WP-061`, `WP-062`, `WP-066`, `WP-067`, `WP-094`, `WP-103` |
+| Acceptance phase | `PRE_GO_LIVE` |
 | Production acceptance | A High scenario may be waived only by a time-bound residual risk accepted by the Commissioning Board |
 
 ## Purpose

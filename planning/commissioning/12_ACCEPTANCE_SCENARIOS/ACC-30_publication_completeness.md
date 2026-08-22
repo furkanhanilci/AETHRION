@@ -9,7 +9,8 @@
 | Severity | **Critical** |
 | Accountable owner | Provenance Curator |
 | Independent witness / verifier | Citation Auditor / Safety |
-| Related packages | `WP-080`, `WP-090`, `WP-106`, `WP-113` |
+| Related packages | `WP-018`, `WP-036`, `WP-072`, `WP-075`, `WP-076`, `WP-080`, `WP-087`, `WP-090`, `WP-095`, `WP-106`, `WP-113`, `WP-138` |
+| Acceptance phase | `PRE_GO_LIVE` |
 | Production acceptance | A Critical scenario can never be counted as PASS through a SKIP or a waiver |
 
 ## Purpose

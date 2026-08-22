@@ -9,7 +9,8 @@
 | Severity | **High** |
 | Accountable owner | Compute Platform Lead |
 | Independent witness / verifier | SRE / Assurance |
-| Related packages | `WP-053`, `WP-083`, `WP-111` |
+| Related packages | `WP-052`, `WP-053`, `WP-083`, `WP-111` |
+| Acceptance phase | `PRE_GO_LIVE` |
 | Production acceptance | A High scenario may be waived only by a time-bound residual risk accepted by the Commissioning Board |
 
 ## Purpose

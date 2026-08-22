@@ -11,9 +11,8 @@
 | Independent verifier | Governance Lead |
 | Hard dependencies | WP-003, WP-004, WP-005, WP-006, WP-007, WP-011 |
 | Related gates | G0–G6 |
-| Related acceptance scenarios (added v1.0) | ACC-41, ACC-43, ACC-46 |
 | Related controls | CTL-GOV-01, CTL-DAT-02 |
-| Related acceptance scenarios | Assigned during the relevant vertical slice and commissioning |
+| Related acceptance scenarios | ACC-46, ACC-48, ACC-51 |
 | Current status | `NOT_STARTED` |
 
 ## Purpose and expected outcome

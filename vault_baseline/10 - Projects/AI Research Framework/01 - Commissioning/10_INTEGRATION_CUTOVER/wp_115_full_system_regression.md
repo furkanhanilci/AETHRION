@@ -12,12 +12,12 @@
 | Hard dependencies | WP-110, WP-111, WP-112, WP-113, WP-114 |
 | Related gates | Commissioning |
 | Related controls | All controls |
-| Related acceptance scenarios | ACC-01..ACC-40 |
+| Related acceptance scenarios | every scenario whose `Acceptance phase` is `PRE_GO_LIVE` (ACC-01 – ACC-51 excluding the Day-2 set) |
 | Current status | `NOT_STARTED` |
 
 ## Purpose and expected outcome
 
-The forty-six scenarios plus the contract, replay, attack, restore and capacity evidence are consolidated for one release candidate into a single signed Commissioning Dossier.
+The `PRE_GO_LIVE` scenarios plus the contract, replay, attack, restore and capacity evidence are consolidated for one release candidate into a single signed Commissioning Dossier.
 
 ## Out of scope
 
@@ -38,7 +38,7 @@ The forty-six scenarios plus the contract, replay, attack, restore and capacity 
 | Sub-task | Work to be done | Responsible | Completion evidence |
 |---|---|---|---|
 | WP-115-T01 | Freeze the RC digest and every bundle version | Implementation owner | Commit / configuration / record reference |
-| WP-115-T02 | Verify that all ACC-01–40 results come from the same RC | Implementation owner | Commit / configuration / record reference |
+| WP-115-T02 | Verify that every `PRE_GO_LIVE` scenario result comes from the same RC | Implementation owner | Commit / configuration / record reference |
 | WP-115-T03 | Consolidate the contract, replay, security, reproduction, DR, cost and trace evidence manifests | Implementation owner | Commit / configuration / record reference |
 | WP-115-T04 | Sweep for open findings, risks, exceptions and expiries | Implementation owner | Commit / configuration / record reference |
 | WP-115-T05 | Produce the KPI, SLO, capacity and owner readiness scorecard | Implementation owner | Commit / configuration / record reference |
@@ -67,7 +67,7 @@ The forty-six scenarios plus the contract, replay, attack, restore and capacity 
 
 ## Acceptance criteria
 
-- [ ] 46/46 PASS.
+- [ ] Every `PRE_GO_LIVE` scenario PASSes.
 - [ ] Open critical findings = 0.
 - [ ] Required high findings = 0, or an explicitly permitted residual risk.
 - [ ] The dossier is independently verified and signed.

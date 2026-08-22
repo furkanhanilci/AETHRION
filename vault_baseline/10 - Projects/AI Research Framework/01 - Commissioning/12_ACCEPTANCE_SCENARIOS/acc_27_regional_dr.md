@@ -9,7 +9,9 @@
 | Severity | **Critical** |
 | Accountable owner | SRE Lead |
 | Independent witness / verifier | Independent DR Witness |
-| Related packages | `WP-114`, `WP-129` |
+| Related packages | `WP-021`, `WP-025`, `WP-026`, `WP-052`, `WP-114` |
+| Acceptance phase | `PRE_GO_LIVE` — initial qualification |
+| Recurring counterpart | `WP-129` · WP-129 runs the quarterly drill of the same procedure in Day-2 |
 | Production acceptance | A Critical scenario can never be counted as PASS through a SKIP or a waiver |
 
 ## Purpose

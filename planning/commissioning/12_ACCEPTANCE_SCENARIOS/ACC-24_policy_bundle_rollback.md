@@ -9,7 +9,8 @@
 | Severity | **High** |
 | Accountable owner | Policy Platform Lead |
 | Independent witness / verifier | Safety / Internal Audit |
-| Related packages | `WP-056`, `WP-112` |
+| Related packages | `WP-009`, `WP-056`, `WP-112` |
+| Acceptance phase | `PRE_GO_LIVE` |
 | Production acceptance | A High scenario may be waived only by a time-bound residual risk accepted by the Commissioning Board |
 
 ## Purpose

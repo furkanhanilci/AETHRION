@@ -9,7 +9,9 @@
 | Severity | **Medium** |
 | Accountable owner | FinOps Lead |
 | Independent witness / verifier | Internal Audit |
-| Related packages | `WP-100`, `WP-111`, `WP-127` |
+| Related packages | `WP-100`, `WP-111` |
+| Acceptance phase | `PRE_GO_LIVE` — initial qualification |
+| Recurring counterpart | `WP-127` · WP-127 runs the recurring FinOps review of the same measure in Day-2 |
 | Production acceptance | A Medium scenario may be deferred with a named owner and an expiry date |
 
 ## Purpose

@@ -67,7 +67,7 @@ forgotten. See the finding-ledger requirement in
 - **Integration Acceptance:** the real interface between two or more services.
 - **Vertical Slice Acceptance:** the business outcome across the relevant portion
   of G0–G10.
-- **System Commissioning:** ACC-01–ACC-46, the attack suite, DR and capacity.
+- **System Commissioning:** ACC-01–ACC-51, the attack suite, DR and capacity.
 - **Human Go-Live Decision:** an authorised decision taken by someone who has
   seen the evidence summary and the residual risk.
 

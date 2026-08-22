@@ -9,7 +9,8 @@
 | Severity | **Critical** |
 | Accountable owner | Supply Chain Security Lead |
 | Independent witness / verifier | Independent Security Reviewer |
-| Related packages | `WP-027`, `WP-059`, `WP-112` |
+| Related packages | `WP-027`, `WP-054`, `WP-059`, `WP-060`, `WP-087`, `WP-107`, `WP-112` |
+| Acceptance phase | `PRE_GO_LIVE` |
 | Production acceptance | A Critical scenario can never be counted as PASS through a SKIP or a waiver |
 
 ## Purpose

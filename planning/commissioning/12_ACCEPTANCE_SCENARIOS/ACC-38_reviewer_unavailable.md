@@ -9,7 +9,9 @@
 | Severity | **High** |
 | Accountable owner | Assurance Lead |
 | Independent witness / verifier | Project Decision Owner |
-| Related packages | `WP-045`, `WP-088`, `WP-105`, `WP-113`, `WP-126` |
+| Related packages | `WP-003`, `WP-007`, `WP-045`, `WP-088`, `WP-105`, `WP-113` |
+| Acceptance phase | `PRE_GO_LIVE` — initial qualification |
+| Recurring counterpart | `WP-126` · WP-126 runs the recurring reviewer calibration in Day-2 |
 | Production acceptance | A High scenario may be waived only by a time-bound residual risk accepted by the Commissioning Board |
 
 ## Purpose

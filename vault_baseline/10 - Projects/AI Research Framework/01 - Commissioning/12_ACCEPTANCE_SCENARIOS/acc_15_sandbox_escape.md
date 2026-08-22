@@ -9,7 +9,8 @@
 | Severity | **Critical** |
 | Accountable owner | Execution Security Lead |
 | Independent witness / verifier | Red Team / SRE |
-| Related packages | `WP-054`, `WP-060`, `WP-112` |
+| Related packages | `WP-006`, `WP-054`, `WP-060`, `WP-112` |
+| Acceptance phase | `PRE_GO_LIVE` |
 | Production acceptance | A Critical scenario can never be counted as PASS through a SKIP or a waiver |
 
 ## Purpose

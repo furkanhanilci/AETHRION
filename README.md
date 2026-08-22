@@ -29,7 +29,7 @@ implied.
 | Skill registry (49 skills, two families) | ✅ Format-conformant · ⚠️ wired for Claude Code only · 📐 behaviour **not yet tested** | `skills/` |
 | Obsidian information architecture | ✅ V0 ready | `vault_baseline/` |
 | Target architecture and skill layer | 📐 Designed, awaiting decision | `docs/architecture/` |
-| Commissioning programme — **baseline v1.0** | ⬜ Planned, not started; 141 packages, 46 scenarios | `planning/commissioning/` |
+| Commissioning programme — **baseline v1.0.1** | ⬜ Planned, not started; 141 packages, 51 scenarios | `planning/commissioning/` |
 | Interim evidence policy (WP-000) | 📐 Written — unblocks the storage half of C1 | `planning/commissioning/01_GOVERNANCE/` |
 
 ## Layout
@@ -38,7 +38,7 @@ implied.
 src/          Bridge component and the shared contract core
 tests/        Test suite
 skills/       49 skills — HOW agents work; engineering + scientific + shared
-planning/     WP-000, WP-001..140, ACC-01..46 (hash-sealed canonical plan, baseline v1.0)
+planning/     WP-000, WP-001..140, ACC-01..51 (hash-sealed canonical plan, baseline v1.0.1)
 docs/         Architecture, review and operations documents
 schemas/      Shared contract schemas
 delivery/     Per-package evidence packages
@@ -59,6 +59,8 @@ vault_baseline/  Versioned copy of the Obsidian vault
 | **Who** performs each role — human, model or code? | [Roles](#6-roles--who-is-accountable-for-what) below · [`AIRL_OS_ROLES.md`](docs/architecture/AIRL_OS_ROLES.md) — definitions and authority flows · [`AIRL_OS_ROLE_MODEL_ASSIGNMENT.md`](docs/architecture/AIRL_OS_ROLE_MODEL_ASSIGNMENT.md) — which model |
 | How are the figures produced? | [`docs/figures/README.md`](docs/figures/README.md) — inventory and design specification |
 | How are these documents written? | [`docs/DOCUMENT_STANDARD.md`](docs/DOCUMENT_STANDARD.md) — structure, status vocabulary, honesty rules |
+| **What decisions are still open?** | [`ADR-001`](docs/architecture/ADR-001_solo_operator_independence.md) — solo-operator independence (**blocks every acceptance**) · [`ADR-002`](docs/architecture/ADR-002_bootstrap_verification_control.md) — bootstrap verification control |
+| Licensing and attribution | [`NOTICE`](NOTICE) |
 | What is **adopted** rather than invented? | [`docs/architecture/AIRL_OS_EXTERNAL_STANDARDS.md`](docs/architecture/AIRL_OS_EXTERNAL_STANDARDS.md) |
 | Architecture of the working vertical slice | [`docs/ARCHITECTURE_V0.md`](docs/ARCHITECTURE_V0.md) |
 | Day-to-day operation | [`docs/OPERATIONS.md`](docs/OPERATIONS.md) |
@@ -645,10 +647,11 @@ uv run python scripts/mcp_smoke.py     # asserts the five-tool boundary; exits 1
 uv run python scripts/acceptance_v0.py # data-independent structural acceptance
 python3 scripts/validate_skills.py     # Agent Skills format + AIRL metadata contract
 python3 scripts/make_figures.py --check # figures match generators, text fits its box
+python3 scripts/validate_commissioning_plan.py  # the plan is internally consistent
 (cd planning/commissioning && sha256sum -c 00_PROGRAM/SHA256SUMS.txt)
 ```
 
-All six run by hand. **There is no CI** — see finding **H5**, and
+All seven run by hand. **There is no CI** — see finding **H5**, and
 [`docs/OPERATIONS.md`](docs/OPERATIONS.md) for the full verification bundle.
 
 ## Hermes MCP access
@@ -678,12 +681,12 @@ verify in a one-person operation — remains open, and no standard resolves it.
 ## Verification
 
 ```
-20/20 tests pass · plan seal 202/202 OK · service and timer active
+20/20 tests pass · plan seal 207/207 OK · plan semantics OK · service and timer active
 MCP smoke: 5 read-only tools, exits 1 when the Bridge is down
 Acceptance: 11 structural checks pass, data-independent
 Skills: 49/49 conform to the Agent Skills format and the AIRL metadata contract
 Figures: 3/3 match their generators; 0 text overflows out of their boxes
-Mirror drift: 0 (203 plan files, 65 skill/doc/figure files)
+Mirror drift: 0 (208 plan files, 67 skill/doc/figure files)
 Obsidian baseline and vault identical
 ```
 

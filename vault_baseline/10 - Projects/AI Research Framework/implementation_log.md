@@ -19,6 +19,125 @@ the last entry, the cockpit and the relevant WP files are read again.
 
 ---
 
+## Step 010 — Commissioning baseline v1.0.1: the defects the seal could not see
+
+**Time:** 2026-08-22
+**Scope:** pre-commissioning readiness review response — semantic plan defects,
+a plan validator, two decision records, and licensing
+
+### The finding behind this step
+
+A pre-commissioning readiness review gave **architecture freeze: GO**, and
+**commissioning baseline v1.0 as-is: NO-GO**. The reason was not weak design. It
+was that three defects survived the freeze which the hash seal is structurally
+incapable of detecting, because **every file involved was byte-identical to its
+sealed state**. The seal proves files did not change. It says nothing about
+whether they agree with each other.
+
+### Defect 1 — acceptance identifiers collided (Critical)
+
+`13_TOOLING_INTEGRATION` packages already referenced ACC-41 – ACC-45. Those
+scenarios had never been written, so the references dangled. Baseline v1.0 then
+added six **skill** scenarios at exactly those numbers, and the dangling
+references silently resolved to the wrong subject: **WP-136 inbound content
+quarantine now claimed to be tested by "Skill Ignored Under Pressure".**
+
+Corrected by renumbering the skill scenarios to **ACC-46 – ACC-51** and writing
+the five scenarios the tooling packages had been referencing all along:
+notification data-class ceiling · broker outage · escalation and dead-man's
+switch · inbound content is not an instruction · irreversible external
+submission. **51 scenarios.**
+
+### Defect 2 — go-live required post-go-live work (Critical)
+
+```
+WP-120 cutover  requires  all acceptance scenarios PASS
+                          ⇓ includes ACC-36, ACC-38, ACC-27, ACC-29, ACC-07, ACC-37
+                          ⇓ which referenced WP-124 / WP-126 / WP-127 / WP-129
+                          ⇓ which hard-depend on WP-121 programme closure
+                          ⇓ which happens after WP-120
+```
+
+A cycle: **to go live you had to finish work that only exists after going live.**
+
+Corrected with an `Acceptance phase` field on every scenario. The initial
+qualification is `PRE_GO_LIVE` and owned by a commissioning package; the
+recurring rhythm stays in Day-2 and is named in the scenario's `Recurring
+counterpart` field. Day-2 packages no longer claim a go-live scenario tests them.
+
+### Defect 3 — stale ranges and a duplicated field
+
+`ACC-01–ACC-40` survived in WP-115 and WP-120 while their acceptance criteria
+demanded 46; the go-live checklist attributed independence measurement to
+WP-132 (a channel registry); and it required *"a time-boxed, non-waivable
+residual risk accepted"*, which is a contradiction in terms. WP-013 had gained a
+duplicate `Related acceptance scenarios` row. All corrected.
+
+### The real deliverable: `validate_commissioning_plan.py`
+
+Fixing three defects is worth less than making the class of defect detectable, so
+the plan now has a semantic validator alongside its seal. It checks identifier
+existence, **bidirectional** WP↔ACC consistency, dependency-graph acyclicity,
+acceptance-phase validity, **go-live feasibility**, stale ranges, index parity
+and catalogue/matrix parity.
+
+Its first run found the three known defects **plus 137 one-directional
+references** nobody had noticed — packages claiming a scenario tested them while
+the scenario listed different packages. Closed mechanically across 43 scenarios.
+
+It also caught a mistake made *during* this step: closing the references
+bidirectionally re-introduced the Day-2 cycle, because the Day-2 packages'
+own claims pulled it back. The validator failed the build, and the fix was to
+rename the relationship rather than delete it.
+
+**From now on the plan is valid only when both pass:** `207/207` seal **and**
+`plan semantics OK`.
+
+### Two decisions written, neither taken
+
+- **ADR-001 — Solo-Operator Independence.** The C2 deadlock, three models, and a
+  recommendation: R1 solo; R2 solo only with cross-family review, clean-room
+  reproduction and declared temporal separation, with partial independence stated
+  in the manifest; **R3 `BLOCKED` unless an external verifier is named**. Five of
+  the seven independence dimensions survive a one-person operation; human identity
+  and economic interest do not. **The decision field is blank — a framework cannot
+  grant itself independence.**
+- **ADR-002 — Bootstrap Verification Control.** WP-024 hard-depends on three
+  unbuilt packages, so CI cannot legitimately be "stood up" yet. `BVC-01` runs the
+  automatable half of the bundle on push, as a temporary control with an owner, an
+  expiry and WP-024 as its named retirement package. It explicitly does **not**
+  close H5.
+
+### Licensing
+
+`NOTICE` added: AIRL-OS proprietary, all rights reserved; the eleven vendored
+skills MIT with attribution and a pinned commit; conformance to public
+specifications is not a licence claim.
+
+### Evidence
+
+- `validate_commissioning_plan.py` → **141 packages · 51 scenarios · 0 defects · 0 warnings**
+- Plan seal regenerated → **207/207**
+- `pytest` 20 passed · skills 49/49 · figures 3/3, 0 overflow
+- Mirror drift **0** (208 plan, 67 skill/doc/figure)
+
+### Limits
+
+- **C2 is still open**, so nothing may be marked `ACCEPTED`. That is the finding
+  working, not a blocker to route around.
+- BVC-01 is written, not implemented. No CI runs today.
+- 51 scenarios are written and **none has ever been run**.
+- The validator checks the plan's internal consistency. It cannot check whether
+  the plan is a good plan.
+
+### Next step
+
+Decide ADR-001. Then implement BVC-01, then execute WP-000 — issue one specimen
+`EvidenceManifest`, sign it, log it, anchor it with **WP-000's own** interim
+anchor, and demonstrate that a tampered copy fails verification.
+
+---
+
 ## Step 009 — Figures that cannot overflow, and a document standard
 
 **Time:** 2026-08-22

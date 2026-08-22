@@ -9,7 +9,9 @@
 | Severity | **High** |
 | Accountable owner | Eval Office |
 | Independent witness / verifier | Independent Human Calibrator |
-| Related packages | `WP-043`, `WP-088`, `WP-126` |
+| Related packages | `WP-043`, `WP-086`, `WP-088`, `WP-105` |
+| Acceptance phase | `PRE_GO_LIVE` — initial qualification |
+| Recurring counterpart | `WP-126` · WP-126 runs the recurring recalibration of the same measure in Day-2 |
 | Production acceptance | A High scenario may be waived only by a time-bound residual risk accepted by the Commissioning Board |
 
 ## Purpose

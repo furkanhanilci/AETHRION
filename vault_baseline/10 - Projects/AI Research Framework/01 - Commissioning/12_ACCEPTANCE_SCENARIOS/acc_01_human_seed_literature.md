@@ -9,7 +9,8 @@
 | Severity | **Critical** |
 | Accountable owner | Knowledge Lead |
 | Independent witness / verifier | Citation Auditor |
-| Related packages | `WP-065`, `WP-062`, `WP-069`, `WP-072`, `WP-103` |
+| Related packages | `WP-035`, `WP-050`, `WP-062`, `WP-064`, `WP-065`, `WP-069`, `WP-070`, `WP-072`, `WP-094`, `WP-103`, `WP-110`, `WP-115`, `WP-119`, `WP-120` |
+| Acceptance phase | `PRE_GO_LIVE` |
 | Production acceptance | A Critical scenario can never be counted as PASS through a SKIP or a waiver |
 
 ## Purpose

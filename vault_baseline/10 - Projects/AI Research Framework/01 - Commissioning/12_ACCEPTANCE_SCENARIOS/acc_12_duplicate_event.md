@@ -9,7 +9,8 @@
 | Severity | **Critical** |
 | Accountable owner | Event Platform Lead |
 | Independent witness / verifier | Independent SRE |
-| Related packages | `WP-028`, `WP-039`, `WP-111` |
+| Related packages | `WP-015`, `WP-028`, `WP-039`, `WP-049`, `WP-111` |
+| Acceptance phase | `PRE_GO_LIVE` |
 | Production acceptance | A Critical scenario can never be counted as PASS through a SKIP or a waiver |
 
 ## Purpose

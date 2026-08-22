@@ -9,7 +9,8 @@
 | Severity | **High** |
 | Accountable owner | Event Platform Lead |
 | Independent witness / verifier | SRE / Schema Owner |
-| Related packages | `WP-028`, `WP-039`, `WP-111` |
+| Related packages | `WP-015`, `WP-028`, `WP-039`, `WP-111` |
+| Acceptance phase | `PRE_GO_LIVE` |
 | Production acceptance | A High scenario may be waived only by a time-bound residual risk accepted by the Commissioning Board |
 
 ## Purpose

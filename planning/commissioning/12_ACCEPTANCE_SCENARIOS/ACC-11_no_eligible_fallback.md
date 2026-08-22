@@ -9,7 +9,8 @@
 | Severity | **Critical** |
 | Accountable owner | Model Platform Lead |
 | Independent witness / verifier | Safety Owner |
-| Related packages | `WP-041`, `WP-045`, `WP-111` |
+| Related packages | `WP-040`, `WP-041`, `WP-045`, `WP-111` |
+| Acceptance phase | `PRE_GO_LIVE` |
 | Production acceptance | A Critical scenario can never be counted as PASS through a SKIP or a waiver |
 
 ## Purpose

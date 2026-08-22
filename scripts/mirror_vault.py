@@ -68,6 +68,10 @@ GROUPS = {
 }
 
 DOC_MAP = {
+    "04 - Architecture/adr_001_solo_operator_independence.md":
+        "architecture/ADR-001_solo_operator_independence.md",
+    "04 - Architecture/adr_002_bootstrap_verification_control.md":
+        "architecture/ADR-002_bootstrap_verification_control.md",
     "04 - Architecture/airl_os_document_standard.md":
         "DOCUMENT_STANDARD.md",
     "04 - Architecture/airl_os_roles.md":

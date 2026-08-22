@@ -8,7 +8,7 @@ zotero_version: 0
 doi: "10.1109/lra.2024.3373988"
 source_url: ""
 content_hash: "sha256:be5c905a9442eb9217fdddb9fe733c71a38577d4a96c8bb09f05efb5b8704a93"
-generated_at: "2026-08-22T12:19:38.083263+00:00"
+generated_at: "2026-08-22T12:50:35.502764+00:00"
 provenance: airl-bridge-api
 zotero_tags:
   - "Collision avoidance"

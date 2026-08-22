@@ -12,7 +12,8 @@
 | Hard dependencies | WP-100, WP-117, WP-121 |
 | Related gates | G0,G4,G8,Day-2 |
 | Related controls | CTL-CST-01, CTL-CST-02 |
-| Related acceptance scenarios | ACC-09, ACC-29 |
+| Related acceptance scenarios | — a Day-2 rhythm is exercised in operation, not as a go-live gate |
+| Recurring counterpart of | ACC-09, ACC-29 — those scenarios verify the **initial** qualification before cutover; this package owns the **recurring** one afterwards |
 | Current status | `NOT_STARTED` |
 
 ## Purpose and expected outcome

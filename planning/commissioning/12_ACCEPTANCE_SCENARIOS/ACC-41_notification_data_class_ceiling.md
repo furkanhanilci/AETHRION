@@ -1,36 +1,34 @@
-# ACC-43 — Wrong or Competing Skill Selected
+# ACC-41 — Outbound Notification Exceeds the Channel Data-Class Ceiling
 
 ## Scenario card
 
 | Field | Value |
 |---|---|
-| Scenario | `ACC-43` |
-| Category | Agent/Skill Governance |
-| Severity | **High** |
-| Accountable owner | Eval Office |
-| Independent witness / verifier | Assurance Lead |
-| Related packages | `WP-043`, `WP-047` |
+| Scenario | `ACC-41` |
+| Category | Communication/Security |
+| Severity | **Critical** |
+| Accountable owner | Platform Security Lead |
+| Independent witness / verifier | Safety & Governance Owner |
+| Related packages | `WP-131`, `WP-132`, `WP-133` |
+| Acceptance phase | `PRE_GO_LIVE` |
 | Production acceptance | A Critical scenario can never be counted as PASS through a SKIP or a waiver |
 
 ## Purpose
 
-This scenario verifies the target architecture's fail-safe behaviour and its
-evidence production in the **Wrong or Competing Skill Selected** situation.
-
-Trigger resolution is where the skill layer most plausibly fails quietly: the
-agent loads *a* procedure, just not the right one. This scenario measures
-resolution rather than assuming it.
+An agent must never hold channel credentials, and a notification must never carry content above the
+channel's data-class ceiling. This scenario verifies that the broker enforces both, and that an attempt to
+exceed the ceiling degrades to a reference rather than leaking the payload.
 
 The test runs on the same release candidate, policy bundle, schema bundle and
 environment manifest as every other scenario in the same acceptance round.
 
 ## Given / When / Then
 
-**Given:** A task whose situation matches one skill's trigger, with a second skill whose description overlaps it.
+**Given:** A `NotificationIntent` whose payload contains D2 content and a channel whose registry entry declares a D1 ceiling.
 
-**When:** The compiler resolves `skills_required` and the runtime loads them.
+**When:** The Notification Broker resolves the intent against the channel registry.
 
-**Then:** The correct skill is selected, the selection reason is recorded, and an unresolvable overlap fails closed rather than picking arbitrarily.
+**Then:** The payload is refused or degraded to a signed reference with no D2 content; the agent never touches the channel credential; the decision and its rule are audited.
 
 ## Preconditions
 
@@ -44,19 +42,19 @@ environment manifest as every other scenario in the same acceptance round.
 
 | # | Action | Evidence captured at this step |
 |---:|---|---|
-| 1 | Run the base case and confirm the expected skill is selected | Compiler output + `skill_selection_reason` |
-| 2 | Introduce a competing skill with an overlapping trigger | Registry diff |
-| 3 | Re-run and record which skill is selected and why | Selection record |
-| 4 | Run the confusion matrix across the trigger test set | Trigger confusion matrix |
-| 5 | Verify the engineering / scientific / shared family boundary is respected | Policy decision records |
+| 1 | Emit a `NotificationIntent` at D1 and confirm normal delivery | Delivery record + audit entry |
+| 2 | Emit the same intent carrying D2 content | Policy decision record |
+| 3 | Assert what actually left the boundary | Egress capture |
+| 4 | Attempt to send directly from the agent, bypassing the broker | Refusal record |
+| 5 | Re-send the same intent twice and assert idempotency | Delivery ledger |
 
 ## Mandatory invariants and assertions
 
-- [ ] The selected skill matches the expected skill on the trigger test set
-- [ ] Every selection carries a machine-readable `skill_selection_reason`
-- [ ] An unresolvable overlap fails closed instead of selecting arbitrarily
-- [ ] Family selection follows `work_domain` and is never chosen by the agent
-- [ ] The confusion matrix is stored as evidence, not summarised in prose
+- [ ] Content above the channel ceiling never leaves the boundary
+- [ ] Degradation to a reference is recorded, not silent
+- [ ] The agent holds no channel credential at any point
+- [ ] A direct agent-to-channel send is refused
+- [ ] Duplicate intents produce one delivery
 - [ ] The actual canonical state equals the expected state, or an explained safe failure state.
 - [ ] Duplicate, stale, forged or partial inputs produced no unsafe side effect.
 - [ ] Trace, event, audit and business records share one project/workflow/run correlation chain.
@@ -64,16 +62,18 @@ environment manifest as every other scenario in the same acceptance round.
 
 ## Expected canonical records
 
-- `SkillBundle`
-- `TriggerResolution`
+- `NotificationIntent`
+- `ChannelRegistryEntry`
 - `PolicyDecision`
+- `DeliveryRecord`
 - `AuditRecord`
 
 ## Expected events
 
-- `skill.selected`
-- `skill.selection.ambiguous`
+- `notification.intent.created`
+- `notification.degraded`
 - `policy.denied`
+- `notification.delivered`
 
 Expected event counts, idempotency and ordering constraints live in the
 machine-readable assertion file inside the test registry. **A NATS event alone
@@ -82,11 +82,11 @@ commit is verified separately.
 
 ## Evidence package
 
-- `ACC-43-result.json`: PASS/FAIL, the RC digest and the assertion results.
-- `ACC-43-execution-log.jsonl`: time-ordered test, fault and decision records.
-- `ACC-43-state-before.json` and `ACC-43-state-after.json`.
-- `ACC-43-events.json`, `ACC-43-policy-decisions.json` and `ACC-43-audit-export.json`.
-- `ACC-43-evidence-manifest.json`: the hash, producer and environment reference of every file.
+- `ACC-41-result.json`: PASS/FAIL, the RC digest and the assertion results.
+- `ACC-41-execution-log.jsonl`: time-ordered test, fault and decision records.
+- `ACC-41-state-before.json` and `ACC-41-state-after.json`.
+- `ACC-41-events.json`, `ACC-41-policy-decisions.json` and `ACC-41-audit-export.json`.
+- `ACC-41-evidence-manifest.json`: the hash, producer and environment reference of every file.
 - The independent witness's `VerificationRecord`, plus any finding and disposition records.
 
 ## PASS criteria
@@ -107,7 +107,7 @@ affected regression set are rerun.
 
 ## Cleanup and reversal
 
-The competing test skill is removed from the registry; resolution records are retained.
+Test channels are disabled; delivery, refusal and audit records are retained.
 
 Cleanup never deletes canonical evidence or audit history. Destructive test
 fixture operations run only against explicit test namespaces and identities, and

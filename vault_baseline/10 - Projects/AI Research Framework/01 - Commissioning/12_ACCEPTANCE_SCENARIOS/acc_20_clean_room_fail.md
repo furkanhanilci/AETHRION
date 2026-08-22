@@ -9,7 +9,8 @@
 | Severity | **Critical** |
 | Accountable owner | Reproducibility Lead |
 | Independent witness / verifier | Assurance Lead / Methodologist |
-| Related packages | `WP-084`, `WP-085`, `WP-105`, `WP-113` |
+| Related packages | `WP-019`, `WP-036`, `WP-077`, `WP-084`, `WP-085`, `WP-105`, `WP-113` |
+| Acceptance phase | `PRE_GO_LIVE` |
 | Production acceptance | A Critical scenario can never be counted as PASS through a SKIP or a waiver |
 
 ## Purpose

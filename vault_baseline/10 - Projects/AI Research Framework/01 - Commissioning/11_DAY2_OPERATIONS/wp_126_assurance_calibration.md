@@ -12,7 +12,8 @@
 | Hard dependencies | WP-007, WP-043, WP-085, WP-086, WP-087, WP-088, WP-089, WP-113, WP-121 |
 | Related gates | G6,G7,Day-2 |
 | Related controls | CTL-GOV-02, CTL-EPI-04 |
-| Related acceptance scenarios | ACC-07, ACC-08, ACC-38 |
+| Related acceptance scenarios | — a Day-2 rhythm is exercised in operation, not as a go-live gate |
+| Recurring counterpart of | ACC-07, ACC-08, ACC-38 — those scenarios verify the **initial** qualification before cutover; this package owns the **recurring** one afterwards |
 | Current status | `NOT_STARTED` |
 
 ## Purpose and expected outcome

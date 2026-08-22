@@ -1,37 +1,37 @@
-# ACC-41 — Task Runs With No Skill Loaded
+# ACC-48 — Wrong or Competing Skill Selected
 
 ## Scenario card
 
 | Field | Value |
 |---|---|
-| Scenario | `ACC-41` |
+| Scenario | `ACC-48` |
 | Category | Agent/Skill Governance |
-| Severity | **Critical** |
-| Accountable owner | Assurance Lead |
-| Independent witness / verifier | Internal Audit |
-| Related packages | `WP-013`, `WP-046`, `WP-047`, `WP-048` |
+| Severity | **High** |
+| Accountable owner | Eval Office |
+| Independent witness / verifier | Assurance Lead |
+| Related packages | `WP-013`, `WP-043`, `WP-047` |
+| Acceptance phase | `PRE_GO_LIVE` |
 | Production acceptance | A Critical scenario can never be counted as PASS through a SKIP or a waiver |
 
 ## Purpose
 
 This scenario verifies the target architecture's fail-safe behaviour and its
-evidence production in the **Task Runs With No Skill Loaded** situation.
+evidence production in the **Wrong or Competing Skill Selected** situation.
 
-A procedure that can be skipped is not governance. The compiler resolves a
-non-waivable skill into `skills_required`; this scenario removes it from the
-runtime and verifies that the task refuses to proceed rather than proceeding
-without it.
+Trigger resolution is where the skill layer most plausibly fails quietly: the
+agent loads *a* procedure, just not the right one. This scenario measures
+resolution rather than assuming it.
 
 The test runs on the same release candidate, policy bundle, schema bundle and
 environment manifest as every other scenario in the same acceptance round.
 
 ## Given / When / Then
 
-**Given:** A `TaskContract` whose classification resolves at least one non-waivable skill into `skills_required`.
+**Given:** A task whose situation matches one skill's trigger, with a second skill whose description overlaps it.
 
-**When:** The runtime starts the task with that skill absent from `skills_loaded`.
+**When:** The compiler resolves `skills_required` and the runtime loads them.
 
-**Then:** The task is blocked before any production step, the divergence between `skills_required` and `skills_loaded` is recorded as a finding, and no `AgentResult` is emitted.
+**Then:** The correct skill is selected, the selection reason is recorded, and an unresolvable overlap fails closed rather than picking arbitrarily.
 
 ## Preconditions
 
@@ -45,19 +45,19 @@ environment manifest as every other scenario in the same acceptance round.
 
 | # | Action | Evidence captured at this step |
 |---:|---|---|
-| 1 | Compile the task and record `skills_required`, `skills_selected` and `skill_bundle_hash` | Compiler output + task record |
-| 2 | Start the runtime with the non-waivable skill removed | Execution log + trace/event references |
-| 3 | Attempt to produce a result anyway | Execution log + refusal record |
-| 4 | Repeat with a waivable skill and confirm the difference in behaviour | Policy decision records |
-| 5 | Restore the skill and confirm the task proceeds normally | Execution log + task record |
+| 1 | Run the base case and confirm the expected skill is selected | Compiler output + `skill_selection_reason` |
+| 2 | Introduce a competing skill with an overlapping trigger | Registry diff |
+| 3 | Re-run and record which skill is selected and why | Selection record |
+| 4 | Run the confusion matrix across the trigger test set | Trigger confusion matrix |
+| 5 | Verify the engineering / scientific / shared family boundary is respected | Policy decision records |
 
 ## Mandatory invariants and assertions
 
-- [ ] The task is blocked before the first production step
-- [ ] `skills_required` ⊄ `skills_loaded` is recorded as a divergence finding
-- [ ] No `AgentResult` and no claim is produced by the blocked task
-- [ ] A waivable skill produces a warning, not a block, and the difference is policy-driven
-- [ ] The audit record names the rule, the policy version and the missing skill
+- [ ] The selected skill matches the expected skill on the trigger test set
+- [ ] Every selection carries a machine-readable `skill_selection_reason`
+- [ ] An unresolvable overlap fails closed instead of selecting arbitrarily
+- [ ] Family selection follows `work_domain` and is never chosen by the agent
+- [ ] The confusion matrix is stored as evidence, not summarised in prose
 - [ ] The actual canonical state equals the expected state, or an explained safe failure state.
 - [ ] Duplicate, stale, forged or partial inputs produced no unsafe side effect.
 - [ ] Trace, event, audit and business records share one project/workflow/run correlation chain.
@@ -65,18 +65,16 @@ environment manifest as every other scenario in the same acceptance round.
 
 ## Expected canonical records
 
-- `TaskContract`
 - `SkillBundle`
+- `TriggerResolution`
 - `PolicyDecision`
-- `Finding`
 - `AuditRecord`
 
 ## Expected events
 
-- `task.blocked`
-- `skill.binding.diverged`
+- `skill.selected`
+- `skill.selection.ambiguous`
 - `policy.denied`
-- `task.resumed`
 
 Expected event counts, idempotency and ordering constraints live in the
 machine-readable assertion file inside the test registry. **A NATS event alone
@@ -85,11 +83,11 @@ commit is verified separately.
 
 ## Evidence package
 
-- `ACC-41-result.json`: PASS/FAIL, the RC digest and the assertion results.
-- `ACC-41-execution-log.jsonl`: time-ordered test, fault and decision records.
-- `ACC-41-state-before.json` and `ACC-41-state-after.json`.
-- `ACC-41-events.json`, `ACC-41-policy-decisions.json` and `ACC-41-audit-export.json`.
-- `ACC-41-evidence-manifest.json`: the hash, producer and environment reference of every file.
+- `ACC-48-result.json`: PASS/FAIL, the RC digest and the assertion results.
+- `ACC-48-execution-log.jsonl`: time-ordered test, fault and decision records.
+- `ACC-48-state-before.json` and `ACC-48-state-after.json`.
+- `ACC-48-events.json`, `ACC-48-policy-decisions.json` and `ACC-48-audit-export.json`.
+- `ACC-48-evidence-manifest.json`: the hash, producer and environment reference of every file.
 - The independent witness's `VerificationRecord`, plus any finding and disposition records.
 
 ## PASS criteria
@@ -110,7 +108,7 @@ affected regression set are rerun.
 
 ## Cleanup and reversal
 
-The test task is cancelled; the divergence finding and audit records are retained.
+The competing test skill is removed from the registry; resolution records are retained.
 
 Cleanup never deletes canonical evidence or audit history. Destructive test
 fixture operations run only against explicit test namespaces and identities, and

@@ -9,7 +9,8 @@
 | Severity | **Critical** |
 | Accountable owner | Control Plane Lead |
 | Independent witness / verifier | Independent SRE |
-| Related packages | `WP-031`, `WP-040`, `WP-111` |
+| Related packages | `WP-031`, `WP-032`, `WP-040`, `WP-111` |
+| Acceptance phase | `PRE_GO_LIVE` |
 | Production acceptance | A Critical scenario can never be counted as PASS through a SKIP or a waiver |
 
 ## Purpose
