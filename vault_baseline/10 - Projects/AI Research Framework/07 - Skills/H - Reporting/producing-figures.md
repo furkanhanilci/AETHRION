@@ -107,6 +107,13 @@ it against the venue's floor.
 4. **Figures are generated, not hand-drawn**, wherever the figure will be
    maintained. The generator is the source; editing output is a defect.
 
+## Going deeper
+
+`references/figure-methodology.md` carries the long form: the precedence order,
+the archetype grammar, quantitative reasoning before chart choice, panel
+structure, the semantic model, colour and typography rules, final-size
+computation, concept exploration, the QA gates and the methodology sources.
+
 ## Mechanical verification
 
 ```bash

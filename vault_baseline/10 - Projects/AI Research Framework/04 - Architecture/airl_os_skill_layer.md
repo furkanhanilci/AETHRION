@@ -1048,6 +1048,16 @@ mechanical check that CI can run.
 answer today:** when `obra/superpowers` changes, which AIRL skills must be
 re-examined?
 
+### 14.5.1 The reporting family, added 2026-08-22
+
+Three skills carry document production, and they compose rather than nest:
+**`authoring-research-documents`** conducts the pipeline and loads twelve
+reference modules on demand; **`reporting-results`** owns what a result permits
+you to say; **`producing-figures`** owns figures, with its long-form methodology
+in a reference module. The router skill stays at 131 lines precisely because the
+handbook lives beside it rather than inside it — which is the progressive
+disclosure the Agent Skills format is built for.
+
 ### 14.6 What follows from this decision
 
 | # | Work | State |

@@ -15,6 +15,14 @@
 | Related acceptance scenarios | ACC-30, ACC-31, ACC-40 |
 | Current status | `NOT_STARTED` |
 
+## Adopted component
+
+> **Quarto/Pandoc authoring stack (provisional) · CSL · JATS · MECA · veraPDF**
+
+The publication package is produced by an adopted authoring stack rather than a bespoke renderer: Quarto orchestrates, Pandoc's AST carries transformations, CSL supplies citation styles, JATS and MECA are interchange and submission exports, and veraPDF validates the rendered artifact when PDF/A or PDF/UA is requested. **A renderer exiting zero decides nothing** — publication remains a G9 human decision, and the authoring backend is provisional until the bake-off in `skills/authoring-research-documents/references/authoring-backend-bakeoff.md` is run.
+
+Rationale and adoption type: `docs/architecture/AIRL_OS_COMPONENT_REUSE.md` §9.1.
+
 ## Purpose and expected outcome
 
 Approved claims, limitations, source sets, protocols, runs, code/data/environment, reviews, reproductions and the `DecisionRecord` become a portable, signed and supersedable publication package.

@@ -1,0 +1,17 @@
+# Journal article — a starting profile, not a template.
+# Every venue field is UNVERIFIED until a VenueProfile is retrieved.
+document_type: journal-article
+archetype_topology: IMRaD, venue-shaped
+primary_reader: reviewer, then the field
+reader_decision: is this sound, and does it add something?
+canonical_source_format: quarto
+output_formats: [pdf]          # add docx/jats/meca only when the venue requires them
+citation_style: null           # CSL identifier, from the venue
+reporting_guideline: resolve   # may be none_applicable
+required_sections: [abstract, introduction, methods, results, discussion, references]
+limits: {word_limit: null, abstract_limit: null, figure_limit: null}
+venue: {name: null, source_url: null, retrieved_at: null, status: UNVERIFIED_CURRENT_REQUIREMENT}
+human_approval_required: true
+notes: >
+  Do not fill the limits from memory. An unfilled limit is honest; a remembered
+  one is a compliance claim without evidence.

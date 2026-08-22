@@ -1,0 +1,15 @@
+document_type: thesis-chapter
+archetype_topology: context -> theory -> method -> studies -> synthesis
+primary_reader: examination committee
+reader_decision: has the candidate demonstrated competence and contribution?
+canonical_source_format: quarto
+output_formats: [pdf]
+citation_style: null           # institutional requirement
+reporting_guideline: resolve
+structural_reference: institutional thesis regulations FIRST; ISO 7144 only as a general reference
+required_sections: [introduction, background, method, results, discussion, chapter_summary]
+front_matter_owned_by_parent: true
+human_approval_required: true
+notes: >
+  A thesis is not a journal article scaled up. Method is explained
+  pedagogically, and institutional regulations outrank every generic reference.

@@ -47,7 +47,8 @@ GROUPS = {
         "searching-literature", "screening-sources", "extracting-evidence",
         "anchoring-spans", "curating-zotero", "building-review-packets",
     ],
-    "H - Reporting": ["producing-figures", "reporting-results"],
+    "H - Reporting": ["producing-figures", "reporting-results",
+                      "authoring-research-documents"],
     "F - Metascience": [
         "calibrating-confidence", "measuring-agreement", "injecting-controls",
     ],

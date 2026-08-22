@@ -36,12 +36,13 @@ implied.
 | Zotero → Obsidian projection | ✅ Working, read-only at the Zotero boundary | `src/airl_bridge/obsidian.py` |
 | Hermes MCP access | ✅ Working, five read-only tools | `src/airl_bridge/mcp_server.py` |
 | Shared contract core | ⚠️ `TECH_COMPLETE` — no production consumer | `src/airl_framework/` |
-| Skill registry (51 skills, two families) | ✅ Format-conformant · ⚠️ wired for Claude Code only · 📐 behaviour **not yet tested** | `skills/` |
+| Skill registry (52 skills, two families) | ✅ Format-conformant · ⚠️ wired for Claude Code only · 📐 behaviour **not yet tested** | `skills/` |
 | Obsidian information architecture | ✅ V0 ready | `vault_baseline/` |
 | Target architecture and skill layer | 📐 Designed, awaiting decision | `docs/architecture/` |
 | Commissioning programme — **baseline v1.0.1** | ⬜ Planned, not started; 141 packages, 51 scenarios | `planning/commissioning/` |
 | Interim evidence policy (WP-000) | ✅ `TECH_COMPLETE` — tooling implemented, specimen issued and verified | `scripts/evidence_manifest.py` · `delivery/WP-000/` |
 | Verification on push (BVC-01) | 📐 Decided and written, **not yet active** — needs a workflow-scoped token | `deploy/bvc-01-verify.yml` |
+| Document production (authoring + figures + reporting) | 📐 Skill and reference modules written; resolution checks run · **no renderer installed** | `skills/authoring-research-documents/` |
 | Reference verification (CoE Audit check 1) | ✅ **Working and measured** — 81.8% of the registry corroborated | `scripts/verify_references.py` |
 | Source monitoring (first slice of G10) | ✅ **Working** — positive control fires; 18 of 33 sources carry no DOI | `scripts/monitor_sources.py` |
 
@@ -50,7 +51,7 @@ implied.
 ```
 src/          Bridge component and the shared contract core
 tests/        Test suite
-skills/       51 skills — HOW agents work; engineering + scientific + shared
+skills/       52 skills — HOW agents work; engineering + scientific + shared
 planning/     WP-000, WP-001..140, ACC-01..51 (hash-sealed canonical plan, baseline v1.0.1)
 docs/         Architecture, review and operations documents
 schemas/      Shared contract schemas
@@ -520,7 +521,20 @@ exists, the measurement replaces the rule. A laboratory that never measures its
 own independence assumption is repeating an assumption and calling it
 verification.
 
-## 7. What this builds, and what it stands on
+## 7. How a document is produced
+
+A document is a **projection of verified state**, not a generative act. The
+pipeline runs evidence → claims → structure → prose → figures → QA → render, and
+a renderer exiting zero decides nothing.
+
+![The document production pipeline and where authority sits](docs/figures/airl_os_reporting.svg)
+
+*Figure 5 — Formatting is downstream: stages 0–2 finish before a renderer is
+chosen. The four packaging objects are distinct, and only the first exists here.
+Every external tool in the authority band produces a signal; none of them
+decides. Written up in [`authoring-research-documents`](skills/authoring-research-documents/SKILL.md).*
+
+## 8. What this builds, and what it stands on
 
 Almost every layer of the target system is a component someone else maintains
 and tests. What this project owns is the control layer.
@@ -538,7 +552,7 @@ in [`AIRL_OS_COMPONENT_REUSE.md`](docs/architecture/AIRL_OS_COMPONENT_REUSE.md).
 > contribution is the layer above them: which evidence, having passed which
 > gate, permits which claim to be accepted.
 
-## 8. How evidence is signed
+## 9. How evidence is signed
 
 Acceptance requires a signed `EvidenceManifest` in an immutable store — and that
 store is WP-026, far downstream, which deadlocked the entire programme
@@ -568,7 +582,7 @@ rather than headcount, so one person holding several roles can be modelled
 honestly. See
 [`AIRL_OS_EXTERNAL_STANDARDS.md`](docs/architecture/AIRL_OS_EXTERNAL_STANDARDS.md).
 
-## 9. Target versus reality
+## 10. Target versus reality
 
 ```mermaid
 flowchart LR
@@ -687,6 +701,8 @@ uv run python scripts/evidence_manifest.py verify \
     --manifest delivery/WP-000/evidence.dsse.json --tamper-demo
 uv run python scripts/verify_references.py   # needs network; not part of BVC-01
 uv run python scripts/monitor_sources.py     # G10 sweep; fails if its control stays silent
+uv run python scripts/check_document.py delivery/specimen/airl-measurement-report.qmd
+python3 scripts/check_reporting_registry.py  # adopted components remain auditable
 (cd planning/commissioning && sha256sum -c 00_PROGRAM/SHA256SUMS.txt)
 ```
 
@@ -763,11 +779,11 @@ the laboratory does not claim independence it does not have.
 WP-000 attestation: signature OK, 3 subject digests OK, tamper rejected
 MCP smoke: 5 read-only tools, exits 1 when the Bridge is down
 Acceptance: 11 structural checks pass, data-independent
-Skills: 51/51 conform to the Agent Skills format and the AIRL metadata contract
+Skills: 52/52 conform to the Agent Skills format and the AIRL metadata contract
 Documents: declared counts match the repository; no decision record contradicts itself
 References: 27/33 registry sources corroborated against Crossref, OpenAlex and arXiv
 Monitoring: G10 sweep clean over 15 DOI-bearing sources; positive control fired
-Figures: 4/4 match their generators; 0 text overflows out of their boxes
+Figures: 5/5 match their generators; 0 text overflows out of their boxes
 Mirror drift: 0 (208 plan files, 67 skill/doc/figure files)
 Obsidian baseline and vault identical
 ```

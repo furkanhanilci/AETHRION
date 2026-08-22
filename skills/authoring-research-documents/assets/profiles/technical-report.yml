@@ -1,0 +1,20 @@
+# Industrial / engineering technical report.
+document_type: technical-report
+archetype_topology: problem -> requirements -> method -> V&V -> recommendation
+primary_reader: engineering lead, manager or customer
+reader_decision: what do we do next, and on what basis?
+canonical_source_format: quarto
+output_formats: [pdf, docx]
+citation_style: null
+reporting_guideline: none_applicable
+structural_reference: ANSI/NISO Z39.18 (status to verify; customer template overrides)
+required_sections:
+  [document_control, executive_summary, purpose, scope, context, requirements,
+   assumptions, method, implementation, verification_and_validation, results,
+   deviations, risks, limitations, open_issues, recommendations, references]
+traceability_required: true    # requirements, verification, results and deviations
+                               # each resolve to a source artifact
+human_approval_required: true
+notes: >
+  A deviation is not a limitation. Recording one as the other is the
+  characteristic integrity failure of this archetype.

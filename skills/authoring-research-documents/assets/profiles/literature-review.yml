@@ -1,0 +1,15 @@
+document_type: literature-review
+archetype_topology: thematic | methodological | contradiction-and-gap
+primary_reader: the field
+reader_decision: what is known, and what is missing?
+canonical_source_format: quarto
+output_formats: [pdf]
+citation_style: null
+reporting_guideline: PRISMA-family if systematic; otherwise none_applicable
+required_sections: [scope, search_strategy, synthesis, contradictions, gaps, references]
+synthesis_rule: every synthesis statement resolves to the SET of sources supporting it
+prohibited: paper-by-paper summary as the default structure
+human_approval_required: true
+notes: >
+  Disagreement between sources is reported as disagreement, never averaged into
+  a consensus no source holds.

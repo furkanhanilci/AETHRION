@@ -98,6 +98,10 @@ def fit(text: str, max_w: float, size: float, weight: str = "400",
     Raises when it cannot: a figure that will not lay out honestly must fail the
     build rather than ship with clipped text.
     """
+    if size < min_size:
+        raise ValueError(
+            f"requested size {size} is below the {min_size}-unit legibility floor; "
+            f"raise the size or widen the box rather than lowering the floor")
     current = size
     while current >= min_size:
         lines = wrap(text, current, max_w, weight)

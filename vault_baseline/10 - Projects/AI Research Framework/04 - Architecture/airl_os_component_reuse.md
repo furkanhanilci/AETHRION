@@ -238,6 +238,36 @@ hand.
 
 ---
 
+## 9.1 Authoring, reporting and publication
+
+The full register, with an `authority_boundary` per component, is
+[`skills/authoring-research-documents/references/external-systems-and-standards.md`](../../skills/authoring-research-documents/references/external-systems-and-standards.md).
+Summary:
+
+| Component | Type | Role |
+|---|---|---|
+| **Quarto** | `DEPENDENCY` (**provisional**) | Manuscript orchestration, cross references, multi-format render, JATS output and a MECA bundle. Provisional until the bake-off runs |
+| **Pandoc** | `DEPENDENCY` | Document AST, citeproc, DOCX reference templates, Lua filters. **AIRL transformations are AST filters, never regexes over a manuscript** |
+| **MyST** | `OPTIONAL_BACKEND` | The competing stack in the bake-off |
+| **Typst · LaTeX** | `OPTIONAL_BACKEND` | PDF backends; a venue mandate overrides preference |
+| **Manubot** | `PATTERN` | Manuscript-as-code, continuous rebuild, citation by identifier — taken as discipline, not as a second engine |
+| **Docling** | `ADAPTER` | Ingesting an existing report for revision. **Kept off the scholarly evidence path**, which is GROBID/Pub2TEI, unless a measured comparison says otherwise |
+| **Better BibTeX** | `ADAPTER` | Project bibliography projection with stable keys. Not canonical identity |
+| **CSL** | `STANDARD` | Citation styles; AIRL does not invent one |
+| **DataCite 4.7** | `STANDARD` | Released 2026-03-03; adds `SWHID` as a related-identifier type, which links directly to AIRL's SWHID adoption |
+| **ORCID · ROR · CRediT** | `STANDARD` | Identity, affiliation and contribution metadata — **never authorship authority** |
+| **CITATION.cff** | `STANDARD` | Citable software in a package |
+| **JATS · JATS4R · MECA** | `STANDARD` / optional export | Interchange and submission, never the authoring format |
+| **EQUATOR family · Z39.18 · ISO 7144** | `STANDARD` / `PATTERN` | Reporting guidelines and report structure, applied only where the study type fits |
+| **Vale** | `DEPENDENCY` | Deterministic prose linting |
+| **LanguageTool** | `OPTIONAL_BACKEND` | Grammar — **local or licensed instance only**; its public free endpoint asks for no automated traffic |
+| **WCAG 2.2 · veraPDF** | `STANDARD` / `DEPENDENCY` | Accessibility contracts, validated against the rendered artifact |
+| **PaperBanana · DiagramRAG · figure skill repositories** | `PATTERN` | Figure methodology; no code or text copied, licences unverified until they are |
+
+> **None of this toolchain is installed here.** Docker is, so the bake-off can be
+> run in pinned containers. Until it is, "this project uses Quarto" states an
+> intention, not a measurement.
+
 ## 10. External witnesses
 
 | Component | Type | Where | Why |

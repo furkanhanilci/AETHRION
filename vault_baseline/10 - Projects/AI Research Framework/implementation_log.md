@@ -19,6 +19,133 @@ the last entry, the cockpit and the relevant WP files are read again.
 
 ---
 
+## Step 015 — Document production: a conductor, twelve reference modules, and two checkers
+
+**Time:** 2026-08-22
+**Scope:** `authoring-research-documents` skill · external systems register with
+authority boundaries · specimen report · two mechanical checkers · fifth figure
+
+### The design question, answered before writing anything
+
+> Should `authoring-research-documents` be one large skill?
+
+**No.** The router is **131 lines** and loads one of twelve reference modules
+when its phase is reached. The handbook lives beside the skill, not inside it,
+which is what progressive disclosure in the Agent Skills format is for. The main
+skill is the conductor; `reporting-results`, `producing-figures`, the evidence
+skills, the Zotero skills and the review skills are the orchestra.
+
+### The principle the pipeline encodes
+
+```
+evidence → claims → structure → prose → figures → QA → render
+```
+
+Stages 0–2 finish **before a renderer is chosen**. A document whose first
+decision was its template has already skipped the only stage that could have
+stopped it.
+
+And the boundary that everything else hangs from: **`quarto render` exiting zero
+means the document rendered.** It says nothing about whether the document is
+true, complete, venue-compliant or publishable.
+
+### Authority boundaries, made mandatory
+
+Every component in the register carries an explicit `authority_boundary`:
+
+```yaml
+authority_boundary:
+  external_tool_may: "render a document and resolve its internal references"
+  external_tool_may_not: "decide whether a claim is supported, or whether a
+    document may be published"
+```
+
+**A component that cannot be given one does not enter a gate.**
+`scripts/check_reporting_registry.py` enforces that the register keeps its
+adoption types, sources, retrieval dates, unverified claims and rejections —
+including a check that *something* is marked `UNVERIFIED`, because a register
+with no unverified claim is usually one that stopped checking.
+
+### What was honestly refused
+
+- **No authoring backend was chosen.** Quarto, Pandoc, Typst, LaTeX, MyST, Vale
+  and LanguageTool are all **absent from this environment**. The bake-off is
+  specified in full — specimen contents, attempted outputs, twenty recorded
+  fields, weighting — and marked **NOT RUN**. Quarto appears everywhere as a
+  *provisional* default. Docker is available, so it can be run in containers.
+- **Nothing was rendered.** No PDF, no DOCX. Claiming either would have been the
+  overstatement this repository exists to prevent.
+- **MyST's "400+ journal templates"** is recorded as **UNVERIFIED** rather than
+  repeated. So are the exact JATS, MECA and CRediT standard revisions.
+- **DataCite 4.7** *was* verified: released 2026-03-03, and it adds `SWHID` as a
+  related-identifier type — which connects to AIRL's existing SWHID adoption.
+
+### What actually runs
+
+`scripts/check_document.py` — placeholders, citation resolution, cross-reference
+resolution — and a **specimen technical report** built from this repository's own
+two measurements, with a real bibliography of three verified references.
+
+The specimen immediately corrected the checker twice:
+
+| Fault found by real use | Fix |
+|---|---|
+| `@fig-stack.` — sentence punctuation captured into the key | strip trailing punctuation |
+| every unreferenced `#sec-` label flagged | only figures, tables and equations *must* be referenced; a section anchor exists for navigation |
+
+Then a deliberate corruption confirmed it fires: a `TODO`, an orphan figure and a
+citation resolving to nothing were all caught.
+
+**A third bug surfaced in `figure_kit`:** requesting text below the 16-unit
+legibility floor failed with a confusing message. It now says plainly that the
+box should widen rather than the floor lower.
+
+### The reporting family
+
+| Skill | Owns |
+|---|---|
+| `authoring-research-documents` | the pipeline, the contract, the archetypes, the packaging ladder |
+| `reporting-results` | what a result permits you to say |
+| `producing-figures` | figures, with the long-form methodology in a reference module |
+
+**52 skills.**
+
+### Boundaries recorded, not assumed
+
+- **Docling stays off the evidence path.** General report ingestion is Docling;
+  scholarly evidence is GROBID/Pub2TEI. Converging them requires measurement.
+- **Better BibTeX is a projection**, not identity. Zotero 8 has native citation
+  keys — check before adding a second key authority.
+- **LanguageTool's public free endpoint is not used** for automated traffic; its
+  own documentation asks for that.
+- **A reporting guideline is a completeness standard**, and the EQUATOR family is
+  primarily health research. `none_applicable` is a legitimate result.
+- **ORCID, ROR and CRediT never give an agent authorship authority.** An ORCID is
+  never invented; an affiliation is never rewritten by fuzzy matching.
+
+### Evidence
+
+- 25/25 tests · 52/52 skills · plan semantics OK · documents consistent
+- **5/5 figures**, 0 overflow · seal 207/207 · mirror drift 0
+- specimen resolution checks pass · reporting register auditable
+
+### Limits
+
+- **No renderer, so no rendered artifact.** The pipeline's second half is written
+  and unexercised.
+- The bake-off has no result, so the authoring stack is undecided.
+- The reference modules describe QA passes whose tools are not installed.
+- Nothing here made the framework produce a research document; it made the
+  discipline for doing so explicit and checkable.
+
+### Next step
+
+Run the bake-off in Docker — it is the one blocked decision that the environment
+can actually unblock — then render the specimen and inspect the artifact rather
+than the source.
+
+---
+
 ## Step 014 — The adoption matrix applied, and a second measurement
 
 **Time:** 2026-08-22

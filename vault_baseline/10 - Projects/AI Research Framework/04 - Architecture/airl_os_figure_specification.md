@@ -12,7 +12,7 @@
 | Status | `WORKING` — figures are generated and mechanically checked |
 | Date | 2026-08-22 |
 
-**In one paragraph.** Figures here are generated artifacts, not drawings: the corpus is the source, the generator is version-controlled, and the SVG is reproducible from a clean checkout. There are four of them rather than one per document, because a figure earns its place only by carrying a mechanism prose carries badly. Every string is measured against the box it sits in, and a figure that cannot be laid out honestly fails the build.
+**In one paragraph.** Figures here are generated artifacts, not drawings: the corpus is the source, the generator is version-controlled, and the SVG is reproducible from a clean checkout. There are five of them rather than one per document, because a figure earns its place only by carrying a mechanism prose carries badly. Every string is measured against the box it sits in, and a figure that cannot be laid out honestly fails the build.
 
 Figures here are **generated artifacts**, like the Obsidian mirrors and the
 package catalogue. The canonical source is the architecture corpus; the
@@ -67,6 +67,7 @@ carries a **mechanism** that prose carries badly:
 | 2 | `airl_os_roles.svg` | Authority tiers, and constraint resolution replacing headcount | A list that reads as an org chart |
 | 3 | `airl_os_evidence_chain.svg` | The chain, plus how much of it exists | A status table nobody cross-reads |
 | 4 | `airl_os_stack.svg` | What is built here versus what is adopted, with the obligation each adoption type creates | A register nobody reads end to end |
+| 5 | `airl_os_reporting.svg` | That formatting is downstream, and that no tool in the pipeline decides | A procedure list, which hides the authority question |
 
 Everything else in the corpus uses inline Mermaid, which is editable in place,
 renders in both GitHub and Obsidian, and does not need a build step. The rule:
@@ -91,6 +92,7 @@ generator module. If a reader takes away only that sentence, the figure worked.
 | 2 | Fourteen functions ordered by authority; a role is a function, so legality is decided by separation constraints, not headcount |
 | 3 | A claim is admissible only if it resolves back to a source span and forward to a signed attestation — and one link of ten is implemented |
 | 4 | Almost every layer is someone else's component; what this project owns is the control layer, and it is the least built part |
+| 5 | A document is produced evidence-first and rendered last, and publication remains a human decision |
 
 ### Archetype selection
 

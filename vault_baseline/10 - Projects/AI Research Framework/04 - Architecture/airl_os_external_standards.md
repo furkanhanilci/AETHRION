@@ -281,6 +281,24 @@ mechanical check**, never as documentation.
 
 ---
 
+## 5.2 Authoring and publication standards
+
+CSL, DataCite 4.7, ORCID, ROR, CRediT, CITATION.cff, JATS/JATS4R, MECA, WCAG 2.2
+and the EQUATOR guideline family are adopted for document production and recorded
+with their authority boundaries in
+[`external-systems-and-standards.md`](../../skills/authoring-research-documents/references/external-systems-and-standards.md).
+
+Two boundaries carry most of the weight there:
+
+- **A reporting guideline is a completeness standard, not a quality standard.**
+  "PRISMA-compliant" says the reporting was complete, never that the review was
+  sound — and the EQUATOR family is primarily health research, so importing
+  CONSORT into a robotics experiment is misapplication, not diligence.
+- **A renderer decides nothing.** `quarto render` exiting zero means the document
+  rendered. Publication remains a G9 human decision.
+
+---
+
 ## 6. Systems studied but deliberately not adopted
 
 | System | What was taken |
