@@ -4,7 +4,7 @@ type: handover
 status: active
 owner: otonom
 created_at: "2026-08-22"
-content_valid_through_commit: 614571f
+content_valid_through_commit: 0d921aa
 tags:
   - ai-framework/handover
   - ai-framework/execution
@@ -28,7 +28,7 @@ tags:
 |---|---|
 | Repository | `/home/otonom/Desktop/FH/AI_RESEARCH_FRAMEWORK` |
 | Branch | `main`, working tree **clean** |
-| Content valid through | **`614571f`** — this note describes the tree at that commit. It does **not** track HEAD, because a field naming HEAD stales itself the moment it is committed |
+| Content valid through | **`0d921aa`** — this note describes the tree at that commit. It does **not** track HEAD, because a field naming HEAD stales itself the moment it is committed |
 | Remote | `github.com/furkanhanilci/AI-Research-Framework` (private) — **the only authorised remote** |
 | Last steps | 004 English revision · 005 file-by-file review · 006 skill families + WP-000 · **007 commissioning baseline v1.0** |
 | Bridge service | `active` · sync timer `active` |
