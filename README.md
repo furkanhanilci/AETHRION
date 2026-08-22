@@ -341,7 +341,7 @@ flowchart TD
         U1["Paper full text · tool output<br/>web pages · reviewer comments"]
     end
     U1 -->|"content crosses:<br/>quoted, attributed, never obeyed"| T1
-    U1 -.-|"authority never crosses this line"| BLOCK[["no edge exists"]]
+    U1 -.->|"authority never crosses"| BLOCK[["no such edge exists"]]
     T1 --> PDP{"Cedar<br/>permit or forbid?"}
     PDP -->|"permit"| ACT["Tool call executes,<br/>decision recorded with the run"]
     PDP -->|"forbid, and by default"| DENY["Denied.<br/>An anomaly is a denial, not a warning"]
