@@ -35,6 +35,7 @@ CHECKS = [
     ("Test suite", ["uv", "run", "pytest"], "passed"),
     ("Skill registry", [sys.executable, "scripts/validate_skills.py"], "conform"),
     ("Commissioning plan semantics", [sys.executable, "scripts/validate_commissioning_plan.py"], "OK"),
+    ("Workstream indexes", [sys.executable, "scripts/make_plan_indexes.py", "--check"], "drift"),
     ("Declared counts", [sys.executable, "scripts/check_doc_consistency.py"], "agree"),
     ("Stale claims", [sys.executable, "scripts/check_stale_claims.py"], "outgrown"),
     ("Figures", [sys.executable, "scripts/make_figures.py", "--check"], "drift"),

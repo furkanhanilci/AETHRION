@@ -57,8 +57,8 @@ zero open critical findings.
 | Work package documents in total | **141** |
 | Acceptance scenarios | **51** (ACC-01 – ACC-51) |
 | Programme documents | 12 |
-| Markdown files under this tree | 206 |
-| Files covered by the hash seal | 207 (206 Markdown + 1 CSV) |
+| Markdown files under this tree | 220 |
+| Files covered by the hash seal | 221 (220 Markdown + 1 CSV) |
 
 > **Commissioning baseline v1.0.1 — 2026-08-22.** This is the baseline the
 > programme will actually be commissioned against. Everything after this point
@@ -82,6 +82,31 @@ sha256sum -c planning/commissioning/00_PROGRAM/SHA256SUMS.txt
 
 Every entry must report `OK`. The seal is regenerated deliberately, as part of a
 recorded change — never as a routine step to silence a failing check.
+
+## 3.1 How to navigate
+
+Every workstream directory carries a **generated** README listing its packages,
+their dependencies, their status and whether they stand on an adopted component.
+Regenerate with `python3 scripts/make_plan_indexes.py`; the build checks them
+with `--check`.
+
+### Programme documents, and the question each answers
+
+| Document | Answers |
+|---|---|
+| [`00_how_to_use_this_plan.md`](00_PROGRAM/00_how_to_use_this_plan.md) | How is this plan executed and verified? |
+| [`01_target_state_and_invariants.md`](00_PROGRAM/01_target_state_and_invariants.md) | What is being built, and what must never break? |
+| [`02_wave_and_dependency_map.md`](00_PROGRAM/02_wave_and_dependency_map.md) | In what order, and after what? |
+| [`03_package_catalogue.md`](00_PROGRAM/03_package_catalogue.md) | What is every package, in one place? |
+| [`04_role_and_responsibility_matrix.md`](00_PROGRAM/04_role_and_responsibility_matrix.md) | Who is accountable, and which roles may combine? |
+| [`05_definition_of_ready_and_done.md`](00_PROGRAM/05_definition_of_ready_and_done.md) | When may a package start, and when is it accepted? |
+| [`06_evidence_and_acceptance_strategy.md`](00_PROGRAM/06_evidence_and_acceptance_strategy.md) | What counts as evidence? |
+| [`07_programme_risk_register.md`](00_PROGRAM/07_programme_risk_register.md) | What is likely to go wrong, and what already has? |
+| [`08_capacity_and_estimation.md`](00_PROGRAM/08_capacity_and_estimation.md) | Is there capacity to do this? |
+| [`09_change_and_configuration_control.md`](00_PROGRAM/09_change_and_configuration_control.md) | How does the plan itself change without drifting? |
+| [`10_go_live_checklist.md`](00_PROGRAM/10_go_live_checklist.md) | What must be true before cutover? |
+| [`11_scope_coverage_matrix.md`](00_PROGRAM/11_scope_coverage_matrix.md) | Is anything in scope not covered by a package? |
+| [`12_ACCEPTANCE_SCENARIOS/acceptance_scenarios_index.md`](12_ACCEPTANCE_SCENARIOS/acceptance_scenarios_index.md) | All 51 scenarios, by severity and phase |
 
 ## 4. Directory structure
 

@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import base64
 import json
+import shutil
 import subprocess
 import sys
 from pathlib import Path
@@ -29,7 +30,12 @@ def specimen(tmp_path_factory) -> Path:
     result = run("issue", "--package", "WP-TEST", "--gate", "Program",
                  "--subject", str(covered.relative_to(ROOT)))
     assert result.returncode == 0, result.stderr
-    return ROOT / "delivery" / "WP-TEST" / "evidence.dsse.json"
+    manifest = ROOT / "delivery" / "WP-TEST" / "evidence.dsse.json"
+    yield manifest
+    # The fixture writes into the delivery tree; leaving it behind would put a
+    # test artifact in the evidence directory, where a reader would reasonably
+    # take it for a real package.
+    shutil.rmtree(manifest.parent, ignore_errors=True)
 
 
 def test_issued_manifest_verifies(specimen: Path) -> None:

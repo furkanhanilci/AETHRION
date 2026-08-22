@@ -167,6 +167,7 @@ uv run python scripts/acceptance_v0.py
 python3 scripts/validate_skills.py                         # 52 skills, format + metadata
 python3 scripts/make_figures.py --check                    # generators match, and text fits its box
 python3 scripts/validate_commissioning_plan.py             # plan references, phases and DAG
+python3 scripts/make_plan_indexes.py --check                # workstream indexes
 python3 scripts/check_doc_consistency.py                   # declared counts vs reality
 python3 scripts/check_stale_claims.py                      # prose the repository has outgrown
 uv run python scripts/write_status.py                      # regenerate docs/STATUS.md
@@ -176,10 +177,10 @@ python scripts/mirror_plan.py  "$V/01 - Commissioning" --check
 python scripts/mirror_vault.py "$V" --check
 ```
 
-Expected: `25 passed` · `207` OK · five MCP tools · 11 acceptance checks ·
+Expected: `25 passed` · `221` OK · five MCP tools · 11 acceptance checks ·
 `52 skills` conform · `3 figures, 0 drift, 0 overflow` · `plan semantics OK` ·
 `0 drift entries`
-twice (208 plan files, 67 skill/doc/figure files).
+twice (plan and vault mirrors, 0 drift).
 
 The first six are written as a push-triggered control, **BVC-01**
 (`deploy/bvc-01-verify.yml`), but it is **staged and not active** — activation

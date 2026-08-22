@@ -4,7 +4,7 @@ type: handover
 status: active
 owner: otonom
 created_at: "2026-08-22"
-content_valid_through_commit: 6e2762f
+content_valid_through_commit: pending-step-017
 tags:
   - ai-framework/handover
   - ai-framework/execution
@@ -28,14 +28,14 @@ tags:
 |---|---|
 | Repository | `/home/otonom/Desktop/FH/AI_RESEARCH_FRAMEWORK` |
 | Branch | `main`, working tree **clean** |
-| Content valid through | **`6e2762f`** — this note describes the tree at that commit. It does **not** track HEAD, because a field naming HEAD stales itself the moment it is committed |
+| Content valid through | **`pending`** — this note describes the tree at that commit. It does **not** track HEAD, because a field naming HEAD stales itself the moment it is committed |
 | Remote | `github.com/furkanhanilci/AI-Research-Framework` (private) — **the only authorised remote** |
 | Last steps | 004 English revision · 005 file-by-file review · 006 skill families + WP-000 · **007 commissioning baseline v1.0** |
 | Bridge service | `active` · sync timer `active` |
 | Sources in registry | 33 |
 | Skills | **52** — 11 engineering · 31 scientific-research · 10 shared |
 | Live status | `docs/STATUS.md`, **generated** by `scripts/write_status.py` |
-| Plan | **commissioning baseline v1.0.1** — 141 WP documents, 51 scenarios, 207 sealed files |
+| Plan | **commissioning baseline v1.0.1** — 141 WP documents, 51 scenarios, **221 sealed files** (14 generated workstream indexes added) |
 
 ### The last three commits
 
@@ -73,7 +73,7 @@ python3 scripts/make_figures.py --check              # expect: 0 drift, 0 overfl
 python3 scripts/validate_commissioning_plan.py       # expect: plan semantics OK
 python3 scripts/check_doc_consistency.py             # expect: documents agree
 (cd planning/commissioning && sha256sum -c 00_PROGRAM/SHA256SUMS.txt | grep -c ': OK$')
-                                                     # expect: 207
+                                                     # expect: 221
 uv run python scripts/mcp_smoke.py     >/dev/null && echo "smoke OK"
 uv run python scripts/acceptance_v0.py >/dev/null && echo "acceptance OK"
 python3 scripts/mirror_plan.py  "$V/01 - Commissioning" --check | tail -1
@@ -82,7 +82,7 @@ python3 scripts/mirror_vault.py "$V" --check | tail -1
 systemctl --user is-active airl-bridge.service airl-bridge-sync.timer
 ```
 
-Expected end state: `20 passed`, `49 skills conform`, `207`, `plan semantics OK`, `smoke OK`,
+Expected end state: `25 passed`, `52 skills conform`, `221`, `plan semantics OK`, `smoke OK`,
 `acceptance OK`, `0 drift entries` twice (203 plan files, 65 skill/doc/figure files),
 `active active`.
 
@@ -118,6 +118,19 @@ reasoning than the version it replaced.
 - **ADR-001** (solo-operator independence — *blocks every acceptance*) and
   **ADR-002** (bootstrap verification control) written; **neither decided**.
 - `NOTICE` added for licensing and vendored attribution.
+
+### Step 017 — structural completeness
+
+- **Every directory now explains itself.** Fourteen commissioning workstreams had
+  no index; they are now **generated** by `scripts/make_plan_indexes.py` from the
+  packages in them. Seal moved 207 → **221**.
+- Ten folder READMEs written to be read cold — each stating what it does *not*
+  contain, and naming its limit at the point of the claim.
+- `DOCUMENT_STANDARD.md` gained the **document-kind taxonomy** (reference ·
+  decision record · proposal · evidence · generated) and a section on writing for
+  a reader with no context.
+- `delivery/WP-TEST/` — a committed pytest artifact sitting in the evidence
+  directory — removed and ignored; the fixture cleans up after itself.
 
 ### Step 016 — corpus-wide audit
 

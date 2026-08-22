@@ -19,6 +19,88 @@ the last entry, the cockpit and the relevant WP files are read again.
 
 ---
 
+## Step 017 — Structural completeness: every folder explains itself
+
+**Time:** 2026-08-22
+**Scope:** folder-level documentation · fourteen generated workstream indexes ·
+document-kind taxonomy · a stray artifact removed
+
+### The audit
+
+A structural scan asked one question of every directory a reader can arrive at:
+**does it explain itself?** Fourteen commissioning workstreams holding 141
+package documents and 51 scenarios had no index at all — the plan could only be
+navigated by knowing package numbers in advance. `docs/`, `scripts/`, `tests/`,
+`deploy/`, `src/*` and four `delivery/` subdirectories were the same.
+
+A directory of 141 files with no way in is not organised; it is sorted.
+
+### Fourteen indexes, generated
+
+`scripts/make_plan_indexes.py` writes each workstream README **from the packages
+in it** — title, hard dependencies, status, and whether the package stands on an
+adopted component. A hand-maintained index of 141 packages drifts within a week,
+so this one is derived and `--check` fails the build if it is edited.
+
+The seal moved **207 → 221**, and the inventory, mirrors and status page followed.
+
+### Ten folder READMEs, written to be read cold
+
+`docs/` (a reading order for someone arriving with no context) · `docs/architecture/`
+· `docs/review/` · `scripts/` · `tests/` · `deploy/` · `src/airl_bridge/` ·
+`src/airl_framework/` · `delivery/specimen/` · `delivery/_keys/` ·
+`delivery/WP-000/` · `skills/_vendor/` · `.claude/`.
+
+Two conventions made them worth having:
+
+- **Each states what it does not contain.** `tests/README.md` lists what is
+  untested — the read-only boundary, agent behaviour, everything designed and
+  unbuilt — and that list is the more useful half.
+- **Each names its own limit at the point of the claim.**
+  `src/airl_framework/README.md` opens by saying nothing imports it and that its
+  digest format contradicts the bridge's, because a component reference that
+  buries finding H4 in a footnote is advertising.
+
+### The taxonomy that was missing
+
+`DOCUMENT_STANDARD.md` now names four document kinds — **reference · decision
+record · proposal · evidence** — plus generated documents as a fifth. Confusing
+them is the main way this repository gets overestimated: *"nobody has agreed to
+this"* is the whole content of a proposal label, and `AIRL_OS_IDEAL_STRUCTURE.md`
+had been read as description more than once.
+
+It also adds **folder-level documentation** and **writing for a reader who
+arrives cold** as standard sections: expand acronyms per document, name files
+rather than "the above", give reference tables a *question* column, and **put the
+limitation next to the claim** so a reader who stops early is not misled.
+
+### A stray artifact
+
+`delivery/WP-TEST/` — a pytest fixture's output — had been **committed into the
+evidence directory**, where a reader would reasonably take it for a real package.
+Removed, git-ignored, and the fixture now cleans up after itself.
+
+### Evidence
+
+- 10/10 status checks · seal **221/221** · plan semantics OK
+- workstream indexes: 15 directories, 0 drift · stale claims 0 · counts agree
+- 25/25 tests · 52/52 skills · 5/5 figures, 0 overflow · mirror drift 0
+- **every directory now carries a README**; every vault index is linked from the cockpit
+
+### Limits
+
+- This step made the repository legible. It added **no capability**, and the
+  things it explains more clearly are still mostly unbuilt.
+- Folder READMEs are hand-maintained except the fourteen generated ones; they
+  will need the same discipline the rest of the corpus gets.
+
+### Next step
+
+Unchanged, and now easier to hand to someone else: activate BVC-01, accept
+WP-000, run the authoring bake-off in Docker.
+
+---
+
 ## Step 016 — A full pass over every folder, and drift made mechanically visible
 
 **Time:** 2026-08-22

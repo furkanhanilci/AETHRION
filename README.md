@@ -696,6 +696,7 @@ uv run python scripts/acceptance_v0.py # data-independent structural acceptance
 python3 scripts/validate_skills.py     # Agent Skills format + AIRL metadata contract
 python3 scripts/make_figures.py --check # figures match generators, text fits its box
 python3 scripts/validate_commissioning_plan.py  # the plan is internally consistent
+python3 scripts/make_plan_indexes.py --check    # workstream indexes match their packages
 python3 scripts/check_doc_consistency.py        # documents agree with the repository
 python3 scripts/check_stale_claims.py          # no prose the repository has outgrown
 uv run python scripts/write_status.py          # regenerate docs/STATUS.md
@@ -777,7 +778,7 @@ the laboratory does not claim independence it does not have.
 ## Verification
 
 ```
-25/25 tests pass · plan seal 207/207 OK · plan semantics OK · service and timer active
+25/25 tests pass · plan seal 221/221 OK · plan semantics OK · service and timer active
 WP-000 attestation: signature OK, 3 subject digests OK, tamper rejected
 MCP smoke: 5 read-only tools, exits 1 when the Bridge is down
 Acceptance: 11 structural checks pass, data-independent

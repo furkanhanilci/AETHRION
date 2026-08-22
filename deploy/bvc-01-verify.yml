@@ -62,6 +62,9 @@ jobs:
       - name: Reporting register is auditable
         run: uv run python scripts/check_reporting_registry.py
 
+      - name: Workstream indexes match their packages
+        run: uv run python scripts/make_plan_indexes.py --check
+
       - name: Commissioning plan seal
         working-directory: planning/commissioning
         run: sha256sum -c 00_PROGRAM/SHA256SUMS.txt
