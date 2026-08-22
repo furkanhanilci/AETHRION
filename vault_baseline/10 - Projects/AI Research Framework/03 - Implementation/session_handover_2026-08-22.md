@@ -4,7 +4,7 @@ type: handover
 status: active
 owner: otonom
 created_at: "2026-08-22"
-session_end_commit: pending-step-007
+session_end_commit: aec0686
 tags:
   - ai-framework/handover
   - ai-framework/execution
@@ -28,7 +28,7 @@ tags:
 |---|---|
 | Repository | `/home/otonom/Desktop/FH/AI_RESEARCH_FRAMEWORK` |
 | Branch | `main`, working tree **clean** |
-| HEAD = origin/main | Step 007 in the working tree until committed |
+| HEAD = origin/main | **`aec0686`** — 0 ahead / 0 behind |
 | Remote | `github.com/furkanhanilci/AI-Research-Framework` (private) — **the only authorised remote** |
 | Last steps | 004 English revision · 005 file-by-file review · 006 skill families + WP-000 · **007 commissioning baseline v1.0** |
 | Bridge service | `active` · sync timer `active` |
@@ -39,6 +39,8 @@ tags:
 ### The last three commits
 
 ```text
+aec0686  Commissioning baseline v1.0: drift, architecture, skill layer bound
+70045f6  Put the architecture and its diagrams in the README itself
 1c1e4c5  Keep both skill families, adopt the open format, write WP-000
 e5673be  Correct the commit references in the session handover
 cf57f1f  Add a session handover note so the next session resumes without re-reading
@@ -62,7 +64,7 @@ cd /home/otonom/Desktop/FH/AI_RESEARCH_FRAMEWORK
 V="/home/otonom/Documents/Obsidian Vault/10 - Projects/AI Research Framework"
 
 git status --short                                   # expect: empty
-git log --oneline -1                                 # expect: 1c1e4c5 (or later)
+git log --oneline -1                                 # expect: aec0686 (or later)
 
 uv run pytest                                        # expect: 20 passed
 python3 scripts/validate_skills.py                   # expect: 49 skills conform
