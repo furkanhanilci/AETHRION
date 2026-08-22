@@ -21,6 +21,10 @@ import shutil
 import sys
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import mirror_vault
+import vault_frontmatter
+
 REPO = Path(__file__).resolve().parent.parent
 CANON = REPO / "planning" / "commissioning"
 
@@ -37,6 +41,45 @@ def mirror_name(rel: Path) -> str:
     if m:
         return f"{m.group(1).lower()}_{m.group(2)}_{m.group(3)}"
     return name
+
+
+def companion_kind(name: str) -> str:
+    """`tests`, `acceptance`, or `""` for a package card."""
+    for kind in ("tests", "acceptance"):
+        if re.match(rf"^WP-\d{{3}}_.+\.{kind}\.md$", name):
+            return kind
+    return ""
+
+
+# Repository document -> its place in the vault, taken from mirror_vault's own
+# map so the two cannot disagree. A plan file linking `../../../docs/READY.md`
+# resolves in the repository and used to land on nothing in Obsidian; those links
+# are the whole of `check_vault.py`'s "out of the mirrored subset" count.
+def _docs_in_vault() -> dict[str, str]:
+    import mirror_vault
+    return {src: rel for rel, src in mirror_vault.DOC_MAP.items()}
+
+
+def rewrite_doc_links(text: str, depth: int) -> str:
+    """Point a plan file's links to `docs/` at the mirrored copies.
+
+    ``depth`` is how far the file sits below the commissioning root, so the
+    relative path back out to `10 - Projects/AETHRION/` is computed rather than
+    guessed.
+    """
+    mapping = _docs_in_vault()
+    up = "../" * (depth + 1)          # out of the file's directory, then out of
+                                      # `01 - Commissioning` itself
+
+    def repl(match: re.Match[str]) -> str:
+        prefix, target, frag = match.group(1), match.group(2), match.group(3) or ""
+        vault_rel = mapping.get(target)
+        if vault_rel is None:
+            return match.group(0)     # not mirrored: leave it visibly unresolved
+        return f"]({up}{vault_rel}{frag})"
+
+    return re.sub(r"(\]\()(?:\.\./)+docs/([^)#\s]+\.md)(#[^)]*)?\)",
+                  lambda m: repl(m), text)
 
 
 def rewrite_links(text: str) -> str:
@@ -64,7 +107,18 @@ def build() -> dict[str, bytes]:
         if src.suffix != ".md":
             continue
         text = rewrite_links(src.read_text(encoding="utf-8"))
-        out[(rel.parent / mirror_name(rel)).as_posix()] = text.encode("utf-8")
+        text = rewrite_doc_links(text, len(rel.parent.parts) if rel.parent != Path(".") else 0)
+        vault_rel = (rel.parent / mirror_name(rel)).as_posix()
+        # Obsidian reads YAML frontmatter, not the document standard's header
+        # table, so the projection adds it. Without this the vault's own queries
+        # cannot see a single mirrored page.
+        front = vault_frontmatter.derive(
+            vault_rel=f"01 - Commissioning/{vault_rel}",
+            source=f"planning/commissioning/{rel.as_posix()}",
+            text=text,
+            generator="mirror_plan.py",
+        )
+        out[vault_rel] = (front + text).encode("utf-8")
     return out
 
 

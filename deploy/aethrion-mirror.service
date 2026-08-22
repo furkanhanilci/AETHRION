@@ -1,0 +1,29 @@
+[Unit]
+Description=Keep the AETHRION Obsidian projections current while the repository is edited
+Documentation=file:///home/otonom/Desktop/FH/AETHRION/docs/OPERATIONS.md
+After=default.target
+
+[Service]
+Type=simple
+WorkingDirectory=/home/otonom/Desktop/FH/AETHRION
+ExecStart=/usr/bin/python3 /home/otonom/Desktop/FH/AETHRION/scripts/watch_mirror.py
+Restart=on-failure
+RestartSec=10
+Environment=PYTHONUNBUFFERED=1
+UMask=0077
+
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=read-only
+# The only two places this service may write. Both are projections; the human
+# areas of the vault are not, and are deliberately unreachable from here.
+ReadWritePaths=/home/otonom/Desktop/FH/AETHRION/vault_baseline
+ReadWritePaths="/home/otonom/Documents/Obsidian Vault/10 - Projects/AETHRION"
+ReadWritePaths="/home/otonom/Documents/Obsidian Vault/_meta"
+RestrictSUIDSGID=true
+LockPersonality=true
+RestrictAddressFamilies=AF_UNIX
+
+[Install]
+WantedBy=default.target

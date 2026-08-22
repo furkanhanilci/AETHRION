@@ -1,7 +1,11 @@
 ---
 airl_id: AIRL-GENERATED-POSSIBLE-DUPLICATES
+tags:
+  - aethrion/index
+  - aethrion/source
+  - aethrion/duplicate-review
 type: generated-quality-report
-generated_at: "2026-08-22T16:25:55.369350+00:00"
+generated_at: "2026-08-22T19:32:38.075069+00:00"
 provenance: airl-bridge-api
 ---
 

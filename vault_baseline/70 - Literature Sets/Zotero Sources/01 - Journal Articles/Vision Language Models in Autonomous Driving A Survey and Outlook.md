@@ -8,8 +8,13 @@ zotero_version: 0
 doi: "10.1109/tiv.2024.3402136"
 source_url: ""
 content_hash: "sha256:b8ee9a246f9c72c4892d018b01b746e9b280701c2cca17c50f40e07ebbc449cb"
-generated_at: "2026-08-22T16:25:55.221362+00:00"
+generated_at: "2026-08-22T19:32:38.074136+00:00"
 provenance: airl-bridge-api
+tags:
+  - aethrion/source
+  - aethrion/source-category/01-journal-articles
+  - aethrion/item-type/journalarticle
+  - aethrion/has-doi
 zotero_tags:
   - "Task analysis"
   - "Autonomous Driving"

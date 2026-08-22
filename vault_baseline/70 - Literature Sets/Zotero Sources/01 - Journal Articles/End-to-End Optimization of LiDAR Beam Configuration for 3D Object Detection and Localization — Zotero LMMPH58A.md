@@ -8,8 +8,13 @@ zotero_version: 0
 doi: "10.1109/lra.2022.3142738"
 source_url: ""
 content_hash: "sha256:16f754abe4b6fa74ee0977c8adaeb4897562863f4c5d2229ca73dc50c12ac2b6"
-generated_at: "2026-08-22T16:25:55.221665+00:00"
+generated_at: "2026-08-22T19:32:38.074398+00:00"
 provenance: airl-bridge-api
+tags:
+  - aethrion/source
+  - aethrion/source-category/01-journal-articles
+  - aethrion/item-type/journalarticle
+  - aethrion/has-doi
 zotero_tags:
   - "Laser beams"
   - "Laser radar"

@@ -1,7 +1,9 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-08-22T16:25:55.364792+00:00",
+  "generated_at": "2026-08-22T19:32:38.075069+00:00",
   "generated_files": [
+    "00 - Control Dashboard/Potential Duplicates.md",
+    "00 - Control Dashboard/Source Catalog.md",
     "01 - Journal Articles/3D LiDAR Multi-Object Tracking Using Multi Positive Contrastive Learning and Deep Reinforcement Learning — Zotero U33TLMRS.md",
     "01 - Journal Articles/3D LiDAR Multi-Object Tracking Using Multi Positive Contrastive Learning and Deep Reinforcement Learning — Zotero ZWMDUEEY.md",
     "01 - Journal Articles/Deep Reinforcement Learning with Active Vision on Atari Environments — Zotero UC5MNIQ9.md",

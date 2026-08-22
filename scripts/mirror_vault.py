@@ -16,7 +16,9 @@ point *out* of the mirrored subset — a skill's prompt templates, its agent
 definitions, ``docs/ARCHITECTURE_V0.md`` — are left exactly as written and do
 not resolve in Obsidian. That is deliberate: the mirror carries a subset, and a
 link this script does not understand is safer visibly broken than silently
-repointed at the wrong note. Eleven such links exist today.
+repointed at the wrong note. ``scripts/check_vault.py`` counts them on every
+run and prints the total, so the number is never written down here — it was
+recorded as "eleven" while the real figure had grown to thirty-one.
 
 Usage:
     python scripts/mirror_vault.py <vault-project-dir> [--check]
@@ -29,6 +31,9 @@ import re
 import shutil
 import sys
 from pathlib import Path, PurePosixPath
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import vault_frontmatter
 
 REPO = Path(__file__).resolve().parent.parent
 SKILLS = REPO / "skills"
@@ -119,6 +124,21 @@ DOC_MAP = {
         "branding.md",
     "04 - Architecture/aethrion_branding_assets.md":
         "assets/branding/README.md",
+
+    # Added because plan and architecture documents link to these and the links
+    # landed on nothing in the vault. `check_vault.py` counted 31 such links; a
+    # cross-reference that resolves in the repository and not in the projection
+    # is a defect of the projection, not of the document.
+    "05 - Evidence/current_ready_queue.md": "READY.md",
+    "02 - Reviews/findings_register.md": "FINDINGS.md",
+    # NOT under `01 - Commissioning/` — that subtree belongs to mirror_plan.py,
+    # which replaces it wholesale. Two mirrors writing into one directory is a
+    # canonical-ownership conflict, and mirror_plan's stray-file refusal caught
+    # it on the first run.
+    "04 - Architecture/aethrion_v2_candidates.md": "V2_CANDIDATES.md",
+    "03 - Implementation/operations_runbook.md": "OPERATIONS.md",
+    "03 - Implementation/executing_a_work_package.md": "EXECUTING_A_WORK_PACKAGE.md",
+    "04 - Architecture/aethrion_architecture_v0.md": "ARCHITECTURE_V0.md",
 }
 
 BANNER = (
@@ -170,13 +190,23 @@ def build() -> dict[str, bytes]:
         text = text.replace("](../figures/", "](figures/").replace("](figures/README.md)",
                                                                    "](aethrion_figure_specification.md)")
         text = _relink(text, src, rel, src_to_vault)
-        out[rel] = (BANNER.format(source=f"docs/{src}") + text).encode("utf-8")
+        front = vault_frontmatter.derive(
+            vault_rel=rel, source=f"docs/{src}", text=text,
+            generator="mirror_vault.py")
+        out[rel] = (front + BANNER.format(source=f"docs/{src}") + text).encode("utf-8")
 
     for group, names in GROUPS.items():
         for name in names:
             text = (SKILLS / name / "SKILL.md").read_text(encoding="utf-8")
-            body = BANNER.format(source=f"skills/{name}/SKILL.md") + text
-            out[f"07 - Skills/{group}/{name}.md"] = body.encode("utf-8")
+            vault_rel = f"07 - Skills/{group}/{name}.md"
+            # A skill already carries its own YAML frontmatter for the Agent
+            # Skills format. Its keys are the skill contract, not Obsidian's, so
+            # the vault block is prepended and the original is left untouched.
+            front = vault_frontmatter.derive(
+                vault_rel=vault_rel, source=f"skills/{name}/SKILL.md",
+                text=text, generator="mirror_vault.py")
+            body = front + BANNER.format(source=f"skills/{name}/SKILL.md") + text
+            out[vault_rel] = body.encode("utf-8")
 
     for svg in sorted((DOCS / "figures").glob("*.svg")):
         out[f"04 - Architecture/figures/{svg.name}"] = svg.read_bytes()
@@ -202,7 +232,10 @@ def build() -> dict[str, bytes]:
     for src, vault in src_to_vault.items():
         text = text.replace(f"](../docs/{src})", f"]({os.path.relpath(vault, '07 - Skills')})")
     out["07 - Skills/skills_index.md"] = (
-        BANNER.format(source="skills/README.md") + text
+        vault_frontmatter.derive(
+            vault_rel="07 - Skills/skills_index.md", source="skills/README.md",
+            text=text, generator="mirror_vault.py")
+        + BANNER.format(source="skills/README.md") + text
     ).encode("utf-8")
 
     return out

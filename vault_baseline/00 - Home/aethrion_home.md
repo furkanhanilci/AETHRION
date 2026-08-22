@@ -47,11 +47,14 @@ service. It is not the product name. See
 - [[70 - Literature Sets/Zotero Sources/00 - Control Dashboard/Potential Duplicates|Potential Duplicates — review queue]]
 - [[80 - Daily/daily_index|Daily Notes]]
 - [[90 - Archive/archive|Archive]]
+- [[_meta/taxonomy|Tag Taxonomy — the controlled vocabulary]]
+- [[10 - Projects/AETHRION/graph_legend|Graph Legend — what each colour means]]
 
 ## Active projects
 
 - [[10 - Projects/AETHRION/00_navigation_and_execution_cockpit|AETHRION — Navigation and Execution Cockpit]]
 - [[10 - Projects/AETHRION/aethrion_current_status_and_roadmap|AETHRION — Current Status and Roadmap]]
+- [[10 - Projects/AETHRION/authoring_progress|AETHRION — Commissioning Authoring Progress]]
 
 ## Quick entry points
 
@@ -83,6 +86,16 @@ path:"40 - Claims" ["claim_status":"proposed"]
 ```query
 path:"50 - Decisions" ["decision_status":"proposed"]
 ```
+
+## How this vault is checked
+
+`scripts/check_vault.py` lints this vault the way the twelve-check bundle lints
+the repository: every link must resolve, every generated page must name the
+canonical file it projects, every tag must be in
+[[_meta/taxonomy|the controlled vocabulary]], and no page may be unreachable.
+It runs in the verification bundle, against the versioned baseline.
+
+What it cannot see is whether any of it is worth reading.
 
 ## Rule of use
 

@@ -8,8 +8,12 @@ zotero_version: 0
 doi: ""
 source_url: "http://arxiv.org/abs/2309.12634"
 content_hash: "sha256:8b16c218d6e9e1f3db9e44952b4c34e210a0cb903b73aa22d985f24e6f704c9a"
-generated_at: "2026-08-22T16:25:55.222009+00:00"
+generated_at: "2026-08-22T19:32:38.074721+00:00"
 provenance: airl-bridge-api
+tags:
+  - aethrion/source
+  - aethrion/source-category/01-journal-articles
+  - aethrion/item-type/journalarticle
 zotero_tags:
   - "Reinforcement Learning for Visual Attention"
 creators:

@@ -8,8 +8,13 @@ zotero_version: 0
 doi: "10.1007/s00371-022-02672-2"
 source_url: ""
 content_hash: "sha256:57da7ce8986941916dd12c56decc5624dc4271d686feb7095856db373367ad18"
-generated_at: "2026-08-22T16:25:55.221704+00:00"
+generated_at: "2026-08-22T19:32:38.074435+00:00"
 provenance: airl-bridge-api
+tags:
+  - aethrion/source
+  - aethrion/source-category/01-journal-articles
+  - aethrion/item-type/journalarticle
+  - aethrion/has-doi
 zotero_tags:
   - "3D object detection"
   - "Point-voxel feature interaction"

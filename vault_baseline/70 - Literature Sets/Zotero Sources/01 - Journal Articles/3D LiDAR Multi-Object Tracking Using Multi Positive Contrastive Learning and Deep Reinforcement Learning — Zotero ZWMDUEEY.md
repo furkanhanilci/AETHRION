@@ -8,8 +8,13 @@ zotero_version: 0
 doi: "10.1109/access.2024.3521334"
 source_url: ""
 content_hash: "sha256:94c2b2cc4a3cc14b6e1be11cb1d4024c5ea8e574d62af0d2006c04e7b4caa973"
-generated_at: "2026-08-22T16:25:55.221736+00:00"
+generated_at: "2026-08-22T19:32:38.074463+00:00"
 provenance: airl-bridge-api
+tags:
+  - aethrion/source
+  - aethrion/source-category/01-journal-articles
+  - aethrion/item-type/journalarticle
+  - aethrion/has-doi
 zotero_tags:
   - "3D LiDAR"
   - "contrastive learning"

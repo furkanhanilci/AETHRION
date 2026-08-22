@@ -28,6 +28,7 @@ actually runs, read `STATUS.md`.
 | 4 | [`ARCHITECTURE_V0.md`](ARCHITECTURE_V0.md) | **What actually works?** The one implemented vertical slice |
 | 5 | [`architecture/AETHRION_ROLES.md`](architecture/AETHRION_ROLES.md) | **Who is accountable, and what may they never do?** |
 | 6 | [`OPERATIONS.md`](OPERATIONS.md) | **How do I run and verify it?** |
+| 7 | [`FINDINGS.md`](FINDINGS.md) | **What is known to be wrong, and is it still?** Every audit finding with its state and the check that closes it |
 
 ## 2. `architecture/` — the target design
 

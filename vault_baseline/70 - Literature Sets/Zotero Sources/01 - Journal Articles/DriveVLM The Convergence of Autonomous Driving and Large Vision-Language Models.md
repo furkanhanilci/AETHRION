@@ -8,8 +8,12 @@ zotero_version: 0
 doi: ""
 source_url: "http://arxiv.org/abs/2402.12289"
 content_hash: "sha256:27d2b25d5cef53b29e649315c5515923d6a9c90e164e4d755a8a7873f77e5687"
-generated_at: "2026-08-22T16:25:55.221266+00:00"
+generated_at: "2026-08-22T19:32:38.074039+00:00"
 provenance: airl-bridge-api
+tags:
+  - aethrion/source
+  - aethrion/source-category/01-journal-articles
+  - aethrion/item-type/journalarticle
 zotero_tags:
   []
 creators:

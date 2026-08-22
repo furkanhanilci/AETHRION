@@ -137,6 +137,32 @@ empty library is not a defect in the Bridge.
 > static check in CI. The script says so in its own output under
 > `not_proven_here`.
 
+## Obsidian vault lint
+
+The vault is the human knowledge workspace, and until the 2026-08-22 pass nothing
+checked it. `check_vault.py` runs in the verification bundle against the
+versioned baseline, and can be pointed at the live vault:
+
+```bash
+python3 scripts/check_vault.py                                    # the baseline
+python3 scripts/check_vault.py "/home/otonom/Documents/Obsidian Vault"
+python3 scripts/vault_frontmatter.py --write <vault>               # regenerate _meta/taxonomy.md
+```
+
+It checks that every wikilink and every intra-vault markdown link resolves, that
+every projected page carries the Obsidian frontmatter its queries need **and
+names the canonical file it projects**, that every `aethrion/` tag is in the
+controlled vocabulary, that no page is unreachable, and that `_meta/taxonomy.md`
+matches its generator.
+
+> **What it cannot see.** Whether any note is worth reading. It reports the graph
+> is well-formed, which is a different claim.
+
+The mirrors inject that frontmatter at projection time — the repository keeps its
+own `| Field | Value |` document header and gains nothing Obsidian-specific. The
+derivation lives in `scripts/vault_frontmatter.py` and reads no wall clock, so a
+mirror run that changes nothing rewrites nothing.
+
 ## Obsidian mirror integrity
 
 The plan mirror, the skills mirror and the architecture/review mirrors in the
@@ -160,7 +186,7 @@ the same commands without `--check`.
 Everything that currently produces real evidence, in one place:
 
 ```bash
-uv run pytest                                              # 25 tests
+uv run pytest                                              # 41 tests
 (cd planning/commissioning && sha256sum -c 00_PROGRAM/SHA256SUMS.txt)
 uv run python scripts/mcp_smoke.py
 uv run python scripts/acceptance_v0.py
@@ -177,8 +203,8 @@ python scripts/mirror_plan.py  "$V/01 - Commissioning" --check
 python scripts/mirror_vault.py "$V" --check
 ```
 
-Expected: `25 passed` · `221` OK · five MCP tools · 11 acceptance checks ·
-`52 skills` conform · `3 figures, 0 drift, 0 overflow` · `plan semantics OK` ·
+Expected: `41 passed` · `221` OK · five MCP tools · 11 acceptance checks ·
+`52 skills` conform · `9 figures, 0 drift, 0 overflow` · `plan semantics OK` ·
 `0 drift entries`
 twice (plan and vault mirrors, 0 drift).
 

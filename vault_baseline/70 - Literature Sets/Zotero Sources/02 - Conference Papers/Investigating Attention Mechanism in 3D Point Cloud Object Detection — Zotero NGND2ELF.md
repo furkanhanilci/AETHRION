@@ -8,8 +8,13 @@ zotero_version: 0
 doi: "10.1109/3dv53792.2021.00050"
 source_url: ""
 content_hash: "sha256:3f5f7ad70240e98eea7cd2bacb7a75f8749df49b9ca318083d9e8bbf155bfed9"
-generated_at: "2026-08-22T16:25:55.224208+00:00"
+generated_at: "2026-08-22T19:32:38.075069+00:00"
 provenance: airl-bridge-api
+tags:
+  - aethrion/source
+  - aethrion/source-category/02-conference-papers
+  - aethrion/item-type/conferencepaper
+  - aethrion/has-doi
 zotero_tags:
   []
 creators:

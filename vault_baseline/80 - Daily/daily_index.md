@@ -1,3 +1,16 @@
+---
+title: "Daily Notes"
+airl_id: AETHRION-DAILY
+type: index
+category: vault
+status: active
+summary: "Daily notes, newest first."
+generated: false
+tags:
+  - aethrion/index
+  - aethrion/daily
+---
+
 # Daily Notes
 
 The daily working record. Template: `_Templates/daily_note.md`

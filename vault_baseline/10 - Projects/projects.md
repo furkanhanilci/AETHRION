@@ -1,3 +1,16 @@
+---
+title: "Projects"
+airl_id: AETHRION-PROJECTS
+type: index
+category: vault
+status: active
+summary: "Every project in this vault, and the one that is active."
+generated: false
+tags:
+  - aethrion/index
+  - aethrion/project
+---
+
 # Projects
 
 ## Active system work
