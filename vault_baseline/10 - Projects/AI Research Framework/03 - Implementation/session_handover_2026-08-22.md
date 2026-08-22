@@ -4,7 +4,7 @@ type: handover
 status: active
 owner: otonom
 created_at: "2026-08-22"
-content_valid_through_commit: 6f019ad
+content_valid_through_commit: pending-step-013
 tags:
   - ai-framework/handover
   - ai-framework/execution
@@ -28,7 +28,7 @@ tags:
 |---|---|
 | Repository | `/home/otonom/Desktop/FH/AI_RESEARCH_FRAMEWORK` |
 | Branch | `main`, working tree **clean** |
-| Content valid through | **`6f019ad`** — this note describes the tree at that commit. It does **not** track HEAD, because a field naming HEAD stales itself the moment it is committed |
+| Content valid through | **`pending`** — this note describes the tree at that commit. It does **not** track HEAD, because a field naming HEAD stales itself the moment it is committed |
 | Remote | `github.com/furkanhanilci/AI-Research-Framework` (private) — **the only authorised remote** |
 | Last steps | 004 English revision · 005 file-by-file review · 006 skill families + WP-000 · **007 commissioning baseline v1.0** |
 | Bridge service | `active` · sync timer `active` |
@@ -117,6 +117,18 @@ reasoning than the version it replaced.
 - **ADR-001** (solo-operator independence — *blocks every acceptance*) and
   **ADR-002** (bootstrap verification control) written; **neither decided**.
 - `NOTICE` added for licensing and vendored attribution.
+
+### Step 013 — mature components, and the first measurement
+
+- **`scripts/verify_references.py`** — CoE Audit check 1, live against Crossref,
+  OpenAlex and arXiv. **27/33 = 81.8 %** on the real registry.
+- The first run scored 75.8 %; every miss was a DOI-less preprint, so a third
+  authority was added. **The measurement found an inadequate check, not bad
+  sources** — the first time evidence corrected this project rather than review.
+- `AIRL_OS_COMPONENT_REUSE.md` — which mature implementations each control should
+  build on. Adoption supplies a signal, never authority.
+- Named upgrade out of `airl-interim-v0.1`: **`sigstore-python`** + OpenSSF
+  `model-signing`.
 
 ### Step 012 — external positioning and a drift guard
 

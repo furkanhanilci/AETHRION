@@ -74,6 +74,8 @@ DOC_MAP = {
         "architecture/ADR-002_bootstrap_verification_control.md",
     "04 - Architecture/airl_os_document_standard.md":
         "DOCUMENT_STANDARD.md",
+    "04 - Architecture/airl_os_component_reuse.md":
+        "architecture/AIRL_OS_COMPONENT_REUSE.md",
     "04 - Architecture/airl_os_related_systems.md":
         "architecture/AIRL_OS_RELATED_SYSTEMS.md",
     "04 - Architecture/airl_os_roles.md":

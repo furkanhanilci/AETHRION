@@ -19,6 +19,103 @@ the last entry, the cockpit and the relevant WP files are read again.
 
 ---
 
+## Step 013 — Building on mature components, and the first measurement
+
+**Time:** 2026-08-22
+**Scope:** component adoption register · reference verification implemented and
+run against the real registry
+
+### The framing that matters
+
+The point of adopting an existing implementation here is **not** to reduce scope.
+It is that a gate backed by something the scholarly community maintains and tests
+is **stronger** than the same gate backed by code written here for the first
+time. A citation check that queries Crossref is better than one that queries a
+local heuristic — not cheaper.
+
+### What was implemented
+
+`scripts/verify_references.py` — CoE Audit check 1, resolving every source in the
+canonical registry against **Crossref**, **OpenAlex** and **arXiv**.
+
+This is the first thing in the repository that produces an **empirical number
+about itself**, which was the sharpest gap in the last external review.
+
+### The measurement, and what it actually taught
+
+| Authorities | Corroborated | Rate |
+|---|---:|---:|
+| Crossref + OpenAlex | 25 / 33 | 75.8 % |
+| **+ arXiv** | **27 / 33** | **81.8 %** |
+
+The first run scored 75.8 %, and the instructive part was *why*: **every
+unresolved entry was a DOI-less preprint**, which a DOI-registration authority
+structurally cannot see. Adding one authority moved the rate six points.
+
+**The measurement did not find bad sources. It found an inadequate check.** That
+is what measuring is for, and it is the first time this project has been
+corrected by evidence rather than by review.
+
+A second finding fell out of it: the 6 remaining unresolved entries are only **3
+distinct titles**, each appearing 2–3 times — independent corroboration of the
+duplicate-detection dashboard the bridge already produces.
+
+### What the number is not
+
+It measures whether records **exist** in public bibliographic authorities. It
+says nothing about whether a claim is supported by them, and an unresolved
+DOI-less item means *unindexed*, not *fabricated*. The published CoE Audit
+benchmark measured hallucinated references in **generated** bibliographies; this
+registry is human-curated, so the numbers are **not comparable** and are recorded
+as not comparable.
+
+The registry is opened read-only. Verification observes; it never writes back a
+corrected title and never removes a source it failed to resolve.
+
+### The adoption register
+
+`AIRL_OS_COMPONENT_REUSE.md` records which running implementations each control
+should be built on, with a selection rule whose fourth clause is the important
+one: **adoption supplies a signal, never authority.** Crossref decides whether a
+record exists; it does not decide whether a package is accepted.
+
+Adopted and not yet built: **`sigstore-python`** and OpenSSF **`model-signing`**
+(the named upgrade path out of the `airl-interim-v0.1` local-key profile),
+**statcheck / grim / pysprite** for G6-0, **ASReview** for screening,
+**`ro-crate-py`** with the Workflow Run Crate profile for run provenance,
+**`krippendorff`** and standard estimators for the metascience plane,
+**`nanopub-py`** for claim publication, and **PaperQA2** for retrieval at G3.
+
+Nothing in the plan is deleted. Several packages become thinner and stronger at
+once: their job stops being *implement this capability* and becomes *integrate
+this component under our contract, and verify it behaves* — and verifying it is
+the part AIRL-OS actually contributes.
+
+### Evidence
+
+- `verify_references.py` → **27/33, 81.8 %**, report at
+  `delivery/measurements/reference_verification.json`
+- 25/25 tests · skills 49/49 · plan semantics OK · documents consistent
+- Figures 3/3, 0 overflow · seal 207/207 · mirror drift 0
+
+### Limits
+
+- One of four CoE Audit checks is implemented. The other three need artifacts
+  this system does not produce.
+- The check needs network, so it is **not** part of BVC-01 and stays manual,
+  like the Bridge-dependent checks.
+- Every component in §3 of the register is adopted on paper and built nowhere.
+- This step added capability and a measurement. It did not produce an end-to-end
+  run, which remains the gap.
+
+### Next step
+
+Unchanged in shape, better supported: activate BVC-01, sign WP-000's acceptance,
+then the first end-to-end slice — which now has a real check waiting for it at
+G3, and three more to implement.
+
+---
+
 ## Step 012 — External positioning, and a guard against the drift that keeps recurring
 
 **Time:** 2026-08-22

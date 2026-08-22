@@ -205,10 +205,19 @@ between 20 % and 80 % across systems that all *intended* to be correct. That is
 external evidence for the central AIRL-OS claim — retrofitted verification does
 not work — and it is evidence this repository did not produce.
 
-> **Adopting the benchmark means agreeing to be measured by it.** AIRL-OS has no
-> score on any of the four checks, because it has produced nothing to audit. The
-> first end-to-end slice must be run through CoE Audit, and the result recorded
-> whatever it says.
+> **Adopting the benchmark means agreeing to be measured by it.**
+>
+> **Check 1 is now implemented and has a score.** `scripts/verify_references.py`
+> resolves the registry against Crossref, OpenAlex and arXiv: **27 of 33 sources
+> corroborated, 81.8 %**. The first run scored 75.8 % with two authorities, and
+> adding arXiv moved it six points — every unresolved entry was a DOI-less
+> preprint that a DOI-registration authority structurally cannot see. The
+> measurement did not find bad sources; it found an inadequate check.
+>
+> The other three checks need artifacts this system does not yet produce. When
+> the first end-to-end slice exists it goes through all four, and the result is
+> recorded whatever it says. See `AIRL_OS_COMPONENT_REUSE.md` §2 for what the
+> number does and does not mean.
 
 ---
 

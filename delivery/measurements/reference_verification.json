@@ -1,0 +1,347 @@
+{
+  "check": "coe-audit/reference-verification",
+  "generated_at": "2026-08-22T14:01:36.226882+00:00",
+  "authorities": [
+    "crossref",
+    "openalex",
+    "arxiv"
+  ],
+  "title_match_threshold": 0.82,
+  "totals": {
+    "UNRESOLVED": 6,
+    "RESOLVED": 27
+  },
+  "corroboration_rate": 0.8182,
+  "results": [
+    {
+      "airl_id": "SRC-ZOT-0177B8D27340000C",
+      "title": "A Reinforcement Learning Attention Agent for Lidar-based 3D Object Detector",
+      "doi": "",
+      "status": "UNRESOLVED",
+      "authority": null,
+      "similarity": null,
+      "authority_title": null,
+      "note": "no bibliographic authority holds a matching record; for a DOI-less item this may mean unindexed rather than fabricated"
+    },
+    {
+      "airl_id": "SRC-ZOT-0239C2AA1A716002",
+      "title": "Predicting Goal-directed Human Attention Using Inverse Reinforcement Learning",
+      "doi": "",
+      "status": "RESOLVED",
+      "authority": "crossref",
+      "similarity": 1.0,
+      "authority_title": "Predicting Goal-Directed Human Attention Using Inverse Reinforcement Learning",
+      "note": ""
+    },
+    {
+      "airl_id": "SRC-ZOT-038F3A6381E6E00C",
+      "title": "Learning Actions and Control of Focus of Attention with a Log-Polar-like Sensor",
+      "doi": "",
+      "status": "RESOLVED",
+      "authority": "arxiv",
+      "similarity": 1.0,
+      "authority_title": "Learning Actions and Control of Focus of Attention with a Log-Polar-like Sensor",
+      "note": ""
+    },
+    {
+      "airl_id": "SRC-ZOT-049FF5B82495B04F",
+      "title": "Vision Language Models in Autonomous Driving: A Survey and Outlook",
+      "doi": "10.1109/tiv.2024.3402136",
+      "status": "RESOLVED",
+      "authority": "crossref",
+      "similarity": 1.0,
+      "authority_title": "Vision Language Models in Autonomous Driving: A Survey and Outlook",
+      "note": ""
+    },
+    {
+      "airl_id": "SRC-ZOT-09333C53DDC67A40",
+      "title": "Deep Reinforcement Learning with Active Vision on Atari Environments",
+      "doi": "",
+      "status": "UNRESOLVED",
+      "authority": null,
+      "similarity": null,
+      "authority_title": null,
+      "note": "no bibliographic authority holds a matching record; for a DOI-less item this may mean unindexed rather than fabricated"
+    },
+    {
+      "airl_id": "SRC-ZOT-230208B024D2FCA3",
+      "title": "PV-RCNN++: semantical point-voxel feature interaction for 3D object detection",
+      "doi": "10.1007/s00371-022-02672-2",
+      "status": "RESOLVED",
+      "authority": "crossref",
+      "similarity": 1.0,
+      "authority_title": "PV-RCNN++: semantical point-voxel feature interaction for 3D object detection",
+      "note": ""
+    },
+    {
+      "airl_id": "SRC-ZOT-23A9C0B29233FA3C",
+      "title": "Gazing at Rewards: Eye Movements as a Lens into Human and AI Decision-Making in Hybrid Visual Foraging",
+      "doi": "",
+      "status": "RESOLVED",
+      "authority": "crossref",
+      "similarity": 1.0,
+      "authority_title": "Gazing at Rewards: Eye Movements as a Lens into Human and AI Decision-Making in Hybrid Visual Foraging",
+      "note": ""
+    },
+    {
+      "airl_id": "SRC-ZOT-2683742A0915F214",
+      "title": "Investigating Attention Mechanism in 3D Point Cloud Object Detection",
+      "doi": "10.1109/3dv53792.2021.00050",
+      "status": "RESOLVED",
+      "authority": "crossref",
+      "similarity": 1.0,
+      "authority_title": "Investigating Attention Mechanism in 3D Point Cloud Object Detection",
+      "note": ""
+    },
+    {
+      "airl_id": "SRC-ZOT-2F7A77B4AD9FAE07",
+      "title": "Enhancing Point Cloud Classification and Segmentation with Attention-Enhanced SO-PointNet++",
+      "doi": "10.1109/access.2024.3520138",
+      "status": "RESOLVED",
+      "authority": "crossref",
+      "similarity": 1.0,
+      "authority_title": "Enhancing Point Cloud Classification and Segmentation With Attention-Enhanced SO-PointNet++",
+      "note": ""
+    },
+    {
+      "airl_id": "SRC-ZOT-3329949F9C92130B",
+      "title": "End-to-End Optimization of LiDAR Beam Configuration for 3D Object Detection and Localization",
+      "doi": "10.1109/lra.2022.3142738",
+      "status": "RESOLVED",
+      "authority": "crossref",
+      "similarity": 1.0,
+      "authority_title": "End-to-End Optimization of LiDAR Beam Configuration for 3D Object Detection and Localization",
+      "note": ""
+    },
+    {
+      "airl_id": "SRC-ZOT-38C62BEAF9C1C31F",
+      "title": "Efficient 3D objects recognition using multifoveated point clouds",
+      "doi": "10.3390/s18072302",
+      "status": "RESOLVED",
+      "authority": "crossref",
+      "similarity": 1.0,
+      "authority_title": "Efficient 3D Objects Recognition Using Multifoveated Point Clouds",
+      "note": ""
+    },
+    {
+      "airl_id": "SRC-ZOT-3BD81B345B061A03",
+      "title": "PV-RCNN++: semantical point-voxel feature interaction for 3D object detection",
+      "doi": "10.1007/s00371-022-02672-2",
+      "status": "RESOLVED",
+      "authority": "crossref",
+      "similarity": 1.0,
+      "authority_title": "PV-RCNN++: semantical point-voxel feature interaction for 3D object detection",
+      "note": ""
+    },
+    {
+      "airl_id": "SRC-ZOT-3FF49E9265A445CC",
+      "title": "Investigating Attention Mechanism in 3D Point Cloud Object Detection",
+      "doi": "10.1109/3dv53792.2021.00050",
+      "status": "RESOLVED",
+      "authority": "crossref",
+      "similarity": 1.0,
+      "authority_title": "Investigating Attention Mechanism in 3D Point Cloud Object Detection",
+      "note": ""
+    },
+    {
+      "airl_id": "SRC-ZOT-43E9774F64044F2E",
+      "title": "Integrated adaptive coherent LiDAR for 4D bionic vision",
+      "doi": "",
+      "status": "RESOLVED",
+      "authority": "crossref",
+      "similarity": 0.875,
+      "authority_title": "Integrated bionic LiDAR for adaptive 4D machine vision",
+      "note": ""
+    },
+    {
+      "airl_id": "SRC-ZOT-533D2FC592B90C6E",
+      "title": "3D LiDAR Multi-Object Tracking Using Multi Positive Contrastive Learning and Deep Reinforcement Learning",
+      "doi": "10.1109/access.2024.3521334",
+      "status": "RESOLVED",
+      "authority": "crossref",
+      "similarity": 1.0,
+      "authority_title": "3D LiDAR Multi-Object Tracking Using Multi Positive Contrastive Learning and Deep Reinforcement Learning",
+      "note": ""
+    },
+    {
+      "airl_id": "SRC-ZOT-57A2EC5EA3498A15",
+      "title": "A Reinforcement Learning Attention Agent for Lidar-based 3D Object Detector",
+      "doi": "",
+      "status": "UNRESOLVED",
+      "authority": null,
+      "similarity": null,
+      "authority_title": null,
+      "note": "no bibliographic authority holds a matching record; for a DOI-less item this may mean unindexed rather than fabricated"
+    },
+    {
+      "airl_id": "SRC-ZOT-5ACC4A5279119B68",
+      "title": "Spatiotemporal Attention Enhances Lidar-Based Robot Navigation in Dynamic Environments",
+      "doi": "10.1109/lra.2024.3373988",
+      "status": "RESOLVED",
+      "authority": "crossref",
+      "similarity": 1.0,
+      "authority_title": "Spatiotemporal Attention Enhances Lidar-Based Robot Navigation in Dynamic Environments",
+      "note": ""
+    },
+    {
+      "airl_id": "SRC-ZOT-5B7057DE861E31CB",
+      "title": "A Reinforcement Learning Attention Agent for Lidar-based 3D Object Detector",
+      "doi": "",
+      "status": "UNRESOLVED",
+      "authority": null,
+      "similarity": null,
+      "authority_title": null,
+      "note": "no bibliographic authority holds a matching record; for a DOI-less item this may mean unindexed rather than fabricated"
+    },
+    {
+      "airl_id": "SRC-ZOT-6772AC3A304A21D5",
+      "title": "Integrated adaptive coherent LiDAR for 4D bionic vision",
+      "doi": "",
+      "status": "RESOLVED",
+      "authority": "crossref",
+      "similarity": 0.875,
+      "authority_title": "Integrated bionic LiDAR for adaptive 4D machine vision",
+      "note": ""
+    },
+    {
+      "airl_id": "SRC-ZOT-8C1639E963555EA5",
+      "title": "Learning Actions and Control of Focus of Attention with a Log-Polar-like Sensor",
+      "doi": "",
+      "status": "RESOLVED",
+      "authority": "arxiv",
+      "similarity": 1.0,
+      "authority_title": "Learning Actions and Control of Focus of Attention with a Log-Polar-like Sensor",
+      "note": ""
+    },
+    {
+      "airl_id": "SRC-ZOT-8D5CCD39A2A2E88D",
+      "title": "Infrastructure-Side Point Cloud Object Detection via Multi-Frame Aggregation and Multi-Scale Fusion",
+      "doi": "10.1109/tits.2024.3491784",
+      "status": "RESOLVED",
+      "authority": "crossref",
+      "similarity": 1.0,
+      "authority_title": "Infrastructure-Side Point Cloud Object Detection via Multi-Frame Aggregation and Multi-Scale Fusion",
+      "note": ""
+    },
+    {
+      "airl_id": "SRC-ZOT-8F3A25580B0C2ADB",
+      "title": "Integrated adaptive coherent LiDAR for 4D bionic vision",
+      "doi": "",
+      "status": "RESOLVED",
+      "authority": "crossref",
+      "similarity": 0.875,
+      "authority_title": "Integrated bionic LiDAR for adaptive 4D machine vision",
+      "note": ""
+    },
+    {
+      "airl_id": "SRC-ZOT-91C07E85B758B764",
+      "title": "Predicting Goal-directed Human Attention Using Inverse Reinforcement Learning",
+      "doi": "",
+      "status": "RESOLVED",
+      "authority": "openalex",
+      "similarity": 1.0,
+      "authority_title": "Predicting Goal-Directed Human Attention Using Inverse Reinforcement Learning",
+      "note": ""
+    },
+    {
+      "airl_id": "SRC-ZOT-9BEB256CBB286E11",
+      "title": "Efficient 3D objects recognition using multifoveated point clouds",
+      "doi": "10.3390/s18072302",
+      "status": "RESOLVED",
+      "authority": "crossref",
+      "similarity": 1.0,
+      "authority_title": "Efficient 3D Objects Recognition Using Multifoveated Point Clouds",
+      "note": ""
+    },
+    {
+      "airl_id": "SRC-ZOT-A18CD3F7870EF72D",
+      "title": "End-to-End Optimization of LiDAR Beam Configuration for 3D Object Detection and Localization",
+      "doi": "10.1109/lra.2022.3142738",
+      "status": "RESOLVED",
+      "authority": "crossref",
+      "similarity": 1.0,
+      "authority_title": "End-to-End Optimization of LiDAR Beam Configuration for 3D Object Detection and Localization",
+      "note": ""
+    },
+    {
+      "airl_id": "SRC-ZOT-A2264D8A29C2A65E",
+      "title": "Enhancing Point Cloud Classification and Segmentation with Attention-Enhanced SO-PointNet++",
+      "doi": "10.1109/access.2024.3520138",
+      "status": "RESOLVED",
+      "authority": "crossref",
+      "similarity": 1.0,
+      "authority_title": "Enhancing Point Cloud Classification and Segmentation With Attention-Enhanced SO-PointNet++",
+      "note": ""
+    },
+    {
+      "airl_id": "SRC-ZOT-BA4DF95DAEDCAF02",
+      "title": "VLM-AD: End-to-End Autonomous Driving through Vision-Language Model Supervision",
+      "doi": "",
+      "status": "RESOLVED",
+      "authority": "openalex",
+      "similarity": 1.0,
+      "authority_title": "VLM-AD: End-to-End Autonomous Driving through Vision-Language Model Supervision",
+      "note": ""
+    },
+    {
+      "airl_id": "SRC-ZOT-BC7C7490A7319B7D",
+      "title": "3D LiDAR Multi-Object Tracking Using Multi Positive Contrastive Learning and Deep Reinforcement Learning",
+      "doi": "10.1109/access.2024.3521334",
+      "status": "RESOLVED",
+      "authority": "crossref",
+      "similarity": 1.0,
+      "authority_title": "3D LiDAR Multi-Object Tracking Using Multi Positive Contrastive Learning and Deep Reinforcement Learning",
+      "note": ""
+    },
+    {
+      "airl_id": "SRC-ZOT-BCE0F1FFB36181B8",
+      "title": "DriveVLM: The Convergence of Autonomous Driving and Large Vision-Language Models",
+      "doi": "",
+      "status": "RESOLVED",
+      "authority": "openalex",
+      "similarity": 1.0,
+      "authority_title": "DriveVLM: The Convergence of Autonomous Driving and Large Vision-Language Models",
+      "note": ""
+    },
+    {
+      "airl_id": "SRC-ZOT-BFB0FBFDF66297F9",
+      "title": "Gazing at Rewards: Eye Movements as a Lens into Human and AI Decision-Making in Hybrid Visual Foraging",
+      "doi": "",
+      "status": "RESOLVED",
+      "authority": "crossref",
+      "similarity": 1.0,
+      "authority_title": "Gazing at Rewards: Eye Movements as a Lens into Human and AI Decision-Making in Hybrid Visual Foraging",
+      "note": ""
+    },
+    {
+      "airl_id": "SRC-ZOT-D2DBDEFC6244EF78",
+      "title": "Improving Retrieval-Augmented Generation through Multi-Agent Reinforcement Learning",
+      "doi": "",
+      "status": "RESOLVED",
+      "authority": "arxiv",
+      "similarity": 1.0,
+      "authority_title": "Improving Retrieval-Augmented Generation through Multi-Agent Reinforcement Learning",
+      "note": ""
+    },
+    {
+      "airl_id": "SRC-ZOT-D954474CEED56072",
+      "title": "Deep Reinforcement Learning with Active Vision on Atari Environments",
+      "doi": "",
+      "status": "UNRESOLVED",
+      "authority": null,
+      "similarity": null,
+      "authority_title": null,
+      "note": "no bibliographic authority holds a matching record; for a DOI-less item this may mean unindexed rather than fabricated"
+    },
+    {
+      "airl_id": "SRC-ZOT-F39D0C60600261E0",
+      "title": "A Reinforcement Learning Attention Agent for Lidar-based 3D Object Detector",
+      "doi": "",
+      "status": "UNRESOLVED",
+      "authority": null,
+      "similarity": null,
+      "authority_title": null,
+      "note": "no bibliographic authority holds a matching record; for a DOI-less item this may mean unindexed rather than fabricated"
+    }
+  ]
+}
