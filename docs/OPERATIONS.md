@@ -152,12 +152,14 @@ uv run pytest                                              # 20 tests
 uv run python scripts/mcp_smoke.py
 uv run python scripts/acceptance_v0.py
 python3 scripts/validate_skills.py                         # 49 skills, format + metadata
+python3 scripts/make_figures.py --check                    # figures match their generators
 python scripts/mirror_plan.py  "$V/01 - Commissioning" --check
 python scripts/mirror_vault.py "$V" --check
 ```
 
 Expected: `20 passed` · `202` OK · five MCP tools · 11 acceptance checks ·
-`49 skills` conform · `0 drift entries` twice (203 plan files, 59 skill/doc files).
+`49 skills` conform · `3 figures, 0 drift` · `0 drift entries` twice
+(203 plan files, 64 skill/doc/figure files).
 
 ⚠️ **These all run by hand.** There is no CI (finding **H5**), so nothing
 guarantees they were run before a change was committed. Automating this list is

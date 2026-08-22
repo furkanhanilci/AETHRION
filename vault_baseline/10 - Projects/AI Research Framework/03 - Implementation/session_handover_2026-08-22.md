@@ -4,7 +4,7 @@ type: handover
 status: active
 owner: otonom
 created_at: "2026-08-22"
-session_end_commit: aec0686
+session_end_commit: pending-step-008
 tags:
   - ai-framework/handover
   - ai-framework/execution
@@ -28,7 +28,7 @@ tags:
 |---|---|
 | Repository | `/home/otonom/Desktop/FH/AI_RESEARCH_FRAMEWORK` |
 | Branch | `main`, working tree **clean** |
-| HEAD = origin/main | **`aec0686`** — 0 ahead / 0 behind |
+| HEAD = origin/main | Step 008 in the working tree until committed |
 | Remote | `github.com/furkanhanilci/AI-Research-Framework` (private) — **the only authorised remote** |
 | Last steps | 004 English revision · 005 file-by-file review · 006 skill families + WP-000 · **007 commissioning baseline v1.0** |
 | Bridge service | `active` · sync timer `active` |
@@ -68,6 +68,7 @@ git log --oneline -1                                 # expect: aec0686 (or later
 
 uv run pytest                                        # expect: 20 passed
 python3 scripts/validate_skills.py                   # expect: 49 skills conform
+python3 scripts/make_figures.py --check              # expect: 3 figures, 0 drift
 (cd planning/commissioning && sha256sum -c 00_PROGRAM/SHA256SUMS.txt | grep -c ': OK$')
                                                      # expect: 202
 uv run python scripts/mcp_smoke.py     >/dev/null && echo "smoke OK"
@@ -79,7 +80,7 @@ systemctl --user is-active airl-bridge.service airl-bridge-sync.timer
 ```
 
 Expected end state: `20 passed`, `49 skills conform`, `202`, `smoke OK`,
-`acceptance OK`, `0 drift entries` twice (203 plan files, 59 skill/doc files),
+`acceptance OK`, `0 drift entries` twice (203 plan files, 64 skill/doc/figure files),
 `active active`.
 
 ---
@@ -101,6 +102,17 @@ reasoning than the version it replaced.
   the code
 - **two mirror generators added**: `scripts/mirror_plan.py` and
   `scripts/mirror_vault.py`, both with a `--check` drift mode
+
+### Step 008 — role layer and generated figures
+
+- `AIRL_OS_ROLES.md`: 14 roles with mandate, decision rights, **what each may
+  never do**, escalation and combination constraints, plus a combination matrix.
+- Three publication figures under `docs/figures/`, **generated** by
+  `scripts/fig_*.py`; `make_figures.py --check` is the sixth verification check.
+  Hand-editing an SVG is a defect.
+- Figures deliberately number three, not thirty: one per mechanism that prose
+  carries badly. Everything else stays inline Mermaid.
+- All three mark what does not exist — status line, open C2, nine hollow links.
 
 ### Step 007 — commissioning baseline v1.0
 

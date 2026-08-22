@@ -68,6 +68,10 @@ GROUPS = {
 }
 
 DOC_MAP = {
+    "04 - Architecture/airl_os_roles.md":
+        "architecture/AIRL_OS_ROLES.md",
+    "04 - Architecture/airl_os_figure_specification.md":
+        "figures/README.md",
     "04 - Architecture/airl_os_architecture.md":
         "architecture/AIRL_OS_ARCHITECTURE.md",
     "04 - Architecture/airl_os_external_standards.md":
@@ -100,6 +104,10 @@ def build() -> dict[str, bytes]:
 
     for rel, src in DOC_MAP.items():
         text = (DOCS / src).read_text(encoding="utf-8")
+        # Figures live beside the architecture notes in the vault, so the
+        # repository-relative image paths are rewritten to vault-relative ones.
+        text = text.replace("](../figures/", "](figures/").replace("](figures/README.md)",
+                                                                   "](airl_os_figure_specification.md)")
         out[rel] = (BANNER.format(source=f"docs/{src}") + text).encode("utf-8")
 
     for group, names in GROUPS.items():
@@ -107,6 +115,9 @@ def build() -> dict[str, bytes]:
             text = (SKILLS / name / "SKILL.md").read_text(encoding="utf-8")
             body = BANNER.format(source=f"skills/{name}/SKILL.md") + text
             out[f"07 - Skills/{group}/{name}.md"] = body.encode("utf-8")
+
+    for svg in sorted((DOCS / "figures").glob("*.svg")):
+        out[f"04 - Architecture/figures/{svg.name}"] = svg.read_bytes()
 
     text = (SKILLS / "README.md").read_text(encoding="utf-8")
     text = re.sub(r"\]\((?!http)([a-z0-9-]+)/SKILL\.md\)", r"](\1.md)", text)

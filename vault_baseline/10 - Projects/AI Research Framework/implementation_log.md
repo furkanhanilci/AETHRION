@@ -19,6 +19,94 @@ the last entry, the cockpit and the relevant WP files are read again.
 
 ---
 
+## Step 008 — The role layer, and figures that are generated rather than drawn
+
+**Time:** 2026-08-22
+**Scope:** role definitions and authority flows · three publication figures ·
+a figure generator and its drift check
+
+### Why figures, and why only three
+
+The instruction was to add visualisations to every document. Applied literally
+that produces exactly what a scientific-figure discipline forbids: a generic
+box diagram on 141 work packages, each of which would pass the test a figure
+must **fail** — *"could this be reused for an unrelated project by changing the
+labels?"*
+
+So the figure inventory was derived instead of assumed. A figure exists only
+where it carries a **mechanism prose carries badly**, which produced three:
+
+| Figure | Mechanism | Why prose fails |
+|---|---|---|
+| `airl_os_lifecycle.svg` | eleven gates × three actor classes, and the cells admitting no model | a table hides the pattern |
+| `airl_os_roles.svg` | authority tiers and constraint resolution replacing headcount | a list reads as an org chart |
+| `airl_os_evidence_chain.svg` | the chain, plus how much of it exists | a status table is never cross-read |
+
+Everything else keeps inline Mermaid, which is editable in place and renders in
+both GitHub and Obsidian without a build step.
+
+### Figures are generated artifacts
+
+`scripts/figure_kit.py` is a dependency-free SVG layer; `fig_lifecycle.py`,
+`fig_roles.py` and `fig_evidence.py` are the three generators;
+`scripts/make_figures.py --check` reports drift and is now the sixth item in the
+verification bundle. **Hand-editing an SVG is a defect** — the same rule the
+vault mirrors run under. No new runtime dependency was added: matplotlib and a
+rasteriser would both have been heavier than the problem.
+
+### Design constraints that were actually enforced
+
+- **Colour never encodes status.** Status is stroke pattern plus an explicit
+  label, so the figures survive greyscale and colour-vision deficiency. Position
+  carries actor class, which is the primary channel.
+- **Final-size legibility was measured, not assumed.** The first pass had 14-unit
+  text — 6.0 pt at a 180 mm double column, below the floor most publishers
+  accept. Raised to a 16-unit minimum (≈6.8 pt), then every string was
+  re-measured for overflow; four real overflows were found and fixed.
+- **Exact-text control.** Every visible string comes from the corpus. The
+  generators invent no module names, metrics or relationships.
+- **Honesty encoding.** Figure 1 carries a status line, Figure 2 names the open
+  C2 decision, Figure 3 draws nine of its ten links hollow. A diagram of a
+  designed system that does not mark it as designed is the visual form of
+  claiming an implementation that is not there.
+
+### The role layer
+
+`docs/architecture/AIRL_OS_ROLES.md` — fourteen durable functions, each with its
+mandate, what it decides, **what it may never do**, what it produces, when it
+escalates, and which roles it may be combined with. Plus the authority-flow
+diagram and a combination matrix.
+
+The matrix is the useful part in a one-person operation: it shows that the
+**Assurance Lead and the Metascience Lead cannot be the producer**, which is
+precisely the corner where finding **C2** lives. The available resolutions —
+supply the function mechanically, bring in an external party, or accept that the
+assurance class stays unreachable — are named, and choosing between them is
+still the open decision.
+
+### Evidence
+
+- `python3 scripts/make_figures.py --check` → **3 figures, 0 drift**
+- `uv run pytest` → **20 passed** · `validate_skills.py` → **49 conform**
+- Plan seal **202/202** · mirror drift **0** (203 plan, 64 skill/doc/figure)
+- Figures mirrored into the vault with rewritten relative paths; vault and
+  `vault_baseline` identical
+
+### Limits
+
+- **No role is bound in software.** `RoleBinding` is specified in WP-013 and
+  built nowhere; the constraint engine does not exist.
+- The figures describe a design. Nothing in them became more real by being drawn.
+- SVG only. PDF/PNG export needs a rasteriser that is deliberately not a project
+  dependency; the commands are documented in `docs/figures/README.md`.
+
+### Next step
+
+Unchanged, and now overdue: **issue one signed specimen `EvidenceManifest` under
+WP-000**, then stand up CI — which now has six checks waiting.
+
+---
+
 ## Step 007 — Commissioning baseline v1.0: drift closed, architecture sharpened, plan bound
 
 **Time:** 2026-08-22
