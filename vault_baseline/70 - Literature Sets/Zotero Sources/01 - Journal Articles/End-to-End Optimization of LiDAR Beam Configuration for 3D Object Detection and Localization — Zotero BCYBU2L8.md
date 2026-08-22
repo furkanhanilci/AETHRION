@@ -8,7 +8,7 @@ zotero_version: 0
 doi: "10.1109/lra.2022.3142738"
 source_url: ""
 content_hash: "sha256:d10e2b5e741eb1c1977d7632e69995628e5cc20f2c74ba1bf753d11399ecc871"
-generated_at: "2026-08-22T13:51:52.774611+00:00"
+generated_at: "2026-08-22T14:22:38.069727+00:00"
 provenance: airl-bridge-api
 zotero_tags:
   - "Laser beams"
