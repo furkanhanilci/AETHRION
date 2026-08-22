@@ -340,7 +340,72 @@ Three details carry most of the weight:
 
 ## 6. Who executes what
 
-The full table lives in `AIRL_OS_ROLE_MODEL_ASSIGNMENT.md`. The shape of it:
+Two questions live here and they are different: **which durable function is
+accountable** (the role catalogue) and **which kind of actor executes a given
+step** (mechanical, model or human). The full tables live in
+`AIRL_OS_ROLE_MODEL_ASSIGNMENT.md`; this section gives the shape of both.
+
+### 6.0 The fourteen durable functions
+
+```mermaid
+flowchart TD
+    subgraph AUTH["👤 HUMAN AUTHORITY — never a model"]
+        A1["Project Decision Owner — signs G8 · G9"]
+        A2["Safety / Data Owner — data class · blocks all"]
+        A3["Research Integrity Officer — integrity judgement · blocks all"]
+        A4["Assurance Lead — reviewer assignment · blocks G6 · G7"]
+    end
+    subgraph OWN["👤 + 🤖 OWNERSHIP — human decides, model drafts"]
+        B1["Scientific Owner — the decision question · G2"]
+        B2["Statistical Methods Owner — locks the analysis plan"]
+        B3["Evidence Lead — freezes the literature set · G3"]
+        B4["Engineering Owner — approves code · G4 · G5"]
+    end
+    subgraph PROD["🤖 + 👤 PRODUCTION — model produces, human approves"]
+        C1["Research Software Engineer — reproducibility · G7"]
+        C2["Data Steward — datasets · identifiers"]
+        C3["Red Team Lead — pre-mortem · control injection"]
+    end
+    subgraph MECHR["⚙️ + 🤖 MECHANICAL-FIRST"]
+        D1["Scientific Editor — scope conformance · G9"]
+        D2["Knowledge Steward — contradiction sweeps · G0"]
+        D3["Metascience Lead — measures, <b>blocks nothing</b>"]
+    end
+    AUTH -.->|"authority downward"| OWN -.-> PROD -.-> MECHR
+    MECHR -.->|"findings upward — never waivers"| AUTH
+
+    style AUTH fill:#fee2e2,stroke:#b91c1c,color:#000
+    style OWN fill:#fef3c7,stroke:#b45309,color:#000
+    style PROD fill:#dbeafe,stroke:#1d4ed8,color:#000
+    style MECHR fill:#dcfce7,stroke:#15803d,color:#000
+```
+
+**The Metascience Lead blocks nothing by design.** A function that both measures
+the laboratory and can veto its work stops measuring honestly — it acquires an
+interest in the numbers.
+
+### 6.0.1 How any gate resolves
+
+```mermaid
+flowchart TD
+    IN["Gate entry"] --> MECHQ{"Is there a mechanical<br/>check for this step?"}
+    MECHQ -->|Yes| RUN["⚙️ Run it FIRST"]
+    RUN --> PASS{"Passed?"}
+    PASS -->|No| BLOCK["Blocked with a finding<br/><b>no model may waive it</b>"]
+    PASS -->|Yes| MODELN
+    MECHQ -->|No| MODELN["🤖 Model produces<br/>output must be falsifiable"]
+    MODELN --> AUTHQ{"Does the gate carry<br/>decision authority?"}
+    AUTHQ -->|"G8 · G9 · freeze · lock · sign"| HUMANN["👤 Human decides<br/>recorded, never delegated"]
+    AUTHQ -->|No| REC["Gate record produced"]
+    HUMANN --> REC
+
+    style RUN fill:#dcfce7,stroke:#15803d,color:#000
+    style BLOCK fill:#fee2e2,stroke:#b91c1c,color:#000
+    style MODELN fill:#dbeafe,stroke:#1d4ed8,color:#000
+    style HUMANN fill:#fee2e2,stroke:#b91c1c,color:#000
+```
+
+### 6.0.2 Actor classes
 
 ```mermaid
 flowchart LR
@@ -380,9 +445,28 @@ RoleBinding:
     cannot_combine_with:      [final_independent_verifier]
 ```
 
+```mermaid
+flowchart TD
+    R["RoleBinding<br/>role_id: statistical_methods_owner"]
+    R --> ACT["actor<br/>human · model_profile · mechanical<br/><i>any may be empty</i>"]
+    R --> SEP["separation"]
+    SEP --> S1["must_be_independent_from:<br/>experiment_analyst"]
+    SEP --> S2["can_combine_with:<br/>scientific_owner ✅"]
+    SEP --> S3["cannot_combine_with:<br/>final_independent_verifier ❌"]
+    S1 --> ENG["Constraint engine<br/>admits or refuses the binding"]
+    S2 --> ENG
+    S3 --> ENG
+    ENG --> OK["One person, several roles —<br/>legally, and provably"]
+
+    style ENG fill:#dcfce7,stroke:#15803d,color:#000
+    style S2 fill:#dcfce7,stroke:#15803d,color:#000
+    style S3 fill:#fee2e2,stroke:#b91c1c,color:#000
+```
+
 Independence is then expressed as **separation constraints**, not headcount: one
 person may legally hold several roles, and the constraint engine states exactly
-which combinations destroy independence and which do not.
+which combinations destroy independence and which do not. The binding is
+enforced at compile time by WP-013 and WP-047, not asserted in prose.
 
 > This does not resolve finding **C2** — who may act as the final independent
 > verifier when there is one person — but it gives that decision a form. The

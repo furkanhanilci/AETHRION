@@ -44,7 +44,7 @@ vault_baseline/  Versioned copy of the Obsidian vault
 | What actually exists today? | [`docs/review/2026-08-22_remediation_verification.md`](docs/review/2026-08-22_remediation_verification.md) — current state against the frozen audit |
 | **What** should be added to the target architecture? | [`docs/architecture/AIRL_OS_IDEAL_STRUCTURE.md`](docs/architecture/AIRL_OS_IDEAL_STRUCTURE.md) |
 | **How** should agents work? | [`docs/architecture/AIRL_OS_SKILL_LAYER.md`](docs/architecture/AIRL_OS_SKILL_LAYER.md) · [`skills/README.md`](skills/README.md) |
-| **Who** performs each role — human, model or code? | [`docs/architecture/AIRL_OS_ROLE_MODEL_ASSIGNMENT.md`](docs/architecture/AIRL_OS_ROLE_MODEL_ASSIGNMENT.md) |
+| **Who** performs each role — human, model or code? | [Roles](#6-roles--who-is-accountable-for-what) below · [`docs/architecture/AIRL_OS_ROLE_MODEL_ASSIGNMENT.md`](docs/architecture/AIRL_OS_ROLE_MODEL_ASSIGNMENT.md) |
 | What is **adopted** rather than invented? | [`docs/architecture/AIRL_OS_EXTERNAL_STANDARDS.md`](docs/architecture/AIRL_OS_EXTERNAL_STANDARDS.md) |
 | Architecture of the working vertical slice | [`docs/ARCHITECTURE_V0.md`](docs/ARCHITECTURE_V0.md) |
 | Day-to-day operation | [`docs/OPERATIONS.md`](docs/OPERATIONS.md) |
@@ -310,7 +310,164 @@ mechanically by `scripts/validate_skills.py`.
 > what ACC-42, ACC-44 and ACC-45 establish under WP-048 — and that is **not**
 > established today. Only the Claude Code path is wired, via `.claude/skills`.
 
-## 6. How evidence is signed
+## 6. Roles — who is accountable for what
+
+Fourteen **durable functions**. Not fourteen people: a role is a function, and
+one person may legally hold several of them.
+
+```mermaid
+flowchart TD
+    subgraph AUTH["👤 HUMAN AUTHORITY — never a model"]
+        A1["Project Decision Owner<br/>signs G8 · G9"]
+        A2["Safety / Data Owner<br/>owns the data class · blocks anything"]
+        A3["Research Integrity Officer<br/>judges integrity cases · blocks anything"]
+        A4["Assurance Lead<br/>assigns reviewers · blocks G6 · G7"]
+    end
+    subgraph OWN["👤 + 🤖 OWNERSHIP — human decides, model drafts"]
+        B1["Scientific Owner<br/>writes the decision question · G2"]
+        B2["Statistical Methods Owner<br/>locks the analysis plan · G2 · G4 · G6"]
+        B3["Evidence Lead<br/>freezes the literature set · G3"]
+        B4["Engineering Owner<br/>approves code · G4 · G5"]
+    end
+    subgraph PROD["🤖 + 👤 PRODUCTION — model produces, human approves"]
+        C1["Research Software Engineer<br/>reproducibility · badges · G7"]
+        C2["Data Steward<br/>datasets · identifiers · G1 · G9"]
+        C3["Red Team Lead<br/>pre-mortem · control injection · G4"]
+    end
+    subgraph MECH["⚙️ + 🤖 MECHANICAL-FIRST"]
+        D1["Scientific Editor<br/>scope conformance · G9"]
+        D2["Knowledge Steward<br/>contradiction sweeps · G0"]
+        D3["Metascience Lead<br/>measures — <b>does not block</b>"]
+    end
+    AUTH -.->|"authority flows down"| OWN -.-> PROD -.-> MECH
+    MECH -.->|"findings flow up · never waivers"| AUTH
+
+    style AUTH fill:#fee2e2,stroke:#b91c1c,color:#000
+    style OWN fill:#fef3c7,stroke:#b45309,color:#000
+    style PROD fill:#dbeafe,stroke:#1d4ed8,color:#000
+    style MECH fill:#dcfce7,stroke:#15803d,color:#000
+```
+
+| Role | Actor | Can block | The one thing it must never delegate |
+|---|---|---|---|
+| Project Decision Owner | 👤 | G8, G9 | Deciding what the laboratory believes |
+| Safety / Data Owner | 👤 | all | The data-class decision |
+| Research Integrity Officer | 👤 + ⚙️ | all | The judgement on an integrity case |
+| Assurance Lead | 👤 + ⚙️ | G6, G7 | Who reviews whom |
+| Scientific Owner | 👤 + 🤖 draft | G2 | Writing the decision question |
+| Statistical Methods Owner | 👤 + 🤖 | G2, G4, G6 | Locking the analysis plan |
+| Evidence Lead | 👤 + 🤖 | G3 | The freeze decision |
+| Engineering Owner | 🤖 + 👤 approval | G4, G5 | Approving what ships |
+| Research Software Engineer | 🤖 + 👤 approval | G7 | Assigning the reproducibility badge |
+| Data Steward | 🤖 + 👤 approval | G1, G9 | Publishing an identifier |
+| Scientific Editor | ⚙️ + 🤖 | G9 | — scope conformance is mechanical |
+| Red Team Lead | 🤖 + 👤 | G4 | — |
+| Knowledge Steward | ⚙️ + 🤖 | G0 | — |
+| Metascience Lead | 👤 + ⚙️ | **nothing** | Measuring without gatekeeping |
+
+**Metascience Lead blocks nothing on purpose.** A function that both measures the
+laboratory and can veto its work stops measuring honestly.
+
+### How a gate actually resolves
+
+Every gate runs the same three-stage resolution, and the order is the whole
+design:
+
+```mermaid
+flowchart TD
+    IN["Gate entry"] --> MECH{"Is there a mechanical<br/>check for this?"}
+    MECH -->|Yes| RUN["⚙️ Run it FIRST"]
+    RUN --> PASS{"Passed?"}
+    PASS -->|No| BLOCK["Gate blocked with a finding<br/><b>no model may waive it</b><br/><i>no human may waive a non-waivable one</i>"]
+    PASS -->|Yes| MODEL
+    MECH -->|No| MODEL["🤖 Model produces<br/>draft · review · refutation<br/><i>output must be falsifiable</i>"]
+    MODEL --> AUTH{"Does this gate carry<br/>decision authority?"}
+    AUTH -->|"G8 · G9 · freeze · lock · sign"| HUMAN["👤 Human decides<br/>recorded, never delegated"]
+    AUTH -->|No| REC["Gate record produced<br/>and the flow continues"]
+    HUMAN --> REC
+
+    style RUN fill:#dcfce7,stroke:#15803d,color:#000
+    style BLOCK fill:#fee2e2,stroke:#b91c1c,color:#000
+    style MODEL fill:#dbeafe,stroke:#1d4ed8,color:#000
+    style HUMAN fill:#fee2e2,stroke:#b91c1c,color:#000
+```
+
+Applied gate by gate, that produces:
+
+| Gate | ⚙️ Mechanical | 🤖 Model | 👤 Human |
+|---|---|---|---|
+| **G0** intake | duplicate search | triage | greenlight |
+| **G1** charter | risk → assurance policy engine | charter draft | **writes the decision question** |
+| **G2** protocol | template + placeholder sweep | protocol draft · pre-mortem · different-family review | Scientific + Statistical Owner **sign** |
+| **G2b** analysis plan | — | plan draft · power analysis | Statistical Methods Owner **locks** |
+| **G3** literature | GROBID · DOI · dedup · hashing | query plan · screening | Evidence Lead **freezes** |
+| **G4** baseline | the baseline run | compute plan · pre-mortem | budget approval |
+| **G5** execute | **the experiment itself** | **none** — unless the model is the subject | — |
+| **G6-0** mechanical | statcheck · GRIM · entailment · hashes | **none** | — |
+| **G6-1** blind | `ReviewPacketBuilder`, a program | N reviewers, different family | — |
+| **G6-2** adversarial | the ACH matrix | adversarial refutation | — |
+| **G7a** reproduce | same manifest, same seed | **none** | — |
+| **G7b** replicate | distribution test | — | RSE assigns the badge |
+| **G8** decide | package completeness | **recommendation only** | **DECIDES — human only, under quota** |
+| **G9** publish | **scope conformance** · RO-Crate · hashes | text draft | Decision Owner + Editor |
+| **G10** monitor | Crossref · Retraction Watch · CVE | signal triage | decides on a material signal |
+
+The empty model cells at **G5**, **G6-0** and **G7a** are the point, not an
+omission: those are the layers that stay free of model bias.
+
+### A role is a function, not a person
+
+This is what makes the catalogue survivable in a one-person laboratory. Roles
+are **bound**, and independence is expressed as separation constraints rather
+than headcount:
+
+```mermaid
+flowchart TD
+    R["RoleBinding<br/>role_id: statistical_methods_owner"]
+    R --> ACT["actor<br/>human · model_profile · mechanical<br/><i>any of them may be empty</i>"]
+    R --> SEP["separation"]
+    SEP --> S1["must_be_independent_from:<br/>experiment_analyst"]
+    SEP --> S2["can_combine_with:<br/>scientific_owner ✅"]
+    SEP --> S3["cannot_combine_with:<br/>final_independent_verifier ❌"]
+    S1 --> ENG["Constraint engine<br/>admits or refuses the binding"]
+    S2 --> ENG
+    S3 --> ENG
+    ENG --> OK["One person, several roles —<br/>legally, and provably"]
+
+    style ENG fill:#dcfce7,stroke:#15803d,color:#000
+    style S3 fill:#fee2e2,stroke:#b91c1c,color:#000
+    style S2 fill:#dcfce7,stroke:#15803d,color:#000
+```
+
+The question stops being *"where do I find 73 owners and 114 verifiers?"* and
+becomes *"which combinations am I willing to declare independent, and which must
+stay mechanical or external?"*
+
+> **This is the shape of an answer to finding C2, not the answer.** Which
+> combinations count as independent in a one-person operation is still an open
+> decision, and until it is made no work package can reach `ACCEPTED`.
+
+### Independence is measured, not asserted
+
+Reviewer independence has a quota that scales with the assurance class:
+
+| Assurance | Producer effort | Reviewer effort | Adversarial | Reviewer quota | Model policy |
+|---|---|---|---|---|---|
+| **R1** | `medium` | `high` | — | 1, any family | hosted OK |
+| **R2** | `high` | `high` | `xhigh` | 2, **different provider family** | hosted + full I/O logging |
+| **R3** | `xhigh` | `xhigh` | `max` | 3, **different family** | **local open-weight mandatory** |
+
+R3 requires a local model because a hosted model has no pinnable snapshot, and
+without one G7a reproduction is structurally impossible. That is a constraint,
+not a preference.
+
+And the family rule is itself only a **proxy**: what is permanent is the measured
+pairwise error correlation ρ between reviewer profiles. When the calibration set
+exists, the measurement replaces the rule. A laboratory that never measures its
+own independence assumption is repeating an assumption and calling it
+verification.
+
+## 7. How evidence is signed
 
 Acceptance requires a signed `EvidenceManifest` in an immutable store — and that
 store is WP-026, far downstream, which deadlocked the entire programme
@@ -340,7 +497,7 @@ rather than headcount, so one person holding several roles can be modelled
 honestly. See
 [`AIRL_OS_EXTERNAL_STANDARDS.md`](docs/architecture/AIRL_OS_EXTERNAL_STANDARDS.md).
 
-## 7. Target versus reality
+## 8. Target versus reality
 
 ```mermaid
 flowchart LR
