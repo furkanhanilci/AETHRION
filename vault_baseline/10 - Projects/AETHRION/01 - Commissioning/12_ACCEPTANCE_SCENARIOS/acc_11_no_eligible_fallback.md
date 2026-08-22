@@ -1,3 +1,20 @@
+---
+title: "ACC-11 — No Eligible Fallback"
+aliases:
+  - "ACC-11"
+type: acceptance-scenario
+category: commissioning
+summary: "This scenario verifies the target architecture's fail-safe behaviour and its evidence production in the No Eligible Fallback situation."
+source: "planning/commissioning/12_ACCEPTANCE_SCENARIOS/ACC-11_no_eligible_fallback.md"
+generated: true
+provenance: mirror_plan.py
+tags:
+  - aethrion/commissioning
+  - aethrion/acceptance-scenario
+  - aethrion/severity/critical
+  - aethrion/phase/pre-go-live
+---
+
 # ACC-11 — No Eligible Fallback
 
 ## Scenario card

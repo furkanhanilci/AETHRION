@@ -1,3 +1,19 @@
+---
+title: "ADR-001 — Solo-Operator Independence Model"
+aliases:
+  - "ADR-001"
+type: decision-record
+category: architecture
+status: ACCEPTED
+summary: "Every Definition of Done requires an independent verifier, and the role model forbids the producer from verifying its own work."
+source: "docs/architecture/ADR-001_solo_operator_independence.md"
+generated: true
+provenance: mirror_vault.py
+tags:
+  - aethrion/architecture
+  - aethrion/adr
+---
+
 > [!info] Generated view
 > This note is generated from `docs/architecture/ADR-001_solo_operator_independence.md` in the repository. Edit the
 > canonical file and regenerate; edits made here are overwritten.

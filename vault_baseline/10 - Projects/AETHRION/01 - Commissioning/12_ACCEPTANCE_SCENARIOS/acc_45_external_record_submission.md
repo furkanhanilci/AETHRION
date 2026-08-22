@@ -1,3 +1,20 @@
+---
+title: "ACC-45 — Irreversible External Record Submission"
+aliases:
+  - "ACC-45"
+type: acceptance-scenario
+category: commissioning
+summary: "Minting a persistent identifier or submitting an external record cannot be undone."
+source: "planning/commissioning/12_ACCEPTANCE_SCENARIOS/ACC-45_external_record_submission.md"
+generated: true
+provenance: mirror_plan.py
+tags:
+  - aethrion/commissioning
+  - aethrion/acceptance-scenario
+  - aethrion/severity/critical
+  - aethrion/phase/pre-go-live
+---
+
 # ACC-45 — Irreversible External Record Submission
 
 ## Scenario card

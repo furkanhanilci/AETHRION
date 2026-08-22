@@ -1,3 +1,15 @@
+---
+title: "AETHRION — Ideal Structure Proposal, Contributions and Architecture Review"
+type: reference
+category: architecture
+summary: "This document reviews the target architecture against what a rigorous laboratory would need and proposes what is missing: seven durable roles, ten review mechanisms, a metascience plane that measures the laboratory's own error rate, the operational discipline worth taking from agent engineering prac"
+source: "docs/architecture/AETHRION_IDEAL_STRUCTURE.md"
+generated: true
+provenance: mirror_vault.py
+tags:
+  - aethrion/architecture
+---
+
 > [!info] Generated view
 > This note is generated from `docs/architecture/AETHRION_IDEAL_STRUCTURE.md` in the repository. Edit the
 > canonical file and regenerate; edits made here are overwritten.

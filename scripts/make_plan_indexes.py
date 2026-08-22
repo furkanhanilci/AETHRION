@@ -88,6 +88,8 @@ def build(directory: Path) -> str:
         text = path.read_text(encoding="utf-8")
         heading = re.search(r"^# (.+)$", text, re.M)
         heading = heading.group(1) if heading else path.stem
+        if path.name.endswith((".tests.md", ".acceptance.md")):
+            continue      # listed as companion links on their package's row
         if path.name.startswith("WP-"):
             packages.append((path.name, heading, FIELD("Hard dependencies", text),
                              FIELD("Status at baseline", text),
@@ -109,15 +111,22 @@ def build(directory: Path) -> str:
 
     if packages:
         out += ["---", "", f"## Work packages ({len(packages)})", "",
-                "| Package | Title | Hard dependencies | Status at baseline | Adopted component |",
-                "|---|---|---|---|:--:|"]
+                "| Package | Title | Hard dependencies | Status at baseline | Adopted | Companions |",
+                "|---|---|---|---|:--:|---|"]
         for filename, heading, deps, status, adopted in packages:
             short = heading.split("—", 1)[-1].strip()
             deps = (deps or "—").replace("**", "")
             if len(deps) > 60:
                 deps = deps[:57] + "…"
+            tests = filename.replace(".md", ".tests.md")
+            accept = filename.replace(".md", ".acceptance.md")
             out.append(f"| [{filename[:6]}]({filename}) | {short} | {deps} | "
-                       f"{status.split('—')[0].strip()} | {'✅' if adopted else ''} |")
+                       f"{status.split('—')[0].strip()} | {'✅' if adopted else ''} | "
+                       f"[tests]({tests}) · [acceptance]({accept}) |")
+        out.append("")
+        out.append("Every package is three documents — the card, its **test procedures** and "
+                   "its **acceptance criteria** — because they have three readers. See "
+                   "`../README.md` §4.")
         out.append("")
         out.append("A ✅ marks a package that stands on an adopted external component rather "
                    "than building the capability here — see "

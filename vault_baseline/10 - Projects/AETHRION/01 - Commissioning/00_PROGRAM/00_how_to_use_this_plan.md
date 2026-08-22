@@ -1,3 +1,15 @@
+---
+title: "Using the Plan and the Execution Protocol"
+type: reference
+category: commissioning
+summary: "This file defines how 140 work packages are managed as a single programme."
+source: "planning/commissioning/00_PROGRAM/00_how_to_use_this_plan.md"
+generated: true
+provenance: mirror_plan.py
+tags:
+  - aethrion/commissioning
+---
+
 # Using the Plan and the Execution Protocol
 
 ## Purpose

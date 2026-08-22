@@ -1,3 +1,20 @@
+---
+title: "ACC-08 — Strong Counter-Test"
+aliases:
+  - "ACC-08"
+type: acceptance-scenario
+category: commissioning
+summary: "This scenario verifies the target architecture's fail-safe behaviour and its evidence production in the Strong Counter-Test situation."
+source: "planning/commissioning/12_ACCEPTANCE_SCENARIOS/ACC-08_strong_counter_test.md"
+generated: true
+provenance: mirror_plan.py
+tags:
+  - aethrion/commissioning
+  - aethrion/acceptance-scenario
+  - aethrion/severity/critical
+  - aethrion/phase/pre-go-live
+---
+
 # ACC-08 — Strong Counter-Test
 
 ## Scenario card

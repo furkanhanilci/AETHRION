@@ -14,18 +14,20 @@
 
 ## Work packages (10)
 
-| Package | Title | Hard dependencies | Status at baseline | Adopted component |
-|---|---|---|---|:--:|
-| [WP-131](WP-131_notification_broker.md) | Notification Broker Foundation | WP-049 (Tool Registry/Broker), WP-016 (PolicyDecision sch… | `NOT_STARTED` |  |
-| [WP-132](WP-132_channel_registry_data_class_ceiling.md) | Channel Registry and Data-Class Ceiling | WP-131, WP-006 (ExecutionProfile) | `NOT_STARTED` |  |
-| [WP-133](WP-133_outbound_notification_and_digest.md) | Outbound Notification and Periodic Digest | WP-131, WP-132 | `NOT_STARTED` |  |
-| [WP-134](WP-134_escalation_and_paging.md) | Escalation and Paging | WP-131, WP-132, WP-004 (Human decision SLA) | `NOT_STARTED` |  |
-| [WP-135](WP-135_decision_routing_signed_deeplink.md) | Decision Routing and Signed Deep Links | WP-131, WP-132, WP-055 (SPIFFE/Vault identity), WP-093 (D… | `NOT_STARTED` |  |
-| [WP-136](WP-136_inbound_content_quarantine.md) | Inbound Content Quarantine and Channel Allowlist | WP-058 (Content Quarantine Firewall), WP-131, WP-132 | `NOT_STARTED` | ✅ |
-| [WP-137](WP-137_g10_external_feed_connectors.md) | G10 External Feed Connectors | WP-037 (G10 ImpactScan), WP-063 (Source status), WP-136 | `NOT_STARTED` |  |
-| [WP-138](WP-138_external_records_persistent_identifiers.md) | External Records and Persistent Identifiers | WP-014 (Artifact manifest), WP-090 (Publication package),… | `NOT_STARTED` |  |
-| [WP-139](WP-139_evidence_timestamping.md) | Evidence Timestamping and Independent Seal | WP-014 (Artifact manifest), WP-026 (Object store WORM) | `NOT_STARTED` |  |
-| [WP-140](WP-140_service_liveness_dead_mans_switch.md) | Service Liveness Monitoring and Dead-Man's Switch | WP-101 (Service SLO), WP-131, WP-134 | `NOT_STARTED` |  |
+| Package | Title | Hard dependencies | Status at baseline | Adopted | Companions |
+|---|---|---|---|:--:|---|
+| [WP-131](WP-131_notification_broker.md) | Notification Broker Foundation | WP-049 (Tool Registry/Broker), WP-016 (PolicyDecision sch… | `NOT_STARTED` |  | [tests](WP-131_notification_broker.tests.md) · [acceptance](WP-131_notification_broker.acceptance.md) |
+| [WP-132](WP-132_channel_registry_data_class_ceiling.md) | Channel Registry and Data-Class Ceiling | WP-131, WP-006 (ExecutionProfile) | `NOT_STARTED` |  | [tests](WP-132_channel_registry_data_class_ceiling.tests.md) · [acceptance](WP-132_channel_registry_data_class_ceiling.acceptance.md) |
+| [WP-133](WP-133_outbound_notification_and_digest.md) | Outbound Notification and Periodic Digest | WP-131, WP-132 | `NOT_STARTED` |  | [tests](WP-133_outbound_notification_and_digest.tests.md) · [acceptance](WP-133_outbound_notification_and_digest.acceptance.md) |
+| [WP-134](WP-134_escalation_and_paging.md) | Escalation and Paging | WP-131, WP-132, WP-004 (Human decision SLA) | `NOT_STARTED` |  | [tests](WP-134_escalation_and_paging.tests.md) · [acceptance](WP-134_escalation_and_paging.acceptance.md) |
+| [WP-135](WP-135_decision_routing_signed_deeplink.md) | Decision Routing and Signed Deep Links | WP-131, WP-132, WP-055 (SPIFFE/Vault identity), WP-093 (D… | `NOT_STARTED` |  | [tests](WP-135_decision_routing_signed_deeplink.tests.md) · [acceptance](WP-135_decision_routing_signed_deeplink.acceptance.md) |
+| [WP-136](WP-136_inbound_content_quarantine.md) | Inbound Content Quarantine and Channel Allowlist | WP-058 (Content Quarantine Firewall), WP-131, WP-132 | `NOT_STARTED` | ✅ | [tests](WP-136_inbound_content_quarantine.tests.md) · [acceptance](WP-136_inbound_content_quarantine.acceptance.md) |
+| [WP-137](WP-137_g10_external_feed_connectors.md) | G10 External Feed Connectors | WP-037 (G10 ImpactScan), WP-063 (Source status), WP-136 | `NOT_STARTED` |  | [tests](WP-137_g10_external_feed_connectors.tests.md) · [acceptance](WP-137_g10_external_feed_connectors.acceptance.md) |
+| [WP-138](WP-138_external_records_persistent_identifiers.md) | External Records and Persistent Identifiers | WP-014 (Artifact manifest), WP-090 (Publication package),… | `NOT_STARTED` |  | [tests](WP-138_external_records_persistent_identifiers.tests.md) · [acceptance](WP-138_external_records_persistent_identifiers.acceptance.md) |
+| [WP-139](WP-139_evidence_timestamping.md) | Evidence Timestamping and Independent Seal | WP-014 (Artifact manifest), WP-026 (Object store WORM) | `NOT_STARTED` |  | [tests](WP-139_evidence_timestamping.tests.md) · [acceptance](WP-139_evidence_timestamping.acceptance.md) |
+| [WP-140](WP-140_service_liveness_dead_mans_switch.md) | Service Liveness Monitoring and Dead-Man's Switch | WP-101 (Service SLO), WP-131, WP-134 | `NOT_STARTED` |  | [tests](WP-140_service_liveness_dead_mans_switch.tests.md) · [acceptance](WP-140_service_liveness_dead_mans_switch.acceptance.md) |
+
+Every package is three documents — the card, its **test procedures** and its **acceptance criteria** — because they have three readers. See `../README.md` §4.
 
 A ✅ marks a package that stands on an adopted external component rather than building the capability here — see `docs/architecture/AETHRION_COMPONENT_REUSE.md`.
 

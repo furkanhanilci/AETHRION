@@ -1,3 +1,16 @@
+---
+title: "AETHRION — Repository and Obsidian Map"
+airl_id: AETHRION-REPO-VAULT-MAP
+type: reference
+category: vault
+status: active
+summary: "Which surface owns what: the repository holds canonical work, the vault holds human thinking, and the generated areas are projections of the first into the second."
+generated: false
+tags:
+  - aethrion/architecture
+  - aethrion/project
+---
+
 # AETHRION — Repository and Obsidian Map
 
 Shows where every part of the framework is kept.

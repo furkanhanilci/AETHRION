@@ -15,14 +15,168 @@
 | Related acceptance scenarios | ACC-06, ACC-25, ACC-26 |
 | Status at baseline | `NOT_STARTED` |
 
+## Package documents
+
+This package is described by three documents. They are separate because they have three readers: this card is read at refinement by someone deciding whether the package can start; the test procedures are read months later by whoever runs them; the acceptance criteria are read by an **independent verifier** who must reach a verdict without having done the work — and `00_PROGRAM/06` requires that verifier to work from a packet they can be handed.
+
+| Document | Answers | Read by |
+|---|---|---|
+| **This card** | What is this, what does it depend on, what does it release? | Refinement, planning |
+| [Test procedures](WP-102_vertical_slice_intake_protocol.tests.md) | How is it tested, in what environment, with what data, and what counts as a complete run? | The implementer and the tester |
+| [Acceptance criteria](WP-102_vertical_slice_intake_protocol.acceptance.md) | What must hold for this to be `ACCEPTED`, and what does it still not establish? | The independent verifier |
+
 ## Purpose and expected outcome
 
 A realistic R1 project and a realistic R3 project travel from G0 to G2 with a complete risk/control plan, charter, protocol, human decision and audit chain. This is the first slice where the design meets reality.
+
+
+## Analysis
+### What this package actually decides
+
+Whether any of it works. The purpose sentence says it without decoration: *this is
+the first slice where the design meets reality.*
+
+Everything before this package is a contract, a service or a policy verified
+against its own specification. This is the first time a project travels through
+several of them in sequence, and it is where the seams get tested — the places
+where two packages each satisfied their own criteria and disagree about the
+boundary between them.
+
+### Two projects, because R1 and R3 fail differently (T01)
+
+An R1 project should complete. An R3 project should reach `BLOCKED` under ADR-001,
+with a declaration naming the missing external verifier — and the *correct* outcome
+for R3 in a solo laboratory is that it does not proceed.
+
+A slice that only runs R1 has tested the path that works.
+
+### The seams this slice will actually find
+
+Three specific ones, worth naming in advance because they are where the design has
+most surface:
+
+1. **Profile binding at G1** — WP-005, WP-006 and WP-007 each produce a profile.
+   Whether they compose, and what happens when they disagree, has never been run.
+2. **Budget reservation before compute opens** — WP-053 reserves, WP-100 accounts,
+   WP-032 pauses. Three packages, one invariant (`00_PROGRAM/01` #9).
+3. **Gate record emission across a same-session close** — WP-008 requires separate
+   records, WP-033 writes them, WP-032 drives them.
+
+### Expect this package to produce findings against upstream packages
+
+That is its function. A vertical slice whose only output is *it worked* has
+probably not been run against a realistic fixture. `00_PROGRAM/06`'s finding
+lifecycle applies, and the findings belong to the packages they are against — not
+to this one.
+
+### The revise, block and reopen paths are the half that gets skipped (T06)
+
+Running a project forward through G0→G2 is the demonstration. Running it backwards
+— a `REVISE` at G1, a `BLOCKED` at G2, a reopen after a protocol change — is the
+test.
 
 ## Out of scope
 
 - The internal implementation of any dependent package
 - Production cutover and final operational approval
+
+## Dependency and prerequisite analysis
+
+<!-- generated:dependency-analysis — produced by scripts/expand_packages.py; do not edit inside this block -->
+
+### Direct hard dependencies
+
+8, each of which must be `ACCEPTED` — not `TECH_COMPLETE` — before this package is `READY`.
+
+| Package | Supplies to this package |
+|---|---|
+| [WP-034 — G0 Intake and G1 Charter Workflows](../04_CONTROL_EVENT/WP-034_g0_g1_workflows.md) | `G0/G1 workflows` · `Intake/Charter UI API contract` · `ControlPlan generation` · `Gate fixtures` |
+| [WP-035 — G2 Protocol, G3 Literature and G4 Baseline Workflows](../04_CONTROL_EVENT/WP-035_g2_g4_workflows.md) | `G2–G4 workflows` · `Protocol amendment flow` · `Literature freeze integration` · `Compute-open decision` |
+| [WP-056 — OPA Policy Platform and Bundle Distribution](../06_EXECUTION_SECURITY/WP-056_opa_policy_platform.md) | `OPA platform` · `Policy bundle v1` · `Policy test suite` · `Bundle promotion pipeline` |
+| [WP-091 — Lab Cockpit Information Architecture and Application Shell](../09_EXPERIENCE_OBSERVABILITY/WP-091_lab_cockpit_shell.md) | `Cockpit application shell` · `Navigation/IA` · `BFF/read APIs` · `RBAC matrix` |
+| [WP-092 — Project Workspace and G0–G10 Gate Timeline](../09_EXPERIENCE_OBSERVABILITY/WP-092_project_gate_timeline.md) | `Project Workspace` · `Gate Timeline` · `Artifact/evidence panels` · `Command/update forms` |
+| [WP-093 — Human Decision Queue and Evidence-Delta UI](../09_EXPERIENCE_OBSERVABILITY/WP-093_decision_queue_ui.md) | `Decision Queue UI` · `Evidence-delta component` · `Rationale forms` · `Delegation/escalation views` |
+| [WP-100 — Cost Ledger, Budget Envelopes and FinOps](../09_EXPERIENCE_OBSERVABILITY/WP-100_cost_ledger_finops.md) | `Cost Ledger` · `Budget service` · `Cost adapters` · `Invoice reconciliation` |
+| [WP-101 — Service Catalogue, SLOs and Alert/Runbook Binding](../09_EXPERIENCE_OBSERVABILITY/WP-101_service_slo_alerting.md) | `Service Catalog` · `SLO catalog` · `Error-budget policy` · `Alert-runbook link checker` |
+
+### Full prerequisite closure
+
+**89 of 141 packages (63%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
+
+| Level | Packages |
+|---:|---|
+| 1 | `WP-001` |
+| 2 | `WP-002` |
+| 3 | `WP-003` · `WP-005` · `WP-006` |
+| 4 | `WP-004` · `WP-007` |
+| 5 | `WP-008` |
+| 6 | `WP-009` |
+| 7 | `WP-010` |
+| 8 | `WP-011` |
+| 9 | `WP-012` · `WP-013` · `WP-016` |
+| 10 | `WP-014` |
+| 11 | `WP-015` · `WP-017` |
+| 12 | `WP-018` |
+| 13 | `WP-019` |
+| 14 | `WP-020` |
+| 15 | `WP-021` · `WP-022` |
+| 16 | `WP-023` · `WP-025` · `WP-026` · `WP-051` |
+| 17 | `WP-024` · `WP-028` · `WP-029` · `WP-041` |
+| 18 | `WP-027` · `WP-030` · `WP-042` |
+| 19 | `WP-031` · `WP-043` · `WP-052` |
+| 20 | `WP-032` · `WP-044` · `WP-053` |
+| 21 | `WP-033` · `WP-037` · `WP-045` |
+| 22 | `WP-034` · `WP-038` · `WP-046` |
+| 23 | `WP-035` · `WP-047` · `WP-049` |
+| 24 | `WP-036` · `WP-050` · `WP-054` · `WP-055` |
+| 25 | `WP-056` · `WP-091` |
+| 26 | `WP-057` · `WP-059` · `WP-061` · `WP-092` |
+| 27 | `WP-058` · `WP-064` · `WP-075` |
+| 28 | `WP-062` · `WP-081` |
+| 29 | `WP-063` · `WP-065` · `WP-066` · `WP-069` · `WP-082` |
+| 30 | `WP-067` · `WP-070` · `WP-096` |
+| 31 | `WP-068` · `WP-071` · `WP-097` · `WP-099` · `WP-100` |
+| 32 | `WP-072` · `WP-076` · `WP-098` |
+| 33 | `WP-077` · `WP-078` · `WP-101` |
+| 34 | `WP-079` |
+| 35 | `WP-080` |
+| 36 | `WP-086` |
+| 37 | `WP-087` |
+| 38 | `WP-088` |
+| 39 | `WP-089` |
+| 40 | `WP-093` |
+
+### What acceptance of this package releases
+
+- **Directly unblocked:** 1 — `WP-109`
+- **Transitively reachable:** **22 of 141 packages (16%)** cannot be accepted until this one is.
+
+The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
+
+### Position in the programme
+
+| | |
+|---|---|
+| Wave | W6 — Vertical integration |
+| Dependency depth | level **41** of 55 |
+| On the documented critical path | **yes** — `02_wave_and_dependency_map.md` names it |
+| Effort class | **L** |
+| Accountable owner | Research Workflow Lead |
+| Independent verifier | Assurance / Project Decision Owner |
+| Gates touched | `G0` · `G1` · `G2` |
+| Controls | `CTL-GOV-01` · `CTL-GOV-03` |
+
+### Acceptance scenarios that exercise this package
+
+`COMMISSIONED` requires every scenario below to pass **on the same release candidate**. A `SKIPPED` scenario on a `Critical` row does not count as a pass.
+
+| Scenario | Severity | What it must show |
+|---|---|---|
+| [ACC-06 — Planner Self-Approval Attempt](../12_ACCEPTANCE_SCENARIOS/ACC-06_plan_self_approval.md) | Critical | The assignment is rejected by policy; the gate becomes `BLOCKED` or waits for a suitable independent reviewer, and the violation attempt is audited. |
+| [ACC-25 — Human Approval Forgery](../12_ACCEPTANCE_SCENARIOS/ACC-25_human_approval_forgery.md) | Critical | The decision is rejected; gate state does not change and a security event and audit record are produced. A valid owner with MFA and an idempotent request passes as the counter-example. |
+| [ACC-26 — Approval, Delegation and Exception Expiry](../12_ACCEPTANCE_SCENARIOS/ACC-26_approval_expiry.md) | Critical | The authority is auto-revoked; new operations are denied and running tasks pause or are contained according to policy. There is no automatic extension or re-approval. |
+
+<!-- /generated:dependency-analysis -->
 
 ## Preconditions — Definition of Ready
 
@@ -32,6 +186,84 @@ A realistic R1 project and a realistic R3 project travel from G0 to G2 with a co
 - `DataClass`, `CodeTrust`, `ToolEffect` and the network/credential scope are classified.
 - Test fixtures, the environment, the rollback point and the acceptance measurement method are reachable.
 - An O/M/P person-day estimate is recorded and real capacity is reserved against it.
+
+## Execution requirements
+
+<!-- generated:execution-requirements — produced by scripts/expand_packages.py; do not edit inside this block -->
+
+### Inputs that must exist before the first task starts
+
+Each row is a deliverable of a dependency. Its **absence is a stop condition**, not a risk to manage: work started against a missing input is work that will be redone against the real one.
+
+| Required input | Comes from | Accepted? |
+|---|---|---|
+| `G0/G1 workflows` | `WP-034` | `python3 scripts/progress.py show WP-034` |
+| `Intake/Charter UI API contract` | `WP-034` | `python3 scripts/progress.py show WP-034` |
+| `ControlPlan generation` | `WP-034` | `python3 scripts/progress.py show WP-034` |
+| `Gate fixtures` | `WP-034` | `python3 scripts/progress.py show WP-034` |
+| `G2–G4 workflows` | `WP-035` | `python3 scripts/progress.py show WP-035` |
+| `Protocol amendment flow` | `WP-035` | `python3 scripts/progress.py show WP-035` |
+| `Literature freeze integration` | `WP-035` | `python3 scripts/progress.py show WP-035` |
+| `Compute-open decision` | `WP-035` | `python3 scripts/progress.py show WP-035` |
+| `OPA platform` | `WP-056` | `python3 scripts/progress.py show WP-056` |
+| `Policy bundle v1` | `WP-056` | `python3 scripts/progress.py show WP-056` |
+| `Policy test suite` | `WP-056` | `python3 scripts/progress.py show WP-056` |
+| `Bundle promotion pipeline` | `WP-056` | `python3 scripts/progress.py show WP-056` |
+| `Decision log pipeline` | `WP-056` | `python3 scripts/progress.py show WP-056` |
+| `Cockpit application shell` | `WP-091` | `python3 scripts/progress.py show WP-091` |
+| `Navigation/IA` | `WP-091` | `python3 scripts/progress.py show WP-091` |
+| `BFF/read APIs` | `WP-091` | `python3 scripts/progress.py show WP-091` |
+| `RBAC matrix` | `WP-091` | `python3 scripts/progress.py show WP-091` |
+| `Accessibility baseline` | `WP-091` | `python3 scripts/progress.py show WP-091` |
+| `Project Workspace` | `WP-092` | `python3 scripts/progress.py show WP-092` |
+| `Gate Timeline` | `WP-092` | `python3 scripts/progress.py show WP-092` |
+| `Artifact/evidence panels` | `WP-092` | `python3 scripts/progress.py show WP-092` |
+| `Command/update forms` | `WP-092` | `python3 scripts/progress.py show WP-092` |
+| `Decision Queue UI` | `WP-093` | `python3 scripts/progress.py show WP-093` |
+| `Evidence-delta component` | `WP-093` | `python3 scripts/progress.py show WP-093` |
+| `Rationale forms` | `WP-093` | `python3 scripts/progress.py show WP-093` |
+| `Delegation/escalation views` | `WP-093` | `python3 scripts/progress.py show WP-093` |
+| `Decision audit export` | `WP-093` | `python3 scripts/progress.py show WP-093` |
+| `Cost Ledger` | `WP-100` | `python3 scripts/progress.py show WP-100` |
+| `Budget service` | `WP-100` | `python3 scripts/progress.py show WP-100` |
+| `Cost adapters` | `WP-100` | `python3 scripts/progress.py show WP-100` |
+| `Invoice reconciliation` | `WP-100` | `python3 scripts/progress.py show WP-100` |
+| `FinOps dashboard/runbook` | `WP-100` | `python3 scripts/progress.py show WP-100` |
+| `Service Catalog` | `WP-101` | `python3 scripts/progress.py show WP-101` |
+| `SLO catalog` | `WP-101` | `python3 scripts/progress.py show WP-101` |
+| `Error-budget policy` | `WP-101` | `python3 scripts/progress.py show WP-101` |
+| `Alert-runbook link checker` | `WP-101` | `python3 scripts/progress.py show WP-101` |
+| `Ownership dashboard` | `WP-101` | `python3 scripts/progress.py show WP-101` |
+
+### Classification that must be recorded before work begins
+
+`00_PROGRAM/05_definition_of_ready_and_done.md` requires all four to be classified at refinement. They are not documentation: together they select the `ExecutionProfile`, and an unclassified package cannot be given one.
+
+| Field | Must state | Recorded at refinement |
+|---|---|---|
+| `DataClass` | D0–D4 for every input and output this package touches | ☐ |
+| `CodeTrust` | provenance of code this package executes | ☐ |
+| `ToolEffect` | T0–T5; whether any external side effect occurs | ☐ |
+| Network / credential scope | egress destinations and the identity used | ☐ |
+
+### Capacity that must be reserved
+
+- **Effort class `L`** — large — split into sub-packages if the estimate exceeds the wave.
+- A three-point `O`/`M`/`P` person-day estimate, with `PERT = (O + 4M + P) / 6`, is **mandatory** before this package is `READY`. It is not recorded here because it depends on real capacity at the time of refinement.
+- **Research Workflow Lead** carries the acceptance decision; **Assurance / Project Decision Owner** must verify independently of whoever implements.
+- One owner holds at most two `IN_PROGRESS` packages. At least 25% of assurance capacity stays reserved for correction and re-verification.
+
+### Evidence that must be producible before starting
+
+A package whose evidence cannot be produced is not `READY`, however complete its design is. Confirm each is reachable:
+
+- The target revision can be pinned, and every test result bound to it.
+- An environment manifest can be captured for the environment the tests run in.
+- The rollback or compensation path named in this document can actually be exercised.
+- A signed `EvidenceManifest` can be issued — today via the interim profile `airl-interim-v0.1` (`scripts/evidence_manifest.py`), which is **tamper-evident and not externally witnessed**.
+- The verifier can reach the evidence **without** seeing the producer's working trace.
+
+<!-- /generated:execution-requirements -->
 
 ## Implementation tasks
 
@@ -55,6 +287,8 @@ A realistic R1 project and a realistic R3 project travel from G0 to G2 with a co
 
 ## Test and verification plan
 
+The outline below is the summary. The executable procedure — environment, data, coverage items, cases, execution log, incident and completion reports — is in [`WP-102_vertical_slice_intake_protocol.tests.md`](WP-102_vertical_slice_intake_protocol.tests.md).
+
 - Happy path for both R1 and R3
 - `BLOCKED` on an unknown risk value
 - An expired delegation
@@ -65,6 +299,8 @@ A realistic R1 project and a realistic R3 project travel from G0 to G2 with a co
 - Telemetry correlation and audit-record integrity checks
 
 ## Acceptance criteria
+
+The programme-level conditions are below. The package-specific, measurable criteria — each with a threshold and the test case that decides it — are in [`WP-102_vertical_slice_intake_protocol.acceptance.md`](WP-102_vertical_slice_intake_protocol.acceptance.md), together with what this package still cannot establish.
 
 - [ ] Every canonical record from G0 to G2 is linked.
 - [ ] R3 receives deeper assurance but uses the same gates.

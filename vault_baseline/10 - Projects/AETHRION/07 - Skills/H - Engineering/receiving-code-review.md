@@ -1,3 +1,19 @@
+---
+title: "Code Review Reception"
+aliases:
+  - "receiving-code-review"
+type: skill
+category: skill
+status: WORKING
+source: "skills/receiving-code-review/SKILL.md"
+generated: true
+provenance: mirror_vault.py
+tags:
+  - aethrion/skill
+  - aethrion/skill-family/engineering
+  - aethrion/skill-origin/superpowers
+---
+
 > [!info] Generated view
 > This note is generated from `skills/receiving-code-review/SKILL.md` in the repository. Edit the
 > canonical file and regenerate; edits made here are overwritten.

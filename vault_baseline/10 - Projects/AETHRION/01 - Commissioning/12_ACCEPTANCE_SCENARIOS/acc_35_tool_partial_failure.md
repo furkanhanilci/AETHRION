@@ -1,3 +1,20 @@
+---
+title: "ACC-35 — Tool Partial Failure"
+aliases:
+  - "ACC-35"
+type: acceptance-scenario
+category: commissioning
+summary: "This scenario verifies the target architecture's fail-safe behaviour and its evidence production in the Tool Partial Failure situation."
+source: "planning/commissioning/12_ACCEPTANCE_SCENARIOS/ACC-35_tool_partial_failure.md"
+generated: true
+provenance: mirror_plan.py
+tags:
+  - aethrion/commissioning
+  - aethrion/acceptance-scenario
+  - aethrion/severity/critical
+  - aethrion/phase/pre-go-live
+---
+
 # ACC-35 — Tool Partial Failure
 
 ## Scenario card

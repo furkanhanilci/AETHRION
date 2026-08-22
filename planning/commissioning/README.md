@@ -1,6 +1,6 @@
 # AETHRION Commissioning Programme
 
-**Version:** 1.1
+**Version:** 1.2
 **Status:** Implementation and commissioning plan
 **Purpose:** Bring the AETHRION target architecture into service through work
 packages small enough to be assigned independently and closed with objective
@@ -55,10 +55,12 @@ zero open critical findings.
 | Bootstrap package | **1** (WP-000) — precedes the programme, depends on nothing |
 | Work packages | **140** (WP-001 – WP-140) |
 | Work package documents in total | **141** |
+| Test procedure documents | **141** — one per package, `*.tests.md` |
+| Acceptance criteria documents | **141** — one per package, `*.acceptance.md` |
 | Acceptance scenarios | **51** (ACC-01 – ACC-51) |
 | Programme documents | 12 |
-| Markdown files under this tree | 220 |
-| Files covered by the hash seal | 221 (220 Markdown + 1 CSV) |
+| Markdown files under this tree | 502 |
+| Files covered by the hash seal | 503 (220 Markdown + 1 CSV) |
 
 > ### What V1 is
 >
@@ -167,26 +169,40 @@ with `--check`.
 | [`11_scope_coverage_matrix.md`](00_PROGRAM/11_scope_coverage_matrix.md) | Is anything in scope not covered by a package? |
 | [`12_ACCEPTANCE_SCENARIOS/acceptance_scenarios_index.md`](12_ACCEPTANCE_SCENARIOS/acceptance_scenarios_index.md) | All 51 scenarios, by severity and phase |
 
-## 4. Directory structure
+## 4. How a package is documented
+
+Every work package is **three documents**, side by side in its workstream directory:
+
+| File | Answers | Read by |
+|---|---|---|
+| `WP-nnn_slug.md` | What is this, what does it depend on, what does its acceptance release? | Refinement and planning |
+| `WP-nnn_slug.tests.md` | How is it tested — environment, data, coverage items, cases, execution log, incident and completion reports? | The implementer and the tester |
+| `WP-nnn_slug.acceptance.md` | What must hold for `ACCEPTED`, and what does it still not establish? | The **independent verifier** |
+
+The split is not filing. `00_PROGRAM/06` requires a reviewer to work from a **frozen packet** without seeing the producer's trace, and a criteria section living inside the producer's working card is not that packet. The companions are structured on the information items of **ISO/IEC/IEEE 29119-3:2021** — the common elements of §5.2, the dynamic test process items of §8, and the completion report of §7.4 — adopted for document structure only; the evidence layers E0–E5 and the gate model remain this programme's own.
+
+Each companion carries generated blocks — test strategy, environment requirements, data requirements, coverage items, the Definition of Ready/Done/Commissioned checklists and the non-waivable list — derived from `package_dependency_matrix.csv` by `scripts/make_package_companions.py`. What sits outside those blocks is authored, and is never overwritten.
+
+## 5. Directory structure
 
 | Path | Contents |
 |---|---|
-| `00_PROGRAM/` | Programme charter, target state, wave plan, RACI, DoR/DoD, evidence and change control |
-| `01_GOVERNANCE/` | WP-001–010: governance and policy design |
-| `02_CONTRACTS/` | WP-011–020: identity, schema, record and contract foundation |
-| `03_FOUNDATION/` | WP-021–030: environment, repository, CI, data and platform backbone |
-| `04_CONTROL_EVENT/` | WP-031–040: Temporal, G0–G10, event and replay |
-| `05_MODEL_AGENT_TOOL/` | WP-041–050: gateway, admission, agent runtime and broker |
-| `06_EXECUTION_SECURITY/` | WP-051–060: trust zones, compute, identity, policy and security |
-| `07_LITERATURE_KNOWLEDGE/` | WP-061–074: Source Registry, Zotero, literature and Obsidian |
-| `08_EVIDENCE_ASSURANCE/` | WP-075–090: evidence, claims, experiments, review and reproduction |
-| `09_EXPERIENCE_OBSERVABILITY/` | WP-091–101: cockpit, decision UI, telemetry and FinOps |
-| `10_INTEGRATION_CUTOVER/` | WP-102–121: vertical slices, commissioning and production cutover |
-| `11_DAY2_OPERATIONS/` | WP-122–130: continuous operation and assurance |
-| `12_ACCEPTANCE_SCENARIOS/` | ACC-01–ACC-51: Given/When/Then system acceptance scenarios, including ACC-41–46 skill governance |
-| `13_TOOLING_INTEGRATION/` | WP-131–140: notification, communication, external records, evidence sealing and liveness |
+| [`00_PROGRAM/`](00_PROGRAM/README.md) | Programme charter, target state, wave plan, RACI, DoR/DoD, evidence and change control |
+| [`01_GOVERNANCE/`](01_GOVERNANCE/README.md) | WP-001–010: governance and policy design |
+| [`02_CONTRACTS/`](02_CONTRACTS/README.md) | WP-011–020: identity, schema, record and contract foundation |
+| [`03_FOUNDATION/`](03_FOUNDATION/README.md) | WP-021–030: environment, repository, CI, data and platform backbone |
+| [`04_CONTROL_EVENT/`](04_CONTROL_EVENT/README.md) | WP-031–040: Temporal, G0–G10, event and replay |
+| [`05_MODEL_AGENT_TOOL/`](05_MODEL_AGENT_TOOL/README.md) | WP-041–050: gateway, admission, agent runtime and broker |
+| [`06_EXECUTION_SECURITY/`](06_EXECUTION_SECURITY/README.md) | WP-051–060: trust zones, compute, identity, policy and security |
+| [`07_LITERATURE_KNOWLEDGE/`](07_LITERATURE_KNOWLEDGE/README.md) | WP-061–074: Source Registry, Zotero, literature and Obsidian |
+| [`08_EVIDENCE_ASSURANCE/`](08_EVIDENCE_ASSURANCE/README.md) | WP-075–090: evidence, claims, experiments, review and reproduction |
+| [`09_EXPERIENCE_OBSERVABILITY/`](09_EXPERIENCE_OBSERVABILITY/README.md) | WP-091–101: cockpit, decision UI, telemetry and FinOps |
+| [`10_INTEGRATION_CUTOVER/`](10_INTEGRATION_CUTOVER/README.md) | WP-102–121: vertical slices, commissioning and production cutover |
+| [`11_DAY2_OPERATIONS/`](11_DAY2_OPERATIONS/README.md) | WP-122–130: continuous operation and assurance |
+| [`12_ACCEPTANCE_SCENARIOS/`](12_ACCEPTANCE_SCENARIOS/README.md) | ACC-01–ACC-51: Given/When/Then system acceptance scenarios, including ACC-41–46 skill governance and ACC-47–51 |
+| [`13_TOOLING_INTEGRATION/`](13_TOOLING_INTEGRATION/README.md) | WP-131–140: notification, communication, external records, evidence sealing and liveness |
 
-## 5. Package status model
+## 6. Package status model
 
 ```text
 BACKLOG → READY → IN_PROGRESS → TECH_COMPLETE → EVIDENCE_REVIEW

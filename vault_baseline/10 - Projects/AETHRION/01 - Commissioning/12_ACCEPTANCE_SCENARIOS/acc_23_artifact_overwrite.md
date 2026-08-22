@@ -1,3 +1,20 @@
+---
+title: "ACC-23 — Artifact Overwrite Attempt"
+aliases:
+  - "ACC-23"
+type: acceptance-scenario
+category: commissioning
+summary: "This scenario verifies the target architecture's fail-safe behaviour and its evidence production in the Artifact Overwrite Attempt situation."
+source: "planning/commissioning/12_ACCEPTANCE_SCENARIOS/ACC-23_artifact_overwrite.md"
+generated: true
+provenance: mirror_plan.py
+tags:
+  - aethrion/commissioning
+  - aethrion/acceptance-scenario
+  - aethrion/severity/critical
+  - aethrion/phase/pre-go-live
+---
+
 # ACC-23 — Artifact Overwrite Attempt
 
 ## Scenario card

@@ -14,18 +14,20 @@
 
 ## Work packages (10)
 
-| Package | Title | Hard dependencies | Status at baseline | Adopted component |
-|---|---|---|---|:--:|
-| [WP-051](WP-051_trust_zone_network.md) | Four Trust Zones and Network Segmentation | WP-006, WP-010, WP-021 | `NOT_STARTED` |  |
-| [WP-052](WP-052_kubernetes_cluster.md) | Kubernetes Cluster and Node Pool Baseline | WP-021, WP-027, WP-051 | `NOT_STARTED` |  |
-| [WP-053](WP-053_kueue_quota.md) | Kueue Queue, Quota and Priority Policy | WP-006, WP-052 | `NOT_STARTED` |  |
-| [WP-054](WP-054_gvisor_sandbox.md) | gVisor Sandbox and Execution Cell Lifecycle | WP-006, WP-014, WP-027, WP-049, WP-052, WP-053 | `NOT_STARTED` |  |
-| [WP-055](WP-055_spiffe_vault_identity.md) | SPIFFE/SPIRE Workload Identity and Vault | WP-004, WP-016, WP-021, WP-025, WP-031, WP-049, WP-051, W… | `NOT_STARTED` |  |
-| [WP-056](WP-056_opa_policy_platform.md) | OPA Policy Platform and Bundle Distribution | WP-005, WP-006, WP-007, WP-009, WP-016, WP-020, WP-021, W… | `NOT_STARTED` |  |
-| [WP-057](WP-057_egress_proxy_dlp.md) | Default-Deny Egress Proxy, DLP and Allowlist | WP-006, WP-021, WP-049, WP-051, WP-055, WP-056 | `NOT_STARTED` |  |
-| [WP-058](WP-058_content_quarantine_firewall.md) | Untrusted Content Quarantine and Prompt-Injection Firewall | WP-014, WP-017, WP-026, WP-049, WP-050, WP-051, WP-054, W… | `NOT_STARTED` |  |
-| [WP-059](WP-059_supply_chain_admission.md) | Supply-Chain Admission, Sigstore and SLSA Policy | WP-027, WP-052, WP-054, WP-056 | `NOT_STARTED` |  |
-| [WP-060](WP-060_security_attack_suite.md) | Agentic Security Attack Suite and Red-Team Acceptance | WP-049, WP-050, WP-051, WP-052, WP-053, WP-054, WP-055, W… | `NOT_STARTED` |  |
+| Package | Title | Hard dependencies | Status at baseline | Adopted | Companions |
+|---|---|---|---|:--:|---|
+| [WP-051](WP-051_trust_zone_network.md) | Four Trust Zones and Network Segmentation | WP-006, WP-010, WP-021 | `NOT_STARTED` |  | [tests](WP-051_trust_zone_network.tests.md) · [acceptance](WP-051_trust_zone_network.acceptance.md) |
+| [WP-052](WP-052_kubernetes_cluster.md) | Kubernetes Cluster and Node Pool Baseline | WP-021, WP-027, WP-051 | `NOT_STARTED` |  | [tests](WP-052_kubernetes_cluster.tests.md) · [acceptance](WP-052_kubernetes_cluster.acceptance.md) |
+| [WP-053](WP-053_kueue_quota.md) | Kueue Queue, Quota and Priority Policy | WP-006, WP-052 | `NOT_STARTED` |  | [tests](WP-053_kueue_quota.tests.md) · [acceptance](WP-053_kueue_quota.acceptance.md) |
+| [WP-054](WP-054_gvisor_sandbox.md) | gVisor Sandbox and Execution Cell Lifecycle | WP-006, WP-014, WP-027, WP-049, WP-052, WP-053 | `NOT_STARTED` |  | [tests](WP-054_gvisor_sandbox.tests.md) · [acceptance](WP-054_gvisor_sandbox.acceptance.md) |
+| [WP-055](WP-055_spiffe_vault_identity.md) | SPIFFE/SPIRE Workload Identity and Vault | WP-004, WP-016, WP-021, WP-025, WP-031, WP-049, WP-051, W… | `NOT_STARTED` |  | [tests](WP-055_spiffe_vault_identity.tests.md) · [acceptance](WP-055_spiffe_vault_identity.acceptance.md) |
+| [WP-056](WP-056_opa_policy_platform.md) | OPA Policy Platform and Bundle Distribution | WP-005, WP-006, WP-007, WP-009, WP-016, WP-020, WP-021, W… | `NOT_STARTED` |  | [tests](WP-056_opa_policy_platform.tests.md) · [acceptance](WP-056_opa_policy_platform.acceptance.md) |
+| [WP-057](WP-057_egress_proxy_dlp.md) | Default-Deny Egress Proxy, DLP and Allowlist | WP-006, WP-021, WP-049, WP-051, WP-055, WP-056 | `NOT_STARTED` |  | [tests](WP-057_egress_proxy_dlp.tests.md) · [acceptance](WP-057_egress_proxy_dlp.acceptance.md) |
+| [WP-058](WP-058_content_quarantine_firewall.md) | Untrusted Content Quarantine and Prompt-Injection Firewall | WP-014, WP-017, WP-026, WP-049, WP-050, WP-051, WP-054, W… | `NOT_STARTED` |  | [tests](WP-058_content_quarantine_firewall.tests.md) · [acceptance](WP-058_content_quarantine_firewall.acceptance.md) |
+| [WP-059](WP-059_supply_chain_admission.md) | Supply-Chain Admission, Sigstore and SLSA Policy | WP-027, WP-052, WP-054, WP-056 | `NOT_STARTED` |  | [tests](WP-059_supply_chain_admission.tests.md) · [acceptance](WP-059_supply_chain_admission.acceptance.md) |
+| [WP-060](WP-060_security_attack_suite.md) | Agentic Security Attack Suite and Red-Team Acceptance | WP-049, WP-050, WP-051, WP-052, WP-053, WP-054, WP-055, W… | `NOT_STARTED` |  | [tests](WP-060_security_attack_suite.tests.md) · [acceptance](WP-060_security_attack_suite.acceptance.md) |
+
+Every package is three documents — the card, its **test procedures** and its **acceptance criteria** — because they have three readers. See `../README.md` §4.
 
 A ✅ marks a package that stands on an adopted external component rather than building the capability here — see `docs/architecture/AETHRION_COMPONENT_REUSE.md`.
 

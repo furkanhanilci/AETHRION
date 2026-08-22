@@ -1,3 +1,14 @@
+---
+title: "Capacity and Estimation Model"
+type: reference
+category: commissioning
+source: "planning/commissioning/00_PROGRAM/08_capacity_and_estimation.md"
+generated: true
+provenance: mirror_plan.py
+tags:
+  - aethrion/commissioning
+---
+
 # Capacity and Estimation Model
 
 ## Why there is no fixed calendar

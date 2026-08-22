@@ -14,28 +14,30 @@
 
 ## Work packages (20)
 
-| Package | Title | Hard dependencies | Status at baseline | Adopted component |
-|---|---|---|---|:--:|
-| [WP-102](WP-102_vertical_slice_intake_protocol.md) | Vertical Slice 1 — Intake through Protocol Freeze | WP-034, WP-035, WP-056, WP-091, WP-092, WP-093, WP-100, W… | `NOT_STARTED` |  |
-| [WP-103](WP-103_vertical_slice_literature.md) | Vertical Slice 2 — Two-Way Literature and Set Freeze | WP-035, WP-058, WP-061, WP-062, WP-063, WP-064, WP-065, W… | `NOT_STARTED` |  |
-| [WP-104](WP-104_vertical_slice_run_claim.md) | Vertical Slice 3 — Baseline through Run to Claim/Evidence | WP-035, WP-054, WP-075, WP-076, WP-077, WP-078, WP-079, W… | `NOT_STARTED` |  |
-| [WP-105](WP-105_vertical_slice_review_repro.md) | Vertical Slice 4 — Blind Review, Arbitration and Clean-Room | WP-084, WP-085, WP-086, WP-087, WP-088, WP-089, WP-093, W… | `NOT_STARTED` |  |
-| [WP-106](WP-106_vertical_slice_decision_publish_monitor.md) | Vertical Slice 5 — Human Decision, Publish and Monitor | WP-037, WP-074, WP-077, WP-080, WP-085, WP-089, WP-090, W… | `NOT_STARTED` |  |
-| [WP-107](WP-107_engineering_vertical_slice.md) | Engineering Vertical Slice — Spec, Worktree, Signed Release | WP-023, WP-024, WP-027, WP-032, WP-045, WP-047, WP-048, W… | `NOT_STARTED` |  |
-| [WP-108](WP-108_retraction_drift_vertical_slice.md) | Retraction, Drift and Supersession Vertical Slice | WP-037, WP-042, WP-044, WP-063, WP-075, WP-077, WP-090, W… | `NOT_STARTED` |  |
-| [WP-109](WP-109_acceptance_registry.md) | Forty Acceptance Scenario Registry and Harness | WP-002, WP-009, WP-020, WP-024, WP-040, WP-060, WP-090, W… | `NOT_STARTED` |  |
-| [WP-110](WP-110_research_acceptance.md) | Research and Literature Acceptance Package | WP-103, WP-104, WP-105, WP-106, WP-108, WP-109 | `NOT_STARTED` |  |
-| [WP-111](WP-111_reliability_finops_acceptance.md) | Reliability, Event and FinOps Acceptance Package | WP-040, WP-053, WP-083, WP-100, WP-109 | `NOT_STARTED` |  |
-| [WP-112](WP-112_security_privacy_acceptance.md) | Security and Privacy Acceptance Package | WP-060, WP-109 | `NOT_STARTED` |  |
-| [WP-113](WP-113_evidence_repro_acceptance.md) | Evidence, Reproduction and Publication Acceptance Package | WP-085, WP-087, WP-088, WP-089, WP-090, WP-109 | `NOT_STARTED` |  |
-| [WP-114](WP-114_operations_dr_acceptance.md) | Operations, DR and Restore Acceptance Package | WP-025, WP-026, WP-028, WP-030, WP-031, WP-052, WP-099, W… | `NOT_STARTED` |  |
-| [WP-115](WP-115_full_system_regression.md) | Full System Regression and Commissioning Dossier | WP-110, WP-111, WP-112, WP-113, WP-114 | `NOT_STARTED` |  |
-| [WP-116](WP-116_resilience_chaos.md) | Resilience, Chaos and Failure-Injection Commissioning | WP-040, WP-060, WP-101, WP-111, WP-114, WP-115 | `NOT_STARTED` |  |
-| [WP-117](WP-117_performance_capacity.md) | Performance, Capacity and Load Commissioning | WP-053, WP-096, WP-098, WP-100, WP-101, WP-115 | `NOT_STARTED` |  |
-| [WP-118](WP-118_operational_readiness.md) | Operational Readiness, On-Call and Runbook Simulation | WP-099, WP-101, WP-114, WP-115, WP-116, WP-117 | `NOT_STARTED` |  |
-| [WP-119](WP-119_pilot_cutover_rehearsal.md) | Controlled Pilot and Cutover Rehearsal | WP-115, WP-116, WP-117, WP-118 | `NOT_STARTED` |  |
-| [WP-120](WP-120_production_cutover.md) | Production Cutover and Go-Live Decision | WP-115, WP-116, WP-117, WP-118, WP-119 | `NOT_STARTED` |  |
-| [WP-121](WP-121_hypercare_stabilization.md) | Hypercare, Stabilisation and Programme Closure | WP-120 | `NOT_STARTED` |  |
+| Package | Title | Hard dependencies | Status at baseline | Adopted | Companions |
+|---|---|---|---|:--:|---|
+| [WP-102](WP-102_vertical_slice_intake_protocol.md) | Vertical Slice 1 — Intake through Protocol Freeze | WP-034, WP-035, WP-056, WP-091, WP-092, WP-093, WP-100, W… | `NOT_STARTED` |  | [tests](WP-102_vertical_slice_intake_protocol.tests.md) · [acceptance](WP-102_vertical_slice_intake_protocol.acceptance.md) |
+| [WP-103](WP-103_vertical_slice_literature.md) | Vertical Slice 2 — Two-Way Literature and Set Freeze | WP-035, WP-058, WP-061, WP-062, WP-063, WP-064, WP-065, W… | `NOT_STARTED` |  | [tests](WP-103_vertical_slice_literature.tests.md) · [acceptance](WP-103_vertical_slice_literature.acceptance.md) |
+| [WP-104](WP-104_vertical_slice_run_claim.md) | Vertical Slice 3 — Baseline through Run to Claim/Evidence | WP-035, WP-054, WP-075, WP-076, WP-077, WP-078, WP-079, W… | `NOT_STARTED` |  | [tests](WP-104_vertical_slice_run_claim.tests.md) · [acceptance](WP-104_vertical_slice_run_claim.acceptance.md) |
+| [WP-105](WP-105_vertical_slice_review_repro.md) | Vertical Slice 4 — Blind Review, Arbitration and Clean-Room | WP-084, WP-085, WP-086, WP-087, WP-088, WP-089, WP-093, W… | `NOT_STARTED` |  | [tests](WP-105_vertical_slice_review_repro.tests.md) · [acceptance](WP-105_vertical_slice_review_repro.acceptance.md) |
+| [WP-106](WP-106_vertical_slice_decision_publish_monitor.md) | Vertical Slice 5 — Human Decision, Publish and Monitor | WP-037, WP-074, WP-077, WP-080, WP-085, WP-089, WP-090, W… | `NOT_STARTED` |  | [tests](WP-106_vertical_slice_decision_publish_monitor.tests.md) · [acceptance](WP-106_vertical_slice_decision_publish_monitor.acceptance.md) |
+| [WP-107](WP-107_engineering_vertical_slice.md) | Engineering Vertical Slice — Spec, Worktree, Signed Release | WP-023, WP-024, WP-027, WP-032, WP-045, WP-047, WP-048, W… | `NOT_STARTED` |  | [tests](WP-107_engineering_vertical_slice.tests.md) · [acceptance](WP-107_engineering_vertical_slice.acceptance.md) |
+| [WP-108](WP-108_retraction_drift_vertical_slice.md) | Retraction, Drift and Supersession Vertical Slice | WP-037, WP-042, WP-044, WP-063, WP-075, WP-077, WP-090, W… | `NOT_STARTED` |  | [tests](WP-108_retraction_drift_vertical_slice.tests.md) · [acceptance](WP-108_retraction_drift_vertical_slice.acceptance.md) |
+| [WP-109](WP-109_acceptance_registry.md) | Forty Acceptance Scenario Registry and Harness | WP-002, WP-009, WP-020, WP-024, WP-040, WP-060, WP-090, W… | `NOT_STARTED` |  | [tests](WP-109_acceptance_registry.tests.md) · [acceptance](WP-109_acceptance_registry.acceptance.md) |
+| [WP-110](WP-110_research_acceptance.md) | Research and Literature Acceptance Package | WP-103, WP-104, WP-105, WP-106, WP-108, WP-109 | `NOT_STARTED` |  | [tests](WP-110_research_acceptance.tests.md) · [acceptance](WP-110_research_acceptance.acceptance.md) |
+| [WP-111](WP-111_reliability_finops_acceptance.md) | Reliability, Event and FinOps Acceptance Package | WP-040, WP-053, WP-083, WP-100, WP-109 | `NOT_STARTED` |  | [tests](WP-111_reliability_finops_acceptance.tests.md) · [acceptance](WP-111_reliability_finops_acceptance.acceptance.md) |
+| [WP-112](WP-112_security_privacy_acceptance.md) | Security and Privacy Acceptance Package | WP-060, WP-109 | `NOT_STARTED` |  | [tests](WP-112_security_privacy_acceptance.tests.md) · [acceptance](WP-112_security_privacy_acceptance.acceptance.md) |
+| [WP-113](WP-113_evidence_repro_acceptance.md) | Evidence, Reproduction and Publication Acceptance Package | WP-085, WP-087, WP-088, WP-089, WP-090, WP-109 | `NOT_STARTED` |  | [tests](WP-113_evidence_repro_acceptance.tests.md) · [acceptance](WP-113_evidence_repro_acceptance.acceptance.md) |
+| [WP-114](WP-114_operations_dr_acceptance.md) | Operations, DR and Restore Acceptance Package | WP-025, WP-026, WP-028, WP-030, WP-031, WP-052, WP-099, W… | `NOT_STARTED` |  | [tests](WP-114_operations_dr_acceptance.tests.md) · [acceptance](WP-114_operations_dr_acceptance.acceptance.md) |
+| [WP-115](WP-115_full_system_regression.md) | Full System Regression and Commissioning Dossier | WP-110, WP-111, WP-112, WP-113, WP-114 | `NOT_STARTED` |  | [tests](WP-115_full_system_regression.tests.md) · [acceptance](WP-115_full_system_regression.acceptance.md) |
+| [WP-116](WP-116_resilience_chaos.md) | Resilience, Chaos and Failure-Injection Commissioning | WP-040, WP-060, WP-101, WP-111, WP-114, WP-115 | `NOT_STARTED` |  | [tests](WP-116_resilience_chaos.tests.md) · [acceptance](WP-116_resilience_chaos.acceptance.md) |
+| [WP-117](WP-117_performance_capacity.md) | Performance, Capacity and Load Commissioning | WP-053, WP-096, WP-098, WP-100, WP-101, WP-115 | `NOT_STARTED` |  | [tests](WP-117_performance_capacity.tests.md) · [acceptance](WP-117_performance_capacity.acceptance.md) |
+| [WP-118](WP-118_operational_readiness.md) | Operational Readiness, On-Call and Runbook Simulation | WP-099, WP-101, WP-114, WP-115, WP-116, WP-117 | `NOT_STARTED` |  | [tests](WP-118_operational_readiness.tests.md) · [acceptance](WP-118_operational_readiness.acceptance.md) |
+| [WP-119](WP-119_pilot_cutover_rehearsal.md) | Controlled Pilot and Cutover Rehearsal | WP-115, WP-116, WP-117, WP-118 | `NOT_STARTED` |  | [tests](WP-119_pilot_cutover_rehearsal.tests.md) · [acceptance](WP-119_pilot_cutover_rehearsal.acceptance.md) |
+| [WP-120](WP-120_production_cutover.md) | Production Cutover and Go-Live Decision | WP-115, WP-116, WP-117, WP-118, WP-119 | `NOT_STARTED` |  | [tests](WP-120_production_cutover.tests.md) · [acceptance](WP-120_production_cutover.acceptance.md) |
+| [WP-121](WP-121_hypercare_stabilization.md) | Hypercare, Stabilisation and Programme Closure | WP-120 | `NOT_STARTED` |  | [tests](WP-121_hypercare_stabilization.tests.md) · [acceptance](WP-121_hypercare_stabilization.acceptance.md) |
+
+Every package is three documents — the card, its **test procedures** and its **acceptance criteria** — because they have three readers. See `../README.md` §4.
 
 A ✅ marks a package that stands on an adopted external component rather than building the capability here — see `docs/architecture/AETHRION_COMPONENT_REUSE.md`.
 

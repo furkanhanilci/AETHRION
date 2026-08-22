@@ -1,3 +1,20 @@
+---
+title: "ACC-34 — DLQ Repair and Corrected Replay"
+aliases:
+  - "ACC-34"
+type: acceptance-scenario
+category: commissioning
+summary: "This scenario verifies the target architecture's fail-safe behaviour and its evidence production in the DLQ Repair and Corrected Replay situation."
+source: "planning/commissioning/12_ACCEPTANCE_SCENARIOS/ACC-34_dlq_repair.md"
+generated: true
+provenance: mirror_plan.py
+tags:
+  - aethrion/commissioning
+  - aethrion/acceptance-scenario
+  - aethrion/severity/high
+  - aethrion/phase/pre-go-live
+---
+
 # ACC-34 — DLQ Repair and Corrected Replay
 
 ## Scenario card

@@ -1,3 +1,16 @@
+---
+title: "AETHRION — Related Systems and Positioning"
+type: reference
+category: architecture
+status: SPECIFIED
+summary: "The idea that every claim must carry a traceable chain back to its evidence is not original to this project, and a reader who assumes otherwise has been misled."
+source: "docs/architecture/AETHRION_RELATED_SYSTEMS.md"
+generated: true
+provenance: mirror_vault.py
+tags:
+  - aethrion/architecture
+---
+
 > [!info] Generated view
 > This note is generated from `docs/architecture/AETHRION_RELATED_SYSTEMS.md` in the repository. Edit the
 > canonical file and regenerate; edits made here are overwritten.

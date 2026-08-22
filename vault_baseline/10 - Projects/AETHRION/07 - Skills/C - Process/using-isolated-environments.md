@@ -1,3 +1,19 @@
+---
+title: "Using Isolated Environments"
+aliases:
+  - "using-isolated-environments"
+type: skill
+category: skill
+status: WORKING
+source: "skills/using-isolated-environments/SKILL.md"
+generated: true
+provenance: mirror_vault.py
+tags:
+  - aethrion/skill
+  - aethrion/skill-family/scientific-research
+  - aethrion/skill-origin/airl-native
+---
+
 > [!info] Generated view
 > This note is generated from `skills/using-isolated-environments/SKILL.md` in the repository. Edit the
 > canonical file and regenerate; edits made here are overwritten.

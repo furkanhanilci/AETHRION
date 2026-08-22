@@ -14,17 +14,19 @@
 
 ## Work packages (9)
 
-| Package | Title | Hard dependencies | Status at baseline | Adopted component |
-|---|---|---|---|:--:|
-| [WP-122](WP-122_service_ops_cadence.md) | Service Health, SLO and Error-Budget Rhythm | WP-101, WP-121 | `NOT_STARTED` |  |
-| [WP-123](WP-123_control_effectiveness.md) | Control Effectiveness and Policy Regression Rhythm | WP-009, WP-056, WP-060, WP-112, WP-121 | `NOT_STARTED` |  |
-| [WP-124](WP-124_model_requalification_drift.md) | Model Requalification, Drift and Ejection Rhythm | WP-042, WP-043, WP-044, WP-045, WP-108, WP-121 | `NOT_STARTED` |  |
-| [WP-125](WP-125_literature_knowledge_curation.md) | Literature, Zotero and Obsidian Curation Rhythm | WP-061, WP-062, WP-063, WP-064, WP-065, WP-066, WP-067, W… | `NOT_STARTED` |  |
-| [WP-126](WP-126_assurance_calibration.md) | Reviewer, Judge and Reproducer Calibration | WP-007, WP-043, WP-085, WP-086, WP-087, WP-088, WP-089, W… | `NOT_STARTED` |  |
-| [WP-127](WP-127_finops_portfolio.md) | FinOps, Capacity and Portfolio Review Rhythm | WP-100, WP-117, WP-121 | `NOT_STARTED` |  |
-| [WP-128](WP-128_incident_learning.md) | Incident, Postmortem and Learning Closure | WP-037, WP-060, WP-099, WP-101, WP-116, WP-118, WP-121 | `NOT_STARTED` |  |
-| [WP-129](WP-129_quarterly_dr_supply_chain.md) | Quarterly DR, Supply-Chain and Audit Drill | WP-027, WP-059, WP-099, WP-114, WP-121 | `NOT_STARTED` |  |
-| [WP-130](WP-130_architecture_continuous_assurance.md) | Architecture and Platform Continuous Assurance | WP-010, WP-030, WP-040, WP-060, WP-109, WP-115, WP-121, W… | `NOT_STARTED` |  |
+| Package | Title | Hard dependencies | Status at baseline | Adopted | Companions |
+|---|---|---|---|:--:|---|
+| [WP-122](WP-122_service_ops_cadence.md) | Service Health, SLO and Error-Budget Rhythm | WP-101, WP-121 | `NOT_STARTED` |  | [tests](WP-122_service_ops_cadence.tests.md) · [acceptance](WP-122_service_ops_cadence.acceptance.md) |
+| [WP-123](WP-123_control_effectiveness.md) | Control Effectiveness and Policy Regression Rhythm | WP-009, WP-056, WP-060, WP-112, WP-121 | `NOT_STARTED` |  | [tests](WP-123_control_effectiveness.tests.md) · [acceptance](WP-123_control_effectiveness.acceptance.md) |
+| [WP-124](WP-124_model_requalification_drift.md) | Model Requalification, Drift and Ejection Rhythm | WP-042, WP-043, WP-044, WP-045, WP-108, WP-121 | `NOT_STARTED` |  | [tests](WP-124_model_requalification_drift.tests.md) · [acceptance](WP-124_model_requalification_drift.acceptance.md) |
+| [WP-125](WP-125_literature_knowledge_curation.md) | Literature, Zotero and Obsidian Curation Rhythm | WP-061, WP-062, WP-063, WP-064, WP-065, WP-066, WP-067, W… | `NOT_STARTED` |  | [tests](WP-125_literature_knowledge_curation.tests.md) · [acceptance](WP-125_literature_knowledge_curation.acceptance.md) |
+| [WP-126](WP-126_assurance_calibration.md) | Reviewer, Judge and Reproducer Calibration | WP-007, WP-043, WP-085, WP-086, WP-087, WP-088, WP-089, W… | `NOT_STARTED` |  | [tests](WP-126_assurance_calibration.tests.md) · [acceptance](WP-126_assurance_calibration.acceptance.md) |
+| [WP-127](WP-127_finops_portfolio.md) | FinOps, Capacity and Portfolio Review Rhythm | WP-100, WP-117, WP-121 | `NOT_STARTED` |  | [tests](WP-127_finops_portfolio.tests.md) · [acceptance](WP-127_finops_portfolio.acceptance.md) |
+| [WP-128](WP-128_incident_learning.md) | Incident, Postmortem and Learning Closure | WP-037, WP-060, WP-099, WP-101, WP-116, WP-118, WP-121 | `NOT_STARTED` |  | [tests](WP-128_incident_learning.tests.md) · [acceptance](WP-128_incident_learning.acceptance.md) |
+| [WP-129](WP-129_quarterly_dr_supply_chain.md) | Quarterly DR, Supply-Chain and Audit Drill | WP-027, WP-059, WP-099, WP-114, WP-121 | `NOT_STARTED` |  | [tests](WP-129_quarterly_dr_supply_chain.tests.md) · [acceptance](WP-129_quarterly_dr_supply_chain.acceptance.md) |
+| [WP-130](WP-130_architecture_continuous_assurance.md) | Architecture and Platform Continuous Assurance | WP-010, WP-030, WP-040, WP-060, WP-109, WP-115, WP-121, W… | `NOT_STARTED` |  | [tests](WP-130_architecture_continuous_assurance.tests.md) · [acceptance](WP-130_architecture_continuous_assurance.acceptance.md) |
+
+Every package is three documents — the card, its **test procedures** and its **acceptance criteria** — because they have three readers. See `../README.md` §4.
 
 A ✅ marks a package that stands on an adopted external component rather than building the capability here — see `docs/architecture/AETHRION_COMPONENT_REUSE.md`.
 

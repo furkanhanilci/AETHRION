@@ -15,14 +15,149 @@
 | Related acceptance scenarios | ACC-16, ACC-18, ACC-32 |
 | Status at baseline | `NOT_STARTED` |
 
+## Package documents
+
+This package is described by three documents. They are separate because they have three readers: this card is read at refinement by someone deciding whether the package can start; the test procedures are read months later by whoever runs them; the acceptance criteria are read by an **independent verifier** who must reach a verdict without having done the work — and `00_PROGRAM/06` requires that verifier to work from a packet they can be handed.
+
+| Document | Answers | Read by |
+|---|---|---|
+| **This card** | What is this, what does it depend on, what does it release? | Refinement, planning |
+| [Test procedures](WP-057_egress_proxy_dlp.tests.md) | How is it tested, in what environment, with what data, and what counts as a complete run? | The implementer and the tester |
+| [Acceptance criteria](WP-057_egress_proxy_dlp.acceptance.md) | What must hold for this to be `ACCEPTED`, and what does it still not establish? | The independent verifier |
+
 ## Purpose and expected outcome
 
 All outbound traffic from execution and services passes through a domain/IP/method/purpose/data-class allowlist, secret and PII detectors, and full audit.
+
+
+## Analysis
+### What this package actually decides
+
+What may leave. Every other control in the security workstream limits what can be
+reached or what can be run; this one limits what can go **out**, and it is the
+last boundary before data is gone.
+
+### The allowlist has five dimensions, not one (T02, T03)
+
+Domain, IP, method, purpose, data class. A proxy that allowlists domains alone
+permits a `POST` of a D3 dataset to an approved documentation host — which is an
+exfiltration through a permitted destination, and the most likely shape of a real
+incident.
+
+### DLP detectors are defence in depth, never the boundary (T04)
+
+ADR-003 is explicit and the rule generalises: a detector is defence in depth,
+never the boundary. The **boundary** is the data class attached to the request and
+the ceiling attached to the destination. Detectors catch the case where the class
+was wrong — they do not replace it.
+
+A package that relies on regexes to stop exfiltration has inverted its own design.
+
+### Canary secrets are what make the control testable (T05)
+
+A secret that exists only to be detected if it ever leaves. Without one, "no
+secret has leaked" is indistinguishable from "the detector does not work" — and
+`monitor_sources.py` already applies this discipline in this repository: it
+carries a known-retracted positive control and **fails if the control stays
+silent**.
+
+The same rule belongs here.
+
+### Anomalous volume is the signal for the case the allowlist permits (T05)
+
+Slow exfiltration through an approved destination defeats every categorical
+control. Volume against a baseline is the only thing that sees it.
+
+### The emergency deny path needs to be exercised, not documented (T06)
+
+An emergency control first used during an emergency is a control being tested
+during an incident.
 
 ## Out of scope
 
 - The internal implementation of any dependent package
 - Production cutover and final operational approval
+
+## Dependency and prerequisite analysis
+
+<!-- generated:dependency-analysis — produced by scripts/expand_packages.py; do not edit inside this block -->
+
+### Direct hard dependencies
+
+6, each of which must be `ACCEPTED` — not `TECH_COMPLETE` — before this package is `READY`.
+
+| Package | Supplies to this package |
+|---|---|
+| [WP-006 — ExecutionProfile and Route Policy](../01_GOVERNANCE/WP-006_execution_profile.md) | `ExecutionProfile semantics` · `Route/control decision tables` · `Enforcement map` · `Negative examples` |
+| [WP-021 — Development, Staging and Production Environment Baseline](../03_FOUNDATION/WP-021_environment_account_network_baseline.md) | `Environment topology` · `Account/network IaC` · `Access baseline` · `Environment promotion policy` |
+| [WP-049 — Tool Registry and Tool Broker Core](../05_MODEL_AGENT_TOOL/WP-049_tool_registry_broker.md) | `Tool Registry` · `Tool Broker service` · `Invocation/Receipt persistence` · `Connector SDK` |
+| [WP-051 — Four Trust Zones and Network Segmentation](../06_EXECUTION_SECURITY/WP-051_trust_zone_network.md) | `Trust zone diagram/data flows` · `Network IaC` · `Boundary policy` · `Threat-test suite` |
+| [WP-055 — SPIFFE/SPIRE Workload Identity and Vault](../06_EXECUTION_SECURITY/WP-055_spiffe_vault_identity.md) | `SPIRE/Vault deployments` · `Identity registry mapping` · `Lease policies` · `Break-glass procedure` |
+| [WP-056 — OPA Policy Platform and Bundle Distribution](../06_EXECUTION_SECURITY/WP-056_opa_policy_platform.md) | `OPA platform` · `Policy bundle v1` · `Policy test suite` · `Bundle promotion pipeline` |
+
+### Full prerequisite closure
+
+**42 of 141 packages (30%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
+
+| Level | Packages |
+|---:|---|
+| 1 | `WP-001` |
+| 2 | `WP-002` |
+| 3 | `WP-003` · `WP-005` · `WP-006` |
+| 4 | `WP-004` · `WP-007` |
+| 5 | `WP-008` |
+| 6 | `WP-009` |
+| 7 | `WP-010` |
+| 8 | `WP-011` |
+| 9 | `WP-012` · `WP-013` · `WP-016` |
+| 10 | `WP-014` |
+| 11 | `WP-015` · `WP-017` |
+| 12 | `WP-018` |
+| 13 | `WP-019` |
+| 14 | `WP-020` |
+| 15 | `WP-021` · `WP-022` |
+| 16 | `WP-023` · `WP-025` · `WP-026` · `WP-051` |
+| 17 | `WP-024` · `WP-028` · `WP-029` · `WP-041` |
+| 18 | `WP-027` · `WP-042` |
+| 19 | `WP-031` · `WP-043` · `WP-052` |
+| 20 | `WP-032` · `WP-044` |
+| 21 | `WP-045` |
+| 22 | `WP-046` |
+| 23 | `WP-049` |
+| 24 | `WP-055` |
+| 25 | `WP-056` |
+
+### What acceptance of this package releases
+
+- **Directly unblocked:** 4 — `WP-058` · `WP-060` · `WP-096` · `WP-097`
+- **Transitively reachable:** **68 of 141 packages (48%)** cannot be accepted until this one is.
+
+The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
+
+### Position in the programme
+
+| | |
+|---|---|
+| Wave | W2 — Platform backbone |
+| Dependency depth | level **26** of 55 |
+| On the documented critical path | no |
+| Effort class | **L** |
+| Accountable owner | Network Security Lead |
+| Independent verifier | Red Team / Privacy Owner |
+| Gates touched | `G3` · `G5` · `Platform` |
+| Controls | `CTL-SEC-02` · `CTL-OBS-02` |
+
+### Acceptance scenarios that exercise this package
+
+`COMMISSIONED` requires every scenario below to pass **on the same release candidate**. A `SKIPPED` scenario on a `Critical` row does not count as a pass.
+
+| Scenario | Severity | What it must show |
+|---|---|---|
+| [ACC-16 — Egress Exfiltration Attempt](../12_ACCEPTANCE_SCENARIOS/ACC-16_egress_exfiltration.md) | Critical | The traffic is denied, the canary never leaves, the credential lease is revoked and a security incident and audit record are created. |
+| [ACC-18 — D3 Data to a Public Provider](../12_ACCEPTANCE_SCENARIOS/ACC-18_d3_public_route.md) | Critical | No public provider call is made; a secure or local eligible route is chosen if one exists, otherwise the task is `BLOCKED`, and an audit record is written. |
+| [ACC-32 — Secret in Prompt or Trace](../12_ACCEPTANCE_SCENARIOS/ACC-32_secret_in_trace.md) | Critical | The secret never appears in raw telemetry, events or the UI; redaction or quarantine occurs, a security event is raised and the credential is revoked. |
+
+<!-- /generated:dependency-analysis -->
 
 ## Preconditions — Definition of Ready
 
@@ -32,6 +167,74 @@ All outbound traffic from execution and services passes through a domain/IP/meth
 - `DataClass`, `CodeTrust`, `ToolEffect` and the network/credential scope are classified.
 - Test fixtures, the environment, the rollback point and the acceptance measurement method are reachable.
 - An O/M/P person-day estimate is recorded and real capacity is reserved against it.
+
+## Execution requirements
+
+<!-- generated:execution-requirements — produced by scripts/expand_packages.py; do not edit inside this block -->
+
+### Inputs that must exist before the first task starts
+
+Each row is a deliverable of a dependency. Its **absence is a stop condition**, not a risk to manage: work started against a missing input is work that will be redone against the real one.
+
+| Required input | Comes from | Accepted? |
+|---|---|---|
+| `ExecutionProfile semantics` | `WP-006` | `python3 scripts/progress.py show WP-006` |
+| `Route/control decision tables` | `WP-006` | `python3 scripts/progress.py show WP-006` |
+| `Enforcement map` | `WP-006` | `python3 scripts/progress.py show WP-006` |
+| `Negative examples` | `WP-006` | `python3 scripts/progress.py show WP-006` |
+| `Environment topology` | `WP-021` | `python3 scripts/progress.py show WP-021` |
+| `Account/network IaC` | `WP-021` | `python3 scripts/progress.py show WP-021` |
+| `Access baseline` | `WP-021` | `python3 scripts/progress.py show WP-021` |
+| `Environment promotion policy` | `WP-021` | `python3 scripts/progress.py show WP-021` |
+| `Tool Registry` | `WP-049` | `python3 scripts/progress.py show WP-049` |
+| `Tool Broker service` | `WP-049` | `python3 scripts/progress.py show WP-049` |
+| `Invocation/Receipt persistence` | `WP-049` | `python3 scripts/progress.py show WP-049` |
+| `Connector SDK` | `WP-049` | `python3 scripts/progress.py show WP-049` |
+| `Audit events` | `WP-049` | `python3 scripts/progress.py show WP-049` |
+| `Trust zone diagram/data flows` | `WP-051` | `python3 scripts/progress.py show WP-051` |
+| `Network IaC` | `WP-051` | `python3 scripts/progress.py show WP-051` |
+| `Boundary policy` | `WP-051` | `python3 scripts/progress.py show WP-051` |
+| `Threat-test suite` | `WP-051` | `python3 scripts/progress.py show WP-051` |
+| `SPIRE/Vault deployments` | `WP-055` | `python3 scripts/progress.py show WP-055` |
+| `Identity registry mapping` | `WP-055` | `python3 scripts/progress.py show WP-055` |
+| `Lease policies` | `WP-055` | `python3 scripts/progress.py show WP-055` |
+| `Break-glass procedure` | `WP-055` | `python3 scripts/progress.py show WP-055` |
+| `Identity audit dashboard` | `WP-055` | `python3 scripts/progress.py show WP-055` |
+| `OPA platform` | `WP-056` | `python3 scripts/progress.py show WP-056` |
+| `Policy bundle v1` | `WP-056` | `python3 scripts/progress.py show WP-056` |
+| `Policy test suite` | `WP-056` | `python3 scripts/progress.py show WP-056` |
+| `Bundle promotion pipeline` | `WP-056` | `python3 scripts/progress.py show WP-056` |
+| `Decision log pipeline` | `WP-056` | `python3 scripts/progress.py show WP-056` |
+
+### Classification that must be recorded before work begins
+
+`00_PROGRAM/05_definition_of_ready_and_done.md` requires all four to be classified at refinement. They are not documentation: together they select the `ExecutionProfile`, and an unclassified package cannot be given one.
+
+| Field | Must state | Recorded at refinement |
+|---|---|---|
+| `DataClass` | D0–D4 for every input and output this package touches | ☐ |
+| `CodeTrust` | provenance of code this package executes | ☐ |
+| `ToolEffect` | T0–T5; whether any external side effect occurs | ☐ |
+| Network / credential scope | egress destinations and the identity used | ☐ |
+
+### Capacity that must be reserved
+
+- **Effort class `L`** — large — split into sub-packages if the estimate exceeds the wave.
+- A three-point `O`/`M`/`P` person-day estimate, with `PERT = (O + 4M + P) / 6`, is **mandatory** before this package is `READY`. It is not recorded here because it depends on real capacity at the time of refinement.
+- **Network Security Lead** carries the acceptance decision; **Red Team / Privacy Owner** must verify independently of whoever implements.
+- One owner holds at most two `IN_PROGRESS` packages. At least 25% of assurance capacity stays reserved for correction and re-verification.
+
+### Evidence that must be producible before starting
+
+A package whose evidence cannot be produced is not `READY`, however complete its design is. Confirm each is reachable:
+
+- The target revision can be pinned, and every test result bound to it.
+- An environment manifest can be captured for the environment the tests run in.
+- The rollback or compensation path named in this document can actually be exercised.
+- A signed `EvidenceManifest` can be issued — today via the interim profile `airl-interim-v0.1` (`scripts/evidence_manifest.py`), which is **tamper-evident and not externally witnessed**.
+- The verifier can reach the evidence **without** seeing the producer's working trace.
+
+<!-- /generated:execution-requirements -->
 
 ## Implementation tasks
 
@@ -56,6 +259,8 @@ All outbound traffic from execution and services passes through a domain/IP/meth
 
 ## Test and verification plan
 
+The outline below is the summary. The executable procedure — environment, data, coverage items, cases, execution log, incident and completion reports — is in [`WP-057_egress_proxy_dlp.tests.md`](WP-057_egress_proxy_dlp.tests.md).
+
 - Denial of an unknown domain
 - Denial of a canary-secret exfiltration attempt
 - Denial of a D3 payload to a public endpoint
@@ -66,6 +271,8 @@ All outbound traffic from execution and services passes through a domain/IP/meth
 - Telemetry correlation and audit-record integrity checks
 
 ## Acceptance criteria
+
+The programme-level conditions are below. The package-specific, measurable criteria — each with a threshold and the test case that decides it — are in [`WP-057_egress_proxy_dlp.acceptance.md`](WP-057_egress_proxy_dlp.acceptance.md), together with what this package still cannot establish.
 
 - [ ] No direct internet route exists.
 - [ ] A DLP denial can revoke a lease and raise an incident.

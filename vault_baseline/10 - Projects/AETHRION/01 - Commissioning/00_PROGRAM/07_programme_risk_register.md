@@ -1,3 +1,14 @@
+---
+title: "Programme Risk Register and Treatment Rules"
+type: reference
+category: commissioning
+source: "planning/commissioning/00_PROGRAM/07_programme_risk_register.md"
+generated: true
+provenance: mirror_plan.py
+tags:
+  - aethrion/commissioning
+---
+
 # Programme Risk Register and Treatment Rules
 
 | ID | Risk | Early signal | Preventive control | Owner | Cutover impact |

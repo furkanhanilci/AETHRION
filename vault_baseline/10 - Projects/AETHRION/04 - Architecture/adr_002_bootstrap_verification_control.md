@@ -1,3 +1,19 @@
+---
+title: "ADR-002 — Bootstrap Verification Control"
+aliases:
+  - "ADR-002"
+type: decision-record
+category: architecture
+status: ACCEPTED
+summary: "The verification bundle is seven commands and every one of them is run by hand, so nothing prevents a commit that never ran them — audit finding H5."
+source: "docs/architecture/ADR-002_bootstrap_verification_control.md"
+generated: true
+provenance: mirror_vault.py
+tags:
+  - aethrion/architecture
+  - aethrion/adr
+---
+
 > [!info] Generated view
 > This note is generated from `docs/architecture/ADR-002_bootstrap_verification_control.md` in the repository. Edit the
 > canonical file and regenerate; edits made here are overwritten.

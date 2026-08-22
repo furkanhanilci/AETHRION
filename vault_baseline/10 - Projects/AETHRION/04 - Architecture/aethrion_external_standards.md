@@ -1,3 +1,15 @@
+---
+title: "AETHRION — External Standards Register"
+type: reference
+category: architecture
+summary: "Every format this laboratory invents is a format it must also specify, validate, document and maintain, so this register records what AETHRION adopts instead of inventing, and what it defers with reasons."
+source: "docs/architecture/AETHRION_EXTERNAL_STANDARDS.md"
+generated: true
+provenance: mirror_vault.py
+tags:
+  - aethrion/architecture
+---
+
 > [!info] Generated view
 > This note is generated from `docs/architecture/AETHRION_EXTERNAL_STANDARDS.md` in the repository. Edit the
 > canonical file and regenerate; edits made here are overwritten.

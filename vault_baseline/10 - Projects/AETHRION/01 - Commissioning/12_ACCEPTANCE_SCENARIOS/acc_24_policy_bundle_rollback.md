@@ -1,3 +1,20 @@
+---
+title: "ACC-24 — Policy Bundle Rollback"
+aliases:
+  - "ACC-24"
+type: acceptance-scenario
+category: commissioning
+summary: "This scenario verifies the target architecture's fail-safe behaviour and its evidence production in the Policy Bundle Rollback situation."
+source: "planning/commissioning/12_ACCEPTANCE_SCENARIOS/ACC-24_policy_bundle_rollback.md"
+generated: true
+provenance: mirror_plan.py
+tags:
+  - aethrion/commissioning
+  - aethrion/acceptance-scenario
+  - aethrion/severity/high
+  - aethrion/phase/pre-go-live
+---
+
 # ACC-24 — Policy Bundle Rollback
 
 ## Scenario card

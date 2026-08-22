@@ -1,3 +1,14 @@
+---
+title: "Definition of Ready and Definition of Done"
+type: reference
+category: commissioning
+source: "planning/commissioning/00_PROGRAM/05_definition_of_ready_and_done.md"
+generated: true
+provenance: mirror_plan.py
+tags:
+  - aethrion/commissioning
+---
+
 # Definition of Ready and Definition of Done
 
 ## Definition of Ready — all packages
@@ -64,7 +75,7 @@ A package becomes `READY` only when all of the following hold:
 > is `airl-interim-v0.1`: a local signing key and a local anchor, **not** a
 > transparency log and **not** keyless — WP-139 supplies those. The **other**
 > half, finding **C2**, is decided by
-> [`ADR-001`](../../../docs/architecture/ADR-001_solo_operator_independence.md):
+> [`ADR-001`](../../04 - Architecture/adr_001_solo_operator_independence.md):
 > R1 solo, R2 declared partial, R3 `BLOCKED`.
 
 ## Definition of Commissioned

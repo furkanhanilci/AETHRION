@@ -1,3 +1,15 @@
+---
+title: "AETHRION — Role → Model Assignment Decision"
+type: reference
+category: architecture
+summary: "This decision record assigns every role and every gate to an actor class — human, model, or deterministic code — and binds reviewer count and effort to the assurance class."
+source: "docs/architecture/AETHRION_ROLE_MODEL_ASSIGNMENT.md"
+generated: true
+provenance: mirror_vault.py
+tags:
+  - aethrion/architecture
+---
+
 > [!info] Generated view
 > This note is generated from `docs/architecture/AETHRION_ROLE_MODEL_ASSIGNMENT.md` in the repository. Edit the
 > canonical file and regenerate; edits made here are overwritten.

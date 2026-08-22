@@ -1,3 +1,15 @@
+---
+title: "AETHRION — Mature Components to Build On"
+type: reference
+category: architecture
+summary: "The purpose of adopting an existing implementation is not to reduce scope — it is that a gate backed by something a community maintains and tests is stronger than the same gate backed by code written here for the first time."
+source: "docs/architecture/AETHRION_COMPONENT_REUSE.md"
+generated: true
+provenance: mirror_vault.py
+tags:
+  - aethrion/architecture
+---
+
 > [!info] Generated view
 > This note is generated from `docs/architecture/AETHRION_COMPONENT_REUSE.md` in the repository. Edit the
 > canonical file and regenerate; edits made here are overwritten.

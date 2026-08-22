@@ -1,3 +1,20 @@
+---
+title: "ACC-33 — Kueue Preemption"
+aliases:
+  - "ACC-33"
+type: acceptance-scenario
+category: commissioning
+summary: "This scenario verifies the target architecture's fail-safe behaviour and its evidence production in the Kueue Preemption situation."
+source: "planning/commissioning/12_ACCEPTANCE_SCENARIOS/ACC-33_kueue_preemption.md"
+generated: true
+provenance: mirror_plan.py
+tags:
+  - aethrion/commissioning
+  - aethrion/acceptance-scenario
+  - aethrion/severity/high
+  - aethrion/phase/pre-go-live
+---
+
 # ACC-33 — Kueue Preemption
 
 ## Scenario card

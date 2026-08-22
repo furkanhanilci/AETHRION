@@ -1,3 +1,19 @@
+---
+title: "Evidence Before Claim"
+aliases:
+  - "evidence-before-claim"
+type: skill
+category: skill
+status: WORKING
+source: "skills/evidence-before-claim/SKILL.md"
+generated: true
+provenance: mirror_vault.py
+tags:
+  - aethrion/skill
+  - aethrion/skill-family/shared
+  - aethrion/skill-origin/airl-native
+---
+
 > [!info] Generated view
 > This note is generated from `skills/evidence-before-claim/SKILL.md` in the repository. Edit the
 > canonical file and regenerate; edits made here are overwritten.

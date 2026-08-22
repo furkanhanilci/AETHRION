@@ -1,3 +1,20 @@
+---
+title: "ACC-41 — Outbound Notification Exceeds the Channel Data-Class Ceiling"
+aliases:
+  - "ACC-41"
+type: acceptance-scenario
+category: commissioning
+summary: "An agent must never hold channel credentials, and a notification must never carry content above the channel's data-class ceiling."
+source: "planning/commissioning/12_ACCEPTANCE_SCENARIOS/ACC-41_notification_data_class_ceiling.md"
+generated: true
+provenance: mirror_plan.py
+tags:
+  - aethrion/commissioning
+  - aethrion/acceptance-scenario
+  - aethrion/severity/critical
+  - aethrion/phase/pre-go-live
+---
+
 # ACC-41 — Outbound Notification Exceeds the Channel Data-Class Ceiling
 
 ## Scenario card

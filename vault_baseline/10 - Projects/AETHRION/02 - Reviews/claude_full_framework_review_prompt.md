@@ -1,3 +1,14 @@
+---
+title: "Full Framework Review Prompt"
+type: review
+category: review
+source: "docs/review/CLAUDE_FULL_FRAMEWORK_REVIEW_PROMPT.md"
+generated: true
+provenance: mirror_vault.py
+tags:
+  - aethrion/review
+---
+
 > [!info] Generated view
 > This note is generated from `docs/review/CLAUDE_FULL_FRAMEWORK_REVIEW_PROMPT.md` in the repository. Edit the
 > canonical file and regenerate; edits made here are overwritten.

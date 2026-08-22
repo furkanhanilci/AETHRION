@@ -1,3 +1,25 @@
+---
+title: "WP-051 — Four Trust Zones and Network Segmentation"
+aliases:
+  - "WP-051"
+  - "WP-051 — Four Trust Zones and Network Segmentation"
+type: work-package
+category: commissioning
+status: NOT_STARTED
+summary: "Zone 0 governance, Zone 1 control plane, Zone 2 execution and Zone 3 untrusted content are separated by explicit identity, default-deny networking and audited gateways."
+source: "planning/commissioning/06_EXECUTION_SECURITY/WP-051_trust_zone_network.md"
+generated: true
+provenance: mirror_plan.py
+tags:
+  - aethrion/commissioning
+  - aethrion/work-package
+  - aethrion/workstream/06-execution-security
+  - aethrion/wave/w2
+  - aethrion/effort/l
+  - aethrion/gate/platform
+  - aethrion/state/not-started
+---
+
 # WP-051 — Four Trust Zones and Network Segmentation
 
 ## Package card
@@ -15,14 +37,133 @@
 | Related acceptance scenarios | ACC-05, ACC-16 |
 | Status at baseline | `NOT_STARTED` |
 
+## Package documents
+
+This package is described by three documents. They are separate because they have three readers: this card is read at refinement by someone deciding whether the package can start; the test procedures are read months later by whoever runs them; the acceptance criteria are read by an **independent verifier** who must reach a verdict without having done the work — and `00_PROGRAM/06` requires that verifier to work from a packet they can be handed.
+
+| Document | Answers | Read by |
+|---|---|---|
+| **This card** | What is this, what does it depend on, what does it release? | Refinement, planning |
+| [Test procedures](wp_051_trust_zone_network.tests.md) | How is it tested, in what environment, with what data, and what counts as a complete run? | The implementer and the tester |
+| [Acceptance criteria](wp_051_trust_zone_network.acceptance.md) | What must hold for this to be `ACCEPTED`, and what does it still not establish? | The independent verifier |
+
 ## Purpose and expected outcome
 
 Zone 0 governance, Zone 1 control plane, Zone 2 execution and Zone 3 untrusted content are separated by explicit identity, default-deny networking and audited gateways.
+
+
+## Analysis
+### What this package actually decides
+
+Where the four zones actually begin and end. `00_PROGRAM/01` names them — Zone 0
+governance, Zone 1 control plane, Zone 2 execution fabric, Zone 3 untrusted
+content — and states the rule: *zone transitions cannot occur without explicit
+identity, policy, schema and audit.*
+
+A zone is a diagram until a packet is dropped. This package is where the drop
+happens.
+
+### Default deny is the only defensible default (T04)
+
+Allowlists are maintained; denylists are outrun. `ADR-003` puts it more sharply
+still: **an anomaly is a denial, not a warning.** A network policy that logs and
+forwards on an unmatched rule has inverted its own purpose at exactly the moment
+it mattered.
+
+DNS is part of this and is routinely forgotten: an execution pod that can resolve
+arbitrary names has an exfiltration channel that no HTTP proxy sees.
+
+### The quarantine↔parser gateway is the most dangerous crossing (T03)
+
+Zone 3 content has to be parsed to be useful, and parsing is where untrusted bytes
+meet a decoder. That crossing gets its own gateway because it is the one an
+attacker controls the input to — WP-058 does the parsing, this package makes sure
+it happens on the correct side of a boundary.
+
+### Separating admin, audit and export paths (T05)
+
+Three flows that look similar and must not share a route. The audit path must
+survive an incident on the admin path; the export path carries data out and is the
+one an exfiltration attempt will prefer. Collapsing them means an attacker who
+reaches one reaches all three.
+
+### The threat tests are the deliverable (T06)
+
+A zone model with no attempted crossings is an assertion. Each declared boundary
+needs a test that tries to cross it and is refused — which is `PR-06` and
+`00_PROGRAM/07`'s rule that identity and data-routing failures cannot be waived.
 
 ## Out of scope
 
 - The internal implementation of any dependent package
 - Production cutover and final operational approval
+
+## Dependency and prerequisite analysis
+
+<!-- generated:dependency-analysis — produced by scripts/expand_packages.py; do not edit inside this block -->
+
+### Direct hard dependencies
+
+3, each of which must be `ACCEPTED` — not `TECH_COMPLETE` — before this package is `READY`.
+
+| Package | Supplies to this package |
+|---|---|
+| [WP-006 — ExecutionProfile and Route Policy](../01_GOVERNANCE/wp_006_execution_profile.md) | `ExecutionProfile semantics` · `Route/control decision tables` · `Enforcement map` · `Negative examples` |
+| [WP-010 — Architecture Decision and Rejected-Alternatives Baseline](../01_GOVERNANCE/wp_010_adr_baseline.md) | `Signed ADR bundle` · `Rejected alternatives register` · `Reopen trigger register` · `Architecture baseline digest` |
+| [WP-021 — Development, Staging and Production Environment Baseline](../03_FOUNDATION/wp_021_environment_account_network_baseline.md) | `Environment topology` · `Account/network IaC` · `Access baseline` · `Environment promotion policy` |
+
+### Full prerequisite closure
+
+**21 of 141 packages (15%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
+
+| Level | Packages |
+|---:|---|
+| 1 | `WP-001` |
+| 2 | `WP-002` |
+| 3 | `WP-003` · `WP-005` · `WP-006` |
+| 4 | `WP-004` · `WP-007` |
+| 5 | `WP-008` |
+| 6 | `WP-009` |
+| 7 | `WP-010` |
+| 8 | `WP-011` |
+| 9 | `WP-012` · `WP-013` · `WP-016` |
+| 10 | `WP-014` |
+| 11 | `WP-015` · `WP-017` |
+| 12 | `WP-018` |
+| 13 | `WP-019` |
+| 14 | `WP-020` |
+| 15 | `WP-021` |
+
+### What acceptance of this package releases
+
+- **Directly unblocked:** 5 — `WP-052` · `WP-055` · `WP-057` · `WP-058` · `WP-060`
+- **Transitively reachable:** **84 of 141 packages (60%)** cannot be accepted until this one is.
+
+The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
+
+### Position in the programme
+
+| | |
+|---|---|
+| Wave | W2 — Platform backbone |
+| Dependency depth | level **16** of 55 |
+| On the documented critical path | **yes** — `02_wave_and_dependency_map.md` names it |
+| Effort class | **L** |
+| Accountable owner | Security Architecture Lead |
+| Independent verifier | Independent Security Reviewer / SRE |
+| Gates touched | `Platform` |
+| Controls | `CTL-SEC-01` · `CTL-SEC-02` |
+
+### Acceptance scenarios that exercise this package
+
+`COMMISSIONED` requires every scenario below to pass **on the same release candidate**. A `SKIPPED` scenario on a `Critical` row does not count as a pass.
+
+| Scenario | Severity | What it must show |
+|---|---|---|
+| [ACC-05 — Prompt-Injection PDF](../12_ACCEPTANCE_SCENARIOS/acc_05_prompt_injection_pdf.md) | Critical | The content stays untrusted quoted data; extraction continues read-only, no tool, secret or write call occurs, and security event and scan evidence is produced. |
+| [ACC-16 — Egress Exfiltration Attempt](../12_ACCEPTANCE_SCENARIOS/acc_16_egress_exfiltration.md) | Critical | The traffic is denied, the canary never leaves, the credential lease is revoked and a security incident and audit record are created. |
+
+<!-- /generated:dependency-analysis -->
 
 ## Preconditions — Definition of Ready
 
@@ -32,6 +173,59 @@ Zone 0 governance, Zone 1 control plane, Zone 2 execution and Zone 3 untrusted c
 - `DataClass`, `CodeTrust`, `ToolEffect` and the network/credential scope are classified.
 - Test fixtures, the environment, the rollback point and the acceptance measurement method are reachable.
 - An O/M/P person-day estimate is recorded and real capacity is reserved against it.
+
+## Execution requirements
+
+<!-- generated:execution-requirements — produced by scripts/expand_packages.py; do not edit inside this block -->
+
+### Inputs that must exist before the first task starts
+
+Each row is a deliverable of a dependency. Its **absence is a stop condition**, not a risk to manage: work started against a missing input is work that will be redone against the real one.
+
+| Required input | Comes from | Accepted? |
+|---|---|---|
+| `ExecutionProfile semantics` | `WP-006` | `python3 scripts/progress.py show WP-006` |
+| `Route/control decision tables` | `WP-006` | `python3 scripts/progress.py show WP-006` |
+| `Enforcement map` | `WP-006` | `python3 scripts/progress.py show WP-006` |
+| `Negative examples` | `WP-006` | `python3 scripts/progress.py show WP-006` |
+| `Signed ADR bundle` | `WP-010` | `python3 scripts/progress.py show WP-010` |
+| `Rejected alternatives register` | `WP-010` | `python3 scripts/progress.py show WP-010` |
+| `Reopen trigger register` | `WP-010` | `python3 scripts/progress.py show WP-010` |
+| `Architecture baseline digest` | `WP-010` | `python3 scripts/progress.py show WP-010` |
+| `Environment topology` | `WP-021` | `python3 scripts/progress.py show WP-021` |
+| `Account/network IaC` | `WP-021` | `python3 scripts/progress.py show WP-021` |
+| `Access baseline` | `WP-021` | `python3 scripts/progress.py show WP-021` |
+| `Environment promotion policy` | `WP-021` | `python3 scripts/progress.py show WP-021` |
+
+### Classification that must be recorded before work begins
+
+`00_PROGRAM/05_definition_of_ready_and_done.md` requires all four to be classified at refinement. They are not documentation: together they select the `ExecutionProfile`, and an unclassified package cannot be given one.
+
+| Field | Must state | Recorded at refinement |
+|---|---|---|
+| `DataClass` | D0–D4 for every input and output this package touches | ☐ |
+| `CodeTrust` | provenance of code this package executes | ☐ |
+| `ToolEffect` | T0–T5; whether any external side effect occurs | ☐ |
+| Network / credential scope | egress destinations and the identity used | ☐ |
+
+### Capacity that must be reserved
+
+- **Effort class `L`** — large — split into sub-packages if the estimate exceeds the wave.
+- A three-point `O`/`M`/`P` person-day estimate, with `PERT = (O + 4M + P) / 6`, is **mandatory** before this package is `READY`. It is not recorded here because it depends on real capacity at the time of refinement.
+- **Security Architecture Lead** carries the acceptance decision; **Independent Security Reviewer / SRE** must verify independently of whoever implements.
+- One owner holds at most two `IN_PROGRESS` packages. At least 25% of assurance capacity stays reserved for correction and re-verification.
+
+### Evidence that must be producible before starting
+
+A package whose evidence cannot be produced is not `READY`, however complete its design is. Confirm each is reachable:
+
+- The target revision can be pinned, and every test result bound to it.
+- An environment manifest can be captured for the environment the tests run in.
+- The rollback or compensation path named in this document can actually be exercised.
+- A signed `EvidenceManifest` can be issued — today via the interim profile `airl-interim-v0.1` (`scripts/evidence_manifest.py`), which is **tamper-evident and not externally witnessed**.
+- The verifier can reach the evidence **without** seeing the producer's working trace.
+
+<!-- /generated:execution-requirements -->
 
 ## Implementation tasks
 
@@ -55,6 +249,8 @@ Zone 0 governance, Zone 1 control plane, Zone 2 execution and Zone 3 untrusted c
 
 ## Test and verification plan
 
+The outline below is the summary. The executable procedure — environment, data, coverage items, cases, execution log, incident and completion reports — is in [`WP-051_trust_zone_network.tests.md`](wp_051_trust_zone_network.tests.md).
+
 - Denial of direct Zone 3 → Zone 1 access
 - Denial of unknown egress from execution
 - Denial of execution credentials against the control database
@@ -64,6 +260,8 @@ Zone 0 governance, Zone 1 control plane, Zone 2 execution and Zone 3 untrusted c
 - Telemetry correlation and audit-record integrity checks
 
 ## Acceptance criteria
+
+The programme-level conditions are below. The package-specific, measurable criteria — each with a threshold and the test case that decides it — are in [`WP-051_trust_zone_network.acceptance.md`](wp_051_trust_zone_network.acceptance.md), together with what this package still cannot establish.
 
 - [ ] No zone transition occurs without identity, policy, schema validation and audit.
 - [ ] Untrusted content never reaches a control prompt or command channel.

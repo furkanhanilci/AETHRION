@@ -1,3 +1,20 @@
+---
+title: "ACC-10 — Primary Model Provider Outage"
+aliases:
+  - "ACC-10"
+type: acceptance-scenario
+category: commissioning
+summary: "This scenario verifies the target architecture's fail-safe behaviour and its evidence production in the Primary Model Provider Outage situation."
+source: "planning/commissioning/12_ACCEPTANCE_SCENARIOS/ACC-10_provider_outage.md"
+generated: true
+provenance: mirror_plan.py
+tags:
+  - aethrion/commissioning
+  - aethrion/acceptance-scenario
+  - aethrion/severity/high
+  - aethrion/phase/pre-go-live
+---
+
 # ACC-10 — Primary Model Provider Outage
 
 ## Scenario card

@@ -1,3 +1,20 @@
+---
+title: "ACC-19 — Clean-Room Reproduction Pass"
+aliases:
+  - "ACC-19"
+type: acceptance-scenario
+category: commissioning
+summary: "This scenario verifies the target architecture's fail-safe behaviour and its evidence production in the Clean-Room Reproduction Pass situation."
+source: "planning/commissioning/12_ACCEPTANCE_SCENARIOS/ACC-19_clean_room_pass.md"
+generated: true
+provenance: mirror_plan.py
+tags:
+  - aethrion/commissioning
+  - aethrion/acceptance-scenario
+  - aethrion/severity/high
+  - aethrion/phase/pre-go-live
+---
+
 # ACC-19 — Clean-Room Reproduction Pass
 
 ## Scenario card

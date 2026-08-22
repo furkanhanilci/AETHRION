@@ -1,3 +1,15 @@
+---
+title: "AETHRION Skill Layer — Full `obra/superpowers` Integration Report"
+type: reference
+category: architecture
+summary: "A RoleContract says who an agent is; nothing said how it works, and that gap was filled by the prompt — an unversioned, untested, unauditable layer."
+source: "docs/architecture/AETHRION_SKILL_LAYER.md"
+generated: true
+provenance: mirror_vault.py
+tags:
+  - aethrion/architecture
+---
+
 > [!info] Generated view
 > This note is generated from `docs/architecture/AETHRION_SKILL_LAYER.md` in the repository. Edit the
 > canonical file and regenerate; edits made here are overwritten.

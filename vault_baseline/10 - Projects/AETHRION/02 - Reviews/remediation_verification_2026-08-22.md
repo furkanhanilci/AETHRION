@@ -1,3 +1,15 @@
+---
+title: "Remediation Verification — 2026-08-22"
+type: review
+category: review
+summary: "This report states what is true today, measured against a frozen audit that must not be edited to match the present."
+source: "docs/review/2026-08-22_remediation_verification.md"
+generated: true
+provenance: mirror_vault.py
+tags:
+  - aethrion/review
+---
+
 > [!info] Generated view
 > This note is generated from `docs/review/2026-08-22_remediation_verification.md` in the repository. Edit the
 > canonical file and regenerate; edits made here are overwritten.

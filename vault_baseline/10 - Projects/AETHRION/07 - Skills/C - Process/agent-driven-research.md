@@ -1,3 +1,19 @@
+---
+title: "Agent-Driven Research"
+aliases:
+  - "agent-driven-research"
+type: skill
+category: skill
+status: WORKING
+source: "skills/agent-driven-research/SKILL.md"
+generated: true
+provenance: mirror_vault.py
+tags:
+  - aethrion/skill
+  - aethrion/skill-family/scientific-research
+  - aethrion/skill-origin/airl-native
+---
+
 > [!info] Generated view
 > This note is generated from `skills/agent-driven-research/SKILL.md` in the repository. Edit the
 > canonical file and regenerate; edits made here are overwritten.

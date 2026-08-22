@@ -1,3 +1,20 @@
+---
+title: "ACC-43 — Escalation Timeout and Dead-Man's Switch"
+aliases:
+  - "ACC-43"
+type: acceptance-scenario
+category: commissioning
+summary: "The most dangerous failure in a human-in-the-loop system is a timeout quietly becoming an approval."
+source: "planning/commissioning/12_ACCEPTANCE_SCENARIOS/ACC-43_escalation_and_dead_mans_switch.md"
+generated: true
+provenance: mirror_plan.py
+tags:
+  - aethrion/commissioning
+  - aethrion/acceptance-scenario
+  - aethrion/severity/critical
+  - aethrion/phase/pre-go-live
+---
+
 # ACC-43 — Escalation Timeout and Dead-Man's Switch
 
 ## Scenario card

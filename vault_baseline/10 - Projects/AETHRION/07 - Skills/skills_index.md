@@ -1,3 +1,20 @@
+---
+title: "AETHRION Skill Registry"
+aliases:
+  - "skills_index"
+type: skill
+category: skill
+status: SPECIFIED
+summary: "A RoleContract defines who an agent is; the skills here define how it works."
+source: "skills/README.md"
+generated: true
+provenance: mirror_vault.py
+tags:
+  - aethrion/skill
+  - aethrion/skill-family/scientific-research
+  - aethrion/skill-origin/airl-native
+---
+
 > [!info] Generated view
 > This note is generated from `skills/README.md` in the repository. Edit the
 > canonical file and regenerate; edits made here are overwritten.

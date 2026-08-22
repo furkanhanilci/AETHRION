@@ -1,3 +1,16 @@
+---
+title: "Components Index"
+airl_id: AETHRION-COMPONENTS-INDEX
+type: index
+category: vault
+status: active
+summary: "The components that exist, with their real state rather than their intended one."
+generated: false
+tags:
+  - aethrion/index
+  - aethrion/component
+---
+
 # Components Index
 
 Framework components and their real status. **A component being planned does not

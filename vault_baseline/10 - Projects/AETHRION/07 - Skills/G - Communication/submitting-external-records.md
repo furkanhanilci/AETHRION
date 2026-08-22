@@ -1,3 +1,19 @@
+---
+title: "Submitting External Records"
+aliases:
+  - "submitting-external-records"
+type: skill
+category: skill
+status: WORKING
+source: "skills/submitting-external-records/SKILL.md"
+generated: true
+provenance: mirror_vault.py
+tags:
+  - aethrion/skill
+  - aethrion/skill-family/scientific-research
+  - aethrion/skill-origin/airl-native
+---
+
 > [!info] Generated view
 > This note is generated from `skills/submitting-external-records/SKILL.md` in the repository. Edit the
 > canonical file and regenerate; edits made here are overwritten.

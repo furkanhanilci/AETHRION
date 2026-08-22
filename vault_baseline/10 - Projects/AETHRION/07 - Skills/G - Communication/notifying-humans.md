@@ -1,3 +1,19 @@
+---
+title: "Notifying Humans"
+aliases:
+  - "notifying-humans"
+type: skill
+category: skill
+status: WORKING
+source: "skills/notifying-humans/SKILL.md"
+generated: true
+provenance: mirror_vault.py
+tags:
+  - aethrion/skill
+  - aethrion/skill-family/shared
+  - aethrion/skill-origin/airl-native
+---
+
 > [!info] Generated view
 > This note is generated from `skills/notifying-humans/SKILL.md` in the repository. Edit the
 > canonical file and regenerate; edits made here are overwritten.

@@ -1,3 +1,19 @@
+---
+title: "Writing Protocols"
+aliases:
+  - "writing-protocols"
+type: skill
+category: skill
+status: WORKING
+source: "skills/writing-protocols/SKILL.md"
+generated: true
+provenance: mirror_vault.py
+tags:
+  - aethrion/skill
+  - aethrion/skill-family/scientific-research
+  - aethrion/skill-origin/airl-native
+---
+
 > [!info] Generated view
 > This note is generated from `skills/writing-protocols/SKILL.md` in the repository. Edit the
 > canonical file and regenerate; edits made here are overwritten.

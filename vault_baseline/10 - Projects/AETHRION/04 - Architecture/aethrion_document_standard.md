@@ -1,3 +1,15 @@
+---
+title: "Document Standard"
+type: reference
+category: architecture
+summary: "Every document here states what it is, what it covers, and how far it is from being true, before it says anything else."
+source: "docs/DOCUMENT_STANDARD.md"
+generated: true
+provenance: mirror_vault.py
+tags:
+  - aethrion/architecture
+---
+
 > [!info] Generated view
 > This note is generated from `docs/DOCUMENT_STANDARD.md` in the repository. Edit the
 > canonical file and regenerate; edits made here are overwritten.

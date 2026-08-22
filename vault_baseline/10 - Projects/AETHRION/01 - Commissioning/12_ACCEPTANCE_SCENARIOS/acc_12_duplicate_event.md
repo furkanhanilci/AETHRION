@@ -1,3 +1,20 @@
+---
+title: "ACC-12 — Duplicate Event Delivery"
+aliases:
+  - "ACC-12"
+type: acceptance-scenario
+category: commissioning
+summary: "This scenario verifies the target architecture's fail-safe behaviour and its evidence production in the Duplicate Event Delivery situation."
+source: "planning/commissioning/12_ACCEPTANCE_SCENARIOS/ACC-12_duplicate_event.md"
+generated: true
+provenance: mirror_plan.py
+tags:
+  - aethrion/commissioning
+  - aethrion/acceptance-scenario
+  - aethrion/severity/critical
+  - aethrion/phase/pre-go-live
+---
+
 # ACC-12 — Duplicate Event Delivery
 
 ## Scenario card

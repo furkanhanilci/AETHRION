@@ -1,3 +1,16 @@
+---
+title: "ACC-01 – ACC-51 System Acceptance Scenarios"
+type: index
+category: commissioning
+status: SPECIFIED
+summary: "These are the binding scenarios for production commissioning."
+source: "planning/commissioning/12_ACCEPTANCE_SCENARIOS/acceptance_scenarios_index.md"
+generated: true
+provenance: mirror_plan.py
+tags:
+  - aethrion/index
+---
+
 # ACC-01 – ACC-51 System Acceptance Scenarios
 
 | Field | Value |

@@ -43,12 +43,12 @@ that document is the defect.
 
 ```bash
 cd /home/otonom/Desktop/FH/AETHRION
-uv run python scripts/write_status.py    # runs the 12-check bundle, rewrites docs/STATUS.md
+uv run python scripts/write_status.py    # runs the 15-check bundle, rewrites docs/STATUS.md
 python3 scripts/ready_queue.py           # rewrites docs/READY.md
 git log --oneline -5
 ```
 
-`write_status.py` must print **12/12**. If it does not, fix that before doing
+`write_status.py` must print **15/15**. If it does not, fix that before doing
 anything else — a session that starts on a red bundle cannot tell its own
 breakage from the breakage it inherited.
 
@@ -74,8 +74,8 @@ learn a number a script prints is how a session starts with a stale fact.
 | `src/airl_bridge/` | The working slice: Zotero client, SQLite registry, FastAPI, Obsidian projection, MCP server | no |
 | `src/airl_framework/` | Shared contract core. **Zero production consumers** — finding H4 | no |
 | `tests/` | 35 tests | no |
-| `scripts/` | Verification, generation and execution tooling — 30 scripts | no |
-| `planning/commissioning/` | The V1 plan: WP-000–140, ACC-01–51. **221 files, hash-sealed** | indexes only |
+| `scripts/` | Verification, generation and execution tooling — 37 scripts | no |
+| `planning/commissioning/` | The V1 plan: WP-000–140, ACC-01–51. **503 files, hash-sealed** | indexes only |
 | `docs/architecture/` | Target design, three ADRs, positioning | no |
 | `docs/figures/` | 9 SVG figures | **yes** — from `scripts/fig_*.py` |
 | `docs/STATUS.md`, `docs/READY.md` | Live state | **yes** |
@@ -84,7 +84,7 @@ learn a number a script prints is how a session starts with a stale fact.
 | `deploy/` | systemd units, the staged CI workflow | no |
 | `skills/` | 52 Agent Skills — 11 vendored from `obra/superpowers`, 41 native | no |
 | `schemas/` | Shared contract schemas | no |
-| `vault_baseline/` | Versioned snapshot of the Obsidian vault | **mostly** |
+| `vault_baseline/` | Versioned snapshot of the Obsidian vault — linted by `check_vault.py` | **mostly** |
 | `docs/assets/branding/` | The canonical logo | no |
 
 ---
@@ -159,7 +159,7 @@ which claim.
 |---|---|
 | Zotero → SQLite → Obsidian bridge, read-only MCP (5 tools) | **Working**, 35 tests |
 | Evidence issuance/verification, signed, tamper-rejecting | **Working** — `TECH_COMPLETE`, not `ACCEPTED` |
-| Plan seal, figure generators, mirrors, 12-check bundle | **Working** |
+| Plan seal, figure generators, mirrors, 15-check bundle | **Working** |
 | Reference verification (Crossref/OpenAlex/arXiv) | **Working** — 27 of 33 corroborated |
 | Source monitoring (first slice of G10) | **Working** — positive control fires |
 | 52 skills | Format-conformant; **none behaviour-tested** |
@@ -173,6 +173,12 @@ pagination turns a masked truncation into active data loss) · **H2** no deletio
 reconciliation · **H3** the read-only boundary has no behavioural test · **H4**
 the contract core has no consumers · **H5** no CI. **C1** and **C2** are closed
 by WP-000 and ADR-001.
+
+That is the high tier only. **`docs/FINDINGS.md` is the register** — all
+twenty-four audit findings with their current state, plus the seven raised by
+the 2026-08-22 inspection. Twelve are open. Do not infer a finding's state from
+a module docstring; sixteen of them used to live nowhere else, and several had
+been fixed with nothing saying so.
 
 ---
 
@@ -197,7 +203,7 @@ the bundle runs them.
 
 ### 7.2 The plan is sealed
 
-`planning/commissioning/` is 221 hash-sealed files. Verify:
+`planning/commissioning/` is 503 hash-sealed files. Verify:
 
 ```bash
 (cd planning/commissioning && sha256sum -c 00_PROGRAM/SHA256SUMS.txt)
@@ -282,7 +288,7 @@ keep upstream attribution and their pinned commit — do not rewrite them.
 ## 9. Before you finish anything
 
 ```bash
-uv run python scripts/write_status.py                                    # must print 12/12
+uv run python scripts/write_status.py                                    # must print 15/15
 python3 scripts/mirror_vault.py "vault_baseline/10 - Projects/AETHRION"
 python3 scripts/mirror_plan.py "vault_baseline/10 - Projects/AETHRION/01 - Commissioning"
 python3 scripts/mirror_vault.py "/home/otonom/Documents/Obsidian Vault/10 - Projects/AETHRION"
@@ -308,12 +314,13 @@ uv run python scripts/evidence_manifest.py verify --manifest delivery/WP-000/evi
 | Trusting a green bundle too far | The checks are internal consistency only | §11 |
 | "Finishing" the AIRL rename | Breaks imports, a schema field, or a signature | §7.5 |
 | Editing the Obsidian vault by hand | Lost on the next mirror | Edit the repository |
+| Inventing a tag in the vault | It fragments one idea into two nodes no query can join | the vocabulary lives in `vault_baseline/_meta/taxonomy.md`; add tags to `scripts/vault_frontmatter.py`, never to a note |
 
 ---
 
 ## 11. What the verification bundle does **not** prove
 
-All twelve checks are **internal consistency**. They confirm this repository says
+All fifteen checks are **internal consistency**. They confirm this repository says
 the same thing everywhere, that its plan is well-formed and that its evidence
 verifies — and every one of those would still hold for a corpus describing a
 system that does not work.
@@ -345,8 +352,10 @@ same is possible now.
 | How are documents written here? | `docs/DOCUMENT_STANDARD.md` |
 | What is the project called, and where does `AIRL` stay? | `docs/branding.md` |
 | What is deliberately not V1? | `docs/V2_CANDIDATES.md` |
+| What is known to be wrong, and is it still? | `docs/FINDINGS.md` |
 | How do agents work? | `skills/README.md`, `docs/architecture/AETHRION_SKILL_LAYER.md` |
 | How do I run and verify the slice? | `docs/OPERATIONS.md` |
+| What may a vault note be tagged? | `vault_baseline/_meta/taxonomy.md` (generated) |
 | What does each script do? | `scripts/README.md` |
 | The plan itself | `planning/commissioning/README.md` |
 | Where did the last session stop? | `vault_baseline/10 - Projects/AETHRION/03 - Implementation/session_handover_2026-08-22.md` |

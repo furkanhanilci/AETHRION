@@ -1,3 +1,14 @@
+---
+title: "Role and Responsibility Matrix"
+type: reference
+category: commissioning
+source: "planning/commissioning/00_PROGRAM/04_role_and_responsibility_matrix.md"
+generated: true
+provenance: mirror_plan.py
+tags:
+  - aethrion/commissioning
+---
+
 # Role and Responsibility Matrix
 
 ## Permanent programme functions

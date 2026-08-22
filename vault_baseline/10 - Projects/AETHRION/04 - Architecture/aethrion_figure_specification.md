@@ -1,3 +1,16 @@
+---
+title: "Figure Inventory and Design Specification"
+type: reference
+category: architecture
+status: WORKING
+summary: "Figures here are generated artifacts, not drawings: the corpus is the source, the generator is version-controlled, and the SVG is reproducible from a clean checkout."
+source: "docs/figures/README.md"
+generated: true
+provenance: mirror_vault.py
+tags:
+  - aethrion/architecture
+---
+
 > [!info] Generated view
 > This note is generated from `docs/figures/README.md` in the repository. Edit the
 > canonical file and regenerate; edits made here are overwritten.

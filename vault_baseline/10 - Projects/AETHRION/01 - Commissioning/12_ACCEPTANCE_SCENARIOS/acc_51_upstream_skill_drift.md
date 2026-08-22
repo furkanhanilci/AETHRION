@@ -1,3 +1,20 @@
+---
+title: "ACC-51 — Upstream Change Invalidates a Derived Skill"
+aliases:
+  - "ACC-51"
+type: acceptance-scenario
+category: commissioning
+summary: "This scenario verifies the target architecture's fail-safe behaviour and its evidence production in the Upstream Change Invalidates a Derived Skill situation."
+source: "planning/commissioning/12_ACCEPTANCE_SCENARIOS/ACC-51_upstream_skill_drift.md"
+generated: true
+provenance: mirror_plan.py
+tags:
+  - aethrion/commissioning
+  - aethrion/acceptance-scenario
+  - aethrion/severity/high
+  - aethrion/phase/pre-go-live
+---
+
 # ACC-51 — Upstream Change Invalidates a Derived Skill
 
 ## Scenario card

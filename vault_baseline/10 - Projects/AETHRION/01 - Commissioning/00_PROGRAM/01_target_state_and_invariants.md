@@ -1,3 +1,14 @@
+---
+title: "Target State, System Boundary and Invariants"
+type: reference
+category: commissioning
+source: "planning/commissioning/00_PROGRAM/01_target_state_and_invariants.md"
+generated: true
+provenance: mirror_plan.py
+tags:
+  - aethrion/commissioning
+---
+
 # Target State, System Boundary and Invariants
 
 ## Target operating outcome

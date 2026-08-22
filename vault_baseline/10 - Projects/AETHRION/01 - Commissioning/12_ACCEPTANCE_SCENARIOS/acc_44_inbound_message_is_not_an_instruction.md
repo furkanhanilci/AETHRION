@@ -1,3 +1,20 @@
+---
+title: "ACC-44 — Inbound Content Attempts to Act as an Instruction"
+aliases:
+  - "ACC-44"
+type: acceptance-scenario
+category: commissioning
+summary: "Untrusted human-readable content is data, whatever it says."
+source: "planning/commissioning/12_ACCEPTANCE_SCENARIOS/ACC-44_inbound_message_is_not_an_instruction.md"
+generated: true
+provenance: mirror_plan.py
+tags:
+  - aethrion/commissioning
+  - aethrion/acceptance-scenario
+  - aethrion/severity/critical
+  - aethrion/phase/pre-go-live
+---
+
 # ACC-44 — Inbound Content Attempts to Act as an Instruction
 
 ## Scenario card

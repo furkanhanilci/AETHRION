@@ -1,3 +1,20 @@
+---
+title: "ACC-30 — Publication Completeness"
+aliases:
+  - "ACC-30"
+type: acceptance-scenario
+category: commissioning
+summary: "This scenario verifies the target architecture's fail-safe behaviour and its evidence production in the Publication Completeness situation."
+source: "planning/commissioning/12_ACCEPTANCE_SCENARIOS/ACC-30_publication_completeness.md"
+generated: true
+provenance: mirror_plan.py
+tags:
+  - aethrion/commissioning
+  - aethrion/acceptance-scenario
+  - aethrion/severity/critical
+  - aethrion/phase/pre-go-live
+---
+
 # ACC-30 — Publication Completeness
 
 ## Scenario card

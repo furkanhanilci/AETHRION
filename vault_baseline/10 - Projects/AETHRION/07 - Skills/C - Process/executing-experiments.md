@@ -1,3 +1,19 @@
+---
+title: "Executing Experiments"
+aliases:
+  - "executing-experiments"
+type: skill
+category: skill
+status: WORKING
+source: "skills/executing-experiments/SKILL.md"
+generated: true
+provenance: mirror_vault.py
+tags:
+  - aethrion/skill
+  - aethrion/skill-family/scientific-research
+  - aethrion/skill-origin/airl-native
+---
+
 > [!info] Generated view
 > This note is generated from `skills/executing-experiments/SKILL.md` in the repository. Edit the
 > canonical file and regenerate; edits made here are overwritten.

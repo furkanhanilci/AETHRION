@@ -1,3 +1,16 @@
+---
+title: "Bridge Component Status"
+airl_id: AETHRION-BRIDGE-STATUS
+type: reference
+category: vault
+status: active
+summary: "The Zotero-to-Obsidian bridge: what runs, what is tested, and the findings still open against it."
+generated: false
+tags:
+  - aethrion/component
+  - aethrion/status
+---
+
 # Bridge Component Status
 
 The Bridge is not the whole AETHRION; it is the first working

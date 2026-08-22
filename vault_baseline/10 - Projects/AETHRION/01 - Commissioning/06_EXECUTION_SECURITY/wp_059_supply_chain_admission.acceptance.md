@@ -1,0 +1,159 @@
+---
+title: "WP-059 — Supply-Chain Admission, Sigstore and SLSA Policy — Acceptance Criteria"
+aliases:
+  - "WP-059 acceptance"
+type: acceptance-criteria
+category: commissioning
+status: NOT_STARTED
+source: "planning/commissioning/06_EXECUTION_SECURITY/WP-059_supply_chain_admission.acceptance.md"
+generated: false
+provenance: mirror_plan.py
+tags:
+  - aethrion/commissioning
+  - aethrion/work-package
+  - aethrion/workstream/06-execution-security
+  - aethrion/wave/w2
+  - aethrion/effort/m
+  - aethrion/gate/g5
+  - aethrion/gate/platform
+  - aethrion/state/not-started
+  - aethrion/acceptance-criteria
+  - aethrion/authoring/authored
+---
+
+# WP-059 — Supply-Chain Admission, Sigstore and SLSA Policy — Acceptance Criteria
+
+## Document identity
+
+<!-- generated:identity — produced by scripts/make_package_companions.py; do not edit inside this block -->
+
+| Field | Value |
+|---|---|
+| Unique identifier | `AC-WP-059` |
+| Work package | [`WP-059` — Supply-Chain Admission, Sigstore and SLSA Policy](wp_059_supply_chain_admission.md) |
+| Companion | [test procedures](wp_059_supply_chain_admission.tests.md) |
+| Workstream | `06_EXECUTION_SECURITY` |
+| Approval authority | **Independent Security Reviewer** — the independent verifier |
+| Accountable owner | Supply Chain Security Lead |
+| Status at baseline | `NOT_STARTED` |
+| Change history | `git log --follow` on this file; the plan seal covers its bytes |
+| Document standard | Structured on the information items of ISO/IEC/IEEE 29119-3:2021 §5.2, §7.4 and §8 |
+| Live state | `python3 scripts/progress.py show WP-059` |
+
+<!-- /generated:identity -->
+
+## How to read a criterion
+
+<!-- generated:howto — produced by scripts/make_package_companions.py; do not edit inside this block -->
+
+A criterion belongs here only if it can **fail**. `00_PROGRAM/05` lists what is not evidence, and the first entry is an implementer's free-text declaration of success.
+
+| A criterion states | Not |
+|---|---|
+| a number, a threshold or a command | "works correctly" |
+| the observation that would falsify it | "has been reviewed" |
+| the test case that decides it | "all tests pass" |
+| what it does **not** establish | silence about its own limits |
+
+Each criterion names the test case in [`WP-059_supply_chain_admission.tests.md`](wp_059_supply_chain_admission.tests.md) that decides it. A criterion with no test case cannot be verified, and a test case that decides no criterion is not part of acceptance.
+
+<!-- /generated:howto -->
+
+## Package-specific acceptance criteria
+
+- [ ] **Eight separate refusals at admission**: unsigned, untrusted root, no
+      provenance, no SBOM, mutable tag, unapproved builder, unapproved source
+      repository, advisory threshold exceeded.
+- [ ] A CVE exception requires an approver, an **expiry and a removal criterion**;
+      one with only an expiry is refused, and the expiry **auto-revokes without
+      human action**.
+- [ ] **Tool binaries, MCP servers and skill bundles are subject to the same
+      admission** as container images. They execute in the same trust context, and
+      an unsigned one is refused.
+- [ ] Revoking an image produces an **impact list naming every running workload**,
+      and the declared revocation behaviour occurs. "Running workloads continue" is
+      an acceptable answer only when it is **recorded with an owner**.
+- [ ] Bypassing admission is refused, or requires break-glass with an incident.
+
+## What this package cannot establish
+
+> **Admission answers provenance, not correctness.** A refused deployment is one
+> whose origin could not be established. An admitted one came from a trusted
+> builder and a recognised source — which says nothing about whether the code is
+> right, and nothing about whether the trusted builder was itself compromised.
+> WP-060's supply-chain attack cases are where that second question gets asked.
+
+## Programme-level gates
+
+<!-- generated:dod — produced by scripts/make_package_companions.py; do not edit inside this block -->
+
+From `00_PROGRAM/05_definition_of_ready_and_done.md`, instantiated for this package. Every line is a condition on **evidence**, not on effort.
+
+### Definition of Ready
+
+- [ ] The package purpose and its single delivery boundary are written.
+- [ ] Out-of-scope items are written down.
+- [ ] **Supply Chain Security Lead** is assigned accountable; an implementer is named; **Independent Security Reviewer** is assigned verifier and is **independent of the producer** under WP-007's profile.
+- [ ] `WP-027` — Git, OCI Registry and Build Provenance Foundation — is `ACCEPTED` (not `TECH_COMPLETE`).
+- [ ] `WP-052` — Kubernetes Cluster and Node Pool Baseline — is `ACCEPTED` (not `TECH_COMPLETE`).
+- [ ] `WP-054` — gVisor Sandbox and Execution Cell Lifecycle — is `ACCEPTED` (not `TECH_COMPLETE`).
+- [ ] `WP-056` — OPA Policy Platform and Bundle Distribution — is `ACCEPTED` (not `TECH_COMPLETE`).
+- [ ] `DataClass`, `CodeTrust`, `ToolEffect` and the network/credential scope are classified — all four, with no `UNKNOWN`.
+- [ ] Acceptance criteria name **a number, a threshold or a command**. `00_PROGRAM/05` states that the generic template criteria are not measurable in the sense meant here; refinement is where that is fixed.
+- [ ] Migration, rollback or compensation behaviour is defined.
+- [ ] A three-point `O`/`M`/`P` estimate exists and capacity is reserved.
+
+### Definition of Done — package acceptance
+
+- [ ] Every acceptance criterion below passed **on the same target revision**.
+- [ ] Test results are bound to artifact hashes and an environment manifest.
+- [ ] **Independent Security Reviewer** verified **independently of the producer** and did not see the producer's working trace.
+- [ ] Security, data and policy **negative** tests passed.
+- [ ] Contract compatibility and downstream consumer tests are green.
+- [ ] No open Critical or High finding. Accepted Medium/Low risks each carry a named owner and an expiry.
+- [ ] Rollback or compensation was exercised at least once, and the result is referenced.
+- [ ] Working evidence exists via a dashboard, alert or audit query — not only via a test log.
+- [ ] The `EvidenceManifest` is signed and verifies, and its `limitations` list is present.
+
+### Definition of Commissioned
+
+An `ACCEPTED` package is still not production-ready. Every scenario below must pass **on the same release candidate**:
+
+- [ ] `ACC-17` passes. A `SKIPPED` scenario on a Critical row does not count as a pass.
+- [ ] `ACC-26` passes. A `SKIPPED` scenario on a Critical row does not count as a pass.
+
+<!-- /generated:dod -->
+
+## Non-waivable items
+
+<!-- generated:nonwaivable — produced by scripts/make_package_companions.py; do not edit inside this block -->
+
+From `00_PROGRAM/07_programme_risk_register.md`: *critical security, identity, evidence, reproduction and data blockers cannot be lowered by a numeric total.* The score exists for prioritisation; it is not a waiver mechanism.
+
+The following cannot be waived on this package under any residual-risk acceptance:
+
+- [ ] Identity and correlation failures.
+- [ ] Data routing across a trust-zone boundary without policy.
+- [ ] Artifact integrity or lineage loss.
+- [ ] A reviewer independence violation.
+- [ ] A missing or unverifiable `EvidenceManifest`.
+- [ ] `CTL-SEC-05` failing its effectiveness test.
+- [ ] `CTL-SUP-01` failing its effectiveness test.
+
+> A package with an open item above is `BLOCKED`, not `ACCEPTED with conditions`. The distinction is the reason the list exists.
+
+<!-- /generated:nonwaivable -->
+
+## Verifier's decision
+
+Completed by the independent verifier, not by the producer. **Issuance is not acceptance** — a package that has produced evidence and has not been verified is `TECH_COMPLETE`.
+
+| Field | Value |
+|---|---|
+| Verifier | |
+| Independence profile applied | R1 / R2 declared-partial / R3 — see ADR-001 |
+| Dimensions **not** met | *(an R2 profile that lists only its strengths is not a declaration)* |
+| Target revision verified | |
+| Decision | `PENDING` / `ACCEPTED` / `REJECTED` |
+| Date | |
+| Conditions and their expiry | |

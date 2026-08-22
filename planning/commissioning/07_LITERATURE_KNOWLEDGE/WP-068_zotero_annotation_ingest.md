@@ -15,14 +15,145 @@
 | Related acceptance scenarios | Assigned during the relevant vertical slice and commissioning |
 | Status at baseline | `NOT_STARTED` |
 
+## Package documents
+
+This package is described by three documents. They are separate because they have three readers: this card is read at refinement by someone deciding whether the package can start; the test procedures are read months later by whoever runs them; the acceptance criteria are read by an **independent verifier** who must reach a verdict without having done the work — and `00_PROGRAM/06` requires that verifier to work from a packet they can be handed.
+
+| Document | Answers | Read by |
+|---|---|---|
+| **This card** | What is this, what does it depend on, what does it release? | Refinement, planning |
+| [Test procedures](WP-068_zotero_annotation_ingest.tests.md) | How is it tested, in what environment, with what data, and what counts as a complete run? | The implementer and the tester |
+| [Acceptance criteria](WP-068_zotero_annotation_ingest.acceptance.md) | What must hold for this to be `ACCEPTED`, and what does it still not establish? | The independent verifier |
+
 ## Purpose and expected outcome
 
 Zotero highlights and comments become `AnnotationObservation` and `EvidenceCandidate` records carrying the parent attachment, representation hash, locator and actor — never evidence on their own.
+
+
+## Analysis
+### What this package actually decides
+
+That a highlight is **not** evidence. An `AnnotationObservation` records that a
+human marked a passage; an `EvidenceSpan` licenses a claim. The gap between them
+is a promotion decision, and collapsing it would let a reader's yellow highlighter
+become a citation.
+
+The naming carries the boundary: *observation*, not finding.
+
+### The attachment hash is what makes an annotation locatable later (T04)
+
+A Zotero annotation carries a page and a position, relative to **a specific PDF**.
+Bind it to the `SourceRepresentation` hash and the annotation stays resolvable; bind
+it to the work and it resolves to whichever file someone has.
+
+This is the same argument WP-018 makes for the three-part anchor, one layer earlier.
+
+### The mismatch state is the honest outcome (T04)
+
+A researcher re-downloads a paper and the new PDF is paginated differently. The
+annotation's locator no longer resolves. The correct behaviour is a **mismatch
+state** — *this annotation was made against a representation we can identify and no
+longer have* — which is different from *this annotation is wrong* and different
+again from *this annotation is fine*.
+
+### Deleted and edited annotations have downstream consequences (T06)
+
+If an observation was promoted to an `EvidenceCandidate` and then to an
+`EvidenceSpan` supporting a claim, deleting the annotation does not delete the
+claim. It should raise an impact case — the same loop WP-037 runs for retractions,
+applied to the human's own change of mind.
+
+### Duplicate logic matters because researchers re-highlight (T05)
+
+The same passage marked twice, or marked in two copies of the same paper, is one
+observation. Without dedup the promotion queue fills with the same span.
 
 ## Out of scope
 
 - The internal implementation of any dependent package
 - Production cutover and final operational approval
+
+## Dependency and prerequisite analysis
+
+<!-- generated:dependency-analysis — produced by scripts/expand_packages.py; do not edit inside this block -->
+
+### Direct hard dependencies
+
+6, each of which must be `ACCEPTED` — not `TECH_COMPLETE` — before this package is `READY`.
+
+| Package | Supplies to this package |
+|---|---|
+| [WP-017 — Source Registry and Literature Contract Schemas](../02_CONTRACTS/WP-017_source_literature_contracts.md) | `Literature schema bundle` · `Status lifecycle` · `Sample manifests` · `Zotero binding contract` |
+| [WP-058 — Untrusted Content Quarantine and Prompt-Injection Firewall](../06_EXECUTION_SECURITY/WP-058_content_quarantine_firewall.md) | `Content firewall` · `Parser workers` · `ContentSafetyRecord` · `Injection detector` |
+| [WP-061 — Canonical Source Registry Service](../07_LITERATURE_KNOWLEDGE/WP-061_source_registry_service.md) | `Source Registry service` · `Database migrations` · `API/OpenAPI` · `Outbox events` |
+| [WP-063 — Source Representation, Licence and Status Monitoring](../07_LITERATURE_KNOWLEDGE/WP-063_source_representation_status.md) | `Representation ingest service` · `License/status policy` · `Status monitor` · `Format locator metadata` |
+| [WP-065 — Personal Zotero Seed Ingest Pipeline](../07_LITERATURE_KNOWLEDGE/WP-065_zotero_seed_ingest.md) | `Personal seed adapter` · `Opt-in configuration` · `Sync state/receipts` · `Seed ingest dashboard` |
+| [WP-067 — Zotero Two-Way Sync and Reconciliation](../07_LITERATURE_KNOWLEDGE/WP-067_zotero_sync_reconciliation.md) | `Sync engine` · `Reconciliation queue` · `Full-resync runbook` · `Conflict metrics/dashboard` |
+
+### Full prerequisite closure
+
+**55 of 141 packages (39%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
+
+| Level | Packages |
+|---:|---|
+| 1 | `WP-001` |
+| 2 | `WP-002` |
+| 3 | `WP-003` · `WP-005` · `WP-006` |
+| 4 | `WP-004` · `WP-007` |
+| 5 | `WP-008` |
+| 6 | `WP-009` |
+| 7 | `WP-010` |
+| 8 | `WP-011` |
+| 9 | `WP-012` · `WP-013` · `WP-016` |
+| 10 | `WP-014` |
+| 11 | `WP-015` · `WP-017` |
+| 12 | `WP-018` |
+| 13 | `WP-019` |
+| 14 | `WP-020` |
+| 15 | `WP-021` · `WP-022` |
+| 16 | `WP-023` · `WP-025` · `WP-026` · `WP-051` |
+| 17 | `WP-024` · `WP-028` · `WP-029` · `WP-041` |
+| 18 | `WP-027` · `WP-042` |
+| 19 | `WP-031` · `WP-043` · `WP-052` |
+| 20 | `WP-032` · `WP-044` · `WP-053` |
+| 21 | `WP-037` · `WP-045` |
+| 22 | `WP-046` |
+| 23 | `WP-049` |
+| 24 | `WP-050` · `WP-054` · `WP-055` |
+| 25 | `WP-056` |
+| 26 | `WP-057` · `WP-061` |
+| 27 | `WP-058` · `WP-064` |
+| 28 | `WP-062` |
+| 29 | `WP-063` · `WP-065` · `WP-066` |
+| 30 | `WP-067` |
+
+### What acceptance of this package releases
+
+- **Directly unblocked:** 5 — `WP-076` · `WP-078` · `WP-094` · `WP-103` · `WP-125`
+- **Transitively reachable:** **45 of 141 packages (32%)** cannot be accepted until this one is.
+
+The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
+
+### Position in the programme
+
+| | |
+|---|---|
+| Wave | W4 — Knowledge and evidence |
+| Dependency depth | level **31** of 55 |
+| On the documented critical path | no |
+| Effort class | **M** |
+| Accountable owner | Evidence Intake Lead |
+| Independent verifier | Citation Auditor / Knowledge Curator |
+| Gates touched | `G3` · `G5` |
+| Controls | `CTL-EPI-01` · `CTL-LIT-01` |
+
+### Acceptance scenarios that exercise this package
+
+**None.** No acceptance scenario names this package.
+
+> `00_PROGRAM/11_scope_coverage_matrix.md` states the rule this trips: *a row with a primary package but no acceptance column is a capability nobody will ever be asked to demonstrate.* This package can reach `ACCEPTED` on its own tests, but it cannot reach `COMMISSIONED` through a scenario, because there is none to pass.
+
+<!-- /generated:dependency-analysis -->
 
 ## Preconditions — Definition of Ready
 
@@ -32,6 +163,74 @@ Zotero highlights and comments become `AnnotationObservation` and `EvidenceCandi
 - `DataClass`, `CodeTrust`, `ToolEffect` and the network/credential scope are classified.
 - Test fixtures, the environment, the rollback point and the acceptance measurement method are reachable.
 - An O/M/P person-day estimate is recorded and real capacity is reserved against it.
+
+## Execution requirements
+
+<!-- generated:execution-requirements — produced by scripts/expand_packages.py; do not edit inside this block -->
+
+### Inputs that must exist before the first task starts
+
+Each row is a deliverable of a dependency. Its **absence is a stop condition**, not a risk to manage: work started against a missing input is work that will be redone against the real one.
+
+| Required input | Comes from | Accepted? |
+|---|---|---|
+| `Literature schema bundle` | `WP-017` | `python3 scripts/progress.py show WP-017` |
+| `Status lifecycle` | `WP-017` | `python3 scripts/progress.py show WP-017` |
+| `Sample manifests` | `WP-017` | `python3 scripts/progress.py show WP-017` |
+| `Zotero binding contract` | `WP-017` | `python3 scripts/progress.py show WP-017` |
+| `Content firewall` | `WP-058` | `python3 scripts/progress.py show WP-058` |
+| `Parser workers` | `WP-058` | `python3 scripts/progress.py show WP-058` |
+| `ContentSafetyRecord` | `WP-058` | `python3 scripts/progress.py show WP-058` |
+| `Injection detector` | `WP-058` | `python3 scripts/progress.py show WP-058` |
+| `Quarantine UI/API` | `WP-058` | `python3 scripts/progress.py show WP-058` |
+| `Source Registry service` | `WP-061` | `python3 scripts/progress.py show WP-061` |
+| `Database migrations` | `WP-061` | `python3 scripts/progress.py show WP-061` |
+| `API/OpenAPI` | `WP-061` | `python3 scripts/progress.py show WP-061` |
+| `Outbox events` | `WP-061` | `python3 scripts/progress.py show WP-061` |
+| `Service runbook` | `WP-061` | `python3 scripts/progress.py show WP-061` |
+| `Representation ingest service` | `WP-063` | `python3 scripts/progress.py show WP-063` |
+| `License/status policy` | `WP-063` | `python3 scripts/progress.py show WP-063` |
+| `Status monitor` | `WP-063` | `python3 scripts/progress.py show WP-063` |
+| `Format locator metadata` | `WP-063` | `python3 scripts/progress.py show WP-063` |
+| `Retention mapping` | `WP-063` | `python3 scripts/progress.py show WP-063` |
+| `Personal seed adapter` | `WP-065` | `python3 scripts/progress.py show WP-065` |
+| `Opt-in configuration` | `WP-065` | `python3 scripts/progress.py show WP-065` |
+| `Sync state/receipts` | `WP-065` | `python3 scripts/progress.py show WP-065` |
+| `Seed ingest dashboard` | `WP-065` | `python3 scripts/progress.py show WP-065` |
+| `Sync engine` | `WP-067` | `python3 scripts/progress.py show WP-067` |
+| `Reconciliation queue` | `WP-067` | `python3 scripts/progress.py show WP-067` |
+| `Full-resync runbook` | `WP-067` | `python3 scripts/progress.py show WP-067` |
+| `Conflict metrics/dashboard` | `WP-067` | `python3 scripts/progress.py show WP-067` |
+
+### Classification that must be recorded before work begins
+
+`00_PROGRAM/05_definition_of_ready_and_done.md` requires all four to be classified at refinement. They are not documentation: together they select the `ExecutionProfile`, and an unclassified package cannot be given one.
+
+| Field | Must state | Recorded at refinement |
+|---|---|---|
+| `DataClass` | D0–D4 for every input and output this package touches | ☐ |
+| `CodeTrust` | provenance of code this package executes | ☐ |
+| `ToolEffect` | T0–T5; whether any external side effect occurs | ☐ |
+| Network / credential scope | egress destinations and the identity used | ☐ |
+
+### Capacity that must be reserved
+
+- **Effort class `M`** — medium — a dedicated integration window.
+- A three-point `O`/`M`/`P` person-day estimate, with `PERT = (O + 4M + P) / 6`, is **mandatory** before this package is `READY`. It is not recorded here because it depends on real capacity at the time of refinement.
+- **Evidence Intake Lead** carries the acceptance decision; **Citation Auditor / Knowledge Curator** must verify independently of whoever implements.
+- One owner holds at most two `IN_PROGRESS` packages. At least 25% of assurance capacity stays reserved for correction and re-verification.
+
+### Evidence that must be producible before starting
+
+A package whose evidence cannot be produced is not `READY`, however complete its design is. Confirm each is reachable:
+
+- The target revision can be pinned, and every test result bound to it.
+- An environment manifest can be captured for the environment the tests run in.
+- The rollback or compensation path named in this document can actually be exercised.
+- A signed `EvidenceManifest` can be issued — today via the interim profile `airl-interim-v0.1` (`scripts/evidence_manifest.py`), which is **tamper-evident and not externally witnessed**.
+- The verifier can reach the evidence **without** seeing the producer's working trace.
+
+<!-- /generated:execution-requirements -->
 
 ## Implementation tasks
 
@@ -55,6 +254,8 @@ Zotero highlights and comments become `AnnotationObservation` and `EvidenceCandi
 
 ## Test and verification plan
 
+The outline below is the summary. The executable procedure — environment, data, coverage items, cases, execution log, incident and completion reports — is in [`WP-068_zotero_annotation_ingest.tests.md`](WP-068_zotero_annotation_ingest.tests.md).
+
 - Promotion of a highlight on the correct attachment
 - `NEEDS_REANCHOR` on a mismatched PDF
 - Versioning of an edited or deleted annotation
@@ -64,6 +265,8 @@ Zotero highlights and comments become `AnnotationObservation` and `EvidenceCandi
 - Telemetry correlation and audit-record integrity checks
 
 ## Acceptance criteria
+
+The programme-level conditions are below. The package-specific, measurable criteria — each with a threshold and the test case that decides it — are in [`WP-068_zotero_annotation_ingest.acceptance.md`](WP-068_zotero_annotation_ingest.acceptance.md), together with what this package still cannot establish.
 
 - [ ] An annotation never becomes an `EvidenceSpan` or a `VERIFIED` claim automatically.
 - [ ] No promotion occurs without an attachment representation hash.

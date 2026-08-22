@@ -1,3 +1,20 @@
+---
+title: "ACC-17 — Unsigned or Mutable Image"
+aliases:
+  - "ACC-17"
+type: acceptance-scenario
+category: commissioning
+summary: "This scenario verifies the target architecture's fail-safe behaviour and its evidence production in the Unsigned or Mutable Image situation."
+source: "planning/commissioning/12_ACCEPTANCE_SCENARIOS/ACC-17_unsigned_image.md"
+generated: true
+provenance: mirror_plan.py
+tags:
+  - aethrion/commissioning
+  - aethrion/acceptance-scenario
+  - aethrion/severity/critical
+  - aethrion/phase/pre-go-live
+---
+
 # ACC-17 — Unsigned or Mutable Image
 
 ## Scenario card

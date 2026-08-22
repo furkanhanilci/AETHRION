@@ -1,3 +1,20 @@
+---
+title: "ACC-18 — D3 Data to a Public Provider"
+aliases:
+  - "ACC-18"
+type: acceptance-scenario
+category: commissioning
+summary: "This scenario verifies the target architecture's fail-safe behaviour and its evidence production in the D3 Data to a Public Provider situation."
+source: "planning/commissioning/12_ACCEPTANCE_SCENARIOS/ACC-18_d3_public_route.md"
+generated: true
+provenance: mirror_plan.py
+tags:
+  - aethrion/commissioning
+  - aethrion/acceptance-scenario
+  - aethrion/severity/critical
+  - aethrion/phase/pre-go-live
+---
+
 # ACC-18 — D3 Data to a Public Provider
 
 ## Scenario card

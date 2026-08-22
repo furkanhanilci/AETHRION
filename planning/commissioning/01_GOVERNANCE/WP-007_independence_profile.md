@@ -15,14 +15,135 @@
 | Related acceptance scenarios | ACC-06, ACC-38 |
 | Status at baseline | `NOT_STARTED` |
 
+## Package documents
+
+This package is described by three documents. They are separate because they have three readers: this card is read at refinement by someone deciding whether the package can start; the test procedures are read months later by whoever runs them; the acceptance criteria are read by an **independent verifier** who must reach a verdict without having done the work — and `00_PROGRAM/06` requires that verifier to work from a packet they can be handed.
+
+| Document | Answers | Read by |
+|---|---|---|
+| **This card** | What is this, what does it depend on, what does it release? | Refinement, planning |
+| [Test procedures](WP-007_independence_profile.tests.md) | How is it tested, in what environment, with what data, and what counts as a complete run? | The implementer and the tester |
+| [Acceptance criteria](WP-007_independence_profile.acceptance.md) | What must hold for this to be `ACCEPTED`, and what does it still not establish? | The independent verifier |
+
 ## Purpose and expected outcome
 
 The separation of producer, reviewer and reproducer becomes auditable across seven dimensions: human, model family, context, credential, environment, data path and economic interest.
+
+
+## Analysis
+
+### What this package actually decides
+
+What the word *independent* is allowed to mean. Seven dimensions — human, model
+family, context, credential, environment, data path, economic interest — replace a
+claim that a reviewer was independent with a record of the axes along which they
+were.
+
+This is the package the audit's finding **C2** runs through, and ADR-001 is a
+decision taken **in its absence**: R1 solo, R2 solo under a declared partial
+profile, R3 `BLOCKED`. WP-007 is what turns that declaration into something a
+machine can check per assignment rather than a policy stated once.
+
+### Why seven dimensions rather than one
+
+Because they fail separately and are separately purchasable. Two different humans
+using the same model family are not independent in the way that matters for
+correlated error. The same human in two contexts is not independent at all. A
+reviewer with an economic interest in the outcome is not independent regardless of
+the other six. Collapsing them yields a boolean that is true in the cases where it
+matters least.
+
+### The non-compensable dimensions are the real content
+
+T03 asks which dimensions **cannot** be traded against others. This is the
+package's hardest question and the one most likely to be softened. A candidate
+answer: economic interest and context contamination are non-compensable — no
+amount of model-family or environment separation repairs a reviewer who has seen
+the producer's trace, because the contamination is in what they now believe.
+
+Whatever the answer, it must be a **list**, and violating an entry must be a
+blocker rather than a lower score.
+
+### The gap this package cannot close by itself
+
+Independence here is **structural**, and structural independence is a proxy for
+what actually matters: uncorrelated errors. `PR-16` states it precisely —
+PR-05 addresses paper independence, not correlated errors between genuinely
+different models. Two frontier models from different vendors, trained on
+overlapping corpora, may fail together on exactly the cases a reviewer exists to
+catch.
+
+So this package must state its own limit: it can prove seven separations were
+achieved; it cannot prove the reviewers were likely to disagree. That measurement
+belongs to the metascience gap recorded in `00_PROGRAM/11`, and until it exists,
+every independence claim in the programme carries an unmeasured assumption.
+
+### Re-evaluation at gate time, not only at assignment
+
+T05 requires the profile to be re-evaluated when the gate is reached, not only
+when the reviewer was assigned. Between those two moments a reviewer can acquire
+context — through an incident channel, a shared dashboard, or a previous version
+of the same package. Assignment-time-only checking is the common implementation
+and it is the one that fails silently.
 
 ## Out of scope
 
 - The internal implementation of any dependent package
 - Production cutover and final operational approval
+
+## Dependency and prerequisite analysis
+
+<!-- generated:dependency-analysis — produced by scripts/expand_packages.py; do not edit inside this block -->
+
+### Direct hard dependencies
+
+2, each of which must be `ACCEPTED` — not `TECH_COMPLETE` — before this package is `READY`.
+
+| Package | Supplies to this package |
+|---|---|
+| [WP-003 — Role Catalogue and RACI Baseline](../01_GOVERNANCE/WP-003_role_catalog_raci.md) | `Role Catalog` · `RACI matrix` · `Role-combination policy` · `Role assignment workflow` |
+| [WP-005 — Research Risk and Assurance Profile](../01_GOVERNANCE/WP-005_risk_assurance_profile.md) | `RiskProfile schema semantics` · `AssuranceClass decision tables` · `Promotion rules` · `Worked examples` |
+
+### Full prerequisite closure
+
+**4 of 141 packages (3%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
+
+| Level | Packages |
+|---:|---|
+| 1 | `WP-001` |
+| 2 | `WP-002` |
+| 3 | `WP-003` · `WP-005` |
+
+### What acceptance of this package releases
+
+- **Directly unblocked:** 19 — `WP-008` · `WP-009` · `WP-010` · `WP-013` · `WP-036` · `WP-042` · `WP-043` · `WP-045` · `WP-047` · `WP-056` · `WP-070` · `WP-071` · `WP-080` · `WP-084` · `WP-085` · `WP-086` · `WP-088` · `WP-089` · `WP-126`
+- **Transitively reachable:** **133 of 141 packages (94%)** cannot be accepted until this one is.
+
+The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
+
+### Position in the programme
+
+| | |
+|---|---|
+| Wave | W0 — Programme lock |
+| Dependency depth | level **4** of 55 |
+| On the documented critical path | **yes** — `02_wave_and_dependency_map.md` names it |
+| Effort class | **M** |
+| Accountable owner | Assurance Lead |
+| Independent verifier | Internal Audit / Safety Owner |
+| Gates touched | `G6` · `G7` · `G8` |
+| Controls | `CTL-GOV-02` · `CTL-EPI-04` |
+
+### Acceptance scenarios that exercise this package
+
+`COMMISSIONED` requires every scenario below to pass **on the same release candidate**. A `SKIPPED` scenario on a `Critical` row does not count as a pass.
+
+| Scenario | Severity | What it must show |
+|---|---|---|
+| [ACC-06 — Planner Self-Approval Attempt](../12_ACCEPTANCE_SCENARIOS/ACC-06_plan_self_approval.md) | Critical | The assignment is rejected by policy; the gate becomes `BLOCKED` or waits for a suitable independent reviewer, and the violation attempt is audited. |
+| [ACC-38 — Critical Reviewer Unavailable](../12_ACCEPTANCE_SCENARIOS/ACC-38_reviewer_unavailable.md) | High | Neither the producer, a self-review, nor an ineligible fallback is used; the gate is `BLOCKED` and a human scheduling/escalation item and a capacity signal are produced. |
+
+<!-- /generated:dependency-analysis -->
 
 ## Preconditions — Definition of Ready
 
@@ -32,6 +153,55 @@ The separation of producer, reviewer and reproducer becomes auditable across sev
 - `DataClass`, `CodeTrust`, `ToolEffect` and the network/credential scope are classified.
 - Test fixtures, the environment, the rollback point and the acceptance measurement method are reachable.
 - An O/M/P person-day estimate is recorded and real capacity is reserved against it.
+
+## Execution requirements
+
+<!-- generated:execution-requirements — produced by scripts/expand_packages.py; do not edit inside this block -->
+
+### Inputs that must exist before the first task starts
+
+Each row is a deliverable of a dependency. Its **absence is a stop condition**, not a risk to manage: work started against a missing input is work that will be redone against the real one.
+
+| Required input | Comes from | Accepted? |
+|---|---|---|
+| `Role Catalog` | `WP-003` | `python3 scripts/progress.py show WP-003` |
+| `RACI matrix` | `WP-003` | `python3 scripts/progress.py show WP-003` |
+| `Role-combination policy` | `WP-003` | `python3 scripts/progress.py show WP-003` |
+| `Role assignment workflow` | `WP-003` | `python3 scripts/progress.py show WP-003` |
+| `RiskProfile schema semantics` | `WP-005` | `python3 scripts/progress.py show WP-005` |
+| `AssuranceClass decision tables` | `WP-005` | `python3 scripts/progress.py show WP-005` |
+| `Promotion rules` | `WP-005` | `python3 scripts/progress.py show WP-005` |
+| `Worked examples` | `WP-005` | `python3 scripts/progress.py show WP-005` |
+
+### Classification that must be recorded before work begins
+
+`00_PROGRAM/05_definition_of_ready_and_done.md` requires all four to be classified at refinement. They are not documentation: together they select the `ExecutionProfile`, and an unclassified package cannot be given one.
+
+| Field | Must state | Recorded at refinement |
+|---|---|---|
+| `DataClass` | D0–D4 for every input and output this package touches | ☐ |
+| `CodeTrust` | provenance of code this package executes | ☐ |
+| `ToolEffect` | T0–T5; whether any external side effect occurs | ☐ |
+| Network / credential scope | egress destinations and the identity used | ☐ |
+
+### Capacity that must be reserved
+
+- **Effort class `M`** — medium — a dedicated integration window.
+- A three-point `O`/`M`/`P` person-day estimate, with `PERT = (O + 4M + P) / 6`, is **mandatory** before this package is `READY`. It is not recorded here because it depends on real capacity at the time of refinement.
+- **Assurance Lead** carries the acceptance decision; **Internal Audit / Safety Owner** must verify independently of whoever implements.
+- One owner holds at most two `IN_PROGRESS` packages. At least 25% of assurance capacity stays reserved for correction and re-verification.
+
+### Evidence that must be producible before starting
+
+A package whose evidence cannot be produced is not `READY`, however complete its design is. Confirm each is reachable:
+
+- The target revision can be pinned, and every test result bound to it.
+- An environment manifest can be captured for the environment the tests run in.
+- The rollback or compensation path named in this document can actually be exercised.
+- A signed `EvidenceManifest` can be issued — today via the interim profile `airl-interim-v0.1` (`scripts/evidence_manifest.py`), which is **tamper-evident and not externally witnessed**.
+- The verifier can reach the evidence **without** seeing the producer's working trace.
+
+<!-- /generated:execution-requirements -->
 
 ## Implementation tasks
 
@@ -54,6 +224,8 @@ The separation of producer, reviewer and reproducer becomes auditable across sev
 
 ## Test and verification plan
 
+The outline below is the summary. The executable procedure — environment, data, coverage items, cases, execution log, incident and completion reports — is in [`WP-007_independence_profile.tests.md`](WP-007_independence_profile.tests.md).
+
 - A negative test for planner self-review
 - A same-model-family and context-contamination test
 - A fail-closed test for the reviewer-unavailable case
@@ -61,7 +233,11 @@ The separation of producer, reviewer and reproducer becomes auditable across sev
 - Producer/consumer contract compatibility tests on every affected interface
 - Telemetry correlation and audit-record integrity checks
 
+
+
 ## Acceptance criteria
+
+The programme-level conditions are below. The package-specific, measurable criteria — each with a threshold and the test case that decides it — are in [`WP-007_independence_profile.acceptance.md`](WP-007_independence_profile.acceptance.md), together with what this package still cannot establish.
 
 - [ ] There is no single averaged independence score.
 - [ ] If human separation cannot be achieved for R3, the workflow becomes `BLOCKED`.
@@ -71,6 +247,8 @@ The separation of producer, reviewer and reproducer becomes auditable across sev
 - [ ] The independent verifier has accepted the evidence package.
 - [ ] Rollback/compensation behaviour has been exercised and audited.
 - [ ] The related dashboard, alert, audit query or integrity query has produced working evidence.
+
+
 
 ## Acceptance evidence package
 

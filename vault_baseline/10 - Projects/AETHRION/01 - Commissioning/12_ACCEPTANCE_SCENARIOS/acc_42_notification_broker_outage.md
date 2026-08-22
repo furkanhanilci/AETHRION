@@ -1,3 +1,20 @@
+---
+title: "ACC-42 — Notification Broker Unavailable During an Escalating Condition"
+aliases:
+  - "ACC-42"
+type: acceptance-scenario
+category: commissioning
+summary: "A laboratory that cannot reach a human must not conclude that no human was needed."
+source: "planning/commissioning/12_ACCEPTANCE_SCENARIOS/ACC-42_notification_broker_outage.md"
+generated: true
+provenance: mirror_plan.py
+tags:
+  - aethrion/commissioning
+  - aethrion/acceptance-scenario
+  - aethrion/severity/high
+  - aethrion/phase/pre-go-live
+---
+
 # ACC-42 — Notification Broker Unavailable During an Escalating Condition
 
 ## Scenario card

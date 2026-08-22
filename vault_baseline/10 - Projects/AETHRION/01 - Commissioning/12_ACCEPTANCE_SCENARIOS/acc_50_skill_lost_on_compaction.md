@@ -1,3 +1,20 @@
+---
+title: "ACC-50 — Procedure Lost to Context Compaction or Restart"
+aliases:
+  - "ACC-50"
+type: acceptance-scenario
+category: commissioning
+summary: "This scenario verifies the target architecture's fail-safe behaviour and its evidence production in the Procedure Lost to Context Compaction or Restart situation."
+source: "planning/commissioning/12_ACCEPTANCE_SCENARIOS/ACC-50_skill_lost_on_compaction.md"
+generated: true
+provenance: mirror_plan.py
+tags:
+  - aethrion/commissioning
+  - aethrion/acceptance-scenario
+  - aethrion/severity/high
+  - aethrion/phase/pre-go-live
+---
+
 # ACC-50 — Procedure Lost to Context Compaction or Restart
 
 ## Scenario card

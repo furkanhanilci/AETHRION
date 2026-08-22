@@ -15,14 +15,172 @@
 | Related acceptance scenarios | ACC-08, ACC-17, ACC-23, ACC-30 |
 | Status at baseline | `NOT_STARTED` |
 
+## Package documents
+
+This package is described by three documents. They are separate because they have three readers: this card is read at refinement by someone deciding whether the package can start; the test procedures are read months later by whoever runs them; the acceptance criteria are read by an **independent verifier** who must reach a verdict without having done the work — and `00_PROGRAM/06` requires that verifier to work from a packet they can be handed.
+
+| Document | Answers | Read by |
+|---|---|---|
+| **This card** | What is this, what does it depend on, what does it release? | Refinement, planning |
+| [Test procedures](WP-087_mechanical_verifier.tests.md) | How is it tested, in what environment, with what data, and what counts as a complete run? | The implementer and the tester |
+| [Acceptance criteria](WP-087_mechanical_verifier.acceptance.md) | What must hold for this to be `ACCEPTED`, and what does it still not establish? | The independent verifier |
+
 ## Purpose and expected outcome
 
 Schema, hash, test, policy, manifest, signature, locator, lineage and report-to-claim links are verified by deterministic records, independent of any LLM assertion.
+
+
+## Analysis
+### What this package actually decides
+
+What can be verified **without asking a model anything**. The purpose sentence
+carries the constraint: *independent of any LLM assertion.*
+
+This is the mechanical half of `agents produce · machines verify · humans decide`,
+and `docs/architecture/AETHRION_ROLE_MODEL_ASSIGNMENT.md` fixes its precedence:
+**a mechanical check, where one exists, runs first and cannot be overridden by a
+model.**
+
+### Determinism is the property, not speed (T01, T02)
+
+A validator that consults a model, a network service or the current time is not a
+validator — it is a reviewer with a fast interface. The plugin contract has to make
+determinism structural: same inputs, same verdict, replayable.
+
+`00_PROGRAM/06`'s ordering follows from it: cheap deterministic layers first, so a
+reviewer's attention is never spent on something a hash comparison settles.
+
+### This repository already runs a version of this
+
+The twelve-check bundle, `scripts/write_status.py`, the plan seal, the figure
+containment check, the evidence manifest verifier. `AGENTS.md` §11 also states
+their limit precisely: *all of them are internal consistency, and every one would
+still hold for a corpus describing a system that does not work.*
+
+That limit belongs in this package's own documentation, because a `VerificationRecord`
+full of green mechanical checks is exactly the artifact most likely to be mistaken
+for a quality result.
+
+### The target-revision check is the one that catches mixed evidence (T04)
+
+`00_PROGRAM/05` requires all criteria to pass **on the same target revision**, and
+`00_PROGRAM/06` lists *test outputs from different revisions mixed together* as
+evidence that is not accepted. A validator that confirms every result names one
+revision is what enforces it.
+
+### Structural validation of findings (T04)
+
+A finding with no location, no severity or no reproduction step cannot be
+dispositioned. Checking finding *shape* mechanically is cheap and it stops
+malformed findings entering the arbitration path.
+
+### Validator calibration and regression (T06)
+
+A validator can drift into passing everything. Each one needs a **known-bad
+fixture** it must fail — the repository's own rule, applied to the checkers
+themselves.
 
 ## Out of scope
 
 - The internal implementation of any dependent package
 - Production cutover and final operational approval
+
+## Dependency and prerequisite analysis
+
+<!-- generated:dependency-analysis — produced by scripts/expand_packages.py; do not edit inside this block -->
+
+### Direct hard dependencies
+
+10, each of which must be `ACCEPTED` — not `TECH_COMPLETE` — before this package is `READY`.
+
+| Package | Supplies to this package |
+|---|---|
+| [WP-020 — Schema Registry, Compatibility and Contract SDK](../02_CONTRACTS/WP-020_schema_registry_sdk.md) | `Schema Registry v1` · `Generated SDKs` · `Compatibility CI` · `Contract fixture catalog` |
+| [WP-024 — CI Foundation and Deterministic Quality Gates](../03_FOUNDATION/WP-024_ci_quality_gates.md) | `CI pipelines` · `Verification summary schema adapter` · `Test ownership registry` · `Flake policy` |
+| [WP-026 — Content-Addressed Object Store and WORM](../03_FOUNDATION/WP-026_object_store_worm.md) | `Object storage IaC` · `Object address service` · `Retention matrix` · `Integrity scan job` |
+| [WP-027 — Git, OCI Registry and Build Provenance Foundation](../03_FOUNDATION/WP-027_git_oci_supply_chain.md) | `OCI registry` · `Build/promotion pipeline` · `SBOM/provenance artifacts` · `Signature policy seed` |
+| [WP-075 — Canonical Claim/Evidence Ledger Service](../08_EVIDENCE_ASSURANCE/WP-075_claim_evidence_ledger.md) | `Claim Ledger service` · `Migrations/API` · `State transition engine` · `Lineage queries` |
+| [WP-076 — Evidence Span Anchoring and Re-anchoring](../08_EVIDENCE_ASSURANCE/WP-076_evidence_anchor_resolver.md) | `Anchor resolver` · `Format adapters` · `Re-anchor queue` · `Anchor regression corpus` |
+| [WP-080 — Claim–Citation Entailment, Scope and Locator Audit](../08_EVIDENCE_ASSURANCE/WP-080_citation_entailment_audit.md) | `Citation audit service` · `Audit rubric` · `Mechanical locator checker` · `Audit report/scorecard` |
+| [WP-081 — Protocol, Analysis, Baseline and Falsification Registry](../08_EVIDENCE_ASSURANCE/WP-081_protocol_baseline_registry.md) | `Method Registry` · `Protocol validators` · `Amendment workflow` · `Post-hoc change detector` |
+| [WP-082 — Run Registry and MLflow Lineage Integration](../08_EVIDENCE_ASSURANCE/WP-082_run_registry_mlflow.md) | `Run Registry` · `Preflight validator` · `MLflow integration` · `Run lineage queries` |
+| [WP-086 — Frozen and Blind Review Package Builder](../08_EVIDENCE_ASSURANCE/WP-086_frozen_review_package.md) | `Review Package Builder` · `Blind/redaction rules` · `Package manifests` · `Leak detection tests` |
+
+### Full prerequisite closure
+
+**74 of 141 packages (52%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
+
+| Level | Packages |
+|---:|---|
+| 1 | `WP-001` |
+| 2 | `WP-002` |
+| 3 | `WP-003` · `WP-005` · `WP-006` |
+| 4 | `WP-004` · `WP-007` |
+| 5 | `WP-008` |
+| 6 | `WP-009` |
+| 7 | `WP-010` |
+| 8 | `WP-011` |
+| 9 | `WP-012` · `WP-013` · `WP-016` |
+| 10 | `WP-014` |
+| 11 | `WP-015` · `WP-017` |
+| 12 | `WP-018` |
+| 13 | `WP-019` |
+| 14 | `WP-020` |
+| 15 | `WP-021` · `WP-022` |
+| 16 | `WP-023` · `WP-025` · `WP-026` · `WP-051` |
+| 17 | `WP-024` · `WP-028` · `WP-029` · `WP-041` |
+| 18 | `WP-027` · `WP-030` · `WP-042` |
+| 19 | `WP-031` · `WP-043` · `WP-052` |
+| 20 | `WP-032` · `WP-044` · `WP-053` |
+| 21 | `WP-033` · `WP-037` · `WP-045` |
+| 22 | `WP-034` · `WP-046` |
+| 23 | `WP-035` · `WP-047` · `WP-049` |
+| 24 | `WP-050` · `WP-054` · `WP-055` |
+| 25 | `WP-056` |
+| 26 | `WP-057` · `WP-061` |
+| 27 | `WP-058` · `WP-064` · `WP-075` |
+| 28 | `WP-062` · `WP-081` |
+| 29 | `WP-063` · `WP-065` · `WP-066` · `WP-069` · `WP-082` |
+| 30 | `WP-067` · `WP-070` |
+| 31 | `WP-068` · `WP-071` |
+| 32 | `WP-072` · `WP-076` |
+| 33 | `WP-077` · `WP-078` |
+| 34 | `WP-079` |
+| 35 | `WP-080` |
+| 36 | `WP-086` |
+
+### What acceptance of this package releases
+
+- **Directly unblocked:** 8 — `WP-088` · `WP-089` · `WP-090` · `WP-095` · `WP-105` · `WP-107` · `WP-113` · `WP-126`
+- **Transitively reachable:** **35 of 141 packages (25%)** cannot be accepted until this one is.
+
+The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
+
+### Position in the programme
+
+| | |
+|---|---|
+| Wave | W4 — Knowledge and evidence |
+| Dependency depth | level **37** of 55 |
+| On the documented critical path | no |
+| Effort class | **L** |
+| Accountable owner | Verification Engineering Lead |
+| Independent verifier | Independent Test Engineer |
+| Gates touched | `G2–G9` |
+| Controls | `CTL-EPI-01` · `CTL-SUP-01` |
+
+### Acceptance scenarios that exercise this package
+
+`COMMISSIONED` requires every scenario below to pass **on the same release candidate**. A `SKIPPED` scenario on a `Critical` row does not count as a pass.
+
+| Scenario | Severity | What it must show |
+|---|---|---|
+| [ACC-08 — Strong Counter-Test](../12_ACCEPTANCE_SCENARIOS/ACC-08_strong_counter_test.md) | Critical | The majority vote does not override the test; the claim becomes `CHALLENGED`/`REJECTED`, a `DisagreementCase` opens and G6 does not pass. |
+| [ACC-17 — Unsigned or Mutable Image](../12_ACCEPTANCE_SCENARIOS/ACC-17_unsigned_image.md) | Critical | The pod is not created; the signature, provenance and digest policy denies it and produces audit and alert records. A signed-digest counter-example passes. |
+| [ACC-23 — Artifact Overwrite Attempt](../12_ACCEPTANCE_SCENARIOS/ACC-23_artifact_overwrite.md) | Critical | The overwrite is rejected; the new bytes can only be written as a new content address and version, and existing references are unchanged. |
+| [ACC-30 — Publication Completeness](../12_ACCEPTANCE_SCENARIOS/ACC-30_publication_completeness.md) | Critical | No publication package, signature or release is produced; G9 is FAIL/REVISE and a correction queue opens. Once the missing link is supplied, a new package version can pass. |
+
+<!-- /generated:dependency-analysis -->
 
 ## Preconditions — Definition of Ready
 
@@ -32,6 +190,91 @@ Schema, hash, test, policy, manifest, signature, locator, lineage and report-to-
 - `DataClass`, `CodeTrust`, `ToolEffect` and the network/credential scope are classified.
 - Test fixtures, the environment, the rollback point and the acceptance measurement method are reachable.
 - An O/M/P person-day estimate is recorded and real capacity is reserved against it.
+
+## Execution requirements
+
+<!-- generated:execution-requirements — produced by scripts/expand_packages.py; do not edit inside this block -->
+
+### Inputs that must exist before the first task starts
+
+Each row is a deliverable of a dependency. Its **absence is a stop condition**, not a risk to manage: work started against a missing input is work that will be redone against the real one.
+
+| Required input | Comes from | Accepted? |
+|---|---|---|
+| `Schema Registry v1` | `WP-020` | `python3 scripts/progress.py show WP-020` |
+| `Generated SDKs` | `WP-020` | `python3 scripts/progress.py show WP-020` |
+| `Compatibility CI` | `WP-020` | `python3 scripts/progress.py show WP-020` |
+| `Contract fixture catalog` | `WP-020` | `python3 scripts/progress.py show WP-020` |
+| `Deprecation policy` | `WP-020` | `python3 scripts/progress.py show WP-020` |
+| `CI pipelines` | `WP-024` | `python3 scripts/progress.py show WP-024` |
+| `Verification summary schema adapter` | `WP-024` | `python3 scripts/progress.py show WP-024` |
+| `Test ownership registry` | `WP-024` | `python3 scripts/progress.py show WP-024` |
+| `Flake policy` | `WP-024` | `python3 scripts/progress.py show WP-024` |
+| `Object storage IaC` | `WP-026` | `python3 scripts/progress.py show WP-026` |
+| `Object address service` | `WP-026` | `python3 scripts/progress.py show WP-026` |
+| `Retention matrix` | `WP-026` | `python3 scripts/progress.py show WP-026` |
+| `Integrity scan job` | `WP-026` | `python3 scripts/progress.py show WP-026` |
+| `Restore procedure` | `WP-026` | `python3 scripts/progress.py show WP-026` |
+| `OCI registry` | `WP-027` | `python3 scripts/progress.py show WP-027` |
+| `Build/promotion pipeline` | `WP-027` | `python3 scripts/progress.py show WP-027` |
+| `SBOM/provenance artifacts` | `WP-027` | `python3 scripts/progress.py show WP-027` |
+| `Signature policy seed` | `WP-027` | `python3 scripts/progress.py show WP-027` |
+| `Claim Ledger service` | `WP-075` | `python3 scripts/progress.py show WP-075` |
+| `Migrations/API` | `WP-075` | `python3 scripts/progress.py show WP-075` |
+| `State transition engine` | `WP-075` | `python3 scripts/progress.py show WP-075` |
+| `Lineage queries` | `WP-075` | `python3 scripts/progress.py show WP-075` |
+| `Service runbook` | `WP-075` | `python3 scripts/progress.py show WP-075` |
+| `Anchor resolver` | `WP-076` | `python3 scripts/progress.py show WP-076` |
+| `Format adapters` | `WP-076` | `python3 scripts/progress.py show WP-076` |
+| `Re-anchor queue` | `WP-076` | `python3 scripts/progress.py show WP-076` |
+| `Anchor regression corpus` | `WP-076` | `python3 scripts/progress.py show WP-076` |
+| `Citation audit service` | `WP-080` | `python3 scripts/progress.py show WP-080` |
+| `Audit rubric` | `WP-080` | `python3 scripts/progress.py show WP-080` |
+| `Mechanical locator checker` | `WP-080` | `python3 scripts/progress.py show WP-080` |
+| `Audit report/scorecard` | `WP-080` | `python3 scripts/progress.py show WP-080` |
+| `Method Registry` | `WP-081` | `python3 scripts/progress.py show WP-081` |
+| `Protocol validators` | `WP-081` | `python3 scripts/progress.py show WP-081` |
+| `Amendment workflow` | `WP-081` | `python3 scripts/progress.py show WP-081` |
+| `Post-hoc change detector` | `WP-081` | `python3 scripts/progress.py show WP-081` |
+| `Run Registry` | `WP-082` | `python3 scripts/progress.py show WP-082` |
+| `Preflight validator` | `WP-082` | `python3 scripts/progress.py show WP-082` |
+| `MLflow integration` | `WP-082` | `python3 scripts/progress.py show WP-082` |
+| `Run lineage queries` | `WP-082` | `python3 scripts/progress.py show WP-082` |
+| `Run lifecycle dashboard` | `WP-082` | `python3 scripts/progress.py show WP-082` |
+| `Review Package Builder` | `WP-086` | `python3 scripts/progress.py show WP-086` |
+| `Blind/redaction rules` | `WP-086` | `python3 scripts/progress.py show WP-086` |
+| `Package manifests` | `WP-086` | `python3 scripts/progress.py show WP-086` |
+| `Leak detection tests` | `WP-086` | `python3 scripts/progress.py show WP-086` |
+
+### Classification that must be recorded before work begins
+
+`00_PROGRAM/05_definition_of_ready_and_done.md` requires all four to be classified at refinement. They are not documentation: together they select the `ExecutionProfile`, and an unclassified package cannot be given one.
+
+| Field | Must state | Recorded at refinement |
+|---|---|---|
+| `DataClass` | D0–D4 for every input and output this package touches | ☐ |
+| `CodeTrust` | provenance of code this package executes | ☐ |
+| `ToolEffect` | T0–T5; whether any external side effect occurs | ☐ |
+| Network / credential scope | egress destinations and the identity used | ☐ |
+
+### Capacity that must be reserved
+
+- **Effort class `L`** — large — split into sub-packages if the estimate exceeds the wave.
+- A three-point `O`/`M`/`P` person-day estimate, with `PERT = (O + 4M + P) / 6`, is **mandatory** before this package is `READY`. It is not recorded here because it depends on real capacity at the time of refinement.
+- **Verification Engineering Lead** carries the acceptance decision; **Independent Test Engineer** must verify independently of whoever implements.
+- One owner holds at most two `IN_PROGRESS` packages. At least 25% of assurance capacity stays reserved for correction and re-verification.
+
+### Evidence that must be producible before starting
+
+A package whose evidence cannot be produced is not `READY`, however complete its design is. Confirm each is reachable:
+
+- The target revision can be pinned, and every test result bound to it.
+- An environment manifest can be captured for the environment the tests run in.
+- The rollback or compensation path named in this document can actually be exercised.
+- A signed `EvidenceManifest` can be issued — today via the interim profile `airl-interim-v0.1` (`scripts/evidence_manifest.py`), which is **tamper-evident and not externally witnessed**.
+- The verifier can reach the evidence **without** seeing the producer's working trace.
+
+<!-- /generated:execution-requirements -->
 
 ## Implementation tasks
 
@@ -55,6 +298,8 @@ Schema, hash, test, policy, manifest, signature, locator, lineage and report-to-
 
 ## Test and verification plan
 
+The outline below is the summary. The executable procedure — environment, data, coverage items, cases, execution log, incident and completion reports — is in [`WP-087_mechanical_verifier.tests.md`](WP-087_mechanical_verifier.tests.md).
+
 - Failure on a tampered hash or signature
 - Failure on missing lineage or locator
 - Invalidation of a finding pointing at the wrong file or symbol
@@ -64,6 +309,8 @@ Schema, hash, test, policy, manifest, signature, locator, lineage and report-to-
 - Telemetry correlation and audit-record integrity checks
 
 ## Acceptance criteria
+
+The programme-level conditions are below. The package-specific, measurable criteria — each with a threshold and the test case that decides it — are in [`WP-087_mechanical_verifier.acceptance.md`](WP-087_mechanical_verifier.acceptance.md), together with what this package still cannot establish.
 
 - [ ] A self-declaration is never counted as verification.
 - [ ] Every validator records its input, output, version and artifact hash.

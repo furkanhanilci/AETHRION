@@ -1,3 +1,14 @@
+---
+title: "Wave and Dependency Map"
+type: reference
+category: commissioning
+source: "planning/commissioning/00_PROGRAM/02_wave_and_dependency_map.md"
+generated: true
+provenance: mirror_plan.py
+tags:
+  - aethrion/commissioning
+---
+
 # Wave and Dependency Map
 
 ## Principle
@@ -20,7 +31,7 @@ means a defined set of integration evidence exists.
 | W3 — Control and runtime | Run the workflow, agent, model, broker and sandbox | WP-032–060 | Replay, route, tool and sandbox tests |
 | W4 — Knowledge and evidence | Literature, Source Registry, Claim Ledger, experiment and review path | WP-061–090 | Source→claim→run→review lineage pass |
 | W5 — Human and visibility | Cockpit, decision queue, graphs, telemetry and FinOps | WP-091–101 | Human decision and end-to-end correlation pass |
-| W6 — Vertical integration | Integrate the G0–G10 and engineering flows | WP-102–115 | Vertical slices and 46 acceptance tests |
+| W6 — Vertical integration | Integrate the G0–G10 and engineering flows | WP-102–115 | Vertical slices and 51 acceptance tests |
 | W7 — Commissioning | Security, resilience, DR, capacity, audit and pilot | WP-116–119 | Commissioning dossier; zero critical findings |
 | W8 — Cutover | Rehearsal, production opening and hypercare | WP-120–121 | Go-live `DecisionRecord` and stabilisation |
 | W9 — Day-2 | Continuous assurance and operation | WP-122–130 | Periodic control-effectiveness records |

@@ -35,7 +35,12 @@ ROOT = Path(__file__).resolve().parent.parent
 PLAN = ROOT / "planning" / "commissioning"
 ACC_DIR = PLAN / "12_ACCEPTANCE_SCENARIOS"
 
-WP_FILE = re.compile(r"^WP-(\d{3})_.+\.md$")
+# A package is described by three documents. Only the card carries the fields
+# this validator reads; `.tests.md` and `.acceptance.md` are companions and are
+# checked by their own rules, so the pattern must not treat them as packages.
+WP_FILE = re.compile(r"^WP-(\d{3})_(?!.*\.(?:tests|acceptance)\.md$).+\.md$")
+WP_TESTS = re.compile(r"^WP-(\d{3})_.+\.tests\.md$")
+WP_ACCEPT = re.compile(r"^WP-(\d{3})_.+\.acceptance\.md$")
 ACC_FILE = re.compile(r"^ACC-(\d{2})_.+\.md$")
 FIELD = lambda name: re.compile(rf"^\| {name} \| (.+?) \|\s*$", re.M)
 WP_REF = re.compile(r"WP-(\d{3})")

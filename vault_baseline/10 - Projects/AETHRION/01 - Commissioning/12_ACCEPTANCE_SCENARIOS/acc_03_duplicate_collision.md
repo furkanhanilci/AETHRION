@@ -1,3 +1,20 @@
+---
+title: "ACC-03 — Duplicate and Metadata Collision"
+aliases:
+  - "ACC-03"
+type: acceptance-scenario
+category: commissioning
+summary: "This scenario verifies the target architecture's fail-safe behaviour and its evidence production in the Duplicate and Metadata Collision situation."
+source: "planning/commissioning/12_ACCEPTANCE_SCENARIOS/ACC-03_duplicate_collision.md"
+generated: true
+provenance: mirror_plan.py
+tags:
+  - aethrion/commissioning
+  - aethrion/acceptance-scenario
+  - aethrion/severity/high
+  - aethrion/phase/pre-go-live
+---
+
 # ACC-03 — Duplicate and Metadata Collision
 
 ## Scenario card

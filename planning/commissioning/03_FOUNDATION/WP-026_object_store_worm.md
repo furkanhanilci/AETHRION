@@ -23,14 +23,129 @@ The requirement is compliance-mode retention that no account, including root, ca
 
 Rationale and adoption type: `docs/architecture/AETHRION_COMPONENT_REUSE.md`.
 
+## Package documents
+
+This package is described by three documents. They are separate because they have three readers: this card is read at refinement by someone deciding whether the package can start; the test procedures are read months later by whoever runs them; the acceptance criteria are read by an **independent verifier** who must reach a verdict without having done the work — and `00_PROGRAM/06` requires that verifier to work from a packet they can be handed.
+
+| Document | Answers | Read by |
+|---|---|---|
+| **This card** | What is this, what does it depend on, what does it release? | Refinement, planning |
+| [Test procedures](WP-026_object_store_worm.tests.md) | How is it tested, in what environment, with what data, and what counts as a complete run? | The implementer and the tester |
+| [Acceptance criteria](WP-026_object_store_worm.acceptance.md) | What must hold for this to be `ACCEPTED`, and what does it still not establish? | The independent verifier |
+
 ## Purpose and expected outcome
 
 PDF, dataset, artifact, evidence and publication bytes are stored immutably under a content hash, with object lock, encryption, retention and legal-hold.
+
+
+## Analysis
+### What this package actually decides
+
+Where "immutable" stops being a design intention and becomes a storage
+configuration. WP-014 defines what an immutable artifact *is*; this package is the
+object lock that makes overwriting impossible rather than merely forbidden.
+
+The distinction is the whole point of `PR-08` — *different bytes at the same URI*
+— and it is rated critical because the failure is silent: every claim citing the
+artifact stays valid-looking, and nothing indicates that what it cited has changed.
+
+### This is the package the whole programme was deadlocked on
+
+`00_PROGRAM/05` records it: the Definition of Done requires a signed manifest in
+an immutable store, that store is WP-026, and WP-026 sits ten dependency levels
+below WP-001 — so **no package could ever be accepted, including the first**. That
+is audit finding **C1**, and WP-000 exists only to make the programme startable
+until this package lands.
+
+So WP-026's acceptance has an obligation no other package has: **it must retire
+WP-000's interim profile.** `airl-interim-v0.1` is a local key, a local clock and
+one operator holding the repository, the key, the generator and the anchor. Once
+this store exists, keeping the interim profile is a choice rather than a
+constraint, and the migration path is part of this package's deliverable set.
+
+### Three areas, and the one that is easy to skip (T05)
+
+Quarantine, canonical, publication. The quarantine area is where untrusted
+content lands before anything trusts it — ADR-003's data plane given a bucket.
+Without it, a fetched PDF goes straight into the canonical store and the boundary
+exists only in the code path that happened to be taken.
+
+### The bit-rot scan is what makes the store's claim checkable over time (T06)
+
+Object lock prevents deliberate overwrite. It does not prevent silent corruption,
+and a store nobody re-hashes is a store whose integrity claim ages without being
+tested. The scan is cheap and its absence is invisible until a restore fails.
 
 ## Out of scope
 
 - The internal implementation of any dependent package
 - Production cutover and final operational approval
+
+## Dependency and prerequisite analysis
+
+<!-- generated:dependency-analysis — produced by scripts/expand_packages.py; do not edit inside this block -->
+
+### Direct hard dependencies
+
+2, each of which must be `ACCEPTED` — not `TECH_COMPLETE` — before this package is `READY`.
+
+| Package | Supplies to this package |
+|---|---|
+| [WP-021 — Development, Staging and Production Environment Baseline](../03_FOUNDATION/WP-021_environment_account_network_baseline.md) | `Environment topology` · `Account/network IaC` · `Access baseline` · `Environment promotion policy` |
+| [WP-014 — Artifact, Dataset and Immutable Manifest Schemas](../02_CONTRACTS/WP-014_artifact_manifest_contracts.md) | `ArtifactRecord schema` · `DatasetManifest schema` · `Environment reference schema` · `Immutability lifecycle` |
+
+### Full prerequisite closure
+
+**21 of 141 packages (15%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
+
+| Level | Packages |
+|---:|---|
+| 1 | `WP-001` |
+| 2 | `WP-002` |
+| 3 | `WP-003` · `WP-005` · `WP-006` |
+| 4 | `WP-004` · `WP-007` |
+| 5 | `WP-008` |
+| 6 | `WP-009` |
+| 7 | `WP-010` |
+| 8 | `WP-011` |
+| 9 | `WP-012` · `WP-013` · `WP-016` |
+| 10 | `WP-014` |
+| 11 | `WP-015` · `WP-017` |
+| 12 | `WP-018` |
+| 13 | `WP-019` |
+| 14 | `WP-020` |
+| 15 | `WP-021` |
+
+### What acceptance of this package releases
+
+- **Directly unblocked:** 22 — `WP-027` · `WP-029` · `WP-030` · `WP-031` · `WP-049` · `WP-058` · `WP-061` · `WP-063` · `WP-072` · `WP-075` · `WP-076` · `WP-081` · `WP-082` · `WP-084` · `WP-086` · `WP-087` · `WP-090` · `WP-097` · `WP-099` · `WP-101` · `WP-114` · `WP-139`
+- **Transitively reachable:** **110 of 141 packages (78%)** cannot be accepted until this one is.
+
+The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
+
+### Position in the programme
+
+| | |
+|---|---|
+| Wave | W2 — Platform backbone |
+| Dependency depth | level **16** of 55 |
+| On the documented critical path | **yes** — `02_wave_and_dependency_map.md` names it |
+| Effort class | **L** |
+| Accountable owner | Data Platform Lead |
+| Independent verifier | Archivist / Security |
+| Gates touched | `G3–G10` |
+| Controls | `CTL-DAT-03` · `CTL-SUP-01` |
+
+### Acceptance scenarios that exercise this package
+
+`COMMISSIONED` requires every scenario below to pass **on the same release candidate**. A `SKIPPED` scenario on a `Critical` row does not count as a pass.
+
+| Scenario | Severity | What it must show |
+|---|---|---|
+| [ACC-23 — Artifact Overwrite Attempt](../12_ACCEPTANCE_SCENARIOS/ACC-23_artifact_overwrite.md) | Critical | The overwrite is rejected; the new bytes can only be written as a new content address and version, and existing references are unchanged. |
+| [ACC-27 — Regional / Management Plane DR](../12_ACCEPTANCE_SCENARIOS/ACC-27_regional_dr.md) | Critical | Temporal workflow state holds at RPO = 0, canonical registries, artifacts and audit records are intact, service returns within the RTO target, and derived views are rebuilt. |
+
+<!-- /generated:dependency-analysis -->
 
 ## Preconditions — Definition of Ready
 
@@ -40,6 +155,55 @@ PDF, dataset, artifact, evidence and publication bytes are stored immutably unde
 - `DataClass`, `CodeTrust`, `ToolEffect` and the network/credential scope are classified.
 - Test fixtures, the environment, the rollback point and the acceptance measurement method are reachable.
 - An O/M/P person-day estimate is recorded and real capacity is reserved against it.
+
+## Execution requirements
+
+<!-- generated:execution-requirements — produced by scripts/expand_packages.py; do not edit inside this block -->
+
+### Inputs that must exist before the first task starts
+
+Each row is a deliverable of a dependency. Its **absence is a stop condition**, not a risk to manage: work started against a missing input is work that will be redone against the real one.
+
+| Required input | Comes from | Accepted? |
+|---|---|---|
+| `Environment topology` | `WP-021` | `python3 scripts/progress.py show WP-021` |
+| `Account/network IaC` | `WP-021` | `python3 scripts/progress.py show WP-021` |
+| `Access baseline` | `WP-021` | `python3 scripts/progress.py show WP-021` |
+| `Environment promotion policy` | `WP-021` | `python3 scripts/progress.py show WP-021` |
+| `ArtifactRecord schema` | `WP-014` | `python3 scripts/progress.py show WP-014` |
+| `DatasetManifest schema` | `WP-014` | `python3 scripts/progress.py show WP-014` |
+| `Environment reference schema` | `WP-014` | `python3 scripts/progress.py show WP-014` |
+| `Immutability lifecycle` | `WP-014` | `python3 scripts/progress.py show WP-014` |
+
+### Classification that must be recorded before work begins
+
+`00_PROGRAM/05_definition_of_ready_and_done.md` requires all four to be classified at refinement. They are not documentation: together they select the `ExecutionProfile`, and an unclassified package cannot be given one.
+
+| Field | Must state | Recorded at refinement |
+|---|---|---|
+| `DataClass` | D0–D4 for every input and output this package touches | ☐ |
+| `CodeTrust` | provenance of code this package executes | ☐ |
+| `ToolEffect` | T0–T5; whether any external side effect occurs | ☐ |
+| Network / credential scope | egress destinations and the identity used | ☐ |
+
+### Capacity that must be reserved
+
+- **Effort class `L`** — large — split into sub-packages if the estimate exceeds the wave.
+- A three-point `O`/`M`/`P` person-day estimate, with `PERT = (O + 4M + P) / 6`, is **mandatory** before this package is `READY`. It is not recorded here because it depends on real capacity at the time of refinement.
+- **Data Platform Lead** carries the acceptance decision; **Archivist / Security** must verify independently of whoever implements.
+- One owner holds at most two `IN_PROGRESS` packages. At least 25% of assurance capacity stays reserved for correction and re-verification.
+
+### Evidence that must be producible before starting
+
+A package whose evidence cannot be produced is not `READY`, however complete its design is. Confirm each is reachable:
+
+- The target revision can be pinned, and every test result bound to it.
+- An environment manifest can be captured for the environment the tests run in.
+- The rollback or compensation path named in this document can actually be exercised.
+- A signed `EvidenceManifest` can be issued — today via the interim profile `airl-interim-v0.1` (`scripts/evidence_manifest.py`), which is **tamper-evident and not externally witnessed**.
+- The verifier can reach the evidence **without** seeing the producer's working trace.
+
+<!-- /generated:execution-requirements -->
 
 ## Implementation tasks
 
@@ -64,6 +228,8 @@ PDF, dataset, artifact, evidence and publication bytes are stored immutably unde
 
 ## Test and verification plan
 
+The outline below is the summary. The executable procedure — environment, data, coverage items, cases, execution log, incident and completion reports — is in [`WP-026_object_store_worm.tests.md`](WP-026_object_store_worm.tests.md).
+
 - A denial test for overwriting the same key
 - Hash detection of a corrupted byte range
 - A cross-region restore and legal-hold test
@@ -72,6 +238,8 @@ PDF, dataset, artifact, evidence and publication bytes are stored immutably unde
 - Telemetry correlation and audit-record integrity checks
 
 ## Acceptance criteria
+
+The programme-level conditions are below. The package-specific, measurable criteria — each with a threshold and the test case that decides it — are in [`WP-026_object_store_worm.acceptance.md`](WP-026_object_store_worm.acceptance.md), together with what this package still cannot establish.
 
 - [ ] A canonical object cannot be overwritten.
 - [ ] Every object is bound to an `ArtifactRecord` and its hash.

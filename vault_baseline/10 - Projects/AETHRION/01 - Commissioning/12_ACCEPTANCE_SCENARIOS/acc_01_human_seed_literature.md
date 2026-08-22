@@ -1,3 +1,20 @@
+---
+title: "ACC-01 — Human Seed Literature"
+aliases:
+  - "ACC-01"
+type: acceptance-scenario
+category: commissioning
+summary: "This scenario verifies the target architecture's fail-safe behaviour and its evidence production in the Human Seed Literature situation."
+source: "planning/commissioning/12_ACCEPTANCE_SCENARIOS/ACC-01_human_seed_literature.md"
+generated: true
+provenance: mirror_plan.py
+tags:
+  - aethrion/commissioning
+  - aethrion/acceptance-scenario
+  - aethrion/severity/critical
+  - aethrion/phase/pre-go-live
+---
+
 # ACC-01 — Human Seed Literature
 
 ## Scenario card

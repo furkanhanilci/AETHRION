@@ -1,3 +1,19 @@
+---
+title: "ADR-003 — Trusted Control, Untrusted Data, and Policy Enforcement"
+aliases:
+  - "ADR-003"
+type: decision-record
+category: architecture
+status: ACCEPTED
+summary: "A laboratory that reads papers, emails and web pages is continuously fed text written by people who are not its operators, and some of that text will try to act."
+source: "docs/architecture/ADR-003_trusted_control_and_policy.md"
+generated: true
+provenance: mirror_vault.py
+tags:
+  - aethrion/architecture
+  - aethrion/adr
+---
+
 > [!info] Generated view
 > This note is generated from `docs/architecture/ADR-003_trusted_control_and_policy.md` in the repository. Edit the
 > canonical file and regenerate; edits made here are overwritten.

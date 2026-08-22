@@ -1,3 +1,20 @@
+---
+title: "ACC-38 — Critical Reviewer Unavailable"
+aliases:
+  - "ACC-38"
+type: acceptance-scenario
+category: commissioning
+summary: "This scenario verifies the target architecture's fail-safe behaviour and its evidence production in the Critical Reviewer Unavailable situation."
+source: "planning/commissioning/12_ACCEPTANCE_SCENARIOS/ACC-38_reviewer_unavailable.md"
+generated: true
+provenance: mirror_plan.py
+tags:
+  - aethrion/commissioning
+  - aethrion/acceptance-scenario
+  - aethrion/severity/high
+  - aethrion/phase/pre-go-live
+---
+
 # ACC-38 — Critical Reviewer Unavailable
 
 ## Scenario card

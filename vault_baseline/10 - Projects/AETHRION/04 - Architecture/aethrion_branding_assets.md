@@ -1,3 +1,16 @@
+---
+title: "Branding Assets"
+type: reference
+category: architecture
+status: WORKING
+summary: "One file in this repository is the logo."
+source: "docs/assets/branding/README.md"
+generated: true
+provenance: mirror_vault.py
+tags:
+  - aethrion/architecture
+---
+
 > [!info] Generated view
 > This note is generated from `docs/assets/branding/README.md` in the repository. Edit the
 > canonical file and regenerate; edits made here are overwritten.

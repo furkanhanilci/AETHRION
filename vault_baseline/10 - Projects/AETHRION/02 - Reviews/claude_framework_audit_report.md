@@ -1,3 +1,14 @@
+---
+title: "AI Research Framework — Independent Audit Report"
+type: review
+category: review
+source: "docs/review/FRAMEWORK_REVIEW_2026-08-21_CLAUDE.md"
+generated: true
+provenance: mirror_vault.py
+tags:
+  - aethrion/review
+---
+
 > [!info] Generated view
 > This note is generated from `docs/review/FRAMEWORK_REVIEW_2026-08-21_CLAUDE.md` in the repository. Edit the
 > canonical file and regenerate; edits made here are overwritten.

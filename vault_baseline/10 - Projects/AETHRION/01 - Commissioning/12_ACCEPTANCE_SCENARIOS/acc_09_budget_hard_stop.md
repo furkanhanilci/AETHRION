@@ -1,3 +1,20 @@
+---
+title: "ACC-09 — Budget Hard Stop"
+aliases:
+  - "ACC-09"
+type: acceptance-scenario
+category: commissioning
+summary: "This scenario verifies the target architecture's fail-safe behaviour and its evidence production in the Budget Hard Stop situation."
+source: "planning/commissioning/12_ACCEPTANCE_SCENARIOS/ACC-09_budget_hard_stop.md"
+generated: true
+provenance: mirror_plan.py
+tags:
+  - aethrion/commissioning
+  - aethrion/acceptance-scenario
+  - aethrion/severity/critical
+  - aethrion/phase/pre-go-live
+---
+
 # ACC-09 — Budget Hard Stop
 
 ## Scenario card

@@ -1,3 +1,20 @@
+---
+title: "ACC-36 — Model Snapshot Drift"
+aliases:
+  - "ACC-36"
+type: acceptance-scenario
+category: commissioning
+summary: "This scenario verifies the target architecture's fail-safe behaviour and its evidence production in the Model Snapshot Drift situation."
+source: "planning/commissioning/12_ACCEPTANCE_SCENARIOS/ACC-36_model_snapshot_drift.md"
+generated: true
+provenance: mirror_plan.py
+tags:
+  - aethrion/commissioning
+  - aethrion/acceptance-scenario
+  - aethrion/severity/critical
+  - aethrion/phase/pre-go-live
+---
+
 # ACC-36 — Model Snapshot Drift
 
 ## Scenario card

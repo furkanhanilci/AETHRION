@@ -1,3 +1,20 @@
+---
+title: "ACC-20 — Clean-Room Reproduction Failure"
+aliases:
+  - "ACC-20"
+type: acceptance-scenario
+category: commissioning
+summary: "This scenario verifies the target architecture's fail-safe behaviour and its evidence production in the Clean-Room Reproduction Failure situation."
+source: "planning/commissioning/12_ACCEPTANCE_SCENARIOS/ACC-20_clean_room_fail.md"
+generated: true
+provenance: mirror_plan.py
+tags:
+  - aethrion/commissioning
+  - aethrion/acceptance-scenario
+  - aethrion/severity/critical
+  - aethrion/phase/pre-go-live
+---
+
 # ACC-20 — Clean-Room Reproduction Failure
 
 ## Scenario card

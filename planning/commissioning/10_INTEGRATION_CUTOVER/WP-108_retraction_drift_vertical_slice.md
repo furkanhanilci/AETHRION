@@ -15,14 +15,167 @@
 | Related acceptance scenarios | ACC-04, ACC-31, ACC-36 |
 | Status at baseline | `NOT_STARTED` |
 
+## Package documents
+
+This package is described by three documents. They are separate because they have three readers: this card is read at refinement by someone deciding whether the package can start; the test procedures are read months later by whoever runs them; the acceptance criteria are read by an **independent verifier** who must reach a verdict without having done the work — and `00_PROGRAM/06` requires that verifier to work from a packet they can be handed.
+
+| Document | Answers | Read by |
+|---|---|---|
+| **This card** | What is this, what does it depend on, what does it release? | Refinement, planning |
+| [Test procedures](WP-108_retraction_drift_vertical_slice.tests.md) | How is it tested, in what environment, with what data, and what counts as a complete run? | The implementer and the tester |
+| [Acceptance criteria](WP-108_retraction_drift_vertical_slice.acceptance.md) | What must hold for this to be `ACCEPTED`, and what does it still not establish? | The independent verifier |
+
 ## Purpose and expected outcome
 
 Source retractions and corrections, model snapshot revocations, dataset and policy changes and incidents route the affected claims, runs, publications and tasks to the right owner and re-evaluation path.
+
+
+## Analysis
+### What this package actually decides
+
+Whether the impact machinery finds everything it should — measured against an
+**expected set**, not against whether it found something.
+
+T03 is the sub-task that makes this a test rather than a demonstration: compare the
+computed affected set against the expected set. Without an expected set, an impact
+scan that returns three claims when nine are affected reports success.
+
+### Six trigger classes, because they arrive by six paths (T01)
+
+Retraction, correction, model snapshot revocation, dataset change, policy change,
+incident. Each enters through a different adapter, and a system tested only on
+retraction has tested the one everybody designs for.
+
+Model revocation is the least obvious: `00_PROGRAM/01` invariant 7 requires a model
+snapshot change to produce requalification **and an explicit task impact
+assessment**, which means open tasks — not only completed claims.
+
+### Idempotency on duplicate triggers (T06)
+
+The same retraction arriving twice — from a scheduled sweep and from a webhook —
+must not open two cases. This is WP-039's consumer discipline reaching G10, and
+without it the queue fills with duplicates and gets ignored.
+
+### False positives are the failure that kills the feed (T06)
+
+A monitoring feed with a high false-positive rate is a feed nobody reads. Every
+dismissal reaches a terminal state with a reason, and a dismissed case **does not
+reopen on the next scan** — otherwise the dismissal is a snooze button.
+
+### The DOI-less fraction bounds what this package can claim
+
+15 of 33 registry sources carry a DOI. The retraction path resolves by DOI, so 18
+sources are outside it entirely. The expected set must be computed over what is
+**monitorable**, and the report must state the fraction — otherwise a complete-
+looking impact scan is silently partial.
 
 ## Out of scope
 
 - The internal implementation of any dependent package
 - Production cutover and final operational approval
+
+## Dependency and prerequisite analysis
+
+<!-- generated:dependency-analysis — produced by scripts/expand_packages.py; do not edit inside this block -->
+
+### Direct hard dependencies
+
+9, each of which must be `ACCEPTED` — not `TECH_COMPLETE` — before this package is `READY`.
+
+| Package | Supplies to this package |
+|---|---|
+| [WP-037 — G10 Temporal Schedules and Short ImpactScan Workflows](../04_CONTROL_EVENT/WP-037_g10_impactscan.md) | `ImpactScan workflow` · `Schedule registry` · `ImpactCase service contract` · `Supersession trigger` |
+| [WP-042 — Capability Registry and Profile Lifecycle](../05_MODEL_AGENT_TOOL/WP-042_capability_registry.md) | `Capability Registry service` · `Profile state machine` · `Eligibility API` · `Expiry/revoke scheduler` |
+| [WP-044 — Model Qualification and Admission Pipeline](../05_MODEL_AGENT_TOOL/WP-044_model_qualification_admission.md) | `Qualification pipeline` · `Admission dossier` · `CapabilityProfile update` · `Regression schedule` |
+| [WP-063 — Source Representation, Licence and Status Monitoring](../07_LITERATURE_KNOWLEDGE/WP-063_source_representation_status.md) | `Representation ingest service` · `License/status policy` · `Status monitor` · `Format locator metadata` |
+| [WP-075 — Canonical Claim/Evidence Ledger Service](../08_EVIDENCE_ASSURANCE/WP-075_claim_evidence_ledger.md) | `Claim Ledger service` · `Migrations/API` · `State transition engine` · `Lineage queries` |
+| [WP-077 — Claim State, Dependency and Assessment Engine](../08_EVIDENCE_ASSURANCE/WP-077_claim_state_dependency.md) | `Claim state engine` · `Dependency validator` · `Assessment rubric` · `Impact propagation worker` |
+| [WP-090 — PublicationPackage, RO-Crate and Provenance Export](../08_EVIDENCE_ASSURANCE/WP-090_publication_package.md) | `Publication builder` · `RO-Crate profile` · `Signed publication package` · `Release checklist` |
+| [WP-095 — Claim/Evidence Explorer and Provenance Graph](../09_EXPERIENCE_OBSERVABILITY/WP-095_claim_evidence_explorer.md) | `Claim Explorer` · `Evidence preview` · `Provenance graph` · `Assessment/blocker panels` |
+| [WP-106 — Vertical Slice 5 — Human Decision, Publish and Monitor](../10_INTEGRATION_CUTOVER/WP-106_vertical_slice_decision_publish_monitor.md) | `Decision/publish/monitor dossier` · `DecisionRecord` · `PublicationPackage` · `ImpactCase/Supersession` |
+
+### Full prerequisite closure
+
+**95 of 141 packages (67%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
+
+| Level | Packages |
+|---:|---|
+| 1 | `WP-001` |
+| 2 | `WP-002` |
+| 3 | `WP-003` · `WP-005` · `WP-006` |
+| 4 | `WP-004` · `WP-007` |
+| 5 | `WP-008` |
+| 6 | `WP-009` |
+| 7 | `WP-010` |
+| 8 | `WP-011` |
+| 9 | `WP-012` · `WP-013` · `WP-016` |
+| 10 | `WP-014` |
+| 11 | `WP-015` · `WP-017` |
+| 12 | `WP-018` |
+| 13 | `WP-019` |
+| 14 | `WP-020` |
+| 15 | `WP-021` · `WP-022` |
+| 16 | `WP-023` · `WP-025` · `WP-026` · `WP-051` |
+| 17 | `WP-024` · `WP-028` · `WP-029` · `WP-041` |
+| 18 | `WP-027` · `WP-030` · `WP-042` |
+| 19 | `WP-031` · `WP-043` · `WP-052` |
+| 20 | `WP-032` · `WP-044` · `WP-053` |
+| 21 | `WP-033` · `WP-037` · `WP-045` |
+| 22 | `WP-034` · `WP-038` · `WP-046` |
+| 23 | `WP-035` · `WP-047` · `WP-049` |
+| 24 | `WP-050` · `WP-054` · `WP-055` |
+| 25 | `WP-056` · `WP-091` |
+| 26 | `WP-057` · `WP-059` · `WP-061` |
+| 27 | `WP-058` · `WP-064` · `WP-075` |
+| 28 | `WP-062` · `WP-081` |
+| 29 | `WP-063` · `WP-065` · `WP-066` · `WP-069` · `WP-082` |
+| 30 | `WP-067` · `WP-070` · `WP-083` · `WP-084` · `WP-096` |
+| 31 | `WP-068` · `WP-071` · `WP-097` · `WP-099` · `WP-100` |
+| 32 | `WP-072` · `WP-076` |
+| 33 | `WP-073` · `WP-077` · `WP-078` |
+| 34 | `WP-074` · `WP-079` · `WP-085` |
+| 35 | `WP-080` |
+| 36 | `WP-086` |
+| 37 | `WP-087` |
+| 38 | `WP-088` |
+| 39 | `WP-089` |
+| 40 | `WP-090` · `WP-093` |
+| 41 | `WP-095` |
+| 42 | `WP-104` |
+| 43 | `WP-105` |
+| 44 | `WP-106` |
+
+### What acceptance of this package releases
+
+- **Directly unblocked:** 3 — `WP-109` · `WP-110` · `WP-124`
+- **Transitively reachable:** **22 of 141 packages (16%)** cannot be accepted until this one is.
+
+The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
+
+### Position in the programme
+
+| | |
+|---|---|
+| Wave | W6 — Vertical integration |
+| Dependency depth | level **45** of 55 |
+| On the documented critical path | no |
+| Effort class | **L** |
+| Accountable owner | Knowledge Monitoring Lead |
+| Independent verifier | Assurance / Eval Office / Decision Owner |
+| Gates touched | `G10` |
+| Controls | `CTL-LIT-02` · `CTL-MOD-02` |
+
+### Acceptance scenarios that exercise this package
+
+`COMMISSIONED` requires every scenario below to pass **on the same release candidate**. A `SKIPPED` scenario on a `Critical` row does not count as a pass.
+
+| Scenario | Severity | What it must show |
+|---|---|---|
+| [ACC-04 — Retraction Impact](../12_ACCEPTANCE_SCENARIOS/ACC-04_retraction_impact.md) | Critical | The old manifest and publication are unchanged; the claim becomes `CHALLENGED`/impact-pending, and an `ImpactCase` plus supersession or review work is opened for the correct projects and owners. |
+| [ACC-31 — Superseded Publication](../12_ACCEPTANCE_SCENARIOS/ACC-31_superseded_publication.md) | High | The old package stays reachable but is clearly marked superseded; the new package references its predecessor and the reason, and consumers receive an impact event. |
+| [ACC-36 — Model Snapshot Drift](../12_ACCEPTANCE_SCENARIOS/ACC-36_model_snapshot_drift.md) | Critical | The profile moves to suspension or requalification, the router cache is invalidated and an `ImpactScan` opens for open tasks, runs and claims; there is no unsafe fallback. |
+
+<!-- /generated:dependency-analysis -->
 
 ## Preconditions — Definition of Ready
 
@@ -32,6 +185,89 @@ Source retractions and corrections, model snapshot revocations, dataset and poli
 - `DataClass`, `CodeTrust`, `ToolEffect` and the network/credential scope are classified.
 - Test fixtures, the environment, the rollback point and the acceptance measurement method are reachable.
 - An O/M/P person-day estimate is recorded and real capacity is reserved against it.
+
+## Execution requirements
+
+<!-- generated:execution-requirements — produced by scripts/expand_packages.py; do not edit inside this block -->
+
+### Inputs that must exist before the first task starts
+
+Each row is a deliverable of a dependency. Its **absence is a stop condition**, not a risk to manage: work started against a missing input is work that will be redone against the real one.
+
+| Required input | Comes from | Accepted? |
+|---|---|---|
+| `ImpactScan workflow` | `WP-037` | `python3 scripts/progress.py show WP-037` |
+| `Schedule registry` | `WP-037` | `python3 scripts/progress.py show WP-037` |
+| `ImpactCase service contract` | `WP-037` | `python3 scripts/progress.py show WP-037` |
+| `Supersession trigger` | `WP-037` | `python3 scripts/progress.py show WP-037` |
+| `Capability Registry service` | `WP-042` | `python3 scripts/progress.py show WP-042` |
+| `Profile state machine` | `WP-042` | `python3 scripts/progress.py show WP-042` |
+| `Eligibility API` | `WP-042` | `python3 scripts/progress.py show WP-042` |
+| `Expiry/revoke scheduler` | `WP-042` | `python3 scripts/progress.py show WP-042` |
+| `Qualification pipeline` | `WP-044` | `python3 scripts/progress.py show WP-044` |
+| `Admission dossier` | `WP-044` | `python3 scripts/progress.py show WP-044` |
+| `CapabilityProfile update` | `WP-044` | `python3 scripts/progress.py show WP-044` |
+| `Regression schedule` | `WP-044` | `python3 scripts/progress.py show WP-044` |
+| `Ejection procedure` | `WP-044` | `python3 scripts/progress.py show WP-044` |
+| `Representation ingest service` | `WP-063` | `python3 scripts/progress.py show WP-063` |
+| `License/status policy` | `WP-063` | `python3 scripts/progress.py show WP-063` |
+| `Status monitor` | `WP-063` | `python3 scripts/progress.py show WP-063` |
+| `Format locator metadata` | `WP-063` | `python3 scripts/progress.py show WP-063` |
+| `Retention mapping` | `WP-063` | `python3 scripts/progress.py show WP-063` |
+| `Claim Ledger service` | `WP-075` | `python3 scripts/progress.py show WP-075` |
+| `Migrations/API` | `WP-075` | `python3 scripts/progress.py show WP-075` |
+| `State transition engine` | `WP-075` | `python3 scripts/progress.py show WP-075` |
+| `Lineage queries` | `WP-075` | `python3 scripts/progress.py show WP-075` |
+| `Service runbook` | `WP-075` | `python3 scripts/progress.py show WP-075` |
+| `Claim state engine` | `WP-077` | `python3 scripts/progress.py show WP-077` |
+| `Dependency validator` | `WP-077` | `python3 scripts/progress.py show WP-077` |
+| `Assessment rubric` | `WP-077` | `python3 scripts/progress.py show WP-077` |
+| `Impact propagation worker` | `WP-077` | `python3 scripts/progress.py show WP-077` |
+| `Publication builder` | `WP-090` | `python3 scripts/progress.py show WP-090` |
+| `RO-Crate profile` | `WP-090` | `python3 scripts/progress.py show WP-090` |
+| `Signed publication package` | `WP-090` | `python3 scripts/progress.py show WP-090` |
+| `Release checklist` | `WP-090` | `python3 scripts/progress.py show WP-090` |
+| `Supersession record` | `WP-090` | `python3 scripts/progress.py show WP-090` |
+| `Claim Explorer` | `WP-095` | `python3 scripts/progress.py show WP-095` |
+| `Evidence preview` | `WP-095` | `python3 scripts/progress.py show WP-095` |
+| `Provenance graph` | `WP-095` | `python3 scripts/progress.py show WP-095` |
+| `Assessment/blocker panels` | `WP-095` | `python3 scripts/progress.py show WP-095` |
+| `Audit drill-down` | `WP-095` | `python3 scripts/progress.py show WP-095` |
+| `Decision/publish/monitor dossier` | `WP-106` | `python3 scripts/progress.py show WP-106` |
+| `DecisionRecord` | `WP-106` | `python3 scripts/progress.py show WP-106` |
+| `PublicationPackage` | `WP-106` | `python3 scripts/progress.py show WP-106` |
+| `ImpactCase/Supersession` | `WP-106` | `python3 scripts/progress.py show WP-106` |
+| `Audit export` | `WP-106` | `python3 scripts/progress.py show WP-106` |
+
+### Classification that must be recorded before work begins
+
+`00_PROGRAM/05_definition_of_ready_and_done.md` requires all four to be classified at refinement. They are not documentation: together they select the `ExecutionProfile`, and an unclassified package cannot be given one.
+
+| Field | Must state | Recorded at refinement |
+|---|---|---|
+| `DataClass` | D0–D4 for every input and output this package touches | ☐ |
+| `CodeTrust` | provenance of code this package executes | ☐ |
+| `ToolEffect` | T0–T5; whether any external side effect occurs | ☐ |
+| Network / credential scope | egress destinations and the identity used | ☐ |
+
+### Capacity that must be reserved
+
+- **Effort class `L`** — large — split into sub-packages if the estimate exceeds the wave.
+- A three-point `O`/`M`/`P` person-day estimate, with `PERT = (O + 4M + P) / 6`, is **mandatory** before this package is `READY`. It is not recorded here because it depends on real capacity at the time of refinement.
+- **Knowledge Monitoring Lead** carries the acceptance decision; **Assurance / Eval Office / Decision Owner** must verify independently of whoever implements.
+- One owner holds at most two `IN_PROGRESS` packages. At least 25% of assurance capacity stays reserved for correction and re-verification.
+
+### Evidence that must be producible before starting
+
+A package whose evidence cannot be produced is not `READY`, however complete its design is. Confirm each is reachable:
+
+- The target revision can be pinned, and every test result bound to it.
+- An environment manifest can be captured for the environment the tests run in.
+- The rollback or compensation path named in this document can actually be exercised.
+- A signed `EvidenceManifest` can be issued — today via the interim profile `airl-interim-v0.1` (`scripts/evidence_manifest.py`), which is **tamper-evident and not externally witnessed**.
+- The verifier can reach the evidence **without** seeing the producer's working trace.
+
+<!-- /generated:execution-requirements -->
 
 ## Implementation tasks
 
@@ -55,6 +291,8 @@ Source retractions and corrections, model snapshot revocations, dataset and poli
 
 ## Test and verification plan
 
+The outline below is the summary. The executable procedure — environment, data, coverage items, cases, execution log, incident and completion reports — is in [`WP-108_retraction_drift_vertical_slice.tests.md`](WP-108_retraction_drift_vertical_slice.tests.md).
+
 - ACC-04, 31 and 36
 - A duplicate trigger producing one case
 - A false-positive disposition
@@ -64,6 +302,8 @@ Source retractions and corrections, model snapshot revocations, dataset and poli
 - Telemetry correlation and audit-record integrity checks
 
 ## Acceptance criteria
+
+The programme-level conditions are below. The package-specific, measurable criteria — each with a threshold and the test case that decides it — are in [`WP-108_retraction_drift_vertical_slice.acceptance.md`](WP-108_retraction_drift_vertical_slice.acceptance.md), together with what this package still cannot establish.
 
 - [ ] Affected-set recall is 100% for the critical fixtures.
 - [ ] No existing object is silently mutated.

@@ -1,3 +1,20 @@
+---
+title: "ACC-48 — Wrong or Competing Skill Selected"
+aliases:
+  - "ACC-48"
+type: acceptance-scenario
+category: commissioning
+summary: "This scenario verifies the target architecture's fail-safe behaviour and its evidence production in the Wrong or Competing Skill Selected situation."
+source: "planning/commissioning/12_ACCEPTANCE_SCENARIOS/ACC-48_wrong_skill_selected.md"
+generated: true
+provenance: mirror_plan.py
+tags:
+  - aethrion/commissioning
+  - aethrion/acceptance-scenario
+  - aethrion/severity/high
+  - aethrion/phase/pre-go-live
+---
+
 # ACC-48 — Wrong or Competing Skill Selected
 
 ## Scenario card

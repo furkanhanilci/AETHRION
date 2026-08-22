@@ -49,7 +49,9 @@ WAVES = [
 
 def count(lo: int, hi: int) -> int:
     return len([p for p in PLAN.rglob("WP-*.md")
-                if re.match(r"^WP-(\d{3})_", p.name) and lo <= int(p.name[3:6]) <= hi])
+                if re.match(r"^WP-(\d{3})_", p.name)
+                and not p.name.endswith((".tests.md", ".acceptance.md"))
+                and lo <= int(p.name[3:6]) <= hi])
 
 
 def main() -> None:

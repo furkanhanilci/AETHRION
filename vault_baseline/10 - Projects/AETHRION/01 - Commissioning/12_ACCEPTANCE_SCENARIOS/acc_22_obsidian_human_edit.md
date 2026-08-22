@@ -1,3 +1,20 @@
+---
+title: "ACC-22 — Obsidian Human Edit Preservation"
+aliases:
+  - "ACC-22"
+type: acceptance-scenario
+category: commissioning
+summary: "This scenario verifies the target architecture's fail-safe behaviour and its evidence production in the Obsidian Human Edit Preservation situation."
+source: "planning/commissioning/12_ACCEPTANCE_SCENARIOS/ACC-22_obsidian_human_edit.md"
+generated: true
+provenance: mirror_plan.py
+tags:
+  - aethrion/commissioning
+  - aethrion/acceptance-scenario
+  - aethrion/severity/high
+  - aethrion/phase/pre-go-live
+---
+
 # ACC-22 — Obsidian Human Edit Preservation
 
 ## Scenario card

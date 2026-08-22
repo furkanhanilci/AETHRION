@@ -1,3 +1,16 @@
+---
+title: "Naming and Terminology"
+type: reference
+category: architecture
+status: WORKING
+summary: "The project is called AETHRION, and its official descriptor is Agentic Intelligence Research Layer."
+source: "docs/branding.md"
+generated: true
+provenance: mirror_vault.py
+tags:
+  - aethrion/architecture
+---
+
 > [!info] Generated view
 > This note is generated from `docs/branding.md` in the repository. Edit the
 > canonical file and regenerate; edits made here are overwritten.

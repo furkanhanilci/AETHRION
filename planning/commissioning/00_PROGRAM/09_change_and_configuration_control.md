@@ -116,7 +116,9 @@ An idea that *adds* to it belongs in
 seal on purpose: a V2 candidate inside the V1 baseline would move the finish line
 while appearing to be part of it.
 
-**The current baseline is v1.0.5.** v1.0.2 carried the project's name change to
+**The current baseline is v1.1.0.** It is the largest recorded change so far and it is a **refinement, not an addition**: the finish line — `00_PROGRAM/10_go_live_checklist.md`'s entry conditions — is unmoved, and no package, scenario, dependency or acceptance phase was added or removed. What changed is that every package is now **three documents** (§4): the card, its test procedures and its acceptance criteria. `00_PROGRAM/05` already required this — *a package is genuinely `READY` when its criteria name a number, a threshold or a command* — and the generic template criteria did not. The split also makes the verifier's packet handable, which `00_PROGRAM/06` requires and a criteria section living inside the producer's working card cannot be.
+
+**The previous baseline was v1.0.5.** v1.0.2 carried the project's name change to
 AETHRION across 29 files; v1.0.3 corrected three programme documents that claimed
 the evidence manifest is recorded in a public transparency log — it is not — and
 that still called finding C2 an open decision after ADR-001 decided it. It is the worked example of the rule above: the change

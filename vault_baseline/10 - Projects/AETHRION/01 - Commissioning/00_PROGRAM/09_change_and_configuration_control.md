@@ -1,3 +1,14 @@
+---
+title: "Change and Configuration Control"
+type: reference
+category: commissioning
+source: "planning/commissioning/00_PROGRAM/09_change_and_configuration_control.md"
+generated: true
+provenance: mirror_plan.py
+tags:
+  - aethrion/commissioning
+---
+
 # Change and Configuration Control
 
 ## Baselines
@@ -83,7 +94,7 @@ So:
 |---|---|---|
 | What was this package's status when the baseline froze? | The package document | Yes |
 | What is its status **now**? | `delivery/progress.json` | No |
-| What can be started today? | [`docs/READY.md`](../../../docs/READY.md), generated | No |
+| What can be started today? | [`docs/READY.md`](../../05 - Evidence/current_ready_queue.md), generated | No |
 
 `scripts/ready_queue.py` computes the ready queue: a package is ready when its
 status is `NOT_STARTED` and **every hard dependency is `ACCEPTED`**. Not
@@ -112,11 +123,13 @@ prohibited use of the seal.
 the sealed baseline. An idea that *corrects* the plan — a wrong number, a false
 claim, a broken reference — is a recorded change and follows the procedure above.
 An idea that *adds* to it belongs in
-[`docs/V2_CANDIDATES.md`](../../../docs/V2_CANDIDATES.md), which sits outside the
+[`docs/V2_CANDIDATES.md`](../../04 - Architecture/aethrion_v2_candidates.md), which sits outside the
 seal on purpose: a V2 candidate inside the V1 baseline would move the finish line
 while appearing to be part of it.
 
-**The current baseline is v1.0.5.** v1.0.2 carried the project's name change to
+**The current baseline is v1.1.0.** It is the largest recorded change so far and it is a **refinement, not an addition**: the finish line — `00_PROGRAM/10_go_live_checklist.md`'s entry conditions — is unmoved, and no package, scenario, dependency or acceptance phase was added or removed. What changed is that every package is now **three documents** (§4): the card, its test procedures and its acceptance criteria. `00_PROGRAM/05` already required this — *a package is genuinely `READY` when its criteria name a number, a threshold or a command* — and the generic template criteria did not. The split also makes the verifier's packet handable, which `00_PROGRAM/06` requires and a criteria section living inside the producer's working card cannot be.
+
+**The previous baseline was v1.0.5.** v1.0.2 carried the project's name change to
 AETHRION across 29 files; v1.0.3 corrected three programme documents that claimed
 the evidence manifest is recorded in a public transparency log — it is not — and
 that still called finding C2 an open decision after ADR-001 decided it. It is the worked example of the rule above: the change

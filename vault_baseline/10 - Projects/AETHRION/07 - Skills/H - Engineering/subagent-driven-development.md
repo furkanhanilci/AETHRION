@@ -1,3 +1,19 @@
+---
+title: "Subagent-Driven Development"
+aliases:
+  - "subagent-driven-development"
+type: skill
+category: skill
+status: WORKING
+source: "skills/subagent-driven-development/SKILL.md"
+generated: true
+provenance: mirror_vault.py
+tags:
+  - aethrion/skill
+  - aethrion/skill-family/engineering
+  - aethrion/skill-origin/superpowers
+---
+
 > [!info] Generated view
 > This note is generated from `skills/subagent-driven-development/SKILL.md` in the repository. Edit the
 > canonical file and regenerate; edits made here are overwritten.

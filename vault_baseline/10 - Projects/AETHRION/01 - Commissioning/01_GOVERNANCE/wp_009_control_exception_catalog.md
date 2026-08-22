@@ -1,3 +1,26 @@
+---
+title: "WP-009 — Control Catalogue, Exceptions and Non-Waivable Blockers"
+aliases:
+  - "WP-009"
+  - "WP-009 — Control Catalogue, Exceptions and Non-Waivable Blockers"
+type: work-package
+category: commissioning
+status: NOT_STARTED
+summary: "Every control becomes a registry object carrying an owner, an enforcement point, its evidence, its test frequency and its exception lifecycle."
+source: "planning/commissioning/01_GOVERNANCE/WP-009_control_exception_catalog.md"
+generated: true
+provenance: mirror_plan.py
+tags:
+  - aethrion/commissioning
+  - aethrion/work-package
+  - aethrion/workstream/01-governance
+  - aethrion/wave/w0
+  - aethrion/effort/m
+  - aethrion/gate/g0-g10
+  - aethrion/gate/platform
+  - aethrion/state/not-started
+---
+
 # WP-009 — Control Catalogue, Exceptions and Non-Waivable Blockers
 
 ## Package card
@@ -15,14 +38,132 @@
 | Related acceptance scenarios | ACC-24, ACC-26 |
 | Status at baseline | `NOT_STARTED` |
 
+## Package documents
+
+This package is described by three documents. They are separate because they have three readers: this card is read at refinement by someone deciding whether the package can start; the test procedures are read months later by whoever runs them; the acceptance criteria are read by an **independent verifier** who must reach a verdict without having done the work — and `00_PROGRAM/06` requires that verifier to work from a packet they can be handed.
+
+| Document | Answers | Read by |
+|---|---|---|
+| **This card** | What is this, what does it depend on, what does it release? | Refinement, planning |
+| [Test procedures](wp_009_control_exception_catalog.tests.md) | How is it tested, in what environment, with what data, and what counts as a complete run? | The implementer and the tester |
+| [Acceptance criteria](wp_009_control_exception_catalog.acceptance.md) | What must hold for this to be `ACCEPTED`, and what does it still not establish? | The independent verifier |
+
 ## Purpose and expected outcome
 
 Every control becomes a registry object carrying an owner, an enforcement point, its evidence, its test frequency and its exception lifecycle. A control that produces no evidence is treated as a failing control.
+
+
+## Analysis
+
+### What this package actually decides
+
+That a control which produces no evidence is a **failing** control, not an
+unmeasured one. The purpose statement says it outright, and it is the inversion
+that makes a control registry worth building: the default state of a control is
+failing, and evidence is what moves it to passing.
+
+Most control registries invert this. They list controls as implemented, and
+absence of evidence reads as absence of a problem. Under that default a registry
+grows monotonically and never tells anyone anything.
+
+### Why exceptions get a lifecycle rather than a field
+
+T03 requires request, approval, expiry and **auto-revoke** semantics. An exception
+without auto-revoke is a permanent change to policy that was approved as a
+temporary one — which is how control regimes decay. The auto-revoke is the
+difference between an exception register and a second, undocumented policy.
+
+`00_PROGRAM/00` rule 7 already requires a `TemporaryControlRecord` with a name, an
+owner, an expiry date and a removal criterion for any temporary manual step. This
+package generalises that to every exception, and must keep the removal criterion
+— an expiry alone lets an exception be renewed indefinitely without anyone
+re-asking whether it is still needed.
+
+### The mapping that makes controls testable
+
+T02's control → policy → test → evidence chain is the package's spine. Each link
+answers a different question: policy says what is enforced, test says how we know,
+evidence says what was observed. A control missing any link cannot reach a
+verdict, and the registry must **say** so rather than leaving the row blank.
+
+### Where this package binds to the rest of the programme
+
+The non-waivable blocker list (T04) is shared with WP-008. Two documents holding
+the same list is a canonical-ownership defect of exactly the kind `PR-03`
+describes — so one of them must own it and the other must reference it. This
+package is the natural owner, because a blocker is a control, and WP-008 consumes
+it. That decision should be recorded explicitly rather than left to whichever was
+written last.
+
+### The failure mode
+
+Control-effectiveness review frequency (T05) set uniformly. A quarterly cadence
+applied to every control means the cheap ones are under-run and the expensive ones
+are theatre. Frequency should follow consequence: a control whose failure is
+silent needs a shorter interval than one whose failure is loud.
 
 ## Out of scope
 
 - The internal implementation of any dependent package
 - Production cutover and final operational approval
+
+## Dependency and prerequisite analysis
+
+<!-- generated:dependency-analysis — produced by scripts/expand_packages.py; do not edit inside this block -->
+
+### Direct hard dependencies
+
+4, each of which must be `ACCEPTED` — not `TECH_COMPLETE` — before this package is `READY`.
+
+| Package | Supplies to this package |
+|---|---|
+| [WP-005 — Research Risk and Assurance Profile](../01_GOVERNANCE/wp_005_risk_assurance_profile.md) | `RiskProfile schema semantics` · `AssuranceClass decision tables` · `Promotion rules` · `Worked examples` |
+| [WP-006 — ExecutionProfile and Route Policy](../01_GOVERNANCE/wp_006_execution_profile.md) | `ExecutionProfile semantics` · `Route/control decision tables` · `Enforcement map` · `Negative examples` |
+| [WP-007 — IndependenceProfile and Separation-of-Duties Policy](../01_GOVERNANCE/wp_007_independence_profile.md) | `IndependenceProfile rubric` · `Eligibility matrix` · `Conflict-of-interest declaration` · `Violation response` |
+| [WP-008 — G0–G10 Gate and Assurance Policy](../01_GOVERNANCE/wp_008_gate_policy_g0_g10.md) | `Gate Policy v1` · `Gate artifact matrix` · `Reopen/return transition table` · `Gate owner matrix` |
+
+### Full prerequisite closure
+
+**8 of 141 packages (6%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
+
+| Level | Packages |
+|---:|---|
+| 1 | `WP-001` |
+| 2 | `WP-002` |
+| 3 | `WP-003` · `WP-005` · `WP-006` |
+| 4 | `WP-004` · `WP-007` |
+| 5 | `WP-008` |
+
+### What acceptance of this package releases
+
+- **Directly unblocked:** 5 — `WP-010` · `WP-016` · `WP-056` · `WP-109` · `WP-123`
+- **Transitively reachable:** **131 of 141 packages (93%)** cannot be accepted until this one is.
+
+The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
+
+### Position in the programme
+
+| | |
+|---|---|
+| Wave | W0 — Programme lock |
+| Dependency depth | level **6** of 55 |
+| On the documented critical path | no |
+| Effort class | **M** |
+| Accountable owner | Safety & Governance Owner |
+| Independent verifier | Internal Audit |
+| Gates touched | `G0–G10` · `Platform` |
+| Controls | `CTL-GOV-03` |
+
+### Acceptance scenarios that exercise this package
+
+`COMMISSIONED` requires every scenario below to pass **on the same release candidate**. A `SKIPPED` scenario on a `Critical` row does not count as a pass.
+
+| Scenario | Severity | What it must show |
+|---|---|---|
+| [ACC-24 — Policy Bundle Rollback](../12_ACCEPTANCE_SCENARIOS/acc_24_policy_bundle_rollback.md) | High | The previous bundle is restored atomically, decision logs and bundle digests are preserved, open tasks are re-evaluated and no unsafe temporary allow is granted. |
+| [ACC-26 — Approval, Delegation and Exception Expiry](../12_ACCEPTANCE_SCENARIOS/acc_26_approval_expiry.md) | Critical | The authority is auto-revoked; new operations are denied and running tasks pause or are contained according to policy. There is no automatic extension or re-approval. |
+
+<!-- /generated:dependency-analysis -->
 
 ## Preconditions — Definition of Ready
 
@@ -32,6 +173,63 @@ Every control becomes a registry object carrying an owner, an enforcement point,
 - `DataClass`, `CodeTrust`, `ToolEffect` and the network/credential scope are classified.
 - Test fixtures, the environment, the rollback point and the acceptance measurement method are reachable.
 - An O/M/P person-day estimate is recorded and real capacity is reserved against it.
+
+## Execution requirements
+
+<!-- generated:execution-requirements — produced by scripts/expand_packages.py; do not edit inside this block -->
+
+### Inputs that must exist before the first task starts
+
+Each row is a deliverable of a dependency. Its **absence is a stop condition**, not a risk to manage: work started against a missing input is work that will be redone against the real one.
+
+| Required input | Comes from | Accepted? |
+|---|---|---|
+| `RiskProfile schema semantics` | `WP-005` | `python3 scripts/progress.py show WP-005` |
+| `AssuranceClass decision tables` | `WP-005` | `python3 scripts/progress.py show WP-005` |
+| `Promotion rules` | `WP-005` | `python3 scripts/progress.py show WP-005` |
+| `Worked examples` | `WP-005` | `python3 scripts/progress.py show WP-005` |
+| `ExecutionProfile semantics` | `WP-006` | `python3 scripts/progress.py show WP-006` |
+| `Route/control decision tables` | `WP-006` | `python3 scripts/progress.py show WP-006` |
+| `Enforcement map` | `WP-006` | `python3 scripts/progress.py show WP-006` |
+| `Negative examples` | `WP-006` | `python3 scripts/progress.py show WP-006` |
+| `IndependenceProfile rubric` | `WP-007` | `python3 scripts/progress.py show WP-007` |
+| `Eligibility matrix` | `WP-007` | `python3 scripts/progress.py show WP-007` |
+| `Conflict-of-interest declaration` | `WP-007` | `python3 scripts/progress.py show WP-007` |
+| `Violation response` | `WP-007` | `python3 scripts/progress.py show WP-007` |
+| `Gate Policy v1` | `WP-008` | `python3 scripts/progress.py show WP-008` |
+| `Gate artifact matrix` | `WP-008` | `python3 scripts/progress.py show WP-008` |
+| `Reopen/return transition table` | `WP-008` | `python3 scripts/progress.py show WP-008` |
+| `Gate owner matrix` | `WP-008` | `python3 scripts/progress.py show WP-008` |
+
+### Classification that must be recorded before work begins
+
+`00_PROGRAM/05_definition_of_ready_and_done.md` requires all four to be classified at refinement. They are not documentation: together they select the `ExecutionProfile`, and an unclassified package cannot be given one.
+
+| Field | Must state | Recorded at refinement |
+|---|---|---|
+| `DataClass` | D0–D4 for every input and output this package touches | ☐ |
+| `CodeTrust` | provenance of code this package executes | ☐ |
+| `ToolEffect` | T0–T5; whether any external side effect occurs | ☐ |
+| Network / credential scope | egress destinations and the identity used | ☐ |
+
+### Capacity that must be reserved
+
+- **Effort class `M`** — medium — a dedicated integration window.
+- A three-point `O`/`M`/`P` person-day estimate, with `PERT = (O + 4M + P) / 6`, is **mandatory** before this package is `READY`. It is not recorded here because it depends on real capacity at the time of refinement.
+- **Safety & Governance Owner** carries the acceptance decision; **Internal Audit** must verify independently of whoever implements.
+- One owner holds at most two `IN_PROGRESS` packages. At least 25% of assurance capacity stays reserved for correction and re-verification.
+
+### Evidence that must be producible before starting
+
+A package whose evidence cannot be produced is not `READY`, however complete its design is. Confirm each is reachable:
+
+- The target revision can be pinned, and every test result bound to it.
+- An environment manifest can be captured for the environment the tests run in.
+- The rollback or compensation path named in this document can actually be exercised.
+- A signed `EvidenceManifest` can be issued — today via the interim profile `airl-interim-v0.1` (`scripts/evidence_manifest.py`), which is **tamper-evident and not externally witnessed**.
+- The verifier can reach the evidence **without** seeing the producer's working trace.
+
+<!-- /generated:execution-requirements -->
 
 ## Implementation tasks
 
@@ -54,6 +252,8 @@ Every control becomes a registry object carrying an owner, an enforcement point,
 
 ## Test and verification plan
 
+The outline below is the summary. The executable procedure — environment, data, coverage items, cases, execution log, incident and completion reports — is in [`WP-009_control_exception_catalog.tests.md`](wp_009_control_exception_catalog.tests.md).
+
 - An auto-revoke test for expired exceptions
 - A negative test attempting an exception against a non-waivable blocker
 - A failure test for a control that stops producing evidence
@@ -61,7 +261,11 @@ Every control becomes a registry object carrying an owner, an enforcement point,
 - Producer/consumer contract compatibility tests on every affected interface
 - Telemetry correlation and audit-record integrity checks
 
+
+
 ## Acceptance criteria
+
+The programme-level conditions are below. The package-specific, measurable criteria — each with a threshold and the test case that decides it — are in [`WP-009_control_exception_catalog.acceptance.md`](wp_009_control_exception_catalog.acceptance.md), together with what this package still cannot establish.
 
 - [ ] Every control has an enforcement point and an evidence artifact.
 - [ ] Every exception is time-bound and scope-bound.
@@ -71,6 +275,8 @@ Every control becomes a registry object carrying an owner, an enforcement point,
 - [ ] The independent verifier has accepted the evidence package.
 - [ ] Rollback/compensation behaviour has been exercised and audited.
 - [ ] The related dashboard, alert, audit query or integrity query has produced working evidence.
+
+
 
 ## Acceptance evidence package
 

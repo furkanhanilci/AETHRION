@@ -1,3 +1,19 @@
+---
+title: "Writing Analysis Plans"
+aliases:
+  - "writing-analysis-plans"
+type: skill
+category: skill
+status: WORKING
+source: "skills/writing-analysis-plans/SKILL.md"
+generated: true
+provenance: mirror_vault.py
+tags:
+  - aethrion/skill
+  - aethrion/skill-family/scientific-research
+  - aethrion/skill-origin/airl-native
+---
+
 > [!info] Generated view
 > This note is generated from `skills/writing-analysis-plans/SKILL.md` in the repository. Edit the
 > canonical file and regenerate; edits made here are overwritten.

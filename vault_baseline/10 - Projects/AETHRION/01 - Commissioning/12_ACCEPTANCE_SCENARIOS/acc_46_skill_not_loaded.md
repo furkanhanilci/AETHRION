@@ -1,3 +1,20 @@
+---
+title: "ACC-46 — Task Runs With No Skill Loaded"
+aliases:
+  - "ACC-46"
+type: acceptance-scenario
+category: commissioning
+summary: "This scenario verifies the target architecture's fail-safe behaviour and its evidence production in the Task Runs With No Skill Loaded situation."
+source: "planning/commissioning/12_ACCEPTANCE_SCENARIOS/ACC-46_skill_not_loaded.md"
+generated: true
+provenance: mirror_plan.py
+tags:
+  - aethrion/commissioning
+  - aethrion/acceptance-scenario
+  - aethrion/severity/critical
+  - aethrion/phase/pre-go-live
+---
+
 # ACC-46 — Task Runs With No Skill Loaded
 
 ## Scenario card

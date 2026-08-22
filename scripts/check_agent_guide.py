@@ -67,7 +67,14 @@ def counts() -> dict[str, int]:
     seal = plan / "00_PROGRAM" / "SHA256SUMS.txt"
     return {
         "sealed": len(seal.read_text(encoding="utf-8").strip().splitlines()),
-        "packages": len([p for p in plan.rglob("WP-*.md") if re.match(r"^WP-\d{3}_", p.name)]),
+        # A package is its card. Its `.tests.md` and `.acceptance.md` companions
+        # are the same package documented for two other readers, not two more
+        # packages — see planning/commissioning/README.md §4.
+        "packages": len([p for p in plan.rglob("WP-*.md")
+                         if re.match(r"^WP-\d{3}_", p.name)
+                         and not p.name.endswith((".tests.md", ".acceptance.md"))]),
+        "package_companions": len([p for p in plan.rglob("WP-*.md")
+                                   if p.name.endswith((".tests.md", ".acceptance.md"))]),
         "scenarios": len(list((plan / "12_ACCEPTANCE_SCENARIOS").glob("ACC-*.md"))),
         "skills": len([d for d in (ROOT / "skills").iterdir()
                        if d.is_dir() and (d / "SKILL.md").exists()]),

@@ -1,3 +1,20 @@
+---
+title: "ACC-25 — Human Approval Forgery"
+aliases:
+  - "ACC-25"
+type: acceptance-scenario
+category: commissioning
+summary: "This scenario verifies the target architecture's fail-safe behaviour and its evidence production in the Human Approval Forgery situation."
+source: "planning/commissioning/12_ACCEPTANCE_SCENARIOS/ACC-25_human_approval_forgery.md"
+generated: true
+provenance: mirror_plan.py
+tags:
+  - aethrion/commissioning
+  - aethrion/acceptance-scenario
+  - aethrion/severity/critical
+  - aethrion/phase/pre-go-live
+---
+
 # ACC-25 — Human Approval Forgery
 
 ## Scenario card

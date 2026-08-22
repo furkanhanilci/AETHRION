@@ -1,3 +1,26 @@
+---
+title: "WP-107 — Engineering Vertical Slice — Spec, Worktree, Signed Release"
+aliases:
+  - "WP-107"
+  - "WP-107 — Engineering Vertical Slice — Spec, Worktree, Signed Release"
+type: work-package
+category: commissioning
+status: NOT_STARTED
+summary: "One standard and one critical code change pass through specification, reality check, isolated worktree, deterministic verification, blind review, reproduction, architecture gate and signed release."
+source: "planning/commissioning/10_INTEGRATION_CUTOVER/WP-107_engineering_vertical_slice.md"
+generated: true
+provenance: mirror_plan.py
+tags:
+  - aethrion/commissioning
+  - aethrion/work-package
+  - aethrion/workstream/10-integration-cutover
+  - aethrion/wave/w6
+  - aethrion/effort/l
+  - aethrion/gate/engineering
+  - aethrion/gate/g5-g9
+  - aethrion/state/not-started
+---
+
 # WP-107 — Engineering Vertical Slice — Spec, Worktree, Signed Release
 
 ## Package card
@@ -15,14 +38,174 @@
 | Related acceptance scenarios | ACC-06, ACC-17, ACC-23 |
 | Status at baseline | `NOT_STARTED` |
 
+## Package documents
+
+This package is described by three documents. They are separate because they have three readers: this card is read at refinement by someone deciding whether the package can start; the test procedures are read months later by whoever runs them; the acceptance criteria are read by an **independent verifier** who must reach a verdict without having done the work — and `00_PROGRAM/06` requires that verifier to work from a packet they can be handed.
+
+| Document | Answers | Read by |
+|---|---|---|
+| **This card** | What is this, what does it depend on, what does it release? | Refinement, planning |
+| [Test procedures](wp_107_engineering_vertical_slice.tests.md) | How is it tested, in what environment, with what data, and what counts as a complete run? | The implementer and the tester |
+| [Acceptance criteria](wp_107_engineering_vertical_slice.acceptance.md) | What must hold for this to be `ACCEPTED`, and what does it still not establish? | The independent verifier |
+
 ## Purpose and expected outcome
 
 One standard and one critical code change pass through specification, reality check, isolated worktree, deterministic verification, blind review, reproduction, architecture gate and signed release.
+
+
+## Analysis
+### What this package actually decides
+
+That the engineering path is governed the same way the research path is. A code
+change passes specification, isolated worktree, deterministic verification, blind
+review, reproduction, an architecture gate and a signed release.
+
+The symmetry is the point: an agent writing code and an agent writing a claim are
+the same risk, and this repository already applies the research discipline to its
+own engineering — `skills/` carries eleven vendored engineering skills alongside
+the thirty-one research ones, over one shared discipline core.
+
+### The plan reality check is the step most systems skip (T02)
+
+A specification that assumes a function exists, an API that behaves differently, a
+file that moved. Checking the plan against the repository **before** implementation
+is cheap; discovering it during review is not, and discovering it after merge is
+worse.
+
+### The protected-path check binds to WP-023 (T02)
+
+The agent's worktree is pinned to a commit with an allowed-path manifest. A change
+that needs to touch a protected path is a change that needs a different
+authorisation, and finding that out at the worktree boundary is the correct time.
+
+### Blind review of a diff has a specific difficulty (T04)
+
+A diff carries authorship signals a prose artifact does not — style, comment
+habits, commit structure. WP-086's redaction is harder here and the leak detector
+matters more.
+
+### The HIGH/BLOCKER correction loop is where this becomes real (T05)
+
+A review that produces findings and then merges anyway has demonstrated a review
+process rather than a control. The loop — finding, correction, **re-freeze**,
+re-review — is what makes the finding binding, and `receiving-code-review` is the
+skill that governs how a producer responds.
+
+### Two risk classes, because they diverge (T01)
+
+A B-class change and a C-class change should take visibly different paths. If they
+do not, the risk classification is decoration.
 
 ## Out of scope
 
 - The internal implementation of any dependent package
 - Production cutover and final operational approval
+
+## Dependency and prerequisite analysis
+
+<!-- generated:dependency-analysis — produced by scripts/expand_packages.py; do not edit inside this block -->
+
+### Direct hard dependencies
+
+16, each of which must be `ACCEPTED` — not `TECH_COMPLETE` — before this package is `READY`.
+
+| Package | Supplies to this package |
+|---|---|
+| [WP-023 — Git, Worktree and Protected-Path Policy](../03_FOUNDATION/wp_023_git_worktree_branch_policy.md) | `Git policy` · `Worktree controller contract` · `Protected-path rules` · `Freeze procedure` |
+| [WP-024 — CI Foundation and Deterministic Quality Gates](../03_FOUNDATION/wp_024_ci_quality_gates.md) | `CI pipelines` · `Verification summary schema adapter` · `Test ownership registry` · `Flake policy` |
+| [WP-027 — Git, OCI Registry and Build Provenance Foundation](../03_FOUNDATION/wp_027_git_oci_supply_chain.md) | `OCI registry` · `Build/promotion pipeline` · `SBOM/provenance artifacts` · `Signature policy seed` |
+| [WP-032 — ProjectLifecycle Workflow Skeleton](../04_CONTROL_EVENT/wp_032_project_lifecycle_skeleton.md) | `ProjectWorkflow implementation` · `State transition table` · `Workflow API` · `Replay fixtures` |
+| [WP-045 — Policy Router and Minimum-Sufficient Model Package](../05_MODEL_AGENT_TOOL/wp_045_policy_router_budget.md) | `Policy Router` · `RouteDecision service` · `Fan-out/budget rules` · `Routing conformance suite` |
+| [WP-047 — Role and Skill Registries, and the Task Compiler](../05_MODEL_AGENT_TOOL/wp_047_role_bundle_registry.md) | `Role Bundle Registry` · `Core role bundles` · `Bundle conformance tests` |
+| [WP-048 — Harness Runtime Adapters: Claude Code, Codex, OpenCode, Hermes and Direct Worker](../05_MODEL_AGENT_TOOL/wp_048_codex_opencode_adapters.md) | `Runtime adapter SDK` · `Codex adapter` · `OpenCode adapter` · `Direct worker adapter` |
+| [WP-049 — Tool Registry and Tool Broker Core](../05_MODEL_AGENT_TOOL/wp_049_tool_registry_broker.md) | `Tool Registry` · `Tool Broker service` · `Invocation/Receipt persistence` · `Connector SDK` |
+| [WP-054 — gVisor Sandbox and Execution Cell Lifecycle](../06_EXECUTION_SECURITY/wp_054_gvisor_sandbox.md) | `Sandbox profiles` · `Execution Cell controller` · `SandboxAttestation` · `Capture/destroy workflow` |
+| [WP-059 — Supply-Chain Admission, Sigstore and SLSA Policy](../06_EXECUTION_SECURITY/wp_059_supply_chain_admission.md) | `Admission policies` · `Trust root management` · `CVE/exception workflow` · `Revocation/impact runbook` |
+| [WP-082 — Run Registry and MLflow Lineage Integration](../08_EVIDENCE_ASSURANCE/wp_082_run_registry_mlflow.md) | `Run Registry` · `Preflight validator` · `MLflow integration` · `Run lineage queries` |
+| [WP-086 — Frozen and Blind Review Package Builder](../08_EVIDENCE_ASSURANCE/wp_086_frozen_review_package.md) | `Review Package Builder` · `Blind/redaction rules` · `Package manifests` · `Leak detection tests` |
+| [WP-087 — Mechanical Verification Engine](../08_EVIDENCE_ASSURANCE/wp_087_mechanical_verifier.md) | `Verification Engine` · `Validator catalog` · `VerificationRecord service` · `Regression fixtures` |
+| [WP-089 — DisagreementCase and Evidence-Weighted Arbitration](../08_EVIDENCE_ASSURANCE/wp_089_disagreement_arbitration.md) | `Disagreement service` · `Arbitration rubric` · `Disposition workflow` · `Appeal/decision integration` |
+| [WP-090 — PublicationPackage, RO-Crate and Provenance Export](../08_EVIDENCE_ASSURANCE/wp_090_publication_package.md) | `Publication builder` · `RO-Crate profile` · `Signed publication package` · `Release checklist` |
+| [WP-096 — OpenTelemetry End-to-End Correlation Spine](../09_EXPERIENCE_OBSERVABILITY/wp_096_otel_correlation.md) | `OTel platform` · `Semantic conventions` · `Instrumentation libraries` · `Trace completeness dashboard` |
+
+### Full prerequisite closure
+
+**84 of 141 packages (60%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
+
+| Level | Packages |
+|---:|---|
+| 1 | `WP-001` |
+| 2 | `WP-002` |
+| 3 | `WP-003` · `WP-005` · `WP-006` |
+| 4 | `WP-004` · `WP-007` |
+| 5 | `WP-008` |
+| 6 | `WP-009` |
+| 7 | `WP-010` |
+| 8 | `WP-011` |
+| 9 | `WP-012` · `WP-013` · `WP-016` |
+| 10 | `WP-014` |
+| 11 | `WP-015` · `WP-017` |
+| 12 | `WP-018` |
+| 13 | `WP-019` |
+| 14 | `WP-020` |
+| 15 | `WP-021` · `WP-022` |
+| 16 | `WP-023` · `WP-025` · `WP-026` · `WP-051` |
+| 17 | `WP-024` · `WP-028` · `WP-029` · `WP-041` |
+| 18 | `WP-027` · `WP-030` · `WP-042` |
+| 19 | `WP-031` · `WP-043` · `WP-052` |
+| 20 | `WP-032` · `WP-044` · `WP-053` |
+| 21 | `WP-033` · `WP-037` · `WP-045` |
+| 22 | `WP-034` · `WP-046` |
+| 23 | `WP-035` · `WP-047` · `WP-049` |
+| 24 | `WP-048` · `WP-050` · `WP-054` · `WP-055` |
+| 25 | `WP-056` |
+| 26 | `WP-057` · `WP-059` · `WP-061` |
+| 27 | `WP-058` · `WP-064` · `WP-075` |
+| 28 | `WP-062` · `WP-081` |
+| 29 | `WP-063` · `WP-065` · `WP-066` · `WP-069` · `WP-082` |
+| 30 | `WP-067` · `WP-070` · `WP-083` · `WP-084` · `WP-096` |
+| 31 | `WP-068` · `WP-071` |
+| 32 | `WP-072` · `WP-076` |
+| 33 | `WP-077` · `WP-078` |
+| 34 | `WP-079` · `WP-085` |
+| 35 | `WP-080` |
+| 36 | `WP-086` |
+| 37 | `WP-087` |
+| 38 | `WP-088` |
+| 39 | `WP-089` |
+| 40 | `WP-090` |
+
+### What acceptance of this package releases
+
+- **Directly unblocked:** 1 — `WP-109`
+- **Transitively reachable:** **22 of 141 packages (16%)** cannot be accepted until this one is.
+
+The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
+
+### Position in the programme
+
+| | |
+|---|---|
+| Wave | W6 — Vertical integration |
+| Dependency depth | level **41** of 55 |
+| On the documented critical path | no |
+| Effort class | **L** |
+| Accountable owner | Engineering Lead |
+| Independent verifier | Independent Technical Reviewer / Reproducer |
+| Gates touched | `Engineering` · `G5–G9` |
+| Controls | `CTL-GOV-02` · `CTL-SUP-01` |
+
+### Acceptance scenarios that exercise this package
+
+`COMMISSIONED` requires every scenario below to pass **on the same release candidate**. A `SKIPPED` scenario on a `Critical` row does not count as a pass.
+
+| Scenario | Severity | What it must show |
+|---|---|---|
+| [ACC-06 — Planner Self-Approval Attempt](../12_ACCEPTANCE_SCENARIOS/acc_06_plan_self_approval.md) | Critical | The assignment is rejected by policy; the gate becomes `BLOCKED` or waits for a suitable independent reviewer, and the violation attempt is audited. |
+| [ACC-17 — Unsigned or Mutable Image](../12_ACCEPTANCE_SCENARIOS/acc_17_unsigned_image.md) | Critical | The pod is not created; the signature, provenance and digest policy denies it and produces audit and alert records. A signed-digest counter-example passes. |
+| [ACC-23 — Artifact Overwrite Attempt](../12_ACCEPTANCE_SCENARIOS/acc_23_artifact_overwrite.md) | Critical | The overwrite is rejected; the new bytes can only be written as a new content address and version, and existing references are unchanged. |
+
+<!-- /generated:dependency-analysis -->
 
 ## Preconditions — Definition of Ready
 
@@ -32,6 +215,115 @@ One standard and one critical code change pass through specification, reality ch
 - `DataClass`, `CodeTrust`, `ToolEffect` and the network/credential scope are classified.
 - Test fixtures, the environment, the rollback point and the acceptance measurement method are reachable.
 - An O/M/P person-day estimate is recorded and real capacity is reserved against it.
+
+## Execution requirements
+
+<!-- generated:execution-requirements — produced by scripts/expand_packages.py; do not edit inside this block -->
+
+### Inputs that must exist before the first task starts
+
+Each row is a deliverable of a dependency. Its **absence is a stop condition**, not a risk to manage: work started against a missing input is work that will be redone against the real one.
+
+| Required input | Comes from | Accepted? |
+|---|---|---|
+| `Git policy` | `WP-023` | `python3 scripts/progress.py show WP-023` |
+| `Worktree controller contract` | `WP-023` | `python3 scripts/progress.py show WP-023` |
+| `Protected-path rules` | `WP-023` | `python3 scripts/progress.py show WP-023` |
+| `Freeze procedure` | `WP-023` | `python3 scripts/progress.py show WP-023` |
+| `CI pipelines` | `WP-024` | `python3 scripts/progress.py show WP-024` |
+| `Verification summary schema adapter` | `WP-024` | `python3 scripts/progress.py show WP-024` |
+| `Test ownership registry` | `WP-024` | `python3 scripts/progress.py show WP-024` |
+| `Flake policy` | `WP-024` | `python3 scripts/progress.py show WP-024` |
+| `OCI registry` | `WP-027` | `python3 scripts/progress.py show WP-027` |
+| `Build/promotion pipeline` | `WP-027` | `python3 scripts/progress.py show WP-027` |
+| `SBOM/provenance artifacts` | `WP-027` | `python3 scripts/progress.py show WP-027` |
+| `Signature policy seed` | `WP-027` | `python3 scripts/progress.py show WP-027` |
+| `ProjectWorkflow implementation` | `WP-032` | `python3 scripts/progress.py show WP-032` |
+| `State transition table` | `WP-032` | `python3 scripts/progress.py show WP-032` |
+| `Workflow API` | `WP-032` | `python3 scripts/progress.py show WP-032` |
+| `Replay fixtures` | `WP-032` | `python3 scripts/progress.py show WP-032` |
+| `Policy Router` | `WP-045` | `python3 scripts/progress.py show WP-045` |
+| `RouteDecision service` | `WP-045` | `python3 scripts/progress.py show WP-045` |
+| `Fan-out/budget rules` | `WP-045` | `python3 scripts/progress.py show WP-045` |
+| `Routing conformance suite` | `WP-045` | `python3 scripts/progress.py show WP-045` |
+| `Role Bundle Registry` | `WP-047` | `python3 scripts/progress.py show WP-047` |
+| `Core role bundles` | `WP-047` | `python3 scripts/progress.py show WP-047` |
+| `Bundle conformance tests` | `WP-047` | `python3 scripts/progress.py show WP-047` |
+| `Runtime adapter SDK` | `WP-048` | `python3 scripts/progress.py show WP-048` |
+| `Codex adapter` | `WP-048` | `python3 scripts/progress.py show WP-048` |
+| `OpenCode adapter` | `WP-048` | `python3 scripts/progress.py show WP-048` |
+| `Direct worker adapter` | `WP-048` | `python3 scripts/progress.py show WP-048` |
+| `Conformance report` | `WP-048` | `python3 scripts/progress.py show WP-048` |
+| `Tool Registry` | `WP-049` | `python3 scripts/progress.py show WP-049` |
+| `Tool Broker service` | `WP-049` | `python3 scripts/progress.py show WP-049` |
+| `Invocation/Receipt persistence` | `WP-049` | `python3 scripts/progress.py show WP-049` |
+| `Connector SDK` | `WP-049` | `python3 scripts/progress.py show WP-049` |
+| `Audit events` | `WP-049` | `python3 scripts/progress.py show WP-049` |
+| `Sandbox profiles` | `WP-054` | `python3 scripts/progress.py show WP-054` |
+| `Execution Cell controller` | `WP-054` | `python3 scripts/progress.py show WP-054` |
+| `SandboxAttestation` | `WP-054` | `python3 scripts/progress.py show WP-054` |
+| `Capture/destroy workflow` | `WP-054` | `python3 scripts/progress.py show WP-054` |
+| `Red-team tests` | `WP-054` | `python3 scripts/progress.py show WP-054` |
+| `Admission policies` | `WP-059` | `python3 scripts/progress.py show WP-059` |
+| `Trust root management` | `WP-059` | `python3 scripts/progress.py show WP-059` |
+| `CVE/exception workflow` | `WP-059` | `python3 scripts/progress.py show WP-059` |
+| `Revocation/impact runbook` | `WP-059` | `python3 scripts/progress.py show WP-059` |
+| `Run Registry` | `WP-082` | `python3 scripts/progress.py show WP-082` |
+| `Preflight validator` | `WP-082` | `python3 scripts/progress.py show WP-082` |
+| `MLflow integration` | `WP-082` | `python3 scripts/progress.py show WP-082` |
+| `Run lineage queries` | `WP-082` | `python3 scripts/progress.py show WP-082` |
+| `Run lifecycle dashboard` | `WP-082` | `python3 scripts/progress.py show WP-082` |
+| `Review Package Builder` | `WP-086` | `python3 scripts/progress.py show WP-086` |
+| `Blind/redaction rules` | `WP-086` | `python3 scripts/progress.py show WP-086` |
+| `Package manifests` | `WP-086` | `python3 scripts/progress.py show WP-086` |
+| `Leak detection tests` | `WP-086` | `python3 scripts/progress.py show WP-086` |
+| `Verification Engine` | `WP-087` | `python3 scripts/progress.py show WP-087` |
+| `Validator catalog` | `WP-087` | `python3 scripts/progress.py show WP-087` |
+| `VerificationRecord service` | `WP-087` | `python3 scripts/progress.py show WP-087` |
+| `Regression fixtures` | `WP-087` | `python3 scripts/progress.py show WP-087` |
+| `Disagreement service` | `WP-089` | `python3 scripts/progress.py show WP-089` |
+| `Arbitration rubric` | `WP-089` | `python3 scripts/progress.py show WP-089` |
+| `Disposition workflow` | `WP-089` | `python3 scripts/progress.py show WP-089` |
+| `Appeal/decision integration` | `WP-089` | `python3 scripts/progress.py show WP-089` |
+| `Publication builder` | `WP-090` | `python3 scripts/progress.py show WP-090` |
+| `RO-Crate profile` | `WP-090` | `python3 scripts/progress.py show WP-090` |
+| `Signed publication package` | `WP-090` | `python3 scripts/progress.py show WP-090` |
+| `Release checklist` | `WP-090` | `python3 scripts/progress.py show WP-090` |
+| `Supersession record` | `WP-090` | `python3 scripts/progress.py show WP-090` |
+| `OTel platform` | `WP-096` | `python3 scripts/progress.py show WP-096` |
+| `Semantic conventions` | `WP-096` | `python3 scripts/progress.py show WP-096` |
+| `Instrumentation libraries` | `WP-096` | `python3 scripts/progress.py show WP-096` |
+| `Trace completeness dashboard` | `WP-096` | `python3 scripts/progress.py show WP-096` |
+
+### Classification that must be recorded before work begins
+
+`00_PROGRAM/05_definition_of_ready_and_done.md` requires all four to be classified at refinement. They are not documentation: together they select the `ExecutionProfile`, and an unclassified package cannot be given one.
+
+| Field | Must state | Recorded at refinement |
+|---|---|---|
+| `DataClass` | D0–D4 for every input and output this package touches | ☐ |
+| `CodeTrust` | provenance of code this package executes | ☐ |
+| `ToolEffect` | T0–T5; whether any external side effect occurs | ☐ |
+| Network / credential scope | egress destinations and the identity used | ☐ |
+
+### Capacity that must be reserved
+
+- **Effort class `L`** — large — split into sub-packages if the estimate exceeds the wave.
+- A three-point `O`/`M`/`P` person-day estimate, with `PERT = (O + 4M + P) / 6`, is **mandatory** before this package is `READY`. It is not recorded here because it depends on real capacity at the time of refinement.
+- **Engineering Lead** carries the acceptance decision; **Independent Technical Reviewer / Reproducer** must verify independently of whoever implements.
+- One owner holds at most two `IN_PROGRESS` packages. At least 25% of assurance capacity stays reserved for correction and re-verification.
+
+### Evidence that must be producible before starting
+
+A package whose evidence cannot be produced is not `READY`, however complete its design is. Confirm each is reachable:
+
+- The target revision can be pinned, and every test result bound to it.
+- An environment manifest can be captured for the environment the tests run in.
+- The rollback or compensation path named in this document can actually be exercised.
+- A signed `EvidenceManifest` can be issued — today via the interim profile `airl-interim-v0.1` (`scripts/evidence_manifest.py`), which is **tamper-evident and not externally witnessed**.
+- The verifier can reach the evidence **without** seeing the producer's working trace.
+
+<!-- /generated:execution-requirements -->
 
 ## Implementation tasks
 
@@ -56,6 +348,8 @@ One standard and one critical code change pass through specification, reality ch
 
 ## Test and verification plan
 
+The outline below is the summary. The executable procedure — environment, data, coverage items, cases, execution log, incident and completion reports — is in [`WP-107_engineering_vertical_slice.tests.md`](wp_107_engineering_vertical_slice.tests.md).
+
 - Protected-path denial
 - Denial of worker self-approval
 - Correction of a validated finding
@@ -66,6 +360,8 @@ One standard and one critical code change pass through specification, reality ch
 - Telemetry correlation and audit-record integrity checks
 
 ## Acceptance criteria
+
+The programme-level conditions are below. The package-specific, measurable criteria — each with a threshold and the test case that decides it — are in [`WP-107_engineering_vertical_slice.acceptance.md`](wp_107_engineering_vertical_slice.acceptance.md), together with what this package still cannot establish.
 
 - [ ] The same target commit is preserved throughout all evidence.
 - [ ] Only validated findings enter the correction loop.

@@ -15,14 +15,128 @@
 | Related acceptance scenarios | ACC-25, ACC-26 |
 | Status at baseline | `NOT_STARTED` |
 
+## Package documents
+
+This package is described by three documents. They are separate because they have three readers: this card is read at refinement by someone deciding whether the package can start; the test procedures are read months later by whoever runs them; the acceptance criteria are read by an **independent verifier** who must reach a verdict without having done the work — and `00_PROGRAM/06` requires that verifier to work from a packet they can be handed.
+
+| Document | Answers | Read by |
+|---|---|---|
+| **This card** | What is this, what does it depend on, what does it release? | Refinement, planning |
+| [Test procedures](WP-004_human_decision_sla_delegation.tests.md) | How is it tested, in what environment, with what data, and what counts as a complete run? | The implementer and the tester |
+| [Acceptance criteria](WP-004_human_decision_sla_delegation.acceptance.md) | What must hold for this to be `ACCEPTED`, and what does it still not establish? | The independent verifier |
+
 ## Purpose and expected outcome
 
 Every decision type in the Human Decision Queue receives an SLA, an evidence summary, a delegation boundary, an expiry and an explicit fail-closed behaviour. Human decision capacity is the scarcest resource in the system, and this package is where it is budgeted.
+
+
+## Analysis
+
+### What this package actually decides
+
+How much human attention the system is allowed to spend, and what happens when it
+runs out. `00_PROGRAM/08` states the constraint this package implements: model
+capacity is elastic, human decision capacity is not, and a model can generate
+more decision requests per day than any person can consider properly.
+
+The decision encoded here is that the queue **waits**. There is no express mode,
+because an express review is not a review — and a system that degrades review
+depth under load has inverted its own safety property exactly when it needs it.
+
+### Why this is a governance package rather than a UI package
+
+Because the binding artifact is the `DelegationRecord` and the non-delegable
+list, not the queue widget. WP-092 builds the surface; WP-004 decides what the
+surface is allowed to offer. If the two are done in the wrong order, the
+delegation model is inferred from what the UI happened to make easy.
+
+### The failure mode: rubber-stamping
+
+`PR-11` names it and this package owns the counter-controls. Three mechanisms,
+all deliverables here rather than later:
+
+1. **Evidence-delta presentation** — the approver is shown what changed since the
+   last decision on the same object, not the full package again. Re-reading an
+   unchanged package is the behaviour that trains skimming.
+2. **Approval expiry** — an approval that has aged past its window is not a
+   standing approval. Without this, a decision taken under one evidence state
+   silently authorises a different one.
+3. **Rationale capture** — a decision with no recorded reason is indistinguishable
+   from a click, and the G10 reversal rate cannot be attributed without it.
+
+### The measurement that makes this package honest
+
+`00_PROGRAM/08` names it: decision-time distribution, which evidence sections
+were actually opened, the G10 reversal rate, and the rate of acceptance despite an
+adversarial rejection. A rising reversal rate is the earliest observable signal of
+rubber-stamping. This package must **emit** those signals; WP-091/WP-098 display
+them. A decision queue that cannot report how long its decisions took has removed
+its own ability to detect the failure it exists to prevent.
+
+### Fail-closed is the default and must be stated per decision type
+
+Sub-task T05 requires explicit fail-closed behaviour. "The SLA expired" must
+resolve to a defined state for every decision type — and for material decisions
+that state is *not approved*. An SLA that expires into approval is a timer that
+grants authority, which is the opposite of a control.
 
 ## Out of scope
 
 - The internal implementation of any dependent package
 - Production cutover and final operational approval
+
+## Dependency and prerequisite analysis
+
+<!-- generated:dependency-analysis — produced by scripts/expand_packages.py; do not edit inside this block -->
+
+### Direct hard dependencies
+
+1, each of which must be `ACCEPTED` — not `TECH_COMPLETE` — before this package is `READY`.
+
+| Package | Supplies to this package |
+|---|---|
+| [WP-003 — Role Catalogue and RACI Baseline](../01_GOVERNANCE/WP-003_role_catalog_raci.md) | `Role Catalog` · `RACI matrix` · `Role-combination policy` · `Role assignment workflow` |
+
+### Full prerequisite closure
+
+**3 of 141 packages (2%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
+
+| Level | Packages |
+|---:|---|
+| 1 | `WP-001` |
+| 2 | `WP-002` |
+| 3 | `WP-003` |
+
+### What acceptance of this package releases
+
+- **Directly unblocked:** 10 — `WP-008` · `WP-013` · `WP-034` · `WP-036` · `WP-038` · `WP-055` · `WP-064` · `WP-089` · `WP-093` · `WP-134`
+- **Transitively reachable:** **133 of 141 packages (94%)** cannot be accepted until this one is.
+
+The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
+
+### Position in the programme
+
+| | |
+|---|---|
+| Wave | W0 — Programme lock |
+| Dependency depth | level **4** of 55 |
+| On the documented critical path | no |
+| Effort class | **M** |
+| Accountable owner | Project Decision Owner |
+| Independent verifier | Safety & Governance Owner |
+| Gates touched | `G1` · `G8` · `G9` |
+| Controls | `CTL-GOV-01` · `CTL-GOV-03` |
+
+### Acceptance scenarios that exercise this package
+
+`COMMISSIONED` requires every scenario below to pass **on the same release candidate**. A `SKIPPED` scenario on a `Critical` row does not count as a pass.
+
+| Scenario | Severity | What it must show |
+|---|---|---|
+| [ACC-25 — Human Approval Forgery](../12_ACCEPTANCE_SCENARIOS/ACC-25_human_approval_forgery.md) | Critical | The decision is rejected; gate state does not change and a security event and audit record are produced. A valid owner with MFA and an idempotent request passes as the counter-example. |
+| [ACC-26 — Approval, Delegation and Exception Expiry](../12_ACCEPTANCE_SCENARIOS/ACC-26_approval_expiry.md) | Critical | The authority is auto-revoked; new operations are denied and running tasks pause or are contained according to policy. There is no automatic extension or re-approval. |
+
+<!-- /generated:dependency-analysis -->
 
 ## Preconditions — Definition of Ready
 
@@ -32,6 +146,51 @@ Every decision type in the Human Decision Queue receives an SLA, an evidence sum
 - `DataClass`, `CodeTrust`, `ToolEffect` and the network/credential scope are classified.
 - Test fixtures, the environment, the rollback point and the acceptance measurement method are reachable.
 - An O/M/P person-day estimate is recorded and real capacity is reserved against it.
+
+## Execution requirements
+
+<!-- generated:execution-requirements — produced by scripts/expand_packages.py; do not edit inside this block -->
+
+### Inputs that must exist before the first task starts
+
+Each row is a deliverable of a dependency. Its **absence is a stop condition**, not a risk to manage: work started against a missing input is work that will be redone against the real one.
+
+| Required input | Comes from | Accepted? |
+|---|---|---|
+| `Role Catalog` | `WP-003` | `python3 scripts/progress.py show WP-003` |
+| `RACI matrix` | `WP-003` | `python3 scripts/progress.py show WP-003` |
+| `Role-combination policy` | `WP-003` | `python3 scripts/progress.py show WP-003` |
+| `Role assignment workflow` | `WP-003` | `python3 scripts/progress.py show WP-003` |
+
+### Classification that must be recorded before work begins
+
+`00_PROGRAM/05_definition_of_ready_and_done.md` requires all four to be classified at refinement. They are not documentation: together they select the `ExecutionProfile`, and an unclassified package cannot be given one.
+
+| Field | Must state | Recorded at refinement |
+|---|---|---|
+| `DataClass` | D0–D4 for every input and output this package touches | ☐ |
+| `CodeTrust` | provenance of code this package executes | ☐ |
+| `ToolEffect` | T0–T5; whether any external side effect occurs | ☐ |
+| Network / credential scope | egress destinations and the identity used | ☐ |
+
+### Capacity that must be reserved
+
+- **Effort class `M`** — medium — a dedicated integration window.
+- A three-point `O`/`M`/`P` person-day estimate, with `PERT = (O + 4M + P) / 6`, is **mandatory** before this package is `READY`. It is not recorded here because it depends on real capacity at the time of refinement.
+- **Project Decision Owner** carries the acceptance decision; **Safety & Governance Owner** must verify independently of whoever implements.
+- One owner holds at most two `IN_PROGRESS` packages. At least 25% of assurance capacity stays reserved for correction and re-verification.
+
+### Evidence that must be producible before starting
+
+A package whose evidence cannot be produced is not `READY`, however complete its design is. Confirm each is reachable:
+
+- The target revision can be pinned, and every test result bound to it.
+- An environment manifest can be captured for the environment the tests run in.
+- The rollback or compensation path named in this document can actually be exercised.
+- A signed `EvidenceManifest` can be issued — today via the interim profile `airl-interim-v0.1` (`scripts/evidence_manifest.py`), which is **tamper-evident and not externally witnessed**.
+- The verifier can reach the evidence **without** seeing the producer's working trace.
+
+<!-- /generated:execution-requirements -->
 
 ## Implementation tasks
 
@@ -54,6 +213,8 @@ Every decision type in the Human Decision Queue receives an SLA, an evidence sum
 
 ## Test and verification plan
 
+The outline below is the summary. The executable procedure — environment, data, coverage items, cases, execution log, incident and completion reports — is in [`WP-004_human_decision_sla_delegation.tests.md`](WP-004_human_decision_sla_delegation.tests.md).
+
 - A test proving an SLA timeout never produces an automatic approval
 - A negative test with forged and expired delegations
 - An attempt to delegate a non-delegable decision
@@ -61,7 +222,11 @@ Every decision type in the Human Decision Queue receives an SLA, an evidence sum
 - Producer/consumer contract compatibility tests on every affected interface
 - Telemetry correlation and audit-record integrity checks
 
+
+
 ## Acceptance criteria
+
+The programme-level conditions are below. The package-specific, measurable criteria — each with a threshold and the test case that decides it — are in [`WP-004_human_decision_sla_delegation.acceptance.md`](WP-004_human_decision_sla_delegation.acceptance.md), together with what this package still cannot establish.
 
 - [ ] A timeout produces only `BLOCKED` or an escalation — never an approval.
 - [ ] Every material decision carries a named owner and a written rationale.
@@ -71,6 +236,8 @@ Every decision type in the Human Decision Queue receives an SLA, an evidence sum
 - [ ] The independent verifier has accepted the evidence package.
 - [ ] Rollback/compensation behaviour has been exercised and audited.
 - [ ] The related dashboard, alert, audit query or integrity query has produced working evidence.
+
+
 
 ## Acceptance evidence package
 

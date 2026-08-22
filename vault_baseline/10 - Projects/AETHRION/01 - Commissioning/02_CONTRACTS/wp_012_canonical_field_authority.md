@@ -1,3 +1,27 @@
+---
+title: "WP-012 — Canonical Ownership and Field-Level Authority Matrix"
+aliases:
+  - "WP-012"
+  - "WP-012 — Canonical Ownership and Field-Level Authority Matrix"
+type: work-package
+category: commissioning
+status: NOT_STARTED
+summary: "Where the same data appears on more than one surface, the system-of-record, the field authority, the sync direction and the conflict behaviour are settled in advance rather than discovered during an incident."
+source: "planning/commissioning/02_CONTRACTS/WP-012_canonical_field_authority.md"
+generated: true
+provenance: mirror_plan.py
+tags:
+  - aethrion/commissioning
+  - aethrion/work-package
+  - aethrion/workstream/02-contracts
+  - aethrion/wave/w1
+  - aethrion/effort/m
+  - aethrion/gate/platform
+  - aethrion/gate/g3
+  - aethrion/gate/g10
+  - aethrion/state/not-started
+---
+
 # WP-012 — Canonical Ownership and Field-Level Authority Matrix
 
 ## Package card
@@ -15,14 +39,134 @@
 | Related acceptance scenarios | ACC-03, ACC-21, ACC-22 |
 | Status at baseline | `NOT_STARTED` |
 
+## Package documents
+
+This package is described by three documents. They are separate because they have three readers: this card is read at refinement by someone deciding whether the package can start; the test procedures are read months later by whoever runs them; the acceptance criteria are read by an **independent verifier** who must reach a verdict without having done the work — and `00_PROGRAM/06` requires that verifier to work from a packet they can be handed.
+
+| Document | Answers | Read by |
+|---|---|---|
+| **This card** | What is this, what does it depend on, what does it release? | Refinement, planning |
+| [Test procedures](wp_012_canonical_field_authority.tests.md) | How is it tested, in what environment, with what data, and what counts as a complete run? | The implementer and the tester |
+| [Acceptance criteria](wp_012_canonical_field_authority.acceptance.md) | What must hold for this to be `ACCEPTED`, and what does it still not establish? | The independent verifier |
+
 ## Purpose and expected outcome
 
 Where the same data appears on more than one surface, the system-of-record, the field authority, the sync direction and the conflict behaviour are settled in advance rather than discovered during an incident.
+
+
+## Analysis
+
+### What this package actually decides
+
+Which surface is allowed to be wrong. When the same field lives in two places,
+one of them is the record and the other is a view — and the failure this package
+prevents is the state where neither has been designated, so both are edited and
+whichever wrote last wins.
+
+`PR-03` rates this **critical**: *Zotero/Registry/Obsidian values diverge.* Its
+early signal is the one that makes it dangerous — divergence is invisible until
+someone compares, and nobody compares until an incident.
+
+### The three-surface problem this system actually has
+
+| Surface | What it owns | What it must never own |
+|---|---|---|
+| Zotero | The human's own bibliographic fields and annotations | Canonical source identity, dedup state, trust |
+| Source Registry | Identity, dedup, status, trust | The human's notes and keywords |
+| Obsidian | Human synthesis in the numbered areas | Anything under a generated banner |
+
+The rule already runs in the working slice and should be lifted verbatim into the
+matrix: **the projection deletes only files listed in its own manifest**, so a
+human note dropped in the generated folder survives. That is field authority
+implemented as a file-level invariant, and `tests/test_obsidian.py` proves it.
+
+### Where the running system already violates this
+
+Finding **H2**: a source deleted in Zotero persists in the registry and in
+Obsidian indefinitely. That is not a missing feature — it is an **unassigned
+canonical authority for deletion**. Nobody decided whether Zotero's deletion is
+authoritative over the registry's existence. T05 is where that gets an owner, and
+until it does, H2 cannot be fixed correctly, only patched.
+
+### Why the rebuild rule (T04) is a canonical-ownership question
+
+`00_PROGRAM/01` success invariant 6: derived graphs and indexes can be rebuilt
+from canonical records from scratch. That is the operational test of whether
+something is canonical: **if you cannot delete it and rebuild it, it holds state
+nothing else has**, and it is therefore canonical whether or not the matrix says
+so. The rebuild rule is how the matrix gets falsified.
+
+### The failure mode
+
+A matrix that assigns authority per *record* rather than per *field*. Zotero owns
+the abstract; the registry owns whether the source is retracted. Same record, two
+authorities. A record-level matrix cannot express that, and the system will
+resolve it by whichever sync ran last.
 
 ## Out of scope
 
 - The internal implementation of any dependent package
 - Production cutover and final operational approval
+
+## Dependency and prerequisite analysis
+
+<!-- generated:dependency-analysis — produced by scripts/expand_packages.py; do not edit inside this block -->
+
+### Direct hard dependencies
+
+2, each of which must be `ACCEPTED` — not `TECH_COMPLETE` — before this package is `READY`.
+
+| Package | Supplies to this package |
+|---|---|
+| [WP-010 — Architecture Decision and Rejected-Alternatives Baseline](../01_GOVERNANCE/wp_010_adr_baseline.md) | `Signed ADR bundle` · `Rejected alternatives register` · `Reopen trigger register` · `Architecture baseline digest` |
+| [WP-011 — Identity and End-to-End Correlation Standard](../02_CONTRACTS/wp_011_identity_correlation_standard.md) | `Identifier Standard` · `Correlation envelope` · `ID library contract` · `Merge/tombstone rules` |
+
+### Full prerequisite closure
+
+**11 of 141 packages (8%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
+
+| Level | Packages |
+|---:|---|
+| 1 | `WP-001` |
+| 2 | `WP-002` |
+| 3 | `WP-003` · `WP-005` · `WP-006` |
+| 4 | `WP-004` · `WP-007` |
+| 5 | `WP-008` |
+| 6 | `WP-009` |
+| 7 | `WP-010` |
+| 8 | `WP-011` |
+
+### What acceptance of this package releases
+
+- **Directly unblocked:** 10 — `WP-014` · `WP-015` · `WP-017` · `WP-018` · `WP-030` · `WP-061` · `WP-064` · `WP-066` · `WP-073` · `WP-091`
+- **Transitively reachable:** **126 of 141 packages (89%)** cannot be accepted until this one is.
+
+The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
+
+### Position in the programme
+
+| | |
+|---|---|
+| Wave | W1 — Contract spine |
+| Dependency depth | level **9** of 55 |
+| On the documented critical path | **yes** — `02_wave_and_dependency_map.md` names it |
+| Effort class | **M** |
+| Accountable owner | Chief Architect |
+| Independent verifier | Internal Audit / Knowledge Lead |
+| Gates touched | `Platform` · `G3` · `G10` |
+| Controls | `CTL-LIT-01` · `CTL-OPS-01` |
+
+### Acceptance scenarios that exercise this package
+
+`COMMISSIONED` requires every scenario below to pass **on the same release candidate**. A `SKIPPED` scenario on a `Critical` row does not count as a pass.
+
+| Scenario | Severity | What it must show |
+|---|---|---|
+| [ACC-03 — Duplicate and Metadata Collision](../12_ACCEPTANCE_SCENARIOS/acc_03_duplicate_collision.md) | High | The safe exact match binds to a single `SourceRecord`; conflicting fields are **not** silently overwritten and a curator `ConflictCase` is opened. |
+| [ACC-21 — Derived Graph Corruption and Rebuild](../12_ACCEPTANCE_SCENARIOS/acc_21_graph_corruption.md) | High | Canonical services are unaffected; a new projection is built with the expected counts, hashes and lineage and promoted atomically. |
+| [ACC-22 — Obsidian Human Edit Preservation](../12_ACCEPTANCE_SCENARIOS/acc_22_obsidian_human_edit.md) | High | The human field is preserved byte- and semantically; only the generated zone updates, and an unexpected conflict opens a curator case instead of an automatic overwrite. |
+
+<!-- /generated:dependency-analysis -->
 
 ## Preconditions — Definition of Ready
 
@@ -32,6 +176,55 @@ Where the same data appears on more than one surface, the system-of-record, the 
 - `DataClass`, `CodeTrust`, `ToolEffect` and the network/credential scope are classified.
 - Test fixtures, the environment, the rollback point and the acceptance measurement method are reachable.
 - An O/M/P person-day estimate is recorded and real capacity is reserved against it.
+
+## Execution requirements
+
+<!-- generated:execution-requirements — produced by scripts/expand_packages.py; do not edit inside this block -->
+
+### Inputs that must exist before the first task starts
+
+Each row is a deliverable of a dependency. Its **absence is a stop condition**, not a risk to manage: work started against a missing input is work that will be redone against the real one.
+
+| Required input | Comes from | Accepted? |
+|---|---|---|
+| `Signed ADR bundle` | `WP-010` | `python3 scripts/progress.py show WP-010` |
+| `Rejected alternatives register` | `WP-010` | `python3 scripts/progress.py show WP-010` |
+| `Reopen trigger register` | `WP-010` | `python3 scripts/progress.py show WP-010` |
+| `Architecture baseline digest` | `WP-010` | `python3 scripts/progress.py show WP-010` |
+| `Identifier Standard` | `WP-011` | `python3 scripts/progress.py show WP-011` |
+| `Correlation envelope` | `WP-011` | `python3 scripts/progress.py show WP-011` |
+| `ID library contract` | `WP-011` | `python3 scripts/progress.py show WP-011` |
+| `Merge/tombstone rules` | `WP-011` | `python3 scripts/progress.py show WP-011` |
+
+### Classification that must be recorded before work begins
+
+`00_PROGRAM/05_definition_of_ready_and_done.md` requires all four to be classified at refinement. They are not documentation: together they select the `ExecutionProfile`, and an unclassified package cannot be given one.
+
+| Field | Must state | Recorded at refinement |
+|---|---|---|
+| `DataClass` | D0–D4 for every input and output this package touches | ☐ |
+| `CodeTrust` | provenance of code this package executes | ☐ |
+| `ToolEffect` | T0–T5; whether any external side effect occurs | ☐ |
+| Network / credential scope | egress destinations and the identity used | ☐ |
+
+### Capacity that must be reserved
+
+- **Effort class `M`** — medium — a dedicated integration window.
+- A three-point `O`/`M`/`P` person-day estimate, with `PERT = (O + 4M + P) / 6`, is **mandatory** before this package is `READY`. It is not recorded here because it depends on real capacity at the time of refinement.
+- **Chief Architect** carries the acceptance decision; **Internal Audit / Knowledge Lead** must verify independently of whoever implements.
+- One owner holds at most two `IN_PROGRESS` packages. At least 25% of assurance capacity stays reserved for correction and re-verification.
+
+### Evidence that must be producible before starting
+
+A package whose evidence cannot be produced is not `READY`, however complete its design is. Confirm each is reachable:
+
+- The target revision can be pinned, and every test result bound to it.
+- An environment manifest can be captured for the environment the tests run in.
+- The rollback or compensation path named in this document can actually be exercised.
+- A signed `EvidenceManifest` can be issued — today via the interim profile `airl-interim-v0.1` (`scripts/evidence_manifest.py`), which is **tamper-evident and not externally witnessed**.
+- The verifier can reach the evidence **without** seeing the producer's working trace.
+
+<!-- /generated:execution-requirements -->
 
 ## Implementation tasks
 
@@ -54,6 +247,8 @@ Where the same data appears on more than one surface, the system-of-record, the 
 
 ## Test and verification plan
 
+The outline below is the summary. The executable procedure — environment, data, coverage items, cases, execution log, incident and completion reports — is in [`WP-012_canonical_field_authority.tests.md`](wp_012_canonical_field_authority.tests.md).
+
 - A sweep for dual-canonical contradictions
 - A negative test for overwriting a human-authored field
 - A derived-view rebuild tabletop exercise
@@ -61,7 +256,11 @@ Where the same data appears on more than one surface, the system-of-record, the 
 - Producer/consumer contract compatibility tests on every affected interface
 - Telemetry correlation and audit-record integrity checks
 
+
+
 ## Acceptance criteria
+
+The programme-level conditions are below. The package-specific, measurable criteria — each with a threshold and the test case that decides it — are in [`WP-012_canonical_field_authority.acceptance.md`](wp_012_canonical_field_authority.acceptance.md), together with what this package still cannot establish.
 
 - [ ] Every field has exactly one authority.
 - [ ] Two-way sync does not create ownership ambiguity.
@@ -71,6 +270,8 @@ Where the same data appears on more than one surface, the system-of-record, the 
 - [ ] The independent verifier has accepted the evidence package.
 - [ ] Rollback/compensation behaviour has been exercised and audited.
 - [ ] The related dashboard, alert, audit query or integrity query has produced working evidence.
+
+
 
 ## Acceptance evidence package
 

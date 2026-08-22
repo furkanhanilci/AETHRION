@@ -1,3 +1,20 @@
+---
+title: "ACC-16 — Egress Exfiltration Attempt"
+aliases:
+  - "ACC-16"
+type: acceptance-scenario
+category: commissioning
+summary: "This scenario verifies the target architecture's fail-safe behaviour and its evidence production in the Egress Exfiltration Attempt situation."
+source: "planning/commissioning/12_ACCEPTANCE_SCENARIOS/ACC-16_egress_exfiltration.md"
+generated: true
+provenance: mirror_plan.py
+tags:
+  - aethrion/commissioning
+  - aethrion/acceptance-scenario
+  - aethrion/severity/critical
+  - aethrion/phase/pre-go-live
+---
+
 # ACC-16 — Egress Exfiltration Attempt
 
 ## Scenario card

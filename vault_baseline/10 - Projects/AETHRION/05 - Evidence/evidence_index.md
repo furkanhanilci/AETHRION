@@ -1,3 +1,16 @@
+---
+title: "Evidence Index"
+airl_id: AETHRION-EVIDENCE-INDEX
+type: index
+category: vault
+status: active
+summary: "Signed evidence packages and the measurements behind them."
+generated: false
+tags:
+  - aethrion/index
+  - aethrion/evidence
+---
+
 # Evidence Index
 
 Test, acceptance, hash, artifact, review and operational evidence.
@@ -41,6 +54,7 @@ Test, acceptance, hash, artifact, review and operational evidence.
 | E3 Independent review | Did an actor outside the producer examine it? |
 | E4 Reproduction | Does it run again in a clean environment? |
 | E5 Operations | Are failure, restore and observability correct? |
+| [[10 - Projects/AETHRION/05 - Evidence/current_ready_queue\|Ready Queue]] | What can be started today? |
 
 ## What is missing
 

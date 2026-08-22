@@ -1,3 +1,20 @@
+---
+title: "ACC-26 — Approval, Delegation and Exception Expiry"
+aliases:
+  - "ACC-26"
+type: acceptance-scenario
+category: commissioning
+summary: "This scenario verifies the target architecture's fail-safe behaviour and its evidence production in the Approval, Delegation and Exception Expiry situation."
+source: "planning/commissioning/12_ACCEPTANCE_SCENARIOS/ACC-26_approval_expiry.md"
+generated: true
+provenance: mirror_plan.py
+tags:
+  - aethrion/commissioning
+  - aethrion/acceptance-scenario
+  - aethrion/severity/critical
+  - aethrion/phase/pre-go-live
+---
+
 # ACC-26 — Approval, Delegation and Exception Expiry
 
 ## Scenario card

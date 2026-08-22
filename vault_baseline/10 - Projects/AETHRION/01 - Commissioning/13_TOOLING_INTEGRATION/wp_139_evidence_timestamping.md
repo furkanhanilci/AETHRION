@@ -1,3 +1,27 @@
+---
+title: "WP-139 — Evidence Timestamping and Independent Seal"
+aliases:
+  - "WP-139"
+  - "WP-139 — Evidence Timestamping and Independent Seal"
+type: work-package
+category: commissioning
+status: NOT_STARTED
+summary: "It becomes provable that a given EvidenceManifest existed at a given time — without trusting your system."
+source: "planning/commissioning/13_TOOLING_INTEGRATION/WP-139_evidence_timestamping.md"
+generated: true
+provenance: mirror_plan.py
+tags:
+  - aethrion/commissioning
+  - aethrion/work-package
+  - aethrion/workstream/13-tooling-integration
+  - aethrion/wave/wt
+  - aethrion/effort/s
+  - aethrion/gate/g2
+  - aethrion/gate/g5
+  - aethrion/gate/g9
+  - aethrion/state/not-started
+---
+
 # WP-139 — Evidence Timestamping and Independent Seal
 
 ## Package card
@@ -15,6 +39,16 @@
 | Related acceptance scenarios | ACC-23, ACC-40 |
 | Related skill | `verification-before-completion` |
 | Status at baseline | `NOT_STARTED` |
+
+## Package documents
+
+This package is described by three documents. They are separate because they have three readers: this card is read at refinement by someone deciding whether the package can start; the test procedures are read months later by whoever runs them; the acceptance criteria are read by an **independent verifier** who must reach a verdict without having done the work — and `00_PROGRAM/06` requires that verifier to work from a packet they can be handed.
+
+| Document | Answers | Read by |
+|---|---|---|
+| **This card** | What is this, what does it depend on, what does it release? | Refinement, planning |
+| [Test procedures](wp_139_evidence_timestamping.tests.md) | How is it tested, in what environment, with what data, and what counts as a complete run? | The implementer and the tester |
+| [Acceptance criteria](wp_139_evidence_timestamping.acceptance.md) | What must hold for this to be `ACCEPTED`, and what does it still not establish? | The independent verifier |
 
 ## Purpose and expected outcome
 
@@ -39,10 +73,116 @@ store exist.
 timestamped. That makes the pre-registration discipline's claim — "the plan
 existed before the result" — **externally verifiable**.
 
+
+## Analysis
+### What this package actually decides
+
+That a manifest's existence at a time is provable **without trusting this system**.
+The purpose sentence names the property exactly, and it is the one gap
+`airl-interim-v0.1` declares about itself in every manifest it issues.
+
+### What the interim profile actually lacks
+
+`scripts/evidence_manifest.py` states it in its own docstring, and every
+verification prints it:
+
+> **not covered** — transparency log · keyless identity · external timestamp
+> authority
+
+The interim anchor binds the envelope digest to a wall clock and a git commit. Both
+are held by the operator. A reader who trusts the operator gains a real guarantee; a
+reader who does not gains nothing — and the whole architecture argues that the
+second reader is the one who matters.
+
+### Two independent anchors, deliberately (T01, T02)
+
+**OpenTimestamps** anchors into Bitcoin — no trusted party, slow confirmation.
+**RFC 3161** is a trusted timestamp authority — fast, and trusted.
+
+Their failure modes are disjoint: one requires no trust and takes hours; the other
+is immediate and requires trusting a TSA. Having both means a verifier can choose
+which assumption to make.
+
+### Automatic stamping at the G2 analysis-plan lock is the highest-value trigger (T05)
+
+Preregistration's whole claim is *the analysis plan existed before the data*. An
+internal freeze proves it to the system that holds it. An external timestamp proves
+it to a reader — and this is the single point where the cost of stamping buys the
+most.
+
+### The verification runbook is part of the deliverable (T04)
+
+A stamp nobody can verify is decoration. The command has to work for someone with
+the manifest, the stamp file and no access to this system.
+
 ## Out of scope
 
 - The manifest content itself (WP-014)
 - Signing infrastructure (WP-027, WP-059)
+
+## Dependency and prerequisite analysis
+
+<!-- generated:dependency-analysis — produced by scripts/expand_packages.py; do not edit inside this block -->
+
+### Direct hard dependencies
+
+2, each of which must be `ACCEPTED` — not `TECH_COMPLETE` — before this package is `READY`.
+
+| Package | Supplies to this package |
+|---|---|
+| [WP-014 — Artifact, Dataset and Immutable Manifest Schemas](../02_CONTRACTS/wp_014_artifact_manifest_contracts.md) | `ArtifactRecord schema` · `DatasetManifest schema` · `Environment reference schema` · `Immutability lifecycle` |
+| [WP-026 — Content-Addressed Object Store and WORM](../03_FOUNDATION/wp_026_object_store_worm.md) | `Object storage IaC` · `Object address service` · `Retention matrix` · `Integrity scan job` |
+
+### Full prerequisite closure
+
+**22 of 141 packages (16%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
+
+| Level | Packages |
+|---:|---|
+| 1 | `WP-001` |
+| 2 | `WP-002` |
+| 3 | `WP-003` · `WP-005` · `WP-006` |
+| 4 | `WP-004` · `WP-007` |
+| 5 | `WP-008` |
+| 6 | `WP-009` |
+| 7 | `WP-010` |
+| 8 | `WP-011` |
+| 9 | `WP-012` · `WP-013` · `WP-016` |
+| 10 | `WP-014` |
+| 11 | `WP-015` · `WP-017` |
+| 12 | `WP-018` |
+| 13 | `WP-019` |
+| 14 | `WP-020` |
+| 15 | `WP-021` |
+| 16 | `WP-026` |
+
+### What acceptance of this package releases
+
+**Nothing.** No package names this one as a hard dependency, so accepting it unblocks no other work. That is normal for a terminal package and is worth knowing before it is prioritised over one that unblocks many.
+
+### Position in the programme
+
+| | |
+|---|---|
+| Wave | W-T — Tooling |
+| Dependency depth | level **17** of 55 |
+| On the documented critical path | no |
+| Effort class | **S** |
+| Accountable owner | Data Platform Lead |
+| Independent verifier | Research Integrity Officer |
+| Gates touched | `G2` · `G5` · `G9` |
+| Controls | `CTL-DAT-03` · `CTL-SUP-01` |
+
+### Acceptance scenarios that exercise this package
+
+`COMMISSIONED` requires every scenario below to pass **on the same release candidate**. A `SKIPPED` scenario on a `Critical` row does not count as a pass.
+
+| Scenario | Severity | What it must show |
+|---|---|---|
+| [ACC-23 — Artifact Overwrite Attempt](../12_ACCEPTANCE_SCENARIOS/acc_23_artifact_overwrite.md) | Critical | The overwrite is rejected; the new bytes can only be written as a new content address and version, and existing references are unchanged. |
+| [ACC-40 — Complete Project Audit Export](../12_ACCEPTANCE_SCENARIOS/acc_40_audit_export.md) | Critical | The signed export verifies with complete correlation and hash chain; a missing or tampered fixture fails verification and raises an incident. |
+
+<!-- /generated:dependency-analysis -->
 
 ## Preconditions — Definition of Ready
 
@@ -50,6 +190,56 @@ existed before the result" — **externally verifiable**.
 - A named owner, a named implementer and a verifier independent of the producer are assigned.
 - `DataClass`, `CodeTrust`, `ToolEffect` and the network/credential scope are classified.
 - Test fixtures, the environment, the rollback point and the acceptance measurement method are reachable.
+
+## Execution requirements
+
+<!-- generated:execution-requirements — produced by scripts/expand_packages.py; do not edit inside this block -->
+
+### Inputs that must exist before the first task starts
+
+Each row is a deliverable of a dependency. Its **absence is a stop condition**, not a risk to manage: work started against a missing input is work that will be redone against the real one.
+
+| Required input | Comes from | Accepted? |
+|---|---|---|
+| `ArtifactRecord schema` | `WP-014` | `python3 scripts/progress.py show WP-014` |
+| `DatasetManifest schema` | `WP-014` | `python3 scripts/progress.py show WP-014` |
+| `Environment reference schema` | `WP-014` | `python3 scripts/progress.py show WP-014` |
+| `Immutability lifecycle` | `WP-014` | `python3 scripts/progress.py show WP-014` |
+| `Object storage IaC` | `WP-026` | `python3 scripts/progress.py show WP-026` |
+| `Object address service` | `WP-026` | `python3 scripts/progress.py show WP-026` |
+| `Retention matrix` | `WP-026` | `python3 scripts/progress.py show WP-026` |
+| `Integrity scan job` | `WP-026` | `python3 scripts/progress.py show WP-026` |
+| `Restore procedure` | `WP-026` | `python3 scripts/progress.py show WP-026` |
+
+### Classification that must be recorded before work begins
+
+`00_PROGRAM/05_definition_of_ready_and_done.md` requires all four to be classified at refinement. They are not documentation: together they select the `ExecutionProfile`, and an unclassified package cannot be given one.
+
+| Field | Must state | Recorded at refinement |
+|---|---|---|
+| `DataClass` | D0–D4 for every input and output this package touches | ☐ |
+| `CodeTrust` | provenance of code this package executes | ☐ |
+| `ToolEffect` | T0–T5; whether any external side effect occurs | ☐ |
+| Network / credential scope | egress destinations and the identity used | ☐ |
+
+### Capacity that must be reserved
+
+- **Effort class `S`** — small — one owner, one review cycle.
+- A three-point `O`/`M`/`P` person-day estimate, with `PERT = (O + 4M + P) / 6`, is **mandatory** before this package is `READY`. It is not recorded here because it depends on real capacity at the time of refinement.
+- **Data Platform Lead** carries the acceptance decision; **Research Integrity Officer** must verify independently of whoever implements.
+- One owner holds at most two `IN_PROGRESS` packages. At least 25% of assurance capacity stays reserved for correction and re-verification.
+
+### Evidence that must be producible before starting
+
+A package whose evidence cannot be produced is not `READY`, however complete its design is. Confirm each is reachable:
+
+- The target revision can be pinned, and every test result bound to it.
+- An environment manifest can be captured for the environment the tests run in.
+- The rollback or compensation path named in this document can actually be exercised.
+- A signed `EvidenceManifest` can be issued — today via the interim profile `airl-interim-v0.1` (`scripts/evidence_manifest.py`), which is **tamper-evident and not externally witnessed**.
+- The verifier can reach the evidence **without** seeing the producer's working trace.
+
+<!-- /generated:execution-requirements -->
 
 ## Implementation tasks
 
@@ -71,6 +261,8 @@ existed before the result" — **externally verifiable**.
 
 ## Test and verification plan
 
+The outline below is the summary. The executable procedure — environment, data, coverage items, cases, execution log, incident and completion reports — is in [`WP-139_evidence_timestamping.tests.md`](wp_139_evidence_timestamping.tests.md).
+
 - **Independent verification:** the stamp verifies on a third machine, without the framework
 - **Pre-registration proof:** the plan stamp precedes the result artifact's stamp
 - **Unstamped manifest:** rejected (negative test)
@@ -78,6 +270,8 @@ existed before the result" — **externally verifiable**.
 - **Clock manipulation:** changing the local clock does not change the stamp
 
 ## Acceptance criteria
+
+The programme-level conditions are below. The package-specific, measurable criteria — each with a threshold and the test case that decides it — are in [`WP-139_evidence_timestamping.acceptance.md`](wp_139_evidence_timestamping.acceptance.md), together with what this package still cannot establish.
 
 - [ ] The existence time of an `EvidenceManifest` is verifiable without trusting the framework
 - [ ] The `AnalysisPlanManifest` lock is stamped automatically

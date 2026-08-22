@@ -1,3 +1,20 @@
+---
+title: "ACC-32 — Secret in Prompt or Trace"
+aliases:
+  - "ACC-32"
+type: acceptance-scenario
+category: commissioning
+summary: "This scenario verifies the target architecture's fail-safe behaviour and its evidence production in the Secret in Prompt or Trace situation."
+source: "planning/commissioning/12_ACCEPTANCE_SCENARIOS/ACC-32_secret_in_trace.md"
+generated: true
+provenance: mirror_plan.py
+tags:
+  - aethrion/commissioning
+  - aethrion/acceptance-scenario
+  - aethrion/severity/critical
+  - aethrion/phase/pre-go-live
+---
+
 # ACC-32 — Secret in Prompt or Trace
 
 ## Scenario card

@@ -1,3 +1,15 @@
+---
+title: "AETHRION — Architecture Reference"
+type: reference
+category: architecture
+summary: "AETHRION — Agentic Intelligence Research Layer is an evidence-centred research operating system: AI agents perform bounded research tasks, deterministic systems verify whatever can be verified mechanically, independent assurance challenges what survives, humans retain scientific decision authority,"
+source: "docs/architecture/AETHRION_ARCHITECTURE.md"
+generated: true
+provenance: mirror_vault.py
+tags:
+  - aethrion/architecture
+---
+
 > [!info] Generated view
 > This note is generated from `docs/architecture/AETHRION_ARCHITECTURE.md` in the repository. Edit the
 > canonical file and regenerate; edits made here are overwritten.
@@ -799,7 +811,7 @@ This is the section that governs how every other section should be read.
 ```mermaid
 flowchart LR
     subgraph WORKING["RUNNING — verified locally"]
-        W["Zotero read-only client<br/>SQLite source registry<br/>Obsidian projection<br/>Hermes MCP · 5 tools<br/>systemd units · 25 tests<br/>plan seal · 10 status checks<br/>signed evidence manifest<br/>9 generated figures"]
+        W["Zotero read-only client<br/>SQLite source registry<br/>Obsidian projection<br/>Hermes MCP · 5 tools<br/>systemd units · 41 tests<br/>plan seal · 15 status checks<br/>signed evidence manifest<br/>9 generated figures"]
     end
     subgraph WRITTEN["WRITTEN — never executed"]
         S["52 skills, none behaviour-tested<br/>141 package documents<br/>51 acceptance scenarios<br/>role→model assignment rules<br/>4 authoring profiles"]

@@ -14,22 +14,24 @@
 
 ## Work packages (14)
 
-| Package | Title | Hard dependencies | Status at baseline | Adopted component |
-|---|---|---|---|:--:|
-| [WP-061](WP-061_source_registry_service.md) | Canonical Source Registry Service | WP-012, WP-017, WP-020, WP-025, WP-026, WP-028, WP-055, W… | `NOT_STARTED` | ✅ |
-| [WP-062](WP-062_source_identity_resolver.md) | Source Identity Resolution, Deduplication and Merge | WP-017, WP-050, WP-058, WP-061 | `NOT_STARTED` |  |
-| [WP-063](WP-063_source_representation_status.md) | Source Representation, Licence and Status Monitoring | WP-014, WP-017, WP-026, WP-037, WP-050, WP-058, WP-061, W… | `NOT_STARTED` |  |
-| [WP-064](WP-064_zotero_library_access.md) | Zotero Library, Collection and Permission Model | WP-004, WP-012, WP-017, WP-049, WP-050, WP-061 | `NOT_STARTED` |  |
-| [WP-065](WP-065_zotero_seed_ingest.md) | Personal Zotero Seed Ingest Pipeline | WP-017, WP-049, WP-050, WP-061, WP-062, WP-064 | `NOT_STARTED` |  |
-| [WP-066](WP-066_zotero_agent_writeback.md) | Agent Candidate and Used-Source Write-Back | WP-012, WP-017, WP-049, WP-050, WP-061, WP-062, WP-064 | `NOT_STARTED` |  |
-| [WP-067](WP-067_zotero_sync_reconciliation.md) | Zotero Two-Way Sync and Reconciliation | WP-061, WP-062, WP-064, WP-065, WP-066 | `NOT_STARTED` |  |
-| [WP-068](WP-068_zotero_annotation_ingest.md) | Zotero Annotation → EvidenceCandidate Pipeline | WP-017, WP-058, WP-061, WP-063, WP-065, WP-067 | `NOT_STARTED` |  |
-| [WP-069](WP-069_search_protocol_campaign.md) | SearchProtocol and LiteratureCampaign Orchestration | WP-013, WP-017, WP-032, WP-035, WP-046, WP-047, WP-049, W… | `NOT_STARTED` |  |
-| [WP-070](WP-070_dual_directional_literature.md) | Human + Agent Two-Way Literature Discovery | WP-007, WP-045, WP-047, WP-062, WP-065, WP-066, WP-069 | `NOT_STARTED` |  |
-| [WP-071](WP-071_screening_inclusion.md) | Screening, Inclusion/Exclusion and Coverage | WP-007, WP-017, WP-061, WP-062, WP-069, WP-070 | `NOT_STARTED` |  |
-| [WP-072](WP-072_literature_manifest_freeze.md) | LiteratureSetManifest Freeze and Human-Readable Archive | WP-014, WP-017, WP-026, WP-061, WP-062, WP-063, WP-067, W… | `NOT_STARTED` |  |
-| [WP-073](WP-073_obsidian_vault_model.md) | Obsidian Vault, Human/Generated Zones and Templates | WP-012, WP-017, WP-022, WP-061, WP-072 | `NOT_STARTED` |  |
-| [WP-074](WP-074_obsidian_projection_sync.md) | Obsidian Projection, Link Integrity and Knowledge Write-Back | WP-028, WP-030, WP-061, WP-072, WP-073 | `NOT_STARTED` |  |
+| Package | Title | Hard dependencies | Status at baseline | Adopted | Companions |
+|---|---|---|---|:--:|---|
+| [WP-061](WP-061_source_registry_service.md) | Canonical Source Registry Service | WP-012, WP-017, WP-020, WP-025, WP-026, WP-028, WP-055, W… | `NOT_STARTED` | ✅ | [tests](WP-061_source_registry_service.tests.md) · [acceptance](WP-061_source_registry_service.acceptance.md) |
+| [WP-062](WP-062_source_identity_resolver.md) | Source Identity Resolution, Deduplication and Merge | WP-017, WP-050, WP-058, WP-061 | `NOT_STARTED` |  | [tests](WP-062_source_identity_resolver.tests.md) · [acceptance](WP-062_source_identity_resolver.acceptance.md) |
+| [WP-063](WP-063_source_representation_status.md) | Source Representation, Licence and Status Monitoring | WP-014, WP-017, WP-026, WP-037, WP-050, WP-058, WP-061, W… | `NOT_STARTED` |  | [tests](WP-063_source_representation_status.tests.md) · [acceptance](WP-063_source_representation_status.acceptance.md) |
+| [WP-064](WP-064_zotero_library_access.md) | Zotero Library, Collection and Permission Model | WP-004, WP-012, WP-017, WP-049, WP-050, WP-061 | `NOT_STARTED` |  | [tests](WP-064_zotero_library_access.tests.md) · [acceptance](WP-064_zotero_library_access.acceptance.md) |
+| [WP-065](WP-065_zotero_seed_ingest.md) | Personal Zotero Seed Ingest Pipeline | WP-017, WP-049, WP-050, WP-061, WP-062, WP-064 | `NOT_STARTED` |  | [tests](WP-065_zotero_seed_ingest.tests.md) · [acceptance](WP-065_zotero_seed_ingest.acceptance.md) |
+| [WP-066](WP-066_zotero_agent_writeback.md) | Agent Candidate and Used-Source Write-Back | WP-012, WP-017, WP-049, WP-050, WP-061, WP-062, WP-064 | `NOT_STARTED` |  | [tests](WP-066_zotero_agent_writeback.tests.md) · [acceptance](WP-066_zotero_agent_writeback.acceptance.md) |
+| [WP-067](WP-067_zotero_sync_reconciliation.md) | Zotero Two-Way Sync and Reconciliation | WP-061, WP-062, WP-064, WP-065, WP-066 | `NOT_STARTED` |  | [tests](WP-067_zotero_sync_reconciliation.tests.md) · [acceptance](WP-067_zotero_sync_reconciliation.acceptance.md) |
+| [WP-068](WP-068_zotero_annotation_ingest.md) | Zotero Annotation → EvidenceCandidate Pipeline | WP-017, WP-058, WP-061, WP-063, WP-065, WP-067 | `NOT_STARTED` |  | [tests](WP-068_zotero_annotation_ingest.tests.md) · [acceptance](WP-068_zotero_annotation_ingest.acceptance.md) |
+| [WP-069](WP-069_search_protocol_campaign.md) | SearchProtocol and LiteratureCampaign Orchestration | WP-013, WP-017, WP-032, WP-035, WP-046, WP-047, WP-049, W… | `NOT_STARTED` |  | [tests](WP-069_search_protocol_campaign.tests.md) · [acceptance](WP-069_search_protocol_campaign.acceptance.md) |
+| [WP-070](WP-070_dual_directional_literature.md) | Human + Agent Two-Way Literature Discovery | WP-007, WP-045, WP-047, WP-062, WP-065, WP-066, WP-069 | `NOT_STARTED` |  | [tests](WP-070_dual_directional_literature.tests.md) · [acceptance](WP-070_dual_directional_literature.acceptance.md) |
+| [WP-071](WP-071_screening_inclusion.md) | Screening, Inclusion/Exclusion and Coverage | WP-007, WP-017, WP-061, WP-062, WP-069, WP-070 | `NOT_STARTED` |  | [tests](WP-071_screening_inclusion.tests.md) · [acceptance](WP-071_screening_inclusion.acceptance.md) |
+| [WP-072](WP-072_literature_manifest_freeze.md) | LiteratureSetManifest Freeze and Human-Readable Archive | WP-014, WP-017, WP-026, WP-061, WP-062, WP-063, WP-067, W… | `NOT_STARTED` |  | [tests](WP-072_literature_manifest_freeze.tests.md) · [acceptance](WP-072_literature_manifest_freeze.acceptance.md) |
+| [WP-073](WP-073_obsidian_vault_model.md) | Obsidian Vault, Human/Generated Zones and Templates | WP-012, WP-017, WP-022, WP-061, WP-072 | `NOT_STARTED` |  | [tests](WP-073_obsidian_vault_model.tests.md) · [acceptance](WP-073_obsidian_vault_model.acceptance.md) |
+| [WP-074](WP-074_obsidian_projection_sync.md) | Obsidian Projection, Link Integrity and Knowledge Write-Back | WP-028, WP-030, WP-061, WP-072, WP-073 | `NOT_STARTED` |  | [tests](WP-074_obsidian_projection_sync.tests.md) · [acceptance](WP-074_obsidian_projection_sync.acceptance.md) |
+
+Every package is three documents — the card, its **test procedures** and its **acceptance criteria** — because they have three readers. See `../README.md` §4.
 
 A ✅ marks a package that stands on an adopted external component rather than building the capability here — see `docs/architecture/AETHRION_COMPONENT_REUSE.md`.
 

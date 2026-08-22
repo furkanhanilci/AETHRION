@@ -1,3 +1,14 @@
+---
+title: "Go-Live Checklist"
+type: reference
+category: commissioning
+source: "planning/commissioning/00_PROGRAM/10_go_live_checklist.md"
+generated: true
+provenance: mirror_plan.py
+tags:
+  - aethrion/commissioning
+---
+
 # Go-Live Checklist
 
 ## Mandatory entry conditions

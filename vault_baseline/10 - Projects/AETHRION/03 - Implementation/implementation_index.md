@@ -1,3 +1,16 @@
+---
+title: "Implementation Index"
+airl_id: AETHRION-IMPLEMENTATION-INDEX
+type: index
+category: vault
+status: active
+summary: "Session handovers and the implementation log — where the last session stopped."
+generated: false
+tags:
+  - aethrion/index
+  - aethrion/execution
+---
+
 # Implementation Index
 
 The project view of the real implementation steps. The detailed chronology lives
@@ -33,6 +46,8 @@ or model — resumes without re-reading the corpus.
 | Step 002 — Central project organisation | 2026-08-21 | `DOCUMENTATION_VISIBLE` |
 | Step 001 — Foundation and contract core | 2026-08-22 | `TECH_COMPLETE` |
 | Step 000-A…G — Retrospective record | 2026-08-21 | complete |
+| [[10 - Projects/AETHRION/03 - Implementation/operations_runbook\|Operations Runbook]] | How do I run and verify the slice? |
+| [[10 - Projects/AETHRION/03 - Implementation/executing_a_work_package\|Executing a Work Package]] | What is the loop for running one package? |
 
 ## Implementation discipline
 

@@ -1,3 +1,20 @@
+---
+title: "ACC-39 — Negative Research Result"
+aliases:
+  - "ACC-39"
+type: acceptance-scenario
+category: commissioning
+summary: "This scenario verifies the target architecture's fail-safe behaviour and its evidence production in the Negative Research Result situation."
+source: "planning/commissioning/12_ACCEPTANCE_SCENARIOS/ACC-39_negative_result.md"
+generated: true
+provenance: mirror_plan.py
+tags:
+  - aethrion/commissioning
+  - aethrion/acceptance-scenario
+  - aethrion/severity/medium
+  - aethrion/phase/pre-go-live
+---
+
 # ACC-39 — Negative Research Result
 
 ## Scenario card

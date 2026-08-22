@@ -1,3 +1,20 @@
+---
+title: "ACC-27 — Regional / Management Plane DR"
+aliases:
+  - "ACC-27"
+type: acceptance-scenario
+category: commissioning
+summary: "This scenario verifies the target architecture's fail-safe behaviour and its evidence production in the Regional / Management Plane DR situation."
+source: "planning/commissioning/12_ACCEPTANCE_SCENARIOS/ACC-27_regional_dr.md"
+generated: true
+provenance: mirror_plan.py
+tags:
+  - aethrion/commissioning
+  - aethrion/acceptance-scenario
+  - aethrion/severity/critical
+  - aethrion/phase/pre-go-live
+---
+
 # ACC-27 — Regional / Management Plane DR
 
 ## Scenario card

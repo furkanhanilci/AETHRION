@@ -1,3 +1,16 @@
+---
+title: "Foundation Layer"
+type: reference
+category: architecture
+status: TECH_COMPLETE
+summary: "The foundation is what every later service binds to: one identity and correlation standard, one artifact manifest, one event envelope, one schema registry, and the platform services beneath them."
+source: "docs/architecture/FOUNDATION.md"
+generated: true
+provenance: mirror_vault.py
+tags:
+  - aethrion/architecture
+---
+
 > [!info] Generated view
 > This note is generated from `docs/architecture/FOUNDATION.md` in the repository. Edit the
 > canonical file and regenerate; edits made here are overwritten.
@@ -83,7 +96,7 @@ infrastructure and no trusted third party).
 
 ## Related documents
 
-- [`ARCHITECTURE_V0.md`](../ARCHITECTURE_V0.md) — the architecture of the working
+- [`ARCHITECTURE_V0.md`](aethrion_architecture_v0.md) — the architecture of the working
   vertical slice
 - [`AETHRION_IDEAL_STRUCTURE.md`](aethrion_ideal_structure.md) — what the target
   architecture is missing

@@ -1,3 +1,20 @@
+---
+title: "ACC-13 — Temporal Worker Crash"
+aliases:
+  - "ACC-13"
+type: acceptance-scenario
+category: commissioning
+summary: "This scenario verifies the target architecture's fail-safe behaviour and its evidence production in the Temporal Worker Crash situation."
+source: "planning/commissioning/12_ACCEPTANCE_SCENARIOS/ACC-13_temporal_worker_crash.md"
+generated: true
+provenance: mirror_plan.py
+tags:
+  - aethrion/commissioning
+  - aethrion/acceptance-scenario
+  - aethrion/severity/critical
+  - aethrion/phase/pre-go-live
+---
+
 # ACC-13 — Temporal Worker Crash
 
 ## Scenario card

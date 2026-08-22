@@ -13,7 +13,7 @@ here, because two copies of a rule become two versions of it.
 ## Start of session
 
 ```bash
-uv run python scripts/write_status.py    # must print 12/12
+uv run python scripts/write_status.py    # must print 15/15
 python3 scripts/ready_queue.py
 git log --oneline -5
 ```

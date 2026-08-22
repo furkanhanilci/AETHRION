@@ -1,3 +1,16 @@
+---
+title: "Framework Audit Evidence — 2026-08-22"
+airl_id: AETHRION-AUDIT-EVIDENCE-2026-08-22
+type: evidence
+category: vault
+status: active
+summary: "The evidence captured alongside the 2026-08-21 framework audit. Frozen."
+generated: false
+tags:
+  - aethrion/evidence
+  - aethrion/review
+---
+
 # Framework Audit Evidence — 2026-08-22
 
 Evidence collected during the independent audit **by fresh execution**. Every row

@@ -1,3 +1,20 @@
+---
+title: "ACC-40 — Complete Project Audit Export"
+aliases:
+  - "ACC-40"
+type: acceptance-scenario
+category: commissioning
+summary: "This scenario verifies the target architecture's fail-safe behaviour and its evidence production in the Complete Project Audit Export situation."
+source: "planning/commissioning/12_ACCEPTANCE_SCENARIOS/ACC-40_audit_export.md"
+generated: true
+provenance: mirror_plan.py
+tags:
+  - aethrion/commissioning
+  - aethrion/acceptance-scenario
+  - aethrion/severity/critical
+  - aethrion/phase/pre-go-live
+---
+
 # ACC-40 — Complete Project Audit Export
 
 ## Scenario card

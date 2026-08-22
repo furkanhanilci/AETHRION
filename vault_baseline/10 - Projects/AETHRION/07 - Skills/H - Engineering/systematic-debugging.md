@@ -1,3 +1,19 @@
+---
+title: "Systematic Debugging"
+aliases:
+  - "systematic-debugging"
+type: skill
+category: skill
+status: WORKING
+source: "skills/systematic-debugging/SKILL.md"
+generated: true
+provenance: mirror_vault.py
+tags:
+  - aethrion/skill
+  - aethrion/skill-family/engineering
+  - aethrion/skill-origin/superpowers
+---
+
 > [!info] Generated view
 > This note is generated from `skills/systematic-debugging/SKILL.md` in the repository. Edit the
 > canonical file and regenerate; edits made here are overwritten.

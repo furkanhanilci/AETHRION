@@ -1,3 +1,16 @@
+---
+title: "Architecture Index"
+airl_id: AETHRION-ARCHITECTURE-INDEX
+type: index
+category: vault
+status: active
+summary: "The target design, its decision records, and the distance between them and what runs."
+generated: false
+tags:
+  - aethrion/index
+  - aethrion/architecture
+---
+
 # Architecture Index
 
 The target architecture, the repository map and the operational skill layer.
@@ -14,6 +27,8 @@ The target architecture, the repository map and the operational skill layer.
 | [[10 - Projects/AETHRION/04 - Architecture/aethrion_roles\|Role Definitions]] | What may each role never do, and which roles may combine? |
 | [[10 - Projects/AETHRION/04 - Architecture/aethrion_external_standards\|External Standards]] | What is adopted rather than invented? |
 | [[10 - Projects/AETHRION/04 - Architecture/aethrion_component_reuse\|Component Reuse]] | Which mature implementation does each control stand on? |
+| [[10 - Projects/AETHRION/04 - Architecture/aethrion_foundation\|Foundation]] | What does the whole system rest on, before any component is chosen? |
+| [[10 - Projects/AETHRION/04 - Architecture/aethrion_branding_assets\|Branding Assets]] | Which mark is canonical, and where may it be used? |
 | [[10 - Projects/AETHRION/04 - Architecture/aethrion_related_systems\|Related Systems]] | How does this compare to Science One, PaperQA2, AI Scientist? |
 | [[10 - Projects/AETHRION/04 - Architecture/aethrion_document_standard\|Document Standard]] | How is every document here written? |
 | [[10 - Projects/AETHRION/04 - Architecture/aethrion_figure_specification\|Figure Specification]] | How are the figures produced and checked? |

@@ -14,18 +14,20 @@
 
 ## Work packages (10)
 
-| Package | Title | Hard dependencies | Status at baseline | Adopted component |
-|---|---|---|---|:--:|
-| [WP-011](WP-011_identity_correlation_standard.md) | Identity and End-to-End Correlation Standard | WP-010 | `NOT_STARTED` |  |
-| [WP-012](WP-012_canonical_field_authority.md) | Canonical Ownership and Field-Level Authority Matrix | WP-010, WP-011 | `NOT_STARTED` |  |
-| [WP-013](WP-013_project_task_role_contracts.md) | Project, Task, Role and Skill Contract Schemas | WP-003, WP-004, WP-005, WP-006, WP-007, WP-011 | `NOT_STARTED` |  |
-| [WP-014](WP-014_artifact_manifest_contracts.md) | Artifact, Dataset and Immutable Manifest Schemas | WP-011, WP-012 | `NOT_STARTED` |  |
-| [WP-015](WP-015_event_envelope_taxonomy.md) | Event Envelope, Subject and Schema Taxonomy | WP-011, WP-012, WP-014 | `NOT_STARTED` |  |
-| [WP-016](WP-016_policy_control_exception_contracts.md) | PolicyDecision, Control and Exception Schemas | WP-006, WP-009, WP-011 | `NOT_STARTED` |  |
-| [WP-017](WP-017_source_literature_contracts.md) | Source Registry and Literature Contract Schemas | WP-011, WP-012, WP-014 | `NOT_STARTED` |  |
-| [WP-018](WP-018_claim_review_decision_contracts.md) | Claim, Evidence, Review and Decision Schemas | WP-011, WP-012, WP-014, WP-016, WP-017 | `NOT_STARTED` |  |
-| [WP-019](WP-019_run_environment_repro_contracts.md) | Run, Environment and Reproduction Schemas | WP-011, WP-014, WP-018 | `NOT_STARTED` |  |
-| [WP-020](WP-020_schema_registry_sdk.md) | Schema Registry, Compatibility and Contract SDK | WP-011, WP-013, WP-014, WP-015, WP-016, WP-017, WP-018, W… | `NOT_STARTED` | ✅ |
+| Package | Title | Hard dependencies | Status at baseline | Adopted | Companions |
+|---|---|---|---|:--:|---|
+| [WP-011](WP-011_identity_correlation_standard.md) | Identity and End-to-End Correlation Standard | WP-010 | `NOT_STARTED` |  | [tests](WP-011_identity_correlation_standard.tests.md) · [acceptance](WP-011_identity_correlation_standard.acceptance.md) |
+| [WP-012](WP-012_canonical_field_authority.md) | Canonical Ownership and Field-Level Authority Matrix | WP-010, WP-011 | `NOT_STARTED` |  | [tests](WP-012_canonical_field_authority.tests.md) · [acceptance](WP-012_canonical_field_authority.acceptance.md) |
+| [WP-013](WP-013_project_task_role_contracts.md) | Project, Task, Role and Skill Contract Schemas | WP-003, WP-004, WP-005, WP-006, WP-007, WP-011 | `NOT_STARTED` |  | [tests](WP-013_project_task_role_contracts.tests.md) · [acceptance](WP-013_project_task_role_contracts.acceptance.md) |
+| [WP-014](WP-014_artifact_manifest_contracts.md) | Artifact, Dataset and Immutable Manifest Schemas | WP-011, WP-012 | `NOT_STARTED` |  | [tests](WP-014_artifact_manifest_contracts.tests.md) · [acceptance](WP-014_artifact_manifest_contracts.acceptance.md) |
+| [WP-015](WP-015_event_envelope_taxonomy.md) | Event Envelope, Subject and Schema Taxonomy | WP-011, WP-012, WP-014 | `NOT_STARTED` |  | [tests](WP-015_event_envelope_taxonomy.tests.md) · [acceptance](WP-015_event_envelope_taxonomy.acceptance.md) |
+| [WP-016](WP-016_policy_control_exception_contracts.md) | PolicyDecision, Control and Exception Schemas | WP-006, WP-009, WP-011 | `NOT_STARTED` |  | [tests](WP-016_policy_control_exception_contracts.tests.md) · [acceptance](WP-016_policy_control_exception_contracts.acceptance.md) |
+| [WP-017](WP-017_source_literature_contracts.md) | Source Registry and Literature Contract Schemas | WP-011, WP-012, WP-014 | `NOT_STARTED` |  | [tests](WP-017_source_literature_contracts.tests.md) · [acceptance](WP-017_source_literature_contracts.acceptance.md) |
+| [WP-018](WP-018_claim_review_decision_contracts.md) | Claim, Evidence, Review and Decision Schemas | WP-011, WP-012, WP-014, WP-016, WP-017 | `NOT_STARTED` |  | [tests](WP-018_claim_review_decision_contracts.tests.md) · [acceptance](WP-018_claim_review_decision_contracts.acceptance.md) |
+| [WP-019](WP-019_run_environment_repro_contracts.md) | Run, Environment and Reproduction Schemas | WP-011, WP-014, WP-018 | `NOT_STARTED` |  | [tests](WP-019_run_environment_repro_contracts.tests.md) · [acceptance](WP-019_run_environment_repro_contracts.acceptance.md) |
+| [WP-020](WP-020_schema_registry_sdk.md) | Schema Registry, Compatibility and Contract SDK | WP-011, WP-013, WP-014, WP-015, WP-016, WP-017, WP-018, W… | `NOT_STARTED` | ✅ | [tests](WP-020_schema_registry_sdk.tests.md) · [acceptance](WP-020_schema_registry_sdk.acceptance.md) |
+
+Every package is three documents — the card, its **test procedures** and its **acceptance criteria** — because they have three readers. See `../README.md` §4.
 
 A ✅ marks a package that stands on an adopted external component rather than building the capability here — see `docs/architecture/AETHRION_COMPONENT_REUSE.md`.
 

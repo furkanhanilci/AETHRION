@@ -1,0 +1,114 @@
+{
+  "colorGroups": [
+    {
+      "query": "tag:#aethrion/authoring/pending",
+      "color": {
+        "a": 1,
+        "rgb": 13983232
+      }
+    },
+    {
+      "query": "tag:#aethrion/work-package -tag:#aethrion/test-procedure -tag:#aethrion/acceptance-criteria",
+      "color": {
+        "a": 1,
+        "rgb": 15113984
+      }
+    },
+    {
+      "query": "tag:#aethrion/test-procedure -tag:#aethrion/authoring/pending",
+      "color": {
+        "a": 1,
+        "rgb": 40563
+      }
+    },
+    {
+      "query": "tag:#aethrion/acceptance-criteria -tag:#aethrion/authoring/pending",
+      "color": {
+        "a": 1,
+        "rgb": 29362
+      }
+    },
+    {
+      "query": "tag:#aethrion/acceptance-scenario",
+      "color": {
+        "a": 1,
+        "rgb": 13400487
+      }
+    },
+    {
+      "query": "tag:#aethrion/architecture",
+      "color": {
+        "a": 1,
+        "rgb": 5682409
+      }
+    },
+    {
+      "query": "tag:#aethrion/skill",
+      "color": {
+        "a": 1,
+        "rgb": 29362
+      }
+    },
+    {
+      "query": "tag:#aethrion/source",
+      "color": {
+        "a": 1,
+        "rgb": 15787074
+      }
+    },
+    {
+      "query": "tag:#aethrion/index -tag:#aethrion/source",
+      "color": {
+        "a": 1,
+        "rgb": 6514282
+      }
+    },
+    {
+      "query": "tag:#aethrion/review",
+      "color": {
+        "a": 1,
+        "rgb": 13400487
+      }
+    },
+    {
+      "query": "tag:#aethrion/commissioning -tag:#aethrion/work-package -tag:#aethrion/acceptance-scenario -tag:#aethrion/index",
+      "color": {
+        "a": 1,
+        "rgb": 15113984
+      }
+    },
+    {
+      "query": "tag:#aethrion/project OR tag:#aethrion/plan OR tag:#aethrion/cockpit OR tag:#aethrion/status OR tag:#aethrion/roadmap OR tag:#aethrion/handover OR tag:#aethrion/execution OR tag:#aethrion/evidence OR tag:#aethrion/component",
+      "color": {
+        "a": 1,
+        "rgb": 8921685
+      }
+    },
+    {
+      "query": "tag:#aethrion/claim OR tag:#aethrion/concept OR tag:#aethrion/decision OR tag:#aethrion/run OR tag:#aethrion/source-note OR tag:#aethrion/literature-set OR tag:#aethrion/inbox OR tag:#aethrion/archive",
+      "color": {
+        "a": 1,
+        "rgb": 4500121
+      }
+    },
+    {
+      "query": "tag:#aethrion/daily",
+      "color": {
+        "a": 1,
+        "rgb": 6514282
+      }
+    },
+    {
+      "query": "path:\"_Templates\"",
+      "color": {
+        "a": 1,
+        "rgb": 6514282
+      }
+    }
+  ],
+  "showArrow": true,
+  "showTags": false,
+  "showOrphans": true,
+  "textFadeMultiplier": -1.5,
+  "collapse-color-groups": false
+}

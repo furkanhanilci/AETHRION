@@ -1,3 +1,20 @@
+---
+title: "ACC-06 — Planner Self-Approval Attempt"
+aliases:
+  - "ACC-06"
+type: acceptance-scenario
+category: commissioning
+summary: "This scenario verifies the target architecture's fail-safe behaviour and its evidence production in the Planner Self-Approval Attempt situation."
+source: "planning/commissioning/12_ACCEPTANCE_SCENARIOS/ACC-06_plan_self_approval.md"
+generated: true
+provenance: mirror_plan.py
+tags:
+  - aethrion/commissioning
+  - aethrion/acceptance-scenario
+  - aethrion/severity/critical
+  - aethrion/phase/pre-go-live
+---
+
 # ACC-06 — Planner Self-Approval Attempt
 
 ## Scenario card

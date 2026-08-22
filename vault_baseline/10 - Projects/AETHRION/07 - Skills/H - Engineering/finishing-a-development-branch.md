@@ -1,3 +1,19 @@
+---
+title: "Finishing a Development Branch"
+aliases:
+  - "finishing-a-development-branch"
+type: skill
+category: skill
+status: WORKING
+source: "skills/finishing-a-development-branch/SKILL.md"
+generated: true
+provenance: mirror_vault.py
+tags:
+  - aethrion/skill
+  - aethrion/skill-family/engineering
+  - aethrion/skill-origin/superpowers
+---
+
 > [!info] Generated view
 > This note is generated from `skills/finishing-a-development-branch/SKILL.md` in the repository. Edit the
 > canonical file and regenerate; edits made here are overwritten.

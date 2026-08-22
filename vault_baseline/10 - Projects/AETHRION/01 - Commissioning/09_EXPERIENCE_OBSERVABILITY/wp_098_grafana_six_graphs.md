@@ -1,3 +1,26 @@
+---
+title: "WP-098 — Grafana and the Six Operational Graphs"
+aliases:
+  - "WP-098"
+  - "WP-098 — Grafana and the Six Operational Graphs"
+type: work-package
+category: commissioning
+status: NOT_STARTED
+summary: "Correlated dashboards and alerts are built for the execution, workflow, experiment, knowledge/evidence, service/SLO and cost graphs."
+source: "planning/commissioning/09_EXPERIENCE_OBSERVABILITY/WP-098_grafana_six_graphs.md"
+generated: true
+provenance: mirror_plan.py
+tags:
+  - aethrion/commissioning
+  - aethrion/work-package
+  - aethrion/workstream/09-experience-observability
+  - aethrion/wave/w5
+  - aethrion/effort/l
+  - aethrion/gate/g0-g10
+  - aethrion/gate/platform
+  - aethrion/state/not-started
+---
+
 # WP-098 — Grafana and the Six Operational Graphs
 
 ## Package card
@@ -15,14 +38,147 @@
 | Related acceptance scenarios | Assigned during the relevant vertical slice and commissioning |
 | Status at baseline | `NOT_STARTED` |
 
+## Package documents
+
+This package is described by three documents. They are separate because they have three readers: this card is read at refinement by someone deciding whether the package can start; the test procedures are read months later by whoever runs them; the acceptance criteria are read by an **independent verifier** who must reach a verdict without having done the work — and `00_PROGRAM/06` requires that verifier to work from a packet they can be handed.
+
+| Document | Answers | Read by |
+|---|---|---|
+| **This card** | What is this, what does it depend on, what does it release? | Refinement, planning |
+| [Test procedures](wp_098_grafana_six_graphs.tests.md) | How is it tested, in what environment, with what data, and what counts as a complete run? | The implementer and the tester |
+| [Acceptance criteria](wp_098_grafana_six_graphs.acceptance.md) | What must hold for this to be `ACCEPTED`, and what does it still not establish? | The independent verifier |
+
 ## Purpose and expected outcome
 
 Correlated dashboards and alerts are built for the execution, workflow, experiment, knowledge/evidence, service/SLO and cost graphs.
+
+
+## Analysis
+### What this package actually decides
+
+Which six questions the laboratory can answer at a glance, and — more usefully —
+which signals it watches for its own failure modes.
+
+Execution, workflow, experiment, knowledge/evidence, service/SLO, cost. Six graphs
+because the system has six ways of going wrong, and a single dashboard that mixes
+them tells nobody anything.
+
+### The dashboards that matter are the ones nobody thinks to build
+
+Four signals from `00_PROGRAM/07` and `00_PROGRAM/08` belong on these boards and
+are routinely absent from real systems:
+
+- **Median decision time falling while volume rises** — `PR-11`'s rubber-stamping
+  signature. Counter-intuitive, and the reason it must be a chart rather than a
+  number.
+- **Assurance queue wait** — `PR-04`'s earliest observable signal, visible here
+  long before it becomes a bypass request.
+- **G10 reversal rate** — the outcome measure for decision quality.
+- **Acceptance despite adversarial rejection** — the rate at which a falsification
+  was produced and the decision proceeded anyway.
+
+### Alerts without owners and runbooks are noise (T07)
+
+An alert routed to nobody is a notification. `00_PROGRAM/09` and WP-101 both
+require an owner; the link checker is what stops a runbook link rotting into a 404
+discovered during an incident.
+
+### The integrity dashboard is the one that would have caught this repository's own defects (T05)
+
+Projection lag, orphaned anchors, unmonitored source fraction, queue depths,
+overwrite-detector firings. Each of those has a real analogue in the running slice
+today — the 100-record cap, the DOI-less 18 of 33, the vault churn — and each was
+invisible until someone looked.
+
+### Alerts must be able to fire (T07)
+
+The repository's own rule: a check that cannot fail proves nothing. Every alert
+needs a demonstrated firing, or it is a rule nobody has confirmed is wired.
 
 ## Out of scope
 
 - The internal implementation of any dependent package
 - Production cutover and final operational approval
+
+## Dependency and prerequisite analysis
+
+<!-- generated:dependency-analysis — produced by scripts/expand_packages.py; do not edit inside this block -->
+
+### Direct hard dependencies
+
+3, each of which must be `ACCEPTED` — not `TECH_COMPLETE` — before this package is `READY`.
+
+| Package | Supplies to this package |
+|---|---|
+| [WP-030 — Neo4j, pgvector and OpenSearch Derived Read Models](../03_FOUNDATION/wp_030_derived_read_models.md) | `Projection services` · `Graph/vector/search indexes` · `Rebuild jobs` · `Integrity/lag dashboard` |
+| [WP-096 — OpenTelemetry End-to-End Correlation Spine](../09_EXPERIENCE_OBSERVABILITY/wp_096_otel_correlation.md) | `OTel platform` · `Semantic conventions` · `Instrumentation libraries` · `Trace completeness dashboard` |
+| [WP-097 — Langfuse Model/Agent Tracing and Prompt Governance](../09_EXPERIENCE_OBSERVABILITY/wp_097_langfuse_llm_trace.md) | `Langfuse platform` · `Prompt registry` · `Trace/redaction policy` · `Retention/export runbook` |
+
+### Full prerequisite closure
+
+**54 of 141 packages (38%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
+
+| Level | Packages |
+|---:|---|
+| 1 | `WP-001` |
+| 2 | `WP-002` |
+| 3 | `WP-003` · `WP-005` · `WP-006` |
+| 4 | `WP-004` · `WP-007` |
+| 5 | `WP-008` |
+| 6 | `WP-009` |
+| 7 | `WP-010` |
+| 8 | `WP-011` |
+| 9 | `WP-012` · `WP-013` · `WP-016` |
+| 10 | `WP-014` |
+| 11 | `WP-015` · `WP-017` |
+| 12 | `WP-018` |
+| 13 | `WP-019` |
+| 14 | `WP-020` |
+| 15 | `WP-021` · `WP-022` |
+| 16 | `WP-023` · `WP-025` · `WP-026` · `WP-051` |
+| 17 | `WP-024` · `WP-028` · `WP-029` · `WP-041` |
+| 18 | `WP-027` · `WP-030` · `WP-042` |
+| 19 | `WP-031` · `WP-043` · `WP-052` |
+| 20 | `WP-032` · `WP-044` |
+| 21 | `WP-033` · `WP-045` |
+| 22 | `WP-034` · `WP-046` |
+| 23 | `WP-035` · `WP-047` · `WP-049` |
+| 24 | `WP-055` |
+| 25 | `WP-056` |
+| 26 | `WP-057` · `WP-061` |
+| 27 | `WP-075` |
+| 28 | `WP-081` |
+| 29 | `WP-082` |
+| 30 | `WP-096` |
+| 31 | `WP-097` |
+
+### What acceptance of this package releases
+
+- **Directly unblocked:** 2 — `WP-101` · `WP-117`
+- **Transitively reachable:** **25 of 141 packages (18%)** cannot be accepted until this one is.
+
+The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
+
+### Position in the programme
+
+| | |
+|---|---|
+| Wave | W5 — Human and visibility |
+| Dependency depth | level **32** of 55 |
+| On the documented critical path | no |
+| Effort class | **L** |
+| Accountable owner | Observability Lead |
+| Independent verifier | Service Owners / FinOps / Assurance |
+| Gates touched | `G0–G10` · `Platform` |
+| Controls | `CTL-OBS-01` · `CTL-OBS-02` |
+
+### Acceptance scenarios that exercise this package
+
+**None.** No acceptance scenario names this package.
+
+> `00_PROGRAM/11_scope_coverage_matrix.md` states the rule this trips: *a row with a primary package but no acceptance column is a capability nobody will ever be asked to demonstrate.* This package can reach `ACCEPTED` on its own tests, but it cannot reach `COMMISSIONED` through a scenario, because there is none to pass.
+
+<!-- /generated:dependency-analysis -->
 
 ## Preconditions — Definition of Ready
 
@@ -32,6 +188,60 @@ Correlated dashboards and alerts are built for the execution, workflow, experime
 - `DataClass`, `CodeTrust`, `ToolEffect` and the network/credential scope are classified.
 - Test fixtures, the environment, the rollback point and the acceptance measurement method are reachable.
 - An O/M/P person-day estimate is recorded and real capacity is reserved against it.
+
+## Execution requirements
+
+<!-- generated:execution-requirements — produced by scripts/expand_packages.py; do not edit inside this block -->
+
+### Inputs that must exist before the first task starts
+
+Each row is a deliverable of a dependency. Its **absence is a stop condition**, not a risk to manage: work started against a missing input is work that will be redone against the real one.
+
+| Required input | Comes from | Accepted? |
+|---|---|---|
+| `Projection services` | `WP-030` | `python3 scripts/progress.py show WP-030` |
+| `Graph/vector/search indexes` | `WP-030` | `python3 scripts/progress.py show WP-030` |
+| `Rebuild jobs` | `WP-030` | `python3 scripts/progress.py show WP-030` |
+| `Integrity/lag dashboard` | `WP-030` | `python3 scripts/progress.py show WP-030` |
+| `OTel platform` | `WP-096` | `python3 scripts/progress.py show WP-096` |
+| `Semantic conventions` | `WP-096` | `python3 scripts/progress.py show WP-096` |
+| `Instrumentation libraries` | `WP-096` | `python3 scripts/progress.py show WP-096` |
+| `Trace completeness dashboard` | `WP-096` | `python3 scripts/progress.py show WP-096` |
+| `Langfuse platform` | `WP-097` | `python3 scripts/progress.py show WP-097` |
+| `Prompt registry` | `WP-097` | `python3 scripts/progress.py show WP-097` |
+| `Trace/redaction policy` | `WP-097` | `python3 scripts/progress.py show WP-097` |
+| `Retention/export runbook` | `WP-097` | `python3 scripts/progress.py show WP-097` |
+| `Trace quality dashboard` | `WP-097` | `python3 scripts/progress.py show WP-097` |
+
+### Classification that must be recorded before work begins
+
+`00_PROGRAM/05_definition_of_ready_and_done.md` requires all four to be classified at refinement. They are not documentation: together they select the `ExecutionProfile`, and an unclassified package cannot be given one.
+
+| Field | Must state | Recorded at refinement |
+|---|---|---|
+| `DataClass` | D0–D4 for every input and output this package touches | ☐ |
+| `CodeTrust` | provenance of code this package executes | ☐ |
+| `ToolEffect` | T0–T5; whether any external side effect occurs | ☐ |
+| Network / credential scope | egress destinations and the identity used | ☐ |
+
+### Capacity that must be reserved
+
+- **Effort class `L`** — large — split into sub-packages if the estimate exceeds the wave.
+- A three-point `O`/`M`/`P` person-day estimate, with `PERT = (O + 4M + P) / 6`, is **mandatory** before this package is `READY`. It is not recorded here because it depends on real capacity at the time of refinement.
+- **Observability Lead** carries the acceptance decision; **Service Owners / FinOps / Assurance** must verify independently of whoever implements.
+- One owner holds at most two `IN_PROGRESS` packages. At least 25% of assurance capacity stays reserved for correction and re-verification.
+
+### Evidence that must be producible before starting
+
+A package whose evidence cannot be produced is not `READY`, however complete its design is. Confirm each is reachable:
+
+- The target revision can be pinned, and every test result bound to it.
+- An environment manifest can be captured for the environment the tests run in.
+- The rollback or compensation path named in this document can actually be exercised.
+- A signed `EvidenceManifest` can be issued — today via the interim profile `airl-interim-v0.1` (`scripts/evidence_manifest.py`), which is **tamper-evident and not externally witnessed**.
+- The verifier can reach the evidence **without** seeing the producer's working trace.
+
+<!-- /generated:execution-requirements -->
 
 ## Implementation tasks
 
@@ -56,6 +266,8 @@ Correlated dashboards and alerts are built for the execution, workflow, experime
 
 ## Test and verification plan
 
+The outline below is the summary. The executable procedure — environment, data, coverage items, cases, execution log, incident and completion reports — is in [`WP-098_grafana_six_graphs.tests.md`](wp_098_grafana_six_graphs.tests.md).
+
 - A synthetic SLO breach alert
 - Budget 80% and 100% events
 - Projection lag
@@ -66,6 +278,8 @@ Correlated dashboards and alerts are built for the execution, workflow, experime
 - Telemetry correlation and audit-record integrity checks
 
 ## Acceptance criteria
+
+The programme-level conditions are below. The package-specific, measurable criteria — each with a threshold and the test case that decides it — are in [`WP-098_grafana_six_graphs.acceptance.md`](wp_098_grafana_six_graphs.acceptance.md), together with what this package still cannot establish.
 
 - [ ] Every alert carries a named owner and a runbook.
 - [ ] Dashboards support decisions and actions rather than vanity metrics.

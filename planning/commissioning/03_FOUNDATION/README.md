@@ -14,18 +14,20 @@
 
 ## Work packages (10)
 
-| Package | Title | Hard dependencies | Status at baseline | Adopted component |
-|---|---|---|---|:--:|
-| [WP-021](WP-021_environment_account_network_baseline.md) | Development, Staging and Production Environment Baseline | WP-001, WP-006, WP-010, WP-020 | `NOT_STARTED` |  |
-| [WP-022](WP-022_repository_topology.md) | Repository Topology and Code Ownership | WP-010, WP-020 | `NOT_STARTED` |  |
-| [WP-023](WP-023_git_worktree_branch_policy.md) | Git, Worktree and Protected-Path Policy | WP-022 | `NOT_STARTED` |  |
-| [WP-024](WP-024_ci_quality_gates.md) | CI Foundation and Deterministic Quality Gates | WP-020, WP-022, WP-023 | `NOT_STARTED` |  |
-| [WP-025](WP-025_postgres_ha_foundation.md) | PostgreSQL HA and Registry Data Foundation | WP-021, WP-020 | `NOT_STARTED` |  |
-| [WP-026](WP-026_object_store_worm.md) | Content-Addressed Object Store and WORM | WP-021, WP-014 | `NOT_STARTED` | ✅ |
-| [WP-027](WP-027_git_oci_supply_chain.md) | Git, OCI Registry and Build Provenance Foundation | WP-021, WP-022, WP-024, WP-026 | `NOT_STARTED` |  |
-| [WP-028](WP-028_nats_jetstream_outbox.md) | NATS JetStream and Transactional Outbox Foundation | WP-015, WP-021, WP-025 | `NOT_STARTED` |  |
-| [WP-029](WP-029_mlflow_foundation.md) | MLflow Experiment and Evaluation Tracking Foundation | WP-021, WP-025, WP-026 | `NOT_STARTED` |  |
-| [WP-030](WP-030_derived_read_models.md) | Neo4j, pgvector and OpenSearch Derived Read Models | WP-012, WP-017, WP-018, WP-025, WP-026, WP-028 | `NOT_STARTED` |  |
+| Package | Title | Hard dependencies | Status at baseline | Adopted | Companions |
+|---|---|---|---|:--:|---|
+| [WP-021](WP-021_environment_account_network_baseline.md) | Development, Staging and Production Environment Baseline | WP-001, WP-006, WP-010, WP-020 | `NOT_STARTED` |  | [tests](WP-021_environment_account_network_baseline.tests.md) · [acceptance](WP-021_environment_account_network_baseline.acceptance.md) |
+| [WP-022](WP-022_repository_topology.md) | Repository Topology and Code Ownership | WP-010, WP-020 | `NOT_STARTED` |  | [tests](WP-022_repository_topology.tests.md) · [acceptance](WP-022_repository_topology.acceptance.md) |
+| [WP-023](WP-023_git_worktree_branch_policy.md) | Git, Worktree and Protected-Path Policy | WP-022 | `NOT_STARTED` |  | [tests](WP-023_git_worktree_branch_policy.tests.md) · [acceptance](WP-023_git_worktree_branch_policy.acceptance.md) |
+| [WP-024](WP-024_ci_quality_gates.md) | CI Foundation and Deterministic Quality Gates | WP-020, WP-022, WP-023 | `NOT_STARTED` |  | [tests](WP-024_ci_quality_gates.tests.md) · [acceptance](WP-024_ci_quality_gates.acceptance.md) |
+| [WP-025](WP-025_postgres_ha_foundation.md) | PostgreSQL HA and Registry Data Foundation | WP-021, WP-020 | `NOT_STARTED` |  | [tests](WP-025_postgres_ha_foundation.tests.md) · [acceptance](WP-025_postgres_ha_foundation.acceptance.md) |
+| [WP-026](WP-026_object_store_worm.md) | Content-Addressed Object Store and WORM | WP-021, WP-014 | `NOT_STARTED` | ✅ | [tests](WP-026_object_store_worm.tests.md) · [acceptance](WP-026_object_store_worm.acceptance.md) |
+| [WP-027](WP-027_git_oci_supply_chain.md) | Git, OCI Registry and Build Provenance Foundation | WP-021, WP-022, WP-024, WP-026 | `NOT_STARTED` |  | [tests](WP-027_git_oci_supply_chain.tests.md) · [acceptance](WP-027_git_oci_supply_chain.acceptance.md) |
+| [WP-028](WP-028_nats_jetstream_outbox.md) | NATS JetStream and Transactional Outbox Foundation | WP-015, WP-021, WP-025 | `NOT_STARTED` |  | [tests](WP-028_nats_jetstream_outbox.tests.md) · [acceptance](WP-028_nats_jetstream_outbox.acceptance.md) |
+| [WP-029](WP-029_mlflow_foundation.md) | MLflow Experiment and Evaluation Tracking Foundation | WP-021, WP-025, WP-026 | `NOT_STARTED` |  | [tests](WP-029_mlflow_foundation.tests.md) · [acceptance](WP-029_mlflow_foundation.acceptance.md) |
+| [WP-030](WP-030_derived_read_models.md) | Neo4j, pgvector and OpenSearch Derived Read Models | WP-012, WP-017, WP-018, WP-025, WP-026, WP-028 | `NOT_STARTED` |  | [tests](WP-030_derived_read_models.tests.md) · [acceptance](WP-030_derived_read_models.acceptance.md) |
+
+Every package is three documents — the card, its **test procedures** and its **acceptance criteria** — because they have three readers. See `../README.md` §4.
 
 A ✅ marks a package that stands on an adopted external component rather than building the capability here — see `docs/architecture/AETHRION_COMPONENT_REUSE.md`.
 

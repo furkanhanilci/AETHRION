@@ -1,3 +1,20 @@
+---
+title: "ACC-21 — Derived Graph Corruption and Rebuild"
+aliases:
+  - "ACC-21"
+type: acceptance-scenario
+category: commissioning
+summary: "This scenario verifies the target architecture's fail-safe behaviour and its evidence production in the Derived Graph Corruption and Rebuild situation."
+source: "planning/commissioning/12_ACCEPTANCE_SCENARIOS/ACC-21_graph_corruption.md"
+generated: true
+provenance: mirror_plan.py
+tags:
+  - aethrion/commissioning
+  - aethrion/acceptance-scenario
+  - aethrion/severity/high
+  - aethrion/phase/pre-go-live
+---
+
 # ACC-21 — Derived Graph Corruption and Rebuild
 
 ## Scenario card

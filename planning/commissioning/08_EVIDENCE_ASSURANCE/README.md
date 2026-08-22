@@ -14,24 +14,26 @@
 
 ## Work packages (16)
 
-| Package | Title | Hard dependencies | Status at baseline | Adopted component |
-|---|---|---|---|:--:|
-| [WP-075](WP-075_claim_evidence_ledger.md) | Canonical Claim/Evidence Ledger Service | WP-018, WP-020, WP-025, WP-026, WP-028, WP-030, WP-055, W… | `NOT_STARTED` | ✅ |
-| [WP-076](WP-076_evidence_anchor_resolver.md) | Evidence Span Anchoring and Re-anchoring | WP-014, WP-017, WP-018, WP-026, WP-058, WP-063, WP-068, W… | `NOT_STARTED` |  |
-| [WP-077](WP-077_claim_state_dependency.md) | Claim State, Dependency and Assessment Engine | WP-005, WP-018, WP-075, WP-076 | `NOT_STARTED` |  |
-| [WP-078](WP-078_evidence_extraction_pipeline.md) | Structured Evidence Extraction Pipeline | WP-045, WP-047, WP-058, WP-063, WP-068, WP-075, WP-076 | `NOT_STARTED` |  |
-| [WP-079](WP-079_source_trust_cards.md) | SourceTrustCard and Study Quality Assessment | WP-005, WP-017, WP-063, WP-075, WP-076, WP-078 | `NOT_STARTED` |  |
-| [WP-080](WP-080_citation_entailment_audit.md) | Claim–Citation Entailment, Scope and Locator Audit | WP-007, WP-018, WP-072, WP-075, WP-076, WP-077, WP-078, W… | `NOT_STARTED` | ✅ |
-| [WP-081](WP-081_protocol_baseline_registry.md) | Protocol, Analysis, Baseline and Falsification Registry | WP-008, WP-014, WP-019, WP-025, WP-026, WP-035, WP-075 | `NOT_STARTED` |  |
-| [WP-082](WP-082_run_registry_mlflow.md) | Run Registry and MLflow Lineage Integration | WP-014, WP-019, WP-025, WP-026, WP-029, WP-032, WP-081 | `NOT_STARTED` | ✅ |
-| [WP-083](WP-083_experiment_batch.md) | ExperimentBatch and Staged Execution | WP-032, WP-035, WP-045, WP-053, WP-054, WP-082 | `NOT_STARTED` |  |
-| [WP-084](WP-084_clean_room_environment.md) | Clean-Room Reproduction Environment | WP-007, WP-014, WP-019, WP-026, WP-027, WP-052, WP-053, W… | `NOT_STARTED` |  |
-| [WP-085](WP-085_repro_robustness_replication.md) | Repeatability, Reproducibility, Robustness and Replication Pipeline | WP-005, WP-007, WP-019, WP-077, WP-081, WP-082, WP-083, W… | `NOT_STARTED` |  |
-| [WP-086](WP-086_frozen_review_package.md) | Frozen and Blind Review Package Builder | WP-007, WP-014, WP-018, WP-026, WP-075, WP-077, WP-080, W… | `NOT_STARTED` |  |
-| [WP-087](WP-087_mechanical_verifier.md) | Mechanical Verification Engine | WP-020, WP-024, WP-026, WP-027, WP-075, WP-076, WP-080, W… | `NOT_STARTED` |  |
-| [WP-088](WP-088_blind_cross_family_review.md) | Blind, Cross-Family and Adversarial Review | WP-007, WP-018, WP-042, WP-043, WP-044, WP-045, WP-047, W… | `NOT_STARTED` |  |
-| [WP-089](WP-089_disagreement_arbitration.md) | DisagreementCase and Evidence-Weighted Arbitration | WP-004, WP-007, WP-018, WP-075, WP-077, WP-087, WP-088 | `NOT_STARTED` |  |
-| [WP-090](WP-090_publication_package.md) | PublicationPackage, RO-Crate and Provenance Export | WP-014, WP-018, WP-026, WP-072, WP-075, WP-077, WP-080, W… | `NOT_STARTED` | ✅ |
+| Package | Title | Hard dependencies | Status at baseline | Adopted | Companions |
+|---|---|---|---|:--:|---|
+| [WP-075](WP-075_claim_evidence_ledger.md) | Canonical Claim/Evidence Ledger Service | WP-018, WP-020, WP-025, WP-026, WP-028, WP-030, WP-055, W… | `NOT_STARTED` | ✅ | [tests](WP-075_claim_evidence_ledger.tests.md) · [acceptance](WP-075_claim_evidence_ledger.acceptance.md) |
+| [WP-076](WP-076_evidence_anchor_resolver.md) | Evidence Span Anchoring and Re-anchoring | WP-014, WP-017, WP-018, WP-026, WP-058, WP-063, WP-068, W… | `NOT_STARTED` |  | [tests](WP-076_evidence_anchor_resolver.tests.md) · [acceptance](WP-076_evidence_anchor_resolver.acceptance.md) |
+| [WP-077](WP-077_claim_state_dependency.md) | Claim State, Dependency and Assessment Engine | WP-005, WP-018, WP-075, WP-076 | `NOT_STARTED` |  | [tests](WP-077_claim_state_dependency.tests.md) · [acceptance](WP-077_claim_state_dependency.acceptance.md) |
+| [WP-078](WP-078_evidence_extraction_pipeline.md) | Structured Evidence Extraction Pipeline | WP-045, WP-047, WP-058, WP-063, WP-068, WP-075, WP-076 | `NOT_STARTED` |  | [tests](WP-078_evidence_extraction_pipeline.tests.md) · [acceptance](WP-078_evidence_extraction_pipeline.acceptance.md) |
+| [WP-079](WP-079_source_trust_cards.md) | SourceTrustCard and Study Quality Assessment | WP-005, WP-017, WP-063, WP-075, WP-076, WP-078 | `NOT_STARTED` |  | [tests](WP-079_source_trust_cards.tests.md) · [acceptance](WP-079_source_trust_cards.acceptance.md) |
+| [WP-080](WP-080_citation_entailment_audit.md) | Claim–Citation Entailment, Scope and Locator Audit | WP-007, WP-018, WP-072, WP-075, WP-076, WP-077, WP-078, W… | `NOT_STARTED` | ✅ | [tests](WP-080_citation_entailment_audit.tests.md) · [acceptance](WP-080_citation_entailment_audit.acceptance.md) |
+| [WP-081](WP-081_protocol_baseline_registry.md) | Protocol, Analysis, Baseline and Falsification Registry | WP-008, WP-014, WP-019, WP-025, WP-026, WP-035, WP-075 | `NOT_STARTED` |  | [tests](WP-081_protocol_baseline_registry.tests.md) · [acceptance](WP-081_protocol_baseline_registry.acceptance.md) |
+| [WP-082](WP-082_run_registry_mlflow.md) | Run Registry and MLflow Lineage Integration | WP-014, WP-019, WP-025, WP-026, WP-029, WP-032, WP-081 | `NOT_STARTED` | ✅ | [tests](WP-082_run_registry_mlflow.tests.md) · [acceptance](WP-082_run_registry_mlflow.acceptance.md) |
+| [WP-083](WP-083_experiment_batch.md) | ExperimentBatch and Staged Execution | WP-032, WP-035, WP-045, WP-053, WP-054, WP-082 | `NOT_STARTED` |  | [tests](WP-083_experiment_batch.tests.md) · [acceptance](WP-083_experiment_batch.acceptance.md) |
+| [WP-084](WP-084_clean_room_environment.md) | Clean-Room Reproduction Environment | WP-007, WP-014, WP-019, WP-026, WP-027, WP-052, WP-053, W… | `NOT_STARTED` |  | [tests](WP-084_clean_room_environment.tests.md) · [acceptance](WP-084_clean_room_environment.acceptance.md) |
+| [WP-085](WP-085_repro_robustness_replication.md) | Repeatability, Reproducibility, Robustness and Replication Pipeline | WP-005, WP-007, WP-019, WP-077, WP-081, WP-082, WP-083, W… | `NOT_STARTED` |  | [tests](WP-085_repro_robustness_replication.tests.md) · [acceptance](WP-085_repro_robustness_replication.acceptance.md) |
+| [WP-086](WP-086_frozen_review_package.md) | Frozen and Blind Review Package Builder | WP-007, WP-014, WP-018, WP-026, WP-075, WP-077, WP-080, W… | `NOT_STARTED` |  | [tests](WP-086_frozen_review_package.tests.md) · [acceptance](WP-086_frozen_review_package.acceptance.md) |
+| [WP-087](WP-087_mechanical_verifier.md) | Mechanical Verification Engine | WP-020, WP-024, WP-026, WP-027, WP-075, WP-076, WP-080, W… | `NOT_STARTED` |  | [tests](WP-087_mechanical_verifier.tests.md) · [acceptance](WP-087_mechanical_verifier.acceptance.md) |
+| [WP-088](WP-088_blind_cross_family_review.md) | Blind, Cross-Family and Adversarial Review | WP-007, WP-018, WP-042, WP-043, WP-044, WP-045, WP-047, W… | `NOT_STARTED` |  | [tests](WP-088_blind_cross_family_review.tests.md) · [acceptance](WP-088_blind_cross_family_review.acceptance.md) |
+| [WP-089](WP-089_disagreement_arbitration.md) | DisagreementCase and Evidence-Weighted Arbitration | WP-004, WP-007, WP-018, WP-075, WP-077, WP-087, WP-088 | `NOT_STARTED` |  | [tests](WP-089_disagreement_arbitration.tests.md) · [acceptance](WP-089_disagreement_arbitration.acceptance.md) |
+| [WP-090](WP-090_publication_package.md) | PublicationPackage, RO-Crate and Provenance Export | WP-014, WP-018, WP-026, WP-072, WP-075, WP-077, WP-080, W… | `NOT_STARTED` | ✅ | [tests](WP-090_publication_package.tests.md) · [acceptance](WP-090_publication_package.acceptance.md) |
+
+Every package is three documents — the card, its **test procedures** and its **acceptance criteria** — because they have three readers. See `../README.md` §4.
 
 A ✅ marks a package that stands on an adopted external component rather than building the capability here — see `docs/architecture/AETHRION_COMPONENT_REUSE.md`.
 

@@ -1,3 +1,14 @@
+---
+title: "Evidence and Acceptance Strategy"
+type: reference
+category: commissioning
+source: "planning/commissioning/00_PROGRAM/06_evidence_and_acceptance_strategy.md"
+generated: true
+provenance: mirror_plan.py
+tags:
+  - aethrion/commissioning
+---
+
 # Evidence and Acceptance Strategy
 
 ## Evidence manifest
