@@ -30,7 +30,8 @@ implied.
 | Obsidian information architecture | ✅ V0 ready | `vault_baseline/` |
 | Target architecture and skill layer | 📐 Designed, awaiting decision | `docs/architecture/` |
 | Commissioning programme — **baseline v1.0.1** | ⬜ Planned, not started; 141 packages, 51 scenarios | `planning/commissioning/` |
-| Interim evidence policy (WP-000) | 📐 Written — unblocks the storage half of C1 | `planning/commissioning/01_GOVERNANCE/` |
+| Interim evidence policy (WP-000) | ✅ `TECH_COMPLETE` — tooling implemented, specimen issued and verified | `scripts/evidence_manifest.py` · `delivery/WP-000/` |
+| Verification on push (BVC-01) | 📐 Decided and written, **not yet active** — needs a workflow-scoped token | `deploy/bvc-01-verify.yml` |
 
 ## Layout
 
@@ -41,7 +42,7 @@ skills/       49 skills — HOW agents work; engineering + scientific + shared
 planning/     WP-000, WP-001..140, ACC-01..51 (hash-sealed canonical plan, baseline v1.0.1)
 docs/         Architecture, review and operations documents
 schemas/      Shared contract schemas
-delivery/     Per-package evidence packages
+delivery/     Per-package evidence packages — signed manifests and anchors
 deploy/       systemd unit files
 scripts/      Acceptance, smoke, skill-validation, figure and mirror generation
 docs/figures/ Publication figures — generated, never hand-edited
@@ -59,7 +60,7 @@ vault_baseline/  Versioned copy of the Obsidian vault
 | **Who** performs each role — human, model or code? | [Roles](#6-roles--who-is-accountable-for-what) below · [`AIRL_OS_ROLES.md`](docs/architecture/AIRL_OS_ROLES.md) — definitions and authority flows · [`AIRL_OS_ROLE_MODEL_ASSIGNMENT.md`](docs/architecture/AIRL_OS_ROLE_MODEL_ASSIGNMENT.md) — which model |
 | How are the figures produced? | [`docs/figures/README.md`](docs/figures/README.md) — inventory and design specification |
 | How are these documents written? | [`docs/DOCUMENT_STANDARD.md`](docs/DOCUMENT_STANDARD.md) — structure, status vocabulary, honesty rules |
-| **What decisions are still open?** | [`ADR-001`](docs/architecture/ADR-001_solo_operator_independence.md) — solo-operator independence (**blocks every acceptance**) · [`ADR-002`](docs/architecture/ADR-002_bootstrap_verification_control.md) — bootstrap verification control |
+| What has been decided, and why? | [`ADR-001`](docs/architecture/ADR-001_solo_operator_independence.md) — solo-operator independence · [`ADR-002`](docs/architecture/ADR-002_bootstrap_verification_control.md) — bootstrap verification control |
 | Licensing and attribution | [`NOTICE`](NOTICE) |
 | What is **adopted** rather than invented? | [`docs/architecture/AIRL_OS_EXTERNAL_STANDARDS.md`](docs/architecture/AIRL_OS_EXTERNAL_STANDARDS.md) |
 | Architecture of the working vertical slice | [`docs/ARCHITECTURE_V0.md`](docs/ARCHITECTURE_V0.md) |
@@ -642,17 +643,31 @@ branch and are regenerated from the canonical registry. Human synthesis stays in
 ### Verify
 
 ```bash
-uv run pytest                          # 20 tests
+uv run pytest                          # 25 tests
 uv run python scripts/mcp_smoke.py     # asserts the five-tool boundary; exits 1 on failure
 uv run python scripts/acceptance_v0.py # data-independent structural acceptance
 python3 scripts/validate_skills.py     # Agent Skills format + AIRL metadata contract
 python3 scripts/make_figures.py --check # figures match generators, text fits its box
 python3 scripts/validate_commissioning_plan.py  # the plan is internally consistent
+uv run python scripts/evidence_manifest.py verify \
+    --manifest delivery/WP-000/evidence.dsse.json --tamper-demo
 (cd planning/commissioning && sha256sum -c 00_PROGRAM/SHA256SUMS.txt)
 ```
 
-All seven run by hand. **There is no CI** — see finding **H5**, and
-[`docs/OPERATIONS.md`](docs/OPERATIONS.md) for the full verification bundle.
+All seven run by hand today. The first five are **written** as a push-triggered
+control — [`BVC-01`](deploy/bvc-01-verify.yml), a temporary measure under
+[`ADR-002`](docs/architecture/ADR-002_bootstrap_verification_control.md) with a
+named expiry and WP-024 as its retirement package — but it is **staged, not
+active**: activating it needs a token with GitHub's `workflow` scope, and the
+activation command is in ADR-002 §6.
+
+**Neither the staged control nor its activation closes finding H5.** H5 is the absence of a CI *platform* — schema
+validation, policy bundles, security scanning, provenance attestation,
+integration testing — and that is WP-024, which hard-depends on three unbuilt
+packages. What BVC-01 closes is narrower and worth naming precisely: the gap
+between *the checks exist* and *the checks ran*. The Bridge-dependent checks and
+the vault mirror checks stay manual, and their absence is recorded in the
+workflow rather than hidden.
 
 ## Hermes MCP access
 
@@ -673,15 +688,24 @@ store, an independent verifier) do not yet exist. See finding **C1** in the audi
 report.
 
 [**WP-000**](planning/commissioning/01_GOVERNANCE/WP-000_interim_evidence_policy.md)
-now removes the *storage* half of that blocker by expressing the
-`EvidenceManifest` as a signed in-toto attestation in a public transparency log,
-rather than waiting for WP-026. The *independence* half — finding **C2**, who may
-verify in a one-person operation — remains open, and no standard resolves it.
+removes the *storage* half of that blocker: the `EvidenceManifest` is a signed
+in-toto attestation, issued and verified by `scripts/evidence_manifest.py`, and
+tamper detection is exercised by tests rather than asserted. The implemented
+profile is `airl-interim-v0.1` — local key, **no transparency log** — and each
+manifest carries its own `limitations` list so it cannot be read as more than it
+is.
+
+The *independence* half — finding **C2** — is now **decided** in
+[`ADR-001`](docs/architecture/ADR-001_solo_operator_independence.md): R1 solo;
+R2 solo only under a declared partial-independence profile; **R3 `BLOCKED`
+unless an external verifier is named.** So packages have an acceptance path, and
+the laboratory does not claim independence it does not have.
 
 ## Verification
 
 ```
-20/20 tests pass · plan seal 207/207 OK · plan semantics OK · service and timer active
+25/25 tests pass · plan seal 207/207 OK · plan semantics OK · service and timer active
+WP-000 attestation: signature OK, 3 subject digests OK, tamper rejected
 MCP smoke: 5 read-only tools, exits 1 when the Bridge is down
 Acceptance: 11 structural checks pass, data-independent
 Skills: 49/49 conform to the Agent Skills format and the AIRL metadata contract

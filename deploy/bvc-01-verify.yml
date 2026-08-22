@@ -1,0 +1,71 @@
+# BVC-01 — Bootstrap Verification Control.
+#
+# STAGED, NOT ACTIVE. This file lives in deploy/ rather than .github/workflows/
+# because the token available to the session that wrote it lacks the `workflow`
+# scope. To activate:
+#
+#     gh auth refresh -h github.com -s workflow
+#     mkdir -p .github/workflows && cp deploy/bvc-01-verify.yml .github/workflows/verify.yml
+#     git add .github/workflows/verify.yml && git commit -m "Activate BVC-01" && git push
+#
+# Until that is done the control is decided and written but NOT running, and
+# every document that mentions it says so.
+#
+# A temporary control under docs/architecture/ADR-002. It runs the automatable
+# half of the verification bundle on every push, so that "the checks exist" and
+# "the checks ran" stop being different statements.
+#
+# It is deliberately NOT WP-024. Schema validation, policy bundles, security
+# scanning, provenance attestation and integration testing belong to that
+# package, which hard-depends on WP-020/022/023 and does not exist yet. This
+# workflow closes the gap between existence and execution; it does not close
+# finding H5.
+#
+# Owner:      Engineering Owner
+# Expiry:     WP-024 acceptance, or 2027-02-22, whichever is earlier
+# Retirement: WP-024
+name: BVC-01 verification bundle
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+
+      - name: Sync the environment
+        run: uv sync --extra dev
+
+      - name: Test suite
+        run: uv run pytest -q
+
+      - name: Skill registry conformance
+        run: uv run python scripts/validate_skills.py
+
+      - name: Commissioning plan semantics
+        run: uv run python scripts/validate_commissioning_plan.py
+
+      - name: Commissioning plan seal
+        working-directory: planning/commissioning
+        run: sha256sum -c 00_PROGRAM/SHA256SUMS.txt
+
+      - name: Figures match their generators, and text fits its boxes
+        run: uv run python scripts/make_figures.py --check
+
+      # Not run here, and the omission is recorded rather than hidden:
+      #   scripts/mcp_smoke.py       needs a live Bridge
+      #   scripts/acceptance_v0.py   needs a live Bridge and a local Zotero
+      #   mirror_plan / mirror_vault --check   need the operator's Obsidian vault
+      - name: Record what this control does not cover
+        run: |
+          echo "BVC-01 does not run: mcp_smoke, acceptance_v0, or the vault mirror checks."
+          echo "They need a live Bridge, a local Zotero library, and the operator's vault."
+          echo "Those remain manual until WP-024. See docs/architecture/ADR-002.md"

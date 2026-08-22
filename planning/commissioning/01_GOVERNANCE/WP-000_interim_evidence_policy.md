@@ -13,7 +13,7 @@
 | Related gates | Program (applies to every gate's evidence requirement) |
 | Related controls | CTL-GOV-01, CTL-EPI-01 |
 | Related acceptance scenarios | ACC-06 |
-| Current status | `NOT_STARTED` |
+| Current status | `TECH_COMPLETE` — tooling implemented, specimen issued and verified; acceptance awaits the verifier arrangement in ADR-001 |
 
 ## Purpose and expected outcome
 
@@ -38,6 +38,33 @@ own.
   it does **not** decide who may act as an independent verifier in a small
   organisation. That is finding **C2** and remains open. Adopting the attestation
   standards below does not close it, and this package must not be read as if it did.
+
+## Execution record — 2026-08-22
+
+The interim profile is implemented in `scripts/evidence_manifest.py`, and a
+specimen manifest for this package exists at `delivery/WP-000/`:
+
+```
+signature           OK
+subject digest      OK   README.md
+subject digest      OK   planning/commissioning/00_PROGRAM/SHA256SUMS.txt
+subject digest      OK   planning/commissioning/01_GOVERNANCE/WP-000_interim_evidence_policy.md
+time anchor         OK   (interim/local)
+payload altered     rejected, as required
+```
+
+Both tamper paths are exercised by `tests/test_evidence_manifest.py`: altering a
+covered file fails the digest check, and forging the signature fails the envelope
+check. Verification exits `1` in both cases.
+
+> **What is implemented is narrower than the target, and the manifest says so.**
+> The in-toto Statement and the DSSE envelope are as specified; the signature is
+> a **local Ed25519 key** rather than Sigstore keyless, and the attestation is
+> **not submitted to a transparency log** — keyless signing needs an interactive
+> OIDC flow this environment does not have. The manifest records
+> `attestation_profile: airl-interim-v0.1` and carries its own `limitations`
+> list, so no reader can mistake it for the full profile. Moving to Sigstore and
+> Rekor is the remaining work in this package.
 
 ## Interim evidence format
 

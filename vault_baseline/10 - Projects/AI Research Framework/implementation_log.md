@@ -19,6 +19,117 @@ the last entry, the cockpit and the relevant WP files are read again.
 
 ---
 
+## Step 011 — The first working version: decisions taken, evidence actually issued
+
+**Time:** 2026-08-22
+**Scope:** ADR-001 and ADR-002 decided · BVC-01 implemented · WP-000 executed
+
+### What changed in kind, not degree
+
+Every previous step produced specification. This one produced **a verifiable
+artifact and a decided acceptance path** — the first time the framework applied
+its own rules to itself. The third piece, automated verification, is written but
+blocked on a credential and is recorded as blocked rather than as done.
+
+### ADR-001 decided — C2 is no longer open
+
+**Model A + C adopted, Model B available when an external verifier can be named:**
+
+| Class | Acceptance | Conditions |
+|---|---|---|
+| **R1** | solo permitted | mechanical checks pass; the profile records which dimensions held |
+| **R2** | solo permitted | cross-family review · clean-room reproduction · declared temporal separation · manifest states human identity and economic interest were **not** independent |
+| **R3** | **`BLOCKED`** | only an externally named human verifier lifts it |
+
+The reasoning is that five of seven independence dimensions survive a one-person
+operation and can be enforced mechanically, while the two that do not — human
+identity and economic interest — are precisely the two that matter most at R3.
+So R3 is blocked rather than approximated. **Packages now have an acceptance
+path, and the laboratory does not claim independence it does not have.**
+
+### ADR-002 decided — BVC-01 written, staged, **not yet active**
+
+`deploy/bvc-01-verify.yml` defines a push-triggered run of pytest, the skill
+registry contract, the plan semantics validator, the plan seal and the figure
+checks.
+
+It sits in `deploy/` rather than `.github/workflows/` because the token
+available here lacks GitHub's `workflow` scope and the push is refused. That is
+a credential boundary, not a design choice — but it means **the control is not
+running**, and saying otherwise would have been the exact overstatement this
+step is otherwise about avoiding. Activation is one command plus one commit,
+recorded in ADR-002 §6.
+
+It is **not** WP-024 and does not pretend to be: schema validation, policy
+bundles, security scanning, provenance attestation and integration testing belong
+to that package, which hard-depends on three unbuilt ones. BVC-01 carries an
+owner, an expiry (WP-024 acceptance or 2027-02-22) and a named retirement
+package, and its final step **prints what it does not cover** rather than hiding
+it. **It does not close H5.**
+
+### WP-000 executed — the first real evidence
+
+`scripts/evidence_manifest.py` issues and verifies `EvidenceManifest`
+attestations: an in-toto Statement, a DSSE envelope, an Ed25519 signature, and
+WP-000's **own** interim time anchor — not WP-139's, deliberately.
+
+```
+signature           OK
+subject digest      OK   README.md
+subject digest      OK   planning/commissioning/00_PROGRAM/SHA256SUMS.txt
+subject digest      OK   planning/commissioning/01_GOVERNANCE/WP-000_interim_evidence_policy.md
+time anchor         OK   (interim/local)
+payload altered     rejected, as required
+```
+
+Five tests exercise the claim rather than asserting it: a good manifest verifies,
+an altered payload is rejected, **an altered covered file fails the digest
+check**, a forged signature fails the envelope check, and the manifest declares
+its own limitations. Verification exits `1` in every failure case.
+
+**The implemented profile is narrower than the target, and the manifest says so
+on its face.** `attestation_profile: airl-interim-v0.1`: local Ed25519 key
+instead of Sigstore keyless, and **no transparency-log submission** — keyless
+signing needs an interactive OIDC flow this environment does not have. Claiming
+a Rekor entry that does not exist would have been precisely the overstatement
+this repository exists to prevent, so every manifest carries a `limitations`
+list and verification prints what is not covered.
+
+An operational property fell out of building it: **a manifest is issued last.**
+It covers digests, so changing a covered file afterwards fails verification —
+which is the control working. This was observed during this step, when a README
+edit after issuance broke the specimen; it is now documented in
+`delivery/README.md`.
+
+### Evidence
+
+- `pytest` → **25 passed** (20 + 5 attestation tests)
+- BVC-01 → written, **not active**; the checks still run only when someone remembers
+- Plan seal **207/207** · plan semantics **OK, 0 defects**
+- Skills 49/49 · figures 3/3, 0 overflow
+- WP-000 attestation verifies; both tamper paths rejected
+- Mirror drift **0** (208 plan, 67 skill/doc/figure)
+
+### Limits
+
+- **WP-000 is `TECH_COMPLETE`, not `ACCEPTED`.** Issuance is not acceptance; the
+  manifest records `verifier.decision: PENDING`. Under ADR-001 an R1 acceptance
+  is now permitted, and that signature is the Project Decision Owner's to give.
+- The transparency log and keyless identity remain unimplemented. That is the
+  remaining work in WP-000, not a detail.
+- The interim anchor binds to the issuer's clock and a commit hash. It is weaker
+  than a timestamp authority and says so in every manifest.
+- 51 acceptance scenarios still have never been run. No skill has a behaviour
+  baseline. The Bridge is still the only working vertical slice.
+
+### Next step
+
+WP-001. The programme now has what it never had: a defined acceptance path
+(ADR-001), a working evidence mechanism (WP-000), and verification that runs
+without being remembered (BVC-01).
+
+---
+
 ## Step 010 — Commissioning baseline v1.0.1: the defects the seal could not see
 
 **Time:** 2026-08-22

@@ -8,7 +8,7 @@ zotero_version: 0
 doi: "10.1109/access.2024.3520138"
 source_url: ""
 content_hash: "sha256:d394005bfa80ffa29ec3f394698b37ac12741c769d724f71af557033142ac7d1"
-generated_at: "2026-08-22T12:50:35.503550+00:00"
+generated_at: "2026-08-22T13:21:38.075210+00:00"
 provenance: airl-bridge-api
 zotero_tags:
   - "3D point cloud"

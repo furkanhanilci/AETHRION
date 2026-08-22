@@ -4,7 +4,7 @@ type: handover
 status: active
 owner: otonom
 created_at: "2026-08-22"
-content_valid_through_commit: 483ab06
+content_valid_through_commit: 614571f
 tags:
   - ai-framework/handover
   - ai-framework/execution
@@ -28,7 +28,7 @@ tags:
 |---|---|
 | Repository | `/home/otonom/Desktop/FH/AI_RESEARCH_FRAMEWORK` |
 | Branch | `main`, working tree **clean** |
-| Content valid through | **`483ab06`** — this note describes the tree at that commit. It does **not** track HEAD, because a field naming HEAD stales itself the moment it is committed |
+| Content valid through | **`614571f`** — this note describes the tree at that commit. It does **not** track HEAD, because a field naming HEAD stales itself the moment it is committed |
 | Remote | `github.com/furkanhanilci/AI-Research-Framework` (private) — **the only authorised remote** |
 | Last steps | 004 English revision · 005 file-by-file review · 006 skill families + WP-000 · **007 commissioning baseline v1.0** |
 | Bridge service | `active` · sync timer `active` |
@@ -115,6 +115,17 @@ reasoning than the version it replaced.
 - **ADR-001** (solo-operator independence — *blocks every acceptance*) and
   **ADR-002** (bootstrap verification control) written; **neither decided**.
 - `NOTICE` added for licensing and vendored attribution.
+
+### Step 011 — first working version
+
+- **ADR-001 decided** (C2 closed as a decision): R1 solo · R2 solo under declared
+  partial independence · **R3 `BLOCKED`** without an external verifier.
+- **BVC-01 written, not active** — `deploy/bvc-01-verify.yml`; activation needs
+  `gh auth refresh -s workflow`. Not WP-024; does **not** close H5.
+- **WP-000 executed** — `scripts/evidence_manifest.py`; specimen at
+  `delivery/WP-000/` verifies, both tamper paths rejected, 25 tests.
+- Profile is `airl-interim-v0.1`: local key, **no transparency log**. Each
+  manifest carries its own limitations list.
 
 ### Step 009 — figures that cannot overflow, and a document standard
 
@@ -208,16 +219,29 @@ either session. Nothing is `ACCEPTED`.
 
 ## 5. The next steps, in order
 
-### Step 0 — decide, then execute 🔴
+### Step 0 — sign WP-000's acceptance, then start WP-001 🔴
 
-**ADR-001 must be decided first.** Until the solo-operator independence model is
-chosen, nothing can be `ACCEPTED` — including WP-000 — so executing WP-000 would
-produce a `TECH_COMPLETE` package and stop there.
+The three blockers that stood here are resolved:
 
-1. **Decide ADR-001** — this is yours, and no amount of engineering substitutes.
-2. **Implement ADR-002 / BVC-01** — the automatable checks on push.
-3. **Execute WP-000** — one specimen manifest, signed, logged, anchored with
-   WP-000's own interim anchor, plus the tamper case.
+| Was blocking | Now |
+|---|---|
+| ADR-001 undecided → nothing acceptable | **Decided.** R1 solo · R2 solo under a declared partial profile · R3 `BLOCKED` without an external verifier |
+| No CI → checks might never run | **Partly.** BVC-01 is decided and written (`deploy/bvc-01-verify.yml`) but **not active** — activation needs a workflow-scoped token, see ADR-002 §6 |
+| WP-000 written, never executed | **Executed.** Manifest issued and verified; both tamper paths rejected |
+
+Two things remain, and one of them is a signature:
+
+1. **Activate BVC-01** — `gh auth refresh -h github.com -s workflow`, then copy
+   `deploy/bvc-01-verify.yml` to `.github/workflows/verify.yml` and commit.
+2. **Sign WP-000's acceptance** — it is `TECH_COMPLETE`, and under ADR-001 an R1
+   acceptance is permitted. Verify and decide:
+
+```bash
+uv run python scripts/evidence_manifest.py verify \
+    --manifest delivery/WP-000/evidence.dsse.json --tamper-demo
+```
+
+Then **WP-001 Commissioning Charter** — the first normal package.
 
 ### Step 0b — execute before specifying further
 

@@ -8,3 +8,4 @@ data/*.sqlite3-shm
 data/*.sqlite3-wal
 data/projection-backups/
 .claude/settings.local.json
+delivery/_keys/*.ed25519

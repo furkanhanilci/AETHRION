@@ -164,19 +164,26 @@ uv run python scripts/acceptance_v0.py
 python3 scripts/validate_skills.py                         # 49 skills, format + metadata
 python3 scripts/make_figures.py --check                    # generators match, and text fits its box
 python3 scripts/validate_commissioning_plan.py             # plan references, phases and DAG
+uv run python scripts/evidence_manifest.py verify \
+    --manifest delivery/WP-000/evidence.dsse.json --tamper-demo
 python scripts/mirror_plan.py  "$V/01 - Commissioning" --check
 python scripts/mirror_vault.py "$V" --check
 ```
 
-Expected: `20 passed` · `207` OK · five MCP tools · 11 acceptance checks ·
+Expected: `25 passed` · `207` OK · five MCP tools · 11 acceptance checks ·
 `49 skills` conform · `3 figures, 0 drift, 0 overflow` · `plan semantics OK` ·
 `0 drift entries`
 twice (208 plan files, 67 skill/doc/figure files).
 
-⚠️ **These all run by hand.** There is no CI (finding **H5**), so nothing
-guarantees they were run before a change was committed. Automating this list is
-the single highest-leverage step available — one workflow file closes four
-findings.
+The first five are written as a push-triggered control, **BVC-01**
+(`deploy/bvc-01-verify.yml`), but it is **staged and not active** — activation
+needs a workflow-scoped token; see `architecture/ADR-002_bootstrap_verification_control.md` §6.
+
+⚠️ **The rest still run by hand,** and deliberately so: `mcp_smoke.py` and
+`acceptance_v0.py` need a live Bridge and a local Zotero library, and the mirror
+checks need the operator's vault. BVC-01 records that omission in its own output
+rather than hiding it, and **it does not close finding H5** — H5 is the absence
+of the WP-024 CI platform.
 
 ## After a path change
 

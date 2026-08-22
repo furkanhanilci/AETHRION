@@ -9,7 +9,7 @@
 | Document type | Architecture decision record |
 | Scope | What "independent verification" means when the laboratory has one operator |
 | Sibling documents | `AIRL_OS_ROLES.md` §5 · `AIRL_OS_ARCHITECTURE.md` §6.1 · WP-007 · WP-000 |
-| Status | **PROPOSED — decision required before any package can reach `ACCEPTED`** |
+| Status | **ACCEPTED — 2026-08-22.** The recommendation in §4 is the decision |
 | Date | 2026-08-22 |
 
 **In one paragraph.** Every Definition of Done requires an independent verifier,
@@ -153,11 +153,23 @@ Once taken, this record must be reflected in:
 
 | Field | Value |
 |---|---|
-| Decision | *(not taken)* |
-| Decided by | *(Project Decision Owner)* |
-| Date | — |
-| Rationale | — |
+| Decision | **Model A + C adopted, with Model B available whenever an external verifier can be named** |
+| Decided by | Project Decision Owner |
+| Date | 2026-08-22 |
+| Rationale | Five of the seven independence dimensions survive a one-person operation and can be enforced mechanically. The two that do not — human identity and economic interest — are exactly the two that matter most at R3, so R3 is blocked rather than approximated. Accepting R1 and R2 under a declared, partial independence profile lets the programme start without the laboratory claiming an independence it does not have |
 
-> **Until this table is filled in, no work package may be marked `ACCEPTED`** —
-> including WP-000. Work may proceed to `TECH_COMPLETE`; it may not proceed past
-> it. That is not a limitation to route around; it is the finding doing its job.
+### 6.1 What is now in force
+
+| Assurance class | Acceptance | Mandatory conditions |
+|---|---|---|
+| **R1** | Solo acceptance permitted | Mechanical checks pass; the `IndependenceProfile` records which dimensions were satisfied |
+| **R2** | Solo acceptance permitted | Cross-family model review · clean-room reproduction the producer did not prepare · declared temporal separation · the manifest states that human identity and economic interest were **not** independent |
+| **R3** | **`BLOCKED`** | Only an externally named human verifier lifts it. Not simulated, not approximated, not waived |
+
+**Unconditional:** an acceptance whose independence is partial declares that in
+the `EvidenceManifest` itself. A reader must never have to infer it.
+
+> **What this unblocks, and what it does not.** Finding **C2** is now decided
+> rather than open, so R1 and R2 packages have a defined acceptance path and the
+> programme can start. It does not make a one-person laboratory independent, and
+> every R3 project remains `BLOCKED` by this decision — deliberately.

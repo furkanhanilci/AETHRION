@@ -9,7 +9,7 @@
 | Document type | Architecture decision record — temporary control |
 | Scope | How verification is enforced before WP-024 delivers the CI platform |
 | Sibling documents | WP-024 (CI foundation) · `../OPERATIONS.md` · `ADR-001` |
-| Status | **PROPOSED — temporary control with a mandatory expiry** |
+| Status | **ACCEPTED — 2026-08-22.** Written as `deploy/bvc-01-verify.yml`; **staged, not yet active** — see §6 |
 | Date | 2026-08-22 |
 
 **In one paragraph.** The verification bundle is seven commands and every one of
@@ -91,9 +91,39 @@ overstatement this repository exists to avoid.
 
 | Field | Value |
 |---|---|
-| Decision | *(not taken)* |
-| Decided by | *(Engineering Owner)* |
-| Date | — |
+| Decision | **BVC-01 adopted.** Written as `deploy/bvc-01-verify.yml`; activation is one commit away |
+| Decided by | Engineering Owner |
+| Date | 2026-08-22 |
+| Expiry | WP-024 acceptance, or 2027-02-22, whichever is earlier |
 
 > This control may be implemented before ADR-001 is decided — it verifies, it
 > does not accept. Nothing it runs produces an `ACCEPTED` state.
+
+
+---
+
+## 6. Activation state
+
+| | |
+|---|---|
+| Decided | ✅ 2026-08-22 |
+| Written | ✅ `deploy/bvc-01-verify.yml`, 9 steps |
+| **Active** | ❌ **not yet** |
+
+The workflow is staged in `deploy/` rather than `.github/workflows/` because the
+token used to commit it lacks GitHub's `workflow` scope, and GitHub refuses a
+push that creates a workflow file without it. This is a credential boundary, not
+a design decision.
+
+```bash
+gh auth refresh -h github.com -s workflow
+mkdir -p .github/workflows
+cp deploy/bvc-01-verify.yml .github/workflows/verify.yml
+git add .github/workflows/verify.yml
+git commit -m "Activate BVC-01"
+git push
+```
+
+> **Until that runs, the checks still only run when someone remembers.** The gap
+> BVC-01 exists to close is not closed yet, and no document in this repository
+> may state otherwise.

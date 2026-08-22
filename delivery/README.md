@@ -49,3 +49,33 @@ delivery/
 > because the signed `EvidenceManifest` and immutable-store mechanisms have not
 > been built. See finding **C1** in [`docs/review/`](../docs/review/) and the
 > proposed **WP-000 Interim Evidence Policy**.
+
+
+---
+
+## Issued evidence
+
+| Package | Manifest | Profile | State |
+|---|---|---|---|
+| **WP-000** | `WP-000/evidence.dsse.json` + `WP-000/evidence.anchor.json` | `airl-interim-v0.1` | Verified; **acceptance pending** under ADR-001 |
+
+Verify it:
+
+```bash
+uv run python scripts/evidence_manifest.py verify \
+    --manifest delivery/WP-000/evidence.dsse.json --tamper-demo
+```
+
+Issuance is **not** acceptance. Every manifest records
+`verifier.decision: PENDING` until an independent verifier — as defined by
+`docs/architecture/ADR-001_solo_operator_independence.md` — records a decision
+against it.
+
+**A manifest is issued last, not first.** It covers file digests, so any change
+to a covered file after issuance fails verification — which is the control
+working, not a defect. In practice this means the manifest for a change is
+issued once the change is final, and re-issued if anything it covers moves.
+
+`_keys/` holds the interim signing key. The private key is git-ignored; the
+public key is committed so that anyone with the repository can verify a manifest
+without trusting the issuer to also supply the verifier.

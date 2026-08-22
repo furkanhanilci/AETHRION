@@ -8,7 +8,7 @@ zotero_version: 0
 doi: "10.3390/s18072302"
 source_url: ""
 content_hash: "sha256:c33c2ce95e07e526d95f82721a84da0e3c0554e10947c0e3edbfbbfe4861c521"
-generated_at: "2026-08-22T12:50:35.502803+00:00"
+generated_at: "2026-08-22T13:21:38.074437+00:00"
 provenance: airl-bridge-api
 zotero_tags:
   - "3D object recognition"
