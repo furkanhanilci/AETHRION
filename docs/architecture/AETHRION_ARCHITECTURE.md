@@ -795,7 +795,7 @@ This is the section that governs how every other section should be read.
 ```mermaid
 flowchart LR
     subgraph WORKING["RUNNING — verified locally"]
-        W["Zotero read-only client<br/>SQLite source registry<br/>Obsidian projection<br/>Hermes MCP · 5 tools<br/>systemd units · 41 tests<br/>plan seal · 15 status checks<br/>signed evidence manifest<br/>9 generated figures"]
+        W["Zotero read-only client<br/>SQLite source registry<br/>Obsidian projection<br/>Hermes MCP · 5 tools<br/>systemd units · 44 tests<br/>plan seal · 15 status checks<br/>signed evidence manifest<br/>9 generated figures"]
     end
     subgraph WRITTEN["WRITTEN — never executed"]
         S["52 skills, none behaviour-tested<br/>141 package documents<br/>51 acceptance scenarios<br/>role→model assignment rules<br/>4 authoring profiles"]

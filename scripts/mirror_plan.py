@@ -182,12 +182,42 @@ def main() -> int:
                 file=sys.stderr,
             )
             return 2
-        shutil.rmtree(target)
+    # Differential, not replace-wholesale. The previous implementation removed the
+    # target tree and rewrote it, which had two costs. The first is the hazard
+    # `AGENTS.md` §10 records: pointed at a vault root it deleted the vault. The
+    # second is quieter and was found by a reader who could not see their own
+    # updates — Obsidian watches this directory, and deleting the tree underneath a
+    # running app breaks its watcher, so it keeps showing a stale index of files
+    # that no longer exist at those inodes.
+    #
+    # Writing only what changed keeps every unchanged file, and its inode, exactly
+    # where the editor is watching it.
+    existing = {
+        p.relative_to(target).as_posix(): p
+        for p in target.rglob("*") if p.is_file()
+    } if target.exists() else {}
+
+    written = removed = 0
     for rel, payload in generated.items():
         path = target / rel
+        if path.is_file() and path.read_bytes() == payload:
+            continue                      # byte-identical: leave the file alone
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_bytes(payload)
-    print(f"wrote {len(generated)} files to {target}")
+        written += 1
+
+    for rel in sorted(set(existing) - set(generated)):
+        existing[rel].unlink()
+        removed += 1
+
+    # Remove directories the mirror emptied, and nothing else.
+    for directory in sorted((p for p in target.rglob("*") if p.is_dir()),
+                            key=lambda p: len(p.parts), reverse=True):
+        if not any(directory.iterdir()):
+            directory.rmdir()
+
+    print(f"{len(generated)} files to {target} — {written} written, "
+          f"{removed} removed, {len(generated) - written} unchanged")
     return 0
 
 

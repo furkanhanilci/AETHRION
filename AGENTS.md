@@ -175,7 +175,7 @@ the contract core has no consumers · **H5** no CI. **C1** and **C2** are closed
 by WP-000 and ADR-001.
 
 That is the high tier only. **`docs/FINDINGS.md` is the register** — all
-twenty-four audit findings with their current state, plus the seven raised by
+twenty-four audit findings with their current state, plus the eight raised by
 the 2026-08-22 inspection. Twelve are open. Do not infer a finding's state from
 a module docstring; sixteen of them used to live nowhere else, and several had
 been fixed with nothing saying so.
@@ -307,7 +307,7 @@ uv run python scripts/evidence_manifest.py verify --manifest delivery/WP-000/evi
 
 | Hazard | What happens | Guard |
 |---|---|---|
-| `mirror_plan.py` **replaces its target directory** | Pointed at a vault root instead of the commissioning subtree, it deleted the whole vault | It now refuses a target holding files it does not generate. Pass the subtree, never the root |
+| `mirror_plan.py` once **replaced its target directory** | Pointed at a vault root instead of the commissioning subtree, it deleted the whole vault. It also broke a running Obsidian's file watcher, so the editor kept showing a stale index of files that no longer existed at those inodes | It now writes **differentially** — only what changed, removing only what the mirror no longer generates — and still refuses a target holding files it does not generate. Pass the subtree, never the root |
 | Editing a generated file | Overwritten on the next run; `--check` fails | Change the generator |
 | Editing a plan file without re-sealing | Seal check fails | §7.2 |
 | Pushing a change to `.github/workflows/` or `deploy/*.yml` | Rejected — the token lacks `workflow` scope | Commit the rest; report the workflow change |

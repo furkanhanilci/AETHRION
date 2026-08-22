@@ -3,12 +3,12 @@
 | Field | Value |
 |---|---|
 | Document type | Index — what is tested, and what is deliberately not |
-| Scope | The 41 tests that run today |
+| Scope | The 44 tests that run today |
 | Sibling documents | `../scripts/README.md` · `../docs/OPERATIONS.md` |
-| Status | `WORKING` — 41 passing; coverage is narrow and honestly so |
+| Status | `WORKING` — 44 passing; coverage is narrow and honestly so |
 | Date | 2026-08-22 |
 
-**In one paragraph.** Forty-one tests cover the components that exist: the
+**In one paragraph.** Forty-four tests cover the components that exist: the
 bridge's database, projection, API and MCP boundary, the shared contract core,
 and the evidence attestation tooling. They do not cover the target architecture,
 because it is not built, and they do not cover agent behaviour, because no
@@ -22,6 +22,7 @@ behaves; it does not mean the framework works.
 | `test_api.py` | the `GET` half of the FastAPI surface | **no defensive path is covered here** — see below |
 | `test_mcp_server.py` | the MCP tool set | asserts **exactly five** read-only tools |
 | `test_contracts.py` | identity, manifest, event envelope, schema registry | rejects malformed digests and duplicate schema registration |
+| `test_mirrors.py` | the Obsidian mirrors | a mirror writes what changed and **preserves the inode** of everything else — a running editor watches inodes, and a tree that is deleted and recreated breaks every watch it holds |
 | `test_evidence_manifest.py` | issuing and verifying attestations | **the tamper cases are the point**: an altered payload, an altered covered file and a forged signature each fail |
 
 ## What is not tested
@@ -43,6 +44,6 @@ behaves; it does not mean the framework works.
   gates.
 
 ```bash
-uv run pytest          # all 41
+uv run pytest          # all 44
 uv run pytest -k mcp   # one area
 ```

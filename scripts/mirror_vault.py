@@ -251,6 +251,7 @@ def main() -> int:
 
     generated = build()
     drift: list[str] = []
+    written = 0
     for rel, payload in generated.items():
         path = args.target / rel
         if args.check:
@@ -259,8 +260,11 @@ def main() -> int:
             elif path.read_bytes() != payload:
                 drift.append(f"differs: {rel}")
             continue
+        if path.is_file() and path.read_bytes() == payload:
+            continue          # byte-identical: leave the file, and its mtime, alone
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_bytes(payload)
+        written += 1
 
     if args.check:
         for line in drift:
@@ -268,7 +272,8 @@ def main() -> int:
         print(f"{len(generated)} generated files, {len(drift)} drift entries")
         return 1 if drift else 0
 
-    print(f"wrote {len(generated)} files to {args.target}")
+    print(f"{len(generated)} files to {args.target} — {written} written, "
+          f"{len(generated) - written} unchanged")
     return 0
 
 

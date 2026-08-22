@@ -81,7 +81,7 @@ work belongs, not a commitment to a date.
 ## 3. Findings raised by the 2026-08-22 repository inspection
 
 A separate namespace, because the 2026-08-21 audit is frozen evidence and its
-`C`/`H`/`M`/`L` identifiers belong to it. All seven were fixed in the same pass
+`C`/`H`/`M`/`L` identifiers belong to it. All eight were fixed in the same pass
 that raised them; each names the test or check that would catch a regression.
 
 | # | Finding | Fixed by | Regression guard |
@@ -92,6 +92,7 @@ that raised them; each names the test or check that would catch a regression.
 | **I4** | An unreadable manifest was swallowed (`return 0`) and then overwritten, permanently orphaning every file it listed | `_remove_stale` raises `ProjectionError` instead | `tests/test_obsidian.py::test_unreadable_manifest_refuses_rather_than_orphaning_files` |
 | **I5** | `pydantic` was imported directly by `airl_bridge.models` and declared nowhere — it arrived only transitively through FastAPI | Declared in `pyproject.toml` | — |
 | **I6** | Six counts were stale across four documents while `check_doc_consistency.py` reported that documents agree: the test count in nine places, the bundle size in three, the attestation's subject count, and the figure count in the runbook. Every one was a number nobody had written a rule for | Fifteen rules added; `tests`, `bundle_checks` and `attestation_subjects` are now derived | `python3 scripts/check_doc_consistency.py` |
+| **I8** | `mirror_plan.py` replaced its target directory wholesale. Beyond the recorded data-loss hazard, it broke a running Obsidian's file watcher — the editor kept showing a stale index of files that no longer existed at those inodes, so a reader could not see their own updates | Both mirrors write **differentially**: only changed files, removing only what is no longer generated | `tests/test_mirrors.py` |
 | **I7** | `docs/figures/aethrion_verification.svg` drew ten rows for a twelve-check bundle and named `seal_commissioning_plan.py`, a script that does not exist | `fig_verification.py` derives its rows from `write_status.CHECKS` and **raises** if the bundle grows a check it has no prose for | `python3 scripts/make_figures.py --check` |
 
 ---

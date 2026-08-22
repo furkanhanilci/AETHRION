@@ -675,7 +675,7 @@ the section to read first if you are deciding whether to trust anything else.
 ```mermaid
 flowchart LR
     subgraph WORKING["RUNNING - verified locally"]
-        W["Zotero read-only client<br/>SQLite source registry<br/>Obsidian projection<br/>Hermes MCP, 5 tools<br/>systemd units · 41 tests<br/>plan seal · 15 status checks<br/>signed evidence manifest<br/>9 generated figures"]
+        W["Zotero read-only client<br/>SQLite source registry<br/>Obsidian projection<br/>Hermes MCP, 5 tools<br/>systemd units · 44 tests<br/>plan seal · 15 status checks<br/>signed evidence manifest<br/>9 generated figures"]
     end
     subgraph WRITTEN["WRITTEN - never executed"]
         S["52 skills, none behaviour-tested<br/>141 package documents<br/>51 acceptance scenarios<br/>role-to-model assignment rules<br/>4 authoring profiles"]
@@ -797,7 +797,7 @@ branch and are regenerated from the canonical registry. Human synthesis stays in
 ### Verify
 
 ```bash
-uv run pytest                          # 41 tests
+uv run pytest                          # 44 tests
 uv run python scripts/mcp_smoke.py     # asserts the five-tool boundary; exits 1 on failure
 uv run python scripts/acceptance_v0.py # data-independent structural acceptance
 python3 scripts/validate_skills.py     # Agent Skills format + AIRL metadata contract
@@ -904,7 +904,7 @@ flowchart LR
 ```
 
 ```
-41/41 tests pass · plan seal 503/503 OK · plan semantics OK · service and timer active
+44/44 tests pass · plan seal 503/503 OK · plan semantics OK · service and timer active
 WP-000 attestation: signature OK, 9 subject digests OK, tamper rejected
 MCP smoke: 5 read-only tools, exits 1 when the Bridge is down
 Acceptance: 11 structural checks pass, data-independent
