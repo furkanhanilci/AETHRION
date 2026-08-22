@@ -12,65 +12,70 @@ mechanical_checks: [reproduced_before_explained, no_exclusion_without_root_cause
 
 # Investigating Anomalies
 
-## Demir kural
+## Iron law
 
-> **KÖK NEDEN ANLAŞILMADAN HİÇBİR ANOMALİ "DÜZELTİLEMEZ" VEYA DIŞLANAMAZ.**
+> **NO ANOMALY MAY BE "FIXED" OR EXCLUDED WITHOUT ROOT-CAUSE INVESTIGATION.**
 
-Kök neden anlaşılmadan uygulanan bir dışlama, veri temizliği değil
-**sonuç şekillendirmedir**.
+An exclusion applied without understanding the cause is not data cleaning. It is
+result shaping — and it is indistinguishable from result shaping in the record.
 
-## Dört faz
+## Four phases
 
-**Faz 1 — Kök neden**
-1. Hata/uyarı çıktısını **tam** oku
-2. Anomaliyi **tutarlı biçimde yeniden üret** — üretemiyorsan henüz anomali değil, gözlem
-3. Son değişiklikleri kontrol et: kod, veri, ortam, model snapshot, policy
-4. Pipeline **sınırlarına** ölçüm ekle — nerede bozuluyor?
-5. Veriyi **kaynağa kadar geriye izle**
+**Phase 1 — Root cause**
+1. Read the error and warning output **in full**
+2. **Reproduce the anomaly consistently** — if you cannot reproduce it, it is an
+   observation, not yet an anomaly
+3. Check recent changes: code, data, environment, model, policy
+4. Add instrumentation **at pipeline boundaries** — where does it break?
+5. Trace the data **backwards to its source**
 
-**Faz 2 — Örüntü**
-1. Aynı koşulun **çalışan** koşumlarını bul
-2. Referansı **tam** oku, kısmi değil
-3. **Her farkı** listele: seed, düğüm, sürüm, veri dilimi, sıra
-4. Varsayımları ve bağımlılıkları çıkar
+**Phase 2 — Pattern**
+1. Find the **working** runs of the same condition
+2. Read the reference **completely**, not partially
+3. List **every** difference: seed, node, version, data slice, ordering
+4. Extract the assumptions and dependencies
 
-**Faz 3 — Hipotez**
-1. Spesifik hipotez: *"X kök nedendir çünkü Y"*
-2. **En küçük** değişiklikle test et
-3. Sonucu doğrula
-4. Başarısızsa **yeni hipotez** — üst üste düzeltme ekleme
+**Phase 3 — Hypothesis**
+1. State it specifically: *"X is the root cause because Y"*
+2. Test it with the **smallest possible** change
+3. Verify the result
+4. If it fails, form a **new** hypothesis — do not stack fixes
 
-**Faz 4 — Uygulama**
-1. Önce başarısız bir doğrulama koşumu
-2. **Tek** düzeltme, kök nedene yönelik
-3. Regresyon kontrolü
-4. Anomali koşumu ayrı `run_id` alır; ana sonuç kümesine karıştırılmaz
+**Phase 4 — Implementation**
+1. First a failing verification run
+2. **One** fix, aimed at the root cause
+3. Regression check
+4. The anomaly run receives its own `run_id`; it is not merged into the main
+   result set
 
-## Üç-düzeltme kuralı
+## The three-fix rule
 
-> **Üç açıklama girişimi başarısız olduysa DUR.**
-> Sorgulanacak olan uygulama değil, **`ProtocolManifest`**'tir.
-> → `ProtocolChallenge` açılır, G2'ye dönüş değerlendirilir.
+> **If three explanation attempts have failed, STOP.**
+> What is in question is not the implementation but the **`ProtocolManifest`**.
+> → Open a `ProtocolChallenge`; consider returning to G2.
 
-Ve ikinci sinyal: **her düzeltme farklı bir alanda yeni sorun doğuruyorsa**,
-sorun ölçümde değil modeldedir.
+And the second signal: **if every fix produces a new problem in a different
+area**, the problem is in the model, not the measurement. Continuing to patch
+past that point produces a system nobody understands.
 
-## Etiketleme
+## Labelling
 
-Anomali araştırması **`exploratory`** yürür. Bu araştırmadan çıkan hiçbir
-düzeltme `confirmatory` sonucu geriye dönük değiştiremez.
+Anomaly investigation runs as **`exploratory`**. No fix arising from it
+retroactively alters a `confirmatory` result.
 
-## Rasyonalizasyon tablosu
+## Rationalization table
 
-| Gerekçe | Hüküm |
+| Justification | Ruling |
 |---|---|
-| "Açıkça bir aykırı değer" | Aykırılık kök neden değildir. **Neden aykırı?** |
-| "Muhtemelen donanım gürültüsü" | Muhtemelen kanıt değildir. Göster. |
-| "Yeniden çalıştırınca düzeldi" | **Düzelmedi, gizlendi.** İki koşum arasındaki farkı bul. |
-| "Zamanımız yok, dışlayalım" | Dışlama kuralı önceden tanımlıysa uygula; değilse dışlama yok. |
+| "Clearly an outlier" | Outlier status is not a root cause. **Why is it an outlier?** |
+| "Probably hardware noise" | "Probably" is not evidence. Show it. |
+| "It went away on re-run" | **It did not go away, it hid.** Find the difference between the two runs. |
+| "No time — let's exclude it" | Apply the exclusion rule if it was pre-specified. If not, no exclusion. |
+| "It's a known flake" | Then it has a known cause. Cite it. |
 
-## Kırmızı bayraklar
+## Red flags
 
-- Anomali yeniden üretilmeden açıklanmış
-- Dışlama kuralı anomaliden **sonra** eklenmiş
-- Üçüncü düzeltme denemesi ve `ProtocolChallenge` yok
+- The anomaly was explained without being reproduced
+- An exclusion rule was added **after** the anomaly appeared
+- A third fix attempt with no `ProtocolChallenge`
+- Anomaly runs merged into the main result set

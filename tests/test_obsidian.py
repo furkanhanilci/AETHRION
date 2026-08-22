@@ -28,7 +28,7 @@ def test_projection_stays_in_generated_zone_and_escapes_abstract(settings, zoter
     assert "&lt;script&gt;" in content
     assert 'source_category: "01 - Journal Articles"' in content
     assert 'zotero_tags:' in content
-    assert "İnsan sentezini `20 - Source Notes` altında tutun" in content
+    assert "Keep human synthesis under `20 - Source Notes`" in content
     dashboard = (
         settings.obsidian_vault
         / settings.obsidian_generated_dir

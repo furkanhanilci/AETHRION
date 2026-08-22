@@ -1,99 +1,107 @@
-# WP-089 — DisagreementCase ve Evidence-Weighted Arbitration
+# WP-089 — DisagreementCase and Evidence-Weighted Arbitration
 
-## Paket kartı
+## Package card
 
-| Alan | Değer |
+| Field | Value |
 |---|---|
-| İş paketi | `WP-089` |
+| Work package | `WP-089` |
 | Workstream | `08_EVIDENCE_ASSURANCE` |
-| İlk efor sınıfı | **M** — refinement'ta O/M/P tahmini zorunlu |
-| Accountable Owner | Assurance Lead / Arbiter |
-| Bağımsız doğrulayıcı | Project Decision Owner / Internal Audit |
+| Initial effort class | **M** — medium — needs a dedicated integration window; a three-point (O/M/P) estimate is mandatory at refinement |
+| Accountable owner | Assurance Lead / Arbiter |
+| Independent verifier | Project Decision Owner / Internal Audit |
 | Hard dependencies | WP-004, WP-007, WP-018, WP-075, WP-077, WP-087, WP-088 |
-| İlgili gate | G6,G8 |
-| İlgili kontroller | CTL-GOV-02, CTL-EPI-04 |
-| İlgili ACC senaryoları | ACC-08 |
+| Related gates | G6,G8 |
+| Related controls | CTL-GOV-02, CTL-EPI-04 |
+| Related acceptance scenarios | ACC-08 |
+| Current status | `NOT_STARTED` |
 
-## Amaç ve beklenen sonuç
+## Purpose and expected outcome
 
-Çelişen reviewer verdict'leri, producer correction itirazı ve evidence uyuşmazlığı otomatik case olur; arbiter hangi kanıtın neden ağır bastığını kaydeder.
+Conflicting reviewer verdicts, producer objections to a correction and evidence mismatches become explicit cases; the arbiter records **which evidence prevailed and why**.
 
-## Kapsam dışı
+## Out of scope
 
-- Bağımlı paketin kendi iç implementasyonu
-- Production cutover ve nihai operasyon onayı
 
-## Önkoşullar ve Definition of Ready
+- The internal implementation of any dependent package
+- Production cutover and final operational approval
 
-- Bağımlılıklar kabul edilmiştir: [WP-004 — İnsan Kararı, SLA, Delegasyon ve Eskalasyon Politikası](../01_GOVERNANCE/wp_004_human_decision_sla_delegation.md), [WP-007 — IndependenceProfile ve Separation-of-Duties Politikası](../01_GOVERNANCE/wp_007_independence_profile.md), [WP-018 — Claim, Evidence, Review ve Decision Şemaları](../02_CONTRACTS/wp_018_claim_review_decision_contracts.md), [WP-075 — Canonical Claim/Evidence Ledger Servisi](../08_EVIDENCE_ASSURANCE/wp_075_claim_evidence_ledger.md), [WP-077 — Claim State, Dependency ve Assessment Motoru](../08_EVIDENCE_ASSURANCE/wp_077_claim_state_dependency.md), [WP-087 — Mekanik Verification Engine](../08_EVIDENCE_ASSURANCE/wp_087_mechanical_verifier.md), [WP-088 — Blind, Cross-Family ve Adversarial Review](../08_EVIDENCE_ASSURANCE/wp_088_blind_cross_family_review.md)
-- Named owner, implementer ve producer'dan bağımsız verifier atanmıştır.
-- Etkilenen canonical kayıtlar, interface'ler ve ADR'lar refinement'ta ilişkilendirilmiştir.
-- DataClass, CodeTrust, ToolEffect ve ağ/credential kapsamı sınıflandırılmıştır.
-- Test fixture, environment, rollback noktası ve acceptance ölçüm yöntemi erişilebilirdir.
-- Efor için O/M/P kişi-gün tahmini ve gerçek kapasite rezervasyonu kaydedilmiştir.
+## Preconditions — Definition of Ready
 
-## Uygulama görevleri
+- Dependencies accepted: [WP-004 — Human Decision, SLA, Delegation and Escalation Policy](../01_GOVERNANCE/wp_004_human_decision_sla_delegation.md), [WP-007 — IndependenceProfile and Separation-of-Duties Policy](../01_GOVERNANCE/wp_007_independence_profile.md), [WP-018 — Claim, Evidence, Review and Decision Schemas](../02_CONTRACTS/wp_018_claim_review_decision_contracts.md), [WP-075 — Canonical Claim/Evidence Ledger Service](../08_EVIDENCE_ASSURANCE/wp_075_claim_evidence_ledger.md), [WP-077 — Claim State, Dependency and Assessment Engine](../08_EVIDENCE_ASSURANCE/wp_077_claim_state_dependency.md), [WP-087 — Mechanical Verification Engine](../08_EVIDENCE_ASSURANCE/wp_087_mechanical_verifier.md), [WP-088 — Blind, Cross-Family and Adversarial Review](../08_EVIDENCE_ASSURANCE/wp_088_blind_cross_family_review.md)
+- A named owner, a named implementer, and a verifier **independent of the producer** are assigned.
+- Affected canonical records, interfaces and ADRs have been linked during refinement.
+- `DataClass`, `CodeTrust`, `ToolEffect` and the network/credential scope are classified.
+- Test fixtures, the environment, the rollback point and the acceptance measurement method are reachable.
+- An O/M/P person-day estimate is recorded and real capacity is reserved against it.
 
-| Alt iş | Yapılacak iş | Sorumlu | Tamamlanma kanıtı |
+## Implementation tasks
+
+| Sub-task | Work to be done | Responsible | Completion evidence |
 |---|---|---|---|
-| WP-089-T01 | Conflict detection ve DisagreementCase lifecycle yaz | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-089-T02 | Verdict/claim/evidence graph'ını case snapshot'a bağla | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-089-T03 | Arbiter eligibility/independence check uygula | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-089-T04 | Evidence-weighted disposition rubric ve counter-test request ekle | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-089-T05 | Unresolved material risk'in G8'e taşınmasını kur | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-089-T06 | Appeal/supersession/audit akışını yaz | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
+| WP-089-T01 | Write conflict detection and the `DisagreementCase` lifecycle | Implementation owner | Commit / configuration / record reference |
+| WP-089-T02 | Bind the verdict/claim/evidence graph into the case snapshot | Implementation owner | Commit / configuration / record reference |
+| WP-089-T03 | Apply arbiter eligibility and independence checks | Implementation owner | Commit / configuration / record reference |
+| WP-089-T04 | Add the evidence-weighted disposition rubric and counter-test requests | Implementation owner | Commit / configuration / record reference |
+| WP-089-T05 | Establish escalation of unresolved material risk to G8 | Implementation owner | Commit / configuration / record reference |
+| WP-089-T06 | Write the appeal, supersession and audit flow | Implementation owner | Commit / configuration / record reference |
 
-## Zorunlu teslimatlar
+## Mandatory deliverables
 
 - `Disagreement service`
 - `Arbitration rubric`
 - `Disposition workflow`
 - `Appeal/decision integration`
-- Güncellenmiş runbook/operasyon notu ve servis/contract ownership kaydı
-- İmzalı `EvidenceManifest`
+- An updated runbook or operations note, plus the service/contract ownership record
+- A signed `EvidenceManifest`
 
-## Test ve doğrulama planı
+## Test and verification plan
 
-- PASS/REJECT conflict auto-case
-- Three votes vs deterministic failing test
-- Arbiter conflict-of-interest deny
-- Unresolved risk G8 visible
-- Yetkisiz, eksik, stale, duplicate ve partial-failure girdileri için en az bir negatif test
-- İlgili interface'lerde producer/consumer contract compatibility testi
-- Telemetry correlation ve audit kayıt bütünlüğü kontrolü
+- A PASS/REJECT conflict raising an automatic case
+- Three votes against one deterministic failing test
+- Denial of an arbiter with a conflict of interest
+- Unresolved risk remaining visible at G8
+- At least one negative test for unauthorised, missing, stale, duplicate and partial-failure inputs
+- Producer/consumer contract compatibility tests on every affected interface
+- Telemetry correlation and audit-record integrity checks
 
-## Kabul kriterleri
+## Acceptance criteria
 
-- [ ] Çelişki sessizce ezilmez
-- [ ] Çözüm oy çokluğu değil evidence gerekçesi taşır
-- [ ] Non-waivable blocker arbiter ile waive edilemez
-- [ ] Bütün zorunlu testler aynı target revision üzerinde geçmiştir.
-- [ ] Açık Critical/High finding yoktur; non-waivable blocker bulunmamaktadır.
-- [ ] Bağımsız verifier kanıt paketini kabul etmiştir.
-- [ ] Rollback/compensation davranışı denenmiş ve audit edilmiştir.
-- [ ] İlgili dashboard, alert, audit query veya integrity query çalışma kanıtı üretmiştir.
+- [ ] A conflict is never silently overwritten.
+- [ ] Resolution carries an evidence rationale, not a vote count.
+- [ ] A non-waivable blocker cannot be waived by an arbiter.
+- [ ] All mandatory tests passed **on the same target revision**.
+- [ ] No open Critical or High findings; no non-waivable blocker remains.
+- [ ] The independent verifier has accepted the evidence package.
+- [ ] Rollback/compensation behaviour has been exercised and audited.
+- [ ] The related dashboard, alert, audit query or integrity query has produced working evidence.
 
-## Kabul kanıtı paketi
+## Acceptance evidence package
 
-- Aynı target revision/digest üzerinde alınmış test sonuçları
-- Environment, schema, policy ve dependency sürümlerini içeren EvidenceManifest
-- Bağımsız verifier ReviewRecord veya VerificationRecord'u
-- Rollback/compensation denemesi ve sonuç referansı
-- Açık finding, residual risk ve owner/expiry listesi
+- Test results captured on the same target revision/digest
+- An `EvidenceManifest` recording the environment, schema, policy and dependency versions
+- The independent verifier's `ReviewRecord` or `VerificationRecord`
+- The rollback/compensation trial and its result reference
+- The list of open findings and residual risks with owners and expiry dates
 
-## Riskler ve kontrol noktaları
+## Risks and control points
 
-- Contract veya canonical sahiplik belirsizse implementasyon durur ve Architecture Board'a eskale edilir.
-- Identity, data route, artifact integrity, bağımsızlık veya kritik evidence problemi waiver ile geçirilemez.
-- Geçici manuel kontrol gerekiyorsa owner, scope, expiry, compensating control ve kaldırma paketi kaydedilir.
-- Paket tamamlandı beyanı acceptance değildir; verifier kararı olmadan yalnız `TECH_COMPLETE` olabilir.
+- If a contract or canonical ownership question is unresolved, implementation **stops** and the question escalates to the Architecture Board.
+- Identity, data routing, artifact integrity, independence and critical evidence problems **cannot** be passed by waiver.
+- If a temporary manual control is required, its owner, scope, expiry, compensating control and removal package are recorded.
+- A "package complete" statement is **not** acceptance. Without a verifier decision the package can only be `TECH_COMPLETE`.
+
+### Workstream-specific hazards
+
+- Independence asserted in a record but not enforced by the router is decorative.
+- A review that sees the producer's conclusion first is anchored, not independent.
+- Reproduction that reuses the producer's environment reproduces the environment, not the result.
 
 ## Rollback / compensation
 
-Hatalı disposition appeal/superseding record ile düzeltilir; eski verdict/case korunur.
+A faulty disposition is corrected through an appeal or a superseding record; the original verdicts and case remain intact.
 
-Immutable artifact, review ve karar geçmişi rollback sırasında silinmez; yeni durum supersession veya invalidation kaydıyla gösterilir.
+Immutable artifacts, reviews and decision history are **not** deleted during a rollback; the new state is expressed through a supersession or invalidation record.
 
-## Handoff ve sonraki paketlere giriş
+## Handoff into downstream packages
 
-Paket kabul edildiğinde teslim artifact'larının version/digest'leri Package Registry'ye yazılır, dependency event'i yayımlanır ve bu pakete bağlı READY adayları yeniden değerlendirilir. Downstream paket yalnız burada listelenen contract ve kanıt referanslarını tüketir; implementasyon iç ayrıntılarına bağlanmaz.
+On acceptance, the version and digest of every delivered artifact is written to the Package Registry, the dependency event is published, and every `READY` candidate blocked on this package is re-evaluated. A downstream package consumes **only** the contracts and evidence references listed above; it does not bind to internal implementation details.

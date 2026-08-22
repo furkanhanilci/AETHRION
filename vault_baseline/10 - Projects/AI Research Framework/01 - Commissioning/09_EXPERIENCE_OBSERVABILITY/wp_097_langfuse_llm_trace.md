@@ -1,101 +1,109 @@
-# WP-097 — Langfuse Model/Agent Trace ve Prompt Governance
+# WP-097 — Langfuse Model/Agent Tracing and Prompt Governance
 
-## Paket kartı
+## Package card
 
-| Alan | Değer |
+| Field | Value |
 |---|---|
-| İş paketi | `WP-097` |
+| Work package | `WP-097` |
 | Workstream | `09_EXPERIENCE_OBSERVABILITY` |
-| İlk efor sınıfı | **L** — refinement'ta O/M/P tahmini zorunlu |
-| Accountable Owner | AI Observability Lead |
-| Bağımsız doğrulayıcı | Privacy/Security / Eval Office |
+| Initial effort class | **L** — large — split into sub-deliveries if it cannot be reviewed in one pass; a three-point (O/M/P) estimate is mandatory at refinement |
+| Accountable owner | AI Observability Lead |
+| Independent verifier | Privacy/Security / Eval Office |
 | Hard dependencies | WP-006, WP-013, WP-020, WP-025, WP-026, WP-041, WP-046, WP-047, WP-055, WP-056, WP-057, WP-096 |
-| İlgili gate | G2–G7 |
-| İlgili kontroller | CTL-OBS-02, CTL-DAT-03 |
-| İlgili ACC senaryoları | ACC-32 |
+| Related gates | G2–G7 |
+| Related controls | CTL-OBS-02, CTL-DAT-03 |
+| Related acceptance scenarios | ACC-32 |
+| Current status | `NOT_STARTED` |
 
-## Amaç ve beklenen sonuç
+## Purpose and expected outcome
 
-Agent/model çağrılarında prompt/template/model/tool/token/latency/cost ve eval sinyalleri data-class retention/redaction ile izlenir; private chain-of-thought talep edilmez.
+Prompt, template, model, tool, token, latency, cost and evaluation signals from agent and model calls are traced under data-class retention and redaction — and private chain-of-thought is never requested or stored.
 
-## Kapsam dışı
+## Out of scope
 
-- Bağımlı paketin kendi iç implementasyonu
-- Production cutover ve nihai operasyon onayı
 
-## Önkoşullar ve Definition of Ready
+- The internal implementation of any dependent package
+- Production cutover and final operational approval
 
-- Bağımlılıklar kabul edilmiştir: [WP-006 — ExecutionProfile ve Route Politikası](../01_GOVERNANCE/wp_006_execution_profile.md), [WP-013 — Project, Task ve Role Contract Şemaları](../02_CONTRACTS/wp_013_project_task_role_contracts.md), [WP-020 — Schema Registry, Compatibility ve Contract SDK](../02_CONTRACTS/wp_020_schema_registry_sdk.md), [WP-025 — PostgreSQL HA ve Registry Veri Temeli](../03_FOUNDATION/wp_025_postgres_ha_foundation.md), [WP-026 — Content-Addressed Object Store ve WORM](../03_FOUNDATION/wp_026_object_store_worm.md), [WP-041 — LiteLLM Model Gateway Temeli](../05_MODEL_AGENT_TOOL/wp_041_litellm_gateway.md), [WP-046 — LangGraph Bounded Cognition Runtime](../05_MODEL_AGENT_TOOL/wp_046_langgraph_runtime.md), [WP-047 — Role Bundle Registry ve Agent Sözleşme Derleyicisi](../05_MODEL_AGENT_TOOL/wp_047_role_bundle_registry.md), [WP-055 — SPIFFE/SPIRE Workload Identity ve Vault](../06_EXECUTION_SECURITY/wp_055_spiffe_vault_identity.md), [WP-056 — OPA Policy Platform ve Bundle Dağıtımı](../06_EXECUTION_SECURITY/wp_056_opa_policy_platform.md), [WP-057 — Default-Deny Egress Proxy, DLP ve Allowlist](../06_EXECUTION_SECURITY/wp_057_egress_proxy_dlp.md), [WP-096 — OpenTelemetry Uçtan Uca Correlation Spine](../09_EXPERIENCE_OBSERVABILITY/wp_096_otel_correlation.md)
-- Named owner, implementer ve producer'dan bağımsız verifier atanmıştır.
-- Etkilenen canonical kayıtlar, interface'ler ve ADR'lar refinement'ta ilişkilendirilmiştir.
-- DataClass, CodeTrust, ToolEffect ve ağ/credential kapsamı sınıflandırılmıştır.
-- Test fixture, environment, rollback noktası ve acceptance ölçüm yöntemi erişilebilirdir.
-- Efor için O/M/P kişi-gün tahmini ve gerçek kapasite rezervasyonu kaydedilmiştir.
+## Preconditions — Definition of Ready
 
-## Uygulama görevleri
+- Dependencies accepted: [WP-006 — ExecutionProfile and Route Policy](../01_GOVERNANCE/wp_006_execution_profile.md), [WP-013 — Project, Task and Role Contract Schemas](../02_CONTRACTS/wp_013_project_task_role_contracts.md), [WP-020 — Schema Registry, Compatibility and Contract SDK](../02_CONTRACTS/wp_020_schema_registry_sdk.md), [WP-025 — PostgreSQL HA and Registry Data Foundation](../03_FOUNDATION/wp_025_postgres_ha_foundation.md), [WP-026 — Content-Addressed Object Store and WORM](../03_FOUNDATION/wp_026_object_store_worm.md), [WP-041 — LiteLLM Model Gateway Foundation](../05_MODEL_AGENT_TOOL/wp_041_litellm_gateway.md), [WP-046 — LangGraph Bounded Cognition Runtime](../05_MODEL_AGENT_TOOL/wp_046_langgraph_runtime.md), [WP-047 — Role Bundle Registry and Agent Contract Compiler](../05_MODEL_AGENT_TOOL/wp_047_role_bundle_registry.md), [WP-055 — SPIFFE/SPIRE Workload Identity and Vault](../06_EXECUTION_SECURITY/wp_055_spiffe_vault_identity.md), [WP-056 — OPA Policy Platform and Bundle Distribution](../06_EXECUTION_SECURITY/wp_056_opa_policy_platform.md), [WP-057 — Default-Deny Egress Proxy, DLP and Allowlist](../06_EXECUTION_SECURITY/wp_057_egress_proxy_dlp.md), [WP-096 — OpenTelemetry End-to-End Correlation Spine](../09_EXPERIENCE_OBSERVABILITY/wp_096_otel_correlation.md)
+- A named owner, a named implementer, and a verifier **independent of the producer** are assigned.
+- Affected canonical records, interfaces and ADRs have been linked during refinement.
+- `DataClass`, `CodeTrust`, `ToolEffect` and the network/credential scope are classified.
+- Test fixtures, the environment, the rollback point and the acceptance measurement method are reachable.
+- An O/M/P person-day estimate is recorded and real capacity is reserved against it.
 
-| Alt iş | Yapılacak iş | Sorumlu | Tamamlanma kanıtı |
+## Implementation tasks
+
+| Sub-task | Work to be done | Responsible | Completion evidence |
 |---|---|---|---|
-| WP-097-T01 | Langfuse deployment/project/RBAC/data routing kur | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-097-T02 | Trace hierarchy ve AIRL correlation mapping uygula | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-097-T03 | Prompt/template version registry bağla | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-097-T04 | Input/output/tool schema redaction/minimization ekle | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-097-T05 | No-chain-of-thought ve rationale summary policy uygula | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-097-T06 | Eval feedback/cost/export/retention ve backup kur | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
+| WP-097-T01 | Deploy Langfuse with project structure, RBAC and data routing | Implementation owner | Commit / configuration / record reference |
+| WP-097-T02 | Apply the trace hierarchy and the AIRL correlation mapping | Implementation owner | Commit / configuration / record reference |
+| WP-097-T03 | Bind the prompt and template version registry | Implementation owner | Commit / configuration / record reference |
+| WP-097-T04 | Add input, output and tool-schema redaction and minimisation | Implementation owner | Commit / configuration / record reference |
+| WP-097-T05 | Apply the no-chain-of-thought and rationale-summary policy | Implementation owner | Commit / configuration / record reference |
+| WP-097-T06 | Establish evaluation feedback, cost, export, retention and backup | Implementation owner | Commit / configuration / record reference |
 
-## Zorunlu teslimatlar
+## Mandatory deliverables
 
 - `Langfuse platform`
 - `Prompt registry`
 - `Trace/redaction policy`
 - `Retention/export runbook`
 - `Trace quality dashboard`
-- Güncellenmiş runbook/operasyon notu ve servis/contract ownership kaydı
-- İmzalı `EvidenceManifest`
+- An updated runbook or operations note, plus the service/contract ownership record
+- A signed `EvidenceManifest`
 
-## Test ve doğrulama planı
+## Test and verification plan
 
-- Secret in prompt redacted/quarantined
-- D3 trace minimum fields
-- Prompt version correlation
-- Private reasoning not stored
-- Backup/restore
-- Yetkisiz, eksik, stale, duplicate ve partial-failure girdileri için en az bir negatif test
-- İlgili interface'lerde producer/consumer contract compatibility testi
-- Telemetry correlation ve audit kayıt bütünlüğü kontrolü
+- A secret inside a prompt being redacted or quarantined
+- D3 traces limited to minimum fields
+- Prompt-version correlation
+- Confirmation that private reasoning is not stored
+- Backup and restore
+- At least one negative test for unauthorised, missing, stale, duplicate and partial-failure inputs
+- Producer/consumer contract compatibility tests on every affected interface
+- Telemetry correlation and audit-record integrity checks
 
-## Kabul kriterleri
+## Acceptance criteria
 
-- [ ] Trace canonical workflow/claim state değildir
-- [ ] Sensitive data TTL ve purpose'a uyar
-- [ ] Model outcome kısa gerekçe/evidence/gap taşır, gizli düşünce dökümü değil
-- [ ] Bütün zorunlu testler aynı target revision üzerinde geçmiştir.
-- [ ] Açık Critical/High finding yoktur; non-waivable blocker bulunmamaktadır.
-- [ ] Bağımsız verifier kanıt paketini kabul etmiştir.
-- [ ] Rollback/compensation davranışı denenmiş ve audit edilmiştir.
-- [ ] İlgili dashboard, alert, audit query veya integrity query çalışma kanıtı üretmiştir.
+- [ ] A trace is never canonical workflow or claim state.
+- [ ] Sensitive data obeys its TTL and its declared purpose.
+- [ ] A model outcome carries a short rationale, evidence and gaps — not a dump of hidden reasoning.
+- [ ] All mandatory tests passed **on the same target revision**.
+- [ ] No open Critical or High findings; no non-waivable blocker remains.
+- [ ] The independent verifier has accepted the evidence package.
+- [ ] Rollback/compensation behaviour has been exercised and audited.
+- [ ] The related dashboard, alert, audit query or integrity query has produced working evidence.
 
-## Kabul kanıtı paketi
+## Acceptance evidence package
 
-- Aynı target revision/digest üzerinde alınmış test sonuçları
-- Environment, schema, policy ve dependency sürümlerini içeren EvidenceManifest
-- Bağımsız verifier ReviewRecord veya VerificationRecord'u
-- Rollback/compensation denemesi ve sonuç referansı
-- Açık finding, residual risk ve owner/expiry listesi
+- Test results captured on the same target revision/digest
+- An `EvidenceManifest` recording the environment, schema, policy and dependency versions
+- The independent verifier's `ReviewRecord` or `VerificationRecord`
+- The rollback/compensation trial and its result reference
+- The list of open findings and residual risks with owners and expiry dates
 
-## Riskler ve kontrol noktaları
+## Risks and control points
 
-- Contract veya canonical sahiplik belirsizse implementasyon durur ve Architecture Board'a eskale edilir.
-- Identity, data route, artifact integrity, bağımsızlık veya kritik evidence problemi waiver ile geçirilemez.
-- Geçici manuel kontrol gerekiyorsa owner, scope, expiry, compensating control ve kaldırma paketi kaydedilir.
-- Paket tamamlandı beyanı acceptance değildir; verifier kararı olmadan yalnız `TECH_COMPLETE` olabilir.
+- If a contract or canonical ownership question is unresolved, implementation **stops** and the question escalates to the Architecture Board.
+- Identity, data routing, artifact integrity, independence and critical evidence problems **cannot** be passed by waiver.
+- If a temporary manual control is required, its owner, scope, expiry, compensating control and removal package are recorded.
+- A "package complete" statement is **not** acceptance. Without a verifier decision the package can only be `TECH_COMPLETE`.
+
+### Workstream-specific hazards
+
+- A decision surface that does not show the evidence delta invites rubber-stamping.
+- Telemetry without correlation identifiers cannot answer the questions incidents raise.
+- An alert nobody acknowledges is a defect in the alert, not in the responder.
 
 ## Rollback / compensation
 
-Trace pipeline disable/redact-first moduna alınabilir; canonical run/evidence devam eder ve telemetry gap kaydedilir.
+The trace pipeline can be disabled or switched to redact-first mode; canonical runs and evidence continue, and the telemetry gap is recorded.
 
-Immutable artifact, review ve karar geçmişi rollback sırasında silinmez; yeni durum supersession veya invalidation kaydıyla gösterilir.
+Immutable artifacts, reviews and decision history are **not** deleted during a rollback; the new state is expressed through a supersession or invalidation record.
 
-## Handoff ve sonraki paketlere giriş
+## Handoff into downstream packages
 
-Paket kabul edildiğinde teslim artifact'larının version/digest'leri Package Registry'ye yazılır, dependency event'i yayımlanır ve bu pakete bağlı READY adayları yeniden değerlendirilir. Downstream paket yalnız burada listelenen contract ve kanıt referanslarını tüketir; implementasyon iç ayrıntılarına bağlanmaz.
+On acceptance, the version and digest of every delivered artifact is written to the Package Registry, the dependency event is published, and every `READY` candidate blocked on this package is re-evaluated. A downstream package consumes **only** the contracts and evidence references listed above; it does not bind to internal implementation details.

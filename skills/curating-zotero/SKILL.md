@@ -13,59 +13,65 @@ mechanical_checks: [conditional_write_used, human_fields_untouched, idempotency_
 
 # Curating Zotero
 
-## Genel ilke
+## Core principle
 
-Zotero **çalışma yüzeyidir**, otorite değil. Kanonik kaynak kimliği
-Source Registry'dedir.
+Zotero is a **working surface**, not the authority. Canonical source identity
+lives in the Source Registry.
 
-## Demir kural
+## Iron law
 
-> **AJAN İNSAN ALANLARINA ASLA YAZMAZ.**
+> **AGENTS NEVER WRITE TO HUMAN FIELDS.**
 >
-> `notes`, `user_tags`, `highlight_coords` — hiçbir koşulda.
+> `notes`, `user_tags`, `highlight_coords` — under no circumstances.
 
-## İki kütüphane
+## Two libraries
 
-| | Kişisel | Proje grup |
+| | Personal | Project group |
 |---|---|---|
-| Ajan erişimi | **yalnız okuma** | managed namespace'e yazma |
+| Agent access | **read-only** | writes to the managed namespace |
 | Managed namespace | — | `10_*`, `Project/*`, `80_*`, `90_*` |
-| İnsan alanları | dokunulmaz | dokunulmaz |
-| Yazma yolu | yok | Tool Broker → `PATCH` + `If-Match` |
+| Human fields | untouched | untouched |
+| Write path | none | Tool Broker → `PATCH` + `If-Match` |
 
-## Veri sınıfı tavanı
+## Data-class ceiling
 
-> **Proje grup kütüphanesi bulut barındırmalıdır. `D1`'in üstünde veri
-> yazılamaz.** Yayınlanmamış deney bağlamı (`D2`) grup kütüphanesine girmez.
+> **The project group library is cloud-hosted. Nothing above `D1` may be
+> written to it.** Unpublished experimental context (`D2`) does not go into a
+> group library.
 
-## Çakışma — 412
+This is easy to violate by accident: a note explaining *why* a source matters
+can contain unpublished findings.
+
+## Conflict — 412
 
 ```
 PATCH ... If-Match: <version>
-  → 200  başarılı, SyncReceipt üret
-  → 412  ►► KÖRLEMESİNE TEKRAR DENEME ◄◄
-          ReconciliationTask kuyruğa alınır
-          İnsan düzenlemesi korunur
+  → 200  success, emit SyncReceipt
+  → 412  ►► DO NOT BLINDLY RETRY ◄◄
+          Queue a ReconciliationTask.
+          The human edit is preserved.
 ```
 
-**Timeout durumunda da tekrar deneme yok** — idempotency anahtarı ile
-durum sorgulanır, sonra karar verilir.
+**No blind retry on timeout either** — query state using the idempotency key,
+then decide. A blind retry after a timeout is how duplicate writes happen.
 
-## Her yazma
+## Every write
 
-- Managed namespace kontrolü
-- Idempotency anahtarı
-- `SyncReceipt`: item, alan kümesi, önceki/sonraki sürüm, zaman, aktör
-- **Sessiz yazma yoktur**
+- Managed-namespace check
+- Idempotency key
+- `SyncReceipt`: item, field set, prior and new version, timestamp, actor
+- **There are no silent writes**
 
-## İnsan hareketleri
+## Human moves
 
-İnsan bir kaynağı `10_Agent_Candidates`'ten `Project/Methods`'a taşırsa bu
-**bir karardır** ve ingest sırasında kaydedilir. Ajan bu kararı geri almaz.
+When a human moves a source from `10_Agent_Candidates` to `Project/Methods`,
+that is **a decision** and is recorded at ingest. The agent does not undo it,
+and does not move it back on the next sync.
 
-## Kırmızı bayraklar
+## Red flags
 
-- `If-Match` olmadan yazma
-- 412 sonrası otomatik tekrar
-- `SyncReceipt` üretilmemiş yazma
-- Grup kütüphanesinde D2+ içerik
+- A write without `If-Match`
+- An automatic retry after a 412
+- A write with no `SyncReceipt`
+- D2+ content present in the group library
+- An agent-initiated move reversing a human decision

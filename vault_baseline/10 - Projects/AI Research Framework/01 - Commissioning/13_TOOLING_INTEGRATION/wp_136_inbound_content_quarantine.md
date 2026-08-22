@@ -1,95 +1,98 @@
-# WP-136 — Gelen İçerik Karantinası ve Kanal Allowlist
+# WP-136 — Inbound Content Quarantine and Channel Allowlist
 
-## Paket kartı
+## Package card
 
-| Alan | Değer |
+| Field | Value |
 |---|---|
-| İş paketi | `WP-136` |
+| Work package | `WP-136` |
 | Workstream | `13_TOOLING_INTEGRATION` |
-| İlk efor sınıfı | **M** — refinement'ta O/M/P tahmini zorunlu |
-| Accountable Owner | Content Security Lead |
-| Bağımsız doğrulayıcı | Safety & Governance Owner |
+| Initial effort class | **M** — medium; a three-point (O/M/P) estimate is mandatory at refinement |
+| Accountable owner | Content Security Lead |
+| Independent verifier | Safety & Governance Owner |
 | Hard dependencies | WP-058 (Content Quarantine Firewall), WP-131, WP-132 |
-| İlgili gate | G0, G3, G10 |
-| İlgili kontroller | CTL-SEC-02 |
-| İlgili ACC senaryoları | ACC-05, ACC-44 |
-| İlgili skill | `receiving-external-messages` |
+| Related gates | G0, G3, G10 |
+| Related controls | CTL-SEC-02 |
+| Related acceptance scenarios | ACC-05, ACC-44 |
+| Related skill | `receiving-external-messages` |
+| Current status | `NOT_STARTED` |
 
-## Amaç ve beklenen sonuç
+## Purpose and expected outcome
 
-Gelen her mesaj, e-posta, webhook ve dış doküman **Zone 3** kabul edilir.
+Every inbound message, email, webhook and external document is treated as
+**Zone 3**.
 
-> **Değişmez:** Gelen mesaj asla bir talimat değildir. Veridir, komut değil.
+> **Invariant:** An inbound message is never an instruction. It is data, not a
+> command.
 
-Giden trafik bir **veri sızıntısı** riskidir; gelen trafik bir **kontrol
-devralma** riskidir. E-posta, PDF eki veya sohbet mesajı içine gömülü metin,
-ajan bağlamına girdiğinde prompt injection olur — `ACC-05` senaryosu mesajlaşma
-yüzeyiyle genişler.
+Outbound traffic is a **data exfiltration** risk; inbound traffic is a **control
+takeover** risk. Text embedded in an email, a PDF attachment or a chat message
+becomes prompt injection the moment it enters an agent's context — the `ACC-05`
+scenario extends across the messaging surface.
 
-Karantina sırası: gönderen doğrulaması (SPF/DKIM/DMARC, bot kimliği, kanal
-allowlist) → ek/dosya taraması → içeriğin `<untrusted-external-content>` olarak
-işaretlenmesi → ajan bağlamına **yalnız bu işaretle** girmesi → **talimat
-çıkarımı yapılmaması**.
+Quarantine order: sender verification (SPF/DKIM/DMARC, bot identity, channel
+allowlist) → attachment and file scanning → tagging the content as
+`<untrusted-external-content>` → entry into agent context **only** under that
+tag → **no instruction extraction**.
 
-## Kapsam dışı
+## Out of scope
 
-- İçeriğin bilimsel değerlendirmesi (G0/G3 paketlerinin işi)
+- Scientific assessment of the content (owned by the G0/G3 packages)
 
-## Önkoşullar ve Definition of Ready
+## Preconditions — Definition of Ready
 
-- Bağımlılıklar kabul edilmiştir: WP-058 (Content Quarantine Firewall), WP-131, WP-132
-- Named owner, implementer ve producer'dan bağımsız verifier atanmıştır.
-- DataClass, CodeTrust, ToolEffect ve ağ/credential kapsamı sınıflandırılmıştır.
-- Test fixture, environment, rollback noktası ve acceptance ölçüm yöntemi erişilebilirdir.
+- Dependencies accepted: WP-058 (Content Quarantine Firewall), WP-131, WP-132
+- A named owner, a named implementer and a verifier independent of the producer are assigned.
+- `DataClass`, `CodeTrust`, `ToolEffect` and the network/credential scope are classified.
+- Test fixtures, the environment, the rollback point and the acceptance measurement method are reachable.
 
-## Uygulama görevleri
+## Implementation tasks
 
-| Alt iş | Yapılacak iş | Tamamlanma kanıtı |
+| Sub-task | Work to be done | Completion evidence |
 |---|---|---|
-| WP-136-T01 | Kanal ve gönderen allowlist kaydı | Allowlist dışı gönderen karantinada kalır |
-| WP-136-T02 | Gönderen doğrulaması (SPF/DKIM/DMARC, bot kimliği) | Sahte gönderen reddedilir |
-| WP-136-T03 | Ek ve dosya taraması (malware, makro, gömülü script) | Zararlı ek bağlama girmez |
-| WP-136-T04 | `<untrusted-external-content>` işaretleme zorunluluğu | İşaretsiz dış içerik bağlama giremez |
-| WP-136-T05 | Talimat çıkarımı yasağını zorla | Gelen metinden görev üretilmez |
-| WP-136-T06 | Gelen mesaj → hedef akış yönlendirmesi (G0 intake / not / kaynak / feed) | Her tip doğru akışa gider |
+| WP-136-T01 | Channel and sender allowlist registry | A sender outside the allowlist stays in quarantine |
+| WP-136-T02 | Sender verification (SPF/DKIM/DMARC, bot identity) | A forged sender is rejected |
+| WP-136-T03 | Attachment and file scanning (malware, macros, embedded scripts) | A malicious attachment never enters context |
+| WP-136-T04 | Mandatory `<untrusted-external-content>` tagging | Untagged external content cannot enter context |
+| WP-136-T05 | Enforce the ban on instruction extraction | No task is generated from inbound text |
+| WP-136-T06 | Route inbound messages to the right flow (G0 intake / note / source / feed) | Each type reaches the correct flow |
 
-## Zorunlu teslimatlar
+## Mandatory deliverables
 
-- Kanal ve gönderen allowlist
-- Gönderen doğrulama zinciri
-- Ek tarama hattı
-- `QuarantineRecord` şeması
-- Untrusted işaretleme zorlaması
+- The channel and sender allowlist
+- The sender verification chain
+- The attachment scanning pipeline
+- The `QuarantineRecord` schema
+- Untrusted-tagging enforcement
 
-## Test ve doğrulama planı
+## Test and verification plan
 
-- **Prompt injection:** talimat gömülü e-posta ve PDF → ajan davranışı değişmiyor
-- **İşaretsiz içerik:** işaretlenmemiş dış içerik bağlama giremiyor (negatif test)
-- **Sahte gönderen:** DKIM/DMARC başarısız mesaj karantinada kalıyor
-- **Onay girişimi:** gelen mesajdaki "onaylıyorum" karar üretmiyor
-- **Bilinmeyen gönderen:** içerik bağlama girmiyor, insana özet bildiriliyor
+- **Prompt injection:** an email and a PDF carrying embedded instructions → agent behaviour is unchanged
+- **Untagged content:** untagged external content cannot enter context (negative test)
+- **Forged sender:** a message failing DKIM/DMARC stays in quarantine
+- **Approval attempt:** an "I approve" in an inbound message produces no decision
+- **Unknown sender:** the content does not enter context; a summary is reported to a human
 
-## Kabul kriterleri
+## Acceptance criteria
 
-- [ ] Dış içerik işaretlenmeden hiçbir ajan bağlamına giremiyor
-- [ ] Gelen metinden talimat çıkarımı yapan hiçbir kod yolu yok
-- [ ] Gönderen doğrulaması atlanabilir değil
-- [ ] ACC-05 senaryosu mesajlaşma yüzeyinde de geçiyor
-- [ ] Bütün zorunlu testler aynı target revision üzerinde geçmiştir.
-- [ ] Açık Critical/High finding yoktur.
-- [ ] Bağımsız verifier kanıt paketini kabul etmiştir.
+- [ ] No external content enters any agent context without being tagged
+- [ ] No code path extracts instructions from inbound text
+- [ ] Sender verification cannot be skipped
+- [ ] The ACC-05 scenario also passes on the messaging surface
+- [ ] All mandatory tests passed on the same target revision.
+- [ ] No open Critical or High findings.
+- [ ] The independent verifier has accepted the evidence package.
 
-## Riskler ve kontrol noktaları
+## Risks and control points
 
-- "Gönderen tanıdık" gerekçesi geçersizdir; gönderen taklit edilebilir
-- PDF en yaygın injection taşıyıcısıdır; ek taraması non-waivable'dır
-- Paket tamamlandı beyanı acceptance değildir; verifier kararı olmadan yalnız `TECH_COMPLETE` olabilir.
+- "The sender is familiar" is not a valid justification; senders can be impersonated
+- PDF is the most common injection carrier; attachment scanning is non-waivable
+- A "package complete" statement is not acceptance. Without a verifier decision the package can only be `TECH_COMPLETE`.
 
 ## Rollback / compensation
 
-Gelen kanal kapatılır; karantinadaki içerik silinmez, incelemeye kalır.
-Karantina kayıtları audit için korunur.
+The inbound channel is closed; quarantined content is not deleted and remains
+available for review. Quarantine records are retained for audit.
 
-## Handoff ve sonraki paketlere giriş
+## Handoff into downstream packages
 
-WP-137 dış besleme içeriğini bu karantina kurallarına tabi tutar.
+WP-137 subjects external feed content to these same quarantine rules.

@@ -1,98 +1,106 @@
-# WP-123 — Control Effectiveness ve Policy Regression Ritmi
+# WP-123 — Control Effectiveness and Policy Regression Rhythm
 
-## Paket kartı
+## Package card
 
-| Alan | Değer |
+| Field | Value |
 |---|---|
-| İş paketi | `WP-123` |
+| Work package | `WP-123` |
 | Workstream | `11_DAY2_OPERATIONS` |
-| İlk efor sınıfı | **M** — refinement'ta O/M/P tahmini zorunlu |
-| Accountable Owner | Safety & Governance Owner |
-| Bağımsız doğrulayıcı | Internal Audit / Red Team |
+| Initial effort class | **M** — medium — needs a dedicated integration window; a three-point (O/M/P) estimate is mandatory at refinement |
+| Accountable owner | Safety & Governance Owner |
+| Independent verifier | Internal Audit / Red Team |
 | Hard dependencies | WP-009, WP-056, WP-060, WP-112, WP-121 |
-| İlgili gate | Day-2 |
-| İlgili kontroller | Tüm kontroller |
-| İlgili ACC senaryoları | İlgili dikey dilim ve commissioning sırasında atanır |
+| Related gates | Day-2 |
+| Related controls | All controls |
+| Related acceptance scenarios | Assigned during the relevant vertical slice and commissioning |
+| Current status | `NOT_STARTED` |
 
-## Amaç ve beklenen sonuç
+## Purpose and expected outcome
 
-Policy ve kontroller yalnız varlıklarıyla değil, düzenli negative test, attack, exception, coverage ve false-positive sonuçlarıyla etkinlik açısından ölçülür.
+Policies and controls are measured for **effectiveness** — through scheduled negative tests, attacks, exception audits, coverage and false-positive review — not merely for existence.
 
-## Kapsam dışı
+## Out of scope
 
-- Bağımlı paketin kendi iç implementasyonu
-- Production cutover ve nihai operasyon onayı
 
-## Önkoşullar ve Definition of Ready
+- The internal implementation of any dependent package
+- Production cutover and final operational approval
 
-- Bağımlılıklar kabul edilmiştir: [WP-009 — Control Kataloğu, Exception ve Non-Waivable Blocker'lar](../01_GOVERNANCE/WP-009_control_exception_katalogu.md), [WP-056 — OPA Policy Platform ve Bundle Dağıtımı](../06_EXECUTION_SECURITY/WP-056_opa_policy_platform.md), [WP-060 — Agentic Security Attack Suite ve Red-Team Kabulü](../06_EXECUTION_SECURITY/WP-060_security_attack_suite.md), [WP-112 — Security ve Privacy Kabul Paketi](../10_INTEGRATION_CUTOVER/WP-112_security_privacy_acceptance.md), [WP-121 — Hypercare, Stabilizasyon ve Program Kapanışı](../10_INTEGRATION_CUTOVER/WP-121_hypercare_stabilizasyon.md)
-- Named owner, implementer ve producer'dan bağımsız verifier atanmıştır.
-- Etkilenen canonical kayıtlar, interface'ler ve ADR'lar refinement'ta ilişkilendirilmiştir.
-- DataClass, CodeTrust, ToolEffect ve ağ/credential kapsamı sınıflandırılmıştır.
-- Test fixture, environment, rollback noktası ve acceptance ölçüm yöntemi erişilebilirdir.
-- Efor için O/M/P kişi-gün tahmini ve gerçek kapasite rezervasyonu kaydedilmiştir.
+## Preconditions — Definition of Ready
 
-## Uygulama görevleri
+- Dependencies accepted: [WP-009 — Control Catalogue, Exceptions and Non-Waivable Blockers](../01_GOVERNANCE/WP-009_control_exception_catalog.md), [WP-056 — OPA Policy Platform and Bundle Distribution](../06_EXECUTION_SECURITY/WP-056_opa_policy_platform.md), [WP-060 — Agentic Security Attack Suite and Red-Team Acceptance](../06_EXECUTION_SECURITY/WP-060_security_attack_suite.md), [WP-112 — Security and Privacy Acceptance Package](../10_INTEGRATION_CUTOVER/WP-112_security_privacy_acceptance.md), [WP-121 — Hypercare, Stabilisation and Programme Closure](../10_INTEGRATION_CUTOVER/WP-121_hypercare_stabilization.md)
+- A named owner, a named implementer, and a verifier **independent of the producer** are assigned.
+- Affected canonical records, interfaces and ADRs have been linked during refinement.
+- `DataClass`, `CodeTrust`, `ToolEffect` and the network/credential scope are classified.
+- Test fixtures, the environment, the rollback point and the acceptance measurement method are reachable.
+- An O/M/P person-day estimate is recorded and real capacity is reserved against it.
 
-| Alt iş | Yapılacak iş | Sorumlu | Tamamlanma kanıtı |
+## Implementation tasks
+
+| Sub-task | Work to be done | Responsible | Completion evidence |
 |---|---|---|---|
-| WP-123-T01 | Control test calendar ve sampling rate uygula | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-123-T02 | OPA/identity/data/tool/supply-chain negative regression çalıştır | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-123-T03 | Exception expiry/usage/residual risk audit et | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-123-T04 | Control coverage/gap ve false-positive review yap | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-123-T05 | İki material failure'da ADR/policy reopen tetikle | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
+| WP-123-T01 | Apply the control test calendar and its sampling rates | Implementation owner | Commit / configuration / record reference |
+| WP-123-T02 | Run the OPA, identity, data, tool and supply-chain negative regressions | Implementation owner | Commit / configuration / record reference |
+| WP-123-T03 | Audit exception expiry, usage and residual risk | Implementation owner | Commit / configuration / record reference |
+| WP-123-T04 | Review control coverage, gaps and false positives | Implementation owner | Commit / configuration / record reference |
+| WP-123-T05 | Trigger an ADR or policy reopen after two material failures | Implementation owner | Commit / configuration / record reference |
 
-## Zorunlu teslimatlar
+## Mandatory deliverables
 
 - `Control effectiveness reports`
 - `Policy regression results`
 - `Exception audit`
 - `Control improvement backlog`
-- Güncellenmiş runbook/operasyon notu ve servis/contract ownership kaydı
-- İmzalı `EvidenceManifest`
+- An updated runbook or operations note, plus the service/contract ownership record
+- A signed `EvidenceManifest`
 
-## Test ve doğrulama planı
+## Test and verification plan
 
-- Non-waivable deny tests
-- Expired exception scan
-- Attack regression sample
+- Non-waivable denial tests
+- An expired exception scan
+- An attack regression sample
 - Decision log coverage
-- Yetkisiz, eksik, stale, duplicate ve partial-failure girdileri için en az bir negatif test
-- İlgili interface'lerde producer/consumer contract compatibility testi
-- Telemetry correlation ve audit kayıt bütünlüğü kontrolü
+- At least one negative test for unauthorised, missing, stale, duplicate and partial-failure inputs
+- Producer/consumer contract compatibility tests on every affected interface
+- Telemetry correlation and audit-record integrity checks
 
-## Kabul kriterleri
+## Acceptance criteria
 
-- [ ] Critical control effectiveness failure aynı gün incident/containment üretir
-- [ ] Exception otomatik uzamaz
-- [ ] Kontrol başarısı yalnız denial sayısıyla ölçülmez
-- [ ] Bütün zorunlu testler aynı target revision üzerinde geçmiştir.
-- [ ] Açık Critical/High finding yoktur; non-waivable blocker bulunmamaktadır.
-- [ ] Bağımsız verifier kanıt paketini kabul etmiştir.
-- [ ] Rollback/compensation davranışı denenmiş ve audit edilmiştir.
-- [ ] İlgili dashboard, alert, audit query veya integrity query çalışma kanıtı üretmiştir.
+- [ ] A critical control-effectiveness failure produces a same-day incident and containment.
+- [ ] Exceptions never extend automatically.
+- [ ] Control success is not measured by denial count alone.
+- [ ] All mandatory tests passed **on the same target revision**.
+- [ ] No open Critical or High findings; no non-waivable blocker remains.
+- [ ] The independent verifier has accepted the evidence package.
+- [ ] Rollback/compensation behaviour has been exercised and audited.
+- [ ] The related dashboard, alert, audit query or integrity query has produced working evidence.
 
-## Kabul kanıtı paketi
+## Acceptance evidence package
 
-- Aynı target revision/digest üzerinde alınmış test sonuçları
-- Environment, schema, policy ve dependency sürümlerini içeren EvidenceManifest
-- Bağımsız verifier ReviewRecord veya VerificationRecord'u
-- Rollback/compensation denemesi ve sonuç referansı
-- Açık finding, residual risk ve owner/expiry listesi
+- Test results captured on the same target revision/digest
+- An `EvidenceManifest` recording the environment, schema, policy and dependency versions
+- The independent verifier's `ReviewRecord` or `VerificationRecord`
+- The rollback/compensation trial and its result reference
+- The list of open findings and residual risks with owners and expiry dates
 
-## Riskler ve kontrol noktaları
+## Risks and control points
 
-- Contract veya canonical sahiplik belirsizse implementasyon durur ve Architecture Board'a eskale edilir.
-- Identity, data route, artifact integrity, bağımsızlık veya kritik evidence problemi waiver ile geçirilemez.
-- Geçici manuel kontrol gerekiyorsa owner, scope, expiry, compensating control ve kaldırma paketi kaydedilir.
-- Paket tamamlandı beyanı acceptance değildir; verifier kararı olmadan yalnız `TECH_COMPLETE` olabilir.
+- If a contract or canonical ownership question is unresolved, implementation **stops** and the question escalates to the Architecture Board.
+- Identity, data routing, artifact integrity, independence and critical evidence problems **cannot** be passed by waiver.
+- If a temporary manual control is required, its owner, scope, expiry, compensating control and removal package are recorded.
+- A "package complete" statement is **not** acceptance. Without a verifier decision the package can only be `TECH_COMPLETE`.
+
+### Workstream-specific hazards
+
+- Day-2 controls decay fastest because nothing fails when they stop running.
+- Periodic work that stops silently is indistinguishable from periodic work with nothing to do.
+- Operational evidence must keep being produced after go-live, or the assurance argument expires.
 
 ## Rollback / compensation
 
-Hatalı policy bundle rollback; etkilenen decisions/tasks impact scan alır.
+A faulty policy bundle is rolled back; the affected decisions and tasks receive an impact scan.
 
-Immutable artifact, review ve karar geçmişi rollback sırasında silinmez; yeni durum supersession veya invalidation kaydıyla gösterilir.
+Immutable artifacts, reviews and decision history are **not** deleted during a rollback; the new state is expressed through a supersession or invalidation record.
 
-## Handoff ve sonraki paketlere giriş
+## Handoff into downstream packages
 
-Paket kabul edildiğinde teslim artifact'larının version/digest'leri Package Registry'ye yazılır, dependency event'i yayımlanır ve bu pakete bağlı READY adayları yeniden değerlendirilir. Downstream paket yalnız burada listelenen contract ve kanıt referanslarını tüketir; implementasyon iç ayrıntılarına bağlanmaz.
+On acceptance, the version and digest of every delivered artifact is written to the Package Registry, the dependency event is published, and every `READY` candidate blocked on this package is re-evaluated. A downstream package consumes **only** the contracts and evidence references listed above; it does not bind to internal implementation details.

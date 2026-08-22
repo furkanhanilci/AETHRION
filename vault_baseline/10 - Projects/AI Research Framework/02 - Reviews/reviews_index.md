@@ -1,28 +1,30 @@
 # Reviews Index
 
-Bağımsız inceleme talimatları ve sonuçları. Bir review, üreticiden bağımsız
-olmadıkça kanıt sayılmaz.
+Independent review instructions and their results. **A review is not evidence
+unless it is independent of the producer.**
 
-## Review kayıtları
+## Review records
 
-| Belge | Tür | Durum |
+| Document | Type | Status |
 |---|---|---|
-| [[10 - Projects/AI Research Framework/02 - Reviews/claude_framework_audit_report\|Claude Framework Audit Report]] | Kanıt bazlı bağımsız denetim | 2026-08-22 — tamamlandı |
-| [[10 - Projects/AI Research Framework/02 - Reviews/claude_full_framework_review_prompt\|Claude Full Framework Review Prompt]] | Review talimatı | Kullanımda — düzeltme bekliyor |
+| [[10 - Projects/AI Research Framework/02 - Reviews/claude_framework_audit_report\|Claude Framework Audit Report]] | Evidence-based independent audit | 2026-08-22 — complete |
+| [[10 - Projects/AI Research Framework/02 - Reviews/claude_full_framework_review_prompt\|Full Framework Review Prompt]] | Review instruction | In use — corrected 2026-08-22 |
 
-> **Not:** Review promptunda üç hatalı dizin yolu tespit edildi
-> (`09_OPERATIONS`, `11_DECOMMISSION`, `13_CHANGE_CONTROL` mevcut değil).
-> Ayrıntı: denetim raporu Bölüm K.
+> **Note:** three incorrect directory paths were found in the review prompt
+> (`09_OPERATIONS`, `11_DECOMMISSION` and `13_CHANGE_CONTROL` do not exist).
+> They have since been corrected in the prompt itself. Detail: audit report,
+> Section K.
 
-## Review disiplini
+## Review discipline
 
-- [[requesting-review]] — paket nasıl hazırlanır
-- [[receiving-review]] — bulgulara nasıl yanıt verilir
-- [[blind-reviewing]] — kör review
-- [[adversarial-reviewing]] — karşı-tez ve ACH
-- [[arbitrating-disagreement]] — uyuşmazlık ve breaker
+- [[requesting-review]] — how a package is prepared
+- [[receiving-review]] — how findings are answered
+- [[blind-reviewing]] — blind review
+- [[adversarial-reviewing]] — counter-argument and ACH
+- [[arbitrating-disagreement]] — disagreement and the breaker
 
-## Kural
+## The rule
 
-Bir review sonucu ancak şu üçü varsa kabul edilir: dondurulmuş paket hash'i,
-üreticiden bağımsızlık kaydı, ve her koşula karşılık bir `ProducerResponse`.
+A review result is accepted only when all three exist: the frozen package hash,
+a record of independence from the producer, and a `ProducerResponse` for every
+condition raised.

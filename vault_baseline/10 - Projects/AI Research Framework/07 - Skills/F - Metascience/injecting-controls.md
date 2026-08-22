@@ -1,3 +1,7 @@
+> [!info] Generated view
+> This note is generated from `skills/injecting-controls/SKILL.md` in the repository. Edit the
+> canonical file and regenerate; edits made here are overwritten.
+
 ---
 name: injecting-controls
 version: 1.0.0
@@ -12,62 +16,69 @@ mechanical_checks: [controls_indistinguishable_from_real, agents_blind_to_contro
 
 # Injecting Controls
 
-## Genel ilke
+## Core principle
 
-Diğer her metrik **süreç** metriğidir. Bu **sonuç** metriğidir:
-laboratuvar doğru sonuç üretiyor mu?
+Every other metric is a **process** metric. This is the **outcome** metric: does
+the lab produce correct results?
 
-## Demir kural
+Process metrics tell you the machine ran. Only controls tell you it was right.
 
-> **KONTROL PROJELERİ AJANLARDAN GİZLİDİR.**
+## Iron law
+
+> **CONTROL PROJECTS ARE HIDDEN FROM AGENTS.**
 >
-> Yalnız Metascience Lead ve Red Team Lead bilir. Gerçek projelerden
-> ayırt edilemez olmalıdır.
+> Only the Metascience Lead and Red Team Lead know. They must be
+> indistinguishable from real projects — otherwise you measure behaviour under
+> observation, not behaviour.
 
-## İki kontrol tipi
+## Two control types
 
-| Tip | Nedir | Beklenen |
+| Type | What it is | Expected |
 |---|---|---|
-| **Pozitif kontrol** | Cevabı önceden bilinen soru | Laboratuvar **bulmalı** |
-| **Negatif kontrol** | Null veri / permüte edilmiş veri | Laboratuvar **bulmamalı** |
+| **Positive control** | A question with a known answer | The lab **should find it** |
+| **Negative control** | Null data / permuted data — no effect exists | The lab **should find nothing** |
 
-## Oran
+## Rate
 
-Projelerin **%5–10'u** tohumlanmış olarak açılır. Çok düşükse istatistiksel
-güç yok; çok yüksekse maliyet.
+**5–10%** of projects are seeded. Too few and there is no statistical power; too
+many and the cost is prohibitive.
 
-## Ölçülen
+## What is measured
 
 ```
-yanlış_pozitif_oranı = negatif kontrolde "bulgu" / toplam negatif kontrol
-yanlış_negatif_oranı = pozitif kontrolde kaçırılan / toplam pozitif kontrol
+false_positive_rate = "findings" on negative controls / total negative controls
+false_negative_rate = missed signals on positive controls / total positive controls
 ```
 
-Ve **hangi gate'in yakaladığı** kaydedilir — gate yield ölçümünü besler.
+And **which gate caught it** is recorded — this feeds gate-yield measurement and
+tells you which parts of the assurance stack are earning their cost.
 
-## Tek istisna: bu skill bloke edebilir
+## The one exception: this skill can block
 
-Metascience düzlemi normalde ölçer, bloke etmez (Goodhart yasası).
-**Tek istisna:**
+The Metascience plane measures and does not block (Goodhart's law — a measure
+that gates becomes a target and stops measuring). **The single exception:**
 
-> **Negatif kontrolde bir "etki" bulunursa pipeline bozuktur.**
-> Hat durur, kök neden bulunana kadar yeni confirmatory koşum açılmaz.
+> **If a negative control produces an "effect", the pipeline is broken.**
+> The line stops. No new confirmatory run opens until root cause is found.
 
-## Gizlilik yönetimi
+A pipeline that finds effects in permuted data will find them anywhere.
 
-- Kontrol durumu ayrı bir kayıtta, ana veritabanında değil
-- Korelasyon zincirinde işaretlenmez
-- Açığa çıkarsa: o kontrol geçersiz, yenisi üretilir, sızıntı kaydedilir
+## Confidentiality management
 
-## Etik sınır
+- Control status lives in a separate record, not the main database
+- It is not flagged in the correlation chain
+- If exposed: that control is void, a new one is created, and the leak is recorded
 
-Kontroller **insan karar sahiplerini** de test eder. Bu önceden bildirilir —
-kimin test edildiği değil, **testlerin var olduğu** bilinir. Gizli olan
-hangi projenin kontrol olduğudur.
+## Ethical boundary
 
-## Kırmızı bayraklar
+Controls also test **human decision makers**. This is disclosed in advance —
+not *which* project is a control, but **that controls exist**. Testing people
+without telling them that testing happens is not acceptable; telling them which
+test is which destroys the measurement.
 
-- Kontrol projeleri gerçek projelerden ayırt edilebiliyor
-- Ajan bir projenin kontrol olduğunu tahmin edebilmiş
-- FP/FN oranı hiç raporlanmamış
-- Negatif kontrolde bulgu var ama hat durmamış
+## Red flags
+
+- Control projects distinguishable from real ones
+- An agent correctly guessing that a project is a control
+- FP/FN rate never reported
+- A finding on a negative control with the line still running

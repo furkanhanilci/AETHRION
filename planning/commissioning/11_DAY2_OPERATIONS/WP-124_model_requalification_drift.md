@@ -1,98 +1,106 @@
-# WP-124 — Model Requalification, Drift ve Ejection Ritmi
+# WP-124 — Model Requalification, Drift and Ejection Rhythm
 
-## Paket kartı
+## Package card
 
-| Alan | Değer |
+| Field | Value |
 |---|---|
-| İş paketi | `WP-124` |
+| Work package | `WP-124` |
 | Workstream | `11_DAY2_OPERATIONS` |
-| İlk efor sınıfı | **M** — refinement'ta O/M/P tahmini zorunlu |
-| Accountable Owner | Eval Office |
-| Bağımsız doğrulayıcı | Admission Board / Safety / FinOps |
+| Initial effort class | **M** — medium — needs a dedicated integration window; a three-point (O/M/P) estimate is mandatory at refinement |
+| Accountable owner | Eval Office |
+| Independent verifier | Admission Board / Safety / FinOps |
 | Hard dependencies | WP-042, WP-043, WP-044, WP-045, WP-108, WP-121 |
-| İlgili gate | G10,Day-2 |
-| İlgili kontroller | CTL-MOD-01, CTL-MOD-02 |
-| İlgili ACC senaryoları | ACC-10, ACC-11, ACC-36 |
+| Related gates | G10,Day-2 |
+| Related controls | CTL-MOD-01, CTL-MOD-02 |
+| Related acceptance scenarios | ACC-10, ACC-11, ACC-36 |
+| Current status | `NOT_STARTED` |
 
-## Amaç ve beklenen sonuç
+## Purpose and expected outcome
 
-Model snapshot, provider davranışı, eval kalite, latency, cost, safety veya data contract değişimi periyodik requalification ve gerektiğinde ejection üretir.
+A change in model snapshot, provider behaviour, evaluation quality, latency, cost, safety or data contract produces periodic requalification and, where warranted, ejection.
 
-## Kapsam dışı
+## Out of scope
 
-- Bağımlı paketin kendi iç implementasyonu
-- Production cutover ve nihai operasyon onayı
 
-## Önkoşullar ve Definition of Ready
+- The internal implementation of any dependent package
+- Production cutover and final operational approval
 
-- Bağımlılıklar kabul edilmiştir: [WP-042 — Capability Registry ve Profil Yaşam Döngüsü](../05_MODEL_AGENT_TOOL/WP-042_capability_registry.md), [WP-043 — Rol Bazlı Model Eval ve Golden Set Yönetimi](../05_MODEL_AGENT_TOOL/WP-043_model_eval_golden_sets.md), [WP-044 — Model Qualification ve Admission Pipeline](../05_MODEL_AGENT_TOOL/WP-044_model_qualification_admission.md), [WP-045 — Policy Router ve Minimum Yeterli Model Paketi](../05_MODEL_AGENT_TOOL/WP-045_policy_router_budget.md), [WP-108 — Retraction, Drift ve Supersession Dikey Dilimi](../10_INTEGRATION_CUTOVER/WP-108_retraction_drift_dikey_dilim.md), [WP-121 — Hypercare, Stabilizasyon ve Program Kapanışı](../10_INTEGRATION_CUTOVER/WP-121_hypercare_stabilizasyon.md)
-- Named owner, implementer ve producer'dan bağımsız verifier atanmıştır.
-- Etkilenen canonical kayıtlar, interface'ler ve ADR'lar refinement'ta ilişkilendirilmiştir.
-- DataClass, CodeTrust, ToolEffect ve ağ/credential kapsamı sınıflandırılmıştır.
-- Test fixture, environment, rollback noktası ve acceptance ölçüm yöntemi erişilebilirdir.
-- Efor için O/M/P kişi-gün tahmini ve gerçek kapasite rezervasyonu kaydedilmiştir.
+## Preconditions — Definition of Ready
 
-## Uygulama görevleri
+- Dependencies accepted: [WP-042 — Capability Registry and Profile Lifecycle](../05_MODEL_AGENT_TOOL/WP-042_capability_registry.md), [WP-043 — Role-Based Model Evaluation and Golden Set Management](../05_MODEL_AGENT_TOOL/WP-043_model_eval_golden_sets.md), [WP-044 — Model Qualification and Admission Pipeline](../05_MODEL_AGENT_TOOL/WP-044_model_qualification_admission.md), [WP-045 — Policy Router and Minimum-Sufficient Model Package](../05_MODEL_AGENT_TOOL/WP-045_policy_router_budget.md), [WP-108 — Retraction, Drift and Supersession Vertical Slice](../10_INTEGRATION_CUTOVER/WP-108_retraction_drift_vertical_slice.md), [WP-121 — Hypercare, Stabilisation and Programme Closure](../10_INTEGRATION_CUTOVER/WP-121_hypercare_stabilization.md)
+- A named owner, a named implementer, and a verifier **independent of the producer** are assigned.
+- Affected canonical records, interfaces and ADRs have been linked during refinement.
+- `DataClass`, `CodeTrust`, `ToolEffect` and the network/credential scope are classified.
+- Test fixtures, the environment, the rollback point and the acceptance measurement method are reachable.
+- An O/M/P person-day estimate is recorded and real capacity is reserved against it.
 
-| Alt iş | Yapılacak iş | Sorumlu | Tamamlanma kanıtı |
+## Implementation tasks
+
+| Sub-task | Work to be done | Responsible | Completion evidence |
 |---|---|---|---|
-| WP-124-T01 | Profile expiry calendar ve provider change monitor işlet | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-124-T02 | Role regression/adversarial eval koş | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-124-T03 | Production validated precision/quality/cost drift analiz et | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-124-T04 | SHADOW→admission veya admitted→suspend/eject kararını yönet | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-124-T05 | Open task/run/claim impact scan ve router cache invalidate et | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
+| WP-124-T01 | Operate the profile expiry calendar and the provider change monitor | Implementation owner | Commit / configuration / record reference |
+| WP-124-T02 | Run the role regression and adversarial evaluations | Implementation owner | Commit / configuration / record reference |
+| WP-124-T03 | Analyse production validated precision, quality and cost drift | Implementation owner | Commit / configuration / record reference |
+| WP-124-T04 | Manage the SHADOW → admission and admitted → suspend/eject decisions | Implementation owner | Commit / configuration / record reference |
+| WP-124-T05 | Run the open task/run/claim impact scan and invalidate the router cache | Implementation owner | Commit / configuration / record reference |
 
-## Zorunlu teslimatlar
+## Mandatory deliverables
 
 - `Requalification reports`
 - `CapabilityProfile decisions`
 - `Drift/ejection events`
 - `ImpactCase results`
-- Güncellenmiş runbook/operasyon notu ve servis/contract ownership kaydı
-- İmzalı `EvidenceManifest`
+- An updated runbook or operations note, plus the service/contract ownership record
+- A signed `EvidenceManifest`
 
-## Test ve doğrulama planı
+## Test and verification plan
 
-- Silent snapshot change
-- Quality/latency/cost drift
-- Safety/data contract change
-- No eligible route after ejection
-- Yetkisiz, eksik, stale, duplicate ve partial-failure girdileri için en az bir negatif test
-- İlgili interface'lerde producer/consumer contract compatibility testi
-- Telemetry correlation ve audit kayıt bütünlüğü kontrolü
+- A silent snapshot change
+- Quality, latency and cost drift
+- A safety or data-contract change
+- No eligible route remaining after an ejection
+- At least one negative test for unauthorised, missing, stale, duplicate and partial-failure inputs
+- Producer/consumer contract compatibility tests on every affected interface
+- Telemetry correlation and audit-record integrity checks
 
-## Kabul kriterleri
+## Acceptance criteria
 
-- [ ] Expired profile otomatik route dışı
-- [ ] Ejection geçmiş run'ı değiştirmez fakat impact üretir
-- [ ] Yeni popüler model eval olmadan role girmez
-- [ ] Bütün zorunlu testler aynı target revision üzerinde geçmiştir.
-- [ ] Açık Critical/High finding yoktur; non-waivable blocker bulunmamaktadır.
-- [ ] Bağımsız verifier kanıt paketini kabul etmiştir.
-- [ ] Rollback/compensation davranışı denenmiş ve audit edilmiştir.
-- [ ] İlgili dashboard, alert, audit query veya integrity query çalışma kanıtı üretmiştir.
+- [ ] An expired profile leaves the routing pool automatically.
+- [ ] An ejection does not alter past runs but does produce an impact assessment.
+- [ ] A newly popular model does not enter a role without evaluation.
+- [ ] All mandatory tests passed **on the same target revision**.
+- [ ] No open Critical or High findings; no non-waivable blocker remains.
+- [ ] The independent verifier has accepted the evidence package.
+- [ ] Rollback/compensation behaviour has been exercised and audited.
+- [ ] The related dashboard, alert, audit query or integrity query has produced working evidence.
 
-## Kabul kanıtı paketi
+## Acceptance evidence package
 
-- Aynı target revision/digest üzerinde alınmış test sonuçları
-- Environment, schema, policy ve dependency sürümlerini içeren EvidenceManifest
-- Bağımsız verifier ReviewRecord veya VerificationRecord'u
-- Rollback/compensation denemesi ve sonuç referansı
-- Açık finding, residual risk ve owner/expiry listesi
+- Test results captured on the same target revision/digest
+- An `EvidenceManifest` recording the environment, schema, policy and dependency versions
+- The independent verifier's `ReviewRecord` or `VerificationRecord`
+- The rollback/compensation trial and its result reference
+- The list of open findings and residual risks with owners and expiry dates
 
-## Riskler ve kontrol noktaları
+## Risks and control points
 
-- Contract veya canonical sahiplik belirsizse implementasyon durur ve Architecture Board'a eskale edilir.
-- Identity, data route, artifact integrity, bağımsızlık veya kritik evidence problemi waiver ile geçirilemez.
-- Geçici manuel kontrol gerekiyorsa owner, scope, expiry, compensating control ve kaldırma paketi kaydedilir.
-- Paket tamamlandı beyanı acceptance değildir; verifier kararı olmadan yalnız `TECH_COMPLETE` olabilir.
+- If a contract or canonical ownership question is unresolved, implementation **stops** and the question escalates to the Architecture Board.
+- Identity, data routing, artifact integrity, independence and critical evidence problems **cannot** be passed by waiver.
+- If a temporary manual control is required, its owner, scope, expiry, compensating control and removal package are recorded.
+- A "package complete" statement is **not** acceptance. Without a verifier decision the package can only be `TECH_COMPLETE`.
+
+### Workstream-specific hazards
+
+- Day-2 controls decay fastest because nothing fails when they stop running.
+- Periodic work that stops silently is indistinguishable from periodic work with nothing to do.
+- Operational evidence must keep being produced after go-live, or the assurance argument expires.
 
 ## Rollback / compensation
 
-Yanlış ejection DecisionRecord ile supersede edilebilir; tekrar admission kanıt ister.
+A wrong ejection can be superseded by a `DecisionRecord`; re-admission still requires fresh evidence.
 
-Immutable artifact, review ve karar geçmişi rollback sırasında silinmez; yeni durum supersession veya invalidation kaydıyla gösterilir.
+Immutable artifacts, reviews and decision history are **not** deleted during a rollback; the new state is expressed through a supersession or invalidation record.
 
-## Handoff ve sonraki paketlere giriş
+## Handoff into downstream packages
 
-Paket kabul edildiğinde teslim artifact'larının version/digest'leri Package Registry'ye yazılır, dependency event'i yayımlanır ve bu pakete bağlı READY adayları yeniden değerlendirilir. Downstream paket yalnız burada listelenen contract ve kanıt referanslarını tüketir; implementasyon iç ayrıntılarına bağlanmaz.
+On acceptance, the version and digest of every delivered artifact is written to the Package Registry, the dependency event is published, and every `READY` candidate blocked on this package is re-evaluated. A downstream package consumes **only** the contracts and evidence references listed above; it does not bind to internal implementation details.

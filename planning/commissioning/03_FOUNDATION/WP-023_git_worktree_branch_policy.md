@@ -1,97 +1,105 @@
-# WP-023 — Git, Worktree ve Protected Path Politikası
+# WP-023 — Git, Worktree and Protected-Path Policy
 
-## Paket kartı
+## Package card
 
-| Alan | Değer |
+| Field | Value |
 |---|---|
-| İş paketi | `WP-023` |
+| Work package | `WP-023` |
 | Workstream | `03_FOUNDATION` |
-| İlk efor sınıfı | **S** — refinement'ta O/M/P tahmini zorunlu |
-| Accountable Owner | Engineering Lead |
-| Bağımsız doğrulayıcı | Security Reviewer |
+| Initial effort class | **S** — small — one owner, one review cycle; a three-point (O/M/P) estimate is mandatory at refinement |
+| Accountable owner | Engineering Lead |
+| Independent verifier | Security Reviewer |
 | Hard dependencies | WP-022 |
-| İlgili gate | G5,Engineering |
-| İlgili kontroller | CTL-GOV-02, CTL-SUP-01 |
-| İlgili ACC senaryoları | İlgili dikey dilim ve commissioning sırasında atanır |
+| Related gates | G5,Engineering |
+| Related controls | CTL-GOV-02, CTL-SUP-01 |
+| Related acceptance scenarios | Assigned during the relevant vertical slice and commissioning |
+| Current status | `NOT_STARTED` |
 
-## Amaç ve beklenen sonuç
+## Purpose and expected outcome
 
-İnsan ve agent değişiklikleri ayrı branch/worktree'de, izinli dosya kapsamı ve target commit sabitlemesiyle yürür.
+Human and agent changes proceed on separate branches and worktrees, within a permitted file scope and pinned to a fixed target commit.
 
-## Kapsam dışı
+## Out of scope
 
-- Bağımlı paketin kendi iç implementasyonu
-- Production cutover ve nihai operasyon onayı
 
-## Önkoşullar ve Definition of Ready
+- The internal implementation of any dependent package
+- Production cutover and final operational approval
 
-- Bağımlılıklar kabul edilmiştir: [WP-022 — Repository Topolojisi ve Kod Sahipliği](../03_FOUNDATION/WP-022_repository_topolojisi.md)
-- Named owner, implementer ve producer'dan bağımsız verifier atanmıştır.
-- Etkilenen canonical kayıtlar, interface'ler ve ADR'lar refinement'ta ilişkilendirilmiştir.
-- DataClass, CodeTrust, ToolEffect ve ağ/credential kapsamı sınıflandırılmıştır.
-- Test fixture, environment, rollback noktası ve acceptance ölçüm yöntemi erişilebilirdir.
-- Efor için O/M/P kişi-gün tahmini ve gerçek kapasite rezervasyonu kaydedilmiştir.
+## Preconditions — Definition of Ready
 
-## Uygulama görevleri
+- Dependencies accepted: [WP-022 — Repository Topology and Code Ownership](../03_FOUNDATION/WP-022_repository_topology.md)
+- A named owner, a named implementer, and a verifier **independent of the producer** are assigned.
+- Affected canonical records, interfaces and ADRs have been linked during refinement.
+- `DataClass`, `CodeTrust`, `ToolEffect` and the network/credential scope are classified.
+- Test fixtures, the environment, the rollback point and the acceptance measurement method are reachable.
+- An O/M/P person-day estimate is recorded and real capacity is reserved against it.
 
-| Alt iş | Yapılacak iş | Sorumlu | Tamamlanma kanıtı |
+## Implementation tasks
+
+| Sub-task | Work to be done | Responsible | Completion evidence |
 |---|---|---|---|
-| WP-023-T01 | Branch/commit naming ve signed-commit politikasını yaz | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-023-T02 | Agent task worktree lifecycle'ını tanımla | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-023-T03 | Allowed/protected path manifesti uygula | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-023-T04 | Freeze commit ve correction branch davranışını kur | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-023-T05 | Cleanup, abandoned task ve forensic retention kuralını ekle | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
+| WP-023-T01 | Write the branch/commit naming and signed-commit policy | Implementation owner | Commit / configuration / record reference |
+| WP-023-T02 | Define the agent task worktree lifecycle | Implementation owner | Commit / configuration / record reference |
+| WP-023-T03 | Apply the allowed/protected path manifest | Implementation owner | Commit / configuration / record reference |
+| WP-023-T04 | Establish freeze-commit and correction-branch behaviour | Implementation owner | Commit / configuration / record reference |
+| WP-023-T05 | Add the cleanup, abandoned-task and forensic retention rules | Implementation owner | Commit / configuration / record reference |
 
-## Zorunlu teslimatlar
+## Mandatory deliverables
 
 - `Git policy`
 - `Worktree controller contract`
 - `Protected-path rules`
 - `Freeze procedure`
-- Güncellenmiş runbook/operasyon notu ve servis/contract ownership kaydı
-- İmzalı `EvidenceManifest`
+- An updated runbook or operations note, plus the service/contract ownership record
+- A signed `EvidenceManifest`
 
-## Test ve doğrulama planı
+## Test and verification plan
 
-- İki agent aynı ownership zone negatif testi
-- Protected path write deny
-- Frozen target değişirse review invalidate testi
-- Yetkisiz, eksik, stale, duplicate ve partial-failure girdileri için en az bir negatif test
-- İlgili interface'lerde producer/consumer contract compatibility testi
-- Telemetry correlation ve audit kayıt bütünlüğü kontrolü
+- A negative test with two agents in the same ownership zone
+- A protected-path write denial test
+- A test proving a review is invalidated when its frozen target changes
+- At least one negative test for unauthorised, missing, stale, duplicate and partial-failure inputs
+- Producer/consumer contract compatibility tests on every affected interface
+- Telemetry correlation and audit-record integrity checks
 
-## Kabul kriterleri
+## Acceptance criteria
 
-- [ ] Her task base/target commit taşır
-- [ ] Agent yalnız task worktree ve allowed path'e yazar
-- [ ] Correction yeni frozen commit üretir
-- [ ] Bütün zorunlu testler aynı target revision üzerinde geçmiştir.
-- [ ] Açık Critical/High finding yoktur; non-waivable blocker bulunmamaktadır.
-- [ ] Bağımsız verifier kanıt paketini kabul etmiştir.
-- [ ] Rollback/compensation davranışı denenmiş ve audit edilmiştir.
-- [ ] İlgili dashboard, alert, audit query veya integrity query çalışma kanıtı üretmiştir.
+- [ ] Every task carries a base commit and a target commit.
+- [ ] An agent writes only inside its task worktree and its allowed paths.
+- [ ] A correction produces a new frozen commit rather than amending the old one.
+- [ ] All mandatory tests passed **on the same target revision**.
+- [ ] No open Critical or High findings; no non-waivable blocker remains.
+- [ ] The independent verifier has accepted the evidence package.
+- [ ] Rollback/compensation behaviour has been exercised and audited.
+- [ ] The related dashboard, alert, audit query or integrity query has produced working evidence.
 
-## Kabul kanıtı paketi
+## Acceptance evidence package
 
-- Aynı target revision/digest üzerinde alınmış test sonuçları
-- Environment, schema, policy ve dependency sürümlerini içeren EvidenceManifest
-- Bağımsız verifier ReviewRecord veya VerificationRecord'u
-- Rollback/compensation denemesi ve sonuç referansı
-- Açık finding, residual risk ve owner/expiry listesi
+- Test results captured on the same target revision/digest
+- An `EvidenceManifest` recording the environment, schema, policy and dependency versions
+- The independent verifier's `ReviewRecord` or `VerificationRecord`
+- The rollback/compensation trial and its result reference
+- The list of open findings and residual risks with owners and expiry dates
 
-## Riskler ve kontrol noktaları
+## Risks and control points
 
-- Contract veya canonical sahiplik belirsizse implementasyon durur ve Architecture Board'a eskale edilir.
-- Identity, data route, artifact integrity, bağımsızlık veya kritik evidence problemi waiver ile geçirilemez.
-- Geçici manuel kontrol gerekiyorsa owner, scope, expiry, compensating control ve kaldırma paketi kaydedilir.
-- Paket tamamlandı beyanı acceptance değildir; verifier kararı olmadan yalnız `TECH_COMPLETE` olabilir.
+- If a contract or canonical ownership question is unresolved, implementation **stops** and the question escalates to the Architecture Board.
+- Identity, data routing, artifact integrity, independence and critical evidence problems **cannot** be passed by waiver.
+- If a temporary manual control is required, its owner, scope, expiry, compensating control and removal package are recorded.
+- A "package complete" statement is **not** acceptance. Without a verifier decision the package can only be `TECH_COMPLETE`.
+
+### Workstream-specific hazards
+
+- Infrastructure built by hand once is infrastructure that cannot be rebuilt under pressure.
+- A backup that has never been restored is not a backup.
+- Environment parity erodes from the staging side first, and quietly.
 
 ## Rollback / compensation
 
-Task iptalinde worktree karantinaya alınır; artifact/evidence saklanır, branch owner kararıyla arşivlenir.
+When a task is cancelled the worktree is quarantined; artifacts and evidence are retained and the branch is archived on the owner's decision.
 
-Immutable artifact, review ve karar geçmişi rollback sırasında silinmez; yeni durum supersession veya invalidation kaydıyla gösterilir.
+Immutable artifacts, reviews and decision history are **not** deleted during a rollback; the new state is expressed through a supersession or invalidation record.
 
-## Handoff ve sonraki paketlere giriş
+## Handoff into downstream packages
 
-Paket kabul edildiğinde teslim artifact'larının version/digest'leri Package Registry'ye yazılır, dependency event'i yayımlanır ve bu pakete bağlı READY adayları yeniden değerlendirilir. Downstream paket yalnız burada listelenen contract ve kanıt referanslarını tüketir; implementasyon iç ayrıntılarına bağlanmaz.
+On acceptance, the version and digest of every delivered artifact is written to the Package Registry, the dependency event is published, and every `READY` candidate blocked on this package is re-evaluated. A downstream package consumes **only** the contracts and evidence references listed above; it does not bind to internal implementation details.

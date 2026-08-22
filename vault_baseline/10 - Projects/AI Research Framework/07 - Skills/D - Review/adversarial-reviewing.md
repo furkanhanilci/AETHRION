@@ -1,3 +1,7 @@
+> [!info] Generated view
+> This note is generated from `skills/adversarial-reviewing/SKILL.md` in the repository. Edit the
+> canonical file and regenerate; edits made here are overwritten.
+
 ---
 name: adversarial-reviewing
 version: 1.0.0
@@ -12,52 +16,63 @@ mechanical_checks: [all_hypotheses_enumerated, diagnosticity_scored]
 
 # Adversarial Reviewing
 
-## Genel ilke
+## Core principle
 
-Görevin iddiayı **desteklemek değil, çürütmeye çalışmaktır.** Çürütemezsen
-iddia güçlenir. Bu senin başarısızlığın değil, sistemin çalışmasıdır.
+Your task is not to support the claim but to **try to break it**. If you cannot,
+the claim is stronger for it. That is not your failure — it is the system
+working.
 
-## Metrik
+## Your metric
 
-> **Senin performansın onay hızıyla değil, reddetme kalitesiyle ölçülür.**
+> **You are measured on the quality of your rejections, not the speed of your
+> approvals.**
 >
-> Hiçbir şey bulamamak da geçerli bir sonuçtur — ama aramadığın için değilse.
+> Finding nothing is a valid outcome — but only if you actually looked.
 
-## ACH — Rakip Hipotezlerin Analizi
+This inversion is deliberate. A reviewer rewarded for throughput approves; a
+reviewer rewarded for finding real problems looks for them.
 
-1. **Tüm makul hipotezleri listele** — yazarın favorisini değil, hepsini.
-   Sıradan açıklamaları da yaz (ölçüm hatası, seçim yanlılığı, artifact,
-   şans, ters nedensellik)
-2. **Tüm kanıtı listele**
-3. **Matris kur:** her kanıt × her hipotez → `tutarlı` / `tutarsız` / `ilgisiz`
-4. **Tanısallık:** bir kanıt tüm hipotezlerle tutarlıysa **değersizdir**
-5. **En çok tutarsızlığa sahip hipotezleri ele**; kalanı sırala
+## ACH — Analysis of Competing Hypotheses
 
-> ACH'nin mantığı terstir: *"hangisini destekliyor"* değil,
-> **"hangilerini eliyor"**.
+1. **Enumerate all plausible hypotheses** — not just the author's. Include the
+   mundane ones: measurement error, selection bias, artifact, chance, reverse
+   causation, confounding.
+2. **List all the evidence**
+3. **Build the matrix:** each evidence item × each hypothesis →
+   `consistent` / `inconsistent` / `irrelevant`
+4. **Score diagnosticity:** evidence consistent with every hypothesis is
+   **worthless**
+5. **Eliminate** the hypotheses with the most inconsistencies; rank the remainder
 
-## Saldırı yüzeyleri
+> ACH inverts the usual logic: not *"what does this support?"* but
+> **"what does this rule out?"** Support accumulates easily and proves little;
+> elimination is what moves belief.
 
-| Yüzey | Soru |
+## Attack surfaces
+
+| Surface | Question |
 |---|---|
-| Nedensellik | Korelasyon nedensellik olarak sunulmuş mu? |
-| Seçim | Dışlama kuralları sonucu şekillendiriyor mu? |
-| Güç | Test iddiayı yanlışlayabilecek güçte mi? |
-| Genelleme | Test edilen koşul iddia edilen koşul mu? |
-| Ölçüm | Ölçülen şey iddia edilen şey mi? |
-| Bağımsızlık | Kanıtlar birbirinden gerçekten bağımsız mı? |
-| Çoklu karşılaştırma | Kaç test yapıldı, kaçı raporlandı? |
-| Ters nedensellik | Yön tersine olabilir mi? |
+| Causation | Is correlation being presented as causation? |
+| Selection | Do the exclusion rules shape the result? |
+| Power | Is the test capable of falsifying the claim? |
+| Generalisation | Is the tested condition the claimed condition? |
+| Measurement | Is the measured quantity the claimed quantity? |
+| Independence | Are the evidence items genuinely independent of each other? |
+| Multiplicity | How many tests were run, and how many reported? |
+| Reverse causation | Could the direction be the other way round? |
+| Survivorship | What is missing from the data because it did not survive? |
 
-## Pre-mortem (G4 öncesi)
+## Pre-mortem (before G4)
 
-*"Bir yıl geçti, bu proje tamamen başarısız oldu. Neden?"*
+> *"A year has passed. This project failed completely. Why?"*
 
-Gelecek zamandan geçmiş zamana geçmek savunmacılığı kırar. Çıkan maddeler
-`falsification_plan`'a eklenir.
+Shifting from future to past tense breaks defensive reasoning — the question is
+no longer "could this fail?" but "what did fail?". The resulting items are added
+to `falsification_plan`.
 
-## Kırmızı bayraklar
+## Red flags
 
-- Yalnız yazarın hipotezini değerlendirdin
-- Tanısallık skoru vermedin
-- Sıradan açıklamaları (ölçüm hatası, şans) listelemedin
+- You only evaluated the author's hypothesis
+- You did not score diagnosticity
+- You did not list the mundane explanations
+- Your findings are all stylistic rather than substantive

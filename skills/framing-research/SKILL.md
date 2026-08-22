@@ -12,63 +12,76 @@ mechanical_checks: [assurance_class_computed_by_policy_engine, duplicate_scan_ex
 
 # Framing Research
 
-## Genel ilke
+## Core principle
 
-Hiçbir iş, ne yapılacağı ve neyin başarı sayılacağı yazılı olmadan başlamaz.
+No work starts until what will be done, and what will count as success, is
+written down.
 
-## Önce sınıflandır
+## Classify first
 
-| Sınıf | Nedir | Çıktı |
+| Class | What it is | Output |
 |---|---|---|
-| **Exploratory** | Fizibilite / keşif; iddia üretmez | Öneri + `exploratory` etiketli bulgular |
-| **Replication** | Mevcut bir sonucun yeniden üretimi | `ReproductionRecord` |
-| **Confirmatory** | Yeni iddia üretir | Tam G0–G10 |
+| **Exploratory** | Feasibility or discovery; produces no claims | Recommendation plus findings labelled `exploratory` |
+| **Replication** | Re-derivation of an existing result | `ReproductionRecord` |
+| **Confirmatory** | Produces new claims | Full G0–G10 |
 
-> **Şüphedeyken ağır olanı seç.** İki sınıf arasında kararsızsan ağır olanı al.
+> **When in doubt, take the heavier class.** If you cannot decide between two,
+> choose the heavier one and downgrade later with evidence.
 
-## Onay kapısı — kaybolmaz
+## The approval gate never disappears
 
-> **Charter onaylanmadan hiçbir ajan sürüsü çalıştırılmaz, hiçbir bütçe açılmaz,
-> hiçbir protokol dondurulmaz.**
+> **No agent fleet runs, no budget opens, and no protocol freezes before the
+> charter is approved.**
 
-Töreni ölçeklenir: Exploratory'de iki cümlelik bir çerçeve yeterlidir.
-**Kapının kendisi asla kaybolmaz.**
+The ceremony scales: for exploratory work a two-sentence frame is enough. The
+**gate itself** never scales away. This distinction matters because "simple"
+tasks are where unexamined assumptions cost the most.
 
-## Prosedür
+## Procedure
 
-1. **Mevcut durumu tara** — Knowledge Steward ile duplicate/benzer araştırma sorgusu
-2. **Tek tek soru sor** — amaç, kısıt, başarı ölçütü. Mümkünse çoktan seçmeli
-3. **Kapsam sorununu hemen bildir** — birden çok bağımsız alt sistem varsa **böl**
-4. **RiskProfile vektörünü** doldur (7 boyut) — eksik alan bırakma
-5. **AssuranceClass'ı policy engine hesaplar** — model değil
-6. **Karar sorusunu insan yazar** — ajan taslak verebilir, sahiplenemez
+1. **Scan existing work** — duplicate and near-duplicate search via Knowledge
+   Steward. A question already answered is not a research project.
+2. **Ask one question at a time** — purpose, constraints, success criterion.
+   Prefer multiple choice where the option space is known.
+3. **Report scope problems immediately** — if the request spans several
+   independent subsystems, **split it** rather than accepting a compound project.
+4. **Fill the `RiskProfile` vector** (7 dimensions). Leave no field blank.
+5. **The policy engine computes `AssuranceClass`** — not a model, not a person.
+6. **A human writes the decision question.** An agent may draft it; it may not
+   own it.
 
-## Fail-closed sınıflandırma
+## Fail-closed classification
 
 ```
-RiskProfile eksikse           → R3
+RiskProfile incomplete            → R3
 decision_external_impact ≥ material → R3
-safety_critical               → R3
-data_class ∈ {D3, D4}         → R3
-fallthrough (belirsiz)        → R2      # R1 DEĞİL
+safety_critical                   → R3
+data_class ∈ {D3, D4}             → R3
+fallthrough (ambiguous)           → R2      # NOT R1
 ```
 
-## Yol yükseltme
+The fallthrough is R2 rather than R1 deliberately. A default of R1 means every
+unclassified project receives the lightest scrutiny — which is exactly backwards.
 
-Gizli karmaşıklık iş sırasında ortaya çıkarsa: **dur, yükseltmeyi ilan et,
-ağır seviyeden yeniden başla.** `RiskReclassificationEvent` üretilir; hafif
-sınıfta geçilmiş gate'ler yeniden değerlendirilir.
+## Path escalation
 
-## Rasyonalizasyon tablosu
+If hidden complexity appears mid-project: **stop, announce the upgrade, restart
+at the heavier level.** A `RiskReclassificationEvent` is emitted, and gates
+already passed at the lighter class are re-evaluated. Escalation is never
+retroactively waived because "we already got that far".
 
-| Gerekçe | Hüküm |
+## Rationalization table
+
+| Justification | Ruling |
 |---|---|
-| "Basit bir soru, charter gereksiz" | **Basit işler varsayımın en pahalıya patladığı yerdir.** Charter kısalır, kaybolmaz. |
-| "Sınıfı sonra netleştiririz" | Sınıf gate derinliğini belirler. **Önce.** |
-| "R1 gibi duruyor" | Duruyorsa R2 yaz. Şüphe ağır tarafa yazılır. |
+| "Simple question, no charter needed" | **Simple tasks are where assumptions cost most.** The charter shortens; it does not vanish. |
+| "We will settle the class later" | Class determines gate depth. **First.** |
+| "It looks like R1" | If it merely looks like R1, write R2. Doubt resolves upward. |
+| "The user already explained it verbally" | Verbal is not a charter. Write it. |
 
-## Kırmızı bayraklar
+## Red flags
 
-- Karar sorusu bir ajan tarafından yazılmış
-- `RiskProfile`'da boş alan var ama sınıf R1
-- Kapsam birden çok bağımsız alt sistemi kapsıyor
+- The decision question was authored by an agent
+- `RiskProfile` has blank fields but the class is R1
+- The scope covers several independent subsystems
+- No duplicate scan was run

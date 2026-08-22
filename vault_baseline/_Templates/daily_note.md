@@ -7,18 +7,18 @@ tags:
 
 # {{date}}
 
-## Bugünün odağı
+## Focus for today
 
 -
 
-## Yapılanlar
+## Done
 
 -
 
-## Decisions ve bulgular
+## Decisions and findings
 
 -
 
-## Sonraki adımlar
+## Next steps
 
 - [ ]

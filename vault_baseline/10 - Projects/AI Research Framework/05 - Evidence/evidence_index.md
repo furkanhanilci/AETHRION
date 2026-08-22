@@ -1,38 +1,38 @@
 # Evidence Index
 
-Test, acceptance, hash, artifact, review ve operasyonel kanıtlar.
+Test, acceptance, hash, artifact, review and operational evidence.
 
-> **Kural:** Kanıt bulunmayan bir WP/ACC `IMPLEMENTED` kabul edilmez.
-> Ve kanıt **taze** olmalıdır — hafızadan veya ajan raporundan alıntı kanıt
-> değildir. Bkz. [[verification-before-completion]].
+> **The rule:** a WP or ACC without evidence is never counted `IMPLEMENTED`.
+> And the evidence must be **fresh** — evidence quoted from memory or from an
+> agent's report is not evidence. See [[verification-before-completion]].
 
-## Kanıt kayıtları
+## Evidence records
 
-| Kayıt | Tarih | Kapsam |
+| Record | Date | Scope |
 |---|---|---|
-| [[10 - Projects/AI Research Framework/05 - Evidence/2026-08-22_framework_audit_evidence\|Framework Audit Evidence]] | 2026-08-22 | Test, hash, plan bütünlüğü, servis durumu |
+| [[10 - Projects/AI Research Framework/05 - Evidence/2026-08-22_framework_audit_evidence\|Framework Audit Evidence]] | 2026-08-22 | Tests, hashes, plan integrity, service status |
 
-## Alt ayrım
+## Sub-areas
 
-- `tests/` — birim, contract ve integration çıktıları
-- `acceptance/` — ACC-01–ACC-40 sonuçları
-- `artifacts/` — manifest, digest ve provenance kayıtları
-- `reviews/` — bağımsız review raporları
-- `operations/` — servis, deployment ve readiness kanıtları
+- `tests/` — unit, contract and integration output
+- `acceptance/` — ACC-01–ACC-40 results
+- `artifacts/` — manifest, digest and provenance records
+- `reviews/` — independent review reports
+- `operations/` — service, deployment and readiness evidence
 
-## Kanıt katmanları
+## Evidence layers
 
-| Katman | Soru |
+| Layer | Question |
 |---|---|
-| E0 Yapısal | Dosya/şema/referans var mı? |
-| E1 Mekanik | Davranış deterministik testte doğru mu? |
-| E2 Güvenlik | Yasak yol gerçekten engelleniyor mu? |
-| E3 Bağımsız review | Üretici dışı aktör inceledi mi? |
-| E4 Reproduction | Temiz ortamda tekrar çalışıyor mu? |
-| E5 Operasyon | Failure, restore ve gözlemlenebilirlik doğru mu? |
+| E0 Structural | Does the file, schema or reference exist? |
+| E1 Mechanical | Is the behaviour correct under a deterministic test? |
+| E2 Security | Is the forbidden path actually blocked? |
+| E3 Independent review | Did an actor outside the producer examine it? |
+| E4 Reproduction | Does it run again in a clean environment? |
+| E5 Operations | Are failure, restore and observability correct? |
 
-## Eksik
+## What is missing
 
-`acceptance/` boş — ACC-01–ACC-40'tan hiçbiri otomatikleştirilmedi.
-İlk aday: **ACC-22 (Obsidian Human Edit Preservation)** — mevcut test yarısını
-zaten yapıyor.
+`acceptance/` is empty — none of ACC-01 to ACC-40 has been automated.
+The first candidate: **ACC-22 (Obsidian Human Edit Preservation)** — the existing
+test already does half of it.

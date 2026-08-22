@@ -11,25 +11,25 @@ tags:
 
 # {{title}}
 
-## Amaç
+## Purpose
 
 
-## Araştırma soruları
-
--
-
-## Başarı ölçütleri
+## Research questions
 
 -
 
-## Kapsam dışı
+## Success criteria
 
 -
 
-## İlişkili literatür setleri
+## Out of scope
+
+-
+
+## Related literature sets
 
 - [[]]
 
-## Açık kararlar ve riskler
+## Open decisions and risks
 
 -

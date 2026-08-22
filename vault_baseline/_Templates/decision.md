@@ -12,21 +12,21 @@ tags:
 
 # {{title}}
 
-## Bağlam
+## Context
 
 
-## Seçenekler
+## Options
 
 1.
 2.
 
-## Karar
+## Decision
 
 
-## Gerekçe ve kanıtlar
+## Rationale and evidence
 
 - [[]]
 
-## Sonuçlar ve geri açma tetikleyicileri
+## Consequences and reopen triggers
 
 -

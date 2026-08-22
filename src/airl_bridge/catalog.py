@@ -12,15 +12,15 @@ SOURCE_TYPE_FOLDERS = {
     "conferencePaper": "02 - Conference Papers",
     "report": "03 - Reports and Preprints",
     "preprint": "03 - Reports and Preprints",
-    "book": "04 - Kitaplar",
-    "bookSection": "05 - Kitap Bölümleri",
-    "thesis": "06 - Tezler",
-    "webpage": "07 - Web Kaynakları",
-    "dataset": "08 - Veri Setleri",
-    "patent": "09 - Patentler",
-    "document": "90 - Diğer Belgeler",
+    "book": "04 - Books",
+    "bookSection": "05 - Book Sections",
+    "thesis": "06 - Theses",
+    "webpage": "07 - Web Sources",
+    "dataset": "08 - Datasets",
+    "patent": "09 - Patents",
+    "document": "90 - Other Documents",
 }
-DEFAULT_SOURCE_FOLDER = "99 - Diğer Kaynaklar"
+DEFAULT_SOURCE_FOLDER = "99 - Other Sources"
 
 
 def source_category(item_type: str) -> str:

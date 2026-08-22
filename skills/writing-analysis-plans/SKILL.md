@@ -12,54 +12,62 @@ mechanical_checks: [locked_before_execution, decision_rules_precommitted]
 
 # Writing Analysis Plans
 
-## Genel ilke
+## Core principle
 
-Protokol **ne ölçeceğimizi** söyler. Analiz planı **nasıl karar vereceğimizi**
-söyler. İkisi ayrı kilitlenir.
+The protocol says **what we measure**. The analysis plan says **how we decide**.
+They are locked separately.
 
-## Neden ayrı
+## Why separate
 
-Birleştirilirse, sonuçları gördükten sonra karar kuralını değiştirme kapısı
-açık kalır. Klinik araştırmada SAP (Statistical Analysis Plan) protokolden
-ayrı ve unblinding'den önce kilitlenir — sebep budur.
+If they are combined, the door stays open to changing the decision rule after
+seeing the result. In clinical research the Statistical Analysis Plan is a
+separate artifact locked before unblinding for exactly this reason — the
+separation is the control, not the paperwork.
 
-## Zorunlu içerik
+## Required content
 
-| Alan | Ne yazılır |
+| Field | What it states |
 |---|---|
-| `primary_endpoint` | Tek birincil sonuç ölçüsü |
-| `secondary_endpoints` | Sıralı liste — sonradan eklenemez |
-| `decision_rule` | Hangi değer hangi kararı verir |
-| `power_analysis` | Tespit edilebilir minimum etki + varsayımlar |
-| `n_and_stopping` | Tekrar sayısı, seed matrisi, durma kuralı |
-| `multiplicity` | Çoklu karşılaştırma düzeltmesi |
-| `missing_data` | Eksik veri politikası |
-| `deviation_policy` | Sapma olursa ne olur |
-| `tolerance` | G7a (deterministik) ve G7b (dağılımsal) ayrı |
+| `primary_endpoint` | One primary outcome measure. One. |
+| `secondary_endpoints` | Ordered list — nothing may be added later |
+| `decision_rule` | Which value leads to which decision |
+| `power_analysis` | Minimum detectable effect and its assumptions |
+| `n_and_stopping` | Repetitions, seed matrix, stopping rule |
+| `multiplicity` | Multiple-comparison correction |
+| `missing_data` | Policy for missing or failed observations |
+| `deviation_policy` | What happens when the plan is deviated from |
+| `tolerance` | Separate definitions for G7a and G7b (below) |
 
-## Tolerans — iki ayrı tanım
+## Tolerance — two distinct definitions
 
-- **G7a Reproduction:** aynı manifest, aynı seed → **deterministik**.
-  Tolerans ≈ 0. Tek bir yüzde değil.
-- **G7b Replication:** farklı seed/uygulama → **dağılım karşılaştırması**
-  (CI örtüşmesi veya eşdeğerlik testi). Nokta tahmini yüzdesi **kullanılmaz**.
+- **G7a Reproduction:** same manifest, same seed, same image digest →
+  **deterministic**. Tolerance is effectively zero, not a percentage.
+- **G7b Replication:** different seed, different implementation, different
+  environment → **distributional comparison** (confidence-interval overlap or an
+  equivalence test). A single point-estimate percentage is not used.
 
-## Kilitleme
+Conflating these two is the most common error in reproducibility claims. A
+"±2% match" statement is meaningless without saying which of the two it refers to.
 
-Plan hash'i, herhangi bir sonuç üretilmeden **önce** kaydedilir. Timestamp
-kanıtı `EvidenceManifest`'e girer.
+## Locking
 
-## Rasyonalizasyon tablosu
+The plan hash is recorded **before any result exists**, and the timestamp
+evidence is anchored externally (WP-139). Internal timestamps prove ordering
+only to someone who already trusts this system.
 
-| Gerekçe | Hüküm |
+## Rationalization table
+
+| Justification | Ruling |
 |---|---|
-| "Analiz protokolde zaten var" | Ayrı hash, ayrı kilit. **Yeniden yaz.** |
-| "Güç analizi için ön veri lazım" | Ön veri ayrı bir `exploratory` koşumdur; ana veriden gelmez. |
-| "Birincil sonucu sonra seçeriz" | **Tek birincil sonuç, önceden.** Gerisi ikincil. |
-| "Çoklu karşılaştırma bu ölçekte önemsiz" | Statistical Methods Owner karar verir, uygulayıcı değil. |
+| "The analysis is already in the protocol" | Separate hash, separate lock. **Write it again.** |
+| "Power analysis needs pilot data" | Pilot data comes from a separate `exploratory` run, never from the main data. |
+| "We will choose the primary endpoint later" | **One primary endpoint, chosen in advance.** Everything else is secondary. |
+| "Multiple-comparison correction is overkill at this scale" | The Statistical Methods Owner decides that, not the implementer. |
+| "We can reuse the plan from the last project" | Reuse is fine; re-locking is still required, with this project's numbers. |
 
-## Kırmızı bayraklar
+## Red flags
 
-- Birden çok "birincil" sonuç
-- Güç analizi yok ama örneklem sayısı belirlenmiş
-- Tolerans tek bir yüzde olarak yazılmış
+- More than one "primary" endpoint
+- No power analysis but a fixed sample size
+- Tolerance stated as a single percentage
+- Plan and results committed together

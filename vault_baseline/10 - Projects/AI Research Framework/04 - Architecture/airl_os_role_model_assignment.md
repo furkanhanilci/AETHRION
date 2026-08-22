@@ -1,202 +1,213 @@
-# AIRL-OS — Rol → Model Atama Kararı
+> [!info] Generated view
+> This note is generated from `docs/architecture/AIRL_OS_ROLE_MODEL_ASSIGNMENT.md` in the repository. Edit the
+> canonical file and regenerate; edits made here are overwritten.
 
-| Alan | Değer |
+# AIRL-OS — Role → Model Assignment Decision
+
+| Field | Value |
 |---|---|
-| Belge tipi | Mimari karar (ADR adayı) |
-| Kapsam | Hangi rolü kim yürütür: insan / model / deterministik kod |
-| Kardeş belgeler | [[10 - Projects/AI Research Framework/04 - Architecture/airl_os_ideal_structure|AIRL-OS İdeal Yapı]] (Bölüm D) · [[10 - Projects/AI Research Framework/04 - Architecture/airl_os_skill_layer|AIRL-OS Skill Layer]] |
-| Tarih | 2026-08-22 |
-| Durum | **Öneri — uygulanmadan önce insan onayı gerekir** |
+| Document type | Architecture decision (ADR candidate) |
+| Scope | Who executes each role: human / model / deterministic code |
+| Sibling documents | `AIRL_OS_IDEAL_STRUCTURE.md` (Section D) · `AIRL_OS_SKILL_LAYER.md` |
+| Date | 2026-08-22 |
+| Status | **Proposal — human approval required before implementation** |
 
 ---
 
-## 0. Önce: mimariyi bozan bir bulgu
+## 0. First: a finding that breaks the architecture
 
-`AIRL-OS-Architecture.md` şu alanları taşıyor:
+`AIRL-OS-Architecture.md` carries fields of this shape:
 
 ```yaml
 model_profile: "Claude-Sonnet-5-Qualified-20260801"
 model_snapshot: "Claude Sonnet 5 20260801"
 ```
 
-**Bu kimlikler mevcut değil.** Güncel nesil Claude modellerinin tarih ekli tam
-kimliği yoktur — takma ad *kimliğin kendisidir*:
+**Those identifiers do not exist.** Current-generation Claude models have no
+date-suffixed full identifier — the alias *is* the identity:
 
-| Model | Kimlik | Tarih ekli tam kimlik |
+| Model | Identity | Date-suffixed full identity |
 |---|---|---|
-| Claude Fable 5 | `claude-fable-5` | **yok** |
-| Claude Opus 5 | `claude-opus-5` | **yok** |
-| Claude Opus 4.8 | `claude-opus-4-8` | **yok** |
-| Claude Sonnet 5 | `claude-sonnet-5` | **yok** |
+| Claude Fable 5 | `claude-fable-5` | **none** |
+| Claude Opus 5 | `claude-opus-5` | **none** |
+| Claude Opus 4.8 | `claude-opus-4-8` | **none** |
+| Claude Sonnet 5 | `claude-sonnet-5` | **none** |
 | Claude Haiku 4.5 | `claude-haiku-4-5` | `claude-haiku-4-5-20251001` |
 
-> **Sonuç:** Hosted Claude modelleri için **tarih bazlı snapshot pinning
-> yapılamaz.** `ExperimentRun.model_snapshot` alanı, güncel nesil modellerle
-> doldurulamaz.
+> **Consequence:** for hosted Claude models, **date-based snapshot pinning is not
+> possible.** The `ExperimentRun.model_snapshot` field cannot be filled for
+> current-generation models.
 
-Ve bu, doğrudan **İnvariant 4**'ü kırar:
+And that breaks **Invariant 4** directly:
 
-> *"G7 clean-room run, frozen manifest ile tanımlı toleransı üretir."*
+> *"A G7 clean-room run reproduces the result within the tolerance defined by the
+> frozen manifest."*
 
-Frozen manifest bir model snapshot'ı işaret edemiyorsa, G7a (deterministik
-reproduction) hosted modelle **yapısal olarak imkânsızdır.** Bu bir tercih
-değil, bir kısıttır.
+If the frozen manifest cannot point at a model snapshot, then G7a (deterministic
+reproduction) is **structurally impossible** with a hosted model. This is not a
+preference; it is a constraint.
 
-### Ne yapılabilir — üç katmanlı ikame
+### What can be done — a three-layer substitute
 
-| Katman | Ne pinlenir | Neyi garanti eder |
+| Layer | What is pinned | What it guarantees |
 |---|---|---|
-| **1. Capability fingerprint** | `GET /v1/models/{id}` → `max_input_tokens`, `max_tokens`, `capabilities` ağacı; hash'lenip manifest'e yazılır | Model yüzeyinin değişmediğini; **davranışın aynı kaldığını değil** |
-| **2. Tam I/O kaydı** | İstek gövdesi + yanıt + `response.model` + `usage` (Langfuse) | Ne sorulduğu ve ne cevaplandığı denetlenebilir; **yeniden üretilebilir değil** |
-| **3. Yerel open-weight** | GGUF dosyasının **SHA-256**'sı + çalıştırma parametreleri | **Gerçek determinizm.** Ağırlıklar sizde. |
+| **1. Capability fingerprint** | `GET /v1/models/{id}` → `max_input_tokens`, `max_tokens`, the `capabilities` tree; hashed and written into the manifest | That the model *surface* has not changed — **not that behaviour is unchanged** |
+| **2. Full I/O logging** | The request body, the response, `response.model` and `usage` (via Langfuse) | What was asked and what was answered is auditable — **but not reproducible** |
+| **3. Local open-weight model** | The **SHA-256** of the GGUF file plus the execution parameters | **Real determinism.** The weights are yours. |
 
-> **Karar:** `R3` claim üreten hiçbir koşu hosted modelle yapılamaz.
-> Katman 3 zorunludur. R1/R2 için katman 1+2 yeterlidir ve `model_snapshot`
-> alanı `capability_fingerprint` olarak yeniden adlandırılmalıdır.
+> **Decision:** No run producing an `R3` claim may use a hosted model. **Layer 3
+> is mandatory.** For R1/R2, layers 1+2 suffice, and the `model_snapshot` field
+> must be renamed `capability_fingerprint` so it stops promising something it
+> cannot deliver.
 
-Elinizdeki 2×RTX A5000 (48 GB toplam VRAM) bu yüzden opsiyonel bir tercih
-değil, **R3'ün önkoşuludur**.
+The 2× RTX A5000 (48 GB total VRAM) already available is therefore not an
+optional convenience — it is **a precondition for R3**.
 
 ---
 
-## 1. Bağımsızlığın dürüst tanımı
+## 1. An honest definition of independence
 
-`IndependenceMatrix`'in `Model Lineage` boyutu bugün şöyle işliyor:
-*"farklı sağlayıcı / temel model / snapshot / fine-tune"*.
+The `Model Lineage` dimension of the `IndependenceMatrix` currently reads
+*"different provider / base model / snapshot / fine-tune"*.
 
-**Kritik ayrım — bu kademe eşit değildir:**
+**The critical distinction — these tiers are not equal:**
 
-| Ayrım | Gerçek bağımsızlık değeri |
+| Distinction | Real independence value |
 |---|---|
-| Aynı ailede farklı kademe (Sonnet 5 ↔ Opus 5) | **Düşük.** Ortak eğitim soyu, ortak RLHF konvansiyonları, korelasyonlu hata |
-| Farklı sağlayıcı ailesi (Anthropic ↔ OpenAI ↔ Google) | **Orta.** Hâlâ örtüşen web korpusu, ama farklı eğitim hattı |
-| Model yargısı ↔ **mekanik doğrulama** | **Yüksek.** Tek gerçek bağımsız eksen |
+| Different tier within the same family (Sonnet 5 ↔ Opus 5) | **Low.** Shared training lineage, shared RLHF conventions, correlated errors |
+| Different provider family (Anthropic ↔ OpenAI ↔ Google) | **Medium.** Still an overlapping web corpus, but a different training pipeline |
+| Model judgement ↔ **mechanical verification** | **High.** The only genuinely independent axis |
 
-> **Kural:** `R2` ve `R3`'te reviewer **farklı sağlayıcı ailesinden** olmak
-> zorundadır. Opus 5'in Sonnet 5'i review etmesi bağımsız review **değildir**;
-> `self_check` olarak kaydedilir.
+> **Rule:** at `R2` and `R3` the reviewer **must** come from a different provider
+> family. Opus 5 reviewing Sonnet 5 is **not** independent review; it is recorded
+> as a `self_check`.
 
-Ve bu kural bile geçicidir — kalıcı olan `measuring-agreement` ile ölçülen
-ikili hata korelasyonudur.
+Even that rule is provisional. What is permanent is the **pairwise error
+correlation measured by `measuring-agreement`** — a rule based on family names is
+a proxy for the measurement, and it should be retired once the measurement exists.
 
 ---
 
-## 2. Model havuzu
+## 2. Model pool
 
-Fiyatlar 1M token başına (giriş / çıkış).
+Prices are per 1M tokens (input / output).
 
-| Tier | Model | Fiyat | Bağlam | Neden bu |
+| Tier | Model | Price | Context | Why this one |
 |---|---|---|---|---|
-| **local** | Open-weight GGUF (yerel) | donanım | — | **R3 zorunlu.** Tek gerçek determinizm |
-| **bulk** | `claude-haiku-4-5` | $1 / $5 | 200K | Hacimli tarama, span çıkarımı, kalibrasyon seti |
-| **producer** | `claude-sonnet-5` | $3 / $15 | 1M | Ana üretim tier'ı; kodlama/agentic'te Opus'a yakın |
-| **producer+** | `claude-opus-5` | $5 / $25 | 1M | Zor agentic iş, çok dosyalı refactor |
-| **adversarial** | `claude-fable-5` | $10 / $50 | 1M | En yetenekli; karşı-tez ve final review |
-| **reviewer** | **Anthropic dışı** | — | — | **Bağımsızlık için zorunlu** |
-| **arbiter** | Üçüncü aile | — | — | İki tarafı da görür, ikisinden de farklı |
+| **local** | Open-weight GGUF (local) | hardware | — | **Mandatory for R3.** The only real determinism |
+| **bulk** | `claude-haiku-4-5` | $1 / $5 | 200K | High-volume screening, span extraction, calibration sets |
+| **producer** | `claude-sonnet-5` | $3 / $15 | 1M | The main production tier; close to Opus on coding and agentic work |
+| **producer+** | `claude-opus-5` | $5 / $25 | 1M | Hard agentic work, multi-file refactors |
+| **adversarial** | `claude-fable-5` | $10 / $50 | 1M | Most capable; counter-argument and final review |
+| **reviewer** | **non-Anthropic** | — | — | **Required for independence** |
+| **arbiter** | A third family | — | — | Sees both sides and differs from both |
 
-**Sizde hazır olanlar:** Claude (bu oturum), Codex (kullandınız) → en az iki
-sağlayıcı ailesi mevcut. Yerel tier için 48 GB VRAM.
+**Already available here:** Claude (this session) and Codex (used previously) —
+so at least two provider families exist. Plus 48 GB VRAM for the local tier.
 
-### Fiyat notları
+### Pricing notes
 
-- Sonnet 5 için **2026-08-31'e kadar tanıtım fiyatı** $2/$10 — bugün en iyi
-  fiyat/performans oranı burada
-- **Batch API %50 indirim** — kalibrasyon seti ve multi-analyst koşuları
-  latency-duyarsız; batch'te çalıştırın
-- **Prompt caching** ~%90 tasarruf: ReviewPacket'ın dondurulmuş öneki
-  cache-dostudur. Opus 5'te minimum önek **512 token** (Opus 4.8'de 1024)
+- Sonnet 5 carries an **introductory price of $2/$10 until 2026-08-31** — the best
+  price/performance ratio available today sits here.
+- **The Batch API gives a 50% discount** — calibration sets and multi-analyst runs
+  are latency-insensitive; run them in batch.
+- **Prompt caching** saves roughly 90%: the frozen prefix of a `ReviewPacket` is
+  cache-friendly. The minimum cacheable prefix on Opus 5 is **512 tokens**
+  (1024 on Opus 4.8).
 
-### İki operasyonel kısıt
+### Two operational constraints
 
-1. **Fable 5, 30 gün veri saklama gerektirir; ZDR altında kullanılamaz.**
-   D3/D4 veri için sıfır saklama istiyorsanız Fable 5 kapsam dışıdır.
-2. **Fable 5 ve Opus 5 güvenlik sınıflandırıcıları isteği reddedebilir**
-   (`stop_reason: "refusal"`, kategori `"cyber"` / `"bio"` vb.). Güvenlik veya
-   yaşam bilimleri araştırması yapıyorsanız bu **operasyonel bir gerçektir**:
-   `fallbacks: "default"` ile ele alın, ve `content[0]` okumadan önce
-   **her zaman `stop_reason` kontrol edin.**
-
----
-
-## 3. Rol → aktör tablosu
-
-**Gösterim:** 👤 insan · 🤖 model · ⚙️ deterministik kod · ⬜ ertelendi
-
-### 3.1 Kalıcı fonksiyonlar
-
-| Rol | Aktör | Model | Not |
-|---|---|---|---|
-| Project Decision Owner | 👤 | — | **Asla model değil.** G8/G9 imzası |
-| Safety / Data Owner | 👤 | — | Veri sınıfı kararı insan kalır |
-| **Research Integrity Officer** | 👤 + ⚙️ | mekanik tetikleyiciler | statcheck/GRIM otomatik açar, hüküm insanın |
-| Scientific Owner | 👤 + 🤖 taslak | `claude-opus-5` | Karar sorusunu insan yazar |
-| **Statistical Methods Owner** | 👤 + 🤖 | `claude-opus-5` @ `high` | Analiz planını insan kilitler |
-| Evidence Lead | 👤 + 🤖 | `claude-sonnet-5` | Freeze kararı insanın |
-| Engineering Owner | 🤖 + 👤 onay | `claude-opus-5` @ `xhigh` | Kod üretimi |
-| Assurance Lead | 👤 + ⚙️ | — | Reviewer ataması; **model değil** |
-| **Research Software Engineer** | 🤖 + 👤 onay | `claude-sonnet-5` | RO-Crate, Nix, badge |
-| **Data Steward** | 🤖 + 👤 onay | `claude-sonnet-5` | Croissant, DOI |
-| **Scientific Editor** | ⚙️ + 🤖 | `claude-sonnet-5` | Kapsam kontrolü **mekanik** |
-| **Red Team Lead** | 🤖 + 👤 | `claude-fable-5` @ `xhigh` | Pre-mortem, kontrol enjeksiyonu |
-| **Knowledge Steward** | ⚙️ + 🤖 | `claude-haiku-4-5` | Çelişki taraması |
-| **Metascience Lead** | 👤 + ⚙️ | — | Ölçer; **bloke etmez** |
-
-### 3.2 Gate → aktör
-
-| Gate | ⚙️ Mekanik | 🤖 Model | 👤 İnsan |
-|---|---|---|---|
-| **G0** Intake | duplicate arama (embedding + Neo4j) | `haiku-4-5` triyaj | greenlight (5 dk) |
-| **G1** Charter | **`RiskProfile → AssuranceClass` policy engine** | `opus-5` taslak | **karar sorusu + onay** |
-| **G2** Protocol | şablon tamlık, placeholder taraması | `opus-5` taslak · `fable-5` pre-mortem · **farklı aile** Stage-1 review | Scientific + Stat Owner **imza** |
-| **G2b** Analysis Plan | — | `opus-5` @ `high` | **Stat Methods Owner kilitler** |
-| **G3** Literature | GROBID, DOI çözümü, dedup, hash | `sonnet-5` sorgu planı · `haiku-4-5` tarama | Evidence Lead **dondurur** |
-| **G4** Baseline | baseline koşusu | `opus-5` plan · `fable-5` pre-mortem | bütçe onayı |
-| **G5** Execute | **deneyin kendisi** | *(model deneyin konusu değilse yok)* | — |
-| **G6-0** Mekanik | **statcheck, GRIM, GRIMMER, entailment, hash** | — | — |
-| **G6-1** Blind | ReviewPacketBuilder (**program**) | **N reviewer, Anthropic dışı** | — |
-| **G6-2** Adversarial | ACH matrisi | `fable-5` @ `xhigh` | — |
-| **G6-3** Disagreement | verdict karşılaştırma | Delphi turları (aynı havuz) | arbiter **yalnız yakınsamazsa** |
-| **G7a** Reproduction | **deterministik; model YOK** | — | — |
-| **G7b** Replication | dağılım testi | — | RSE badge atar |
-| **G8** Decision | paket bütünlüğü | **öneri üretir, karar vermez** | **YALNIZ İNSAN, kotalı** |
-| **G9** Publish | **scope conformance**, RO-Crate, hash | `sonnet-5` taslak | Decision Owner + Editor |
-| **G10** Monitor | Crossref/Retraction Watch/CVE | `haiku-4-5` triyaj | material sinyalde karar |
-
-### 3.3 Üç değişmez
-
-1. **G5'te model yoktur** (deney modelin kendisi değilse). Laboratuvarın en
-   temiz katmanı budur — koruyun.
-2. **G7a'da model yoktur.** Ya tutar ya tutmaz.
-3. **G8'de model yalnız öneri üretir.** Zaten non-waivable ✅
+1. **Fable 5 requires 30-day retention; it cannot be used under ZDR.** If you
+   need zero retention for D3/D4 data, Fable 5 is out of scope.
+2. **Fable 5 and Opus 5 safety classifiers can refuse a request**
+   (`stop_reason: "refusal"`, category `"cyber"` / `"bio"` and similar). If you do
+   security or life-sciences research this is **an operational reality**, not an
+   edge case: handle it with `fallbacks: "default"`, and **always check
+   `stop_reason` before reading `content[0]`.**
 
 ---
 
-## 4. Effort → assurance sınıfı eşlemesi
+## 3. Role → actor table
 
-Effort ladder (`low` → `max`) doğrudan R sınıflarına bağlanır:
+**Notation:** 👤 human · 🤖 model · ⚙️ deterministic code · ⬜ deferred
 
-| Assurance | Producer effort | Reviewer effort | Adversarial | Reviewer kotası |
+### 3.1 Durable functions
+
+| Role | Actor | Model | Note |
+|---|---|---|---|
+| Project Decision Owner | 👤 | — | **Never a model.** Signs G8/G9 |
+| Safety / Data Owner | 👤 | — | The data-class decision stays human |
+| **Research Integrity Officer** | 👤 + ⚙️ | mechanical triggers | statcheck/GRIM open cases automatically; the judgement is human |
+| Scientific Owner | 👤 + 🤖 draft | `claude-opus-5` | The human writes the decision question |
+| **Statistical Methods Owner** | 👤 + 🤖 | `claude-opus-5` @ `high` | The human locks the analysis plan |
+| Evidence Lead | 👤 + 🤖 | `claude-sonnet-5` | The freeze decision is human |
+| Engineering Owner | 🤖 + 👤 approval | `claude-opus-5` @ `xhigh` | Code production |
+| Assurance Lead | 👤 + ⚙️ | — | Reviewer assignment; **not a model** |
+| **Research Software Engineer** | 🤖 + 👤 approval | `claude-sonnet-5` | RO-Crate, Nix, badges |
+| **Data Steward** | 🤖 + 👤 approval | `claude-sonnet-5` | Croissant, DOI |
+| **Scientific Editor** | ⚙️ + 🤖 | `claude-sonnet-5` | Scope conformance is **mechanical** |
+| **Red Team Lead** | 🤖 + 👤 | `claude-fable-5` @ `xhigh` | Pre-mortem, control injection |
+| **Knowledge Steward** | ⚙️ + 🤖 | `claude-haiku-4-5` | Contradiction sweeps |
+| **Metascience Lead** | 👤 + ⚙️ | — | Measures; **does not block** |
+
+### 3.2 Gate → actor
+
+| Gate | ⚙️ Mechanical | 🤖 Model | 👤 Human |
+|---|---|---|---|
+| **G0** Intake | duplicate search (embedding + Neo4j) | `haiku-4-5` triage | greenlight (5 min) |
+| **G1** Charter | **the `RiskProfile → AssuranceClass` policy engine** | `opus-5` draft | **the decision question + approval** |
+| **G2** Protocol | template completeness, placeholder sweep | `opus-5` draft · `fable-5` pre-mortem · **different-family** Stage-1 review | Scientific + Statistical Methods Owner **sign** |
+| **G2b** Analysis Plan | — | `opus-5` @ `high` | **the Statistical Methods Owner locks it** |
+| **G3** Literature | GROBID, DOI resolution, dedup, hashing | `sonnet-5` query plan · `haiku-4-5` screening | Evidence Lead **freezes** |
+| **G4** Baseline | the baseline run | `opus-5` plan · `fable-5` pre-mortem | budget approval |
+| **G5** Execute | **the experiment itself** | *(none, unless the model is the subject of the experiment)* | — |
+| **G6-0** Mechanical | **statcheck, GRIM, GRIMMER, entailment, hashes** | — | — |
+| **G6-1** Blind | `ReviewPacketBuilder` (**a program**) | **N reviewers, non-Anthropic** | — |
+| **G6-2** Adversarial | the ACH matrix | `fable-5` @ `xhigh` | — |
+| **G6-3** Disagreement | verdict comparison | Delphi rounds (same pool) | an arbiter **only if it fails to converge** |
+| **G7a** Reproduction | **deterministic; NO model** | — | — |
+| **G7b** Replication | distribution test | — | the RSE assigns the badge |
+| **G8** Decision | package completeness | **produces a recommendation, never a decision** | **HUMAN ONLY, under quota** |
+| **G9** Publish | **scope conformance**, RO-Crate, hashes | `sonnet-5` draft | Decision Owner + Editor |
+| **G10** Monitor | Crossref / Retraction Watch / CVE | `haiku-4-5` triage | decides on a material signal |
+
+### 3.3 Three invariants
+
+1. **There is no model at G5** (unless the model is the subject of the
+   experiment). This is the cleanest layer of the laboratory — protect it.
+2. **There is no model at G7a.** It either reproduces or it does not.
+3. **At G8 a model produces only a recommendation.** This is already
+   non-waivable ✅
+
+---
+
+## 4. Effort → assurance class mapping
+
+The effort ladder (`low` → `max`) binds directly to the R classes:
+
+| Assurance | Producer effort | Reviewer effort | Adversarial | Reviewer quota |
 |---|---|---|---|---|
 | **R1** | `medium` | `high` | — | 1 |
-| **R2** | `high` | `high` | `xhigh` | 2, **farklı aile** |
-| **R3** | `xhigh` | `xhigh` | `max` | 3, **farklı aile** + yerel repro |
+| **R2** | `high` | `high` | `xhigh` | 2, **different family** |
+| **R3** | `xhigh` | `xhigh` | `max` | 3, **different family** + local reproduction |
 
-**Not:** `low`/`medium` güncel modellerde beklenenden güçlü. R1 için `medium`
-gerçekten yeterli; maliyet kaldıracınız burada.
+**Note:** `low` and `medium` are stronger on current models than the names
+suggest. `medium` really is sufficient for R1 — that is where your cost leverage
+sits.
 
-**Adaptive thinking:** Opus 5'te varsayılan **açık**. `thinking` alanını atlamak
-düşünmeyi kapatmaz. Ve `max_tokens` düşünme + yanıtı **birlikte** sınırlar —
-kısa `max_tokens` ile gelen bir prompt artık ortadan kesilebilir.
+**Adaptive thinking:** on Opus 5 it is **on by default**. Omitting the `thinking`
+field does not disable thinking. And `max_tokens` bounds thinking **and** the
+answer together — a prompt arriving with a small `max_tokens` can now be cut off
+mid-way.
 
-> ⚠️ **Düşünmeyi kapatmayın.** `thinking: {type: "disabled"}` Opus 5'te iki
-> sessiz hata modu doğurur: araç çağrısı **düz metin olarak** yazılabilir
-> (çağrı hiç çalışmaz, hata da vermez) ve `<thinking>` etiketleri yanıta
-> sızabilir. Maliyet için `effort` düşürün, düşünmeyi kapatmayın.
+> ⚠️ **Do not disable thinking.** `thinking: {type: "disabled"}` on Opus 5
+> produces two silent failure modes: a tool call can be emitted **as plain text**
+> (the call never executes and never errors), and `<thinking>` tags can leak into
+> the response. To reduce cost, lower `effort` — do not disable thinking.
 
 ---
 
-## 5. Bağımsızlık kotası — uygulanabilir kural
+## 5. Independence quota — an enforceable rule
 
 ```yaml
 independence_quota:
@@ -206,76 +217,77 @@ independence_quota:
        extra: "reproduction on local open-weight"}
 
 hard_rules:
-  - producer profili ve final reviewer profili AYNI OLAMAZ
-  - R2/R3'te reviewer producer'ın SAĞLAYICI AİLESİNDEN olamaz
-  - ölçülmüş ikili hata korelasyonu ρ > eşik olan iki profil
-    aynı kotaya birlikte sayılmaz          # measuring-agreement çıktısı
-  - producer hiçbir ajanı çağıramaz         # independence-discipline
-  - adversarial reviewer metriği REDDETME kalitesidir
+  - the producer profile and the final reviewer profile MUST NOT be identical
+  - at R2/R3 the reviewer MUST NOT be from the producer's PROVIDER FAMILY
+  - two profiles whose measured pairwise error correlation ρ exceeds the
+    threshold do not both count toward the same quota   # output of measuring-agreement
+  - a producer may summon no agent at all                # independence-discipline
+  - the adversarial reviewer's metric is the quality of its REFUTATION
 ```
 
-**Advisor tool uyarısı:** Anthropic'in advisor tool'u executor↔advisor
-eşleştirmesi yapar — ama Opus 5 advisor sonucu **şifreli** döner
-(`advisor_redacted_result`), istemci okuyamaz. **Her şeyi denetleyen bir
-laboratuvarda okunamayan bir tavsiye kanalı kabul edilemez.** Advisor tool'u
-G6 review hattında kullanmayın.
+**Advisor tool warning:** Anthropic's advisor tool pairs an executor with an
+advisor — but on Opus 5 the advisor result comes back **encrypted**
+(`advisor_redacted_result`) and the client cannot read it. **In a laboratory that
+audits everything, an unreadable advice channel is unacceptable.** Do not use the
+advisor tool anywhere in the G6 review path.
 
 ---
 
-## 6. Maliyet zarfı — kaba tahmin
+## 6. Cost envelope — a rough estimate
 
-Bir R2 confirmatory projesi için (kaynak: 200 aday → 40 dahil, 12 senaryo,
-3 reviewer):
+For one R2 confirmatory project (200 candidate sources → 40 included, 12
+scenarios, 3 reviewers):
 
-| Aşama | Model | Tahmini token | Yaklaşık maliyet |
+| Stage | Model | Estimated tokens | Approximate cost |
 |---|---|---|---|
-| G3 tarama | `haiku-4-5` batch | ~2M giriş | ~$1 |
-| G3 span çıkarımı | `haiku-4-5` | ~1M | ~$1 |
-| G2 protokol + analiz planı | `opus-5` @ high | ~300K | ~$5 |
-| G5 analiz (multi-analyst ×3) | `sonnet-5` | ~1.5M | ~$8 |
-| G6 blind review ×2 | **Anthropic dışı** | ~600K | sağlayıcıya göre |
+| G3 screening | `haiku-4-5` batch | ~2M input | ~$1 |
+| G3 span extraction | `haiku-4-5` | ~1M | ~$1 |
+| G2 protocol + analysis plan | `opus-5` @ high | ~300K | ~$5 |
+| G5 analysis (multi-analyst ×3) | `sonnet-5` | ~1.5M | ~$8 |
+| G6 blind review ×2 | **non-Anthropic** | ~600K | provider-dependent |
 | G6 adversarial | `fable-5` @ xhigh | ~200K | ~$12 |
-| G9 metin + scope | `sonnet-5` | ~200K | ~$3 |
-| **Toplam (Anthropic tarafı)** | | | **~$30** |
+| G9 text + scope | `sonnet-5` | ~200K | ~$3 |
+| **Total (Anthropic side)** | | | **~$30** |
 
-Prompt caching ve batch ile bu rakam yarıya iner. **Asıl maliyet model değil,
-insan karar kapasitesidir** — dikkat bütçesi (haftada 5 G8 kararı) gerçek
-darboğazdır.
+Prompt caching and batching roughly halve that figure. **The real cost is not the
+models — it is human decision capacity.** The attention budget (five G8 decisions
+per week) is the actual bottleneck, and no amount of model spend relieves it.
 
 ---
 
-## 7. Uygulama sırası
+## 7. Implementation order
 
-| # | İş | Bloke ettiği |
+| # | Work | What it unblocks |
 |---|---|---|
-| 1 | `model_snapshot` → `capability_fingerprint` alan değişimi + `GET /v1/models` snapshot'ı | İnvariant 4 |
-| 2 | R3 → yerel open-weight zorunluluğunu ADR'ye yaz | G7a |
-| 3 | Reviewer havuzuna **Anthropic dışı** en az bir sağlayıcı bağla | R2/R3 bağımsızlık |
-| 4 | `stop_reason == "refusal"` + `fallbacks: "default"` her çağrıda | Üretim dayanıklılığı |
-| 5 | Effort → R sınıfı eşlemesini policy engine'e koy | Gate derinliği |
-| 6 | Batch API'yi kalibrasyon seti ve multi-analyst için bağla | Metascience maliyeti |
-| 7 | `measuring-agreement` calibration set kur | K1 — ölçülmüş bağımsızlık |
+| 1 | Rename `model_snapshot` → `capability_fingerprint` and snapshot `GET /v1/models` | Invariant 4 |
+| 2 | Write the R3 → local open-weight requirement into an ADR | G7a |
+| 3 | Connect at least one **non-Anthropic** provider to the reviewer pool | R2/R3 independence |
+| 4 | Check `stop_reason == "refusal"` and set `fallbacks: "default"` on every call | Production resilience |
+| 5 | Put the effort → R class mapping into the policy engine | Gate depth |
+| 6 | Wire the Batch API into calibration sets and multi-analyst runs | Metascience cost |
+| 7 | Build the `measuring-agreement` calibration set | K1 — measured independence |
 
 ---
 
-## 8. Açıkça ertelenenler
+## 8. Explicitly deferred
 
-| Rol / bileşen | Neden |
+| Role / component | Why |
 |---|---|
-| Advisor tool | Şifreli sonuç — denetlenemez |
-| Fable 5 (D3/D4 işlerde) | 30 gün saklama zorunluluğu, ZDR yok |
-| Managed Agents | Kendi orkestrasyonunuz Temporal; iki kontrol düzlemi istemezsiniz |
-| Ayrı `arbiter` sağlayıcı ailesi | Üçüncü aile erişimi gerekir; şimdilik insan arbiter |
+| Advisor tool | Encrypted result — cannot be audited |
+| Fable 5 (on D3/D4 work) | 30-day retention requirement, no ZDR |
+| Managed Agents | Your orchestration is Temporal; two control planes is one too many |
+| A separate `arbiter` provider family | Requires access to a third family; a human arbiter serves for now |
 
 ---
 
-## 9. Bu kararın sınırı
+## 9. The limit of this decision
 
-Bu atama **ölçülmemiş bir varsayıma dayanıyor**: farklı sağlayıcı ailelerinin
-hata korelasyonunun aynı aile içindeki kademelerden düşük olduğu.
+This assignment rests on **an unmeasured assumption**: that the error correlation
+between different provider families is lower than between tiers within one family.
 
-Bu makul ama **kanıtlanmış değil.** `measuring-agreement` calibration set
-kurulduğunda ölçülecek ve bu tablo o ölçüme göre revize edilecek.
+That is plausible, but **it is not proven.** It will be measured once the
+`measuring-agreement` calibration set exists, and this table will be revised
+against that measurement.
 
-> Bir laboratuvar kendi bağımsızlık varsayımını ölçmeden çalıştırıyorsa,
-> ürettiği "bağımsız doğrulama" bir varsayımın tekrarıdır.
+> If a laboratory runs without measuring its own independence assumption, the
+> "independent verification" it produces is the repetition of an assumption.

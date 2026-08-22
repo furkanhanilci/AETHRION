@@ -1,100 +1,108 @@
-# WP-054 — gVisor Sandbox ve Execution Cell Lifecycle
+# WP-054 — gVisor Sandbox and Execution Cell Lifecycle
 
-## Paket kartı
+## Package card
 
-| Alan | Değer |
+| Field | Value |
 |---|---|
-| İş paketi | `WP-054` |
+| Work package | `WP-054` |
 | Workstream | `06_EXECUTION_SECURITY` |
-| İlk efor sınıfı | **L** — refinement'ta O/M/P tahmini zorunlu |
-| Accountable Owner | Execution Security Lead |
-| Bağımsız doğrulayıcı | Red Team / SRE |
+| Initial effort class | **L** — large — split into sub-deliveries if it cannot be reviewed in one pass; a three-point (O/M/P) estimate is mandatory at refinement |
+| Accountable owner | Execution Security Lead |
+| Independent verifier | Red Team / SRE |
 | Hard dependencies | WP-006, WP-014, WP-027, WP-049, WP-052, WP-053 |
-| İlgili gate | G5,Engineering |
-| İlgili kontroller | CTL-SEC-04, CTL-SEC-05 |
-| İlgili ACC senaryoları | ACC-15, ACC-17 |
+| Related gates | G5,Engineering |
+| Related controls | CTL-SEC-04, CTL-SEC-05 |
+| Related acceptance scenarios | ACC-15, ACC-17 |
+| Current status | `NOT_STARTED` |
 
-## Amaç ve beklenen sonuç
+## Purpose and expected outcome
 
-Her autonomous code execution resolve→allocate→attest→execute→capture→destroy aşamalarında digest-pinned, no-privilege, scoped mount ve forensic evidence üreten geçici hücrede çalışır.
+Every autonomous code execution runs in an ephemeral cell — resolve → allocate → attest → execute → capture → destroy — that is digest-pinned, privilege-free, scope-mounted and produces forensic evidence.
 
-## Kapsam dışı
+## Out of scope
 
-- Bağımlı paketin kendi iç implementasyonu
-- Production cutover ve nihai operasyon onayı
 
-## Önkoşullar ve Definition of Ready
+- The internal implementation of any dependent package
+- Production cutover and final operational approval
 
-- Bağımlılıklar kabul edilmiştir: [WP-006 — ExecutionProfile ve Route Politikası](../01_GOVERNANCE/WP-006_execution_profili.md), [WP-014 — Artifact, Dataset ve Immutable Manifest Şemaları](../02_CONTRACTS/WP-014_artifact_manifest_contracts.md), [WP-027 — Git, OCI Registry ve Build Provenance Temeli](../03_FOUNDATION/WP-027_git_oci_supply_chain.md), [WP-049 — Tool Registry ve Tool Broker Çekirdeği](../05_MODEL_AGENT_TOOL/WP-049_tool_registry_broker.md), [WP-052 — Kubernetes Cluster ve Node Pool Baseline](../06_EXECUTION_SECURITY/WP-052_kubernetes_cluster.md), [WP-053 — Kueue Queue, Kota ve Öncelik Politikası](../06_EXECUTION_SECURITY/WP-053_kueue_quota.md)
-- Named owner, implementer ve producer'dan bağımsız verifier atanmıştır.
-- Etkilenen canonical kayıtlar, interface'ler ve ADR'lar refinement'ta ilişkilendirilmiştir.
-- DataClass, CodeTrust, ToolEffect ve ağ/credential kapsamı sınıflandırılmıştır.
-- Test fixture, environment, rollback noktası ve acceptance ölçüm yöntemi erişilebilirdir.
-- Efor için O/M/P kişi-gün tahmini ve gerçek kapasite rezervasyonu kaydedilmiştir.
+## Preconditions — Definition of Ready
 
-## Uygulama görevleri
+- Dependencies accepted: [WP-006 — ExecutionProfile and Route Policy](../01_GOVERNANCE/WP-006_execution_profile.md), [WP-014 — Artifact, Dataset and Immutable Manifest Schemas](../02_CONTRACTS/WP-014_artifact_manifest_contracts.md), [WP-027 — Git, OCI Registry and Build Provenance Foundation](../03_FOUNDATION/WP-027_git_oci_supply_chain.md), [WP-049 — Tool Registry and Tool Broker Core](../05_MODEL_AGENT_TOOL/WP-049_tool_registry_broker.md), [WP-052 — Kubernetes Cluster and Node Pool Baseline](../06_EXECUTION_SECURITY/WP-052_kubernetes_cluster.md), [WP-053 — Kueue Queue, Quota and Priority Policy](../06_EXECUTION_SECURITY/WP-053_kueue_quota.md)
+- A named owner, a named implementer, and a verifier **independent of the producer** are assigned.
+- Affected canonical records, interfaces and ADRs have been linked during refinement.
+- `DataClass`, `CodeTrust`, `ToolEffect` and the network/credential scope are classified.
+- Test fixtures, the environment, the rollback point and the acceptance measurement method are reachable.
+- An O/M/P person-day estimate is recorded and real capacity is reserved against it.
 
-| Alt iş | Yapılacak iş | Sorumlu | Tamamlanma kanıtı |
+## Implementation tasks
+
+| Sub-task | Work to be done | Responsible | Completion evidence |
 |---|---|---|---|
-| WP-054-T01 | RuntimeClass/gVisor ve seccomp/capability baseline kur | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-054-T02 | Ephemeral workspace/mount/path policy uygula | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-054-T03 | OCI signature/SBOM attestation gate bağla | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-054-T04 | CPU/memory/time/process limits ekle | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-054-T05 | Artifact capture/hash/upload ve teardown yaz | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-054-T06 | Forensic snapshot ve escape detection kur | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
+| WP-054-T01 | Establish the RuntimeClass/gVisor and seccomp/capability baseline | Implementation owner | Commit / configuration / record reference |
+| WP-054-T02 | Apply the ephemeral workspace, mount and path policy | Implementation owner | Commit / configuration / record reference |
+| WP-054-T03 | Bind the OCI signature and SBOM attestation gate | Implementation owner | Commit / configuration / record reference |
+| WP-054-T04 | Add CPU, memory, wall-clock and process limits | Implementation owner | Commit / configuration / record reference |
+| WP-054-T05 | Write artifact capture, hashing, upload and teardown | Implementation owner | Commit / configuration / record reference |
+| WP-054-T06 | Establish forensic snapshotting and escape detection | Implementation owner | Commit / configuration / record reference |
 
-## Zorunlu teslimatlar
+## Mandatory deliverables
 
 - `Sandbox profiles`
 - `Execution Cell controller`
 - `SandboxAttestation`
 - `Capture/destroy workflow`
 - `Red-team tests`
-- Güncellenmiş runbook/operasyon notu ve servis/contract ownership kaydı
-- İmzalı `EvidenceManifest`
+- An updated runbook or operations note, plus the service/contract ownership record
+- A signed `EvidenceManifest`
 
-## Test ve doğrulama planı
+## Test and verification plan
 
-- Host mount/privilege/syscall escape deny
-- Unsigned/mutable image deny
-- Resource bomb termination
-- Artifact capture then destroy
-- Yetkisiz, eksik, stale, duplicate ve partial-failure girdileri için en az bir negatif test
-- İlgili interface'lerde producer/consumer contract compatibility testi
-- Telemetry correlation ve audit kayıt bütünlüğü kontrolü
+- Denial of host mount, privilege and syscall escape attempts
+- Denial of unsigned or mutable images
+- Termination of a resource bomb
+- Artifact capture followed by cell destruction
+- At least one negative test for unauthorised, missing, stale, duplicate and partial-failure inputs
+- Producer/consumer contract compatibility tests on every affected interface
+- Telemetry correlation and audit-record integrity checks
 
-## Kabul kriterleri
+## Acceptance criteria
 
-- [ ] Agent host kernel/credential/network'e doğrudan erişemez
-- [ ] Cell expiry sonunda credential ve compute yok edilir
-- [ ] Artifact hash/attestation workflow'a döner
-- [ ] Bütün zorunlu testler aynı target revision üzerinde geçmiştir.
-- [ ] Açık Critical/High finding yoktur; non-waivable blocker bulunmamaktadır.
-- [ ] Bağımsız verifier kanıt paketini kabul etmiştir.
-- [ ] Rollback/compensation davranışı denenmiş ve audit edilmiştir.
-- [ ] İlgili dashboard, alert, audit query veya integrity query çalışma kanıtı üretmiştir.
+- [ ] An agent has no direct access to the host kernel, credentials or network.
+- [ ] Credentials and compute are destroyed at cell expiry.
+- [ ] Artifact hashes and attestations return to the workflow.
+- [ ] All mandatory tests passed **on the same target revision**.
+- [ ] No open Critical or High findings; no non-waivable blocker remains.
+- [ ] The independent verifier has accepted the evidence package.
+- [ ] Rollback/compensation behaviour has been exercised and audited.
+- [ ] The related dashboard, alert, audit query or integrity query has produced working evidence.
 
-## Kabul kanıtı paketi
+## Acceptance evidence package
 
-- Aynı target revision/digest üzerinde alınmış test sonuçları
-- Environment, schema, policy ve dependency sürümlerini içeren EvidenceManifest
-- Bağımsız verifier ReviewRecord veya VerificationRecord'u
-- Rollback/compensation denemesi ve sonuç referansı
-- Açık finding, residual risk ve owner/expiry listesi
+- Test results captured on the same target revision/digest
+- An `EvidenceManifest` recording the environment, schema, policy and dependency versions
+- The independent verifier's `ReviewRecord` or `VerificationRecord`
+- The rollback/compensation trial and its result reference
+- The list of open findings and residual risks with owners and expiry dates
 
-## Riskler ve kontrol noktaları
+## Risks and control points
 
-- Contract veya canonical sahiplik belirsizse implementasyon durur ve Architecture Board'a eskale edilir.
-- Identity, data route, artifact integrity, bağımsızlık veya kritik evidence problemi waiver ile geçirilemez.
-- Geçici manuel kontrol gerekiyorsa owner, scope, expiry, compensating control ve kaldırma paketi kaydedilir.
-- Paket tamamlandı beyanı acceptance değildir; verifier kararı olmadan yalnız `TECH_COMPLETE` olabilir.
+- If a contract or canonical ownership question is unresolved, implementation **stops** and the question escalates to the Architecture Board.
+- Identity, data routing, artifact integrity, independence and critical evidence problems **cannot** be passed by waiver.
+- If a temporary manual control is required, its owner, scope, expiry, compensating control and removal package are recorded.
+- A "package complete" statement is **not** acceptance. Without a verifier decision the package can only be `TECH_COMPLETE`.
+
+### Workstream-specific hazards
+
+- A control not exercised by a negative test is an assumption.
+- Default-allow egress anywhere in the chain nullifies every other isolation control.
+- Sandbox escape is tested by attempting it, not by reading the configuration.
 
 ## Rollback / compensation
 
-Şüpheli cell contain/stop edilir, forensic snapshot karantinaya alınır; node drain/reimage runbook'u çalışır.
+A suspicious cell is contained and stopped, its forensic snapshot quarantined, and the node drain/reimage runbook is executed.
 
-Immutable artifact, review ve karar geçmişi rollback sırasında silinmez; yeni durum supersession veya invalidation kaydıyla gösterilir.
+Immutable artifacts, reviews and decision history are **not** deleted during a rollback; the new state is expressed through a supersession or invalidation record.
 
-## Handoff ve sonraki paketlere giriş
+## Handoff into downstream packages
 
-Paket kabul edildiğinde teslim artifact'larının version/digest'leri Package Registry'ye yazılır, dependency event'i yayımlanır ve bu pakete bağlı READY adayları yeniden değerlendirilir. Downstream paket yalnız burada listelenen contract ve kanıt referanslarını tüketir; implementasyon iç ayrıntılarına bağlanmaz.
+On acceptance, the version and digest of every delivered artifact is written to the Package Registry, the dependency event is published, and every `READY` candidate blocked on this package is re-evaluated. A downstream package consumes **only** the contracts and evidence references listed above; it does not bind to internal implementation details.

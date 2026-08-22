@@ -12,51 +12,66 @@ mechanical_checks: [analysts_blind_to_each_other, same_analysis_plan_hash]
 
 # Dispatching Parallel Analysts
 
-## Genel ilke
+## Core principle
 
-Aynı veri, aynı soru, farklı savunulabilir analiz yolları farklı sonuç verir.
-Bu farka **analitik serbestlik dereceleri** denir ve **ölçülebilir**.
+The same data, the same question, and several defensible analysis paths produce
+different answers. That spread is called **analytic degrees of freedom**, and it
+is measurable.
 
-İnsan laboratuvarları bunu yapamaz — pahalıdır. Bu laboratuvar yapabilir.
+Human labs cannot afford to measure it — running the analysis twenty times is
+prohibitive. **This lab can.** Treat that as a capability, not a curiosity: it
+converts an unquantified source of error into a reported number.
 
-## Ne zaman fan-out
+## When to fan out
 
-**Evet:** Analiz yolları gerçekten bağımsızsa, her biri diğerinin sonucunu
-beklemeden ilerleyebiliyorsa.
+**Yes:** the analysis paths are genuinely independent and each can proceed
+without the others' results.
 
-**Hayır:** Nedensel olarak bağlıysa, veya çözüm bütün sistemi anlamayı
-gerektiriyorsa.
+**No:** the paths are causally linked, or the work requires understanding the
+whole system at once. Fanning out dependent work produces confident nonsense in
+parallel.
 
-## Her analiste verilen
+## What each analyst receives
 
-- Aynı `AnalysisPlanManifest` (aynı hash)
-- Aynı veri (aynı artifact hash)
-- Dar kapsam, **kendi kendine yeten** brief
-- Kısıt: **diğer analistlerin çıktısını görme veya kullanma**
-- Farklı model ailesi — ve `measuring-agreement` ile **ölçülmüş** bağımsızlık
+- The same `AnalysisPlanManifest` (same hash)
+- The same data (same artifact hash)
+- A narrow, **self-contained** brief
+- The constraint: **do not see or use any other analyst's output**
+- A different model family — with independence **measured**, not assumed
+  (`measuring-agreement`)
 
-## Sonuçların birleştirilmesi
+## Merging results
 
-1. Her raporu oku
-2. **Çakışma kontrolü** — analistler aynı ara artifact'ı değiştirmiş mi?
-3. Sonuç **dağılımını** çıkar — nokta tahminlerini değil
-4. Yorumla:
+1. Read every report
+2. **Conflict check** — did any two analysts mutate the same intermediate artifact?
+3. Produce the **distribution** of results, not a selected point estimate
+4. Interpret:
 
-| Dağılım | Anlamı | Aksiyon |
+| Distribution | Meaning | Action |
 |---|---|---|
-| Dar | Sonuç analiz yoluna duyarsız | `reproducibility` boyutu yükselir |
-| Geniş | Sonuç analiz seçimine bağlı | **`confidence` düşer**, `scope_qualification` zorunlu |
-| İki kutuplu | Yöntemsel uyuşmazlık var | `DisagreementCase` aç |
-| **Aşırı dar (κ ≈ 1.0)** | **Bağımsızlık şüpheli** | Metascience'a sinyal |
+| Narrow | Result is insensitive to analytic choice | `reproducibility` dimension rises |
+| Wide | Result depends on analysis choice | **Confidence falls**; `scope_qualification` becomes mandatory |
+| Bimodal | A genuine methodological disagreement exists | Open a `DisagreementCase` |
+| **Extremely narrow (κ ≈ 1.0)** | **Independence is suspect** | Signal to Metascience |
 
-## Multiverse uzantısı
+The last row is the counter-intuitive one: near-perfect agreement between
+supposedly independent analysts is evidence that they were not independent.
 
-Tek yol yerine tüm savunulabilir yolları (dönüşümler, kovaryatlar, dışlama
-eşikleri) çalıştır; sonucun **specification curve**'ünü raporla. p-hacking'e
-karşı doğrudan savunma.
+## Multiverse extension
 
-## Kırmızı bayraklar
+Rather than a single path, run **all defensible paths** — transformations,
+covariates, exclusion thresholds — and report the specification curve. This is
+the direct defence against p-hacking: if the result only holds on one of forty
+defensible paths, the curve shows it.
 
-- Analistlerden biri diğerinin çıktısını görmüş
-- Yalnız "en iyi" analiz raporlanmış, dağılım gizlenmiş
-- Dağılım geniş ama confidence düşmemiş
+## Reporting rule
+
+The distribution is reported, always. Reporting only the best-looking analysis
+while having run several is selective reporting, whatever the intent.
+
+## Red flags
+
+- One analyst saw another's output
+- Only the "best" analysis was reported and the spread was not
+- The spread is wide but confidence did not fall
+- Analysts differed in model but the correlation was never measured

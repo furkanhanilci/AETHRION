@@ -1,97 +1,109 @@
 # ACC-07 — Reviewer Order Bias
 
-## Senaryo kartı
+## Scenario card
 
-| Alan | Değer |
+| Field | Value |
 |---|---|
-| Senaryo | `ACC-07` |
-| Kategori | Model/Eval |
+| Scenario | `ACC-07` |
+| Category | Model/Eval |
 | Severity | **High** |
-| Accountable Owner | Eval Office |
-| Bağımsız witness/verifier | Independent Human Calibrator |
-| İlgili paketler | `WP-043`, `WP-088`, `WP-126` |
-| Production kabulü | Critical senaryo SKIP veya waiver ile PASS sayılamaz |
+| Accountable owner | Eval Office |
+| Independent witness / verifier | Independent Human Calibrator |
+| Related packages | `WP-043`, `WP-088`, `WP-126` |
+| Production acceptance | A Critical scenario can never be counted as PASS through a SKIP or a waiver |
 
-## Amaç
+## Purpose
 
-Bu senaryo, **Reviewer Order Bias** durumunda hedef mimarinin fail-safe ve kanıt üretme davranışını doğrular. Test aynı release candidate, policy bundle, schema bundle ve environment manifest üzerinde çalıştırılır.
+This scenario verifies the target architecture's fail-safe behaviour and its
+evidence production in the **Reviewer Order Bias** situation. The test runs on the same
+release candidate, policy bundle, schema bundle and environment manifest as
+every other scenario in the same acceptance round.
 
 ## Given / When / Then
 
-**Given:** Aynı iki çözüm/claim paketi A/B ve B/A sırasıyla kör reviewer profile'ına verilebilen calibration fixture'ıdır.
+**Given:** A calibration fixture holds the same two solution or claim packages, presentable to a blind reviewer profile as A/B and as B/A.
 
-**When:** Order-randomized repeated eval çalışır ve verdict/score/finding farkları ölçülür.
+**When:** An order-randomised repeated evaluation runs and verdict, score and finding differences are measured.
 
-**Then:** Material order etkisi profile calibration'ını fail eder; reviewer critical role'e admitted edilmez veya suspend edilir.
+**Then:** A material order effect fails the profile's calibration; the reviewer is not admitted to a critical role, or is suspended from it.
 
-## Önkoşullar
+## Preconditions
 
-- İlgili work package'lar `INTEGRATED` veya `COMMISSIONING_READY` durumundadır.
-- Teste özel project/actor/data/artifact kimlikleri production verisinden ayrılmıştır.
-- Release candidate digest ile policy, schema, model/tool ve infrastructure bundle sürümleri freeze edilmiştir.
-- Beklenen canonical records, events, policy decisions, telemetry ve audit assertions registry'ye girilmiştir.
-- Failure injection blast radius, kill switch, cleanup ve witness atanmıştır.
+- The related work packages are `INTEGRATED` or `COMMISSIONING_READY`.
+- Test-specific project, actor, data and artifact identifiers are separated from production data.
+- The release candidate digest and the policy, schema, model/tool and infrastructure bundle versions are frozen.
+- The expected canonical records, events, policy decisions, telemetry and audit assertions are entered in the registry.
+- The failure-injection blast radius, the kill switch, the cleanup procedure and the witness are assigned.
 
-## Test adımları
+## Test steps
 
-| # | İşlem | Toplanacak anlık kanıt |
+| # | Action | Evidence captured at this step |
 |---:|---|---|
-| 1 | Frozen identical package pair oluştur | Execution log + trace/event references |
-| 2 | Balanced order ve seed'lerle review batch koş | Execution log + trace/event references |
-| 3 | Identity/label leakage olmadığını doğrula | Execution log + trace/event references |
-| 4 | Verdict/finding/latency farklarını hesapla | Execution log + trace/event references |
-| 5 | Threshold ve statistical rule uygula | Execution log + trace/event references |
-| 6 | CapabilityProfile disposition üret | Execution log + trace/event references |
+| 1 | Create the frozen identical package pair | Execution log + trace/event references |
+| 2 | Run the review batch across balanced orders and seeds | Execution log + trace/event references |
+| 3 | Verify that no identity or label leakage occurs | Execution log + trace/event references |
+| 4 | Compute the verdict, finding and latency differences | Execution log + trace/event references |
+| 5 | Apply the threshold and the statistical rule | Execution log + trace/event references |
+| 6 | Produce the `CapabilityProfile` disposition | Execution log + trace/event references |
 
-## Zorunlu invariant ve assertions
+## Mandatory invariants and assertions
 
-- [ ] Order effect threshold içindeyse pass, dışındaysa fail
-- [ ] Fail profile critical route dışıdır
-- [ ] Raw reviews ve run manifests yeniden üretilebilir
-- [ ] Human calibration decision kayıtlıdır
-- [ ] Expected canonical state ile actual state aynı veya açıklanmış güvenli failure state'indedir.
-- [ ] Duplicate, stale, forged veya partial input unsafe yan etki üretmemiştir.
-- [ ] Trace, event, audit ve business record aynı project/workflow/run correlation zincirindedir.
-- [ ] Test sırasında oluşan her Critical/High finding Finding Registry'ye kaydedilmiştir.
+- [ ] An order effect within threshold passes; outside it, fails
+- [ ] A failed profile is excluded from critical routing
+- [ ] Raw reviews and run manifests are reproducible
+- [ ] The human calibration decision is recorded
+- [ ] The actual canonical state equals the expected state, or an explained safe failure state.
+- [ ] Duplicate, stale, forged or partial inputs produced no unsafe side effect.
+- [ ] Trace, event, audit and business records share one project/workflow/run correlation chain.
+- [ ] Every Critical or High finding raised during the test is recorded in the Finding Registry.
 
-## Beklenen canonical kayıtlar
+## Expected canonical records
 
 - `EvalRun`
 - `CalibrationReport`
 - `ReviewRecords`
 - `CapabilityProfileDecision`
 
-## Beklenen olaylar
+## Expected events
 
 - `review.calibration.started`
 - `review.bias.detected`
 - `capability.suspended_or_admitted`
 
-Beklenen olay sayısı/idempotency ve sıra kısıtları test registry'deki machine-readable assertion dosyasında tutulur. NATS event'i tek başına canonical state kanıtı değildir; ilgili service/Temporal commit'i ayrıca doğrulanır.
+Expected event counts, idempotency and ordering constraints live in the
+machine-readable assertion file inside the test registry. **A NATS event alone
+is not evidence of canonical state**; the corresponding service or Temporal
+commit is verified separately.
 
-## Kanıt paketi
+## Evidence package
 
-- `ACC-07-result.json`: PASS/FAIL, RC digest ve assertion sonuçları.
-- `ACC-07-execution-log.jsonl`: zaman sıralı test/fault/decision kayıtları.
-- `ACC-07-state-before.json` ve `ACC-07-state-after.json`.
-- `ACC-07-events.json`, `ACC-07-policy-decisions.json` ve `ACC-07-audit-export.json`.
-- `ACC-07-evidence-manifest.json`: bütün dosyaların hash, producer ve environment referansı.
-- Bağımsız witness `VerificationRecord` ve varsa finding/disposition kayıtları.
+- `ACC-07-result.json`: PASS/FAIL, the RC digest and the assertion results.
+- `ACC-07-execution-log.jsonl`: time-ordered test, fault and decision records.
+- `ACC-07-state-before.json` and `ACC-07-state-after.json`.
+- `ACC-07-events.json`, `ACC-07-policy-decisions.json` and `ACC-07-audit-export.json`.
+- `ACC-07-evidence-manifest.json`: the hash, producer and environment reference of every file.
+- The independent witness's `VerificationRecord`, plus any finding and disposition records.
 
-## PASS ölçütü
+## PASS criteria
 
-- Bütün scenario-specific assertions ve ortak integrity assertions geçer.
-- Beklenen fail-closed/block/revise davranışı happy-path başarı kadar geçerli bir PASS olabilir; beklenen state ile aynı olmalıdır.
-- Açık Critical/High finding yoktur.
-- Kanıt manifesti eksiksiz, hashleri doğrulanmış ve witness tarafından imzalanmıştır.
-- Aynı release candidate dışındaki sonuçlar birleştirilmemiştir.
+- All scenario-specific assertions and the common integrity assertions pass.
+- **An expected fail-closed, block or revise behaviour is as valid a PASS as a happy-path success** — provided it matches the expected state exactly.
+- No open Critical or High findings remain.
+- The evidence manifest is complete, its hashes verified and the package signed by the witness.
+- Results from a different release candidate have not been merged into this one.
 
-## FAIL ve yeniden test
+## FAIL and retest
 
-Bir invariant, kanıt bütünlüğü veya beklenen kayıt/event assertion'ı başarısızsa senaryo FAIL olur. Correction yalnız VALIDATED finding üzerinden açılır. Target revision veya ilgili policy/schema/model/tool bundle değişirse önceki sonuç geçersiz olur; senaryo ve etkilenen regression kümesi yeniden çalıştırılır.
+The scenario FAILs if any invariant, evidence-integrity check, or expected
+record/event assertion fails. A correction is opened only against a `VALIDATED`
+finding. If the target revision or any related policy, schema, model or tool
+bundle changes, the previous result becomes void and the scenario plus its
+affected regression set are rerun.
 
-## Cleanup ve geri dönüş
+## Cleanup and reversal
 
-Calibration fixture'ı golden store'da korunur; model/profile sonucu test namespace'ten temizlenmez.
+The calibration fixture is preserved in the golden store; the model/profile result is not purged from the test namespace.
 
-Cleanup canonical evidence ve audit geçmişini silmez. Destructive test fixture işlemleri yalnız explicit test namespace/kimlikleri üzerinde ve iki aşamalı doğrulamayla yapılır.
+Cleanup never deletes canonical evidence or audit history. Destructive test
+fixture operations run only against explicit test namespaces and identities, and
+only under two-stage confirmation.

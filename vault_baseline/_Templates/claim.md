@@ -13,24 +13,24 @@ tags:
 
 # {{title}}
 
-## Atomik iddia
+## The atomic claim
 
 
-## Destekleyici kanıt
+## Supporting evidence
 
-| Kaynak | Locator | Kanıt özeti | Güç |
+| Source | Locator | Evidence summary | Strength |
 |---|---|---|---|
 | | | | |
 
-## Karşı kanıt ve alternatif açıklamalar
+## Counter-evidence and alternative explanations
 
 -
 
-## Falsification testi
+## Falsification test
 
 -
 
-## Review durumu
+## Review status
 
 - Reviewer:
-- Sonuç:
+- Outcome:

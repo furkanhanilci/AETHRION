@@ -16,7 +16,7 @@ SOURCE: dict[str, Any] = {
     "item_type": "journalArticle",
     "zotero_key": "ABC123",
     "tags": [{"tag": "AIRL"}],
-    "abstract_note": "Özet",
+    "abstract_note": "Abstract text",
     "url": "https://example.test/article",
     "zotero_library_type": "users",
     "zotero_library_id": "0",
@@ -49,7 +49,7 @@ def test_search_sources_returns_compact_records(monkeypatch: pytest.MonkeyPatch)
 
 
 def test_search_sources_rejects_too_short_query() -> None:
-    with pytest.raises(ValueError, match="en az iki"):
+    with pytest.raises(ValueError, match="at least two characters"):
         mcp_server.search_sources("x")
 
 
@@ -58,7 +58,7 @@ def test_get_source_adds_details(monkeypatch: pytest.MonkeyPatch) -> None:
 
     result = mcp_server.get_source("zotero-users-0-ABC123")
 
-    assert result["abstract"] == "Özet"
+    assert result["abstract"] == "Abstract text"
     assert result["url"] == "https://example.test/article"
 
 

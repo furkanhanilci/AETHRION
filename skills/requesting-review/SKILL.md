@@ -12,56 +12,63 @@ mechanical_checks: [packet_hash_recorded, reviewer_independence_verified]
 
 # Requesting Review
 
-## Genel ilke
+## Core principle
 
-Reviewer **standalone bir paket** alır — asla oturum geçmişi, asla producer'ın
-muhakemesi.
+A reviewer receives a **standalone package** — never session history, never the
+producer's reasoning.
 
-## Paketin içeriği
+## Package contents
 
-| Var | Yok |
+| Included | Excluded |
 |---|---|
-| Ne üretildiğinin kısa tanımı | Producer'ın çalışma alanı |
-| `ProtocolManifest` + `AnalysisPlanManifest` hash'leri | Ara loglar |
-| Toplu metrikler | Model muhakeme izleri |
-| Figür digest'leri | Öz-skorlar |
-| Claim taslakları | Producer kimliği/iletişim bilgisi |
-| Global kısıtlar (**kelimesi kelimesine**) | Önceki review'lar |
+| A short statement of what was produced | The producer's workspace |
+| `ProtocolManifest` and `AnalysisPlanManifest` hashes | Intermediate logs |
+| Aggregate metrics | Model reasoning traces |
+| Figure digests (`spec_hash` + `data_hash` + renderer) | Self-scores |
+| Claim drafts | Producer identity or contact |
+| **Exclusion-rule application record** | Prior reviews and their verdicts |
+| Global constraints, **verbatim** | Anything not on the allowlist |
 
-Paket **dosya + hash** olarak verilir. **Inline metin geçilmez.**
+The package is handed over as **files with hashes**. Inline text is not passed —
+because inline text leaves no record of what was actually seen.
 
-## Severity kademeleri
+## Severity tiers
 
-| Kademe | Anlam | Aksiyon |
+| Tier | Meaning | Action |
 |---|---|---|
-| **Critical** | Devam edilemez | Derhal düzelt; gate BLOCKED |
-| **Important** | Sonraki adıma geçilemez | Bu gate'te çöz |
-| **Minor** | Kayda geçer | Gelecek için belgele |
+| **Critical** | Work cannot proceed | Fix immediately; the gate is BLOCKED |
+| **Important** | The next step cannot begin | Resolve at this gate |
+| **Minor** | Recorded | Documented for later |
 
-## Reviewer'ın değerlendirdiği
+## What the reviewer assesses
 
-- Yöntem sağlamlığı
-- Kanıt yeterliliği ve **tanısallığı**
-- Claim kapsamının verinin izin verdiğiyle uyumu
-- Tekrar üretilebilirlik
-- Hata riski ve kenar durumlar
+- Soundness of method
+- Sufficiency **and diagnosticity** of evidence
+- Whether claim scope matches what the data permits
+- Reproducibility from the manifests as given
+- Error risk and edge cases
 
-## Çıktı formatı
+## Output format
 
 ```
-1. Güçlü yanlar
-2. Bulgular — severity'ye göre gruplu, her biri konum + gerekçe ile
-3. Değerlendirme — ACCEPT | CONDITIONAL_PASS | REJECT
-4. CONDITIONAL_PASS ise: koşullar, tek tek numaralı
+1. Strengths
+2. Findings — grouped by severity, each with location and rationale
+3. Assessment — ACCEPT | CONDITIONAL_PASS | REJECT
+4. If CONDITIONAL_PASS: conditions, individually numbered
 ```
 
-## Erken ve sık review
+Conditions must be numbered because the producer answers each one separately
+(`receiving-review`). An unnumbered block of conditions cannot be tracked to
+closure.
 
-Review'u sona saklama. Erken review bulguların birikmesini engeller ve
-producer bağlamı hâlâ tazeyken düzeltme yapılır.
+## Review early, review often
 
-## Kırmızı bayraklar
+Do not defer review to the end. Early review prevents findings from compounding,
+and the producer's context is still fresh when the fix is made.
 
-- Paket hash'i kaydedilmemiş → reviewer'ın ne gördüğü denetlenemez
-- Reviewer producer tarafından atanmış
-- Koşullar numaralandırılmamış (bkz. `receiving-review`)
+## Red flags
+
+- Packet hash not recorded → what the reviewer saw is unauditable
+- Reviewer assigned by the producer
+- Conditions not numbered
+- Supplementary information given to the reviewer outside the packet

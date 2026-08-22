@@ -1,61 +1,64 @@
 # ACC-29 — Provider Invoice Variance
 
-## Senaryo kartı
+## Scenario card
 
-| Alan | Değer |
+| Field | Value |
 |---|---|
-| Senaryo | `ACC-29` |
-| Kategori | FinOps |
+| Scenario | `ACC-29` |
+| Category | FinOps |
 | Severity | **Medium** |
-| Accountable Owner | FinOps Lead |
-| Bağımsız witness/verifier | Internal Audit |
-| İlgili paketler | `WP-100`, `WP-111`, `WP-127` |
-| Production kabulü | Critical senaryo SKIP veya waiver ile PASS sayılamaz |
+| Accountable owner | FinOps Lead |
+| Independent witness / verifier | Internal Audit |
+| Related packages | `WP-100`, `WP-111`, `WP-127` |
+| Production acceptance | A Critical scenario can never be counted as PASS through a SKIP or a waiver |
 
-## Amaç
+## Purpose
 
-Bu senaryo, **Provider Invoice Variance** durumunda hedef mimarinin fail-safe ve kanıt üretme davranışını doğrular. Test aynı release candidate, policy bundle, schema bundle ve environment manifest üzerinde çalıştırılır.
+This scenario verifies the target architecture's fail-safe behaviour and its
+evidence production in the **Provider Invoice Variance** situation. The test runs on the same
+release candidate, policy bundle, schema bundle and environment manifest as
+every other scenario in the same acceptance round.
 
 ## Given / When / Then
 
-**Given:** Provider invoice toplamı Cost Ledger tahakkukundan policy threshold üzerinde farklıdır.
+**Given:** The provider invoice total differs from the Cost Ledger accrual by more than the policy threshold.
 
-**When:** Aylık reconciliation job invoice ve usage/cost events'i karşılaştırır.
+**When:** The monthly reconciliation job compares the invoice against the usage and cost events.
 
-**Then:** VarianceCase; provider/project/model/time bucket kırılımı, owner, SLA ve adjustment/dispute path ile açılır; ledger geçmişi silinmez.
+**Then:** A `VarianceCase` opens with a provider/project/model/time-bucket breakdown, an owner, an SLA and an adjustment or dispute path; ledger history is never deleted.
 
-## Önkoşullar
+## Preconditions
 
-- İlgili work package'lar `INTEGRATED` veya `COMMISSIONING_READY` durumundadır.
-- Teste özel project/actor/data/artifact kimlikleri production verisinden ayrılmıştır.
-- Release candidate digest ile policy, schema, model/tool ve infrastructure bundle sürümleri freeze edilmiştir.
-- Beklenen canonical records, events, policy decisions, telemetry ve audit assertions registry'ye girilmiştir.
-- Failure injection blast radius, kill switch, cleanup ve witness atanmıştır.
+- The related work packages are `INTEGRATED` or `COMMISSIONING_READY`.
+- Test-specific project, actor, data and artifact identifiers are separated from production data.
+- The release candidate digest and the policy, schema, model/tool and infrastructure bundle versions are frozen.
+- The expected canonical records, events, policy decisions, telemetry and audit assertions are entered in the registry.
+- The failure-injection blast radius, the kill switch, the cleanup procedure and the witness are assigned.
 
-## Test adımları
+## Test steps
 
-| # | İşlem | Toplanacak anlık kanıt |
+| # | Action | Evidence captured at this step |
 |---:|---|---|
-| 1 | Synthetic usage/cost events ve farklı invoice seed et | Execution log + trace/event references |
-| 2 | Currency/rate/time-zone normalization çalıştır | Execution log + trace/event references |
-| 3 | Reconciliation/threshold uygula | Execution log + trace/event references |
-| 4 | Missing/duplicate usage buckets analiz et | Execution log + trace/event references |
-| 5 | VarianceCase owner/disposition üret | Execution log + trace/event references |
-| 6 | Adjustment entry ve close test et | Execution log + trace/event references |
+| 1 | Seed the synthetic usage and cost events and a differing invoice | Execution log + trace/event references |
+| 2 | Run currency, rate and time-zone normalisation | Execution log + trace/event references |
+| 3 | Apply the reconciliation and its threshold | Execution log + trace/event references |
+| 4 | Analyse missing and duplicate usage buckets | Execution log + trace/event references |
+| 5 | Produce the `VarianceCase` owner and disposition | Execution log + trace/event references |
+| 6 | Test the adjustment entry and case closure | Execution log + trace/event references |
 
-## Zorunlu invariant ve assertions
+## Mandatory invariants and assertions
 
-- [ ] Variance detected at threshold
-- [ ] No destructive ledger rewrite
-- [ ] Adjustment references original entries
-- [ ] Owner/SLA/audit complete
-- [ ] Dashboard variance visible
-- [ ] Expected canonical state ile actual state aynı veya açıklanmış güvenli failure state'indedir.
-- [ ] Duplicate, stale, forged veya partial input unsafe yan etki üretmemiştir.
-- [ ] Trace, event, audit ve business record aynı project/workflow/run correlation zincirindedir.
-- [ ] Test sırasında oluşan her Critical/High finding Finding Registry'ye kaydedilmiştir.
+- [ ] The variance is detected at the threshold
+- [ ] No destructive ledger rewrite occurs
+- [ ] The adjustment references the original entries
+- [ ] Owner, SLA and audit records are complete
+- [ ] The variance is visible on the dashboard
+- [ ] The actual canonical state equals the expected state, or an explained safe failure state.
+- [ ] Duplicate, stale, forged or partial inputs produced no unsafe side effect.
+- [ ] Trace, event, audit and business records share one project/workflow/run correlation chain.
+- [ ] Every Critical or High finding raised during the test is recorded in the Finding Registry.
 
-## Beklenen canonical kayıtlar
+## Expected canonical records
 
 - `InvoiceRecord`
 - `CostLedgerEntries`
@@ -63,38 +66,47 @@ Bu senaryo, **Provider Invoice Variance** durumunda hedef mimarinin fail-safe ve
 - `AdjustmentEntry`
 - `DecisionRecord`
 
-## Beklenen olaylar
+## Expected events
 
 - `invoice.ingested`
 - `cost.variance_detected`
 - `reconciliation.case_opened`
 - `cost.adjusted`
 
-Beklenen olay sayısı/idempotency ve sıra kısıtları test registry'deki machine-readable assertion dosyasında tutulur. NATS event'i tek başına canonical state kanıtı değildir; ilgili service/Temporal commit'i ayrıca doğrulanır.
+Expected event counts, idempotency and ordering constraints live in the
+machine-readable assertion file inside the test registry. **A NATS event alone
+is not evidence of canonical state**; the corresponding service or Temporal
+commit is verified separately.
 
-## Kanıt paketi
+## Evidence package
 
-- `ACC-29-result.json`: PASS/FAIL, RC digest ve assertion sonuçları.
-- `ACC-29-execution-log.jsonl`: zaman sıralı test/fault/decision kayıtları.
-- `ACC-29-state-before.json` ve `ACC-29-state-after.json`.
-- `ACC-29-events.json`, `ACC-29-policy-decisions.json` ve `ACC-29-audit-export.json`.
-- `ACC-29-evidence-manifest.json`: bütün dosyaların hash, producer ve environment referansı.
-- Bağımsız witness `VerificationRecord` ve varsa finding/disposition kayıtları.
+- `ACC-29-result.json`: PASS/FAIL, the RC digest and the assertion results.
+- `ACC-29-execution-log.jsonl`: time-ordered test, fault and decision records.
+- `ACC-29-state-before.json` and `ACC-29-state-after.json`.
+- `ACC-29-events.json`, `ACC-29-policy-decisions.json` and `ACC-29-audit-export.json`.
+- `ACC-29-evidence-manifest.json`: the hash, producer and environment reference of every file.
+- The independent witness's `VerificationRecord`, plus any finding and disposition records.
 
-## PASS ölçütü
+## PASS criteria
 
-- Bütün scenario-specific assertions ve ortak integrity assertions geçer.
-- Beklenen fail-closed/block/revise davranışı happy-path başarı kadar geçerli bir PASS olabilir; beklenen state ile aynı olmalıdır.
-- Açık Critical/High finding yoktur.
-- Kanıt manifesti eksiksiz, hashleri doğrulanmış ve witness tarafından imzalanmıştır.
-- Aynı release candidate dışındaki sonuçlar birleştirilmemiştir.
+- All scenario-specific assertions and the common integrity assertions pass.
+- **An expected fail-closed, block or revise behaviour is as valid a PASS as a happy-path success** — provided it matches the expected state exactly.
+- No open Critical or High findings remain.
+- The evidence manifest is complete, its hashes verified and the package signed by the witness.
+- Results from a different release candidate have not been merged into this one.
 
-## FAIL ve yeniden test
+## FAIL and retest
 
-Bir invariant, kanıt bütünlüğü veya beklenen kayıt/event assertion'ı başarısızsa senaryo FAIL olur. Correction yalnız VALIDATED finding üzerinden açılır. Target revision veya ilgili policy/schema/model/tool bundle değişirse önceki sonuç geçersiz olur; senaryo ve etkilenen regression kümesi yeniden çalıştırılır.
+The scenario FAILs if any invariant, evidence-integrity check, or expected
+record/event assertion fails. A correction is opened only against a `VALIDATED`
+finding. If the target revision or any related policy, schema, model or tool
+bundle changes, the previous result becomes void and the scenario plus its
+affected regression set are rerun.
 
-## Cleanup ve geri dönüş
+## Cleanup and reversal
 
-Synthetic invoice/cost center TEST_CLOSED; financial audit evidence retained.
+The synthetic invoice and cost centre are marked `TEST_CLOSED`; financial audit evidence is retained.
 
-Cleanup canonical evidence ve audit geçmişini silmez. Destructive test fixture işlemleri yalnız explicit test namespace/kimlikleri üzerinde ve iki aşamalı doğrulamayla yapılır.
+Cleanup never deletes canonical evidence or audit history. Destructive test
+fixture operations run only against explicit test namespaces and identities, and
+only under two-stage confirmation.

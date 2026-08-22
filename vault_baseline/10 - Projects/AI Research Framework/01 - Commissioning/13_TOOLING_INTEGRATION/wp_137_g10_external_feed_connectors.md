@@ -1,95 +1,97 @@
-# WP-137 — G10 Dış Besleme Konnektörleri
+# WP-137 — G10 External Feed Connectors
 
-## Paket kartı
+## Package card
 
-| Alan | Değer |
+| Field | Value |
 |---|---|
-| İş paketi | `WP-137` |
+| Work package | `WP-137` |
 | Workstream | `13_TOOLING_INTEGRATION` |
-| İlk efor sınıfı | **M** — refinement'ta O/M/P tahmini zorunlu |
-| Accountable Owner | Knowledge Monitoring Lead |
-| Bağımsız doğrulayıcı | Citation Auditor |
+| Initial effort class | **M** — medium; a three-point (O/M/P) estimate is mandatory at refinement |
+| Accountable owner | Knowledge Monitoring Lead |
+| Independent verifier | Citation Auditor |
 | Hard dependencies | WP-037 (G10 ImpactScan), WP-063 (Source status), WP-136 |
-| İlgili gate | G10 |
-| İlgili kontroller | CTL-EPI-04 |
-| İlgili ACC senaryoları | ACC-04, ACC-31, ACC-36 |
-| İlgili skill | `monitoring-external-feeds` |
+| Related gates | G10 |
+| Related controls | CTL-EPI-04 |
+| Related acceptance scenarios | ACC-04, ACC-31, ACC-36 |
+| Related skill | `monitoring-external-feeds` |
+| Current status | `NOT_STARTED` |
 
-## Amaç ve beklenen sonuç
+## Purpose and expected outcome
 
-Yayın sonrası izleme beslemeleri bağlanır ve sürümlenir.
+Post-publication monitoring feeds are connected and versioned.
 
-| Besleme | Ne izler |
+| Feed | What it watches |
 |---|---|
-| Crossref + Retraction Watch | Atıf verilen kaynak geri çekildi mi? |
-| Crossmark | Düzeltme bildirimi |
-| PubMed / alan repository | Düzeltme, geri çekme |
-| Dataset registry | Veri seti sürüm/geri çekme |
-| CVE / güvenlik danışmanlığı | Kullanılan araçta zafiyet |
-| Sağlayıcı changelog | Model profili değişti/kaldırıldı |
-| Atıf takibi | Bizi kim çürüttü? |
+| Crossref + Retraction Watch | Has a cited source been retracted? |
+| Crossmark | Correction notices |
+| PubMed / domain repository | Corrections and retractions |
+| Dataset registry | Dataset version changes and withdrawals |
+| CVE / security advisories | Vulnerabilities in a tool we use |
+| Provider changelog | A model profile changed or was removed |
+| Citation tracking | Who has refuted us? |
 
-> **Değişmez:** Sessiz supersession yoktur. Material bir sinyal `ImpactCase`
-> açar ve insan kararı gerektirir. "Önemsiz" demek bir karardır ve denetlenir.
+> **Invariant:** There is no silent supersession. A material signal opens an
+> `ImpactCase` and requires a human decision. Declaring something "immaterial"
+> is itself a decision, and it is auditable.
 
-## Kapsam dışı
+## Out of scope
 
-- ImpactCase çözüm kararının kendisi (WP-108)
+- The `ImpactCase` resolution decision itself (WP-108)
 
-## Önkoşullar ve Definition of Ready
+## Preconditions — Definition of Ready
 
-- Bağımlılıklar kabul edilmiştir: WP-037 (G10 ImpactScan), WP-063 (Source status), WP-136
-- Named owner, implementer ve producer'dan bağımsız verifier atanmıştır.
-- DataClass, CodeTrust, ToolEffect ve ağ/credential kapsamı sınıflandırılmıştır.
-- Test fixture, environment, rollback noktası ve acceptance ölçüm yöntemi erişilebilirdir.
+- Dependencies accepted: WP-037 (G10 ImpactScan), WP-063 (Source status), WP-136
+- A named owner, a named implementer and a verifier independent of the producer are assigned.
+- `DataClass`, `CodeTrust`, `ToolEffect` and the network/credential scope are classified.
+- Test fixtures, the environment, the rollback point and the acceptance measurement method are reachable.
 
-## Uygulama görevleri
+## Implementation tasks
 
-| Alt iş | Yapılacak iş | Tamamlanma kanıtı |
+| Sub-task | Work to be done | Completion evidence |
 |---|---|---|
-| WP-137-T01 | Besleme kaydı: kaynak, sürüm, erişim tarihi, çekme sıklığı | Kayıt dosyası |
-| WP-137-T02 | Crossref + Retraction Watch konnektörü | Geri çekme testte yakalanır |
-| WP-137-T03 | Dataset registry ve CVE beslemeleri | Sürüm değişimi yakalanır |
-| WP-137-T04 | Sağlayıcı model changelog izleme | Model profili değişimi requalification tetikler |
-| WP-137-T05 | Materiality skorlama ve gerekçe zorunluluğu | Gerekçesiz materiality kararı reddedilir |
-| WP-137-T06 | Besleme canlılık kontrolü (dead-man's switch) | Çalışmayan besleme alarm üretir |
+| WP-137-T01 | Feed registry: source, version, access date, poll frequency | Registry file |
+| WP-137-T02 | Crossref + Retraction Watch connector | A retraction is caught in test |
+| WP-137-T03 | Dataset registry and CVE feeds | A version change is caught |
+| WP-137-T04 | Provider model changelog monitoring | A model profile change triggers requalification |
+| WP-137-T05 | Materiality scoring with a mandatory rationale | A materiality decision without a rationale is rejected |
+| WP-137-T06 | Feed liveness check (dead-man's switch) | A stalled feed raises an alarm |
 
-## Zorunlu teslimatlar
+## Mandatory deliverables
 
-- Besleme kaydı (sürüm + erişim tarihi)
-- Konnektör implementasyonları
-- Materiality skorlama ve gerekçe kaydı
-- Besleme canlılık izleme
+- The feed registry (version + access date)
+- The connector implementations
+- Materiality scoring and its rationale record
+- Feed liveness monitoring
 
-## Test ve doğrulama planı
+## Test and verification plan
 
-- **Geri çekme:** test DOI'si geri çekildiğinde `ImpactCase` açılıyor
-- **Cascade:** geri çekilen kaynak → span → claim → yayın → atıf verenler zinciri tam
-- **Materiality:** gerekçesiz `material=false` kararı reddediliyor
-- **Sessiz ölüm:** besleme N gün çalışmazsa alarm üretiliyor
-- Gelen besleme içeriği `receiving-external-messages` kurallarına tabi
+- **Retraction:** when a test DOI is retracted, an `ImpactCase` opens
+- **Cascade:** retracted source → span → claim → publication → citing works, end to end
+- **Materiality:** a `material=false` decision without a rationale is rejected
+- **Silent death:** if a feed does not run for N days, an alarm is raised
+- Inbound feed content is subject to the `receiving-external-messages` rules
 
-## Kabul kriterleri
+## Acceptance criteria
 
-- [ ] Material sinyal loglanıp geçilemiyor; `ImpactCase` zorunlu
-- [ ] Her materiality kararının yazılı gerekçesi var
-- [ ] Besleme aylarca çalışmadan fark edilmeden kalamıyor
-- [ ] Cascade zinciri uçtan uca test edilmiş
-- [ ] Bütün zorunlu testler aynı target revision üzerinde geçmiştir.
-- [ ] Açık Critical/High finding yoktur.
-- [ ] Bağımsız verifier kanıt paketini kabul etmiştir.
+- [ ] A material signal cannot be logged and passed over; an `ImpactCase` is mandatory
+- [ ] Every materiality decision carries a written rationale
+- [ ] A feed cannot sit dead for months without being noticed
+- [ ] The cascade chain is tested end to end
+- [ ] All mandatory tests passed on the same target revision.
+- [ ] No open Critical or High findings.
+- [ ] The independent verifier has accepted the evidence package.
 
-## Riskler ve kontrol noktaları
+## Risks and control points
 
-- Besleme sessizce ölürse izleme kağıt üzerinde kalır; canlılık kontrolü non-waivable
-- Besleme içeriği güvenilmezdir; WP-136 kurallarına tabidir
-- Paket tamamlandı beyanı acceptance değildir; verifier kararı olmadan yalnız `TECH_COMPLETE` olabilir.
+- If a feed dies silently, monitoring exists only on paper; the liveness check is non-waivable
+- Feed content is untrusted and is subject to the WP-136 rules
+- A "package complete" statement is not acceptance. Without a verifier decision the package can only be `TECH_COMPLETE`.
 
 ## Rollback / compensation
 
-Besleme durdurulur; açık `ImpactCase`'ler kapanmaz, insan kararına kalır.
-Kaçırılan pencere açıkça kaydedilir.
+The feed is stopped; open `ImpactCase`s are not closed and remain for human
+decision. The missed monitoring window is recorded explicitly.
 
-## Handoff ve sonraki paketlere giriş
+## Handoff into downstream packages
 
-WP-108 (retraction/drift dikey dilimi) bu beslemeleri tüketir.
+WP-108 (the retraction/drift vertical slice) consumes these feeds.

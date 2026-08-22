@@ -1,99 +1,111 @@
-# ACC-26 — Approval, Delegation ve Exception Expiry
+# ACC-26 — Approval, Delegation and Exception Expiry
 
-## Senaryo kartı
+## Scenario card
 
-| Alan | Değer |
+| Field | Value |
 |---|---|
-| Senaryo | `ACC-26` |
-| Kategori | Governance |
+| Scenario | `ACC-26` |
+| Category | Governance |
 | Severity | **Critical** |
-| Accountable Owner | Safety & Governance Owner |
-| Bağımsız witness/verifier | Internal Audit |
-| İlgili paketler | `WP-004`, `WP-009`, `WP-038`, `WP-093`, `WP-112` |
-| Production kabulü | Critical senaryo SKIP veya waiver ile PASS sayılamaz |
+| Accountable owner | Safety & Governance Owner |
+| Independent witness / verifier | Internal Audit |
+| Related packages | `WP-004`, `WP-009`, `WP-038`, `WP-093`, `WP-112` |
+| Production acceptance | A Critical scenario can never be counted as PASS through a SKIP or a waiver |
 
-## Amaç
+## Purpose
 
-Bu senaryo, **Approval, Delegation ve Exception Expiry** durumunda hedef mimarinin fail-safe ve kanıt üretme davranışını doğrular. Test aynı release candidate, policy bundle, schema bundle ve environment manifest üzerinde çalıştırılır.
+This scenario verifies the target architecture's fail-safe behaviour and its
+evidence production in the **Approval, Delegation and Exception Expiry** situation. The test runs on the same
+release candidate, policy bundle, schema bundle and environment manifest as
+every other scenario in the same acceptance round.
 
 ## Given / When / Then
 
-**Given:** Süreli delegation/control exception veya approval açık/çalışan task tarafından kullanılmaktadır.
+**Given:** A time-bound delegation, control exception or approval is in use by an open or running task.
 
-**When:** Expiry zamanı gelir ve scheduled policy re-evaluation çalışır.
+**When:** The expiry time arrives and the scheduled policy re-evaluation runs.
 
-**Then:** Yetki auto-revoke olur; yeni işlem deny, running task policy'ye göre pause/contain olur; otomatik uzatma/onay yoktur.
+**Then:** The authority is auto-revoked; new operations are denied and running tasks pause or are contained according to policy. There is no automatic extension or re-approval.
 
-## Önkoşullar
+## Preconditions
 
-- İlgili work package'lar `INTEGRATED` veya `COMMISSIONING_READY` durumundadır.
-- Teste özel project/actor/data/artifact kimlikleri production verisinden ayrılmıştır.
-- Release candidate digest ile policy, schema, model/tool ve infrastructure bundle sürümleri freeze edilmiştir.
-- Beklenen canonical records, events, policy decisions, telemetry ve audit assertions registry'ye girilmiştir.
-- Failure injection blast radius, kill switch, cleanup ve witness atanmıştır.
+- The related work packages are `INTEGRATED` or `COMMISSIONING_READY`.
+- Test-specific project, actor, data and artifact identifiers are separated from production data.
+- The release candidate digest and the policy, schema, model/tool and infrastructure bundle versions are frozen.
+- The expected canonical records, events, policy decisions, telemetry and audit assertions are entered in the registry.
+- The failure-injection blast radius, the kill switch, the cleanup procedure and the witness are assigned.
 
-## Test adımları
+## Test steps
 
-| # | İşlem | Toplanacak anlık kanıt |
+| # | Action | Evidence captured at this step |
 |---:|---|---|
-| 1 | Kısa expiry'li record ve scoped task oluştur | Execution log + trace/event references |
-| 2 | Expiry öncesi izinli operation çalıştır | Execution log + trace/event references |
-| 3 | Clock/schedule expiry tetikle | Execution log + trace/event references |
-| 4 | Yeni/running operation davranışını izle | Execution log + trace/event references |
-| 5 | Escalation/owner queue ve audit kontrol et | Execution log + trace/event references |
-| 6 | Expired token replay dene | Execution log + trace/event references |
+| 1 | Create a record with a short expiry and a scoped task | Execution log + trace/event references |
+| 2 | Run a permitted operation before expiry | Execution log + trace/event references |
+| 3 | Trigger expiry via the clock or schedule | Execution log + trace/event references |
+| 4 | Observe the behaviour of new and running operations | Execution log + trace/event references |
+| 5 | Check escalation, the owner queue and the audit trail | Execution log + trace/event references |
+| 6 | Attempt a replay with the expired token | Execution log + trace/event references |
 
-## Zorunlu invariant ve assertions
+## Mandatory invariants and assertions
 
-- [ ] Record EXPIRED/REVOKED
-- [ ] New action deny
-- [ ] Running task re-evaluated
-- [ ] No auto-extension
-- [ ] Owner/escalation/audit complete
-- [ ] Expected canonical state ile actual state aynı veya açıklanmış güvenli failure state'indedir.
-- [ ] Duplicate, stale, forged veya partial input unsafe yan etki üretmemiştir.
-- [ ] Trace, event, audit ve business record aynı project/workflow/run correlation zincirindedir.
-- [ ] Test sırasında oluşan her Critical/High finding Finding Registry'ye kaydedilmiştir.
+- [ ] The record is `EXPIRED`/`REVOKED`
+- [ ] New actions are denied
+- [ ] The running task is re-evaluated
+- [ ] There is no auto-extension
+- [ ] Owner, escalation and audit records are complete
+- [ ] The actual canonical state equals the expected state, or an explained safe failure state.
+- [ ] Duplicate, stale, forged or partial inputs produced no unsafe side effect.
+- [ ] Trace, event, audit and business records share one project/workflow/run correlation chain.
+- [ ] Every Critical or High finding raised during the test is recorded in the Finding Registry.
 
-## Beklenen canonical kayıtlar
+## Expected canonical records
 
 - `Delegation/ExceptionRecord`
 - `PolicyDecisions`
 - `WorkflowState`
 - `Revocation/AuditRecord`
 
-## Beklenen olaylar
+## Expected events
 
 - `authorization.expired`
 - `credential_or_exception.revoked`
 - `task.re_evaluated`
 - `workflow.paused`
 
-Beklenen olay sayısı/idempotency ve sıra kısıtları test registry'deki machine-readable assertion dosyasında tutulur. NATS event'i tek başına canonical state kanıtı değildir; ilgili service/Temporal commit'i ayrıca doğrulanır.
+Expected event counts, idempotency and ordering constraints live in the
+machine-readable assertion file inside the test registry. **A NATS event alone
+is not evidence of canonical state**; the corresponding service or Temporal
+commit is verified separately.
 
-## Kanıt paketi
+## Evidence package
 
-- `ACC-26-result.json`: PASS/FAIL, RC digest ve assertion sonuçları.
-- `ACC-26-execution-log.jsonl`: zaman sıralı test/fault/decision kayıtları.
-- `ACC-26-state-before.json` ve `ACC-26-state-after.json`.
-- `ACC-26-events.json`, `ACC-26-policy-decisions.json` ve `ACC-26-audit-export.json`.
-- `ACC-26-evidence-manifest.json`: bütün dosyaların hash, producer ve environment referansı.
-- Bağımsız witness `VerificationRecord` ve varsa finding/disposition kayıtları.
+- `ACC-26-result.json`: PASS/FAIL, the RC digest and the assertion results.
+- `ACC-26-execution-log.jsonl`: time-ordered test, fault and decision records.
+- `ACC-26-state-before.json` and `ACC-26-state-after.json`.
+- `ACC-26-events.json`, `ACC-26-policy-decisions.json` and `ACC-26-audit-export.json`.
+- `ACC-26-evidence-manifest.json`: the hash, producer and environment reference of every file.
+- The independent witness's `VerificationRecord`, plus any finding and disposition records.
 
-## PASS ölçütü
+## PASS criteria
 
-- Bütün scenario-specific assertions ve ortak integrity assertions geçer.
-- Beklenen fail-closed/block/revise davranışı happy-path başarı kadar geçerli bir PASS olabilir; beklenen state ile aynı olmalıdır.
-- Açık Critical/High finding yoktur.
-- Kanıt manifesti eksiksiz, hashleri doğrulanmış ve witness tarafından imzalanmıştır.
-- Aynı release candidate dışındaki sonuçlar birleştirilmemiştir.
+- All scenario-specific assertions and the common integrity assertions pass.
+- **An expected fail-closed, block or revise behaviour is as valid a PASS as a happy-path success** — provided it matches the expected state exactly.
+- No open Critical or High findings remain.
+- The evidence manifest is complete, its hashes verified and the package signed by the witness.
+- Results from a different release candidate have not been merged into this one.
 
-## FAIL ve yeniden test
+## FAIL and retest
 
-Bir invariant, kanıt bütünlüğü veya beklenen kayıt/event assertion'ı başarısızsa senaryo FAIL olur. Correction yalnız VALIDATED finding üzerinden açılır. Target revision veya ilgili policy/schema/model/tool bundle değişirse önceki sonuç geçersiz olur; senaryo ve etkilenen regression kümesi yeniden çalıştırılır.
+The scenario FAILs if any invariant, evidence-integrity check, or expected
+record/event assertion fails. A correction is opened only against a `VALIDATED`
+finding. If the target revision or any related policy, schema, model or tool
+bundle changes, the previous result becomes void and the scenario plus its
+affected regression set are rerun.
 
-## Cleanup ve geri dönüş
+## Cleanup and reversal
 
-Test scope temizlenir; record geçmişi retained, task controlled cancel/close.
+The test scope is cleared; record history is retained and the task closes by controlled cancellation.
 
-Cleanup canonical evidence ve audit geçmişini silmez. Destructive test fixture işlemleri yalnız explicit test namespace/kimlikleri üzerinde ve iki aşamalı doğrulamayla yapılır.
+Cleanup never deletes canonical evidence or audit history. Destructive test
+fixture operations run only against explicit test namespaces and identities, and
+only under two-stage confirmation.

@@ -1,46 +1,51 @@
 # Delivery — Evidence Packages
 
-Her iş paketi ve kabul senaryosu için kanıt paketi burada tutulur.
+Evidence packages for each work package and acceptance scenario live here.
 
 ```
 delivery/
   WP-xxx/
-    evidence-manifest.json     # zorunlu
-    evidence-manifest.json.ots # OpenTimestamps kanıtı (WP-139)
-    tests/                     # taze koşum çıktıları
-    reviews/                   # bağımsız review kayıtları
-    decisions/                 # ilgili DecisionRecord referansları
+    evidence-manifest.json     # required
+    evidence-manifest.json.ots # OpenTimestamps proof (WP-139)
+    tests/                     # fresh run outputs
+    reviews/                   # independent review records
+    decisions/                 # references to the relevant DecisionRecord
   ACC-xx/
     ...
 ```
 
-## `evidence-manifest.json` minimum alanları
+## Minimum fields of `evidence-manifest.json`
 
 ```json
 {
   "package_id": "WP-xxx",
   "target_revision": "<git commit sha>",
   "produced_at": "<ISO 8601>",
-  "producer": "<rol / model profili>",
-  "verifier": "<üreticiden bağımsız aktör>",
+  "producer": "<role / model profile>",
+  "verifier": "<actor independent of the producer>",
   "environment": {"python": "...", "os": "...", "deps_lock_sha256": "..."},
   "artifacts": [{"path": "...", "sha256": "...", "size_bytes": 0}],
   "commands": [{"cmd": "...", "exit_code": 0, "output_sha256": "..."}],
   "open_findings": [],
-  "decision": "<decision-id veya null>"
+  "decision": "<decision-id or null>"
 }
 ```
 
-## Kurallar
+## Rules
 
-1. **Manifest'siz teslimat kabul edilmez.** Bir paket `TECH_COMPLETE` olabilir;
-   `ACCEPTED` olması bağımsız verifier kararına bağlıdır.
-2. **Kanıt taze koşumdan gelir.** Hafızadan, önceki koşumdan veya ajan
-   raporundan alıntı kanıt değildir — bkz. `skills/verification-before-completion/`.
-3. **Zaman kanıtı dış çapaya bağlanır** (WP-139). `.ots` dosyası olmadan bir
-   manifest'in "ne zaman var olduğu" yalnız bu depoya güvenerek doğrulanabilir.
-4. **Bu dizin append-only ruhundadır.** Silme, bir `IntegrityCase` gerektirir.
+1. **No delivery is accepted without a manifest.** A package may be
+   `TECH_COMPLETE`; reaching `ACCEPTED` requires an independent verifier's
+   decision.
+2. **Evidence comes from a fresh run.** Not from memory, not from a previous
+   run, not from an agent's report — see
+   [`skills/verification-before-completion`](../skills/verification-before-completion/SKILL.md).
+3. **Time evidence is anchored externally** (WP-139). Without an `.ots` file, a
+   manifest's "when did this exist" can only be established by trusting this
+   repository.
+4. **This directory is append-only in spirit.** Deletion requires an
+   `IntegrityCase`.
 
-> ⚠️ **Şu an boş.** Hiçbir iş paketi `ACCEPTED` değil ve bu doğru:
-> imzalı `EvidenceManifest` ve immutable store mekanizmaları henüz kurulmadı.
-> Ayrıntı: `docs/review/` bulgu **C1** ve önerilen **WP-000 Interim Evidence Policy**.
+> ⚠️ **Currently empty — and that is correct.** No work package is `ACCEPTED`,
+> because the signed `EvidenceManifest` and immutable-store mechanisms have not
+> been built. See finding **C1** in [`docs/review/`](../docs/review/) and the
+> proposed **WP-000 Interim Evidence Policy**.

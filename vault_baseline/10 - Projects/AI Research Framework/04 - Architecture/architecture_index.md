@@ -1,30 +1,31 @@
 # Architecture Index
 
-Hedef mimari, repository haritası ve operasyonel skill katmanı.
+The target architecture, the repository map and the operational skill layer.
 
-## Belgeler
+## Documents
 
-| Belge | Cevapladığı soru |
+| Document | The question it answers |
 |---|---|
-| [[10 - Projects/AI Research Framework/04 - Architecture/framework_repository_and_obsidian_map\|Repository and Obsidian Map]] | Ne nerede tutuluyor? |
-| [[10 - Projects/AI Research Framework/04 - Architecture/airl_os_ideal_structure\|AIRL-OS İdeal Yapı]] | **Ne** eklenmeli? |
-| [[10 - Projects/AI Research Framework/04 - Architecture/airl_os_skill_layer\|AIRL-OS Skill Layer]] | **Nasıl** yürütülmeli? |
-| [[10 - Projects/AI Research Framework/04 - Architecture/airl_os_role_model_assignment\|Rol → Model Atama]] | **Kim** yürütür — insan / model / kod? |
+| [[10 - Projects/AI Research Framework/04 - Architecture/framework_repository_and_obsidian_map\|Repository and Obsidian Map]] | What is kept where? |
+| [[10 - Projects/AI Research Framework/04 - Architecture/airl_os_ideal_structure\|AIRL-OS Ideal Structure]] | **What** should be added? |
+| [[10 - Projects/AI Research Framework/04 - Architecture/airl_os_skill_layer\|AIRL-OS Skill Layer]] | **How** should it be executed? |
+| [[10 - Projects/AI Research Framework/04 - Architecture/airl_os_role_model_assignment\|Role → Model Assignment]] | **Who** executes it — human / model / code? |
 
-## Altı düzlem + öneri
+## The six planes, plus the proposal
 
-| Düzlem | Sahibi | Durum |
+| Plane | Owner | Status |
 |---|---|---|
-| Experience | Obsidian + Cockpit | V0 kurulu |
-| Control | Temporal | planlandı |
-| Event | NATS JetStream | planlandı |
-| Cognition | LangGraph + RoleContract | planlandı |
-| Execution | K8s + Broker + Sandbox | planlandı |
-| Evidence & Ops | Registries + WORM | V0 kısmi (SQLite) |
-| **Metascience & Calibration** | **önerildi** | **karar bekliyor** |
+| Experience | Obsidian + Cockpit | V0 in place |
+| Control | Temporal | planned |
+| Event | NATS JetStream | planned |
+| Cognition | LangGraph + RoleContract | planned |
+| Execution | Kubernetes + Broker + Sandbox | planned |
+| Evidence & Ops | Registries + WORM | V0 partial (SQLite) |
+| **Metascience & Calibration** | **proposed** | **awaiting decision** |
 
-## Kanonik kopya sınırı
+## The canonical-copy boundary
 
-Bu notların kanonik kopyaları `docs/architecture/` altındadır.
-Buradakiler wikilink dışında içerik olarak aynı olan Obsidian aynasıdır.
-İçerik değişecekse **önce kanonik dosya** değişir.
+The canonical copies of these notes live under `docs/architecture/`. The notes
+here are a generated Obsidian mirror, identical in content. **If content changes,
+the canonical file changes first** and the mirror is regenerated with
+`scripts/mirror_vault.py`.

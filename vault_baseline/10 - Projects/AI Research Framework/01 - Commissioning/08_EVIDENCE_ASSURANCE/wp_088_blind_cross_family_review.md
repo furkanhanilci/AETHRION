@@ -1,100 +1,108 @@
-# WP-088 — Blind, Cross-Family ve Adversarial Review
+# WP-088 — Blind, Cross-Family and Adversarial Review
 
-## Paket kartı
+## Package card
 
-| Alan | Değer |
+| Field | Value |
 |---|---|
-| İş paketi | `WP-088` |
+| Work package | `WP-088` |
 | Workstream | `08_EVIDENCE_ASSURANCE` |
-| İlk efor sınıfı | **L** — refinement'ta O/M/P tahmini zorunlu |
-| Accountable Owner | Assurance Lead |
-| Bağımsız doğrulayıcı | Independent Human Reviewer / Eval Office |
+| Initial effort class | **L** — large — split into sub-deliveries if it cannot be reviewed in one pass; a three-point (O/M/P) estimate is mandatory at refinement |
+| Accountable owner | Assurance Lead |
+| Independent verifier | Independent Human Reviewer / Eval Office |
 | Hard dependencies | WP-007, WP-018, WP-042, WP-043, WP-044, WP-045, WP-047, WP-077, WP-086, WP-087 |
-| İlgili gate | G6 |
-| İlgili kontroller | CTL-GOV-02, CTL-EPI-04 |
-| İlgili ACC senaryoları | ACC-06, ACC-07, ACC-08, ACC-38 |
+| Related gates | G6 |
+| Related controls | CTL-GOV-02, CTL-EPI-04 |
+| Related acceptance scenarios | ACC-06, ACC-07, ACC-08, ACC-38 |
+| Current status | `NOT_STARTED` |
 
-## Amaç ve beklenen sonuç
+## Purpose and expected outcome
 
-Risk ve review rubric'ine göre bağımsız method/claim/code/security/adversarial reviewer'lar frozen paketi inceler; verdict finding ve claim referansıyla gelir.
+Independent method, claim, code, security and adversarial reviewers examine the frozen package according to risk and rubric; verdicts arrive with findings and claim references.
 
-## Kapsam dışı
+## Out of scope
 
-- Bağımlı paketin kendi iç implementasyonu
-- Production cutover ve nihai operasyon onayı
 
-## Önkoşullar ve Definition of Ready
+- The internal implementation of any dependent package
+- Production cutover and final operational approval
 
-- Bağımlılıklar kabul edilmiştir: [WP-007 — IndependenceProfile ve Separation-of-Duties Politikası](../01_GOVERNANCE/wp_007_independence_profile.md), [WP-018 — Claim, Evidence, Review ve Decision Şemaları](../02_CONTRACTS/wp_018_claim_review_decision_contracts.md), [WP-042 — Capability Registry ve Profil Yaşam Döngüsü](../05_MODEL_AGENT_TOOL/wp_042_capability_registry.md), [WP-043 — Rol Bazlı Model Eval ve Golden Set Yönetimi](../05_MODEL_AGENT_TOOL/wp_043_model_eval_golden_sets.md), [WP-044 — Model Qualification ve Admission Pipeline](../05_MODEL_AGENT_TOOL/wp_044_model_qualification_admission.md), [WP-045 — Policy Router ve Minimum Yeterli Model Paketi](../05_MODEL_AGENT_TOOL/wp_045_policy_router_budget.md), [WP-047 — Role Bundle Registry ve Agent Sözleşme Derleyicisi](../05_MODEL_AGENT_TOOL/wp_047_role_bundle_registry.md), [WP-077 — Claim State, Dependency ve Assessment Motoru](../08_EVIDENCE_ASSURANCE/wp_077_claim_state_dependency.md), [WP-086 — Frozen ve Kör Review Package Builder](../08_EVIDENCE_ASSURANCE/wp_086_frozen_review_package.md), [WP-087 — Mekanik Verification Engine](../08_EVIDENCE_ASSURANCE/wp_087_mechanical_verifier.md)
-- Named owner, implementer ve producer'dan bağımsız verifier atanmıştır.
-- Etkilenen canonical kayıtlar, interface'ler ve ADR'lar refinement'ta ilişkilendirilmiştir.
-- DataClass, CodeTrust, ToolEffect ve ağ/credential kapsamı sınıflandırılmıştır.
-- Test fixture, environment, rollback noktası ve acceptance ölçüm yöntemi erişilebilirdir.
-- Efor için O/M/P kişi-gün tahmini ve gerçek kapasite rezervasyonu kaydedilmiştir.
+## Preconditions — Definition of Ready
 
-## Uygulama görevleri
+- Dependencies accepted: [WP-007 — IndependenceProfile and Separation-of-Duties Policy](../01_GOVERNANCE/wp_007_independence_profile.md), [WP-018 — Claim, Evidence, Review and Decision Schemas](../02_CONTRACTS/wp_018_claim_review_decision_contracts.md), [WP-042 — Capability Registry and Profile Lifecycle](../05_MODEL_AGENT_TOOL/wp_042_capability_registry.md), [WP-043 — Role-Based Model Evaluation and Golden Set Management](../05_MODEL_AGENT_TOOL/wp_043_model_eval_golden_sets.md), [WP-044 — Model Qualification and Admission Pipeline](../05_MODEL_AGENT_TOOL/wp_044_model_qualification_admission.md), [WP-045 — Policy Router and Minimum-Sufficient Model Package](../05_MODEL_AGENT_TOOL/wp_045_policy_router_budget.md), [WP-047 — Role Bundle Registry and Agent Contract Compiler](../05_MODEL_AGENT_TOOL/wp_047_role_bundle_registry.md), [WP-077 — Claim State, Dependency and Assessment Engine](../08_EVIDENCE_ASSURANCE/wp_077_claim_state_dependency.md), [WP-086 — Frozen and Blind Review Package Builder](../08_EVIDENCE_ASSURANCE/wp_086_frozen_review_package.md), [WP-087 — Mechanical Verification Engine](../08_EVIDENCE_ASSURANCE/wp_087_mechanical_verifier.md)
+- A named owner, a named implementer, and a verifier **independent of the producer** are assigned.
+- Affected canonical records, interfaces and ADRs have been linked during refinement.
+- `DataClass`, `CodeTrust`, `ToolEffect` and the network/credential scope are classified.
+- Test fixtures, the environment, the rollback point and the acceptance measurement method are reachable.
+- An O/M/P person-day estimate is recorded and real capacity is reserved against it.
 
-| Alt iş | Yapılacak iş | Sorumlu | Tamamlanma kanıtı |
+## Implementation tasks
+
+| Sub-task | Work to be done | Responsible | Completion evidence |
 |---|---|---|---|
-| WP-088-T01 | Review role/rubric/assignment service kur | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-088-T02 | IndependenceProfile eligibility check bağla | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-088-T03 | Blind package dispatch ve sealed response uygula | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-088-T04 | Cross-family/order-randomized parallel review yaz | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-088-T05 | Adversarial counterexample/falsification task'ı bağla | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-088-T06 | Verdict/finding aggregation ve calibration telemetry ekle | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
+| WP-088-T01 | Establish the review role, rubric and assignment service | Implementation owner | Commit / configuration / record reference |
+| WP-088-T02 | Bind the `IndependenceProfile` eligibility check | Implementation owner | Commit / configuration / record reference |
+| WP-088-T03 | Apply blind package dispatch and sealed responses | Implementation owner | Commit / configuration / record reference |
+| WP-088-T04 | Write cross-family, order-randomised parallel review | Implementation owner | Commit / configuration / record reference |
+| WP-088-T05 | Bind the adversarial counterexample and falsification task | Implementation owner | Commit / configuration / record reference |
+| WP-088-T06 | Add verdict/finding aggregation and calibration telemetry | Implementation owner | Commit / configuration / record reference |
 
-## Zorunlu teslimatlar
+## Mandatory deliverables
 
 - `Review service`
 - `Assignment/eligibility engine`
 - `Review rubrics`
 - `ReviewRecord storage`
 - `Calibration dashboard`
-- Güncellenmiş runbook/operasyon notu ve servis/contract ownership kaydı
-- İmzalı `EvidenceManifest`
+- An updated runbook or operations note, plus the service/contract ownership record
+- A signed `EvidenceManifest`
 
-## Test ve doğrulama planı
+## Test and verification plan
 
-- Self-review assignment deny
-- R3 cross-family/human separation
+- Denial of a self-review assignment
+- R3 cross-family and human separation
 - Order-swap bias detection
-- Critical counter-test beats PASS majority
-- Yetkisiz, eksik, stale, duplicate ve partial-failure girdileri için en az bir negatif test
-- İlgili interface'lerde producer/consumer contract compatibility testi
-- Telemetry correlation ve audit kayıt bütünlüğü kontrolü
+- A critical counter-test overriding a `PASS` majority
+- At least one negative test for unauthorised, missing, stale, duplicate and partial-failure inputs
+- Producer/consumer contract compatibility tests on every affected interface
+- Telemetry correlation and audit-record integrity checks
 
-## Kabul kriterleri
+## Acceptance criteria
 
-- [ ] Oy çokluğu acceptance değildir
-- [ ] Her finding target locator ve severity taşır
-- [ ] Bağımsızlık sağlanamazsa BLOCKED olur
-- [ ] Bütün zorunlu testler aynı target revision üzerinde geçmiştir.
-- [ ] Açık Critical/High finding yoktur; non-waivable blocker bulunmamaktadır.
-- [ ] Bağımsız verifier kanıt paketini kabul etmiştir.
-- [ ] Rollback/compensation davranışı denenmiş ve audit edilmiştir.
-- [ ] İlgili dashboard, alert, audit query veya integrity query çalışma kanıtı üretmiştir.
+- [ ] A majority vote is not acceptance.
+- [ ] Every finding carries a target locator and a severity.
+- [ ] If independence cannot be achieved the review is `BLOCKED`.
+- [ ] All mandatory tests passed **on the same target revision**.
+- [ ] No open Critical or High findings; no non-waivable blocker remains.
+- [ ] The independent verifier has accepted the evidence package.
+- [ ] Rollback/compensation behaviour has been exercised and audited.
+- [ ] The related dashboard, alert, audit query or integrity query has produced working evidence.
 
-## Kabul kanıtı paketi
+## Acceptance evidence package
 
-- Aynı target revision/digest üzerinde alınmış test sonuçları
-- Environment, schema, policy ve dependency sürümlerini içeren EvidenceManifest
-- Bağımsız verifier ReviewRecord veya VerificationRecord'u
-- Rollback/compensation denemesi ve sonuç referansı
-- Açık finding, residual risk ve owner/expiry listesi
+- Test results captured on the same target revision/digest
+- An `EvidenceManifest` recording the environment, schema, policy and dependency versions
+- The independent verifier's `ReviewRecord` or `VerificationRecord`
+- The rollback/compensation trial and its result reference
+- The list of open findings and residual risks with owners and expiry dates
 
-## Riskler ve kontrol noktaları
+## Risks and control points
 
-- Contract veya canonical sahiplik belirsizse implementasyon durur ve Architecture Board'a eskale edilir.
-- Identity, data route, artifact integrity, bağımsızlık veya kritik evidence problemi waiver ile geçirilemez.
-- Geçici manuel kontrol gerekiyorsa owner, scope, expiry, compensating control ve kaldırma paketi kaydedilir.
-- Paket tamamlandı beyanı acceptance değildir; verifier kararı olmadan yalnız `TECH_COMPLETE` olabilir.
+- If a contract or canonical ownership question is unresolved, implementation **stops** and the question escalates to the Architecture Board.
+- Identity, data routing, artifact integrity, independence and critical evidence problems **cannot** be passed by waiver.
+- If a temporary manual control is required, its owner, scope, expiry, compensating control and removal package are recorded.
+- A "package complete" statement is **not** acceptance. Without a verifier decision the package can only be `TECH_COMPLETE`.
+
+### Workstream-specific hazards
+
+- Independence asserted in a record but not enforced by the router is decorative.
+- A review that sees the producer's conclusion first is anchored, not independent.
+- Reproduction that reuses the producer's environment reproduces the environment, not the result.
 
 ## Rollback / compensation
 
-Contaminated/biased review invalidate edilir; yeni assignment ve corrected frozen package açılır.
+A contaminated or biased review is invalidated; a new assignment opens with a corrected frozen package.
 
-Immutable artifact, review ve karar geçmişi rollback sırasında silinmez; yeni durum supersession veya invalidation kaydıyla gösterilir.
+Immutable artifacts, reviews and decision history are **not** deleted during a rollback; the new state is expressed through a supersession or invalidation record.
 
-## Handoff ve sonraki paketlere giriş
+## Handoff into downstream packages
 
-Paket kabul edildiğinde teslim artifact'larının version/digest'leri Package Registry'ye yazılır, dependency event'i yayımlanır ve bu pakete bağlı READY adayları yeniden değerlendirilir. Downstream paket yalnız burada listelenen contract ve kanıt referanslarını tüketir; implementasyon iç ayrıntılarına bağlanmaz.
+On acceptance, the version and digest of every delivered artifact is written to the Package Registry, the dependency event is published, and every `READY` candidate blocked on this package is re-evaluated. A downstream package consumes **only** the contracts and evidence references listed above; it does not bind to internal implementation details.

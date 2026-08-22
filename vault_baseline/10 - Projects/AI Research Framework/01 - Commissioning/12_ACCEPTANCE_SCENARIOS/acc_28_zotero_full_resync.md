@@ -1,61 +1,64 @@
 # ACC-28 — Zotero Full Resync
 
-## Senaryo kartı
+## Scenario card
 
-| Alan | Değer |
+| Field | Value |
 |---|---|
-| Senaryo | `ACC-28` |
-| Kategori | Literature/DR |
+| Scenario | `ACC-28` |
+| Category | Literature/DR |
 | Severity | **High** |
-| Accountable Owner | Knowledge Platform Lead |
-| Bağımsız witness/verifier | Knowledge Curator / SRE |
-| İlgili paketler | `WP-067`, `WP-103`, `WP-114` |
-| Production kabulü | Critical senaryo SKIP veya waiver ile PASS sayılamaz |
+| Accountable owner | Knowledge Platform Lead |
+| Independent witness / verifier | Knowledge Curator / SRE |
+| Related packages | `WP-067`, `WP-103`, `WP-114` |
+| Production acceptance | A Critical scenario can never be counted as PASS through a SKIP or a waiver |
 
-## Amaç
+## Purpose
 
-Bu senaryo, **Zotero Full Resync** durumunda hedef mimarinin fail-safe ve kanıt üretme davranışını doğrular. Test aynı release candidate, policy bundle, schema bundle ve environment manifest üzerinde çalıştırılır.
+This scenario verifies the target architecture's fail-safe behaviour and its
+evidence production in the **Zotero Full Resync** situation. The test runs on the same
+release candidate, policy bundle, schema bundle and environment manifest as
+every other scenario in the same acceptance round.
 
 ## Given / When / Then
 
-**Given:** Zotero bridge checkpoint/state kaybolmuştur; personal/group libraries ve Source Registry mapping/receipts sağlamdır.
+**Given:** The Zotero bridge checkpoint state has been lost; the personal and group libraries, the Source Registry mapping and the receipts are intact.
 
-**When:** Full resync ve dedup/rebind procedure sıfır checkpoint'ten çalışır.
+**When:** A full resync with the dedup and rebind procedure runs from a zero checkpoint.
 
-**Then:** Duplicate veya human-field overwrite üretmeden item versions/bindings reconcile edilir; conflicts curator queue'ya gider.
+**Then:** Item versions and bindings reconcile without producing duplicates or overwriting a human field; conflicts go to the curator queue.
 
-## Önkoşullar
+## Preconditions
 
-- İlgili work package'lar `INTEGRATED` veya `COMMISSIONING_READY` durumundadır.
-- Teste özel project/actor/data/artifact kimlikleri production verisinden ayrılmıştır.
-- Release candidate digest ile policy, schema, model/tool ve infrastructure bundle sürümleri freeze edilmiştir.
-- Beklenen canonical records, events, policy decisions, telemetry ve audit assertions registry'ye girilmiştir.
-- Failure injection blast radius, kill switch, cleanup ve witness atanmıştır.
+- The related work packages are `INTEGRATED` or `COMMISSIONING_READY`.
+- Test-specific project, actor, data and artifact identifiers are separated from production data.
+- The release candidate digest and the policy, schema, model/tool and infrastructure bundle versions are frozen.
+- The expected canonical records, events, policy decisions, telemetry and audit assertions are entered in the registry.
+- The failure-injection blast radius, the kill switch, the cleanup procedure and the witness are assigned.
 
-## Test adımları
+## Test steps
 
-| # | İşlem | Toplanacak anlık kanıt |
+| # | Action | Evidence captured at this step |
 |---:|---|---|
-| 1 | Pre-resync counts/hashes/item versions al | Execution log + trace/event references |
-| 2 | Bridge sync state'i kontrollü sil | Execution log + trace/event references |
-| 3 | Full library reads ve resolver mapping çalıştır | Execution log + trace/event references |
-| 4 | Existing receipts/bindings/idempotency ile reconcile et | Execution log + trace/event references |
-| 5 | Conflicting edits fixture'ını işle | Execution log + trace/event references |
-| 6 | Post-resync counts/diffs/conflicts doğrula | Execution log + trace/event references |
+| 1 | Take the pre-resync counts, hashes and item versions | Execution log + trace/event references |
+| 2 | Delete the bridge sync state in a controlled way | Execution log + trace/event references |
+| 3 | Run the full library reads and resolver mapping | Execution log + trace/event references |
+| 4 | Reconcile against existing receipts, bindings and idempotency records | Execution log + trace/event references |
+| 5 | Process the conflicting-edits fixture | Execution log + trace/event references |
+| 6 | Verify the post-resync counts, diffs and conflicts | Execution log + trace/event references |
 
-## Zorunlu invariant ve assertions
+## Mandatory invariants and assertions
 
-- [ ] New duplicate count=0
-- [ ] Human-authoritative fields unchanged
-- [ ] Bindings complete
-- [ ] Uncertain conflicts queued
-- [ ] Personal library writes=0
-- [ ] Expected canonical state ile actual state aynı veya açıklanmış güvenli failure state'indedir.
-- [ ] Duplicate, stale, forged veya partial input unsafe yan etki üretmemiştir.
-- [ ] Trace, event, audit ve business record aynı project/workflow/run correlation zincirindedir.
-- [ ] Test sırasında oluşan her Critical/High finding Finding Registry'ye kaydedilmiştir.
+- [ ] New duplicates = 0
+- [ ] Human-authoritative fields are unchanged
+- [ ] Bindings are complete
+- [ ] Uncertain conflicts are queued rather than resolved
+- [ ] Writes to the personal library = 0
+- [ ] The actual canonical state equals the expected state, or an explained safe failure state.
+- [ ] Duplicate, stale, forged or partial inputs produced no unsafe side effect.
+- [ ] Trace, event, audit and business records share one project/workflow/run correlation chain.
+- [ ] Every Critical or High finding raised during the test is recorded in the Finding Registry.
 
-## Beklenen canonical kayıtlar
+## Expected canonical records
 
 - `SyncCheckpoints(new)`
 - `ZoteroBindings`
@@ -63,38 +66,47 @@ Bu senaryo, **Zotero Full Resync** durumunda hedef mimarinin fail-safe ve kanıt
 - `ConflictCases`
 - `ResyncReport`
 
-## Beklenen olaylar
+## Expected events
 
 - `zotero.full_resync_started`
 - `source.rebound`
 - `reconciliation.required`
 - `zotero.full_resync_completed`
 
-Beklenen olay sayısı/idempotency ve sıra kısıtları test registry'deki machine-readable assertion dosyasında tutulur. NATS event'i tek başına canonical state kanıtı değildir; ilgili service/Temporal commit'i ayrıca doğrulanır.
+Expected event counts, idempotency and ordering constraints live in the
+machine-readable assertion file inside the test registry. **A NATS event alone
+is not evidence of canonical state**; the corresponding service or Temporal
+commit is verified separately.
 
-## Kanıt paketi
+## Evidence package
 
-- `ACC-28-result.json`: PASS/FAIL, RC digest ve assertion sonuçları.
-- `ACC-28-execution-log.jsonl`: zaman sıralı test/fault/decision kayıtları.
-- `ACC-28-state-before.json` ve `ACC-28-state-after.json`.
-- `ACC-28-events.json`, `ACC-28-policy-decisions.json` ve `ACC-28-audit-export.json`.
-- `ACC-28-evidence-manifest.json`: bütün dosyaların hash, producer ve environment referansı.
-- Bağımsız witness `VerificationRecord` ve varsa finding/disposition kayıtları.
+- `ACC-28-result.json`: PASS/FAIL, the RC digest and the assertion results.
+- `ACC-28-execution-log.jsonl`: time-ordered test, fault and decision records.
+- `ACC-28-state-before.json` and `ACC-28-state-after.json`.
+- `ACC-28-events.json`, `ACC-28-policy-decisions.json` and `ACC-28-audit-export.json`.
+- `ACC-28-evidence-manifest.json`: the hash, producer and environment reference of every file.
+- The independent witness's `VerificationRecord`, plus any finding and disposition records.
 
-## PASS ölçütü
+## PASS criteria
 
-- Bütün scenario-specific assertions ve ortak integrity assertions geçer.
-- Beklenen fail-closed/block/revise davranışı happy-path başarı kadar geçerli bir PASS olabilir; beklenen state ile aynı olmalıdır.
-- Açık Critical/High finding yoktur.
-- Kanıt manifesti eksiksiz, hashleri doğrulanmış ve witness tarafından imzalanmıştır.
-- Aynı release candidate dışındaki sonuçlar birleştirilmemiştir.
+- All scenario-specific assertions and the common integrity assertions pass.
+- **An expected fail-closed, block or revise behaviour is as valid a PASS as a happy-path success** — provided it matches the expected state exactly.
+- No open Critical or High findings remain.
+- The evidence manifest is complete, its hashes verified and the package signed by the witness.
+- Results from a different release candidate have not been merged into this one.
 
-## FAIL ve yeniden test
+## FAIL and retest
 
-Bir invariant, kanıt bütünlüğü veya beklenen kayıt/event assertion'ı başarısızsa senaryo FAIL olur. Correction yalnız VALIDATED finding üzerinden açılır. Target revision veya ilgili policy/schema/model/tool bundle değişirse önceki sonuç geçersiz olur; senaryo ve etkilenen regression kümesi yeniden çalıştırılır.
+The scenario FAILs if any invariant, evidence-integrity check, or expected
+record/event assertion fails. A correction is opened only against a `VALIDATED`
+finding. If the target revision or any related policy, schema, model or tool
+bundle changes, the previous result becomes void and the scenario plus its
+affected regression set are rerun.
 
-## Cleanup ve geri dönüş
+## Cleanup and reversal
 
-New checkpoint baseline olarak korunur; fixture conflicts curator disposition ile kapatılır.
+The new checkpoint is retained as the baseline; fixture conflicts are closed by curator disposition.
 
-Cleanup canonical evidence ve audit geçmişini silmez. Destructive test fixture işlemleri yalnız explicit test namespace/kimlikleri üzerinde ve iki aşamalı doğrulamayla yapılır.
+Cleanup never deletes canonical evidence or audit history. Destructive test
+fixture operations run only against explicit test namespaces and identities, and
+only under two-stage confirmation.

@@ -4,7 +4,7 @@ type: project
 status: active
 owner: otonom
 created_at: "2026-08-21"
-updated_at: "2026-08-22T00:05:00+03:00"
+updated_at: "2026-08-22"
 current_phase: fix-005-dry-run-preparation
 canonical_status_scope: operational-tracker
 tags:
@@ -17,87 +17,113 @@ tags:
 
 # AI Research Framework — Current Status and Roadmap
 
-> [!important] Yaşayan proje kaydı
-> Bu belge her maddi uygulama, test, review, kabul, rollback veya kapsam değişikliğinden sonra güncellenir. Bir iş yalnız niyet veya agent beyanıyla tamamlanmış sayılmaz; komut çıktısı, artifact ve gerekiyorsa bağımsız review ile desteklenir.
+> [!important] A living project record
+> This document is updated after every material implementation, test, review,
+> acceptance, rollback or scope change. **Work is never counted complete on
+> intent or on an agent's statement**; it is supported by command output, an
+> artifact and, where required, independent review.
 
-## 1. Yönetici özeti
+## 1. Executive summary
 
-AI Research Framework iki ayrı fakat ilişkili düzlemde ilerlemektedir:
+The AI Research Framework advances on two separate but related planes:
 
-1. **SILBO model geliştirme alt hattı:** Eğitim, değerlendirme, verifier güvenilirliği ve yayın kalitesinde kanıt üretimi için daha önce geliştirilmiş ayrı gerçek kod tabanı. `SILBO-FIX-004` ve `SILBO-FIX-005a` exact sealed Fable quorum ile kabul edilmiştir. `SILBO-FIX-005` challenge sonrası yerelde aktive edilmiştir; fail-closed runner/rapor sözleşmesi ve 11 odaklı test hazırlanmıştır. Mutation, tam paket ve dry-run kanıtı geçmeden inference başlamayacaktır.
-2. **AIRL-OS devreye alma programı:** 130 iş paketi ve 40 uçtan uca kabul senaryosuyla tam araştırma işletim sistemini tarif eden commissioning planı. Bu planın tamamı henüz kurulmamıştır.
+1. **The SILBO model-development sub-line:** a separate, pre-existing code base
+   for training, evaluation, verifier reliability and publication-quality
+   evidence. `SILBO-FIX-004` and `SILBO-FIX-005a` were accepted under exact
+   sealed Fable quorum. `SILBO-FIX-005` was activated locally after a challenge;
+   the fail-closed runner/report contract and 11 focused tests are ready.
+   Inference will not start before mutation, full-suite and dry-run evidence pass.
+2. **The AIRL-OS commissioning programme:** the plan describing the full research
+   operating system across 140 work packages and 40 end-to-end acceptance
+   scenarios. **None of this programme has been built.**
 
-Bunlara ek olarak, kullanılabilir bir ilk dikey dilim olarak **yerel literatür V0 sistemi** kurulmuştur:
+In addition, a usable first vertical slice — the **local literature V0
+system** — is running:
 
 ```text
-Zotero Local API (salt-okunur)
+Zotero Local API (read-only)
         -> AIRL Bridge API
-        -> SQLite kanonik V0 kayıt defteri
-        -> Obsidian Literature Sets görünümü
-        -> Hermes salt-okunur MCP araçları
+        -> SQLite canonical V0 registry
+        -> Obsidian Literature Sets view
+        -> Hermes read-only MCP tools
 ```
 
-### Güncel durum özeti
+### Framework status summary
 
-| Alan | Durum | Kanıt / sınır |
+| Area | Status | Evidence / limit |
 |---|---|---|
-| Yerel literatür V0 | ÇALIŞIYOR | 33 kaynak, 3 sınıf, Obsidian projeksiyonu |
-| Bridge API | AKTİF | `127.0.0.1:8765`, Zotero write kapalı |
-| Otomatik senkron | AKTİF | systemd user timer, 30 dakika |
-| Hermes MCP | AKTİF | 5 salt-okunur araç |
-| Obsidian bilgi mimarisi | V0 HAZIR | İnsan ve otomatik alanlar ayrıldı |
-| SILBO-FIX-004 uygulaması | IMPLEMENTED | Immutable `T=85625d7...`, `H=ddad3ab...` |
-| SILBO-FIX-004 bağımsız review | APPROVED | Sealed Fable review `efb87f2`; exact T/H doğrulandı |
-| SILBO-FIX-004 idari quorum | PASS / ACCEPTED | Review `933f17f` ile governed soyda; exact quorum PASS |
-| SILBO-FIX-004 state uzlaştırması | PASS | Ledger/queue/state commit `b96b989`; preflight PASS |
-| SILBO-FIX-005a | ACCEPTED | `T=ff5f959`, `H=e8e614c`, Fable `1309853`, closeout `b803846`; exact quorum PASS |
-| SILBO-FIX-005b follow-up | WRITTEN / NON-BLOCKING | AIR-014; constructor mismatch guard testi, 005a'yı reopen etmez |
-| SILBO-FIX-005 | ACTIVE / PRE-INFERENCE | Target `b14b0b3`; 11/11 odaklı, 8/8 mutation, evaluation 155/155 ve runtime 72/72 PASS; dry-run bekliyor |
-| Genel framework GitHub yayını | AKTİF / PRIVATE | `furkanhanilci/AI-Research-Framework`, bu güncelleme öncesi `main=813b17f` |
-| SILBO model reposu | AYRI / DOKUNULMADI | Genel framework remote'u olarak kullanılmıyor |
-| Tam AIRL-OS commissioning | BAŞLAMADI / PLAN | WP seviyesinde bağımsız kabul yok |
-| Production cutover | YETKİLİ DEĞİL | 40 ACC, restore tatbikatları ve kritik bulgu kapanışları gerekli |
+| Local literature V0 | WORKING | 33 sources, 3 categories, Obsidian projection |
+| Bridge API | ACTIVE | `127.0.0.1:8765`, no Zotero write path in the code |
+| Automatic sync | ACTIVE | systemd user timer, every 30 minutes |
+| Hermes MCP | ACTIVE | 5 read-only tools |
+| Obsidian information architecture | V0 READY | Human and generated areas separated |
+| Documentation corpus | ENGLISH / COMPLETE | Step 004; mirror generators with `--check` |
+| Full AIRL-OS commissioning | NOT STARTED / PLAN | No independent acceptance at WP level |
+| Production cutover | NOT AUTHORISED | Requires 40 ACCs, restore drills and closure of critical findings |
 
-## 2. Bu belgede kullanılan durumlar
+### SILBO status summary (a separate repository, outside this evidence chain)
 
-| Durum | Anlamı |
+> These rows describe work in `/home/otonom/silbo-fix-00*`, a **separate
+> repository with its own authority boundary**. They were not verified during the
+> framework audit, and they say nothing about the framework's own status.
+
+| Area | Status | Evidence |
+|---|---|---|
+| SILBO-FIX-004 implementation | IMPLEMENTED | Immutable `T=85625d7…`, `H=ddad3ab…` |
+| SILBO-FIX-004 independent review | APPROVED | Sealed Fable review `efb87f2`; exact T/H verified |
+| SILBO-FIX-004 administrative quorum | PASS / ACCEPTED | Review `933f17f` in the governed lineage; exact quorum PASS |
+| SILBO-FIX-004 state reconciliation | PASS | Ledger/queue/state commit `b96b989`; preflight PASS |
+| SILBO-FIX-005a | ACCEPTED | `T=ff5f959`, `H=e8e614c`, Fable `1309853`, closeout `b803846` |
+| SILBO-FIX-005b follow-up | WRITTEN / NON-BLOCKING | AIR-014; constructor mismatch guard test; does not reopen 005a |
+| SILBO-FIX-005 | ACTIVE / PRE-INFERENCE | Target `b14b0b3`; 11/11 focused, 8/8 mutation, evaluation 155/155, runtime 72/72 PASS; dry-run pending |
+| SILBO model repository | SEPARATE / UNTOUCHED | Never used as the framework remote |
+
+## 2. Status vocabulary used in this document
+
+| Status | Meaning |
 |---|---|
-| `PLAN` | Tasarım veya iş paketi dokümante edilmiş, uygulama kanıtı yok |
-| `IN_PROGRESS` | Yetkili ve sınırlandırılmış çalışma aktif |
-| `TECH_COMPLETE` | Kod/konfigürasyon hazır; bağımsız kabul tamamlanmamış |
-| `PARTIAL` | Hedefin yalnız açıkça belirtilen alt kümesi çalışıyor |
-| `ACCEPTED` | Paket ölçütleri bağımsız kanıtla kabul edilmiş |
-| `COMMISSIONED` | İlgili uçtan uca kabul senaryoları da geçmiş |
-| `BLOCKED` | Devam için dış karar, yetki veya kapanmamış zorunlu önkoşul var |
+| `PLAN` | The design or work package is documented; there is no implementation evidence |
+| `IN_PROGRESS` | Authorised, bounded work is active |
+| `TECH_COMPLETE` | Code/configuration is ready; independent acceptance is not complete |
+| `PARTIAL` | Only the explicitly stated subset of the target works |
+| `ACCEPTED` | The package criteria were accepted on independent evidence |
+| `COMMISSIONED` | The related end-to-end acceptance scenarios also passed |
+| `BLOCKED` | An external decision, authority or unmet mandatory precondition blocks progress |
 
-Bu dokümandaki `V0 HAZIR` veya `ÇALIŞIYOR` ifadeleri, 130 paketlik programın `ACCEPTED` ya da `COMMISSIONED` olduğu anlamına gelmez.
+**`V0 READY` and `WORKING` in this document do not mean that the 140-package
+programme is `ACCEPTED` or `COMMISSIONED`.** No package is currently `ACCEPTED`.
 
-## 3. Kaynak otoriteleri ve çalışma dizinleri
+## 3. Source authorities and working directories
 
-### 3.1 Tam devreye alma planı
+### 3.1 The full commissioning plan
 
 ```text
 /home/otonom/Desktop/FH/AI_RESEARCH_FRAMEWORK/
   planning/commissioning/
 ```
 
-Bu alan hedef mimariyi, WP-001–WP-130 paketlerini ve ACC-01–ACC-40 kabul senaryolarını tanımlar.
+This area defines the target architecture, work packages WP-001–WP-140 and
+acceptance scenarios ACC-01–ACC-40. It is hash-sealed:
 
-### 3.2 Yerel literatür V0 uygulaması
+```bash
+sha256sum -c planning/commissioning/00_PROGRAM/SHA256SUMS.txt
+```
+
+### 3.2 The local literature V0 implementation
 
 ```text
 /home/otonom/Desktop/FH/AI_RESEARCH_FRAMEWORK/
 ```
 
-Yerel Git başlangıç commit'i:
+The initial local Git commit:
 
 ```text
-15d57af Establish SILBO local literature bridge V0
+15d57af Establish local literature bridge V0
 ```
 
-### 3.3 Mevcut SILBO ürün reposu
+### 3.3 The existing SILBO product repository
 
-Kabul edilmiş FIX-004 worktree'si:
+The accepted FIX-004 worktree:
 
 ```text
 /home/otonom/silbo-fix-004
@@ -110,7 +136,7 @@ closeout: 5737757
 state reconciliation: b96b989
 ```
 
-Aktif, actor-owned FIX-005a worktree'si:
+The active, actor-owned FIX-005a worktree:
 
 ```text
 /home/otonom/silbo-fix-005a
@@ -125,10 +151,11 @@ closeout: b803846d6bd00d18fc2c3ee9074971616b47bef3
 review state: ACCEPTED — exact quorum PASS
 ```
 
-Shared `/home/otonom/silbo-ai` çalışma alanında toplu stage, cleanup veya uygulama yapılmaz.
-SILBO model kodu ve remote'ları genel AI framework yayınından ayrı tutulur.
+No bulk staging, cleanup or implementation is performed in the shared
+`/home/otonom/silbo-ai` workspace. **SILBO model code and its remotes are kept
+separate from the general AI framework publication.**
 
-### 3.4 Genel AI framework GitHub reposu
+### 3.4 The general AI framework GitHub repository
 
 ```text
 account: furkanhanilci
@@ -137,39 +164,50 @@ visibility: private
 default branch: main
 remote: https://github.com/furkanhanilci/AI-Research-Framework.git
 first published commit: 5efd305d52aca1557576e3208668ee9e474344da
-current published framework commit before this status update: ab52fb31460eed08865e97487c3b41b8a20d6c68
 ```
 
-İlk push öncesinde izlenen dosyalar kontrol edildi: `.env`, sanal ortam,
-SQLite/WAL verileri, pytest cache ve projeksiyon yedekleri ignore kapsamında.
-İzlenen dosyalarda yaygın credential/token imzası bulunmadı; 16/16 test geçti.
+Before the first push, the tracked files were checked: `.env`, the virtual
+environment, SQLite/WAL data, the pytest cache and the projection backups are all
+inside `.gitignore`. No common credential or token signature was found in the
+tracked files, and the test suite passed.
 
-## 4. Kurulan yerel literatür V0
+## 4. The local literature V0 as built
 
-### 4.1 Zotero bağlantısı
+### 4.1 The Zotero connection
 
-- Zotero Local API yerel makinede etkinleştirildi.
-- Bağlantı `http://127.0.0.1:23119/api` üzerinden çalışıyor.
-- Kişisel kütüphane yalnız okunuyor.
-- Bridge içinde Zotero API anahtarı, create, update, merge veya delete işlemi bulunmuyor.
-- Kayıtların Zotero içindeki insan alanları değiştirilmedi.
+- The Zotero Local API is enabled on the local machine.
+- The connection runs over `http://127.0.0.1:23119/api`.
+- The personal library is **read** only.
+- The Bridge holds no Zotero API key and contains no create, update, merge or
+  delete operation.
+- No human field inside Zotero has been modified.
 
-### 4.2 Bridge API
+> ⚠️ **The strength of this claim.** The code contains no write path — that was
+> verified by reading it. But **no test proves it**: the
+> `zotero_write_enabled` field is a hard-coded constant, so the three artifacts
+> that appear to check it are testing `False is False`. See audit finding **H3**.
 
-- FastAPI servisi yalnız loopback üzerinde çalışıyor.
-- SQLite WAL tabanlı V0 kayıt defteri kuruldu.
-- Kaynaklar kararlı AIRL kimliği ve Zotero item key ile eşleniyor.
-- Tekrar senkron aynı kaynağı çoğaltmıyor.
-- Sağlık, readiness, listeleme, arama, kategori ve olası kopya endpoint'leri var.
-- OpenAPI arayüzü yerel olarak erişilebilir.
+### 4.2 The Bridge API
 
-### 4.3 Obsidian yerleşimi
+- The FastAPI service runs on loopback only.
+- A SQLite WAL-based V0 registry is in place.
+- Sources are bound by a stable AIRL identifier plus the Zotero item key.
+- Re-running the sync does not duplicate a source.
+- Health, readiness, listing, search, category and possible-duplicate endpoints
+  exist.
+- The OpenAPI interface is reachable locally.
 
-Ana çalışma yüzeyi:
+> ⚠️ **Known limitation:** ingest is hard-capped at 100 records, with no
+> pagination and no incremental `since=` sync. Beyond 100 sources the sync becomes
+> **silently partial**. See finding **H1**.
+
+### 4.3 The Obsidian layout
+
+The main working surface:
 
 - [[00 - Home/ai_research_framework_home|AI Research Framework Home]]
 
-İnsan tarafından yönetilen alanlar:
+Human-managed areas:
 
 ```text
 01 - Inbox
@@ -179,32 +217,34 @@ Ana çalışma yüzeyi:
 40 - Claims
 50 - Decisions
 60 - Runs
-70 - Literature Sets kökü
+70 - Literature Sets (root)
+80 - Daily
 90 - Archive
 _Templates
 ```
 
-Otomatik Zotero görünümü:
+The generated Zotero view:
 
 ```text
 70 - Literature Sets/
   Zotero Sources/
     00 - Control Dashboard/
-    01 - Journal Articles/            25 kaynak
-    02 - Conference Papers/         2 kaynak
-    03 - Reports and Preprints/       6 kaynak
+    01 - Journal Articles/           25 sources
+    02 - Conference Papers/           2 sources
+    03 - Reports and Preprints/       6 sources
 ```
 
-Dosya adları makale başlığından üretilir. Aynı başlığa sahip farklı Zotero öğelerinde çakışmayı önlemek için `— Zotero ITEMKEY` eki kullanılır.
+File names derive from the article title. Where two Zotero items share a title, a
+`— Zotero ITEMKEY` suffix prevents the collision.
 
-Kontrol görünümleri:
+Control views:
 
-- [[70 - Literature Sets/Zotero Sources/00 - Control Dashboard/Source Catalog|Kaynak Kataloğu]]
-- [[70 - Literature Sets/Zotero Sources/00 - Control Dashboard/Potential Duplicates|Olası Kopyalar]]
+- [[70 - Literature Sets/Zotero Sources/00 - Control Dashboard/Source Catalog|Source Catalogue]]
+- [[70 - Literature Sets/Zotero Sources/00 - Control Dashboard/Potential Duplicates|Potential Duplicates]]
 
 ### 4.4 Hermes MCP
 
-Hermes yalnız aşağıdaki araçları görür:
+Hermes sees only these tools:
 
 1. `bridge_status`
 2. `search_sources`
@@ -212,203 +252,123 @@ Hermes yalnız aşağıdaki araçları görür:
 4. `list_categories`
 5. `list_possible_duplicates`
 
-Hermes tarafında açık `tools.include` listesi bulunur; MCP prompt ve resource yetenekleri kapalıdır. Senkron, yazma, silme veya Zotero mutation aracı sunulmaz.
+The Hermes side carries an explicit `tools.include` list; MCP prompt and resource
+capabilities are disabled. No sync, write, delete or Zotero mutation tool is
+exposed.
 
-### 4.5 Otomasyon ve işletim
+> The Hermes configuration file lives **outside this repository**, so the
+> five-tool restriction could not be verified during the audit.
 
-- `airl-bridge.service` aktif.
-- `airl-bridge-sync.timer` aktif ve bekleme durumunda.
-- Timer 30 dakikada bir yerel `/v1/sync` çağrısı yapar.
-- Zotero kapalıysa çalışma hata kaydı üretir; sonraki timer yeniden dener.
-- Son başarılı Obsidian görünümü ve SQLite kayıtları korunur.
+### 4.5 Automation and operations
 
-### 4.6 Test ve kabul kanıtı
+- `airl-bridge.service` is active.
+- `airl-bridge-sync.timer` is active and waiting.
+- The timer calls the local `/v1/sync` every 30 minutes.
+- If Zotero is closed, the run records an error and the next timer retries.
+- The last successful Obsidian view and the SQLite records are preserved.
 
-Son doğrulanan sonuçlar:
+### 4.6 Test and acceptance evidence
+
+Last verified results:
 
 ```text
-Python testleri: 16/16 PASS
+Python tests: 20/20 PASS
 V0 acceptance: accepted
-Kaynak sayısı: 33
-Kategori sayısı: 3
-Zotero write enabled: false
+Source count: 33
+Category count: 3
 ```
 
-Bir bağımlılık forward-reference uyarısı görülmüştür; test hatası değildir ve uygulama kabulünü etkilememiştir. Yine de bağımlılık güncellemesinde yeniden kontrol edilmelidir.
+A dependency forward-reference warning appears; it is not a test failure and did
+not affect acceptance. It should be rechecked on the next dependency update.
 
-## 5. Yerel V0 sırasında tamamlanan adımlar
+> ⚠️ **Both `V0 acceptance` and the MCP smoke check are weaker than they look.**
+> The acceptance script depends on a specific paper existing in the user's
+> personal library (finding **M3**), and the smoke script asserts nothing and
+> exits 0 under all conditions (finding **M2**).
 
-### Adım 1 — Mevcut kurulum keşfi
+## 5. Steps completed during the local V0
 
-- Hermes, Zotero, Obsidian ve dosya yolları incelendi.
-- Hermes sürümü, model ayarı, MCP durumu ve gateway durumu kaydedildi.
-- Zotero Local API erişim gereksinimi belirlendi.
+### Step 1 — Existing installation discovery
 
-### Adım 2 — Zotero Local API aktivasyonu
+- Hermes, Zotero, Obsidian and the file paths were examined.
+- The Hermes version, model setting, MCP state and gateway state were recorded.
+- The Zotero Local API access requirement was identified.
 
-- Zotero ayarı yedeklenerek Local API etkinleştirildi.
-- Zotero güvenli biçimde yeniden başlatıldı.
-- Kişisel kütüphane endpoint'i doğrulandı.
+### Step 2 — Zotero Local API activation
 
-### Adım 3 — Bridge API kurulumu
+- The Zotero setting was backed up and the Local API enabled.
+- Zotero was restarted safely.
+- The personal library endpoint was verified.
 
-- Servis projesi, veritabanı, normalize edici, projeksiyon ve CLI yazıldı.
-- Yerel systemd servisi kuruldu.
-- İlk 33 kaynak içeri alındı.
+### Step 3 — Bridge API build
 
-### Adım 4 — Kaynak adlandırma ve sınıflandırma
+- The service project, database, normaliser, projection and CLI were written.
+- The local systemd service was installed.
+- The first 33 sources were ingested.
 
-- ID tabanlı Obsidian dosyaları makale başlığı tabanlı adlara geçirildi.
-- Dergi makalesi, konferans bildirisi ve rapor/ön baskı sınıfları oluşturuldu.
-- Aynı başlıklı kayıtlar için çakışmasız adlandırma eklendi.
-- Olası kopyalar otomatik birleştirilmeden raporlandı.
+### Step 4 — Source naming and classification
 
-### Adım 5 — Obsidian bilgi mimarisi
+- ID-based Obsidian files were moved to title-based names.
+- Journal article, conference paper and report/preprint categories were created.
+- Collision-free naming was added for identically titled records.
+- Possible duplicates are reported, never merged automatically.
 
-- İnsan sentezi ve otomatik projeksiyon sınırları tanımlandı.
-- Proje, kaynak notu, kavram, iddia, karar, çalıştırma, literatür seti ve günlük not şablonları oluşturuldu.
-- Ana sayfa önce `SILBO AI Main Page` olarak oluşturuldu; 2026-08-21'de kapsamı doğru yansıtmak için `AI Research Framework Home` olarak yeniden adlandırıldı.
-- Zotero kaynakları kullanıcının kararıyla `70 - Literature Sets/Zotero Sources` altına taşındı.
+### Step 5 — Obsidian information architecture
 
-### Adım 6 — Hermes MCP bağlantısı
+- The boundaries between human synthesis and automatic projection were defined.
+- Templates were created for project, source note, concept, claim, decision, run,
+  literature set and daily note.
+- The home page was first created as `SILBO AI Main Page`, then renamed to
+  `AI Research Framework Home` on 2026-08-21 to reflect the real scope.
+- Zotero sources were moved under `70 - Literature Sets/Zotero Sources` by the
+  user's decision.
 
-- Salt-okunur MCP adapteri oluşturuldu.
-- Hermes beş aracı keşfetti.
-- Gerçek durum ve LiDAR kaynak araması MCP üzerinden başarıyla çağrıldı.
+### Step 6 — Hermes MCP connection
 
-### Adım 7 — Periyodik senkron
+- A read-only MCP adapter was built.
+- Hermes discovered the five tools.
+- A live status call and a source search were invoked successfully over MCP.
 
-- 30 dakikalık systemd timer kuruldu.
-- İlk oneshot çalışma `Result=success` ve exit code `0` ile tamamlandı.
+### Step 7 — Periodic sync
 
-### Adım 8 — Sürümleme ve işletim belgeleri
+- A 30-minute systemd timer was installed.
+- The first oneshot run completed with `Result=success` and exit code `0`.
 
-- V0 mimari belgesi ve işletim rehberi yazıldı.
-- Uçtan uca kabul betiği eklendi.
-- Proje için yerel Git deposu ve başlangıç commit'i oluşturuldu.
-- Eski `80_Generated` ağacı ve `AIRL Ana Sayfa.md` silinmeden geri alınabilir yedeğe taşındı.
+### Step 8 — Versioning and operations documents
 
-### Adım 9 — Tam SILBO durumuna geçiş kontrolü
+- The V0 architecture document and the operations guide were written.
+- An end-to-end acceptance script was added.
+- A local Git repository and an initial commit were created.
+- The old generated tree and the old home page were moved to a recoverable
+  backup rather than deleted.
 
-- `/home/otonom/START_HERE_SILBO_CODEX.md` dosyasının 862 satırı eksiksiz okundu.
-- Aktif `silbo-fix-004` worktree'si, target/handoff ve Git geçmişi doğrulandı.
-- `verify_protocol_consistency.py`: PASS.
-- Codex implementer attestation: PASS.
-- FIX-004 için geçerli review dosyası bulunmadığı doğrulandı.
+### Steps 9–17 — The SILBO closure queue
 
-### Adım 10 — FIX-004 bağımsız review ve doğrulama
+Steps 9 through 17 concern the **SILBO product repository**, not the framework:
+the FIX-004 review and quorum, the state and queue reconciliation, the general
+framework GitHub setup, and the FIX-005a activation, immutable target, sealed
+Fable review and acceptance.
 
-- Claude Code/Fable reviewer kurulu ve erişilebilir bulundu.
-- Exact target worktree'sinin temiz ve detached olduğu doğrulandı.
-- `fable/review-silbo-fix-004-r1` dalı oluşturuldu.
-- Ayrı report ve mutation worktree'leri oluşturuldu.
-- Fable review commit'i `efb87f2bab065fc658a0053cedb6357d995d34e1` olarak tamamlandı.
-- Commit'in parent'ı exact handoff `H=ddad3abb...`; değiştirdiği tek dosya review kaydıdır.
-- Author ve committer kimliği `SILBO Fable <silbo-fable@users.noreply.local>` olarak doğrulandı.
-- Machine header exact `T/H/manifest`, `INDEPENDENCE: SEALED` ve `VERDICT: APPROVED` içeriyor.
-- Reviewer 29/29 artifact hash, 144/144 evaluation, 52/52 runtime, 10/10 iki yönlü verifier kontrolleri, 15/15 mutation ve 104/104 rescore sonucunu bağımsız yeniden üretti.
+Their detail is retained in the SILBO repository's own records. Two things matter
+here:
 
-### Adım 11 — Yaşayan durum kaydı Obsidian'a eklendi
+1. **The general framework repository was created and published** (Step 14) as
+   `furkanhanilci/AI-Research-Framework`, private, with the commissioning plan
+   imported.
+2. **Nothing in the SILBO chain was verified by the framework audit**, and no
+   SILBO acceptance implies any framework acceptance.
 
-- Bu kapsamlı durum/yol haritası kaydı önce `10 - Projects/SILBO AI Sistem Kurulumu` altında oluşturuldu; daha sonra genel framework kapsamı nedeniyle `10 - Projects/AI Research Framework` altına konsolide edildi.
-- `10 - Projects/Projeler.md` içine kalıcı wiki bağlantısı eklendi.
-- Git baseline ve gerçek Obsidian kopyalarının SHA-256 değeri aynı bulundu: `571edd4cbc4167a14202ea234ab9e536a50b1b4adf0dcac9dc36113da26896fd`.
-- Belge, her maddi adım sonrasında yeni kanıt ve exact sonraki eylemle güncellenecek.
+## 6. The current managed state of the SILBO product repository
 
-### Adım 12 — FIX-004 review entegrasyonu ve quorum
+### Accepted history
 
-- Fable review-only commit'i governed `codex/fix-004` soyuna cherry-pick edildi: `933f17f3fe7b6b25b60e4ec293db0e6ad4b9acf5`.
-- Cherry-pick edilen review dosyası ile özgün reviewer dosyasının SHA-256 değeri aynı doğrulandı: `c43b4b2ab50d1aad19a4bd73482ae46df756c53559759a457f8dcb0e6958cba6`.
-- Yeni commit'in parent'ı exact handoff `ddad3abb49e53043e668a597432b9848ad43fb6a`; tek değişiklik Fable review kaydıdır.
-- Exact quorum komutu `implementer=codex`, exact `T/H`, handoff manifesti ve Fable review kaydıyla çalıştırıldı.
-- Quorum çıktısı: `status: PASS`, `errors: []`, reviewer kümesi: `["fable"]`.
-- FIX-004 exact target/handoff üçlüsü bu kanıtla `ACCEPTED` durumundadır; yeni target veya handoff bu onayı geçersiz kılar.
-
-### Adım 13 — FIX-004 state/queue uzlaştırması
-
-- Final closeout ve ham quorum kaydı yerel commit `5737757` içinde tutuldu.
-- `FABLE_ERROR_LEDGER.md` üzerinde E-F16 ve E-F20 exact target/quorum kanıtıyla `CLOSED` olarak işlendi.
-- `FIX_QUEUE.md`, `PROJECT_STATE.md`, `state.json` ve reinterpretation kayıtları güncellendi.
-- Wrapper invocation false-negative riski engelleyici olmayan `AIR-013 CANDIDATE` olarak kaydedildi; FIX-004 yeniden açılmadı.
-- Protokol tutarlılığı ve Codex coordinator attestation `PASS` verdi.
-- Tam preflight `PASS`; tek waiver daha önce tanımlı `G6 → SILBO-FIX-006`.
-- Uzlaştırma yerel commit'i: `b96b989`.
-- Kuyruk bağımlılığına göre sıradaki tek bounded iş `SILBO-FIX-005a`; `SILBO-FIX-005` bunun kabulünden önce başlatılamaz.
-- Kullanıcının GitHub hedefi bekleniyor; tüm commit'ler yerel, remote write yapılmadı.
-
-### Adım 14 — Genel framework GitHub kurulumu
-
-- GitHub web/device akışıyla `furkanhanilci` hesabı doğrulandı.
-- Yanlış kapsamı çağrıştıran boş `SILBO-AI` repo adı, veri yüklenmeden önce `AI-Research-Framework` olarak değiştirildi.
-- Repo private oluşturuldu; kullanıcı hesabının yetkisi `ADMIN` olarak doğrulandı.
-- Repo açıklamasından SILBO ifadesi kaldırıldı ve genel araştırma framework kapsamı yazıldı.
-- Framework deposu yalnız yeni framework repo'suna `origin` olarak bağlandı.
-- Temiz `main` dalı `5efd305` commit'iyle ilk kez push edildi ve uzak commit değeri API üzerinden doğrulandı.
-- Mevcut SILBO ürün reposunun `Mgh0x/Silbo-AI` remote'u değiştirilmedi ve oraya push yapılmadı.
-- Tam commissioning planının 184 Markdown, 1 CSV ve 1 TXT dosyası `planning/commissioning/` altında genel framework repo'suna alınmak üzere hazırlandı.
-- Commissioning planı, genel README ve güncel living-status kaydı commit `038f0ce278af716b59ec78f6fc0b271b0f263e8b` ile `main` dalına yayınlandı.
-- GitHub API üzerinden remote `main` değerinin exact `038f0ce...` olduğu doğrulandı.
-
-### Adım 15 — SILBO-FIX-005a yerel aktivasyonu
-
-- Kabul edilmiş FIX-004 state commit'i `b96b989` temiz başlangıç olarak doğrulandı.
-- `/home/otonom/silbo-fix-005a` actor-owned worktree'si ve `codex/fix-005a` dalı oluşturuldu.
-- Production editinden önce scope, risk, rollback, CPU-only resource boundary, human-only remote sınırı ve immutable `T/H` teslim modeli task kaydına eklendi.
-- Aktif state ve queue yalnız bu tek implementation döngüsünü gösterecek şekilde güncellendi.
-- Implementer attestation, protocol consistency ve preflight `PASS`; yalnız mevcut `G6 → SILBO-FIX-006` waiver'ı var.
-- Aktivasyon yerel commit'i: `d86f5be`.
-- SILBO worktree'sinden herhangi bir remote'a push yapılmadı.
-
-### Adım 16 — SILBO-FIX-005a immutable target ve handoff
-
-- Governed base `b96b9894378000451966ab2fba3132d29ac80b64` üzerinden immutable
-  uygulama hedefi `T=ff5f95904a5dd486d679056ee418b8c13dee699c` donduruldu.
-- Resmî tek-process Controller taraması 177 etkin mutantın 147'sini yakaladı;
-  kalan 30 survivor yedi out-of-scope sınıfa eksiksiz atandı ve Groups 1–3
-  survivor sayısı sıfırlandı.
-- Named mutation sweep 41/41; restore sonrası runtime 72/72 ve evaluation
-  144/144 geçti. Controller hedef hashinin restore sonrası değişmediği doğrulandı.
-- Yedi base-to-T artifactın manifest hashleri 7/7 bağımsız hesapla eşleşti.
-- Son handoff `H=e8e614c39ab5dde89236df1b89838e2c745aa317`; H, T'nin doğrudan soyundadır
-  ve T sonrasında ürün/test dosyası değiştirmemiştir.
-- Codex ve Fable rol attestation'ları ile protokol tutarlılığı PASS verdi.
-  `bwrap` testleri gerekli namespace yetkisi olmayan iç sandbox'ta çevresel
-  olarak kırmızı, onaylı yerel test sınırında tam preflight PASS verdi.
-- FIX-005a bu aşamada henüz kabul edilmemişti; aşağıdaki Adım 17'de sealed
-  Fable review ve coordinator quorum tamamlandı. SILBO remote'una push yapılmadı.
-
-### Adım 17 — SILBO-FIX-005a sealed Fable review ve kabul
-
-- Ayrı detached target ve reviewer-owned report worktree'leri exact T/H'de
-  oluşturuldu; reviewer ilk ölçümler bitene kadar Codex sonuç metninden sealed
-  tutuldu.
-- Fable 7/7 manifest hashini, runtime 72/72, evaluation 144/144, Controller
-  147/177, sıfır semantic Groups 1–3 survivor, named sweep 41/41 ve byte-exact
-  restore'u bağımsız olarak yeniden üretti.
-- On kritik hedefli prob, internal/external context-isolation, repair ve outcome
-  sınıflandırma sınırlarını iki yönde doğruladı. Preflight local `bwrap`
-  sınırında PASS verdi.
-- Final review `13098532098a5882f75c946c9cbc9fa01fa22007` yalnız review dosyasını
-  değiştirir; verdict `APPROVED WITH FOLLOW-UP`, `FOLLOW-UP-BLOCKING: false`.
-- Review baytları governed soya `f93ce5c` ve `a59e6e7` commit'leriyle
-  byte-identical alındı; coordinator exact quorum `status: PASS`, `errors: []`.
-- Fable'ın IMPORTANT fakat non-blocking constructor mismatch-guard test açığı
-  `AIR-014 / SILBO-FIX-005b` olarak ayrı kuyruk maddesine bağlandı.
-- Final local closeout `b803846d6bd00d18fc2c3ee9074971616b47bef3` üzerinde role/protocol/quorum
-  ve namespace yetkili preflight tam PASS. Yalnız FIX-006'nın mevcut G6 waiver'ı
-  kaldı. SILBO-FIX-005a ACCEPTED; SILBO remote'una push yapılmadı.
-
-## 6. SILBO ürün reposunun güncel yönetilen durumu
-
-### Kabul edilmiş geçmiş
-
-| İş | Durum |
+| Work | Status |
 |---|---|
-| SILBO-SYS-003 | Exact Fable quorum ile kabul edildi |
-| SILBO-FIX-002 | Kabul edildi |
-| SILBO-FIX-003 | Exact target/handoff, sealed Fable review ve quorum ile kabul edildi |
+| SILBO-SYS-003 | Accepted under exact Fable quorum |
+| SILBO-FIX-002 | Accepted |
+| SILBO-FIX-003 | Accepted with exact target/handoff, sealed Fable review and quorum |
 
-### Kabul edilen döngü: SILBO-FIX-004
+### Accepted cycle: SILBO-FIX-004
 
 ```text
 BASE = 410ef3f83b230ef14564b3a1e5375031af906113
@@ -416,21 +376,27 @@ T    = 85625d7a30fd9d77c9179ccff94d08b27ac0b1fd
 H    = ddad3abb49e53043e668a597432b9848ad43fb6a
 ```
 
-Uygulama ve bağımsız review kanıtına göre:
+Per the implementation and independent review evidence:
 
 - Evaluation: 144/144 PASS
 - Runtime: 52/52 PASS
-- Do-nothing: 10/10 reddedildi
-- Reference: 10/10 kabul edildi
-- Mutation: 15/15 yakalandı
-- Archived rescore: 104/104 uyumlu
+- Do-nothing: 10/10 rejected
+- Reference: 10/10 accepted
+- Mutation: 15/15 caught
+- Archived rescore: 104/104 consistent
 - E-F16/E-F20: executable-CLOSED
 
-Fable bu sonuçları bağımsız olarak yeniden üretmiş ve exact `T/H/manifest` üçlüsü için sealed `APPROVED` vermiştir. Review-only commit governed lineage'a baytları değiştirilmeden alınmış ve exact quorum doğrulaması `PASS` vermiştir. Dolayısıyla FIX-004 bu immutable üçlü için kabul edilmiştir.
+Fable reproduced these results independently and issued a sealed `APPROVED` for
+the exact `T/H/manifest` triple. The review-only commit was taken into the
+governed lineage without a byte changing, and the exact quorum verification
+returned `PASS`.
 
-Review sırasında bir adet engelleyici olmayan `MINOR` bulgu kaydedildi: `executes()` predicate'i `sh -c ...` gibi wrapper invocation biçimlerini tanımıyor. Archivede bu biçimi kullanan kayıt bulunmadığı ve standart yol `run_python` olduğu için FIX-004 kabulünü engellemedi; ADR-008 reopen koşuluyla uyumlu bir `CANDIDATE` olarak ele alınacaktır.
+One non-blocking `MINOR` finding was recorded: the `executes()` predicate does
+not recognise wrapper invocation forms such as `sh -c …`. Since no archive record
+uses that form and the standard path is `run_python`, it did not block acceptance;
+it is handled as a `CANDIDATE` consistent with the ADR-008 reopen condition.
 
-### Kabul edilen döngü: SILBO-FIX-005a
+### Accepted cycle: SILBO-FIX-005a
 
 ```text
 BASE = b96b9894378000451966ab2fba3132d29ac80b64
@@ -438,263 +404,278 @@ T    = ff5f95904a5dd486d679056ee418b8c13dee699c
 H    = e8e614c39ab5dde89236df1b89838e2c745aa317
 ```
 
-FIX-005a; repair path, sonuç sınıflandırması ve runtime'ın iç doğrulama
-çıktısının model bağlamına sızmasını önleyen context-isolation sınırını
-mutation-proven testlerle korur. Fable aynı 147/177 sonucu ve 30-entry survivor
-listesini bağımsız üretti, bütün semantic Groups 1–3 survivorlarını sıfır
-doğruladı ve exact T/H/manifest quorum'u PASS verdi. Bu immutable çift için
-FIX-005a ACCEPTED'tır.
+FIX-005a protects the repair path, the outcome classification and the
+context-isolation boundary that prevents the runtime's internal verification
+output leaking into the model context — with mutation-proven tests. Fable
+independently produced the same 147/177 result and the 30-entry survivor list,
+verified zero semantic Groups 1–3 survivors, and returned a PASS on the exact
+T/H/manifest quorum.
 
-Fable'ın non-blocking F1 bulgusu, base ile byte-identical constructor
-`display_command` guard'ının iki mutantının test edilmemesidir. Bu bulgu
-AIR-014/SILBO-FIX-005b olarak kuyruktadır; 005a'yı reopen etmez ve FIX-005/B3'ü
-bloklamaz. FIX-005 yine de kendi task/resource/measurement gate'leri okunmadan
-aktive edilmeyecek, model koşusu başlatılmayacaktır.
+Fable's non-blocking F1 finding is that two mutants of the byte-identical
+constructor `display_command` guard are untested. It is queued as
+AIR-014/SILBO-FIX-005b; it does not reopen 005a and does not block FIX-005/B3.
 
-### Aktif döngü: SILBO-FIX-005
+### Active cycle: SILBO-FIX-005
 
-- Yeni ve eski koşuyu karıştırmayan kimlik `RUN-FIX005-B3-001`; sekiz görev ve
-  yirmi kayıtlık seed matrisi ön-kayıtlıdır.
-- Yalnız `max_tokens_per_task` iki katına çıkarılır; diğer bütçeler korunur ve
-  aggregate inference üst sınırı 10.800 saniyedir.
-- Runner, resume sırasında task/endpoint/envelope/budget kimliğini ve capsule
-  baytlarını fail-closed doğrular; eski EXP-003 çıktısının üzerine yazmaz.
-- Rapor, post-repair `write_file`, tamamlanmış ikinci internal `run_shell`
-  doğrulaması, exit reason, pre/post/total token ve wall time alanlarını üretir.
-- Eksik verification receipt'i veya alakasız internal araç çağrısı ölçüm sayılmaz;
-  ikinci doğrulama yoksa karar zorunlu olarak `REPAIR_NOT_MEASURED` olur.
-- Yerel GGUF SHA-256 ve endpoint model kimliğine ek olarak ilk model cevabının
-  `system_fingerprint` değeri dondurulur; koşu veya rapor sırasında drift
-  görülürse süreç fail-closed durur.
-- 2026-08-21 22:14 +03 itibarıyla py_compile ve odaklı 11/11 unittest PASS;
-  beş dosyalık yerel target `b14b0b34a115e7cc088008d0a29cf1769f912169`
-  olarak donduruldu. Mutation ve tam paket bekler; SILBO remote push yapılmadı.
-- Exact target temiz detached worktree'de mutation-proven oldu: baseline ve final
-  11/11 PASS, sekiz isimli mutantın 8/8'i yakalandı, her turda kaynaklar byte-exact
-  geri geldi. Ham JSON SHA-256 `e142bf74e6df455eef0e11a535c2063f0a17c9a690c607e38903a2f7763b3f54`.
-- Aynı detached target üzerinde tam evaluation 155/155 ve runtime 72/72 PASS.
-  Yönetilen sandbox içindeki ilk deneme socket/NETLINK_ROUTE yetkisi yüzünden
-  environment-constrained kaldı; izinli dış tekrarlar PASS olduğu için bu durum
-  ürün/test başarısızlığı olarak sınıflandırılmadı.
+- The run identity `RUN-FIX005-B3-001` keeps the new and old runs from mixing;
+  eight tasks and a twenty-entry seed matrix are pre-registered.
+- Only `max_tokens_per_task` is doubled; all other budgets are preserved and the
+  aggregate inference limit is 10,800 seconds.
+- On resume, the runner fail-closed verifies the task/endpoint/envelope/budget
+  identity and the capsule bytes; it never overwrites the older output.
+- The report produces the post-repair `write_file`, the completed second internal
+  `run_shell` verification, the exit reason, and the pre/post/total token and wall
+  time fields.
+- A missing verification receipt or an unrelated internal tool call does not count
+  as a measurement; without the second verification the decision is necessarily
+  `REPAIR_NOT_MEASURED`.
+- In addition to the local GGUF SHA-256 and the endpoint model identity, the
+  `system_fingerprint` of the first model response is frozen; any drift during the
+  run or the report halts the process fail-closed.
+- As of 2026-08-21: `py_compile` and 11/11 focused unit tests PASS; the five-file
+  local target was frozen as `b14b0b34a115e7cc088008d0a29cf1769f912169`.
+- The exact target was mutation-proven in a clean detached worktree: baseline and
+  final 11/11 PASS, 8/8 named mutants caught, sources restored byte-exact every
+  round. Raw JSON SHA-256 `e142bf74e6df455eef0e11a535c2063f0a17c9a690c607e38903a2f7763b3f54`.
+- On the same detached target, the full evaluation 155/155 and runtime 72/72 PASS.
 
-### Bilinen açık guard
+### Known open guard
 
-`G6`, SILBO-FIX-006 kapsamındaki 9/21 çözümlenmemiş provenance fact nedeniyle kırmızıdır. Son preflight bunu açık waiver olarak gösterdi ve başka unwaived guard failure bulunmadı.
+`G6` is red because of 9/21 unresolved provenance facts in the SILBO-FIX-006
+scope. The last preflight showed this as an explicit waiver and found no other
+unwaived guard failure.
 
-### Yayın sistemi
+### The publication subsystem
 
-İzole publication subsystem uygulanmış ve mutation testleri yapılmıştır; fakat henüz bağımsız Fable review ve ana hatta entegrasyon yoktur. Altı aday makaleden hiçbiri READY değildir.
+The isolated publication subsystem is implemented and mutation-tested, but it has
+neither an independent Fable review nor integration into the main line. **None of
+the six candidate papers is READY.**
 
-## 7. Tam AIRL-OS programı karşılaştırma matrisi
+## 7. Comparison matrix against the full AIRL-OS programme
 
-| Program alanı | Mevcut gerçek durum | Kalan ana kapsam |
+| Programme area | Actual current state | Main remaining scope |
 |---|---|---|
-| `00_PROGRAM` | Plan dosyaları mevcut | Charter kabulü, owner, bütçe, gate ve kanıt registry işletimi |
-| `01_GOVERNANCE` | SILBO repo içinde bazı rol/review kontrolleri var | WP-001–010 formal acceptance |
-| `02_CONTRACTS` | V0 modelleri ve bazı repo contractları var | WP-011–020 schema registry ve authority contracts |
-| `03_FOUNDATION` | Yerel Git/SQLite/systemd prototipi var | PostgreSQL HA, object store, NATS, OCI/CI, derived models |
-| `04_CONTROL_EVENT` | Kurulu değil | Temporal, G0–G10, GateRecord, replay/DLQ |
-| `05_MODEL_AGENT_TOOL` | Hermes MCP V0 var | LiteLLM, capability/model admission, LangGraph, Tool Broker |
-| `06_EXECUTION_SECURITY` | SILBO'da bubblewrap kanıtı var | K8s, Kueue, gVisor, SPIFFE/Vault, OPA, egress/DLP |
-| `07_LITERATURE_KNOWLEDGE` | Çalışan yerel V0 var | PostgreSQL registry, resolver, annotations, manifest freeze, write-back |
-| `08_EVIDENCE_ASSURANCE` | SILBO kanıt protokolü kısmen güçlü | Claim Ledger, MLflow, clean-room repro, review/publish paketleri |
-| `09_EXPERIENCE_OBSERVABILITY` | Obsidian ve yerel panolar var | Cockpit, telemetry, Langfuse, Grafana, cost ledger, SLO |
-| `10_INTEGRATION_CUTOVER` | Yerel V0 acceptance var | WP-102–121 ve ACC-01–ACC-40 commissioning |
-| `11_DAY2_OPERATIONS` | Timer/runbook V0 var | DR, incident, requalification, continuous assurance |
+| `00_PROGRAM` | Plan files exist | Charter acceptance, owners, budget, gate and evidence registry operation |
+| `01_GOVERNANCE` | Some role/review controls exist inside the SILBO repository | WP-001–010 formal acceptance |
+| `02_CONTRACTS` | V0 models and some repository contracts exist | WP-011–020 schema registry and authority contracts |
+| `03_FOUNDATION` | A local Git/SQLite/systemd prototype exists | PostgreSQL HA, object store, NATS, OCI/CI, derived models |
+| `04_CONTROL_EVENT` | Not built | Temporal, G0–G10, GateRecord, replay/DLQ |
+| `05_MODEL_AGENT_TOOL` | Hermes MCP V0 exists | LiteLLM, capability/model admission, LangGraph, Tool Broker |
+| `06_EXECUTION_SECURITY` | Bubblewrap evidence exists in SILBO | Kubernetes, Kueue, gVisor, SPIFFE/Vault, OPA, egress/DLP |
+| `07_LITERATURE_KNOWLEDGE` | A working local V0 exists | PostgreSQL registry, resolver, annotations, manifest freeze, write-back |
+| `08_EVIDENCE_ASSURANCE` | The SILBO evidence protocol is partly strong | Claim Ledger, MLflow, clean-room reproduction, review/publish packages |
+| `09_EXPERIENCE_OBSERVABILITY` | Obsidian and local dashboards exist | Cockpit, telemetry, Langfuse, Grafana, cost ledger, SLOs |
+| `10_INTEGRATION_CUTOVER` | Local V0 acceptance exists | WP-102–121 and ACC-01–ACC-40 commissioning |
+| `11_DAY2_OPERATIONS` | A timer/runbook V0 exists | DR, incident handling, requalification, continuous assurance |
+| `13_TOOLING_INTEGRATION` | Designed (WP-131–140) | Notification Broker, channel ceilings, external records, evidence sealing, liveness |
 
-## 8. İleriye dönük yürütme planı
+## 8. The forward execution plan
 
-### Faz A — Mevcut SILBO closure kuyruğunu güvenli biçimde kapat
+### Phase A — Close the existing SILBO queue safely
 
-1. ~~FIX-004 Fable reviewünü tamamla.~~ `PASS`
-2. ~~Review commit'ini exact identity ve machine header ile doğrula.~~ `PASS`
-3. ~~Review bytesını değiştirmeden governed lineage'a al.~~ `PASS`
-4. ~~Exact `T/H/manifest/review` quorum komutunu çalıştır.~~ `PASS`
-5. ~~E-F16/E-F20 kapanışını state/queue kayıtlarında uzlaştır ve executable guardlarla sıradaki paketi doğrula.~~ `PASS`
-6. Blocking finding varsa Codex için yeni `T2/H2` döngüsü oluştur; eski approvalı taşıma.
-7. ~~Guardlarla sıradaki paketi doğrula.~~ `PASS — FIX-005a`
-8. ~~FIX-005a için actor-owned yerel branch/worktree oluştur ve activation record'u üretim değişikliklerinden önce kaydet.~~ `PASS — d86f5be`
-9. ~~FIX-005a A1–A4 varsayımlarını üretim değişikliklerinden önce izole mutant/problarla sınayıp görev metnini kanıta göre düzelt.~~ `PASS — 9f5ae8a`
-10. ~~FIX-005a Groups 1–3 için iki yönlü davranış testlerini uygula ve ölü kontrol akışını kaldır.~~ `PASS — a38913c`
-11. ~~Disposable worktree'de tam Controller auto-mutation taramasını çalıştır, Groups 1–3 survivorlarını kapat, remainder'ı sınıflandır ve restore'u doğrula.~~ `PASS — 147/177, Group 0, T=ff5f959`
-12. ~~Result, makine kanıtı ve yedi-artifact manifestini H'de dondur; protocol/role/preflight kapılarını çalıştır.~~ `PASS — H=e8e614c`
-13. ~~Exact `T=ff5f959…` ve `H=e8e614c…` çiftini ayrı worktree'de sealed Fable review'e yönlendir.~~ `PASS — 1309853`
-14. ~~Review-only commit'leri governed soya byte-identical alıp exact quorum'u ve temiz closeout preflight'ini çalıştır.~~ `PASS — b803846`
-15. ~~Non-blocking Fable F1 bulgusunu ayrı kayıt/task olarak kuyruğa bağla.~~ `PASS — AIR-014 / FIX-005b`
-16. ~~SILBO-FIX-005 taskını ve güncel resource/measurement önkoşullarını yeniden oku; üretim veya model koşusu öncesi challenge/activation kararı üret.~~ `PASS — f598869`
-17. **Yeni run kimliği ve fail-closed capsule ile runner/rapor sözleşmesini uygula; test ve mutation kanıtından sonra dry-run pre-registration commit'ini dondur.** `IN_PROGRESS — target b14b0b3; 11/11, 8/8 mutation, eval 155/155, runtime 72/72 PASS; dry-run NEXT`
-18. Readiness PASS olursa aynı sekiz görev/yirmi tohum kaydında B3 ölçümünü en çok üç saatlik aggregate sınırla çalıştır.
-19. Sırayla FIX-006, FIX-006b, FIX-007, FIX-008 ve kalan FIX-009 ailesini ele al.
-20. Instrument/security kuyruğu kapanmadan yeni GPU training başlatma.
+Steps 1–16 are complete (FIX-004 review, quorum, reconciliation; FIX-005a
+activation through acceptance; the FIX-005 challenge and activation).
 
-### Faz B — Formal commissioning başlangıcı
+17. **Implement the runner/report contract with the new run identity and the
+    fail-closed capsule; after test and mutation evidence, freeze the dry-run
+    pre-registration commit.** `IN_PROGRESS — target b14b0b3; 11/11, 8/8 mutation,
+    evaluation 155/155, runtime 72/72 PASS; dry-run NEXT`
+18. If readiness passes, run the B3 measurement on the same eight tasks and twenty
+    seeds within a three-hour aggregate limit.
+19. Handle FIX-006, FIX-006b, FIX-007, FIX-008 and the remaining FIX-009 family in
+    order.
+20. Do not start new GPU training until the instrument/security queue is closed.
 
-AIRL planı açık biçimde ilk resmi paketin `WP-001 Commissioning Charter` olduğunu söyler. Mevcut V0 geriye dönük olarak ACCEPTED ilan edilmeyecek; önce aşağıdakiler kurulacak:
+### Phase B — Begin formal commissioning
 
-1. Named accountable owner ve bağımsız verifier ataması.
-2. Sistem sınırı, NFR, risk ve insan karar haklarının dondurulması.
-3. Ortam, bütçe, veri sınıfı ve execution profile kararı.
-4. Kanıt manifesti ve paket durum registry'si.
-5. WP-001 bağımsız kabulü.
+The AIRL plan states explicitly that the first formal package is
+`WP-001 Commissioning Charter`. **The existing V0 will not be declared ACCEPTED
+retrospectively.** First:
 
-### Faz C — Contract ve foundation dalgası
+0. **WP-000 Interim Evidence Policy** — without it no package can ever reach
+   `ACCEPTED` (audit finding **C1**).
+1. Named accountable owner and independent verifier assignment — and a written
+   decision on what "independent" means in a one-person organisation (finding
+   **C2**).
+2. Freeze the system boundary, NFRs, risks and human decision rights.
+3. Decide environment, budget, data class and execution profile.
+4. The evidence manifest and the package status registry.
+5. Independent acceptance of WP-001.
 
-1. WP-011–020: kimlik, canonical authority ve schema contracts.
-2. WP-021–024: ortam, repository ve CI kalite kapıları.
-3. WP-025–030: PostgreSQL, object store, NATS/outbox, MLflow ve derived read models.
+### Phase C — The contract and foundation wave
 
-Bu fazda SQLite V0 verisi için kontrollü migration ve rollback planı hazırlanacak; doğrudan production veri taşıması yapılmayacak.
+1. WP-011–020: identity, canonical authority and schema contracts — **and at
+   least one production consumer for the contract core** (finding **H4**).
+2. WP-021–024: environment, repository and CI quality gates — **CI first**, since
+   it closes four findings at once (finding **H5**).
+3. WP-025–030: PostgreSQL, object store, NATS/outbox, MLflow and derived read
+   models.
 
-### Faz D — Control, agent ve güvenlik düzlemleri
+A controlled migration and rollback plan will be prepared for the SQLite V0 data;
+no direct production data migration will be performed.
 
-1. Temporal tabanlı G0–G10 kontrol akışı.
-2. Event/replay/DLQ davranışları.
-3. LiteLLM ve Capability Registry.
-4. LangGraph yalnız sınırlandırılmış bilişsel görevlerde.
-5. Tool Broker ve Execution Broker.
-6. Trust zone, sandbox, workload identity, OPA ve egress politikaları.
+### Phase D — Control, agent and security planes
 
-### Faz E — Literatür V0'ı formal platforma yükselt
+1. The Temporal-based G0–G10 control flow.
+2. Event, replay and DLQ behaviour.
+3. LiteLLM and the Capability Registry.
+4. LangGraph, only for bounded cognitive tasks.
+5. The Tool Broker and the Execution Broker.
+6. Trust zones, sandboxing, workload identity, OPA and egress policy.
 
-1. SQLite kayıtlarını canonical PostgreSQL Source Registry'ye taşı.
-2. DOI/kimlik çözümleme ve dedup/merge karar kayıtlarını ekle.
-3. Seçilmiş koleksiyon/tag opt-in ve incremental `since` reader ekle.
-4. Attachment, note ve annotation binding'lerini normalize et.
-5. LiteratureSetManifest freeze ve immutable object store ekle.
-6. Obsidian link integrity, human-preservation diff ve full rebuild kanıtlarını oluştur.
-7. Zotero write-back ancak ayrı yetki, grup kütüphanesi ve audit politikasıyla değerlendirilsin.
+### Phase E — Raise literature V0 to a formal platform
 
-### Faz F — Evidence, experience ve observability
+1. Move the SQLite records into the canonical PostgreSQL Source Registry.
+2. Add DOI/identity resolution and dedup/merge decision records.
+3. Add selected-collection/tag opt-in and the incremental `since` reader
+   (finding **H1**).
+4. Add deletion reconciliation and tombstones (finding **H2**).
+5. Normalise attachment, note and annotation bindings.
+6. Add `LiteratureSetManifest` freezing and the immutable object store.
+7. Produce Obsidian link integrity, human-preservation diff and full rebuild
+   evidence.
+8. Consider Zotero write-back only under a separate authority, a group library
+   and an audit policy.
 
-1. Claim/Evidence Ledger.
-2. Evidence locator ve citation entailment audit.
-3. Run Registry ve MLflow.
-4. Frozen review ve clean-room reproduction paketleri.
-5. Cockpit, karar kuyruğu ve literature workbench.
-6. OpenTelemetry, Langfuse, Grafana, cost ledger ve SLO.
+### Phase F — Evidence, experience and observability
 
-### Faz G — Entegrasyon, commissioning ve production
+1. The Claim/Evidence Ledger.
+2. Evidence locators and the citation entailment audit.
+3. The Run Registry and MLflow.
+4. Frozen review and clean-room reproduction packages.
+5. The cockpit, the decision queue and the literature workbench.
+6. OpenTelemetry, Langfuse, Grafana, the cost ledger and SLOs.
 
-1. WP-102–108 dikey dilimler.
-2. WP-109–118 kabul registriesi, güvenlik, DR, performans ve operasyonel hazırlık.
-3. ACC-01–ACC-40 senaryolarının aynı target üzerinde çalıştırılması.
-4. En az iki restore tatbikatı.
-5. Sıfır açık kritik bulgu.
-6. Pilot cutover rehearsal.
-7. İnsan onaylı production cutover ve hypercare.
+### Phase G — Integration, commissioning and production
 
-## 9. Yetki ve insan kararı gerektiren sınırlar
+1. WP-102–108 vertical slices.
+2. WP-109–118 acceptance registry, security, DR, performance and operational
+   readiness.
+3. Running ACC-01–ACC-40 on the same target.
+4. At least two restore drills.
+5. Zero open critical findings.
+6. A pilot cutover rehearsal.
+7. A human-approved production cutover and hypercare.
 
-Aşağıdaki işlemler kendiliğinden yapılmayacaktır:
+## 9. Authority boundaries requiring a human decision
 
-- Yetkilendirilmiş `furkanhanilci/AI-Research-Framework` dışındaki bir repoya push veya merge.
-- Production deploy veya dış ağdan API yayını.
-- Zotero kayıtlarına yazma, silme veya otomatik merge.
-- Büyük dependency/download veya bulut kaynağı açma.
-- Uzun GPU training, model conversion veya quantization.
-- Veri taşıma, geri döndürülemez migration veya artifact silme.
-- İnsan karar hakkını etkileyen policy seçimi.
+The following are never done autonomously:
 
-Her biri exact hedef, rollback, maliyet ve kabul kanıtı tanımlandıktan sonra ayrıca yürütülür.
-Genel framework için izinli remote yalnız
-`furkanhanilci/AI-Research-Framework` adresidir. SILBO model deposu ayrı iş akışı
-ve ayrı yetki alanıdır; genel framework commit'leri oraya gönderilmez.
+- Pushing or merging to any repository other than the authorised
+  `furkanhanilci/AI-Research-Framework`.
+- Production deployment, or exposing an API to an external network.
+- Writing to, deleting from, or automatically merging Zotero records.
+- Large dependency downloads or opening cloud resources.
+- Long GPU training, model conversion or quantisation.
+- Data migration, irreversible migration or artifact deletion.
+- Any policy choice that affects human decision rights.
 
-## 10. Başlıca riskler ve kontroller
+Each is carried out separately, after its exact target, rollback, cost and
+acceptance evidence have been defined.
 
-| Risk | Kontrol |
+**The only authorised remote for the general framework is
+`furkanhanilci/AI-Research-Framework`.** The SILBO model repository is a separate
+workflow with a separate authority boundary; framework commits are never sent
+there.
+
+## 10. Principal risks and controls
+
+| Risk | Control |
 |---|---|
-| V0'ı tam sistem sanmak | Program matrisi ve açık status semantiği |
-| İnsan Obsidian notlarının ezilmesi | Otomatik dal sınırı ve manifest-owned silme |
-| Zotero verisinin değiştirilmesi | Salt-okunur adapter ve write tool yokluğu |
-| Duplicate kaynakların yanlış birleşmesi | Yalnız raporlama, otomatik merge yok |
-| Agent self-approval | Exact Fable review ve quorum |
-| Bayat state dokümanı | Git SHA, executable guard ve artifact önceliği |
-| Testin yanlış şeyi ölçmesi | İki yönlü test ve mutation zorunluluğu |
-| Shared worktree hasarı | Actor-owned worktree ve dar Git işlemleri |
-| Erken pahalı altyapı/training | Dependency ve resource gate |
-| Production'a erken geçiş | 40 ACC, restore ve kritik bulgu şartı |
+| Mistaking V0 for the full system | The programme matrix and explicit status semantics |
+| Overwriting human Obsidian notes | The generated-branch boundary and manifest-owned deletion |
+| Modifying Zotero data | A read-only adapter and the absence of any write tool |
+| Wrongly merging duplicate sources | Reporting only; no automatic merge |
+| Agent self-approval | Exact Fable review and quorum |
+| A stale status document | Git SHAs, executable guards and artifact precedence |
+| A test measuring the wrong thing | Two-directional tests and a mutation requirement |
+| Damage to a shared worktree | Actor-owned worktrees and narrow Git operations |
+| Premature expensive infrastructure or training | Dependency and resource gates |
+| Moving to production too early | The 40 ACCs, restore drills and the critical-findings condition |
+| **Evidence theatre** | **Behavioural tests instead of constants; asserting smoke checks; CI** (findings H3, M2, M3, H5) |
 
-## 11. Geri alma ve yedek durumu
+## 11. Rollback and backup state
 
-Eski Obsidian yerleşimi aşağıdaki yerel yedekte tutulur:
+The previous Obsidian layout is kept in a local backup:
 
 ```text
 /home/otonom/Desktop/FH/AI_RESEARCH_FRAMEWORK/
   data/projection-backups/
-    vault-layout-before-silbo-main-20260821/
 ```
 
-Bridge database dosyaları ve WAL dosyaları Git dışında tutulur. Unit dosyalarının kaynak kopyaları `deploy/` altındadır. V0 kodu yerel Git commit'iyle geri alınabilir.
+Bridge database and WAL files are kept out of Git. The source copies of the unit
+files live under `deploy/`. The V0 code is recoverable from local Git commits.
 
-## 12. Her adımdan sonra güncelleme protokolü
+> ⚠️ The projection backups are in `.gitignore` — **they are neither version
+> controlled nor backed up**, while `OPERATIONS.md` presents them as the official
+> rollback point. See the audit, Section H.
 
-Her maddi adım tamamlandığında şu sıra uygulanır:
+## 12. The update protocol after every step
 
-1. İlgili komut/test/artifact çıktısını doğrula.
-2. Bu belgenin `updated_at` alanını değiştir.
-3. Yönetici özeti ve güncel durum tablosunu revize et.
-4. İlgili faz veya adım durumunu güncelle.
-5. Yeni kanıt, commit, target, handoff veya review SHA'sını ekle.
-6. Yeni risk, sınırlama veya rollback bilgisini yaz.
-7. `Sonraki exact adım` bölümünü tek bir yürütülebilir eylem olarak güncelle.
-8. Aşağıdaki değişiklik günlüğüne yeni satır ekle.
-9. Obsidian kopyası ile Git baseline kopyasının aynı olduğunu doğrula.
+When a material step completes, apply this order:
 
-Bir adım `PASS`, `PARTIAL`, `BLOCKED` veya `FAIL` olarak açıkça etiketlenir. Kısmi başarı, başarısız alt maddeleri gizlemez.
+1. Verify the relevant command, test or artifact output.
+2. Change this document's `updated_at` field.
+3. Revise the executive summary and the status table.
+4. Update the relevant phase or step status.
+5. Add the new evidence, commit, target, handoff or review SHA.
+6. Record any new risk, limitation or rollback information.
+7. Update the "Next exact step" section as a **single executable action**.
+8. Add a row to the change log below.
+9. Verify that the Obsidian copy and the Git baseline copy are identical.
 
-## 13. Değişiklik günlüğü
+Every step is labelled explicitly `PASS`, `PARTIAL`, `BLOCKED` or `FAIL`. **A
+partial success never hides its failing sub-items.**
 
-| Zaman | Adım | Durum | Kanıt / not |
+## 13. Change log
+
+| Time | Step | Status | Evidence / note |
 |---|---|---|---|
-| 2026-08-21 | Yerel literatür V0 kurulumu | PASS | 33 kaynak, Bridge, Obsidian, Hermes MCP |
-| 2026-08-21 | Obsidian klasör ve adlandırma revizyonu | PASS | Zotero kaynakları Literature Sets altında |
-| 2026-08-21 | Timer ve işletim baseline | PASS | İlk oneshot success, Git `15d57af` |
-| 2026-08-21 15:54 +03 | SILBO continuity ve snapshot kontrolü | PASS | H `ddad3ab`, protocol ve attestation PASS |
-| 2026-08-21 15:54 +03 | FIX-004 Fable review başlatıldı | IN_PROGRESS | Review branch ve iki izole worktree oluşturuldu |
-| 2026-08-21 15:54 +03 | Yaşayan durum/yol haritası belgesi oluşturuldu | PASS | Obsidian `10 - Projects` alanı |
-| 2026-08-21 15:59 +03 | Obsidian yerleşimi ve byte doğrulaması | PASS | Baseline/vault SHA-256 `571edd4c...` |
-| 2026-08-21 15:59 +03 | FIX-004 Fable review tamamlandı | APPROVED | Review `efb87f2`, sealed exact T/H, yalnız review dosyası |
-| 2026-08-21 16:01 +03 | FIX-004 review governed soya alındı | PASS | Commit `933f17f`, review byte hash eşit |
-| 2026-08-21 16:01 +03 | FIX-004 exact review quorum | ACCEPTED | `status: PASS`, `errors: []`, reviewer `fable` |
-| 2026-08-21 16:16 +03 | FIX-004 closeout kaydı | PASS | Yerel commit `5737757`; ham quorum + final sonuç |
-| 2026-08-21 16:16 +03 | Ledger/queue/state uzlaştırması | PASS | Yerel commit `b96b989`; preflight PASS |
-| 2026-08-21 16:16 +03 | GitHub yayın sınırı | USER DECISION | Hesap/repo verilene kadar remote write yok |
-| 2026-08-21 16:29 +03 | GitHub hesap doğrulaması | PASS | Aktif hesap `furkanhanilci` |
-| 2026-08-21 16:29 +03 | Genel private repo oluşturma | PASS | `furkanhanilci/AI-Research-Framework` |
-| 2026-08-21 16:29 +03 | İlk framework push | PASS | `main=5efd305`; 16/16 test, secret/ignore kontrolü |
-| 2026-08-21 16:29 +03 | Commissioning plan import hazırlığı | PASS | `planning/commissioning/`, 186 dosya |
-| 2026-08-21 16:32 +03 | Genel framework plan yayını | PASS | Private remote `main=038f0ce`; 188 dosyalık commit |
-| 2026-08-21 16:34 +03 | FIX-005a yerel aktivasyonu | PASS | Worktree/branch, task/state, preflight; commit `d86f5be` |
-| 2026-08-21 16:53 +03 | FIX-005a A1–A4 ön-uygulama challenge | PASS | Commit `9f5ae8a`; A1 52/52+144/144 survived, A2 5/5, A3 `DONE→PARTIAL` |
-| 2026-08-21 16:53 +03 | FIX-005a spec düzeltmesi | PASS | Controller bench kapsamı 15 değil 8 görev; `≤40/165` ikincil eşik |
-| 2026-08-21 18:41 +03 | FIX-005a executable baseline düzeltmesi | PASS | Güncel taban 83/165 değil 88/181 survivor |
-| 2026-08-21 18:41 +03 | FIX-005a Groups 1–3 test uygulaması | PASS / MUTATION PENDING | `a38913c`; 33/33 + 72/72 + 144/144, eşdeğer ölü dallar kaldırıldı |
-| 2026-08-21 20:08 +03 | FIX-005a immutable target | PASS | `T=ff5f959`; 147/177 caught, 30 attributed, Group 0, named 41/41 |
-| 2026-08-21 20:08 +03 | FIX-005a handoff ve manifest | PASS / REVIEW PENDING | `H=e8e614c`; 7/7 target hash, protocol/roles/preflight PASS |
-| 2026-08-21 21:13 +03 | FIX-005a sealed Fable review | APPROVED WITH FOLLOW-UP | `1309853`; follow-up non-blocking, subject edit 0 |
-| 2026-08-21 21:15 +03 | FIX-005a exact coordinator quorum | PASS / ACCEPTED | `errors: []`; exact T/H/manifest, reviewer `fable` |
-| 2026-08-21 21:20 +03 | Review import ve closeout | PASS | `f93ce5c`, `a59e6e7`, `b803846`; review hash eşit, preflight PASS |
-| 2026-08-21 21:20 +03 | Fable F1 follow-up kaydı | WRITTEN / NON-BLOCKING | AIR-014 / SILBO-FIX-005b; 005a reopen değil |
-| 2026-08-21 21:34 +03 | FIX-005 A1–A4 challenge | PASS TO ACTIVATE | 4/20 repair trigger; 3 token cap + 1 repeated action; post-repair write 0, ikinci verification 0; eski süre 1,048895 saat |
-| 2026-08-21 21:34 +03 | FIX-005 görev/spec düzeltmesi | PASS | İlgisiz ve kapalı E-F11 kapsamdan çıkarıldı; `~0,7 h` tahmini emekli edildi; `REPAIR_NOT_MEASURED` dalı ön-kayıtlandı |
-| 2026-08-21 21:34 +03 | FIX-005 yerel aktivasyonu | PASS | `codex/fix-005`, commit `f598869`; protocol PASS, runtime/evaluation preflight PASS, G6 yalnız FIX-006 feragati |
-| 2026-08-21 21:34 +03 | FIX-005 kaynak sınırı | PASS / INFERENCE NOT STARTED | 2×RTX A5000 erişilebilir; endpoint kapalı; yeni run `RUN-FIX005-B3-001`, yalnız görev-token cap 2×, aggregate cap 3 saat |
-| 2026-08-21 21:52 +03 | Tüm commissioning Markdown planlarının Obsidian'a alınması | PASS | 184/184 MD, 13 bölüm + kök README; `AI Research Framework/01 - Commissioning` |
-| 2026-08-21 21:52 +03 | Plan navigasyonu ve adım hafızası | PASS | `AI Research Framework — Navigation and Execution Cockpit`; her adım öncesi/sonrası kontrol döngüsü |
-| 2026-08-21 21:56 +03 | Obsidian proje sınıflandırması düzeltildi | PASS | `SILBO AI Sistem Kurulumu` üst klasörü kaldırıldı; yaşayan kayıt ve planlar `AI Research Framework` altında birleştirildi |
-| 2026-08-21 21:56 +03 | Genel ana sayfa adı düzeltildi | PASS | `AI Research Framework Home`; SILBO ayrı alt çalışma hattı olarak tutuldu |
-| 2026-08-21 21:58 +03 | Framework klasör konsolidasyonu test edildi | PASS | `.venv` ile 16/16 test; canlı `acceptance_v0.py` status `accepted`, 33 kaynak, 3 kategori, Zotero write kapalı |
-| 2026-08-21 22:06 +03 | FIX-005 fail-closed runner ve rapor sözleşmesi | PASS / MUTATION PENDING | 5 yeni yerel dosya; py_compile PASS, 11/11 odaklı unittest PASS; endpoint + response fingerprint drift fail-closed; inference başlamadı |
-| 2026-08-21 22:14 +03 | FIX-005 yerel ölçüm target'ı | PASS / MUTATION PENDING | `b14b0b34a115e7cc088008d0a29cf1769f912169`; 5 dosya, diff-check temiz, worktree temiz; SILBO push yok |
-| 2026-08-21 22:16 +03 | FIX-005 detached mutation kanıtı | PASS | Exact `b14b0b3`; baseline/final 11/11, 8/8 mutant caught, restore byte-exact; raw JSON SHA-256 `e142bf74…3b3f54` |
-| 2026-08-21 22:19 +03 | FIX-005 tam test paketleri | PASS | Exact `b14b0b3`; evaluation 155/155, runtime 72/72; ilk sandbox denemesi yalnız socket/NETLINK_ROUTE ortam kısıtı |
-| 2026-08-21 23:02 +03 | FIX-005 pre-inference capsule ve readiness kanıtı | PASS / INFERENCE GATED | 11/11 focused tests, 8/8 mutation, capsule CREATED→BYTE_IDENTICAL, drift rejection; 20 schedule, `inference_started=false`; result `SILBO-FIX-005-preinference-result.md` |
-| 2026-08-21 23:12 +03 | FIX-005 bağımsız review handoff hazırlığı | READY FOR REVIEW | Exact target `b14b0b3`, evidence commit `3dd52e0`, handoff `ff696c7`; inference/training başlatılmadı |
-| 2026-08-22 00:05 +03 | Step 001 foundation/contract çekirdeği | TECH_COMPLETE / REVIEW PENDING | WP-011/014/015/020/022; 20 pytest + 4 unittest PASS; [[10 - Projects/AI Research Framework/implementation_log|Implementation Log]] |
+| 2026-08-21 | Local literature V0 build | PASS | 33 sources, Bridge, Obsidian, Hermes MCP |
+| 2026-08-21 | Obsidian folder and naming revision | PASS | Zotero sources under Literature Sets |
+| 2026-08-21 | Timer and operations baseline | PASS | First oneshot success, Git `15d57af` |
+| 2026-08-21 | SILBO continuity and snapshot check | PASS | H `ddad3ab`, protocol and attestation PASS |
+| 2026-08-21 | FIX-004 Fable review completed | APPROVED | Review `efb87f2`, sealed exact T/H, review file only |
+| 2026-08-21 | FIX-004 exact review quorum | ACCEPTED | `status: PASS`, `errors: []`, reviewer `fable` |
+| 2026-08-21 | Ledger/queue/state reconciliation | PASS | Local commit `b96b989`; preflight PASS |
+| 2026-08-21 | General private repository created | PASS | `furkanhanilci/AI-Research-Framework` |
+| 2026-08-21 | First framework push | PASS | `main=5efd305`; tests and secret/ignore checks |
+| 2026-08-21 | Commissioning plan published | PASS | Private remote; the full plan tree |
+| 2026-08-21 | FIX-005a local activation | PASS | Worktree/branch, task/state, preflight; commit `d86f5be` |
+| 2026-08-21 | FIX-005a immutable target | PASS | `T=ff5f959`; 147/177 caught, 30 attributed, Group 0, named 41/41 |
+| 2026-08-21 | FIX-005a sealed Fable review | APPROVED WITH FOLLOW-UP | `1309853`; follow-up non-blocking, 0 subject edits |
+| 2026-08-21 | FIX-005a exact coordinator quorum | PASS / ACCEPTED | `errors: []`; exact T/H/manifest, reviewer `fable` |
+| 2026-08-21 | Fable F1 follow-up recorded | WRITTEN / NON-BLOCKING | AIR-014 / SILBO-FIX-005b; does not reopen 005a |
+| 2026-08-21 | FIX-005 local activation | PASS | `codex/fix-005`, commit `f598869`; G6 waived only for FIX-006 |
+| 2026-08-21 | FIX-005 local measurement target | PASS / MUTATION PENDING | `b14b0b3`; 5 files, clean diff-check, clean worktree |
+| 2026-08-21 | FIX-005 detached mutation evidence | PASS | Exact `b14b0b3`; 11/11 baseline and final, 8/8 mutants caught |
+| 2026-08-21 | FIX-005 full test suites | PASS | Exact `b14b0b3`; evaluation 155/155, runtime 72/72 |
+| 2026-08-21 | FIX-005 pre-inference capsule and readiness | PASS / INFERENCE GATED | Capsule CREATED→BYTE_IDENTICAL, drift rejection; `inference_started=false` |
+| 2026-08-21 | Full commissioning plan imported into Obsidian | PASS | The full plan tree plus the section index |
+| 2026-08-21 | Plan navigation and step memory | PASS | The Navigation and Execution Cockpit |
+| 2026-08-22 | Step 001 foundation/contract core | TECH_COMPLETE / REVIEW PENDING | WP-011/014/015/020; 20 tests PASS |
+| 2026-08-22 | **Step 001 correction — WP-022 claim retracted** | **CORRECTED** | The deliverable was not in the repository; status returned to `NOT_STARTED` (finding **C3**) |
+| 2026-08-22 | Step 003 independent audit | DESIGN_PROPOSED | Audit report, ideal structure, skill layer, role→model assignment |
+| 2026-08-22 | Step 003 — 38 skills written | DESIGN_PROPOSED | `skills/`; not yet baseline-tested |
+| 2026-08-22 | Step 003 — WP-131–140 added | PASS | `13_TOOLING_INTEGRATION`; measurable acceptance criteria |
+| 2026-08-22 | **Step 004 — full English revision** | **PASS** | 140 WPs, 40 ACCs, 12 programme documents, 5 architecture/review documents, the vault; mirror generators added; 20 tests PASS; plan re-sealed |
 
-## 14. Sonraki exact adım
+## 14. Next exact step
 
-**Exact `b14b0b34a115e7cc088008d0a29cf1769f912169` kaynaklarıyla bağımsız Fable review/handoff hazırla; review tamamlanmadan inference başlatma.**
+**Settle the role → model assignment** (`AIRL_OS_ROLE_MODEL_ASSIGNMENT.md`,
+Section 3): for every role, human / model / deterministic code / deferred.
+Without that decision the Independence Matrix cannot be measured, the R classes
+cannot be applied, and the skills cannot enter baseline testing.
 
-Yalnız `furkanhanilci/AI-Research-Framework` genel framework remote'u olarak yetkilidir. FIX-005 aktive edilmiştir; ancak dry-run/readiness pre-registration commit'i oluşmadan repair inference, yeni training veya tam AIRL altyapı implementasyonu başlatılmaz. SILBO model reposuna push yapılmaz.
+Immediately after it, in order:
+
+1. Rename `model_snapshot` → `capability_fingerprint` (Invariant 4 cannot hold
+   with a hosted model).
+2. Write **WP-000 Interim Evidence Policy** (finding **C1** — without it no
+   package can be accepted).
+3. Stand up the **CI foundation** (finding **H5** — it closes four findings and
+   automates evidence production).
+
+On the SILBO line, separately: prepare the independent Fable review and handoff
+against exact `b14b0b34a115e7cc088008d0a29cf1769f912169`; **do not start inference
+before that review completes.** No push is made to the SILBO model repository.

@@ -1,3 +1,7 @@
+> [!info] Generated view
+> This note is generated from `skills/escalating-and-paging/SKILL.md` in the repository. Edit the
+> canonical file and regenerate; edits made here are overwritten.
+
 ---
 name: escalating-and-paging
 version: 1.0.0
@@ -13,63 +17,69 @@ mechanical_checks: [no_auto_approve_on_timeout, escalation_chain_followed, ackno
 
 # Escalating and Paging
 
-## Demir kural
+## Iron law
 
-> **ZAMAN AŞIMI ASLA OTOMATİK ONAYA DÖNÜŞMEZ.**
+> **A TIMEOUT NEVER BECOMES AN AUTOMATIC APPROVAL.**
 >
-> Ya bir üst role eskale olur ya da workflow pause kalır.
+> It escalates one level, or the workflow pauses.
 
-## Eskalasyon zinciri
+## Escalation chain
 
 ```
-Uygulayıcı → Paket Sahibi → Workstream Lead
-           → Chief Architect / Assurance / Safety (konuya göre)
-           → Project Decision Owner
-           → Executive Sponsor / Commissioning Board
+Implementer → Package Owner → Workstream Lead
+            → Chief Architect / Assurance / Safety (by topic)
+            → Project Decision Owner
+            → Executive Sponsor / Commissioning Board
 ```
 
-Her basamakta **onaylama (acknowledgement) zorunlu**. Onaylanmayan eskalasyon
-bir sonraki basamağa çıkar; kaybolmaz.
+**Acknowledgement is required at every level.** An unacknowledged escalation
+rises to the next level; it does not expire quietly. This is what prevents an
+alert from being "handled" by being ignored.
 
-## Tetikleyiciler ve şiddet
+## Triggers and severity
 
-| Tetikleyici | Şiddet | Kanal |
+| Trigger | Severity | Channel |
 |---|---|---|
-| Gate SLA 1 gün aşıldı | WARN | E-posta |
-| Gate SLA 3 gün aşıldı | HIGH | Telegram + e-posta |
-| Bütçe %80 | WARN | E-posta |
-| **Bütçe hard limit** | **CRITICAL** | Push + Telegram + e-posta; **işler durur** |
-| Anomali 3. düzeltme denemesi | HIGH | Assurance Lead |
-| **Bütünlük şüphesi** | **CRITICAL** | Research Integrity Officer, doğrudan |
-| **Negatif kontrolde bulgu** | **CRITICAL** | Hat durur; Metascience Lead |
-| `ORPHANED` kanıt | CRITICAL | ImpactCase + Knowledge Steward |
-| Tool Broker hata oranı > eşik | HIGH | SRE |
-| Sandbox kaçış girişimi | **CRITICAL** | Güvenlik + hat durur |
+| Gate SLA exceeded by 1 day | WARN | Email |
+| Gate SLA exceeded by 3 days | HIGH | Telegram + email |
+| Budget at 80% | WARN | Email |
+| **Budget hard limit** | **CRITICAL** | Push + Telegram + email; **work stops** |
+| Third fix attempt on an anomaly | HIGH | Assurance Lead |
+| **Integrity concern** | **CRITICAL** | Research Integrity Officer, directly |
+| **Finding on a negative control** | **CRITICAL** | Line stops; Metascience Lead |
+| `ORPHANED` evidence | CRITICAL | ImpactCase + Knowledge Steward |
+| Tool Broker error rate above threshold | HIGH | SRE |
+| Sandbox escape attempt | **CRITICAL** | Security; line stops |
+| Periodic job silently stopped | HIGH | SRE (see `service liveness`) |
 
-## Sessiz saatler
+## Quiet hours
 
-Sessiz saat politikası vardır — **ama `CRITICAL` onu delip geçer.** Bütünlük,
-güvenlik ve bütçe hard-stop beklemez.
+A quiet-hours policy exists — **but `CRITICAL` cuts through it.** Integrity,
+security and budget hard-stops do not wait for morning.
 
-## Gürültü kontrolü
+## Noise control
 
-Aynı olay için tekrar eden eskalasyon **birleştirilir**, tekrar gönderilmez.
-Eskalasyon yorgunluğu, eskalasyonun kendisinden daha tehlikelidir.
+Repeated escalations for the same event are **coalesced**, not resent.
 
-Ölçülen: eskalasyon başına ortalama yanıt süresi, onaylanmayan oranı,
-yanlış pozitif oranı. Yüksek yanlış pozitif → eşikler yeniden ayarlanır.
+> **Escalation fatigue is more dangerous than the escalation itself.** A team
+> that has learned to ignore alerts is worse off than one with no alerts, because
+> it believes it is covered.
 
-## Rasyonalizasyon tablosu
+Measured: mean response time per escalation, unacknowledged rate, false-positive
+rate. High false positives means **retuning thresholds** — never disabling them.
 
-| Gerekçe | Hüküm |
+## Rationalization table
+
+| Justification | Ruling |
 |---|---|
-| "Kimse cevap vermiyor, devam edelim" | **Hayır.** Pause veya üst basamak. |
-| "Gece, sabah bakarız" | `CRITICAL` sessiz saat tanımaz. |
-| "Zaten haberdar" | Onaylama kaydı yoksa haberdar değildir. |
-| "Bu eşik çok hassas, kapatalım" | Eşiği **ölçerek** ayarla, kapatma. |
+| "Nobody is responding — let's proceed" | **No.** Pause, or escalate a level. |
+| "It's night, we'll look in the morning" | `CRITICAL` does not observe quiet hours. |
+| "They already know" | Without an acknowledgement record, they do not. |
+| "This threshold is too sensitive, disable it" | **Tune it by measurement.** Do not disable. |
 
-## Kırmızı bayraklar
+## Red flags
 
-- SLA dolduktan sonra durum kendiliğinden ilerlemiş
-- `CRITICAL` bildirimi sessiz saatte bastırılmış
-- Onaylanmamış eskalasyon üst basamağa çıkmamış
+- A state advanced by itself after an SLA expiry
+- A `CRITICAL` notification suppressed during quiet hours
+- An unacknowledged escalation that never rose a level
+- A threshold disabled rather than retuned

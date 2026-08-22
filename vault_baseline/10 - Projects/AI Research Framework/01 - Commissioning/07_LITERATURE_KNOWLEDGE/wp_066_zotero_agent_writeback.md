@@ -1,102 +1,110 @@
-# WP-066 — Agent Candidate ve Used-Source Write-Back
+# WP-066 — Agent Candidate and Used-Source Write-Back
 
-## Paket kartı
+## Package card
 
-| Alan | Değer |
+| Field | Value |
 |---|---|
-| İş paketi | `WP-066` |
+| Work package | `WP-066` |
 | Workstream | `07_LITERATURE_KNOWLEDGE` |
-| İlk efor sınıfı | **L** — refinement'ta O/M/P tahmini zorunlu |
-| Accountable Owner | Knowledge Platform Lead |
-| Bağımsız doğrulayıcı | Knowledge Curator / Security |
+| Initial effort class | **L** — large — split into sub-deliveries if it cannot be reviewed in one pass; a three-point (O/M/P) estimate is mandatory at refinement |
+| Accountable owner | Knowledge Platform Lead |
+| Independent verifier | Knowledge Curator / Security |
 | Hard dependencies | WP-012, WP-017, WP-049, WP-050, WP-061, WP-062, WP-064 |
-| İlgili gate | G3,G5 |
-| İlgili kontroller | CTL-LIT-03, CTL-OPS-01 |
-| İlgili ACC senaryoları | ACC-02, ACC-03, ACC-35 |
+| Related gates | G3,G5 |
+| Related controls | CTL-LIT-03, CTL-OPS-01 |
+| Related acceptance scenarios | ACC-02, ACC-03, ACC-35 |
+| Current status | `NOT_STARTED` |
 
-## Amaç ve beklenen sonuç
+## Purpose and expected outcome
 
-Agent'ın bulduğu adaylar ile gerçekten claim/run tarafından kullanılan kaynaklar yalnız izinli grup koleksiyonlarına threshold, conditional write ve SyncReceipt ile yazılır.
+Agent-discovered candidates and the sources actually used by a claim or run are written **only** to permitted group collections, under thresholds, conditional writes and a `SyncReceipt`.
 
-## Kapsam dışı
+## Out of scope
 
-- Bağımlı paketin kendi iç implementasyonu
-- Production cutover ve nihai operasyon onayı
 
-## Önkoşullar ve Definition of Ready
+- The internal implementation of any dependent package
+- Production cutover and final operational approval
 
-- Bağımlılıklar kabul edilmiştir: [WP-012 — Canonical Sahiplik ve Alan Bazlı Otorite Matrisi](../02_CONTRACTS/wp_012_canonical_field_authority.md), [WP-017 — Source Registry ve Literature Contract Şemaları](../02_CONTRACTS/wp_017_source_literature_contracts.md), [WP-049 — Tool Registry ve Tool Broker Çekirdeği](../05_MODEL_AGENT_TOOL/wp_049_tool_registry_broker.md), [WP-050 — İlk Tool Connector Paketi](../05_MODEL_AGENT_TOOL/wp_050_tool_connectors.md), [WP-061 — Canonical Source Registry Servisi](../07_LITERATURE_KNOWLEDGE/wp_061_source_registry_service.md), [WP-062 — Kaynak Kimlik Çözümleme, Dedup ve Merge](../07_LITERATURE_KNOWLEDGE/wp_062_source_identity_resolver.md), [WP-064 — Zotero Kütüphane, Koleksiyon ve Yetki Modeli](../07_LITERATURE_KNOWLEDGE/wp_064_zotero_library_access.md)
-- Named owner, implementer ve producer'dan bağımsız verifier atanmıştır.
-- Etkilenen canonical kayıtlar, interface'ler ve ADR'lar refinement'ta ilişkilendirilmiştir.
-- DataClass, CodeTrust, ToolEffect ve ağ/credential kapsamı sınıflandırılmıştır.
-- Test fixture, environment, rollback noktası ve acceptance ölçüm yöntemi erişilebilirdir.
-- Efor için O/M/P kişi-gün tahmini ve gerçek kapasite rezervasyonu kaydedilmiştir.
+## Preconditions — Definition of Ready
 
-## Uygulama görevleri
+- Dependencies accepted: [WP-012 — Canonical Ownership and Field-Level Authority Matrix](../02_CONTRACTS/wp_012_canonical_field_authority.md), [WP-017 — Source Registry and Literature Contract Schemas](../02_CONTRACTS/wp_017_source_literature_contracts.md), [WP-049 — Tool Registry and Tool Broker Core](../05_MODEL_AGENT_TOOL/wp_049_tool_registry_broker.md), [WP-050 — Initial Tool Connector Package](../05_MODEL_AGENT_TOOL/wp_050_tool_connectors.md), [WP-061 — Canonical Source Registry Service](../07_LITERATURE_KNOWLEDGE/wp_061_source_registry_service.md), [WP-062 — Source Identity Resolution, Deduplication and Merge](../07_LITERATURE_KNOWLEDGE/wp_062_source_identity_resolver.md), [WP-064 — Zotero Library, Collection and Permission Model](../07_LITERATURE_KNOWLEDGE/wp_064_zotero_library_access.md)
+- A named owner, a named implementer, and a verifier **independent of the producer** are assigned.
+- Affected canonical records, interfaces and ADRs have been linked during refinement.
+- `DataClass`, `CodeTrust`, `ToolEffect` and the network/credential scope are classified.
+- Test fixtures, the environment, the rollback point and the acceptance measurement method are reachable.
+- An O/M/P person-day estimate is recorded and real capacity is reserved against it.
 
-| Alt iş | Yapılacak iş | Sorumlu | Tamamlanma kanıtı |
+## Implementation tasks
+
+| Sub-task | Work to be done | Responsible | Completion evidence |
 |---|---|---|---|
-| WP-066-T01 | Candidate/Used write eligibility kuralını tanımla | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-066-T02 | SourceRecord→Zotero item field mapping yaz | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-066-T03 | Agent-owned item/field marker'larını uygula | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-066-T04 | Read–merge–If-Unmodified-Since-Version PATCH akışını kur | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-066-T05 | Collection membership tam liste semantiğini güvenli yönet | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-066-T06 | Attachment/license ve note policy'sini uygula | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-066-T07 | SyncReceipt/outbox event üret | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
+| WP-066-T01 | Define the write eligibility rule separating candidates from used sources | Implementation owner | Commit / configuration / record reference |
+| WP-066-T02 | Write the `SourceRecord` → Zotero item field mapping | Implementation owner | Commit / configuration / record reference |
+| WP-066-T03 | Apply agent-owned item and field markers | Implementation owner | Commit / configuration / record reference |
+| WP-066-T04 | Establish the read → merge → `If-Unmodified-Since-Version` PATCH flow | Implementation owner | Commit / configuration / record reference |
+| WP-066-T05 | Handle the full-list semantics of collection membership safely | Implementation owner | Commit / configuration / record reference |
+| WP-066-T06 | Apply the attachment, licence and note policy | Implementation owner | Commit / configuration / record reference |
+| WP-066-T07 | Emit `SyncReceipt` and outbox events | Implementation owner | Commit / configuration / record reference |
 
-## Zorunlu teslimatlar
+## Mandatory deliverables
 
 - `Zotero write-back service`
 - `Field mapping`
 - `Eligibility policy`
 - `SyncReceipt ledger`
 - `Connector tests`
-- Güncellenmiş runbook/operasyon notu ve servis/contract ownership kaydı
-- İmzalı `EvidenceManifest`
+- An updated runbook or operations note, plus the service/contract ownership record
+- A signed `EvidenceManifest`
 
-## Test ve doğrulama planı
+## Test and verification plan
 
 - Candidate write idempotency
-- Used source priority write
-- 412 conflict reconcile
-- Human-curated item direct patch deny
-- Wrong collection deny
-- Yetkisiz, eksik, stale, duplicate ve partial-failure girdileri için en az bir negatif test
-- İlgili interface'lerde producer/consumer contract compatibility testi
-- Telemetry correlation ve audit kayıt bütünlüğü kontrolü
+- Priority write for a used source
+- Reconciliation of a 412 conflict
+- Denial of a direct patch against a human-curated item
+- Denial of a write to the wrong collection
+- At least one negative test for unauthorised, missing, stale, duplicate and partial-failure inputs
+- Producer/consumer contract compatibility tests on every affected interface
+- Telemetry correlation and audit-record integrity checks
 
-## Kabul kriterleri
+## Acceptance criteria
 
-- [ ] Sırf bulundu diye bütün kaynaklar write-back olmaz
-- [ ] HUMAN_CURATED kayda agent yalnız UpdateProposal üretir
-- [ ] Her write item version ve policy decision taşır
-- [ ] Bütün zorunlu testler aynı target revision üzerinde geçmiştir.
-- [ ] Açık Critical/High finding yoktur; non-waivable blocker bulunmamaktadır.
-- [ ] Bağımsız verifier kanıt paketini kabul etmiştir.
-- [ ] Rollback/compensation davranışı denenmiş ve audit edilmiştir.
-- [ ] İlgili dashboard, alert, audit query veya integrity query çalışma kanıtı üretmiştir.
+- [ ] Sources are not written back merely because they were found.
+- [ ] Against a `HUMAN_CURATED` record an agent may produce only an `UpdateProposal`.
+- [ ] Every write carries the item version and the policy decision behind it.
+- [ ] All mandatory tests passed **on the same target revision**.
+- [ ] No open Critical or High findings; no non-waivable blocker remains.
+- [ ] The independent verifier has accepted the evidence package.
+- [ ] Rollback/compensation behaviour has been exercised and audited.
+- [ ] The related dashboard, alert, audit query or integrity query has produced working evidence.
 
-## Kabul kanıtı paketi
+## Acceptance evidence package
 
-- Aynı target revision/digest üzerinde alınmış test sonuçları
-- Environment, schema, policy ve dependency sürümlerini içeren EvidenceManifest
-- Bağımsız verifier ReviewRecord veya VerificationRecord'u
-- Rollback/compensation denemesi ve sonuç referansı
-- Açık finding, residual risk ve owner/expiry listesi
+- Test results captured on the same target revision/digest
+- An `EvidenceManifest` recording the environment, schema, policy and dependency versions
+- The independent verifier's `ReviewRecord` or `VerificationRecord`
+- The rollback/compensation trial and its result reference
+- The list of open findings and residual risks with owners and expiry dates
 
-## Riskler ve kontrol noktaları
+## Risks and control points
 
-- Contract veya canonical sahiplik belirsizse implementasyon durur ve Architecture Board'a eskale edilir.
-- Identity, data route, artifact integrity, bağımsızlık veya kritik evidence problemi waiver ile geçirilemez.
-- Geçici manuel kontrol gerekiyorsa owner, scope, expiry, compensating control ve kaldırma paketi kaydedilir.
-- Paket tamamlandı beyanı acceptance değildir; verifier kararı olmadan yalnız `TECH_COMPLETE` olabilir.
+- If a contract or canonical ownership question is unresolved, implementation **stops** and the question escalates to the Architecture Board.
+- Identity, data routing, artifact integrity, independence and critical evidence problems **cannot** be passed by waiver.
+- If a temporary manual control is required, its owner, scope, expiry, compensating control and removal package are recorded.
+- A "package complete" statement is **not** acceptance. Without a verifier decision the package can only be `TECH_COMPLETE`.
+
+### Workstream-specific hazards
+
+- Identity errors in sources propagate into every claim that cites them.
+- A write into a shared library without a version precondition can silently destroy a human edit.
+- A literature set that is not frozen cannot support a reproducible claim.
 
 ## Rollback / compensation
 
-Uncertain/timeout write tekrar edilmeden remote read ile reconcile edilir; connector feature flag ile durdurulur.
+An uncertain or timed-out write is reconciled by a remote read rather than retried; the connector can be stopped by feature flag.
 
-Immutable artifact, review ve karar geçmişi rollback sırasında silinmez; yeni durum supersession veya invalidation kaydıyla gösterilir.
+Immutable artifacts, reviews and decision history are **not** deleted during a rollback; the new state is expressed through a supersession or invalidation record.
 
-## Handoff ve sonraki paketlere giriş
+## Handoff into downstream packages
 
-Paket kabul edildiğinde teslim artifact'larının version/digest'leri Package Registry'ye yazılır, dependency event'i yayımlanır ve bu pakete bağlı READY adayları yeniden değerlendirilir. Downstream paket yalnız burada listelenen contract ve kanıt referanslarını tüketir; implementasyon iç ayrıntılarına bağlanmaz.
+On acceptance, the version and digest of every delivered artifact is written to the Package Registry, the dependency event is published, and every `READY` candidate blocked on this package is re-evaluated. A downstream package consumes **only** the contracts and evidence references listed above; it does not bind to internal implementation details.

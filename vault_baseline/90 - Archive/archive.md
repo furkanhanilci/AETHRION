@@ -1,3 +1,3 @@
 # Archive
 
-Superseded veya kapanmış insan notları silinmeden burada korunur.
+Superseded or closed human notes are preserved here rather than deleted.

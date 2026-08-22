@@ -1,22 +1,28 @@
 # Bridge Component Status
 
-Bridge, AI Research Framework’ün tamamı değil; Zotero → canonical source store →
-Obsidian projection → Hermes read-only akışını sağlayan ilk çalışan bileşendir.
+The Bridge is not the whole AI Research Framework; it is the first working
+component, providing the Zotero → canonical source store → Obsidian projection →
+Hermes read-only flow.
 
 ## Current evidence
 
-- Zotero Local API read-only sınırı tanımlı.
-- FastAPI Bridge ve SQLite source registry mevcut.
-- Obsidian projection ve Hermes read-only erişim mevcut.
-- İlk contract foundation `src/airl_framework/` altında bulunuyor.
-- Test kanıtı ve uygulama geçmişi [[implementation_log]] içinde tutuluyor.
+- The Zotero Local API read-only boundary is defined.
+- The FastAPI Bridge and the SQLite source registry exist.
+- The Obsidian projection and Hermes read-only access exist.
+- The initial contract foundation sits under `src/airl_framework/`.
+- Test evidence and implementation history are kept in [[implementation_log]].
 
-## Not yet equivalent to full framework
+## Known limitation
 
-Control/Event, model/agent/tool, execution security, evidence assurance,
-observability, integration cutover ve Day-2 operations paketlerinin tamamı
-Bridge tarafından karşılanmış sayılmaz. Bunlar plan ve ayrı teslimatlar olarak
-izlenmelidir.
+Ingest is hard-capped at 100 records: there is no pagination and no incremental
+`since=` sync. Once the library exceeds 100 sources, synchronisation becomes
+**silently partial**. See finding **H1** in the audit report.
+
+## Not yet equivalent to the full framework
+
+The control/event, model/agent/tool, execution security, evidence assurance,
+observability, integration cutover and Day-2 operations packages are **not**
+covered by the Bridge. They are tracked as plan items and separate deliverables.
 
 ## Related records
 

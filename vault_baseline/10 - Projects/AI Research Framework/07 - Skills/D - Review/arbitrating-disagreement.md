@@ -1,3 +1,7 @@
+> [!info] Generated view
+> This note is generated from `skills/arbitrating-disagreement/SKILL.md` in the repository. Edit the
+> canonical file and regenerate; edits made here are overwritten.
+
 ---
 name: arbitrating-disagreement
 version: 1.0.0
@@ -13,64 +17,75 @@ mechanical_checks: [finding_ledger_complete, round_counter_present]
 
 # Arbitrating Disagreement
 
-## Genel ilke
+## Core principle
 
-Uyuşmazlık bir arıza değil, sistemin bilgi ürettiği andır. Sessizce kapanamaz.
+Disagreement is not a malfunction. It is the moment the system produces
+information. It may not close silently.
 
-## Demir kural
+## Iron law
 
-> **HİÇBİR AÇIK BULGU STATÜSÜZ KAPANAMAZ.**
+> **NO OPEN FINDING MAY CLOSE WITHOUT A STATUS.**
 >
-> Her bulgu ya `RESOLVED` ya da gerekçe + sahip + süre ile `PARKED`.
+> Every finding is either `RESOLVED`, or `PARKED` with a rationale, an owner and
+> an expiry.
 
-## Delphi turları — tek hakem yerine
+## Delphi rounds — instead of a single arbiter
 
 ```
-Tur 1  N reviewer bağımsız verdict + gerekçe. Birbirini GÖRMEZ.
+Round 1  N reviewers give independent verdicts with reasoning.
+         They do NOT see each other.
 
-Tur 2  Anonimleştirilmiş gerekçe özeti dağıtılır.
-       Herkes verdict'ini revize edebilir.
-       ►► DEĞİŞTİREN GEREKÇE YAZMAK ZORUNDA ◄◄
+Round 2  An anonymised summary of the reasoning is distributed.
+         Anyone may revise their verdict.
+         ►► ANYONE WHO CHANGES MUST STATE WHY ◄◄
 
-Tur 3  Hâlâ uzlaşma yoksa → insan Arbiter.
-       Arbiter TÜM turları görür — yalnız son durumu değil.
+Round 3  Still no convergence → human Arbiter.
+         The Arbiter sees ALL rounds — not just the final state.
 ```
 
-**Yakınsama ölçülür.** Turlar arası verdict değişim oranı kaydedilir.
-Çok hızlı yakınsama = sürü etkisi şüphesi → Metascience'a sinyal.
+**Convergence is measured.** The rate of verdict change between rounds is
+recorded. Very rapid convergence indicates herding and is itself a signal to
+Metascience, not a success.
 
-## Arbiter'ın soruları
+A single arbiter is a single point of failure — and if that arbiter is a model,
+it carries its own biases into the resolution.
 
-1. **Locator kontrolü** — verdict'ler aynı kanıtı mı gördü?
-2. **Tanım hizalaması** — tartışma terim tanımından mı kaynaklanıyor?
-3. **Kapsam** — kısıtlama uyuşmazlığı çözer mi?
-4. **Karşı test** — hangi ek gözlem bunu kesin çözerdi?
+## The Arbiter's questions
 
-## Çözüm biçimleri
+1. **Locator check** — did the verdicts look at the same evidence?
+2. **Definitional alignment** — is the disagreement about a term rather than a fact?
+3. **Scope** — would a scope restriction dissolve it?
+4. **Counter-test** — what single additional observation would settle it?
 
-| Çözüm | Ne zaman |
+Question 2 resolves a surprising share of disagreements. Question 4 is what
+converts an argument into an experiment.
+
+## Resolution forms
+
+| Resolution | When |
 |---|---|
-| `ACCEPT` | Bulgu geçersiz veya karşılanmış |
-| `QUALIFIED_ACCEPT` | Kapsam kısıtı uyuşmazlığı çözüyor |
-| `REJECT` | Bulgu geçerli ve giderilemiyor |
-| `ADVERSARIAL_COLLABORATION` | Uyuşmazlık gerçek ve derin |
+| `ACCEPT` | The finding is invalid or already satisfied |
+| `QUALIFIED_ACCEPT` | A scope restriction resolves the disagreement |
+| `REJECT` | The finding is valid and cannot be remedied |
+| `ADVERSARIAL_COLLABORATION` | The disagreement is real and deep |
 
-## Adversarial collaboration — R3 varsayılanı
+## Adversarial collaboration — the R3 default
 
-Arbitration çözemezse: **iki taraf birlikte** anlaşmazlığı çözecek deneyi
-tasarlar ve **hangi sonucun ne anlama geleceğini önceden** yazar. Yeni bir
-`ProtocolManifest` üretilir.
+When arbitration cannot resolve it: **the two sides jointly design** the
+experiment that would settle the matter, and write down **in advance** what each
+possible outcome would mean.
 
-Pahalıdır. Ama tek kesin çözümdür ve karar sonuca bakılarak yapılamaz.
+It is expensive. It is also the only resolution that cannot be decided by
+looking at the result afterwards — which is precisely why it is the default at R3.
 
 ## Breaker
 
-Tur 5 sonunda hâlâ açıksa: dispatch durur, **insan her bulguyu tek tek hükme
-bağlar**, her hüküm deftere yazılır.
+If findings remain open at the end of round 5: dispatch stops, **a human rules
+on each finding individually**, and every ruling is written to the ledger.
 
-## Kırmızı bayraklar
+## Red flags
 
-- Arbiter yalnız son verdict'leri görmüş
-- Verdict değiştiren reviewer gerekçe yazmamış
-- Defterde statüsüz satır varken case kapanmış
-- Tek turda tam uzlaşma (κ ≈ 1.0)
+- The Arbiter saw only the final verdicts
+- A reviewer changed verdict without stating why
+- A case closed with unstatused ledger rows
+- Full agreement in a single round (κ ≈ 1.0)

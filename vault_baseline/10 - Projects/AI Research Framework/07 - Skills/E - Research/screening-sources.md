@@ -1,3 +1,7 @@
+> [!info] Generated view
+> This note is generated from `skills/screening-sources/SKILL.md` in the repository. Edit the
+> canonical file and regenerate; edits made here are overwritten.
+
 ---
 name: screening-sources
 version: 1.0.0
@@ -12,55 +16,61 @@ mechanical_checks: [every_exclusion_has_reason, criteria_locked_before_screening
 
 # Screening Sources
 
-## Genel ilke
+## Core principle
 
-Dahil etme kriterleri **taramadan önce** kilitlenir. Sonra değiştirilirse
-tarama baştan yapılır.
+Inclusion criteria are locked **before** screening. If they change afterwards,
+screening restarts.
 
-## Demir kural
+## Iron law
 
-> **HER HARİÇ TUTMA BİR GEREKÇE TAŞIR.**
+> **EVERY EXCLUSION CARRIES A REASON.**
 >
-> Gerekçesiz hariç tutma `90_Excluded`'a yazılamaz.
+> An unexplained exclusion cannot be written to `90_Excluded`.
 
-## İki aşamalı tarama
+## Two-stage screening
 
-**Aşama 1 — Başlık/özet.** Hızlı, kapsayıcı. Şüphedeysen **dahil et**.
-**Aşama 2 — Tam metin.** Kesin. Her hariç tutmaya gerekçe kodu.
+**Stage 1 — Title and abstract.** Fast, inclusive. **When in doubt, include.**
+**Stage 2 — Full text.** Decisive. Every exclusion receives a reason code.
 
-## Aktif öğrenme (büyük kümeler)
+The asymmetry is intentional: a wrongly excluded source at stage 1 is never seen
+again, while a wrongly included one is caught at stage 2.
 
-Yüzlerce/binlerce aday için: **ASReview** tarzı aktif öğrenme. İnsan bir
-örneklem etiketler, model sıralar, insan sıradan devam eder.
+## Active learning for large sets
 
-**Durma kuralı önceden yazılır** — "son N kayıtta 0 dahil etme" gibi.
-Model sıralaması durma kararını vermez; insan verir.
+For hundreds or thousands of candidates, use active-learning screening: the
+human labels a sample, the model ranks the remainder, the human continues down
+the ranking.
 
-## Gerekçe kodları
+**The stopping rule is written in advance** — for example, "no inclusions in the
+last N records". The model's ranking does not decide when to stop; the human
+does, against the pre-written rule.
 
-| Kod | Anlam |
+## Reason codes
+
+| Code | Meaning |
 |---|---|
-| `DUPLICATE` | Aynı kaynağın başka temsili |
-| `OUT_OF_SCOPE` | Araştırma sorusuyla ilgisiz |
-| `WRONG_POPULATION` | Farklı bağlam/örneklem |
-| `NO_FULLTEXT` | Erişilemedi (**erişim denemesi kaydedilir**) |
-| `RETRACTED` | Geri çekilmiş |
-| `LANGUAGE` | Dil politikası dışı |
-| `INSUFFICIENT_METHOD` | Yöntem raporlaması değerlendirmeye yetmiyor |
+| `DUPLICATE` | Another representation of the same source |
+| `OUT_OF_SCOPE` | Not relevant to the research question |
+| `WRONG_POPULATION` | Different context or sample |
+| `NO_FULLTEXT` | Not obtainable (**the retrieval attempt is recorded**) |
+| `RETRACTED` | Withdrawn |
+| `LANGUAGE` | Outside the language policy |
+| `INSUFFICIENT_METHOD` | Method reporting too thin to assess |
 
-## Çift tarama (R2, R3)
+## Double screening (R2, R3)
 
-İki bağımsız tarayıcı; anlaşmazlık üçüncüye. **Uyum ölçülür**
-(bkz. [[measuring-agreement]]). Düşük uyum, kriterlerin belirsiz olduğunu gösterir
-— kriterleri netleştir, taramayı tekrarla.
+Two independent screeners; disagreements go to a third. **Agreement is measured**
+(`measuring-agreement`). Low agreement means the criteria are ambiguous — clarify
+them and re-screen rather than arbitrating case by case.
 
-## Akış raporu
+## Flow report
 
-Aday sayısı → duplicate → aşama 1 hariç → aşama 2 hariç → dahil.
-Her aşamada sayı ve gerekçe dağılımı.
+Candidates → duplicates → stage 1 exclusions → stage 2 exclusions → included,
+with counts and a reason distribution at each stage.
 
-## Kırmızı bayraklar
+## Red flags
 
-- Kriterler tarama sırasında değişmiş
-- `NO_FULLTEXT` oranı yüksek ama erişim denemesi kaydı yok
-- Çift taramada uyum ölçülmemiş
+- Criteria changed during screening
+- A high `NO_FULLTEXT` rate with no retrieval attempt recorded
+- Agreement not measured in double screening
+- Stage 1 applied strictly (exclusions that should have been stage 2)

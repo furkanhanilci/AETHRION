@@ -1,3 +1,7 @@
+> [!info] Generated view
+> This note is generated from `skills/anchoring-spans/SKILL.md` in the repository. Edit the
+> canonical file and regenerate; edits made here are overwritten.
+
 ---
 name: anchoring-spans
 version: 1.0.0
@@ -11,58 +15,65 @@ mechanical_checks: [multi_selector_present, old_representation_hash_immutable]
 
 # Anchoring Spans
 
-## Genel ilke
+## Core principle
 
-Kaynak değişir, kanıt kalmalıdır. Çapa **çoklu seçici** ile kurulur.
+Sources change; evidence must survive. Anchoring uses **multiple selectors**
+precisely because any single one is fragile.
 
-## Çoklu seçici (W3C Web Annotation)
+## Multi-selector (W3C Web Annotation)
 
-Her span **en az üç** seçici taşır:
+Every span carries **at least three**:
 
-| Seçici | İçerik |
+| Selector | Content |
 |---|---|
 | `TextQuoteSelector` | `exact` + `prefix` + `suffix` |
-| `TextPositionSelector` | `start` / `end` offset |
-| `StructureSelector` | sayfa / paragraf / cümle |
-| `PdfBoundingBoxSelector` | sayfa + koordinat + OCR motoru ve **sürümü** |
+| `TextPositionSelector` | `start` / `end` offsets |
+| `StructureSelector` | page / paragraph / sentence |
+| `PdfBoundingBoxSelector` | page + coordinates + OCR engine **and version** |
 
-Tek seçici kırılgandır. Üçü birden nadiren aynı anda bozulur.
+One selector is brittle. Three rarely break simultaneously — and when they
+disagree, the disagreement itself is diagnostic.
 
-## Format bazlı strateji
+## Strategy by format
 
-| Format | Çapa | Kırılganlık |
+| Format | Anchor | Fragility |
 |---|---|---|
-| PDF | hash + sayfa + bbox + alıntı + OCR sürümü | Düşük |
-| HTML | snapshot hash + URL + CSS seçici + alıntı | **Yüksek** — seçici değişir |
-| EPUB | temsil hash + CFI + alıntı | Düşük |
-| Dataset | sürüm hash + satır anahtarı + kolon + değer parmak izi | Düşük |
-| Kod | commit hash + sembol yolu + satır aralığı | Düşük (AST yolu tercih) |
-| Ön baskı | arXiv id + **sürüm** + sayfa + bbox | Orta — sürüm atlanırsa yüksek |
+| PDF | hash + page + bbox + quote + OCR version | Low |
+| HTML | snapshot hash + URL + CSS selector + quote | **High** — selectors change |
+| EPUB | representation hash + CFI + quote | Low |
+| Dataset | version hash + row key + column + value fingerprint | Low |
+| Code | commit hash + symbol path + line range | Low (prefer AST path) |
+| Preprint | arXiv id + **version** + page + bbox | Medium — high if version omitted |
 
-## Yeniden çapalama — durum makinesi
+## Re-anchoring state machine
 
-Kaynak yeni bir temsil kazandığında:
+When a source gains a new representation:
 
 ```
-1. ESKİ content_hash IMMUTABLE KALIR      → v1 kanıtı hâlâ doğrulanabilir
-2. Yeni temsilde exact quote aranır
-3. Sonuç:
-     RELOCATED       tek eşleşme       → claim: unchanged
-     AMBIGUOUS       çok eşleşme       → claim: CHALLENGED  + ImpactCase
-     NEEDS_REANCHOR  eşleşme yok       → claim: CHALLENGED  + ImpactCase
-     ORPHANED        kaynak erişilemez → claim: ORPHANED    + cascade
-4. G10 izleme akışı tetiklenir
+1. THE OLD content_hash REMAINS IMMUTABLE   → v1 evidence stays verifiable
+2. The exact quote is searched in the new representation
+3. Outcome:
+     RELOCATED       single match     → claim: unchanged
+     AMBIGUOUS       several matches  → claim: CHALLENGED  + ImpactCase
+     NEEDS_REANCHOR  no match         → claim: CHALLENGED  + ImpactCase
+     ORPHANED        source unreachable → claim: ORPHANED  + cascade
+4. The G10 monitoring flow is triggered
 ```
 
-## Demir kural
+## Iron law
 
-> **ESKİ TEMSİL HASH'İ ASLA ÜZERİNE YAZILMAZ.**
+> **AN OLD REPRESENTATION HASH IS NEVER OVERWRITTEN.**
 >
-> Yeni temsil yeni bir kayıttır. Eski kanıtın doğrulanabilirliği korunur.
+> A new representation is a new record. The verifiability of prior evidence is
+> preserved.
 
-## Kırmızı bayraklar
+Overwriting would silently invalidate every claim anchored to the old text while
+leaving the claims looking healthy.
 
-- Tek seçicili span
-- OCR motoru/sürümü kaydedilmemiş
-- Ön baskıda sürüm numarası yok
-- `ORPHANED` span'e bağlı claim hâlâ `ACTIVE`
+## Red flags
+
+- A single-selector span
+- OCR engine or version not recorded
+- No version number on a preprint anchor
+- A claim still `ACTIVE` while its span is `ORPHANED`
+- A re-anchor that produced `AMBIGUOUS` and was resolved by picking one silently

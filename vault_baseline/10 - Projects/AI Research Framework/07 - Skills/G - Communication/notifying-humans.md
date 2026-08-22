@@ -1,3 +1,7 @@
+> [!info] Generated view
+> This note is generated from `skills/notifying-humans/SKILL.md` in the repository. Edit the
+> canonical file and regenerate; edits made here are overwritten.
+
 ---
 name: notifying-humans
 version: 1.0.0
@@ -13,77 +17,81 @@ mechanical_checks: [data_class_ceiling_enforced, dlp_scan_passed, idempotency_ke
 
 # Notifying Humans
 
-## Genel ilke
+## Core principle
 
-Bildirim **giden trafiktir** ve dış sisteme yazmadır. Ajan bir bildirim
-**niyeti** üretir; Notification Broker gönderir.
+A notification is **outbound traffic** and a write to an external system. The
+agent produces an **intent**; the Notification Broker sends.
 
-## Demir kural
+## Iron law
 
-> **AJAN DOĞRUDAN MESAJ GÖNDERMEZ.**
+> **AGENTS DO NOT SEND MESSAGES DIRECTLY.**
 >
-> Her gönderim Notification Broker üzerinden geçer: kimlik → policy →
-> veri sınıfı → DLP → idempotency → gönderim → `NotificationReceipt`.
+> Every send passes through the broker: identity → policy → data class → DLP →
+> idempotency → send → `NotificationReceipt`.
 
-## Veri sınıfı tavanı — kanal başına
+## Per-channel data-class ceiling
 
-| Kanal | Tavan | Neden |
+| Channel | Ceiling | Why |
 |---|---|---|
-| **ntfy (self-hosted)** | **D2** | Kendi sunucunuz, dış işleme yok |
-| **Matrix (self-hosted)** | **D2** | E2E şifreleme, kendi homeserver |
-| **Signal** | D2 | E2E; otomasyonu zor |
-| **E-posta (kendi SMTP)** | D1 | Transit şifreli, sunucuda değil |
-| **Telegram** | **D1** | Bulut, sunucu tarafı okunabilir |
-| **Discord** | **D1** | Bulut, üçüncü taraf |
-| **Slack** | D1 | Bulut |
-| **WhatsApp** | **D0** | Bulut + şablon zorunluluğu (aşağıya bak) |
+| **ntfy (self-hosted)** | **D2** | Your own server; no third-party processing |
+| **Matrix (self-hosted)** | **D2** | End-to-end encrypted, own homeserver |
+| **Signal** | D2 | E2E; automation is awkward |
+| **Email (own SMTP)** | D1 | Encrypted in transit, not at rest on someone else's server |
+| **Telegram** | **D1** | Cloud; readable server-side |
+| **Discord / Slack** | **D1** | Cloud, third party |
+| **WhatsApp** | **D0** | Cloud **plus** template constraint (below) |
 
-> **D3/D4 hiçbir mesajlaşma kanalına gitmez.** Yalnız "kimlikli bir olay var,
-> konsola bak" biçiminde **içeriksiz** bir tetikleyici gönderilebilir.
+> **D3/D4 reaches no messaging channel.** Only a **contentless** trigger may be
+> sent: "an event with identifier X occurred; open the console."
 
-## WhatsApp uyarısı
+## WhatsApp warning
 
-WhatsApp Business Cloud API'de, kullanıcının son mesajından itibaren **24 saatlik
-pencere** dışında yalnız **önceden onaylanmış şablonlar** gönderilebilir.
-Bu, ajan-başlatmalı bildirim için WhatsApp'ı **en kötü kanal** yapar.
+In the WhatsApp Business Cloud API, outside a 24-hour window measured from the
+user's last message, **only pre-approved templates** may be sent.
 
-Kullanılacaksa: yalnız önceden onaylanmış, sabit şablonlarla ve yalnız D0.
+This makes WhatsApp the **worst channel for agent-initiated notification**: the
+window is controlled by the recipient, and a system that must notify on its own
+schedule will find the window closed exactly when it matters. If used at all:
+pre-approved templates only, D0 only, and last in the rollout order.
 
-## Kanal seçimi — aciliyet × sınıf
+## Channel selection — urgency × class
 
-| Aciliyet | Kanal |
+| Urgency | Channel |
 |---|---|
-| Bilgi (günlük özet) | E-posta / Matrix |
-| Eylem gerekli (SLA açık) | Telegram / Matrix + e-posta |
-| Acil (bütçe hard-stop, bütünlük) | ntfy push + Telegram + e-posta |
-| Kritik (hat durdu) | Yukarıdakiler + [[escalating-and-paging]] |
+| Informational (daily digest) | Email / Matrix |
+| Action required (SLA open) | Telegram / Matrix + email |
+| Urgent (budget hard stop, integrity) | ntfy push + Telegram + email |
+| Critical (line stopped) | The above + `escalating-and-paging` |
 
-## Gönderim öncesi zorunlu
+## Mandatory before sending
 
-- [ ] **DLP taraması** — secret, token, kimlik bilgisi, PII (Presidio)
-- [ ] Veri sınıfı tavanı kontrolü
-- [ ] **Idempotency anahtarı** — retry'da tekrar gönderilmez
-- [ ] Rate limit ve sessiz saat politikası
-- [ ] Şablon kullanımı — serbest metin değil
+- [ ] **DLP scan** — secrets, tokens, credentials, PII
+- [ ] Data-class ceiling check
+- [ ] **Idempotency key** — no duplicate on retry
+- [ ] Rate limit and quiet-hours policy
+- [ ] Template used — not free text
 
-## Mesaj içeriği
+## Message content
 
-**Var:** ne oldu, hangi proje/gate, ne gerekiyor, **imzalı derin bağlantı**.
-**Yok:** ham veri, claim metni, kanıt içeriği, kimlik bilgisi, iç muhakeme.
+**Included:** what happened, which project and gate, what is needed, a **signed
+deep link**.
+**Excluded:** raw data, claim text, evidence content, credentials, internal
+reasoning.
 
-> Bildirim bir **işaret fişeğidir**, veri aktarım kanalı değil.
+> A notification is a **flare**, not a data channel. If the recipient needs the
+> content, they follow the link into an authenticated surface.
 
-## Rasyonalizasyon tablosu
+## Rationalization table
 
-| Gerekçe | Hüküm |
+| Justification | Ruling |
 |---|---|
-| "Sonucu mesajda göndersem daha pratik" | Veri sınıfı tavanı. **Bağlantı gönder.** |
-| "Gönderilmemiş olabilir, tekrar atayım" | Idempotency anahtarıyla **durumu sorgula**, körlemesine gönderme. |
-| "Acil, DLP taramasını atlayalım" | Aciliyet DLP muafiyeti değildir. |
-| "Kişisel Telegram'ıma D2 gönderiyorum, sorun yok" | Kanal tavanı kişiye göre değişmez. |
+| "It's easier to just include the result" | Data-class ceiling. **Send the link.** |
+| "It may not have sent — I'll send again" | **Query state** with the idempotency key. Never blind-resend. |
+| "It's urgent, skip the DLP scan" | Urgency is not a DLP exemption. |
+| "I'm sending D2 to my own Telegram, it's fine" | The ceiling is a property of the channel, not the recipient. |
 
-## Kırmızı bayraklar
+## Red flags
 
-- `NotificationReceipt` üretilmeyen gönderim
-- Aynı olay için iki bildirim (idempotency yok)
-- Mesajda claim metni veya ham metrik
+- A send with no `NotificationReceipt`
+- Two notifications for one event (missing idempotency)
+- Claim text or raw metrics inside a message

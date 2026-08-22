@@ -1,3 +1,7 @@
+> [!info] Generated view
+> This note is generated from `skills/measuring-agreement/SKILL.md` in the repository. Edit the
+> canonical file and regenerate; edits made here are overwritten.
+
 ---
 name: measuring-agreement
 version: 1.0.0
@@ -12,60 +16,68 @@ mechanical_checks: [pairwise_error_correlation_computed, quota_rule_enforced]
 
 # Measuring Agreement
 
-## Genel ilke
+## Core principle
 
-> **Farklı model ailesi kullanmak bağımsızlık garantisi vermez.**
+> **Using a different model family does not guarantee independence.**
 >
-> Frontier modeller örtüşen korpuslarda eğitiliyor. Aynı hatayı aynı güvenle
-> yapabilirler. İki reviewer'ın hemfikir olması, hata korelasyonu ölçülmediği
-> sürece kanıt değeri taşımaz.
+> Frontier models are trained on heavily overlapping corpora. They can make the
+> same error with the same confidence. Two reviewers agreeing carries no
+> evidential weight until their error correlation has been measured.
 
-## Demir kural
+## Iron law
 
-> **`Model Lineage` BOYUTU BEYAN DEĞİL ÖLÇÜMDÜR.**
+> **`Model Lineage` IS A MEASUREMENT, NOT A DECLARATION.**
 >
-> Hata korelasyonu eşiği aşan iki profil, aynı claim'in bağımsızlık kotasına
-> **birlikte sayılamaz**.
+> Two profiles whose error correlation exceeds the threshold **cannot both count**
+> toward the same claim's independence quota.
 
 ## Agreement calibration set
 
-Kalıcı bir küme tutulur:
-- Doğru cevabı bilinen review görevleri
-- Her nitelikli model profili periyodik olarak işler
-- Ölçülen: doğruluk, **ikili hata korelasyonu** `ρ`, şansı aşan uyum (κ / α)
+A standing set is maintained:
+- Review tasks with known correct answers
+- Every qualified model profile processes it periodically
+- Measured: accuracy, **pairwise error correlation** `ρ`, chance-corrected
+  agreement (κ / α)
 
-## Uyum istatistikleri
+The set must be refreshed as models change; a stale calibration measures a model
+that no longer exists.
 
-| Ölçü | Ne zaman |
+## Agreement statistics
+
+| Measure | When |
 |---|---|
-| Cohen's κ | İki değerlendirici, kategorik |
-| Fleiss' κ | İkiden çok değerlendirici |
-| Krippendorff's α | Eksik veri, karışık ölçek |
-| Pairwise error correlation | **Bağımsızlık kotası için birincil ölçü** |
+| Cohen's κ | Two raters, categorical |
+| Fleiss' κ | More than two raters |
+| Krippendorff's α | Missing data, mixed scales |
+| Pairwise error correlation | **Primary measure for the independence quota** |
 
-## Yorumlama — iki yönlü alarm
+## Interpretation — alarms in both directions
 
-| Durum | Anlam | Aksiyon |
+| Situation | Meaning | Action |
 |---|---|---|
-| Düşük uyum | Görev belirsiz veya kriterler net değil | Kriterleri netleştir |
-| Sağlıklı uyum | Beklenen | — |
-| **κ ≈ 1.0** | **Bağımsızlık şüpheli** | Profilleri ayır, korelasyonu ölç |
-| Yüksek `ρ` | Aynı hataları yapıyorlar | **Kotaya birlikte sayılmaz** |
+| Low agreement | Task ambiguous or criteria unclear | Clarify the criteria |
+| Healthy agreement | Expected | — |
+| **κ ≈ 1.0** | **Independence is suspect** | Separate the profiles; measure ρ |
+| High `ρ` | They make the same mistakes | **Cannot share a quota** |
 
-> Çok yüksek uyum, iyi haber değildir. Bağımsız yargıçlarda beklenmez.
+> Very high agreement is not good news. Independent judges do not agree
+> perfectly; perfect agreement means either the task was trivial or the judges
+> were not independent.
 
-## Kota kuralı
+## Quota rule
 
 ```
-claim başına bağımsız reviewer kotası:
+independent reviewers per claim:
   R1: 1   R2: 2   R3: 3
-ve seçilen profillerin ikili ρ değerleri eşiğin ALTINDA olmalı
+and the selected profiles' pairwise ρ must be BELOW the threshold
 ```
 
-Eşiği geçen profil çiftinden yalnız biri sayılır; diğeri ek görüştür.
+Where a pair exceeds the threshold, only one of them counts; the other is an
+additional opinion, not an additional check.
 
-## Kırmızı bayraklar
+## Red flags
 
-- Bağımsızlık `PASS` ama korelasyon ölçümü yok
-- Aynı iki profil her claim'de birlikte kullanılıyor
-- Calibration set aylardır güncellenmemiş
+- Independence marked `PASS` with no correlation measurement
+- The same two profiles paired on every claim
+- The calibration set untouched for months
+- A quota satisfied by two tiers of the same provider family

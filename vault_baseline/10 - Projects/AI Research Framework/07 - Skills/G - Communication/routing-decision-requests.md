@@ -1,3 +1,7 @@
+> [!info] Generated view
+> This note is generated from `skills/routing-decision-requests/SKILL.md` in the repository. Edit the
+> canonical file and regenerate; edits made here are overwritten.
+
 ---
 name: routing-decision-requests
 version: 1.0.0
@@ -13,75 +17,84 @@ mechanical_checks: [approval_surface_authenticated, deep_link_signed_and_expirin
 
 # Routing Decision Requests
 
-## Demir kural
+## Iron law
 
-> **MESAJLAŞMA BİR BİLDİRİM KANALIDIR, YETKİLENDİRME KANALI DEĞİL.**
+> **MESSAGING IS A NOTIFICATION CHANNEL, NOT AN AUTHORISATION CHANNEL.**
 >
-> Hiçbir karar bir sohbet cevabıyla verilemez.
+> No decision may be made by replying to a message.
 
-## Neden
+## Why
 
-Telegram/Discord/WhatsApp/e-posta hesapları ele geçirilebilir, taklit
-edilebilir, iletilir. Bir `DecisionRecord` **imzalı ve hukuken bağlayıcı**
-bir kayıttır. Kanıt zincirinin sonunu bir sohbet mesajına bağlamak, tüm
-zinciri o kanalın güvenliğine indirger.
+Telegram, Discord, WhatsApp and email accounts can be compromised, spoofed, or
+forwarded. A `DecisionRecord` is a signed, binding record. Binding the end of the
+evidence chain to a chat message reduces the security of the entire chain to the
+security of that channel — and that channel was not designed for it.
 
-`ACC-25 Human Approval Forgery` senaryosunun önleyici tarafı budur.
+This is the preventive side of the **human approval forgery** scenario.
 
-## Doğru akış
+## The correct flow
 
 ```
-1. DecisionRequest kuyruğa girer
-2. Bildirim gönderilir: "Karar bekliyor — <proje> <gate>"
-   + İMZALI, SÜRELİ, TEK KULLANIMLIK derin bağlantı
-3. İnsan bağlantıyı açar → KİMLİK DOĞRULAMALI YÜZEYE gider
-4. Dondurulmuş kanıt paketini görür
-5. Kararı ORADA verir → DecisionRecord imzalanır
-6. Onay bildirimi geri gönderilir
+1. DecisionRequest enters the queue
+2. A notification is sent: "Decision pending — <project> <gate>"
+   + a SIGNED, EXPIRING, SINGLE-USE deep link
+3. The human opens the link → arrives at an AUTHENTICATED surface
+4. They see the frozen evidence package
+5. They decide THERE → DecisionRecord is signed
+6. A confirmation notification is returned
 ```
 
-## Derin bağlantı kuralları
+## Deep link rules
 
-- İmzalı (HMAC veya asimetrik)
-- **Süreli** — kısa TTL
-- **Tek kullanımlık**
-- Karar yetkisini değil, **yüzeye erişimi** taşır
-- Yönlendirilirse geçersiz (kullanıcı-bağlı)
+- Signed (HMAC or asymmetric)
+- **Expiring** — short TTL
+- **Single use**
+- Carries **access to the surface**, not the authority to decide
+- Invalid if forwarded (user-bound)
 
-## Sohbet cevabı ne yapabilir
+The link is deliberately not a shortcut to approval. It removes friction from
+*reaching* the decision surface, not from *making* the decision.
 
-| Eylem | İzin |
+## What a chat reply may do
+
+| Action | Permitted |
 |---|---|
-| "Gördüm" / okundu bilgisi | ✅ |
-| Ek bilgi isteme | ✅ — kuyruğa not düşer |
-| SLA uzatma talebi | ✅ — talep, karar değil |
-| **Onay / ret** | ❌ **asla** |
-| **Yıkıcı işlem** (`RETRACT` vb.) | ❌ **asla** |
+| Acknowledgement / "seen" | ✅ |
+| Request more information | ✅ — recorded as a queue note |
+| Request an SLA extension | ✅ — a request, not a decision |
+| **Approve / reject** | ❌ **never** |
+| **Destructive action** (`RETRACT` etc.) | ❌ **never** |
 
-## Zaman aşımı
+## Timeout
 
-> **Otomatik onay yoktur.** SLA dolduğunda ya bir üst role eskale olur ya da
-> workflow pause kalır. Sessizlik onay değildir.
+> **There is no auto-approve.** When the SLA expires it escalates one level or
+> the workflow pauses. **Silence is not consent.**
 
-## Dikkat bütçesi
+## Attention budget
 
-Karar kuyruğu **sert kotalıdır** (ör. haftada 5 G8 kararı). Kota dolduğunda
-kuyruk **bekler**. Hızlı gözden geçirme modu yoktur.
+The decision queue has a **hard quota** (for example, five G8 decisions per
+week). When the quota is exhausted the queue **waits**. There is no express-review
+mode.
 
-Ölçülen: karar süresi dağılımı, açılan kanıt bölümleri, G10'da geri alma
-oranı, adversarial `REJECT`'e rağmen `ACCEPT` oranı.
+Measured: decision-time distribution, which evidence sections were opened, G10
+reversal rate, and the rate of `ACCEPT` despite an adversarial `REJECT`.
 
-## Rasyonalizasyon tablosu
+The last metric is the rubber-stamping detector. It is the reason the quota
+exists: throughput pressure on a human decision maker produces approvals, not
+decisions.
 
-| Gerekçe | Hüküm |
+## Rationalization table
+
+| Justification | Ruling |
 |---|---|
-| "Telegram'dan 'onaylıyorum' yazdım, yeterli" | **Değil.** Bağlantıyı aç, yüzeyde onayla. |
-| "Acil, hızlı onaylayalım" | Aciliyet kimlik doğrulama muafiyeti değildir. |
-| "Ben zaten tek kullanıcıyım" | Hesap ele geçirilmesi tek kullanıcıda da olur. |
-| "Bot benim olduğumu biliyor" | Bot kanalın kimliğini bilir, kişinin değil. |
+| "I typed 'approved' in Telegram, that's enough" | **It is not.** Open the link, approve on the surface. |
+| "It's urgent, let's approve quickly" | Urgency is not an authentication exemption. |
+| "I'm the only user here" | Account compromise happens to single users too. |
+| "The bot knows it's me" | The bot knows the channel's identity, not the person's. |
 
-## Kırmızı bayraklar
+## Red flags
 
-- `DecisionRecord` kaynağı bir mesajlaşma kanalı
-- Derin bağlantı süresiz veya çok kullanımlık
-- SLA dolunca durum otomatik ilerlemiş
+- A `DecisionRecord` sourced from a messaging channel
+- A deep link with no expiry or reusable
+- A state advancing automatically after an SLA expiry
+- Decision times clustered at the very short end

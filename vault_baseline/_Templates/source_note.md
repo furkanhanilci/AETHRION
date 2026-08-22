@@ -14,25 +14,25 @@ tags:
 
 # {{title}}
 
-## İnsan sentezi
+## Human synthesis
 
 
-## Temel katkılar
-
--
-
-## Yöntem ve veri
+## Key contributions
 
 -
 
-## Sınırlılıklar
+## Method and data
 
 -
 
-## Desteklediği veya çürüttüğü iddialar
+## Limitations
+
+-
+
+## Claims it supports or refutes
 
 - [[]]
 
-## Doğrulanacak noktalar
+## Points to verify
 
 - [ ]

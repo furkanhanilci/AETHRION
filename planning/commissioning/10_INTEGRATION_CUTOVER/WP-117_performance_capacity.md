@@ -1,101 +1,109 @@
-# WP-117 — Performans, Kapasite ve Yük Commissioning
+# WP-117 — Performance, Capacity and Load Commissioning
 
-## Paket kartı
+## Package card
 
-| Alan | Değer |
+| Field | Value |
 |---|---|
-| İş paketi | `WP-117` |
+| Work package | `WP-117` |
 | Workstream | `10_INTEGRATION_CUTOVER` |
-| İlk efor sınıfı | **L** — refinement'ta O/M/P tahmini zorunlu |
-| Accountable Owner | Capacity Engineering Lead |
-| Bağımsız doğrulayıcı | SRE / FinOps / Assurance |
+| Initial effort class | **L** — large — split into sub-deliveries if it cannot be reviewed in one pass; a three-point (O/M/P) estimate is mandatory at refinement |
+| Accountable owner | Capacity Engineering Lead |
+| Independent verifier | SRE / FinOps / Assurance |
 | Hard dependencies | WP-053, WP-096, WP-098, WP-100, WP-101, WP-115 |
-| İlgili gate | Commissioning |
-| İlgili kontroller | CTL-CST-01, CTL-OBS-01 |
-| İlgili ACC senaryoları | İlgili dikey dilim ve commissioning sırasında atanır |
+| Related gates | Commissioning |
+| Related controls | CTL-CST-01, CTL-OBS-01 |
+| Related acceptance scenarios | Assigned during the relevant vertical slice and commissioning |
+| Current status | `NOT_STARTED` |
 
-## Amaç ve beklenen sonuç
+## Purpose and expected outcome
 
-Approved workload envelope altında intake/gate, event, model, broker, registry, experiment, review ve impact queue'ları SLO, quota ve cost sınırlarını karşılar.
+Under the approved workload envelope, the intake/gate, event, model, broker, registry, experiment, review and impact queues meet their SLO, quota and cost limits.
 
-## Kapsam dışı
+## Out of scope
 
-- Bağımlı paketin kendi iç implementasyonu
-- Production cutover ve nihai operasyon onayı
 
-## Önkoşullar ve Definition of Ready
+- The internal implementation of any dependent package
+- Production cutover and final operational approval
 
-- Bağımlılıklar kabul edilmiştir: [WP-053 — Kueue Queue, Kota ve Öncelik Politikası](../06_EXECUTION_SECURITY/WP-053_kueue_quota.md), [WP-096 — OpenTelemetry Uçtan Uca Correlation Spine](../09_EXPERIENCE_OBSERVABILITY/WP-096_otel_correlation.md), [WP-098 — Grafana ve Altı Operasyon Grafiği](../09_EXPERIENCE_OBSERVABILITY/WP-098_grafana_six_graphs.md), [WP-100 — Cost Ledger, Bütçe Zarfları ve FinOps](../09_EXPERIENCE_OBSERVABILITY/WP-100_cost_ledger_finops.md), [WP-101 — Service Catalog, SLO ve Alert/Runbook Bağlama](../09_EXPERIENCE_OBSERVABILITY/WP-101_service_slo_alerting.md), [WP-115 — Tam Sistem Regression ve Commissioning Dossier](../10_INTEGRATION_CUTOVER/WP-115_full_system_regression.md)
-- Named owner, implementer ve producer'dan bağımsız verifier atanmıştır.
-- Etkilenen canonical kayıtlar, interface'ler ve ADR'lar refinement'ta ilişkilendirilmiştir.
-- DataClass, CodeTrust, ToolEffect ve ağ/credential kapsamı sınıflandırılmıştır.
-- Test fixture, environment, rollback noktası ve acceptance ölçüm yöntemi erişilebilirdir.
-- Efor için O/M/P kişi-gün tahmini ve gerçek kapasite rezervasyonu kaydedilmiştir.
+## Preconditions — Definition of Ready
 
-## Uygulama görevleri
+- Dependencies accepted: [WP-053 — Kueue Queue, Quota and Priority Policy](../06_EXECUTION_SECURITY/WP-053_kueue_quota.md), [WP-096 — OpenTelemetry End-to-End Correlation Spine](../09_EXPERIENCE_OBSERVABILITY/WP-096_otel_correlation.md), [WP-098 — Grafana and the Six Operational Graphs](../09_EXPERIENCE_OBSERVABILITY/WP-098_grafana_six_graphs.md), [WP-100 — Cost Ledger, Budget Envelopes and FinOps](../09_EXPERIENCE_OBSERVABILITY/WP-100_cost_ledger_finops.md), [WP-101 — Service Catalogue, SLOs and Alert/Runbook Binding](../09_EXPERIENCE_OBSERVABILITY/WP-101_service_slo_alerting.md), [WP-115 — Full System Regression and Commissioning Dossier](../10_INTEGRATION_CUTOVER/WP-115_full_system_regression.md)
+- A named owner, a named implementer, and a verifier **independent of the producer** are assigned.
+- Affected canonical records, interfaces and ADRs have been linked during refinement.
+- `DataClass`, `CodeTrust`, `ToolEffect` and the network/credential scope are classified.
+- Test fixtures, the environment, the rollback point and the acceptance measurement method are reachable.
+- An O/M/P person-day estimate is recorded and real capacity is reserved against it.
 
-| Alt iş | Yapılacak iş | Sorumlu | Tamamlanma kanıtı |
+## Implementation tasks
+
+| Sub-task | Work to be done | Responsible | Completion evidence |
 |---|---|---|---|
-| WP-117-T01 | Workload mix/concurrency/data size/fan-out envelope tanımla | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-117-T02 | Service/queue/end-to-end load tests yaz | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-117-T03 | DB/NATS/Temporal/model/tool/sandbox bottleneck ölç | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-117-T04 | Autoscale/connection pool/cache/backpressure tune et | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-117-T05 | Assurance queue ve human SLA kapasitesini modelle | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-117-T06 | Cost curve/headroom/capacity plan üret | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
+| WP-117-T01 | Define the workload mix, concurrency, data size and fan-out envelope | Implementation owner | Commit / configuration / record reference |
+| WP-117-T02 | Write the service, queue and end-to-end load tests | Implementation owner | Commit / configuration / record reference |
+| WP-117-T03 | Measure bottlenecks across the database, NATS, Temporal, models, tools and sandboxes | Implementation owner | Commit / configuration / record reference |
+| WP-117-T04 | Tune autoscaling, connection pools, caches and backpressure | Implementation owner | Commit / configuration / record reference |
+| WP-117-T05 | Model the assurance queue and the human SLA capacity | Implementation owner | Commit / configuration / record reference |
+| WP-117-T06 | Produce the cost curve, headroom and capacity plan | Implementation owner | Commit / configuration / record reference |
 
-## Zorunlu teslimatlar
+## Mandatory deliverables
 
 - `Load test suite/results`
 - `Capacity model`
 - `Bottleneck/tuning report`
 - `Cost/headroom forecast`
 - `Capacity sign-off`
-- Güncellenmiş runbook/operasyon notu ve servis/contract ownership kaydı
-- İmzalı `EvidenceManifest`
+- An updated runbook or operations note, plus the service/contract ownership record
+- A signed `EvidenceManifest`
 
-## Test ve doğrulama planı
+## Test and verification plan
 
-- Nominal/peak/burst/soak
-- Backpressure not data loss
-- Review queue reserve
+- Nominal, peak, burst and soak profiles
+- Backpressure that does not become data loss
+- The review queue capacity reserve
 - Budget fan-out caps
-- Large manifest/event reference
-- Yetkisiz, eksik, stale, duplicate ve partial-failure girdileri için en az bir negatif test
-- İlgili interface'lerde producer/consumer contract compatibility testi
-- Telemetry correlation ve audit kayıt bütünlüğü kontrolü
+- Large manifest and event-reference handling
+- At least one negative test for unauthorised, missing, stale, duplicate and partial-failure inputs
+- Producer/consumer contract compatibility tests on every affected interface
+- Telemetry correlation and audit-record integrity checks
 
-## Kabul kriterleri
+## Acceptance criteria
 
-- [ ] SLO approved envelope'da karşılanır
-- [ ] En az %20 headroom veya named scale trigger vardır
-- [ ] Backpressure unsafe bypass üretmez
-- [ ] Bütün zorunlu testler aynı target revision üzerinde geçmiştir.
-- [ ] Açık Critical/High finding yoktur; non-waivable blocker bulunmamaktadır.
-- [ ] Bağımsız verifier kanıt paketini kabul etmiştir.
-- [ ] Rollback/compensation davranışı denenmiş ve audit edilmiştir.
-- [ ] İlgili dashboard, alert, audit query veya integrity query çalışma kanıtı üretmiştir.
+- [ ] SLOs are met within the approved envelope.
+- [ ] At least 20% headroom exists, or a named scale trigger is defined.
+- [ ] Backpressure never produces an unsafe bypass.
+- [ ] All mandatory tests passed **on the same target revision**.
+- [ ] No open Critical or High findings; no non-waivable blocker remains.
+- [ ] The independent verifier has accepted the evidence package.
+- [ ] Rollback/compensation behaviour has been exercised and audited.
+- [ ] The related dashboard, alert, audit query or integrity query has produced working evidence.
 
-## Kabul kanıtı paketi
+## Acceptance evidence package
 
-- Aynı target revision/digest üzerinde alınmış test sonuçları
-- Environment, schema, policy ve dependency sürümlerini içeren EvidenceManifest
-- Bağımsız verifier ReviewRecord veya VerificationRecord'u
-- Rollback/compensation denemesi ve sonuç referansı
-- Açık finding, residual risk ve owner/expiry listesi
+- Test results captured on the same target revision/digest
+- An `EvidenceManifest` recording the environment, schema, policy and dependency versions
+- The independent verifier's `ReviewRecord` or `VerificationRecord`
+- The rollback/compensation trial and its result reference
+- The list of open findings and residual risks with owners and expiry dates
 
-## Riskler ve kontrol noktaları
+## Risks and control points
 
-- Contract veya canonical sahiplik belirsizse implementasyon durur ve Architecture Board'a eskale edilir.
-- Identity, data route, artifact integrity, bağımsızlık veya kritik evidence problemi waiver ile geçirilemez.
-- Geçici manuel kontrol gerekiyorsa owner, scope, expiry, compensating control ve kaldırma paketi kaydedilir.
-- Paket tamamlandı beyanı acceptance değildir; verifier kararı olmadan yalnız `TECH_COMPLETE` olabilir.
+- If a contract or canonical ownership question is unresolved, implementation **stops** and the question escalates to the Architecture Board.
+- Identity, data routing, artifact integrity, independence and critical evidence problems **cannot** be passed by waiver.
+- If a temporary manual control is required, its owner, scope, expiry, compensating control and removal package are recorded.
+- A "package complete" statement is **not** acceptance. Without a verifier decision the package can only be `TECH_COMPLETE`.
+
+### Workstream-specific hazards
+
+- Vertical slices fail at the seams; per-package green says little about the seam.
+- A cutover rehearsal that differs from the real procedure has rehearsed the wrong thing.
+- The rollback point must be verified by a query, not by an assertion.
 
 ## Rollback / compensation
 
-Capacity fail olursa üretim kapsamı değil tarih/altyapı boyutu düzeltilir; RC READY durumu geri çekilir.
+If capacity fails, the date or the infrastructure size is corrected — not the production scope; the RC's READY status is withdrawn.
 
-Immutable artifact, review ve karar geçmişi rollback sırasında silinmez; yeni durum supersession veya invalidation kaydıyla gösterilir.
+Immutable artifacts, reviews and decision history are **not** deleted during a rollback; the new state is expressed through a supersession or invalidation record.
 
-## Handoff ve sonraki paketlere giriş
+## Handoff into downstream packages
 
-Paket kabul edildiğinde teslim artifact'larının version/digest'leri Package Registry'ye yazılır, dependency event'i yayımlanır ve bu pakete bağlı READY adayları yeniden değerlendirilir. Downstream paket yalnız burada listelenen contract ve kanıt referanslarını tüketir; implementasyon iç ayrıntılarına bağlanmaz.
+On acceptance, the version and digest of every delivered artifact is written to the Package Registry, the dependency event is published, and every `READY` candidate blocked on this package is re-evaluated. A downstream package consumes **only** the contracts and evidence references listed above; it does not bind to internal implementation details.

@@ -1,101 +1,109 @@
-# WP-057 — Default-Deny Egress Proxy, DLP ve Allowlist
+# WP-057 — Default-Deny Egress Proxy, DLP and Allowlist
 
-## Paket kartı
+## Package card
 
-| Alan | Değer |
+| Field | Value |
 |---|---|
-| İş paketi | `WP-057` |
+| Work package | `WP-057` |
 | Workstream | `06_EXECUTION_SECURITY` |
-| İlk efor sınıfı | **L** — refinement'ta O/M/P tahmini zorunlu |
-| Accountable Owner | Network Security Lead |
-| Bağımsız doğrulayıcı | Red Team / Privacy Owner |
+| Initial effort class | **L** — large — split into sub-deliveries if it cannot be reviewed in one pass; a three-point (O/M/P) estimate is mandatory at refinement |
+| Accountable owner | Network Security Lead |
+| Independent verifier | Red Team / Privacy Owner |
 | Hard dependencies | WP-006, WP-021, WP-049, WP-051, WP-055, WP-056 |
-| İlgili gate | G3,G5,Platform |
-| İlgili kontroller | CTL-SEC-02, CTL-OBS-02 |
-| İlgili ACC senaryoları | ACC-16, ACC-18, ACC-32 |
+| Related gates | G3,G5,Platform |
+| Related controls | CTL-SEC-02, CTL-OBS-02 |
+| Related acceptance scenarios | ACC-16, ACC-18, ACC-32 |
+| Current status | `NOT_STARTED` |
 
-## Amaç ve beklenen sonuç
+## Purpose and expected outcome
 
-Execution ve service dış trafiği domain/IP/method/purpose/data-class allowlist, secret/PII detector ve tam audit üzerinden geçer.
+All outbound traffic from execution and services passes through a domain/IP/method/purpose/data-class allowlist, secret and PII detectors, and full audit.
 
-## Kapsam dışı
+## Out of scope
 
-- Bağımlı paketin kendi iç implementasyonu
-- Production cutover ve nihai operasyon onayı
 
-## Önkoşullar ve Definition of Ready
+- The internal implementation of any dependent package
+- Production cutover and final operational approval
 
-- Bağımlılıklar kabul edilmiştir: [WP-006 — ExecutionProfile ve Route Politikası](../01_GOVERNANCE/WP-006_execution_profili.md), [WP-021 — Development, Staging ve Production Ortam Baseline'ı](../03_FOUNDATION/WP-021_ortam_hesap_ag_baseline.md), [WP-049 — Tool Registry ve Tool Broker Çekirdeği](../05_MODEL_AGENT_TOOL/WP-049_tool_registry_broker.md), [WP-051 — Dört Trust Zone ve Ağ Segmentasyonu](../06_EXECUTION_SECURITY/WP-051_trust_zone_network.md), [WP-055 — SPIFFE/SPIRE Workload Identity ve Vault](../06_EXECUTION_SECURITY/WP-055_spiffe_vault_identity.md), [WP-056 — OPA Policy Platform ve Bundle Dağıtımı](../06_EXECUTION_SECURITY/WP-056_opa_policy_platform.md)
-- Named owner, implementer ve producer'dan bağımsız verifier atanmıştır.
-- Etkilenen canonical kayıtlar, interface'ler ve ADR'lar refinement'ta ilişkilendirilmiştir.
-- DataClass, CodeTrust, ToolEffect ve ağ/credential kapsamı sınıflandırılmıştır.
-- Test fixture, environment, rollback noktası ve acceptance ölçüm yöntemi erişilebilirdir.
-- Efor için O/M/P kişi-gün tahmini ve gerçek kapasite rezervasyonu kaydedilmiştir.
+## Preconditions — Definition of Ready
 
-## Uygulama görevleri
+- Dependencies accepted: [WP-006 — ExecutionProfile and Route Policy](../01_GOVERNANCE/WP-006_execution_profile.md), [WP-021 — Development, Staging and Production Environment Baseline](../03_FOUNDATION/WP-021_environment_account_network_baseline.md), [WP-049 — Tool Registry and Tool Broker Core](../05_MODEL_AGENT_TOOL/WP-049_tool_registry_broker.md), [WP-051 — Four Trust Zones and Network Segmentation](../06_EXECUTION_SECURITY/WP-051_trust_zone_network.md), [WP-055 — SPIFFE/SPIRE Workload Identity and Vault](../06_EXECUTION_SECURITY/WP-055_spiffe_vault_identity.md), [WP-056 — OPA Policy Platform and Bundle Distribution](../06_EXECUTION_SECURITY/WP-056_opa_policy_platform.md)
+- A named owner, a named implementer, and a verifier **independent of the producer** are assigned.
+- Affected canonical records, interfaces and ADRs have been linked during refinement.
+- `DataClass`, `CodeTrust`, `ToolEffect` and the network/credential scope are classified.
+- Test fixtures, the environment, the rollback point and the acceptance measurement method are reachable.
+- An O/M/P person-day estimate is recorded and real capacity is reserved against it.
 
-| Alt iş | Yapılacak iş | Sorumlu | Tamamlanma kanıtı |
+## Implementation tasks
+
+| Sub-task | Work to be done | Responsible | Completion evidence |
 |---|---|---|---|
-| WP-057-T01 | Explicit proxy/DNS policy ve TLS strategy kur | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-057-T02 | Tool/provider domain registry ve purpose allowlist bağla | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-057-T03 | Request/response size/MIME/method constraints ekle | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-057-T04 | Secret/PII/D3-D4 DLP detector uygula | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-057-T05 | Canary secret ve anomalous volume alert kur | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-057-T06 | Emergency deny/revoke ve exception akışını yaz | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
+| WP-057-T01 | Establish the explicit proxy, DNS policy and TLS strategy | Implementation owner | Commit / configuration / record reference |
+| WP-057-T02 | Bind the tool/provider domain registry and the purpose allowlist | Implementation owner | Commit / configuration / record reference |
+| WP-057-T03 | Add request/response size, MIME and method constraints | Implementation owner | Commit / configuration / record reference |
+| WP-057-T04 | Apply the secret, PII and D3–D4 DLP detectors | Implementation owner | Commit / configuration / record reference |
+| WP-057-T05 | Establish canary secrets and anomalous-volume alerting | Implementation owner | Commit / configuration / record reference |
+| WP-057-T06 | Write the emergency deny/revoke and exception flow | Implementation owner | Commit / configuration / record reference |
 
-## Zorunlu teslimatlar
+## Mandatory deliverables
 
 - `Egress proxy`
 - `Allowlist registry`
 - `DLP pipeline`
 - `Egress audit/alerts`
 - `Exception runbook`
-- Güncellenmiş runbook/operasyon notu ve servis/contract ownership kaydı
-- İmzalı `EvidenceManifest`
+- An updated runbook or operations note, plus the service/contract ownership record
+- A signed `EvidenceManifest`
 
-## Test ve doğrulama planı
+## Test and verification plan
 
-- Unknown domain deny
-- Secret canary exfil deny
-- D3 public endpoint deny
-- DNS bypass/raw IP deny
-- Approved connector pass
-- Yetkisiz, eksik, stale, duplicate ve partial-failure girdileri için en az bir negatif test
-- İlgili interface'lerde producer/consumer contract compatibility testi
-- Telemetry correlation ve audit kayıt bütünlüğü kontrolü
+- Denial of an unknown domain
+- Denial of a canary-secret exfiltration attempt
+- Denial of a D3 payload to a public endpoint
+- Denial of DNS bypass and raw-IP access
+- A permitted connector passing cleanly
+- At least one negative test for unauthorised, missing, stale, duplicate and partial-failure inputs
+- Producer/consumer contract compatibility tests on every affected interface
+- Telemetry correlation and audit-record integrity checks
 
-## Kabul kriterleri
+## Acceptance criteria
 
-- [ ] Direct internet route yoktur
-- [ ] DLP deny lease revoke ve incident üretebilir
-- [ ] Sensitive body loglarda maskelenir
-- [ ] Bütün zorunlu testler aynı target revision üzerinde geçmiştir.
-- [ ] Açık Critical/High finding yoktur; non-waivable blocker bulunmamaktadır.
-- [ ] Bağımsız verifier kanıt paketini kabul etmiştir.
-- [ ] Rollback/compensation davranışı denenmiş ve audit edilmiştir.
-- [ ] İlgili dashboard, alert, audit query veya integrity query çalışma kanıtı üretmiştir.
+- [ ] No direct internet route exists.
+- [ ] A DLP denial can revoke a lease and raise an incident.
+- [ ] Sensitive bodies are masked in logs.
+- [ ] All mandatory tests passed **on the same target revision**.
+- [ ] No open Critical or High findings; no non-waivable blocker remains.
+- [ ] The independent verifier has accepted the evidence package.
+- [ ] Rollback/compensation behaviour has been exercised and audited.
+- [ ] The related dashboard, alert, audit query or integrity query has produced working evidence.
 
-## Kabul kanıtı paketi
+## Acceptance evidence package
 
-- Aynı target revision/digest üzerinde alınmış test sonuçları
-- Environment, schema, policy ve dependency sürümlerini içeren EvidenceManifest
-- Bağımsız verifier ReviewRecord veya VerificationRecord'u
-- Rollback/compensation denemesi ve sonuç referansı
-- Açık finding, residual risk ve owner/expiry listesi
+- Test results captured on the same target revision/digest
+- An `EvidenceManifest` recording the environment, schema, policy and dependency versions
+- The independent verifier's `ReviewRecord` or `VerificationRecord`
+- The rollback/compensation trial and its result reference
+- The list of open findings and residual risks with owners and expiry dates
 
-## Riskler ve kontrol noktaları
+## Risks and control points
 
-- Contract veya canonical sahiplik belirsizse implementasyon durur ve Architecture Board'a eskale edilir.
-- Identity, data route, artifact integrity, bağımsızlık veya kritik evidence problemi waiver ile geçirilemez.
-- Geçici manuel kontrol gerekiyorsa owner, scope, expiry, compensating control ve kaldırma paketi kaydedilir.
-- Paket tamamlandı beyanı acceptance değildir; verifier kararı olmadan yalnız `TECH_COMPLETE` olabilir.
+- If a contract or canonical ownership question is unresolved, implementation **stops** and the question escalates to the Architecture Board.
+- Identity, data routing, artifact integrity, independence and critical evidence problems **cannot** be passed by waiver.
+- If a temporary manual control is required, its owner, scope, expiry, compensating control and removal package are recorded.
+- A "package complete" statement is **not** acceptance. Without a verifier decision the package can only be `TECH_COMPLETE`.
+
+### Workstream-specific hazards
+
+- A control not exercised by a negative test is an assumption.
+- Default-allow egress anywhere in the chain nullifies every other isolation control.
+- Sandbox escape is tested by attempting it, not by reading the configuration.
 
 ## Rollback / compensation
 
-False-positive allowlist değişikliği süreli exception ile; proxy arızasında fail-closed veya policy tanımlı local-only route.
+A false-positive allowlist change is handled through a time-bound exception; a proxy outage fails closed, or falls back to a policy-defined local-only route.
 
-Immutable artifact, review ve karar geçmişi rollback sırasında silinmez; yeni durum supersession veya invalidation kaydıyla gösterilir.
+Immutable artifacts, reviews and decision history are **not** deleted during a rollback; the new state is expressed through a supersession or invalidation record.
 
-## Handoff ve sonraki paketlere giriş
+## Handoff into downstream packages
 
-Paket kabul edildiğinde teslim artifact'larının version/digest'leri Package Registry'ye yazılır, dependency event'i yayımlanır ve bu pakete bağlı READY adayları yeniden değerlendirilir. Downstream paket yalnız burada listelenen contract ve kanıt referanslarını tüketir; implementasyon iç ayrıntılarına bağlanmaz.
+On acceptance, the version and digest of every delivered artifact is written to the Package Registry, the dependency event is published, and every `READY` candidate blocked on this package is re-evaluated. A downstream package consumes **only** the contracts and evidence references listed above; it does not bind to internal implementation details.

@@ -1,99 +1,107 @@
-# WP-029 — MLflow Deney ve Eval Tracking Temeli
+# WP-029 — MLflow Experiment and Evaluation Tracking Foundation
 
-## Paket kartı
+## Package card
 
-| Alan | Değer |
+| Field | Value |
 |---|---|
-| İş paketi | `WP-029` |
+| Work package | `WP-029` |
 | Workstream | `03_FOUNDATION` |
-| İlk efor sınıfı | **M** — refinement'ta O/M/P tahmini zorunlu |
-| Accountable Owner | Experiment Platform Lead |
-| Bağımsız doğrulayıcı | Reproducibility Engineer / Security |
+| Initial effort class | **M** — medium — needs a dedicated integration window; a three-point (O/M/P) estimate is mandatory at refinement |
+| Accountable owner | Experiment Platform Lead |
+| Independent verifier | Reproducibility Engineer / Security |
 | Hard dependencies | WP-021, WP-025, WP-026 |
-| İlgili gate | G4–G7 |
-| İlgili kontroller | CTL-DAT-01, CTL-OBS-01 |
-| İlgili ACC senaryoları | İlgili dikey dilim ve commissioning sırasında atanır |
+| Related gates | G4–G7 |
+| Related controls | CTL-DAT-01, CTL-OBS-01 |
+| Related acceptance scenarios | Assigned during the relevant vertical slice and commissioning |
+| Current status | `NOT_STARTED` |
 
-## Amaç ve beklenen sonuç
+## Purpose and expected outcome
 
-Deney, eval, metric ve artifact referansları data-class uyumlu, access-controlled ve immutable run kimliğiyle izlenir.
+Experiment, evaluation, metric and artifact references are tracked under data-class-compliant, access-controlled, immutable run identities.
 
-## Kapsam dışı
+## Out of scope
 
-- Bağımlı paketin kendi iç implementasyonu
-- Production cutover ve nihai operasyon onayı
 
-## Önkoşullar ve Definition of Ready
+- The internal implementation of any dependent package
+- Production cutover and final operational approval
 
-- Bağımlılıklar kabul edilmiştir: [WP-021 — Development, Staging ve Production Ortam Baseline'ı](../03_FOUNDATION/wp_021_environment_account_network_baseline.md), [WP-025 — PostgreSQL HA ve Registry Veri Temeli](../03_FOUNDATION/wp_025_postgres_ha_foundation.md), [WP-026 — Content-Addressed Object Store ve WORM](../03_FOUNDATION/wp_026_object_store_worm.md)
-- Named owner, implementer ve producer'dan bağımsız verifier atanmıştır.
-- Etkilenen canonical kayıtlar, interface'ler ve ADR'lar refinement'ta ilişkilendirilmiştir.
-- DataClass, CodeTrust, ToolEffect ve ağ/credential kapsamı sınıflandırılmıştır.
-- Test fixture, environment, rollback noktası ve acceptance ölçüm yöntemi erişilebilirdir.
-- Efor için O/M/P kişi-gün tahmini ve gerçek kapasite rezervasyonu kaydedilmiştir.
+## Preconditions — Definition of Ready
 
-## Uygulama görevleri
+- Dependencies accepted: [WP-021 — Development, Staging and Production Environment Baseline](../03_FOUNDATION/wp_021_environment_account_network_baseline.md), [WP-025 — PostgreSQL HA and Registry Data Foundation](../03_FOUNDATION/wp_025_postgres_ha_foundation.md), [WP-026 — Content-Addressed Object Store and WORM](../03_FOUNDATION/wp_026_object_store_worm.md)
+- A named owner, a named implementer, and a verifier **independent of the producer** are assigned.
+- Affected canonical records, interfaces and ADRs have been linked during refinement.
+- `DataClass`, `CodeTrust`, `ToolEffect` and the network/credential scope are classified.
+- Test fixtures, the environment, the rollback point and the acceptance measurement method are reachable.
+- An O/M/P person-day estimate is recorded and real capacity is reserved against it.
 
-| Alt iş | Yapılacak iş | Sorumlu | Tamamlanma kanıtı |
+## Implementation tasks
+
+| Sub-task | Work to be done | Responsible | Completion evidence |
 |---|---|---|---|
-| WP-029-T01 | Tracking server/backend/artifact store kur | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-029-T02 | Project/run RBAC ve data-class separation uygula | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-029-T03 | Run tag standardı ve correlation ID ekle | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-029-T04 | Artifact'ı kopyalamak yerine canonical ref kullan | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-029-T05 | Metric schema ve lifecycle tanımla | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-029-T06 | Backup/restore ve export testi kur | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
+| WP-029-T01 | Deploy the tracking server, backend store and artifact store | Implementation owner | Commit / configuration / record reference |
+| WP-029-T02 | Apply project/run RBAC and data-class separation | Implementation owner | Commit / configuration / record reference |
+| WP-029-T03 | Add the run tag standard and the correlation identifier | Implementation owner | Commit / configuration / record reference |
+| WP-029-T04 | Reference canonical artifacts instead of copying them | Implementation owner | Commit / configuration / record reference |
+| WP-029-T05 | Define the metric schema and its lifecycle | Implementation owner | Commit / configuration / record reference |
+| WP-029-T06 | Establish backup, restore and an export test | Implementation owner | Commit / configuration / record reference |
 
-## Zorunlu teslimatlar
+## Mandatory deliverables
 
 - `MLflow deployment`
 - `Run naming/tag policy`
 - `Access controls`
 - `Tracking SDK wrapper`
 - `Restore procedure`
-- Güncellenmiş runbook/operasyon notu ve servis/contract ownership kaydı
-- İmzalı `EvidenceManifest`
+- An updated runbook or operations note, plus the service/contract ownership record
+- A signed `EvidenceManifest`
 
-## Test ve doğrulama planı
+## Test and verification plan
 
-- Unauthorized project read negative testi
-- Run→artifact/source correlation query
-- Backup restore ve metric integrity testi
-- Yetkisiz, eksik, stale, duplicate ve partial-failure girdileri için en az bir negatif test
-- İlgili interface'lerde producer/consumer contract compatibility testi
-- Telemetry correlation ve audit kayıt bütünlüğü kontrolü
+- An unauthorised project-read negative test
+- A run → artifact/source correlation query
+- A backup restore with metric-integrity verification
+- At least one negative test for unauthorised, missing, stale, duplicate and partial-failure inputs
+- Producer/consumer contract compatibility tests on every affected interface
+- Telemetry correlation and audit-record integrity checks
 
-## Kabul kriterleri
+## Acceptance criteria
 
-- [ ] MLflow canonical artifact bytes sahibi olmaz
-- [ ] Her run Project/Workflow/Run ID ile bağlıdır
-- [ ] D3/D4 prompt/data telemetry'si policy dışına çıkmaz
-- [ ] Bütün zorunlu testler aynı target revision üzerinde geçmiştir.
-- [ ] Açık Critical/High finding yoktur; non-waivable blocker bulunmamaktadır.
-- [ ] Bağımsız verifier kanıt paketini kabul etmiştir.
-- [ ] Rollback/compensation davranışı denenmiş ve audit edilmiştir.
-- [ ] İlgili dashboard, alert, audit query veya integrity query çalışma kanıtı üretmiştir.
+- [ ] MLflow never owns canonical artifact bytes.
+- [ ] Every run is bound to a project, workflow and run identifier.
+- [ ] D3/D4 prompt and data telemetry never leaves the policy boundary.
+- [ ] All mandatory tests passed **on the same target revision**.
+- [ ] No open Critical or High findings; no non-waivable blocker remains.
+- [ ] The independent verifier has accepted the evidence package.
+- [ ] Rollback/compensation behaviour has been exercised and audited.
+- [ ] The related dashboard, alert, audit query or integrity query has produced working evidence.
 
-## Kabul kanıtı paketi
+## Acceptance evidence package
 
-- Aynı target revision/digest üzerinde alınmış test sonuçları
-- Environment, schema, policy ve dependency sürümlerini içeren EvidenceManifest
-- Bağımsız verifier ReviewRecord veya VerificationRecord'u
-- Rollback/compensation denemesi ve sonuç referansı
-- Açık finding, residual risk ve owner/expiry listesi
+- Test results captured on the same target revision/digest
+- An `EvidenceManifest` recording the environment, schema, policy and dependency versions
+- The independent verifier's `ReviewRecord` or `VerificationRecord`
+- The rollback/compensation trial and its result reference
+- The list of open findings and residual risks with owners and expiry dates
 
-## Riskler ve kontrol noktaları
+## Risks and control points
 
-- Contract veya canonical sahiplik belirsizse implementasyon durur ve Architecture Board'a eskale edilir.
-- Identity, data route, artifact integrity, bağımsızlık veya kritik evidence problemi waiver ile geçirilemez.
-- Geçici manuel kontrol gerekiyorsa owner, scope, expiry, compensating control ve kaldırma paketi kaydedilir.
-- Paket tamamlandı beyanı acceptance değildir; verifier kararı olmadan yalnız `TECH_COMPLETE` olabilir.
+- If a contract or canonical ownership question is unresolved, implementation **stops** and the question escalates to the Architecture Board.
+- Identity, data routing, artifact integrity, independence and critical evidence problems **cannot** be passed by waiver.
+- If a temporary manual control is required, its owner, scope, expiry, compensating control and removal package are recorded.
+- A "package complete" statement is **not** acceptance. Without a verifier decision the package can only be `TECH_COMPLETE`.
+
+### Workstream-specific hazards
+
+- Infrastructure built by hand once is infrastructure that cannot be rebuilt under pressure.
+- A backup that has never been restored is not a backup.
+- Environment parity erodes from the staging side first, and quietly.
 
 ## Rollback / compensation
 
-Tracking servisi kaybında run execution artifactleri kaybolmaz; queued metadata idempotent ingest edilir.
+Losing the tracking service does not lose the run execution artifacts; queued metadata is ingested idempotently on recovery.
 
-Immutable artifact, review ve karar geçmişi rollback sırasında silinmez; yeni durum supersession veya invalidation kaydıyla gösterilir.
+Immutable artifacts, reviews and decision history are **not** deleted during a rollback; the new state is expressed through a supersession or invalidation record.
 
-## Handoff ve sonraki paketlere giriş
+## Handoff into downstream packages
 
-Paket kabul edildiğinde teslim artifact'larının version/digest'leri Package Registry'ye yazılır, dependency event'i yayımlanır ve bu pakete bağlı READY adayları yeniden değerlendirilir. Downstream paket yalnız burada listelenen contract ve kanıt referanslarını tüketir; implementasyon iç ayrıntılarına bağlanmaz.
+On acceptance, the version and digest of every delivered artifact is written to the Package Registry, the dependency event is published, and every `READY` candidate blocked on this package is re-evaluated. A downstream package consumes **only** the contracts and evidence references listed above; it does not bind to internal implementation details.

@@ -1,3 +1,7 @@
+> [!info] Generated view
+> This note is generated from `skills/scope-discipline/SKILL.md` in the repository. Edit the
+> canonical file and regenerate; edits made here are overwritten.
+
 ---
 name: scope-discipline
 version: 1.0.0
@@ -12,50 +16,58 @@ mechanical_checks: [prose_sentence_maps_to_claim, prose_scope_within_claim_scope
 
 # Scope Discipline
 
-## Demir kural
+## Iron law
 
-> **METİN, `ClaimVersion.scope_qualification`'I AŞAMAZ.**
+> **PROSE MAY NOT EXCEED `ClaimVersion.scope_qualification`.**
 >
-> Eşlenemeyen veya kapsamı aşan cümle → yayın `BLOCKED`.
+> A sentence that cannot be mapped to a claim, or whose scope exceeds it,
+> blocks publication.
 
-## Neden bu bir AI laboratuvarında kritik
+## Why this is mechanical rather than editorial
 
-Aşırı genelleme, dil modellerinin en tutarlı hata modudur. Ve mekanik olarak
-yakalanabilir — bu yüzden model yargısına bırakılmaz.
+Overgeneralisation is the most consistent failure mode of language models, and
+it is detectable by comparing two structured records. Leaving it to reviewer
+judgement means catching it sometimes; making it mechanical means catching it
+every time.
 
-## Prosedür
+## Procedure
 
-1. Metindeki her iddia cümlesini çıkar
-2. Her cümleyi bir `ClaimVersion`'a eşle
-3. Cümlenin kapsamını claim'in `scope_qualification`'ı ile karşılaştır
-4. Aşan cümleyi ya nitelendir ya düşür
-5. `DecisionRecord.obligations` içindeki her yükümlülüğün metinde karşılığını doğrula
+1. Extract every assertive sentence from the prose
+2. Map each to a `ClaimVersion`
+3. Compare the sentence's scope against the claim's `scope_qualification`
+4. Qualify or delete any sentence that exceeds it
+5. Verify every obligation in `DecisionRecord.obligations` appears in the text
 
-## Kapsam aşımı işaretleri
+## Scope-overrun patterns
 
-| Metin | Claim | Hüküm |
+| Prose | Claim | Ruling |
 |---|---|---|
-| "Consensus dayanıklıdır" | "senkron Byzantine, dürüst çoğunluk altında dayanıklıdır" | **AŞIM** |
-| "Yöntem genel olarak uygulanabilir" | tek bir senaryoda test edilmiş | **AŞIM** |
-| "X, Y'ye neden olur" | korelasyonel kanıt | **AŞIM** — nedensellik iddiası |
-| "İlk kez gösterilmiştir" | literatür taraması bunu doğrulamıyor | **AŞIM** |
+| "Consensus is robust" | "robust under synchronous Byzantine conditions with an honest majority" | **OVERRUN** |
+| "The method generalises" | tested in one scenario | **OVERRUN** |
+| "X causes Y" | correlational evidence only | **OVERRUN** — causal claim |
+| "Shown for the first time" | literature review does not establish this | **OVERRUN** — priority claim |
+| "Consistently outperforms" | outperformed on 3 of 5 benchmarks | **OVERRUN** — selective |
+| "Suggests that X" | interpretive claim, marked | acceptable |
 
-## Nitelendirme dili
+## Where qualification must appear
 
-Kapsam sınırı **başlıkta ve özette** görünür — yalnız "Limitations"ta değil.
-Limitations bölümüne saklanan bir kapsam sınırı, kapsam sınırı sayılmaz.
+The scope limit appears **in the title and the abstract**, not only in the
+Limitations section. A scope limit deferred to Limitations is not a scope
+limit — most readers of an abstract never reach it.
 
-## Rasyonalizasyon tablosu
+## Rationalization table
 
-| Gerekçe | Hüküm |
+| Justification | Ruling |
 |---|---|
-| "Sınırlama bölümünde yazdım" | **Yetersiz.** İddia cümlesinin kendisi nitelenir. |
-| "Okuyucu bağlamdan anlar" | Anlamayabilir. **Açık yaz.** |
-| "Nitelendirince zayıf duruyor" | Doğru olan budur. Zayıflık gerekçe değildir. |
-| "Diğer makaleler de böyle yazıyor" | Onların hatası bizim standardımız değildir. |
+| "I wrote it in the Limitations section" | **Insufficient.** The assertion itself is qualified. |
+| "The reader will infer it from context" | They may not. **Write it.** |
+| "Qualified, it sounds weak" | Weak-sounding and correct beats strong-sounding and wrong. |
+| "Other papers in the field write it this way" | Their error is not our standard. |
+| "The qualification is in the methods section" | Methods are read after the conclusion, if at all. |
 
-## Kırmızı bayraklar
+## Red flags
 
-- Özet, sonuç bölümünden daha güçlü iddia içeriyor
-- Başlıkta kapsam sınırı yok ama claim'de var
-- `obligations` yerine getirilmemiş
+- The abstract asserts more strongly than the results section
+- The title carries no scope limit while the claim does
+- `DecisionRecord.obligations` are unmet
+- A sentence maps to no claim at all

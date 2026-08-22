@@ -1,97 +1,105 @@
-# WP-002 — Kapsam, NFR ve Gereksinim İzlenebilirliği
+# WP-002 — Scope, NFRs and Requirement Traceability
 
-## Paket kartı
+## Package card
 
-| Alan | Değer |
+| Field | Value |
 |---|---|
-| İş paketi | `WP-002` |
+| Work package | `WP-002` |
 | Workstream | `01_GOVERNANCE` |
-| İlk efor sınıfı | **S** — refinement'ta O/M/P tahmini zorunlu |
-| Accountable Owner | Chief Architect |
-| Bağımsız doğrulayıcı | Assurance Lead |
+| Initial effort class | **S** — small — one owner, one review cycle; a three-point (O/M/P) estimate is mandatory at refinement |
+| Accountable owner | Chief Architect |
+| Independent verifier | Assurance Lead |
 | Hard dependencies | WP-001 |
-| İlgili gate | Program |
-| İlgili kontroller | CTL-GOV-01 |
-| İlgili ACC senaryoları | İlgili dikey dilim ve commissioning sırasında atanır |
+| Related gates | Program |
+| Related controls | CTL-GOV-01 |
+| Related acceptance scenarios | Assigned during the relevant vertical slice and commissioning |
+| Current status | `NOT_STARTED` |
 
-## Amaç ve beklenen sonuç
+## Purpose and expected outcome
 
-Fonksiyonel kapsam ve dayanıklılık, izlenebilirlik, izolasyon, idempotency, audit, privacy, cost ve accessibility NFR'ları test edilebilir gereksinimlere dönüşür.
+Functional scope and the durability, traceability, isolation, idempotency, audit, privacy, cost and accessibility NFRs are converted into testable requirements. A requirement that cannot be tested is a preference, and is recorded as one.
 
-## Kapsam dışı
+## Out of scope
 
-- Bağımlı paketin kendi iç implementasyonu
-- Production cutover ve nihai operasyon onayı
 
-## Önkoşullar ve Definition of Ready
+- The internal implementation of any dependent package
+- Production cutover and final operational approval
 
-- Bağımlılıklar kabul edilmiştir: [WP-001 — Commissioning Charter ve Program Yetkisi](../01_GOVERNANCE/wp_001_commissioning_charter.md)
-- Named owner, implementer ve producer'dan bağımsız verifier atanmıştır.
-- Etkilenen canonical kayıtlar, interface'ler ve ADR'lar refinement'ta ilişkilendirilmiştir.
-- DataClass, CodeTrust, ToolEffect ve ağ/credential kapsamı sınıflandırılmıştır.
-- Test fixture, environment, rollback noktası ve acceptance ölçüm yöntemi erişilebilirdir.
-- Efor için O/M/P kişi-gün tahmini ve gerçek kapasite rezervasyonu kaydedilmiştir.
+## Preconditions — Definition of Ready
 
-## Uygulama görevleri
+- Dependencies accepted: [WP-001 — Commissioning Charter and Programme Authority](../01_GOVERNANCE/wp_001_commissioning_charter.md)
+- A named owner, a named implementer, and a verifier **independent of the producer** are assigned.
+- Affected canonical records, interfaces and ADRs have been linked during refinement.
+- `DataClass`, `CodeTrust`, `ToolEffect` and the network/credential scope are classified.
+- Test fixtures, the environment, the rollback point and the acceptance measurement method are reachable.
+- An O/M/P person-day estimate is recorded and real capacity is reserved against it.
 
-| Alt iş | Yapılacak iş | Sorumlu | Tamamlanma kanıtı |
+## Implementation tasks
+
+| Sub-task | Work to be done | Responsible | Completion evidence |
 |---|---|---|---|
-| WP-002-T01 | Fonksiyonel capability listesini REQ kimlikleriyle çıkar | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-002-T02 | Her NFR için hedef, ölçüm ve test owner'ı ata | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-002-T03 | Domain-specific profil gerektiren alanları ayır | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-002-T04 | REQ→WP→TST/ACC izlenebilirlik şemasını tanımla | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-002-T05 | Kapsam dışı ve future-request kurallarını kaydet | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
+| WP-002-T01 | Extract the functional capability list with `REQ` identifiers | Implementation owner | Commit / configuration / record reference |
+| WP-002-T02 | Assign a target, a measurement method and a test owner to every NFR | Implementation owner | Commit / configuration / record reference |
+| WP-002-T03 | Separate out the areas that need a domain-specific profile from the generic core | Implementation owner | Commit / configuration / record reference |
+| WP-002-T04 | Define the REQ → WP → TST/ACC traceability schema | Implementation owner | Commit / configuration / record reference |
+| WP-002-T05 | Record the out-of-scope items and the rules for handling future requests | Implementation owner | Commit / configuration / record reference |
 
-## Zorunlu teslimatlar
+## Mandatory deliverables
 
 - `Requirement Registry`
 - `NFR scorecard`
 - `Traceability matrix seed`
 - `Scope boundary record`
-- Güncellenmiş runbook/operasyon notu ve servis/contract ownership kaydı
-- İmzalı `EvidenceManifest`
+- An updated runbook or operations note, plus the service/contract ownership record
+- A signed `EvidenceManifest`
 
-## Test ve doğrulama planı
+## Test and verification plan
 
-- Her REQ için ölçülebilir acceptance varlık testi
-- Kapsam dışı maddeler için owner review
-- NFR çelişki ve uygulanabilirlik walkthrough
-- Yetkisiz, eksik, stale, duplicate ve partial-failure girdileri için en az bir negatif test
-- İlgili interface'lerde producer/consumer contract compatibility testi
-- Telemetry correlation ve audit kayıt bütünlüğü kontrolü
+- An existence test proving every `REQ` carries measurable acceptance
+- Owner review of every out-of-scope item
+- An NFR contradiction and feasibility walkthrough
+- At least one negative test for unauthorised, missing, stale, duplicate and partial-failure inputs
+- Producer/consumer contract compatibility tests on every affected interface
+- Telemetry correlation and audit-record integrity checks
 
-## Kabul kriterleri
+## Acceptance criteria
 
-- [ ] Material gereksinimlerin %100'ü owner ve test taşır
-- [ ] Belirsiz 'hızlı/güvenli/ölçeklenebilir' ifadesi kalmaz
-- [ ] Domain profilleri generic core'dan ayrıdır
-- [ ] Bütün zorunlu testler aynı target revision üzerinde geçmiştir.
-- [ ] Açık Critical/High finding yoktur; non-waivable blocker bulunmamaktadır.
-- [ ] Bağımsız verifier kanıt paketini kabul etmiştir.
-- [ ] Rollback/compensation davranışı denenmiş ve audit edilmiştir.
-- [ ] İlgili dashboard, alert, audit query veya integrity query çalışma kanıtı üretmiştir.
+- [ ] 100% of material requirements carry an owner and a test.
+- [ ] No unquantified 'fast / secure / scalable' phrasing remains.
+- [ ] Domain profiles are separated from the generic core.
+- [ ] All mandatory tests passed **on the same target revision**.
+- [ ] No open Critical or High findings; no non-waivable blocker remains.
+- [ ] The independent verifier has accepted the evidence package.
+- [ ] Rollback/compensation behaviour has been exercised and audited.
+- [ ] The related dashboard, alert, audit query or integrity query has produced working evidence.
 
-## Kabul kanıtı paketi
+## Acceptance evidence package
 
-- Aynı target revision/digest üzerinde alınmış test sonuçları
-- Environment, schema, policy ve dependency sürümlerini içeren EvidenceManifest
-- Bağımsız verifier ReviewRecord veya VerificationRecord'u
-- Rollback/compensation denemesi ve sonuç referansı
-- Açık finding, residual risk ve owner/expiry listesi
+- Test results captured on the same target revision/digest
+- An `EvidenceManifest` recording the environment, schema, policy and dependency versions
+- The independent verifier's `ReviewRecord` or `VerificationRecord`
+- The rollback/compensation trial and its result reference
+- The list of open findings and residual risks with owners and expiry dates
 
-## Riskler ve kontrol noktaları
+## Risks and control points
 
-- Contract veya canonical sahiplik belirsizse implementasyon durur ve Architecture Board'a eskale edilir.
-- Identity, data route, artifact integrity, bağımsızlık veya kritik evidence problemi waiver ile geçirilemez.
-- Geçici manuel kontrol gerekiyorsa owner, scope, expiry, compensating control ve kaldırma paketi kaydedilir.
-- Paket tamamlandı beyanı acceptance değildir; verifier kararı olmadan yalnız `TECH_COMPLETE` olabilir.
+- If a contract or canonical ownership question is unresolved, implementation **stops** and the question escalates to the Architecture Board.
+- Identity, data routing, artifact integrity, independence and critical evidence problems **cannot** be passed by waiver.
+- If a temporary manual control is required, its owner, scope, expiry, compensating control and removal package are recorded.
+- A "package complete" statement is **not** acceptance. Without a verifier decision the package can only be `TECH_COMPLETE`.
+
+### Workstream-specific hazards
+
+- A policy that is written but not machine-checkable is an intention, not a control.
+- Role and authority documents drift silently; every change here needs a baseline bump.
+- The hardest failure in this workstream is a rule that everyone agrees with and nobody can enforce.
 
 ## Rollback / compensation
 
-İzlenemeyen gereksinimler taslağa döner; downstream paket READY yapılamaz.
+Requirements that cannot be traced return to draft status; no downstream package may be marked `READY` against them.
 
-Immutable artifact, review ve karar geçmişi rollback sırasında silinmez; yeni durum supersession veya invalidation kaydıyla gösterilir.
+Immutable artifacts, reviews and decision history are **not** deleted during a rollback; the new state is expressed through a supersession or invalidation record.
 
-## Handoff ve sonraki paketlere giriş
+## Handoff into downstream packages
 
-Paket kabul edildiğinde teslim artifact'larının version/digest'leri Package Registry'ye yazılır, dependency event'i yayımlanır ve bu pakete bağlı READY adayları yeniden değerlendirilir. Downstream paket yalnız burada listelenen contract ve kanıt referanslarını tüketir; implementasyon iç ayrıntılarına bağlanmaz.
+On acceptance, the version and digest of every delivered artifact is written to the Package Registry, the dependency event is published, and every `READY` candidate blocked on this package is re-evaluated. A downstream package consumes **only** the contracts and evidence references listed above; it does not bind to internal implementation details.

@@ -1,99 +1,107 @@
-# WP-068 — Zotero Annotation → EvidenceCandidate Hattı
+# WP-068 — Zotero Annotation → EvidenceCandidate Pipeline
 
-## Paket kartı
+## Package card
 
-| Alan | Değer |
+| Field | Value |
 |---|---|
-| İş paketi | `WP-068` |
+| Work package | `WP-068` |
 | Workstream | `07_LITERATURE_KNOWLEDGE` |
-| İlk efor sınıfı | **M** — refinement'ta O/M/P tahmini zorunlu |
-| Accountable Owner | Evidence Intake Lead |
-| Bağımsız doğrulayıcı | Citation Auditor / Knowledge Curator |
+| Initial effort class | **M** — medium — needs a dedicated integration window; a three-point (O/M/P) estimate is mandatory at refinement |
+| Accountable owner | Evidence Intake Lead |
+| Independent verifier | Citation Auditor / Knowledge Curator |
 | Hard dependencies | WP-017, WP-058, WP-061, WP-063, WP-065, WP-067 |
-| İlgili gate | G3,G5 |
-| İlgili kontroller | CTL-EPI-01, CTL-LIT-01 |
-| İlgili ACC senaryoları | İlgili dikey dilim ve commissioning sırasında atanır |
+| Related gates | G3,G5 |
+| Related controls | CTL-EPI-01, CTL-LIT-01 |
+| Related acceptance scenarios | Assigned during the relevant vertical slice and commissioning |
+| Current status | `NOT_STARTED` |
 
-## Amaç ve beklenen sonuç
+## Purpose and expected outcome
 
-Zotero highlight/comment'ları doğrudan kanıt sayılmadan parent attachment, representation hash, locator ve actor ile AnnotationObservation/EvidenceCandidate olur.
+Zotero highlights and comments become `AnnotationObservation` and `EvidenceCandidate` records carrying the parent attachment, representation hash, locator and actor — never evidence on their own.
 
-## Kapsam dışı
+## Out of scope
 
-- Bağımlı paketin kendi iç implementasyonu
-- Production cutover ve nihai operasyon onayı
 
-## Önkoşullar ve Definition of Ready
+- The internal implementation of any dependent package
+- Production cutover and final operational approval
 
-- Bağımlılıklar kabul edilmiştir: [WP-017 — Source Registry ve Literature Contract Şemaları](../02_CONTRACTS/WP-017_source_literature_contracts.md), [WP-058 — Untrusted Content Quarantine ve Prompt-Injection Firewall](../06_EXECUTION_SECURITY/WP-058_content_quarantine_firewall.md), [WP-061 — Canonical Source Registry Servisi](../07_LITERATURE_KNOWLEDGE/WP-061_source_registry_service.md), [WP-063 — Source Representation, Lisans ve Durum İzleme](../07_LITERATURE_KNOWLEDGE/WP-063_source_representation_status.md), [WP-065 — Kişisel Zotero Seed Ingest Hattı](../07_LITERATURE_KNOWLEDGE/WP-065_zotero_seed_ingest.md), [WP-067 — Zotero Çift Yönlü Sync ve Reconciliation](../07_LITERATURE_KNOWLEDGE/WP-067_zotero_sync_reconciliation.md)
-- Named owner, implementer ve producer'dan bağımsız verifier atanmıştır.
-- Etkilenen canonical kayıtlar, interface'ler ve ADR'lar refinement'ta ilişkilendirilmiştir.
-- DataClass, CodeTrust, ToolEffect ve ağ/credential kapsamı sınıflandırılmıştır.
-- Test fixture, environment, rollback noktası ve acceptance ölçüm yöntemi erişilebilirdir.
-- Efor için O/M/P kişi-gün tahmini ve gerçek kapasite rezervasyonu kaydedilmiştir.
+## Preconditions — Definition of Ready
 
-## Uygulama görevleri
+- Dependencies accepted: [WP-017 — Source Registry and Literature Contract Schemas](../02_CONTRACTS/WP-017_source_literature_contracts.md), [WP-058 — Untrusted Content Quarantine and Prompt-Injection Firewall](../06_EXECUTION_SECURITY/WP-058_content_quarantine_firewall.md), [WP-061 — Canonical Source Registry Service](../07_LITERATURE_KNOWLEDGE/WP-061_source_registry_service.md), [WP-063 — Source Representation, Licence and Status Monitoring](../07_LITERATURE_KNOWLEDGE/WP-063_source_representation_status.md), [WP-065 — Personal Zotero Seed Ingest Pipeline](../07_LITERATURE_KNOWLEDGE/WP-065_zotero_seed_ingest.md), [WP-067 — Zotero Two-Way Sync and Reconciliation](../07_LITERATURE_KNOWLEDGE/WP-067_zotero_sync_reconciliation.md)
+- A named owner, a named implementer, and a verifier **independent of the producer** are assigned.
+- Affected canonical records, interfaces and ADRs have been linked during refinement.
+- `DataClass`, `CodeTrust`, `ToolEffect` and the network/credential scope are classified.
+- Test fixtures, the environment, the rollback point and the acceptance measurement method are reachable.
+- An O/M/P person-day estimate is recorded and real capacity is reserved against it.
 
-| Alt iş | Yapılacak iş | Sorumlu | Tamamlanma kanıtı |
+## Implementation tasks
+
+| Sub-task | Work to be done | Responsible | Completion evidence |
 |---|---|---|---|
-| WP-068-T01 | Annotation item incremental reader yaz | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-068-T02 | Parent attachment→SourceRepresentation mapping yap | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-068-T03 | Text/comment/color/page/position/author/version alanlarını normalize et | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-068-T04 | Attachment hash/locator resolution ve mismatch state'i uygula | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-068-T05 | EvidenceCandidate promotion queue ve duplicate logic ekle | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-068-T06 | Deleted/edited annotation impact davranışını kur | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
+| WP-068-T01 | Write the incremental reader for annotation items | Implementation owner | Commit / configuration / record reference |
+| WP-068-T02 | Map the parent attachment to its `SourceRepresentation` | Implementation owner | Commit / configuration / record reference |
+| WP-068-T03 | Normalise the text, comment, colour, page, position, author and version fields | Implementation owner | Commit / configuration / record reference |
+| WP-068-T04 | Apply attachment hash and locator resolution, including the mismatch state | Implementation owner | Commit / configuration / record reference |
+| WP-068-T05 | Add the `EvidenceCandidate` promotion queue and duplicate logic | Implementation owner | Commit / configuration / record reference |
+| WP-068-T06 | Establish the impact behaviour for deleted and edited annotations | Implementation owner | Commit / configuration / record reference |
 
-## Zorunlu teslimatlar
+## Mandatory deliverables
 
 - `Annotation ingest service`
 - `AnnotationObservation records`
 - `EvidenceCandidate queue`
 - `Promotion/disposition UI contract`
-- Güncellenmiş runbook/operasyon notu ve servis/contract ownership kaydı
-- İmzalı `EvidenceManifest`
+- An updated runbook or operations note, plus the service/contract ownership record
+- A signed `EvidenceManifest`
 
-## Test ve doğrulama planı
+## Test and verification plan
 
-- Highlight correct attachment promotion
-- Mismatched PDF NEEDS_REANCHOR
-- Edited/deleted annotation version
-- Duplicate note/annotation
-- Yetkisiz, eksik, stale, duplicate ve partial-failure girdileri için en az bir negatif test
-- İlgili interface'lerde producer/consumer contract compatibility testi
-- Telemetry correlation ve audit kayıt bütünlüğü kontrolü
+- Promotion of a highlight on the correct attachment
+- `NEEDS_REANCHOR` on a mismatched PDF
+- Versioning of an edited or deleted annotation
+- Duplicate note and annotation handling
+- At least one negative test for unauthorised, missing, stale, duplicate and partial-failure inputs
+- Producer/consumer contract compatibility tests on every affected interface
+- Telemetry correlation and audit-record integrity checks
 
-## Kabul kriterleri
+## Acceptance criteria
 
-- [ ] Annotation otomatik EvidenceSpan veya VERIFIED claim olmaz
-- [ ] Attachment representation hash olmadan promotion yoktur
-- [ ] İnsan yorumu ayrı alan ve provenance taşır
-- [ ] Bütün zorunlu testler aynı target revision üzerinde geçmiştir.
-- [ ] Açık Critical/High finding yoktur; non-waivable blocker bulunmamaktadır.
-- [ ] Bağımsız verifier kanıt paketini kabul etmiştir.
-- [ ] Rollback/compensation davranışı denenmiş ve audit edilmiştir.
-- [ ] İlgili dashboard, alert, audit query veya integrity query çalışma kanıtı üretmiştir.
+- [ ] An annotation never becomes an `EvidenceSpan` or a `VERIFIED` claim automatically.
+- [ ] No promotion occurs without an attachment representation hash.
+- [ ] Human commentary is kept in a separate field with its own provenance.
+- [ ] All mandatory tests passed **on the same target revision**.
+- [ ] No open Critical or High findings; no non-waivable blocker remains.
+- [ ] The independent verifier has accepted the evidence package.
+- [ ] Rollback/compensation behaviour has been exercised and audited.
+- [ ] The related dashboard, alert, audit query or integrity query has produced working evidence.
 
-## Kabul kanıtı paketi
+## Acceptance evidence package
 
-- Aynı target revision/digest üzerinde alınmış test sonuçları
-- Environment, schema, policy ve dependency sürümlerini içeren EvidenceManifest
-- Bağımsız verifier ReviewRecord veya VerificationRecord'u
-- Rollback/compensation denemesi ve sonuç referansı
-- Açık finding, residual risk ve owner/expiry listesi
+- Test results captured on the same target revision/digest
+- An `EvidenceManifest` recording the environment, schema, policy and dependency versions
+- The independent verifier's `ReviewRecord` or `VerificationRecord`
+- The rollback/compensation trial and its result reference
+- The list of open findings and residual risks with owners and expiry dates
 
-## Riskler ve kontrol noktaları
+## Risks and control points
 
-- Contract veya canonical sahiplik belirsizse implementasyon durur ve Architecture Board'a eskale edilir.
-- Identity, data route, artifact integrity, bağımsızlık veya kritik evidence problemi waiver ile geçirilemez.
-- Geçici manuel kontrol gerekiyorsa owner, scope, expiry, compensating control ve kaldırma paketi kaydedilir.
-- Paket tamamlandı beyanı acceptance değildir; verifier kararı olmadan yalnız `TECH_COMPLETE` olabilir.
+- If a contract or canonical ownership question is unresolved, implementation **stops** and the question escalates to the Architecture Board.
+- Identity, data routing, artifact integrity, independence and critical evidence problems **cannot** be passed by waiver.
+- If a temporary manual control is required, its owner, scope, expiry, compensating control and removal package are recorded.
+- A "package complete" statement is **not** acceptance. Without a verifier decision the package can only be `TECH_COMPLETE`.
+
+### Workstream-specific hazards
+
+- Identity errors in sources propagate into every claim that cites them.
+- A write into a shared library without a version precondition can silently destroy a human edit.
+- A literature set that is not frozen cannot support a reproducible claim.
 
 ## Rollback / compensation
 
-Yanlış mapping INVALIDATED candidate yapar; canonical Zotero annotation'a geri yazılmaz.
+A wrong mapping marks the candidate `INVALIDATED`; nothing is ever written back onto the canonical Zotero annotation.
 
-Immutable artifact, review ve karar geçmişi rollback sırasında silinmez; yeni durum supersession veya invalidation kaydıyla gösterilir.
+Immutable artifacts, reviews and decision history are **not** deleted during a rollback; the new state is expressed through a supersession or invalidation record.
 
-## Handoff ve sonraki paketlere giriş
+## Handoff into downstream packages
 
-Paket kabul edildiğinde teslim artifact'larının version/digest'leri Package Registry'ye yazılır, dependency event'i yayımlanır ve bu pakete bağlı READY adayları yeniden değerlendirilir. Downstream paket yalnız burada listelenen contract ve kanıt referanslarını tüketir; implementasyon iç ayrıntılarına bağlanmaz.
+On acceptance, the version and digest of every delivered artifact is written to the Package Registry, the dependency event is published, and every `READY` candidate blocked on this package is re-evaluated. A downstream package consumes **only** the contracts and evidence references listed above; it does not bind to internal implementation details.

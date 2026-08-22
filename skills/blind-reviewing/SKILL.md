@@ -12,51 +12,57 @@ mechanical_checks: [packet_only_access, no_producer_trace_accessed]
 
 # Blind Reviewing
 
-## Genel ilke
+## Core principle
 
-Sen yalnız **dondurulmuş paketi** görürsün. Producer'ın nasıl düşündüğünü
-bilmezsin — ve bilmemelisin.
+You see only the **frozen packet**. You do not know how the producer reasoned —
+and you must not.
 
-## Erişim sınırı
+## Access boundary
 
-Pakette olmayan hiçbir şeyi arama, isteme veya tahmin etmeye çalışma.
-Paket dışı bilgi talebin varsa: **Assurance Lead'e sor**, producer'a değil.
+Do not search for, request, or infer anything outside the packet. If you need
+information the packet lacks, **ask the Assurance Lead**, never the producer.
+Contacting the producer converts a blind review into a conversation.
 
-## Değerlendirme ekseni
+## Assessment axes
 
-| Eksen | Soru |
+| Axis | Question |
 |---|---|
-| Yöntem | Protokol soruyu cevaplayabilir mi? |
-| Kanıt yeterliliği | İddia için yeterli mi? |
-| **Kanıt tanısallığı** | Kanıt rakip açıklamaları **eliyor** mu, yoksa hepsiyle uyumlu mu? |
-| Kapsam | İddia verinin izin verdiğinden fazlasını söylüyor mu? |
-| Tekrar üretilebilirlik | Manifest'ler bunu mümkün kılıyor mu? |
-| Severity | Falsification testi iddia yanlış olsa yakalar mıydı? |
+| Method | Can this protocol answer this question? |
+| Evidence sufficiency | Is there enough for the claim? |
+| **Evidence diagnosticity** | Does the evidence **eliminate** rival explanations, or is it compatible with all of them? |
+| Scope | Does the claim assert more than the data permits? |
+| Reproducibility | Do the manifests actually make reproduction possible? |
+| Severity | Would the falsification test have caught the claim if it were false? |
 
-## Tanısallık — en önemli soru
+## Diagnosticity — the most important question
 
-> Bir kanıt **tüm** rakip hipotezlerle uyumluysa **değersizdir** — ayırt etmiyor.
+> Evidence compatible with **every** rival hypothesis is **worthless** — it
+> discriminates nothing.
 
-Çok kanıt ≠ güçlü kanıt. Ayırt edici kanıt sayısını değerlendir.
+Volume of evidence is not strength of evidence. Count the discriminating items,
+not the total. Ten citations that are all consistent with both the claim and its
+negation carry less weight than one that rules the negation out.
 
 ## Verdict
 
-`ACCEPT` — koşulsuz
-`CONDITIONAL_PASS` — **numaralı, tek tek uygulanabilir koşullarla**
-`REJECT` — gerekçesi yöntem/kanıt/bütünlük; **"sonucu beğenmedim" değil**
+`ACCEPT` — unconditional
+`CONDITIONAL_PASS` — with **numbered, individually actionable** conditions
+`REJECT` — on grounds of method, evidence or integrity; **not "I disliked the
+result"**
 
-Koşullar belirsizse producer onları karşılayamaz. Her koşul tek bir eylem
-tarif etmeli.
+A vague condition cannot be satisfied. Each condition describes one action.
 
-## Yanlılık karşıtı kurallar
+## Anti-bias rules
 
-- Sıra etkisi: birden çok claim varsa sırayı **rastgeleleştir**
-- Kendi üslubunu tanıma: paket anonimdir; yazım stilinden yazar çıkarma
-- Uzunluk yanlılığı: uzun rapor iyi rapor değildir
-- Hemfikirlik baskısı: diğer reviewer'ların verdict'ini **görmezsin**
+- **Order effects:** where several claims are reviewed, **randomise the order**
+- **Self-recognition:** the packet is anonymous; do not infer authorship from
+  writing style, and do not act on the inference if you form one
+- **Length bias:** a long report is not a good report
+- **Conformity:** you do not see other reviewers' verdicts, by design
 
-## Kırmızı bayraklar
+## Red flags
 
-- Paket dışı bilgiye ihtiyaç duyuyorsun ama istemedin
-- Verdict'in gerekçesi sonucun yönüyle ilgili
-- Tüm claim'lere aynı verdict'i verdin
+- You needed information outside the packet and did not request it properly
+- Your verdict's rationale concerns the direction of the result
+- You gave every claim the same verdict
+- You scored evidence volume rather than diagnosticity

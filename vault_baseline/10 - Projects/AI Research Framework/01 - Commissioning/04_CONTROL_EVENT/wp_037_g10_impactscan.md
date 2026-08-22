@@ -1,99 +1,107 @@
-# WP-037 — G10 Temporal Schedule ve Kısa ImpactScan
+# WP-037 — G10 Temporal Schedules and Short ImpactScan Workflows
 
-## Paket kartı
+## Package card
 
-| Alan | Değer |
+| Field | Value |
 |---|---|
-| İş paketi | `WP-037` |
+| Work package | `WP-037` |
 | Workstream | `04_CONTROL_EVENT` |
-| İlk efor sınıfı | **M** — refinement'ta O/M/P tahmini zorunlu |
-| Accountable Owner | Knowledge Monitoring Lead |
-| Bağımsız doğrulayıcı | Assurance Lead / SRE |
+| Initial effort class | **M** — medium — needs a dedicated integration window; a three-point (O/M/P) estimate is mandatory at refinement |
+| Accountable owner | Knowledge Monitoring Lead |
+| Independent verifier | Assurance Lead / SRE |
 | Hard dependencies | WP-008, WP-015, WP-017, WP-018, WP-031, WP-032 |
-| İlgili gate | G10 |
-| İlgili kontroller | CTL-LIT-02, CTL-MOD-02 |
-| İlgili ACC senaryoları | ACC-04, ACC-31, ACC-36 |
+| Related gates | G10 |
+| Related controls | CTL-LIT-02, CTL-MOD-02 |
+| Related acceptance scenarios | ACC-04, ACC-31, ACC-36 |
+| Current status | `NOT_STARTED` |
 
-## Amaç ve beklenen sonuç
+## Purpose and expected outcome
 
-Retraction, source correction, model/data/policy drift ve incident sinyalleri periyodik Schedule ile kısa ömürlü ImpactScan başlatır.
+Retraction, source correction, model/data/policy drift and incident signals launch short-lived `ImpactScan` workflows on a periodic Schedule — never one long-lived monitoring workflow.
 
-## Kapsam dışı
+## Out of scope
 
-- Bağımlı paketin kendi iç implementasyonu
-- Production cutover ve nihai operasyon onayı
 
-## Önkoşullar ve Definition of Ready
+- The internal implementation of any dependent package
+- Production cutover and final operational approval
 
-- Bağımlılıklar kabul edilmiştir: [WP-008 — G0–G10 Gate ve Assurance Politikası](../01_GOVERNANCE/wp_008_gate_policy_g0_g10.md), [WP-015 — Event Envelope, Subject ve Schema Taxonomy](../02_CONTRACTS/wp_015_event_envelope_taxonomy.md), [WP-017 — Source Registry ve Literature Contract Şemaları](../02_CONTRACTS/wp_017_source_literature_contracts.md), [WP-018 — Claim, Evidence, Review ve Decision Şemaları](../02_CONTRACTS/wp_018_claim_review_decision_contracts.md), [WP-031 — Temporal Platform, Namespace ve HA](../04_CONTROL_EVENT/wp_031_temporal_platform.md), [WP-032 — ProjectLifecycle Workflow İskeleti](../04_CONTROL_EVENT/wp_032_project_lifecycle_skeleton.md)
-- Named owner, implementer ve producer'dan bağımsız verifier atanmıştır.
-- Etkilenen canonical kayıtlar, interface'ler ve ADR'lar refinement'ta ilişkilendirilmiştir.
-- DataClass, CodeTrust, ToolEffect ve ağ/credential kapsamı sınıflandırılmıştır.
-- Test fixture, environment, rollback noktası ve acceptance ölçüm yöntemi erişilebilirdir.
-- Efor için O/M/P kişi-gün tahmini ve gerçek kapasite rezervasyonu kaydedilmiştir.
+## Preconditions — Definition of Ready
 
-## Uygulama görevleri
+- Dependencies accepted: [WP-008 — G0–G10 Gate and Assurance Policy](../01_GOVERNANCE/wp_008_gate_policy_g0_g10.md), [WP-015 — Event Envelope, Subject and Schema Taxonomy](../02_CONTRACTS/wp_015_event_envelope_taxonomy.md), [WP-017 — Source Registry and Literature Contract Schemas](../02_CONTRACTS/wp_017_source_literature_contracts.md), [WP-018 — Claim, Evidence, Review and Decision Schemas](../02_CONTRACTS/wp_018_claim_review_decision_contracts.md), [WP-031 — Temporal Platform, Namespaces and HA](../04_CONTROL_EVENT/wp_031_temporal_platform.md), [WP-032 — ProjectLifecycle Workflow Skeleton](../04_CONTROL_EVENT/wp_032_project_lifecycle_skeleton.md)
+- A named owner, a named implementer, and a verifier **independent of the producer** are assigned.
+- Affected canonical records, interfaces and ADRs have been linked during refinement.
+- `DataClass`, `CodeTrust`, `ToolEffect` and the network/credential scope are classified.
+- Test fixtures, the environment, the rollback point and the acceptance measurement method are reachable.
+- An O/M/P person-day estimate is recorded and real capacity is reserved against it.
 
-| Alt iş | Yapılacak iş | Sorumlu | Tamamlanma kanıtı |
+## Implementation tasks
+
+| Sub-task | Work to be done | Responsible | Completion evidence |
 |---|---|---|---|
-| WP-037-T01 | MonitoringPolicy ve schedule registry kur | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-037-T02 | Source/model/data/policy/incident trigger adapter'ları yaz | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-037-T03 | Impact graph query ve affected claim/project listesi üret | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-037-T04 | ImpactCase priority/SLA/owner ata | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-037-T05 | Supersession/re-evaluation workflow dispatch et | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-037-T06 | False-positive disposition ve audit ekle | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
+| WP-037-T01 | Establish the `MonitoringPolicy` and schedule registry | Implementation owner | Commit / configuration / record reference |
+| WP-037-T02 | Write the source, model, data, policy and incident trigger adapters | Implementation owner | Commit / configuration / record reference |
+| WP-037-T03 | Produce the impact graph query and the affected claim/project list | Implementation owner | Commit / configuration / record reference |
+| WP-037-T04 | Assign `ImpactCase` priority, SLA and owner | Implementation owner | Commit / configuration / record reference |
+| WP-037-T05 | Dispatch the supersession and re-evaluation workflows | Implementation owner | Commit / configuration / record reference |
+| WP-037-T06 | Add false-positive disposition and audit | Implementation owner | Commit / configuration / record reference |
 
-## Zorunlu teslimatlar
+## Mandatory deliverables
 
 - `ImpactScan workflow`
 - `Schedule registry`
 - `ImpactCase service contract`
 - `Supersession trigger`
-- Güncellenmiş runbook/operasyon notu ve servis/contract ownership kaydı
-- İmzalı `EvidenceManifest`
+- An updated runbook or operations note, plus the service/contract ownership record
+- A signed `EvidenceManifest`
 
-## Test ve doğrulama planı
+## Test and verification plan
 
-- Retraction→affected claim testi
-- Model revoke→open task testi
-- Schedule retry/idempotency
-- Eski claim sessiz mutate negative test
-- Yetkisiz, eksik, stale, duplicate ve partial-failure girdileri için en az bir negatif test
-- İlgili interface'lerde producer/consumer contract compatibility testi
-- Telemetry correlation ve audit kayıt bütünlüğü kontrolü
+- A retraction → affected-claim test
+- A model revocation → open-task test
+- Schedule retry and idempotency
+- A negative test proving old claims are never silently mutated
+- At least one negative test for unauthorised, missing, stale, duplicate and partial-failure inputs
+- Producer/consumer contract compatibility tests on every affected interface
+- Telemetry correlation and audit-record integrity checks
 
-## Kabul kriterleri
+## Acceptance criteria
 
-- [ ] Uzun ömürlü tek monitoring workflow yoktur
-- [ ] Her scan bounded ve idempotent'tır
-- [ ] Etkilenen claim owner queue ve status değişimi alır
-- [ ] Bütün zorunlu testler aynı target revision üzerinde geçmiştir.
-- [ ] Açık Critical/High finding yoktur; non-waivable blocker bulunmamaktadır.
-- [ ] Bağımsız verifier kanıt paketini kabul etmiştir.
-- [ ] Rollback/compensation davranışı denenmiş ve audit edilmiştir.
-- [ ] İlgili dashboard, alert, audit query veya integrity query çalışma kanıtı üretmiştir.
+- [ ] No single long-lived monitoring workflow exists.
+- [ ] Every scan is bounded and idempotent.
+- [ ] Affected claim owners receive a queue item and a status change.
+- [ ] All mandatory tests passed **on the same target revision**.
+- [ ] No open Critical or High findings; no non-waivable blocker remains.
+- [ ] The independent verifier has accepted the evidence package.
+- [ ] Rollback/compensation behaviour has been exercised and audited.
+- [ ] The related dashboard, alert, audit query or integrity query has produced working evidence.
 
-## Kabul kanıtı paketi
+## Acceptance evidence package
 
-- Aynı target revision/digest üzerinde alınmış test sonuçları
-- Environment, schema, policy ve dependency sürümlerini içeren EvidenceManifest
-- Bağımsız verifier ReviewRecord veya VerificationRecord'u
-- Rollback/compensation denemesi ve sonuç referansı
-- Açık finding, residual risk ve owner/expiry listesi
+- Test results captured on the same target revision/digest
+- An `EvidenceManifest` recording the environment, schema, policy and dependency versions
+- The independent verifier's `ReviewRecord` or `VerificationRecord`
+- The rollback/compensation trial and its result reference
+- The list of open findings and residual risks with owners and expiry dates
 
-## Riskler ve kontrol noktaları
+## Risks and control points
 
-- Contract veya canonical sahiplik belirsizse implementasyon durur ve Architecture Board'a eskale edilir.
-- Identity, data route, artifact integrity, bağımsızlık veya kritik evidence problemi waiver ile geçirilemez.
-- Geçici manuel kontrol gerekiyorsa owner, scope, expiry, compensating control ve kaldırma paketi kaydedilir.
-- Paket tamamlandı beyanı acceptance değildir; verifier kararı olmadan yalnız `TECH_COMPLETE` olabilir.
+- If a contract or canonical ownership question is unresolved, implementation **stops** and the question escalates to the Architecture Board.
+- Identity, data routing, artifact integrity, independence and critical evidence problems **cannot** be passed by waiver.
+- If a temporary manual control is required, its owner, scope, expiry, compensating control and removal package are recorded.
+- A "package complete" statement is **not** acceptance. Without a verifier decision the package can only be `TECH_COMPLETE`.
+
+### Workstream-specific hazards
+
+- Any consumer that can change gate state creates dual authority over the workflow.
+- At-least-once delivery means every consumer must be idempotent, without exception.
+- A workflow change that breaks open executions is a data incident, not a deploy.
 
 ## Rollback / compensation
 
-Hatalı impact sonucu yeni disposition ile kapatılır; kaynak/claim geçmişi silinmez.
+A faulty impact result is closed with a new disposition; the source and claim history is never deleted.
 
-Immutable artifact, review ve karar geçmişi rollback sırasında silinmez; yeni durum supersession veya invalidation kaydıyla gösterilir.
+Immutable artifacts, reviews and decision history are **not** deleted during a rollback; the new state is expressed through a supersession or invalidation record.
 
-## Handoff ve sonraki paketlere giriş
+## Handoff into downstream packages
 
-Paket kabul edildiğinde teslim artifact'larının version/digest'leri Package Registry'ye yazılır, dependency event'i yayımlanır ve bu pakete bağlı READY adayları yeniden değerlendirilir. Downstream paket yalnız burada listelenen contract ve kanıt referanslarını tüketir; implementasyon iç ayrıntılarına bağlanmaz.
+On acceptance, the version and digest of every delivered artifact is written to the Package Registry, the dependency event is published, and every `READY` candidate blocked on this package is re-evaluated. A downstream package consumes **only** the contracts and evidence references listed above; it does not bind to internal implementation details.

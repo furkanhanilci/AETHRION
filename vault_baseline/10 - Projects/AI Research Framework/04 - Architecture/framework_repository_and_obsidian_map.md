@@ -1,102 +1,125 @@
 # AI Research Framework — Repository and Obsidian Map
 
-Framework'ün bütün parçalarının nerede tutulduğunu gösterir.
-**Repo kökü ile framework kökü aynıdır**; Bridge, framework içindeki
-bileşenlerden yalnızca biridir.
+Shows where every part of the framework is kept.
+**The repository root and the framework root are the same**; the Bridge is one
+component inside the framework, not the framework itself.
 
-## Kanonik kökler
+## Canonical roots
 
-| Alan | Konum | Rol |
+| Area | Location | Role |
 |---|---|---|
-| Framework deposu | `/home/otonom/Desktop/FH/AI_RESEARCH_FRAMEWORK/` | Git repo kökü — kod, plan, skill, doküman, kanıt |
+| Framework repository | `/home/otonom/Desktop/FH/AI_RESEARCH_FRAMEWORK/` | The Git repository root — code, plan, skills, documents, evidence |
 | Remote | `github.com/furkanhanilci/AI-Research-Framework` | private, `main` |
-| Obsidian vault | `/home/otonom/Documents/Obsidian Vault/` | Kullanıcıya görünen proje bilgi alanı |
-| SILBO model worktree | `/home/otonom/silbo-fix-005/` | Ayrı model/evaluation alanı; framework ile karıştırılmaz |
+| Obsidian vault | `/home/otonom/Documents/Obsidian Vault/` | The user-facing project knowledge space |
+| SILBO model worktree | `/home/otonom/silbo-fix-005/` | A separate model/evaluation area; never mixed with the framework |
 
-## Repository yapısı
+## Repository structure
 
 ```text
-AI_RESEARCH_FRAMEWORK/            ← git repo kökü
+AI_RESEARCH_FRAMEWORK/            ← the Git repository root
 ├── src/
-│   ├── airl_bridge/              Bridge bileşeni (Zotero → SQLite → Obsidian → MCP)
-│   └── airl_framework/           Ortak contract çekirdeği
-├── tests/                        Test paketi
-├── skills/                       38 yürütme skill'i (Skill Registry)
+│   ├── airl_bridge/              The Bridge component (Zotero → SQLite → Obsidian → MCP)
+│   └── airl_framework/           The shared contract core
+├── tests/                        The test suite
+├── skills/                       38 execution skills (the Skill Registry)
 ├── planning/
-│   └── commissioning/            WP-001–130, ACC-01–40 — KANONİK, hash mühürlü
+│   └── commissioning/            WP-001–140, ACC-01–40 — CANONICAL, hash-sealed
 ├── docs/
-│   ├── architecture/             Hedef mimari ve skill katmanı tasarımı
-│   ├── review/                   Bağımsız review talimat ve raporları
-│   ├── ARCHITECTURE_V0.md        Çalışan dikey dilimin mimarisi
-│   └── OPERATIONS.md             İşletim rehberi
-├── schemas/                      Ortak contract şemaları
-├── delivery/                     Paket başına kanıt paketleri
-├── deploy/                       systemd unit dosyaları
-├── scripts/                      Acceptance ve smoke betikleri
-├── vault_baseline/               Obsidian vault'un versiyonlanmış kopyası
-├── data/                         SQLite ve projeksiyon yedekleri (git dışı)
-└── .venv/                        Sanal ortam (git dışı)
+│   ├── architecture/             Target architecture and skill layer design
+│   ├── review/                   Independent review instructions and reports
+│   ├── ARCHITECTURE_V0.md        The architecture of the working vertical slice
+│   └── OPERATIONS.md             The operations guide
+├── schemas/                      Shared contract schemas
+├── delivery/                     Per-package evidence packages
+├── deploy/                       systemd unit files
+├── scripts/                      Acceptance, smoke and mirror-generation scripts
+├── vault_baseline/               A versioned copy of the Obsidian vault
+├── data/                         SQLite and projection backups (not in Git)
+└── .venv/                        The virtual environment (not in Git)
 ```
 
-## Plan bütünlüğü
+## Plan integrity
 
-`planning/commissioning/00_PROGRAM/SHA256SUMS.txt` 184 dosyayı mühürler.
-Doğrulama, repo kökünden:
+`planning/commissioning/00_PROGRAM/SHA256SUMS.txt` seals the plan tree. Verify
+from the repository root:
 
 ```bash
 sha256sum -c planning/commissioning/00_PROGRAM/SHA256SUMS.txt
 ```
 
-> Plan **tek kanonik kopyada** tutulur. Obsidian'daki `01 - Commissioning/`
-> okuma/navigasyon aynasıdır; içerik değişecekse **önce kanonik dosya** değişir.
+> The plan is kept in **one canonical copy**. The `01 - Commissioning/` tree in
+> Obsidian is a reading and navigation mirror; **if content changes, the canonical
+> file changes first**, then the mirror is regenerated.
 
-## Obsidian proje ağacı
+## The Obsidian project tree
 
 ```text
 10 - Projects/AI Research Framework/
-├── 00_navigation_and_execution_cockpit.md   yürütme durumu ve sonraki adım
-├── 01 - Commissioning/                      plan aynası (İngilizce adlandırma)
-├── 02 - Reviews/                            bağımsız review talimat ve sonuçları
-├── 03 - Implementation/                     uygulama adımları
-├── 04 - Architecture/                       mimari ve haritalar
-├── 05 - Evidence/                           test, hash, acceptance kanıtı
-├── 06 - Components/                         bileşen durumları
-├── 07 - Skills/                             38 skill, yedi grupta
-├── implementation_log.md                    adım günlüğü
+├── 00_navigation_and_execution_cockpit.md   execution state and the next step
+├── 01 - Commissioning/                      the plan mirror (generated)
+├── 02 - Reviews/                            independent review instructions and results
+├── 03 - Implementation/                     implementation steps
+├── 04 - Architecture/                       architecture and maps (generated)
+├── 05 - Evidence/                           test, hash and acceptance evidence
+├── 06 - Components/                         component status
+├── 07 - Skills/                             38 skills in seven groups (generated)
+├── implementation_log.md                    the step-by-step log
 └── ai_research_framework_current_status_and_roadmap.md
 ```
 
-## Vault kök yapısı
+## Generated versus human-authored
 
-| Alan | İçerik | Kim yazar |
+Three areas of the Obsidian project tree are **generated** and must never be
+edited in place:
+
+| Area | Generated from | Generator |
 |---|---|---|
-| `00 - Home` | Giriş sayfası | insan |
-| `01 - Inbox` | Sınıflandırılmamış geçici not | insan |
-| `10 - Projects` | Proje ağaçları | insan |
-| `20 - Source Notes` | İnsan sentezi | **yalnız insan** |
-| `30 - Concepts` · `40 - Claims` · `50 - Decisions` · `60 - Runs` | Bilgi alanları | insan |
-| `70 - Literature Sets` kökü | Kürasyonlu setler | insan |
-| `70 - Literature Sets/Zotero Sources` | **Otomatik projeksiyon** | **Bridge — elle düzenlenmez** |
-| `80 - Daily` | Günlük çalışma notu | insan |
-| `90 - Archive` | Kapanmış/superseded | insan |
-| `_Templates` | Not şablonları | insan |
+| `01 - Commissioning/` | `planning/commissioning/` | `scripts/mirror_plan.py` |
+| `02 - Reviews/`, `04 - Architecture/` | `docs/` | `scripts/mirror_vault.py` |
+| `07 - Skills/` | `skills/` | `scripts/mirror_vault.py` |
+| `70 - Literature Sets/Zotero Sources/` | the canonical source registry | the Bridge API |
 
-## Adlandırma kuralları
+Everything else in the vault is human-authored and is never overwritten by a
+generator.
 
-- **Klasör ve dosya adları İngilizce.** Ürün kodu ön eki veya Türkçe ad kullanılmaz.
-- Obsidian notları `lowercase_snake_case.md`.
-- Her klasör indeksi `<alan>_index.md` (`reviews_index`, `skills_index`…).
-  Sebep: `README` gibi yinelenen adlar Obsidian kısa-yol linklerinde belirsizlik yaratır.
-- Skill dosyaları `lowercase-hyphen` (skill adıyla birebir).
-- Ayna üreticisi bu kuralları yeniden üretmelidir.
+Both scripts accept `--check`: they write nothing and exit non-zero if the mirror
+has drifted from what would be generated. That is the drift check intended for
+CI.
 
-> **Bilinen istisna:** `planning/commissioning/` altındaki WP ve ACC dosya adları
-> hâlâ karışık Türkçe/İngilizce (`WP-002_kapsam_nfr_izlenebilirlik.md`).
-> Obsidian aynası bunları İngilizceye çevirir. Kanonik tarafın da çevrilmesi
-> ayrı bir adımdır ve hash mührünün yenilenmesini gerektirir.
+```bash
+python scripts/mirror_plan.py  "$VAULT/10 - Projects/AI Research Framework/01 - Commissioning" --check
+python scripts/mirror_vault.py "$VAULT/10 - Projects/AI Research Framework" --check
+```
 
-## Sınır kuralı
+## Vault root structure
 
-Kod ve teknik teslimatlar repository'de kalır; kullanıcıya dönük proje durumu,
-kararlar, review talimatları, kanıt ve yol haritası Obsidian proje ağacında
-görünür tutulur. İkisi arasındaki kopya ilişkisi hash ile doğrulanır.
+| Area | Content | Who writes |
+|---|---|---|
+| `00 - Home` | The entry page | human |
+| `01 - Inbox` | Unclassified temporary notes | human |
+| `10 - Projects` | Project trees | human + generators (see above) |
+| `20 - Source Notes` | Human synthesis | **human only** |
+| `30 - Concepts` · `40 - Claims` · `50 - Decisions` · `60 - Runs` | Knowledge areas | human |
+| `70 - Literature Sets` root | Curated sets | human |
+| `70 - Literature Sets/Zotero Sources` | **An automatic projection** | **the Bridge — never edited by hand** |
+| `80 - Daily` | The daily working note | human |
+| `90 - Archive` | Closed or superseded material | human |
+| `_Templates` | Note templates | human |
+
+## Naming conventions
+
+- **Folder and file names are English.** No product-code prefixes.
+- Obsidian notes use `lowercase_snake_case.md`.
+- Each folder index is `<area>_index.md` (`reviews_index`, `skills_index`, …).
+  Reason: repeated names such as `README` make Obsidian shortlinks ambiguous.
+- Skill files use `lowercase-hyphen`, matching the skill name exactly.
+- Plan mirror files map `WP-001_x.md` → `wp_001_x.md` and `ACC-01_x.md` →
+  `acc_01_x.md`; the generator reproduces this rule and rewrites intra-plan links
+  to match.
+
+## The boundary rule
+
+Code and technical deliverables stay in the repository; user-facing project
+status, decisions, review instructions, evidence and the roadmap stay visible in
+the Obsidian project tree. The copy relationship between the two is verified by
+hash and by the `--check` mode of the generators.

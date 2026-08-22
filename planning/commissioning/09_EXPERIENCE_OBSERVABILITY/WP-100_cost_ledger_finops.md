@@ -1,101 +1,109 @@
-# WP-100 — Cost Ledger, Bütçe Zarfları ve FinOps
+# WP-100 — Cost Ledger, Budget Envelopes and FinOps
 
-## Paket kartı
+## Package card
 
-| Alan | Değer |
+| Field | Value |
 |---|---|
-| İş paketi | `WP-100` |
+| Work package | `WP-100` |
 | Workstream | `09_EXPERIENCE_OBSERVABILITY` |
-| İlk efor sınıfı | **L** — refinement'ta O/M/P tahmini zorunlu |
-| Accountable Owner | FinOps Lead |
-| Bağımsız doğrulayıcı | Project Decision Owner / Internal Audit |
+| Initial effort class | **L** — large — split into sub-deliveries if it cannot be reviewed in one pass; a three-point (O/M/P) estimate is mandatory at refinement |
+| Accountable owner | FinOps Lead |
+| Independent verifier | Project Decision Owner / Internal Audit |
 | Hard dependencies | WP-011, WP-013, WP-015, WP-016, WP-025, WP-028, WP-041, WP-045, WP-049, WP-052, WP-053, WP-082, WP-096 |
-| İlgili gate | G0,G4,G5,G8 |
-| İlgili kontroller | CTL-CST-01, CTL-CST-02 |
-| İlgili ACC senaryoları | ACC-09, ACC-29 |
+| Related gates | G0,G4,G5,G8 |
+| Related controls | CTL-CST-01, CTL-CST-02 |
+| Related acceptance scenarios | ACC-09, ACC-29 |
+| Current status | `NOT_STARTED` |
 
-## Amaç ve beklenen sonuç
+## Purpose and expected outcome
 
-Model, compute, retrieval, storage, verification ve human triage maliyeti project/workflow/run/role/profile/outcome'a bağlanır; 80% uyarı ve 100% hard stop uygulanır.
+Model, compute, retrieval, storage, verification and human triage costs are attributed to project, workflow, run, role, profile and outcome, with an 80% warning and a 100% hard stop.
 
-## Kapsam dışı
+## Out of scope
 
-- Bağımlı paketin kendi iç implementasyonu
-- Production cutover ve nihai operasyon onayı
 
-## Önkoşullar ve Definition of Ready
+- The internal implementation of any dependent package
+- Production cutover and final operational approval
 
-- Bağımlılıklar kabul edilmiştir: [WP-011 — Kimlik ve Uçtan Uca Korelasyon Standardı](../02_CONTRACTS/WP-011_kimlik_korelasyon_standardi.md), [WP-013 — Project, Task ve Role Contract Şemaları](../02_CONTRACTS/WP-013_project_task_role_contracts.md), [WP-015 — Event Envelope, Subject ve Schema Taxonomy](../02_CONTRACTS/WP-015_event_envelope_taxonomy.md), [WP-016 — PolicyDecision, Control ve Exception Şemaları](../02_CONTRACTS/WP-016_policy_control_exception_contracts.md), [WP-025 — PostgreSQL HA ve Registry Veri Temeli](../03_FOUNDATION/WP-025_postgres_ha_temeli.md), [WP-028 — NATS JetStream ve Transactional Outbox Temeli](../03_FOUNDATION/WP-028_nats_jetstream_outbox.md), [WP-041 — LiteLLM Model Gateway Temeli](../05_MODEL_AGENT_TOOL/WP-041_litellm_gateway.md), [WP-045 — Policy Router ve Minimum Yeterli Model Paketi](../05_MODEL_AGENT_TOOL/WP-045_policy_router_budget.md), [WP-049 — Tool Registry ve Tool Broker Çekirdeği](../05_MODEL_AGENT_TOOL/WP-049_tool_registry_broker.md), [WP-052 — Kubernetes Cluster ve Node Pool Baseline](../06_EXECUTION_SECURITY/WP-052_kubernetes_cluster.md), [WP-053 — Kueue Queue, Kota ve Öncelik Politikası](../06_EXECUTION_SECURITY/WP-053_kueue_quota.md), [WP-082 — Run Registry ve MLflow Lineage Entegrasyonu](../08_EVIDENCE_ASSURANCE/WP-082_run_registry_mlflow.md), [WP-096 — OpenTelemetry Uçtan Uca Correlation Spine](../09_EXPERIENCE_OBSERVABILITY/WP-096_otel_correlation.md)
-- Named owner, implementer ve producer'dan bağımsız verifier atanmıştır.
-- Etkilenen canonical kayıtlar, interface'ler ve ADR'lar refinement'ta ilişkilendirilmiştir.
-- DataClass, CodeTrust, ToolEffect ve ağ/credential kapsamı sınıflandırılmıştır.
-- Test fixture, environment, rollback noktası ve acceptance ölçüm yöntemi erişilebilirdir.
-- Efor için O/M/P kişi-gün tahmini ve gerçek kapasite rezervasyonu kaydedilmiştir.
+## Preconditions — Definition of Ready
 
-## Uygulama görevleri
+- Dependencies accepted: [WP-011 — Identity and End-to-End Correlation Standard](../02_CONTRACTS/WP-011_identity_correlation_standard.md), [WP-013 — Project, Task and Role Contract Schemas](../02_CONTRACTS/WP-013_project_task_role_contracts.md), [WP-015 — Event Envelope, Subject and Schema Taxonomy](../02_CONTRACTS/WP-015_event_envelope_taxonomy.md), [WP-016 — PolicyDecision, Control and Exception Schemas](../02_CONTRACTS/WP-016_policy_control_exception_contracts.md), [WP-025 — PostgreSQL HA and Registry Data Foundation](../03_FOUNDATION/WP-025_postgres_ha_foundation.md), [WP-028 — NATS JetStream and Transactional Outbox Foundation](../03_FOUNDATION/WP-028_nats_jetstream_outbox.md), [WP-041 — LiteLLM Model Gateway Foundation](../05_MODEL_AGENT_TOOL/WP-041_litellm_gateway.md), [WP-045 — Policy Router and Minimum-Sufficient Model Package](../05_MODEL_AGENT_TOOL/WP-045_policy_router_budget.md), [WP-049 — Tool Registry and Tool Broker Core](../05_MODEL_AGENT_TOOL/WP-049_tool_registry_broker.md), [WP-052 — Kubernetes Cluster and Node Pool Baseline](../06_EXECUTION_SECURITY/WP-052_kubernetes_cluster.md), [WP-053 — Kueue Queue, Quota and Priority Policy](../06_EXECUTION_SECURITY/WP-053_kueue_quota.md), [WP-082 — Run Registry and MLflow Lineage Integration](../08_EVIDENCE_ASSURANCE/WP-082_run_registry_mlflow.md), [WP-096 — OpenTelemetry End-to-End Correlation Spine](../09_EXPERIENCE_OBSERVABILITY/WP-096_otel_correlation.md)
+- A named owner, a named implementer, and a verifier **independent of the producer** are assigned.
+- Affected canonical records, interfaces and ADRs have been linked during refinement.
+- `DataClass`, `CodeTrust`, `ToolEffect` and the network/credential scope are classified.
+- Test fixtures, the environment, the rollback point and the acceptance measurement method are reachable.
+- An O/M/P person-day estimate is recorded and real capacity is reserved against it.
 
-| Alt iş | Yapılacak iş | Sorumlu | Tamamlanma kanıtı |
+## Implementation tasks
+
+| Sub-task | Work to be done | Responsible | Completion evidence |
 |---|---|---|---|
-| WP-100-T01 | BudgetEnvelope/C0–C4 class ve reservation API kur | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-100-T02 | Gateway/Kueue/tool/storage/human cost event ingest et | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-100-T03 | Estimate/reserve/commit/release ve retry/fan-out attribution yaz | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-100-T04 | 80/100% Temporal pause/decision entegrasyonu yap | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-100-T05 | Provider invoice reconciliation/variance case ekle | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-100-T06 | Quality-adjusted cost/outcome dashboard ve forecast kur | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
+| WP-100-T01 | Establish the `BudgetEnvelope`, C0–C4 classes and the reservation API | Implementation owner | Commit / configuration / record reference |
+| WP-100-T02 | Ingest gateway, Kueue, tool, storage and human cost events | Implementation owner | Commit / configuration / record reference |
+| WP-100-T03 | Write estimate → reserve → commit → release plus retry and fan-out attribution | Implementation owner | Commit / configuration / record reference |
+| WP-100-T04 | Integrate the 80% and 100% thresholds with Temporal pause and decision flows | Implementation owner | Commit / configuration / record reference |
+| WP-100-T05 | Add provider invoice reconciliation and variance cases | Implementation owner | Commit / configuration / record reference |
+| WP-100-T06 | Build the quality-adjusted cost/outcome dashboard and forecast | Implementation owner | Commit / configuration / record reference |
 
-## Zorunlu teslimatlar
+## Mandatory deliverables
 
 - `Cost Ledger`
 - `Budget service`
 - `Cost adapters`
 - `Invoice reconciliation`
 - `FinOps dashboard/runbook`
-- Güncellenmiş runbook/operasyon notu ve servis/contract ownership kaydı
-- İmzalı `EvidenceManifest`
+- An updated runbook or operations note, plus the service/contract ownership record
+- A signed `EvidenceManifest`
 
-## Test ve doğrulama planı
+## Test and verification plan
 
-- 80% warning
-- 100% new expensive work deny
-- Cancelled reservation release
-- Duplicate cost event idempotency
-- Invoice variance case
-- Yetkisiz, eksik, stale, duplicate ve partial-failure girdileri için en az bir negatif test
-- İlgili interface'lerde producer/consumer contract compatibility testi
-- Telemetry correlation ve audit kayıt bütünlüğü kontrolü
+- The 80% warning
+- Denial of new expensive work at 100%
+- Release of a cancelled reservation
+- Idempotency against duplicate cost events
+- An invoice variance case
+- At least one negative test for unauthorised, missing, stale, duplicate and partial-failure inputs
+- Producer/consumer contract compatibility tests on every affected interface
+- Telemetry correlation and audit-record integrity checks
 
-## Kabul kriterleri
+## Acceptance criteria
 
-- [ ] Hard budget aşıldığında state kaybolmaz
-- [ ] Maliyet salt token değildir
-- [ ] Critical assurance kapasitesi budget policy'de görünürdür
-- [ ] Bütün zorunlu testler aynı target revision üzerinde geçmiştir.
-- [ ] Açık Critical/High finding yoktur; non-waivable blocker bulunmamaktadır.
-- [ ] Bağımsız verifier kanıt paketini kabul etmiştir.
-- [ ] Rollback/compensation davranışı denenmiş ve audit edilmiştir.
-- [ ] İlgili dashboard, alert, audit query veya integrity query çalışma kanıtı üretmiştir.
+- [ ] Exceeding a hard budget never loses state.
+- [ ] Cost is not measured in tokens alone.
+- [ ] Critical assurance capacity is visible inside the budget policy.
+- [ ] All mandatory tests passed **on the same target revision**.
+- [ ] No open Critical or High findings; no non-waivable blocker remains.
+- [ ] The independent verifier has accepted the evidence package.
+- [ ] Rollback/compensation behaviour has been exercised and audited.
+- [ ] The related dashboard, alert, audit query or integrity query has produced working evidence.
 
-## Kabul kanıtı paketi
+## Acceptance evidence package
 
-- Aynı target revision/digest üzerinde alınmış test sonuçları
-- Environment, schema, policy ve dependency sürümlerini içeren EvidenceManifest
-- Bağımsız verifier ReviewRecord veya VerificationRecord'u
-- Rollback/compensation denemesi ve sonuç referansı
-- Açık finding, residual risk ve owner/expiry listesi
+- Test results captured on the same target revision/digest
+- An `EvidenceManifest` recording the environment, schema, policy and dependency versions
+- The independent verifier's `ReviewRecord` or `VerificationRecord`
+- The rollback/compensation trial and its result reference
+- The list of open findings and residual risks with owners and expiry dates
 
-## Riskler ve kontrol noktaları
+## Risks and control points
 
-- Contract veya canonical sahiplik belirsizse implementasyon durur ve Architecture Board'a eskale edilir.
-- Identity, data route, artifact integrity, bağımsızlık veya kritik evidence problemi waiver ile geçirilemez.
-- Geçici manuel kontrol gerekiyorsa owner, scope, expiry, compensating control ve kaldırma paketi kaydedilir.
-- Paket tamamlandı beyanı acceptance değildir; verifier kararı olmadan yalnız `TECH_COMPLETE` olabilir.
+- If a contract or canonical ownership question is unresolved, implementation **stops** and the question escalates to the Architecture Board.
+- Identity, data routing, artifact integrity, independence and critical evidence problems **cannot** be passed by waiver.
+- If a temporary manual control is required, its owner, scope, expiry, compensating control and removal package are recorded.
+- A "package complete" statement is **not** acceptance. Without a verifier decision the package can only be `TECH_COMPLETE`.
+
+### Workstream-specific hazards
+
+- A decision surface that does not show the evidence delta invites rubber-stamping.
+- Telemetry without correlation identifiers cannot answer the questions incidents raise.
+- An alert nobody acknowledges is a defect in the alert, not in the responder.
 
 ## Rollback / compensation
 
-Yanlış cost adapter etkisi reconciliation ile düzeltilir; hard stop manual disable edilmez, owner DecisionRecord gerekir.
+The effect of a faulty cost adapter is corrected through reconciliation; a hard stop is never disabled manually — it requires an owner `DecisionRecord`.
 
-Immutable artifact, review ve karar geçmişi rollback sırasında silinmez; yeni durum supersession veya invalidation kaydıyla gösterilir.
+Immutable artifacts, reviews and decision history are **not** deleted during a rollback; the new state is expressed through a supersession or invalidation record.
 
-## Handoff ve sonraki paketlere giriş
+## Handoff into downstream packages
 
-Paket kabul edildiğinde teslim artifact'larının version/digest'leri Package Registry'ye yazılır, dependency event'i yayımlanır ve bu pakete bağlı READY adayları yeniden değerlendirilir. Downstream paket yalnız burada listelenen contract ve kanıt referanslarını tüketir; implementasyon iç ayrıntılarına bağlanmaz.
+On acceptance, the version and digest of every delivered artifact is written to the Package Registry, the dependency event is published, and every `READY` candidate blocked on this package is re-evaluated. A downstream package consumes **only** the contracts and evidence references listed above; it does not bind to internal implementation details.

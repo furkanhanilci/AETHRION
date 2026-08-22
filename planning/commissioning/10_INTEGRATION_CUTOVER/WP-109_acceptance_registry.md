@@ -1,101 +1,109 @@
-# WP-109 — Kırk Acceptance Senaryosu Registry ve Harness
+# WP-109 — Forty Acceptance Scenario Registry and Harness
 
-## Paket kartı
+## Package card
 
-| Alan | Değer |
+| Field | Value |
 |---|---|
-| İş paketi | `WP-109` |
+| Work package | `WP-109` |
 | Workstream | `10_INTEGRATION_CUTOVER` |
-| İlk efor sınıfı | **L** — refinement'ta O/M/P tahmini zorunlu |
-| Accountable Owner | Platform Assurance Lead |
-| Bağımsız doğrulayıcı | Commissioning Board |
+| Initial effort class | **L** — large — split into sub-deliveries if it cannot be reviewed in one pass; a three-point (O/M/P) estimate is mandatory at refinement |
+| Accountable owner | Platform Assurance Lead |
+| Independent verifier | Commissioning Board |
 | Hard dependencies | WP-002, WP-009, WP-020, WP-024, WP-040, WP-060, WP-090, WP-099, WP-102, WP-103, WP-104, WP-105, WP-106, WP-107, WP-108 |
-| İlgili gate | Commissioning |
-| İlgili kontroller | CTL-OPS-02, CTL-SEC-04 |
-| İlgili ACC senaryoları | İlgili dikey dilim ve commissioning sırasında atanır |
+| Related gates | Commissioning |
+| Related controls | CTL-OPS-02, CTL-SEC-04 |
+| Related acceptance scenarios | Assigned during the relevant vertical slice and commissioning |
+| Current status | `NOT_STARTED` |
 
-## Amaç ve beklenen sonuç
+## Purpose and expected outcome
 
-ACC-01–ACC-40 Given/When/Then, fixture, expected event/invariant, evidence, owner, severity ve cleanup ile versioned test registry'sinde otomatik/manuel çalıştırılabilir olur.
+ACC-01 to ACC-40 become runnable — automatically or with a witnessed manual step — in a versioned test registry carrying Given/When/Then, fixtures, expected events and invariants, evidence, owner, severity and cleanup.
 
-## Kapsam dışı
+## Out of scope
 
-- Bağımlı paketin kendi iç implementasyonu
-- Production cutover ve nihai operasyon onayı
 
-## Önkoşullar ve Definition of Ready
+- The internal implementation of any dependent package
+- Production cutover and final operational approval
 
-- Bağımlılıklar kabul edilmiştir: [WP-002 — Kapsam, NFR ve Gereksinim İzlenebilirliği](../01_GOVERNANCE/WP-002_kapsam_nfr_izlenebilirlik.md), [WP-009 — Control Kataloğu, Exception ve Non-Waivable Blocker'lar](../01_GOVERNANCE/WP-009_control_exception_katalogu.md), [WP-020 — Schema Registry, Compatibility ve Contract SDK](../02_CONTRACTS/WP-020_schema_registry_sdk.md), [WP-024 — CI Temeli ve Deterministik Kalite Kapıları](../03_FOUNDATION/WP-024_ci_kalite_kapilari.md), [WP-040 — Workflow Replay, Versioning ve Failure Test Suite](../04_CONTROL_EVENT/WP-040_workflow_replay_failure_suite.md), [WP-060 — Agentic Security Attack Suite ve Red-Team Kabulü](../06_EXECUTION_SECURITY/WP-060_security_attack_suite.md), [WP-090 — PublicationPackage, RO-Crate ve Provenance Export](../08_EVIDENCE_ASSURANCE/WP-090_publication_package.md), [WP-099 — WORM Audit Ledger ve Bağımsız Export](../09_EXPERIENCE_OBSERVABILITY/WP-099_audit_worm_export.md), [WP-102 — Dikey Dilim 1 — Intake → Protocol Freeze](../10_INTEGRATION_CUTOVER/WP-102_dikey_dilim_intake_protocol.md), [WP-103 — Dikey Dilim 2 — İki Yönlü Literatür ve Set Freeze](../10_INTEGRATION_CUTOVER/WP-103_dikey_dilim_literatur.md), [WP-104 — Dikey Dilim 3 — Baseline → Run → Claim/Evidence](../10_INTEGRATION_CUTOVER/WP-104_dikey_dilim_run_claim.md), [WP-105 — Dikey Dilim 4 — Blind Review → Arbitration → Clean-Room](../10_INTEGRATION_CUTOVER/WP-105_dikey_dilim_review_repro.md), [WP-106 — Dikey Dilim 5 — Human Decision → Publish → Monitor](../10_INTEGRATION_CUTOVER/WP-106_dikey_dilim_decision_publish_monitor.md), [WP-107 — Engineering Dikey Dilim — Spec → Worktree → Signed Release](../10_INTEGRATION_CUTOVER/WP-107_engineering_dikey_dilim.md), [WP-108 — Retraction, Drift ve Supersession Dikey Dilimi](../10_INTEGRATION_CUTOVER/WP-108_retraction_drift_dikey_dilim.md)
-- Named owner, implementer ve producer'dan bağımsız verifier atanmıştır.
-- Etkilenen canonical kayıtlar, interface'ler ve ADR'lar refinement'ta ilişkilendirilmiştir.
-- DataClass, CodeTrust, ToolEffect ve ağ/credential kapsamı sınıflandırılmıştır.
-- Test fixture, environment, rollback noktası ve acceptance ölçüm yöntemi erişilebilirdir.
-- Efor için O/M/P kişi-gün tahmini ve gerçek kapasite rezervasyonu kaydedilmiştir.
+## Preconditions — Definition of Ready
 
-## Uygulama görevleri
+- Dependencies accepted: [WP-002 — Scope, NFRs and Requirement Traceability](../01_GOVERNANCE/WP-002_scope_nfr_traceability.md), [WP-009 — Control Catalogue, Exceptions and Non-Waivable Blockers](../01_GOVERNANCE/WP-009_control_exception_catalog.md), [WP-020 — Schema Registry, Compatibility and Contract SDK](../02_CONTRACTS/WP-020_schema_registry_sdk.md), [WP-024 — CI Foundation and Deterministic Quality Gates](../03_FOUNDATION/WP-024_ci_quality_gates.md), [WP-040 — Workflow Replay, Versioning and Failure Test Suite](../04_CONTROL_EVENT/WP-040_workflow_replay_failure_suite.md), [WP-060 — Agentic Security Attack Suite and Red-Team Acceptance](../06_EXECUTION_SECURITY/WP-060_security_attack_suite.md), [WP-090 — PublicationPackage, RO-Crate and Provenance Export](../08_EVIDENCE_ASSURANCE/WP-090_publication_package.md), [WP-099 — WORM Audit Ledger and Independent Export](../09_EXPERIENCE_OBSERVABILITY/WP-099_audit_worm_export.md), [WP-102 — Vertical Slice 1 — Intake through Protocol Freeze](../10_INTEGRATION_CUTOVER/WP-102_vertical_slice_intake_protocol.md), [WP-103 — Vertical Slice 2 — Two-Way Literature and Set Freeze](../10_INTEGRATION_CUTOVER/WP-103_vertical_slice_literature.md), [WP-104 — Vertical Slice 3 — Baseline through Run to Claim/Evidence](../10_INTEGRATION_CUTOVER/WP-104_vertical_slice_run_claim.md), [WP-105 — Vertical Slice 4 — Blind Review, Arbitration and Clean-Room](../10_INTEGRATION_CUTOVER/WP-105_vertical_slice_review_repro.md), [WP-106 — Vertical Slice 5 — Human Decision, Publish and Monitor](../10_INTEGRATION_CUTOVER/WP-106_vertical_slice_decision_publish_monitor.md), [WP-107 — Engineering Vertical Slice — Spec, Worktree, Signed Release](../10_INTEGRATION_CUTOVER/WP-107_engineering_vertical_slice.md), [WP-108 — Retraction, Drift and Supersession Vertical Slice](../10_INTEGRATION_CUTOVER/WP-108_retraction_drift_vertical_slice.md)
+- A named owner, a named implementer, and a verifier **independent of the producer** are assigned.
+- Affected canonical records, interfaces and ADRs have been linked during refinement.
+- `DataClass`, `CodeTrust`, `ToolEffect` and the network/credential scope are classified.
+- Test fixtures, the environment, the rollback point and the acceptance measurement method are reachable.
+- An O/M/P person-day estimate is recorded and real capacity is reserved against it.
 
-| Alt iş | Yapılacak iş | Sorumlu | Tamamlanma kanıtı |
+## Implementation tasks
+
+| Sub-task | Work to be done | Responsible | Completion evidence |
 |---|---|---|---|
-| WP-109-T01 | 40 senaryoyu machine-readable registry'ye aktar | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-109-T02 | Fixture/environment/data seeding standardı yaz | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-109-T03 | Expected canonical/event/audit/policy assertions ekle | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-109-T04 | Test runner, evidence capture ve result signing kur | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-109-T05 | Manual human/DR steps için witness protocol yaz | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-109-T06 | Retry/flakiness/skip/waiver ve cleanup kuralı ekle | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
+| WP-109-T01 | Transfer the 40 scenarios into a machine-readable registry | Implementation owner | Commit / configuration / record reference |
+| WP-109-T02 | Write the fixture, environment and data-seeding standard | Implementation owner | Commit / configuration / record reference |
+| WP-109-T03 | Add the expected canonical, event, audit and policy assertions | Implementation owner | Commit / configuration / record reference |
+| WP-109-T04 | Build the test runner, evidence capture and result signing | Implementation owner | Commit / configuration / record reference |
+| WP-109-T05 | Write the witness protocol for manual human and DR steps | Implementation owner | Commit / configuration / record reference |
+| WP-109-T06 | Add the retry, flakiness, skip/waiver and cleanup rules | Implementation owner | Commit / configuration / record reference |
 
-## Zorunlu teslimatlar
+## Mandatory deliverables
 
 - `Acceptance Registry`
 - `Scenario runner`
 - `Fixture catalog`
 - `Evidence capture/signing`
 - `Result dashboard`
-- Güncellenmiş runbook/operasyon notu ve servis/contract ownership kaydı
-- İmzalı `EvidenceManifest`
+- An updated runbook or operations note, plus the service/contract ownership record
+- A signed `EvidenceManifest`
 
-## Test ve doğrulama planı
+## Test and verification plan
 
 - Registry schema validation
-- Known-pass/fail scenario
-- Same RC digest enforcement
-- Critical SKIP not pass
-- Cleanup isolation
-- Yetkisiz, eksik, stale, duplicate ve partial-failure girdileri için en az bir negatif test
-- İlgili interface'lerde producer/consumer contract compatibility testi
-- Telemetry correlation ve audit kayıt bütünlüğü kontrolü
+- A known-pass and a known-fail scenario
+- Enforcement of the same release-candidate digest
+- A critical `SKIP` never counting as a pass
+- Cleanup isolation between scenarios
+- At least one negative test for unauthorised, missing, stale, duplicate and partial-failure inputs
+- Producer/consumer contract compatibility tests on every affected interface
+- Telemetry correlation and audit-record integrity checks
 
-## Kabul kriterleri
+## Acceptance criteria
 
-- [ ] Her senaryo owner ve immutable result taşır
-- [ ] Sonuçlar aynı release candidate/policy/schema bundle'dadır
-- [ ] Critical senaryo skipped/waived olamaz
-- [ ] Bütün zorunlu testler aynı target revision üzerinde geçmiştir.
-- [ ] Açık Critical/High finding yoktur; non-waivable blocker bulunmamaktadır.
-- [ ] Bağımsız verifier kanıt paketini kabul etmiştir.
-- [ ] Rollback/compensation davranışı denenmiş ve audit edilmiştir.
-- [ ] İlgili dashboard, alert, audit query veya integrity query çalışma kanıtı üretmiştir.
+- [ ] Every scenario carries an owner and an immutable result.
+- [ ] All results come from the same release candidate, policy and schema bundle.
+- [ ] A critical scenario can never be skipped or waived.
+- [ ] All mandatory tests passed **on the same target revision**.
+- [ ] No open Critical or High findings; no non-waivable blocker remains.
+- [ ] The independent verifier has accepted the evidence package.
+- [ ] Rollback/compensation behaviour has been exercised and audited.
+- [ ] The related dashboard, alert, audit query or integrity query has produced working evidence.
 
-## Kabul kanıtı paketi
+## Acceptance evidence package
 
-- Aynı target revision/digest üzerinde alınmış test sonuçları
-- Environment, schema, policy ve dependency sürümlerini içeren EvidenceManifest
-- Bağımsız verifier ReviewRecord veya VerificationRecord'u
-- Rollback/compensation denemesi ve sonuç referansı
-- Açık finding, residual risk ve owner/expiry listesi
+- Test results captured on the same target revision/digest
+- An `EvidenceManifest` recording the environment, schema, policy and dependency versions
+- The independent verifier's `ReviewRecord` or `VerificationRecord`
+- The rollback/compensation trial and its result reference
+- The list of open findings and residual risks with owners and expiry dates
 
-## Riskler ve kontrol noktaları
+## Risks and control points
 
-- Contract veya canonical sahiplik belirsizse implementasyon durur ve Architecture Board'a eskale edilir.
-- Identity, data route, artifact integrity, bağımsızlık veya kritik evidence problemi waiver ile geçirilemez.
-- Geçici manuel kontrol gerekiyorsa owner, scope, expiry, compensating control ve kaldırma paketi kaydedilir.
-- Paket tamamlandı beyanı acceptance değildir; verifier kararı olmadan yalnız `TECH_COMPLETE` olabilir.
+- If a contract or canonical ownership question is unresolved, implementation **stops** and the question escalates to the Architecture Board.
+- Identity, data routing, artifact integrity, independence and critical evidence problems **cannot** be passed by waiver.
+- If a temporary manual control is required, its owner, scope, expiry, compensating control and removal package are recorded.
+- A "package complete" statement is **not** acceptance. Without a verifier decision the package can only be `TECH_COMPLETE`.
+
+### Workstream-specific hazards
+
+- Vertical slices fail at the seams; per-package green says little about the seam.
+- A cutover rehearsal that differs from the real procedure has rehearsed the wrong thing.
+- The rollback point must be verified by a query, not by an assertion.
 
 ## Rollback / compensation
 
-Harness release canary fixture ile doğrulanır; bozuk harness sonuçları INVALIDATED ve tüm etkilenmiş senaryolar yeniden koşulur.
+Harness releases are verified with a canary fixture; results from a broken harness are `INVALIDATED` and every affected scenario is rerun.
 
-Immutable artifact, review ve karar geçmişi rollback sırasında silinmez; yeni durum supersession veya invalidation kaydıyla gösterilir.
+Immutable artifacts, reviews and decision history are **not** deleted during a rollback; the new state is expressed through a supersession or invalidation record.
 
-## Handoff ve sonraki paketlere giriş
+## Handoff into downstream packages
 
-Paket kabul edildiğinde teslim artifact'larının version/digest'leri Package Registry'ye yazılır, dependency event'i yayımlanır ve bu pakete bağlı READY adayları yeniden değerlendirilir. Downstream paket yalnız burada listelenen contract ve kanıt referanslarını tüketir; implementasyon iç ayrıntılarına bağlanmaz.
+On acceptance, the version and digest of every delivered artifact is written to the Package Registry, the dependency event is published, and every `READY` candidate blocked on this package is re-evaluated. A downstream package consumes **only** the contracts and evidence references listed above; it does not bind to internal implementation details.

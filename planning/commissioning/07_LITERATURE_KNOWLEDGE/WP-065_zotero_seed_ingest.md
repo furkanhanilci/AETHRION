@@ -1,100 +1,108 @@
-# WP-065 — Kişisel Zotero Seed Ingest Hattı
+# WP-065 — Personal Zotero Seed Ingest Pipeline
 
-## Paket kartı
+## Package card
 
-| Alan | Değer |
+| Field | Value |
 |---|---|
-| İş paketi | `WP-065` |
+| Work package | `WP-065` |
 | Workstream | `07_LITERATURE_KNOWLEDGE` |
-| İlk efor sınıfı | **M** — refinement'ta O/M/P tahmini zorunlu |
-| Accountable Owner | Knowledge Platform Lead |
-| Bağımsız doğrulayıcı | Knowledge Curator / Security |
+| Initial effort class | **M** — medium — needs a dedicated integration window; a three-point (O/M/P) estimate is mandatory at refinement |
+| Accountable owner | Knowledge Platform Lead |
+| Independent verifier | Knowledge Curator / Security |
 | Hard dependencies | WP-017, WP-049, WP-050, WP-061, WP-062, WP-064 |
-| İlgili gate | G3 |
-| İlgili kontroller | CTL-LIT-01, CTL-LIT-03 |
-| İlgili ACC senaryoları | ACC-01 |
+| Related gates | G3 |
+| Related controls | CTL-LIT-01, CTL-LIT-03 |
+| Related acceptance scenarios | ACC-01 |
+| Current status | `NOT_STARTED` |
 
-## Amaç ve beklenen sonuç
+## Purpose and expected outcome
 
-Araştırmacının kişisel Zotero'da seçtiği seed kaynaklar read-only incremental sync ile Source Registry ve proje intake kuyruğuna alınır.
+Seed sources the researcher selects in their personal Zotero are pulled into the Source Registry and the project intake queue through a read-only incremental sync.
 
-## Kapsam dışı
+## Out of scope
 
-- Bağımlı paketin kendi iç implementasyonu
-- Production cutover ve nihai operasyon onayı
 
-## Önkoşullar ve Definition of Ready
+- The internal implementation of any dependent package
+- Production cutover and final operational approval
 
-- Bağımlılıklar kabul edilmiştir: [WP-017 — Source Registry ve Literature Contract Şemaları](../02_CONTRACTS/WP-017_source_literature_contracts.md), [WP-049 — Tool Registry ve Tool Broker Çekirdeği](../05_MODEL_AGENT_TOOL/WP-049_tool_registry_broker.md), [WP-050 — İlk Tool Connector Paketi](../05_MODEL_AGENT_TOOL/WP-050_tool_connectors.md), [WP-061 — Canonical Source Registry Servisi](../07_LITERATURE_KNOWLEDGE/WP-061_source_registry_service.md), [WP-062 — Kaynak Kimlik Çözümleme, Dedup ve Merge](../07_LITERATURE_KNOWLEDGE/WP-062_source_identity_resolver.md), [WP-064 — Zotero Kütüphane, Koleksiyon ve Yetki Modeli](../07_LITERATURE_KNOWLEDGE/WP-064_zotero_kutuphane_yetki.md)
-- Named owner, implementer ve producer'dan bağımsız verifier atanmıştır.
-- Etkilenen canonical kayıtlar, interface'ler ve ADR'lar refinement'ta ilişkilendirilmiştir.
-- DataClass, CodeTrust, ToolEffect ve ağ/credential kapsamı sınıflandırılmıştır.
-- Test fixture, environment, rollback noktası ve acceptance ölçüm yöntemi erişilebilirdir.
-- Efor için O/M/P kişi-gün tahmini ve gerçek kapasite rezervasyonu kaydedilmiştir.
+## Preconditions — Definition of Ready
 
-## Uygulama görevleri
+- Dependencies accepted: [WP-017 — Source Registry and Literature Contract Schemas](../02_CONTRACTS/WP-017_source_literature_contracts.md), [WP-049 — Tool Registry and Tool Broker Core](../05_MODEL_AGENT_TOOL/WP-049_tool_registry_broker.md), [WP-050 — Initial Tool Connector Package](../05_MODEL_AGENT_TOOL/WP-050_tool_connectors.md), [WP-061 — Canonical Source Registry Service](../07_LITERATURE_KNOWLEDGE/WP-061_source_registry_service.md), [WP-062 — Source Identity Resolution, Deduplication and Merge](../07_LITERATURE_KNOWLEDGE/WP-062_source_identity_resolver.md), [WP-064 — Zotero Library, Collection and Permission Model](../07_LITERATURE_KNOWLEDGE/WP-064_zotero_library_access.md)
+- A named owner, a named implementer, and a verifier **independent of the producer** are assigned.
+- Affected canonical records, interfaces and ADRs have been linked during refinement.
+- `DataClass`, `CodeTrust`, `ToolEffect` and the network/credential scope are classified.
+- Test fixtures, the environment, the rollback point and the acceptance measurement method are reachable.
+- An O/M/P person-day estimate is recorded and real capacity is reserved against it.
 
-| Alt iş | Yapılacak iş | Sorumlu | Tamamlanma kanıtı |
+## Implementation tasks
+
+| Sub-task | Work to be done | Responsible | Completion evidence |
 |---|---|---|---|
-| WP-065-T01 | Dedicated read-only API key/OAuth kapsamını kur | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-065-T02 | Selected collection/tag opt-in mekanizması yaz | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-065-T03 | Version/since token incremental reader uygula | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-065-T04 | Item/attachment/note/annotation binding'lerini normalize et | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-065-T05 | Resolver/dedup ve project seed event'ine bağla | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-065-T06 | Deletion/move/permission change davranışını ekle | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
+| WP-065-T01 | Establish a dedicated read-only API key or OAuth scope | Implementation owner | Commit / configuration / record reference |
+| WP-065-T02 | Write the selected-collection and tag opt-in mechanism | Implementation owner | Commit / configuration / record reference |
+| WP-065-T03 | Implement the version/`since` token incremental reader | Implementation owner | Commit / configuration / record reference |
+| WP-065-T04 | Normalise the item, attachment, note and annotation bindings | Implementation owner | Commit / configuration / record reference |
+| WP-065-T05 | Bind the resolver, deduplication and project seed event | Implementation owner | Commit / configuration / record reference |
+| WP-065-T06 | Add behaviour for deletions, moves and permission changes | Implementation owner | Commit / configuration / record reference |
 
-## Zorunlu teslimatlar
+## Mandatory deliverables
 
 - `Personal seed adapter`
 - `Opt-in configuration`
 - `Sync state/receipts`
 - `Seed ingest dashboard`
-- Güncellenmiş runbook/operasyon notu ve servis/contract ownership kaydı
-- İmzalı `EvidenceManifest`
+- An updated runbook or operations note, plus the service/contract ownership record
+- A signed `EvidenceManifest`
 
-## Test ve doğrulama planı
+## Test and verification plan
 
-- New seed ingest
-- Same seed re-read no duplicate
-- Personal edit new version
-- Credential write deny
-- Permission revoked pause
-- Yetkisiz, eksik, stale, duplicate ve partial-failure girdileri için en az bir negatif test
-- İlgili interface'lerde producer/consumer contract compatibility testi
-- Telemetry correlation ve audit kayıt bütünlüğü kontrolü
+- Ingest of a new seed
+- Re-reading the same seed without creating a duplicate
+- A personal edit producing a new version
+- Denial of any write attempt on the credential
+- A pause when the permission is revoked
+- At least one negative test for unauthorised, missing, stale, duplicate and partial-failure inputs
+- Producer/consumer contract compatibility tests on every affected interface
+- Telemetry correlation and audit-record integrity checks
 
-## Kabul kriterleri
+## Acceptance criteria
 
-- [ ] AIRL tüm kişisel library'yi varsayılan ingest etmez
-- [ ] Kişisel kayıt değiştirilmez
-- [ ] Source Registry mapping version ve provenance taşır
-- [ ] Bütün zorunlu testler aynı target revision üzerinde geçmiştir.
-- [ ] Açık Critical/High finding yoktur; non-waivable blocker bulunmamaktadır.
-- [ ] Bağımsız verifier kanıt paketini kabul etmiştir.
-- [ ] Rollback/compensation davranışı denenmiş ve audit edilmiştir.
-- [ ] İlgili dashboard, alert, audit query veya integrity query çalışma kanıtı üretmiştir.
+- [ ] AIRL does not ingest the entire personal library by default.
+- [ ] No personal record is ever modified.
+- [ ] The Source Registry mapping carries a version and its provenance.
+- [ ] All mandatory tests passed **on the same target revision**.
+- [ ] No open Critical or High findings; no non-waivable blocker remains.
+- [ ] The independent verifier has accepted the evidence package.
+- [ ] Rollback/compensation behaviour has been exercised and audited.
+- [ ] The related dashboard, alert, audit query or integrity query has produced working evidence.
 
-## Kabul kanıtı paketi
+## Acceptance evidence package
 
-- Aynı target revision/digest üzerinde alınmış test sonuçları
-- Environment, schema, policy ve dependency sürümlerini içeren EvidenceManifest
-- Bağımsız verifier ReviewRecord veya VerificationRecord'u
-- Rollback/compensation denemesi ve sonuç referansı
-- Açık finding, residual risk ve owner/expiry listesi
+- Test results captured on the same target revision/digest
+- An `EvidenceManifest` recording the environment, schema, policy and dependency versions
+- The independent verifier's `ReviewRecord` or `VerificationRecord`
+- The rollback/compensation trial and its result reference
+- The list of open findings and residual risks with owners and expiry dates
 
-## Riskler ve kontrol noktaları
+## Risks and control points
 
-- Contract veya canonical sahiplik belirsizse implementasyon durur ve Architecture Board'a eskale edilir.
-- Identity, data route, artifact integrity, bağımsızlık veya kritik evidence problemi waiver ile geçirilemez.
-- Geçici manuel kontrol gerekiyorsa owner, scope, expiry, compensating control ve kaldırma paketi kaydedilir.
-- Paket tamamlandı beyanı acceptance değildir; verifier kararı olmadan yalnız `TECH_COMPLETE` olabilir.
+- If a contract or canonical ownership question is unresolved, implementation **stops** and the question escalates to the Architecture Board.
+- Identity, data routing, artifact integrity, independence and critical evidence problems **cannot** be passed by waiver.
+- If a temporary manual control is required, its owner, scope, expiry, compensating control and removal package are recorded.
+- A "package complete" statement is **not** acceptance. Without a verifier decision the package can only be `TECH_COMPLETE`.
+
+### Workstream-specific hazards
+
+- Identity errors in sources propagate into every claim that cites them.
+- A write into a shared library without a version precondition can silently destroy a human edit.
+- A literature set that is not frozen cannot support a reproducible claim.
 
 ## Rollback / compensation
 
-Sync state kaybında full read+dedup yapılır; kişisel Zotero'ya hiçbir reconciliation write gönderilmez.
+If sync state is lost, a full read plus deduplication is performed; no reconciliation write is ever sent to personal Zotero.
 
-Immutable artifact, review ve karar geçmişi rollback sırasında silinmez; yeni durum supersession veya invalidation kaydıyla gösterilir.
+Immutable artifacts, reviews and decision history are **not** deleted during a rollback; the new state is expressed through a supersession or invalidation record.
 
-## Handoff ve sonraki paketlere giriş
+## Handoff into downstream packages
 
-Paket kabul edildiğinde teslim artifact'larının version/digest'leri Package Registry'ye yazılır, dependency event'i yayımlanır ve bu pakete bağlı READY adayları yeniden değerlendirilir. Downstream paket yalnız burada listelenen contract ve kanıt referanslarını tüketir; implementasyon iç ayrıntılarına bağlanmaz.
+On acceptance, the version and digest of every delivered artifact is written to the Package Registry, the dependency event is published, and every `READY` candidate blocked on this package is re-evaluated. A downstream package consumes **only** the contracts and evidence references listed above; it does not bind to internal implementation details.

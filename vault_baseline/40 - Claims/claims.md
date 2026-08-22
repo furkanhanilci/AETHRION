@@ -1,4 +1,4 @@
-# Claims ve Kanıt Bağları
+# Claims and Evidence Links
 
 ```query
 path:"40 - Claims" ["type":"claim"]

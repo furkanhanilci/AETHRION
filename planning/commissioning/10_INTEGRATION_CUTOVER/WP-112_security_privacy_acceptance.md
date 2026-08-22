@@ -1,97 +1,105 @@
-# WP-112 — Security ve Privacy Kabul Paketi
+# WP-112 — Security and Privacy Acceptance Package
 
-## Paket kartı
+## Package card
 
-| Alan | Değer |
+| Field | Value |
 |---|---|
-| İş paketi | `WP-112` |
+| Work package | `WP-112` |
 | Workstream | `10_INTEGRATION_CUTOVER` |
-| İlk efor sınıfı | **L** — refinement'ta O/M/P tahmini zorunlu |
-| Accountable Owner | Safety & Governance Owner |
-| Bağımsız doğrulayıcı | Independent Red Team / Privacy Reviewer |
+| Initial effort class | **L** — large — split into sub-deliveries if it cannot be reviewed in one pass; a three-point (O/M/P) estimate is mandatory at refinement |
+| Accountable owner | Safety & Governance Owner |
+| Independent verifier | Independent Red Team / Privacy Reviewer |
 | Hard dependencies | WP-060, WP-109 |
-| İlgili gate | Commissioning |
-| İlgili kontroller | CTL-SEC-01..05, CTL-OBS-02 |
-| İlgili ACC senaryoları | ACC-15..18, ACC-24..26, ACC-32, ACC-37, ACC-40 |
+| Related gates | Commissioning |
+| Related controls | CTL-SEC-01..05, CTL-OBS-02 |
+| Related acceptance scenarios | ACC-15..18, ACC-24..26, ACC-32, ACC-37, ACC-40 |
+| Current status | `NOT_STARTED` |
 
-## Amaç ve beklenen sonuç
+## Purpose and expected outcome
 
-Sandbox escape, egress exfiltration, unsigned image, D3 route, policy rollback/expiry, forged approval, secret trace, eval contamination ve audit tampering fail-closed kapanır.
+Sandbox escape, egress exfiltration, unsigned images, D3 routing, policy rollback and expiry, forged approval, secrets in traces, evaluation contamination and audit tampering all close fail-closed.
 
-## Kapsam dışı
+## Out of scope
 
-- Bağımlı paketin kendi iç implementasyonu
-- Production cutover ve nihai operasyon onayı
 
-## Önkoşullar ve Definition of Ready
+- The internal implementation of any dependent package
+- Production cutover and final operational approval
 
-- Bağımlılıklar kabul edilmiştir: [WP-060 — Agentic Security Attack Suite ve Red-Team Kabulü](../06_EXECUTION_SECURITY/WP-060_security_attack_suite.md), [WP-109 — Kırk Acceptance Senaryosu Registry ve Harness](../10_INTEGRATION_CUTOVER/WP-109_acceptance_registry.md)
-- Named owner, implementer ve producer'dan bağımsız verifier atanmıştır.
-- Etkilenen canonical kayıtlar, interface'ler ve ADR'lar refinement'ta ilişkilendirilmiştir.
-- DataClass, CodeTrust, ToolEffect ve ağ/credential kapsamı sınıflandırılmıştır.
-- Test fixture, environment, rollback noktası ve acceptance ölçüm yöntemi erişilebilirdir.
-- Efor için O/M/P kişi-gün tahmini ve gerçek kapasite rezervasyonu kaydedilmiştir.
+## Preconditions — Definition of Ready
 
-## Uygulama görevleri
+- Dependencies accepted: [WP-060 — Agentic Security Attack Suite and Red-Team Acceptance](../06_EXECUTION_SECURITY/WP-060_security_attack_suite.md), [WP-109 — Forty Acceptance Scenario Registry and Harness](../10_INTEGRATION_CUTOVER/WP-109_acceptance_registry.md)
+- A named owner, a named implementer, and a verifier **independent of the producer** are assigned.
+- Affected canonical records, interfaces and ADRs have been linked during refinement.
+- `DataClass`, `CodeTrust`, `ToolEffect` and the network/credential scope are classified.
+- Test fixtures, the environment, the rollback point and the acceptance measurement method are reachable.
+- An O/M/P person-day estimate is recorded and real capacity is reserved against it.
 
-| Alt iş | Yapılacak iş | Sorumlu | Tamamlanma kanıtı |
+## Implementation tasks
+
+| Sub-task | Work to be done | Responsible | Completion evidence |
 |---|---|---|---|
-| WP-112-T01 | Security acceptance fixtures/attack identities hazırla | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-112-T02 | ACC-15–18/24–26/32/37/40 ilgili security yollarını çalıştır | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-112-T03 | Deny/contain/lease revoke/incident/audit assertions doğrula | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-112-T04 | Forensic artifacts ve alert/runbook tepkisini review et | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-112-T05 | Critical finding correction/retest yap | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-112-T06 | Security acceptance statement imzala | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
+| WP-112-T01 | Prepare the security acceptance fixtures and attack identities | Implementation owner | Commit / configuration / record reference |
+| WP-112-T02 | Run the security paths behind ACC-15–18, 24–26, 32, 37 and 40 | Implementation owner | Commit / configuration / record reference |
+| WP-112-T03 | Verify the deny, contain, lease-revoke, incident and audit assertions | Implementation owner | Commit / configuration / record reference |
+| WP-112-T04 | Review the forensic artifacts and the alert/runbook response | Implementation owner | Commit / configuration / record reference |
+| WP-112-T05 | Correct and retest every critical finding | Implementation owner | Commit / configuration / record reference |
+| WP-112-T06 | Sign the security acceptance statement | Implementation owner | Commit / configuration / record reference |
 
-## Zorunlu teslimatlar
+## Mandatory deliverables
 
 - `Security scenario results`
 - `Red-team report`
 - `Forensic evidence`
 - `Security acceptance statement`
-- Güncellenmiş runbook/operasyon notu ve servis/contract ownership kaydı
-- İmzalı `EvidenceManifest`
+- An updated runbook or operations note, plus the service/contract ownership record
+- A signed `EvidenceManifest`
 
-## Test ve doğrulama planı
+## Test and verification plan
 
-- ACC-15,16,17,18,24,25,26,32,37,40
-- Yetkisiz, eksik, stale, duplicate ve partial-failure girdileri için en az bir negatif test
-- İlgili interface'lerde producer/consumer contract compatibility testi
-- Telemetry correlation ve audit kayıt bütünlüğü kontrolü
+- ACC-15, 16, 17, 18, 24, 25, 26, 32, 37 and 40
+- At least one negative test for unauthorised, missing, stale, duplicate and partial-failure inputs
+- Producer/consumer contract compatibility tests on every affected interface
+- Telemetry correlation and audit-record integrity checks
 
-## Kabul kriterleri
+## Acceptance criteria
 
-- [ ] Critical attacks deny/contain ve audit üretir
-- [ ] D3/D4 violation=0
-- [ ] Unsigned artifact=0
-- [ ] Açık critical/high security finding=0
-- [ ] Bütün zorunlu testler aynı target revision üzerinde geçmiştir.
-- [ ] Açık Critical/High finding yoktur; non-waivable blocker bulunmamaktadır.
-- [ ] Bağımsız verifier kanıt paketini kabul etmiştir.
-- [ ] Rollback/compensation davranışı denenmiş ve audit edilmiştir.
-- [ ] İlgili dashboard, alert, audit query veya integrity query çalışma kanıtı üretmiştir.
+- [ ] Every critical attack is denied or contained **and** produces audit evidence.
+- [ ] D3/D4 violations = 0.
+- [ ] Unsigned artifacts in production = 0.
+- [ ] Open critical and high security findings = 0.
+- [ ] All mandatory tests passed **on the same target revision**.
+- [ ] No open Critical or High findings; no non-waivable blocker remains.
+- [ ] The independent verifier has accepted the evidence package.
+- [ ] Rollback/compensation behaviour has been exercised and audited.
+- [ ] The related dashboard, alert, audit query or integrity query has produced working evidence.
 
-## Kabul kanıtı paketi
+## Acceptance evidence package
 
-- Aynı target revision/digest üzerinde alınmış test sonuçları
-- Environment, schema, policy ve dependency sürümlerini içeren EvidenceManifest
-- Bağımsız verifier ReviewRecord veya VerificationRecord'u
-- Rollback/compensation denemesi ve sonuç referansı
-- Açık finding, residual risk ve owner/expiry listesi
+- Test results captured on the same target revision/digest
+- An `EvidenceManifest` recording the environment, schema, policy and dependency versions
+- The independent verifier's `ReviewRecord` or `VerificationRecord`
+- The rollback/compensation trial and its result reference
+- The list of open findings and residual risks with owners and expiry dates
 
-## Riskler ve kontrol noktaları
+## Risks and control points
 
-- Contract veya canonical sahiplik belirsizse implementasyon durur ve Architecture Board'a eskale edilir.
-- Identity, data route, artifact integrity, bağımsızlık veya kritik evidence problemi waiver ile geçirilemez.
-- Geçici manuel kontrol gerekiyorsa owner, scope, expiry, compensating control ve kaldırma paketi kaydedilir.
-- Paket tamamlandı beyanı acceptance değildir; verifier kararı olmadan yalnız `TECH_COMPLETE` olabilir.
+- If a contract or canonical ownership question is unresolved, implementation **stops** and the question escalates to the Architecture Board.
+- Identity, data routing, artifact integrity, independence and critical evidence problems **cannot** be passed by waiver.
+- If a temporary manual control is required, its owner, scope, expiry, compensating control and removal package are recorded.
+- A "package complete" statement is **not** acceptance. Without a verifier decision the package can only be `TECH_COMPLETE`.
+
+### Workstream-specific hazards
+
+- Vertical slices fail at the seams; per-package green says little about the seam.
+- A cutover rehearsal that differs from the real procedure has rehearsed the wrong thing.
+- The rollback point must be verified by a query, not by an assertion.
 
 ## Rollback / compensation
 
-Failure production access ve cutover'ı bloklar; compromised credentials/artifacts revoke edilir.
+A failure blocks production access and cutover; compromised credentials and artifacts are revoked immediately.
 
-Immutable artifact, review ve karar geçmişi rollback sırasında silinmez; yeni durum supersession veya invalidation kaydıyla gösterilir.
+Immutable artifacts, reviews and decision history are **not** deleted during a rollback; the new state is expressed through a supersession or invalidation record.
 
-## Handoff ve sonraki paketlere giriş
+## Handoff into downstream packages
 
-Paket kabul edildiğinde teslim artifact'larının version/digest'leri Package Registry'ye yazılır, dependency event'i yayımlanır ve bu pakete bağlı READY adayları yeniden değerlendirilir. Downstream paket yalnız burada listelenen contract ve kanıt referanslarını tüketir; implementasyon iç ayrıntılarına bağlanmaz.
+On acceptance, the version and digest of every delivered artifact is written to the Package Registry, the dependency event is published, and every `READY` candidate blocked on this package is re-evaluated. A downstream package consumes **only** the contracts and evidence references listed above; it does not bind to internal implementation details.

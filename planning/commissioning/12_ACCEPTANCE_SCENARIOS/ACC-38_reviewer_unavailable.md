@@ -1,61 +1,64 @@
 # ACC-38 — Critical Reviewer Unavailable
 
-## Senaryo kartı
+## Scenario card
 
-| Alan | Değer |
+| Field | Value |
 |---|---|
-| Senaryo | `ACC-38` |
-| Kategori | Assurance/Operations |
+| Scenario | `ACC-38` |
+| Category | Assurance/Operations |
 | Severity | **High** |
-| Accountable Owner | Assurance Lead |
-| Bağımsız witness/verifier | Project Decision Owner |
-| İlgili paketler | `WP-045`, `WP-088`, `WP-105`, `WP-113`, `WP-126` |
-| Production kabulü | Critical senaryo SKIP veya waiver ile PASS sayılamaz |
+| Accountable owner | Assurance Lead |
+| Independent witness / verifier | Project Decision Owner |
+| Related packages | `WP-045`, `WP-088`, `WP-105`, `WP-113`, `WP-126` |
+| Production acceptance | A Critical scenario can never be counted as PASS through a SKIP or a waiver |
 
-## Amaç
+## Purpose
 
-Bu senaryo, **Critical Reviewer Unavailable** durumunda hedef mimarinin fail-safe ve kanıt üretme davranışını doğrular. Test aynı release candidate, policy bundle, schema bundle ve environment manifest üzerinde çalıştırılır.
+This scenario verifies the target architecture's fail-safe behaviour and its
+evidence production in the **Critical Reviewer Unavailable** situation. The test runs on the same
+release candidate, policy bundle, schema bundle and environment manifest as
+every other scenario in the same acceptance round.
 
 ## Given / When / Then
 
-**Given:** R3 artifact için gerekli bağımsız/cross-family/human reviewer pool'da eligible ve available aktör yoktur.
+**Given:** For an R3 artifact, no eligible and available actor exists in the independent, cross-family, human reviewer pool.
 
-**When:** Assignment service reviewer ister ve SLA dolar.
+**When:** The assignment service requests a reviewer and the SLA expires.
 
-**Then:** Producer/self-review veya ineligible fallback kullanılmaz; gate BLOCKED, human scheduling/escalation ve capacity signal oluşur.
+**Then:** Neither the producer, a self-review, nor an ineligible fallback is used; the gate is `BLOCKED` and a human scheduling/escalation item and a capacity signal are produced.
 
-## Önkoşullar
+## Preconditions
 
-- İlgili work package'lar `INTEGRATED` veya `COMMISSIONING_READY` durumundadır.
-- Teste özel project/actor/data/artifact kimlikleri production verisinden ayrılmıştır.
-- Release candidate digest ile policy, schema, model/tool ve infrastructure bundle sürümleri freeze edilmiştir.
-- Beklenen canonical records, events, policy decisions, telemetry ve audit assertions registry'ye girilmiştir.
-- Failure injection blast radius, kill switch, cleanup ve witness atanmıştır.
+- The related work packages are `INTEGRATED` or `COMMISSIONING_READY`.
+- Test-specific project, actor, data and artifact identifiers are separated from production data.
+- The release candidate digest and the policy, schema, model/tool and infrastructure bundle versions are frozen.
+- The expected canonical records, events, policy decisions, telemetry and audit assertions are entered in the registry.
+- The failure-injection blast radius, the kill switch, the cleanup procedure and the witness are assigned.
 
-## Test adımları
+## Test steps
 
-| # | İşlem | Toplanacak anlık kanıt |
+| # | Action | Evidence captured at this step |
 |---:|---|---|
-| 1 | R3 review request/frozen package oluştur | Execution log + trace/event references |
-| 2 | Bütün eligible reviewer availability'yi unavailable yap | Execution log + trace/event references |
-| 3 | Assignment/route attempts çalıştır | Execution log + trace/event references |
-| 4 | SLA timeout/escalation gözle | Execution log + trace/event references |
-| 5 | Producer/ineligible model atama bypass dene | Execution log + trace/event references |
-| 6 | Reviewer available yapıp yeni assignment tamamla | Execution log + trace/event references |
+| 1 | Create the R3 review request and the frozen package | Execution log + trace/event references |
+| 2 | Mark every eligible reviewer unavailable | Execution log + trace/event references |
+| 3 | Run the assignment and routing attempts | Execution log + trace/event references |
+| 4 | Observe the SLA timeout and escalation | Execution log + trace/event references |
+| 5 | Attempt to bypass by assigning the producer or an ineligible model | Execution log + trace/event references |
+| 6 | Make a reviewer available and complete the new assignment | Execution log + trace/event references |
 
-## Zorunlu invariant ve assertions
+## Mandatory invariants and assertions
 
-- [ ] No self/ineligible assignment
-- [ ] Gate BLOCKED not PASS
-- [ ] SLA escalation/capacity metric
-- [ ] Frozen package unchanged
-- [ ] Later eligible review valid
-- [ ] Expected canonical state ile actual state aynı veya açıklanmış güvenli failure state'indedir.
-- [ ] Duplicate, stale, forged veya partial input unsafe yan etki üretmemiştir.
-- [ ] Trace, event, audit ve business record aynı project/workflow/run correlation zincirindedir.
-- [ ] Test sırasında oluşan her Critical/High finding Finding Registry'ye kaydedilmiştir.
+- [ ] No self-assignment or ineligible assignment occurs
+- [ ] The gate is `BLOCKED`, never `PASS`
+- [ ] SLA escalation and a capacity metric are produced
+- [ ] The frozen package is unchanged throughout
+- [ ] The later eligible review is valid
+- [ ] The actual canonical state equals the expected state, or an explained safe failure state.
+- [ ] Duplicate, stale, forged or partial inputs produced no unsafe side effect.
+- [ ] Trace, event, audit and business records share one project/workflow/run correlation chain.
+- [ ] Every Critical or High finding raised during the test is recorded in the Finding Registry.
 
-## Beklenen canonical kayıtlar
+## Expected canonical records
 
 - `ReviewRequest`
 - `AssignmentDecisions`
@@ -63,38 +66,47 @@ Bu senaryo, **Critical Reviewer Unavailable** durumunda hedef mimarinin fail-saf
 - `EscalationRecord`
 - `CapacitySignal`
 
-## Beklenen olaylar
+## Expected events
 
 - `review.no_eligible_reviewer`
 - `workflow.blocked`
 - `assurance.capacity_alert`
 - `review.assignment_created`
 
-Beklenen olay sayısı/idempotency ve sıra kısıtları test registry'deki machine-readable assertion dosyasında tutulur. NATS event'i tek başına canonical state kanıtı değildir; ilgili service/Temporal commit'i ayrıca doğrulanır.
+Expected event counts, idempotency and ordering constraints live in the
+machine-readable assertion file inside the test registry. **A NATS event alone
+is not evidence of canonical state**; the corresponding service or Temporal
+commit is verified separately.
 
-## Kanıt paketi
+## Evidence package
 
-- `ACC-38-result.json`: PASS/FAIL, RC digest ve assertion sonuçları.
-- `ACC-38-execution-log.jsonl`: zaman sıralı test/fault/decision kayıtları.
-- `ACC-38-state-before.json` ve `ACC-38-state-after.json`.
-- `ACC-38-events.json`, `ACC-38-policy-decisions.json` ve `ACC-38-audit-export.json`.
-- `ACC-38-evidence-manifest.json`: bütün dosyaların hash, producer ve environment referansı.
-- Bağımsız witness `VerificationRecord` ve varsa finding/disposition kayıtları.
+- `ACC-38-result.json`: PASS/FAIL, the RC digest and the assertion results.
+- `ACC-38-execution-log.jsonl`: time-ordered test, fault and decision records.
+- `ACC-38-state-before.json` and `ACC-38-state-after.json`.
+- `ACC-38-events.json`, `ACC-38-policy-decisions.json` and `ACC-38-audit-export.json`.
+- `ACC-38-evidence-manifest.json`: the hash, producer and environment reference of every file.
+- The independent witness's `VerificationRecord`, plus any finding and disposition records.
 
-## PASS ölçütü
+## PASS criteria
 
-- Bütün scenario-specific assertions ve ortak integrity assertions geçer.
-- Beklenen fail-closed/block/revise davranışı happy-path başarı kadar geçerli bir PASS olabilir; beklenen state ile aynı olmalıdır.
-- Açık Critical/High finding yoktur.
-- Kanıt manifesti eksiksiz, hashleri doğrulanmış ve witness tarafından imzalanmıştır.
-- Aynı release candidate dışındaki sonuçlar birleştirilmemiştir.
+- All scenario-specific assertions and the common integrity assertions pass.
+- **An expected fail-closed, block or revise behaviour is as valid a PASS as a happy-path success** — provided it matches the expected state exactly.
+- No open Critical or High findings remain.
+- The evidence manifest is complete, its hashes verified and the package signed by the witness.
+- Results from a different release candidate have not been merged into this one.
 
-## FAIL ve yeniden test
+## FAIL and retest
 
-Bir invariant, kanıt bütünlüğü veya beklenen kayıt/event assertion'ı başarısızsa senaryo FAIL olur. Correction yalnız VALIDATED finding üzerinden açılır. Target revision veya ilgili policy/schema/model/tool bundle değişirse önceki sonuç geçersiz olur; senaryo ve etkilenen regression kümesi yeniden çalıştırılır.
+The scenario FAILs if any invariant, evidence-integrity check, or expected
+record/event assertion fails. A correction is opened only against a `VALIDATED`
+finding. If the target revision or any related policy, schema, model or tool
+bundle changes, the previous result becomes void and the scenario plus its
+affected regression set are rerun.
 
-## Cleanup ve geri dönüş
+## Cleanup and reversal
 
-Availability fixture baseline'a döner; blocked test request valid review veya controlled cancel ile kapanır.
+The availability fixture returns to baseline; the blocked test request closes through a valid review or a controlled cancellation.
 
-Cleanup canonical evidence ve audit geçmişini silmez. Destructive test fixture işlemleri yalnız explicit test namespace/kimlikleri üzerinde ve iki aşamalı doğrulamayla yapılır.
+Cleanup never deletes canonical evidence or audit history. Destructive test
+fixture operations run only against explicit test namespaces and identities, and
+only under two-stage confirmation.

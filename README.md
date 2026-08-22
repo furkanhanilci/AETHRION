@@ -1,85 +1,84 @@
 # AI Research Framework
 
-Kanıt-merkezli, denetlenebilir bir araştırma işletim sistemi (AIRL-OS).
-Temel tezi: **ajan üretir, makine doğrular, insan karar verir** — ve bu üçü
-yapısal olarak birbirine karışmaz.
+An evidence-centred, auditable operating system for research (AIRL-OS).
 
-Bu depo, hedef mimariyi, yürütme disiplinini ve şu ana kadar gerçekten
-çalışan bileşenleri bir arada tutar. **Plan, uygulama kanıtı değildir**:
-aşağıdaki tablo ikisini ayırır.
+Its central thesis: **agents produce, machines verify, humans decide** — and
+those three roles are kept structurally separate.
 
-| Alan | Durum | Konum |
+This repository holds the target architecture, the execution discipline, and the
+components that actually work today. **A plan is not evidence of
+implementation**; the table below separates the two.
+
+| Area | Status | Location |
 |---|---|---|
-| Literatür köprüsü (Bridge) V0 | ✅ **Çalışıyor**, yerel olarak kabul edildi | `src/airl_bridge/` |
-| Zotero → Obsidian projeksiyonu | ✅ Çalışıyor, Zotero sınırında salt-okunur | `src/airl_bridge/obsidian.py` |
-| Hermes MCP erişimi | ✅ Çalışıyor, beş salt-okunur araç | `src/airl_bridge/mcp_server.py` |
-| Ortak contract çekirdeği | ⚠️ `TECH_COMPLETE` — üretim tüketicisi yok | `src/airl_framework/` |
-| Skill Registry (38 skill) | 📐 Yazıldı, **test edilmedi** | `skills/` |
-| Obsidian bilgi mimarisi | ✅ V0 hazır | `vault_baseline/` |
-| Hedef mimari ve skill katmanı | 📐 Tasarlandı, karar bekliyor | `docs/architecture/` |
-| Tam devreye alma programı | ⬜ Planlandı, başlatılmadı | `planning/commissioning/` |
+| Literature bridge V0 | ✅ **Working**, locally accepted | `src/airl_bridge/` |
+| Zotero → Obsidian projection | ✅ Working, read-only at the Zotero boundary | `src/airl_bridge/obsidian.py` |
+| Hermes MCP access | ✅ Working, five read-only tools | `src/airl_bridge/mcp_server.py` |
+| Shared contract core | ⚠️ `TECH_COMPLETE` — no production consumer | `src/airl_framework/` |
+| Skill registry (38 skills) | 📐 Written, **not yet tested** | `skills/` |
+| Obsidian information architecture | ✅ V0 ready | `vault_baseline/` |
+| Target architecture and skill layer | 📐 Designed, awaiting decision | `docs/architecture/` |
+| Full commissioning programme | ⬜ Planned, not started | `planning/commissioning/` |
 
-## Yapı
+## Layout
 
-```text
-src/          Bridge ve ortak contract çekirdeği
-tests/        Test paketi
-skills/       38 yürütme skill'i — ajanların NASIL çalışacağı
-planning/     WP-001–130, ACC-01–40 (hash mühürlü kanonik plan)
-docs/         Mimari, review ve işletim dokümanları
-schemas/      Ortak contract şemaları
-delivery/     Paket başına kanıt paketleri
-deploy/       systemd unit dosyaları
-scripts/      Acceptance ve smoke betikleri
-vault_baseline/  Obsidian vault'un versiyonlanmış kopyası
+```
+src/          Bridge component and the shared contract core
+tests/        Test suite
+skills/       38 execution skills — HOW agents work
+planning/     WP-001..140, ACC-01..40 (hash-sealed canonical plan)
+docs/         Architecture, review and operations documents
+schemas/      Shared contract schemas
+delivery/     Per-package evidence packages
+deploy/       systemd unit files
+scripts/      Acceptance and smoke scripts
+vault_baseline/  Versioned copy of the Obsidian vault
 ```
 
-## Nereden başlanır
+## Where to start
 
-| Soru | Belge |
+| Question | Document |
 |---|---|
-| Şu an gerçekten ne var, ne yok? | [`docs/review/FRAMEWORK_REVIEW_2026-08-21_CLAUDE.md`](docs/review/FRAMEWORK_REVIEW_2026-08-21_CLAUDE.md) |
-| Hedef mimariye **ne** eklenmeli? | [`docs/architecture/AIRL_OS_IDEAL_STRUCTURE.md`](docs/architecture/AIRL_OS_IDEAL_STRUCTURE.md) |
-| Ajanlar **nasıl** çalışmalı? | [`docs/architecture/AIRL_OS_SKILL_LAYER.md`](docs/architecture/AIRL_OS_SKILL_LAYER.md) · [`skills/README.md`](skills/README.md) |
-| Çalışan dikey dilimin mimarisi | [`docs/ARCHITECTURE_V0.md`](docs/ARCHITECTURE_V0.md) |
-| Günlük işletim | [`docs/OPERATIONS.md`](docs/OPERATIONS.md) |
-| Tam program planı | [`planning/commissioning/README.md`](planning/commissioning/README.md) |
+| What actually exists today? | [`docs/review/`](docs/review/) — evidence-based independent audit |
+| **What** should be added to the target architecture? | [`docs/architecture/AIRL_OS_IDEAL_STRUCTURE.md`](docs/architecture/AIRL_OS_IDEAL_STRUCTURE.md) |
+| **How** should agents work? | [`docs/architecture/AIRL_OS_SKILL_LAYER.md`](docs/architecture/AIRL_OS_SKILL_LAYER.md) · [`skills/README.md`](skills/README.md) |
+| **Who** performs each role — human, model or code? | [`docs/architecture/AIRL_OS_ROLE_MODEL_ASSIGNMENT.md`](docs/architecture/AIRL_OS_ROLE_MODEL_ASSIGNMENT.md) |
+| Architecture of the working vertical slice | [`docs/ARCHITECTURE_V0.md`](docs/ARCHITECTURE_V0.md) |
+| Day-to-day operation | [`docs/OPERATIONS.md`](docs/OPERATIONS.md) |
+| The full programme plan | [`planning/commissioning/README.md`](planning/commissioning/README.md) |
 
-## Çalışan dikey dilim: Literature Bridge V0
+## The working vertical slice: Literature Bridge V0
 
 ```text
-Zotero Local API (salt-okunur)
-        → SQLite kanonik kaynak kayıt defteri
-        → Obsidian "70 - Literature Sets/Zotero Sources" projeksiyonu
-        → Hermes MCP (beş salt-okunur araç)
+Zotero Local API (read-only)
+        → SQLite canonical source registry
+        → Obsidian "70 - Literature Sets/Zotero Sources" projection
+        → Hermes MCP (five read-only tools)
 ```
 
-Servis yalnız `127.0.0.1` üzerinde dinler. Zotero API anahtarı almaz ve
-kodda hiçbir Zotero yazma işlemi bulunmaz.
+The service listens on `127.0.0.1` only. It holds no Zotero API key, and the
+codebase contains no Zotero write operation.
 
-### Kurulum
+### Install
 
 ```bash
 cd /home/otonom/Desktop/FH/AI_RESEARCH_FRAMEWORK
 uv sync --extra dev
+cp .env.example .env      # then fill in your own paths
 ```
 
-`.env` yerel olarak şunlara ayarlıdır: Zotero Local API `http://127.0.0.1:23119/api`,
-kişisel kütüphane `users/0`, vault `/home/otonom/Documents/Obsidian Vault`,
-üretilen notlar `70 - Literature Sets/Zotero Sources`, API `http://127.0.0.1:8765`.
+### Enable the Zotero Local API
 
-### Zotero Local API'yi aç
-
-1. Zotero'yu başlat
-2. **Ayarlar → Gelişmiş → Genel**
-3. **Bu bilgisayardaki diğer uygulamaların Zotero ile iletişim kurmasına izin ver** seçeneğini aç
-4. Port `23119` yerel kalsın; yönlendirme veya dışa açma yapma
+1. Start Zotero
+2. **Settings → Advanced → General**
+3. Enable **Allow other applications on this computer to communicate with Zotero**
+4. Keep port `23119` local — do not forward or expose it
 
 ```bash
 uv run airl-bridge doctor
 ```
 
-### Çalıştırma
+### Run
 
 ```bash
 uv run airl-bridge serve
@@ -89,29 +88,30 @@ systemctl --user status airl-bridge-sync.timer
 journalctl --user -u airl-bridge.service -n 50
 ```
 
-Kullanıcı timer'ı aynı yerel senkronizasyonu 30 dakikada bir çalıştırır.
+A user timer runs the same local synchronisation every 30 minutes.
 
-Yerel adresler: [`/health`](http://127.0.0.1:8765/health) ·
+Local endpoints: [`/health`](http://127.0.0.1:8765/health) ·
 [`/ready`](http://127.0.0.1:8765/ready) · [`/docs`](http://127.0.0.1:8765/docs)
 
-### İlk senkronizasyon
+### First synchronisation
 
 ```bash
 curl -X POST 'http://127.0.0.1:8765/v1/sync?limit=100'
 curl 'http://127.0.0.1:8765/v1/sources?limit=10'
 
-# veya sunucu olmadan
+# or without starting the server
 uv run airl-bridge sync --limit 100
 ```
 
-Tekrarlanan senkron aynı Zotero kütüphane/öğe anahtarı için idempotenttir.
-Zotero kaynaklı dosyalar otomatik yönetilen `Zotero Sources` dalında tutulur ve
-kanonik kayıt defterinden yeniden üretilir. İnsan sentezi `20 - Source Notes`,
-kürasyonlu setler `70 - Literature Sets` kökünde kalır.
+Repeated synchronisation is idempotent for the same Zotero library and item key.
+Zotero-derived files live under the automatically managed `Zotero Sources`
+branch and are regenerated from the canonical registry. Human synthesis stays in
+`20 - Source Notes`; curated sets stay at the root of `70 - Literature Sets`.
 
-> ⚠️ **Bilinen sınır:** Ingest 100 kayıtta sabit tavanlıdır; sayfalama ve
-> `since=` artımlı senkron yoktur. Kütüphane 100 kaynağı geçtiğinde senkron
-> sessizce eksik çalışır. Ayrıntı: denetim raporu bulgu **H1**.
+> ⚠️ **Known limitation:** ingest is hard-capped at 100 records; there is no
+> pagination and no `since=` incremental sync. Once the library exceeds 100
+> sources, synchronisation silently becomes partial. See finding **H1** in the
+> audit report.
 
 ### Test
 
@@ -121,16 +121,27 @@ uv run python scripts/mcp_smoke.py
 uv run python scripts/acceptance_v0.py
 ```
 
-## Hermes MCP erişimi
+## Hermes MCP access
 
-Hermes, `airl-bridge-mcp` sunucusunu stdio üzerinden başlatır ve yalnız beş
-salt-okunur araç görür: durum, kaynak arama, kaynak ayrıntısı, kategori
-sayıları, olası kopya raporu. Senkronizasyon, yazma, silme veya Zotero
-mutasyon aracı sunulmaz. Hermes yapılandırmasında açık bir beş araçlık
-`tools.include` listesi vardır; MCP prompt ve resource yetenekleri kapalıdır.
+Hermes starts the `airl-bridge-mcp` server over stdio and sees exactly five
+read-only tools: status, source search, source detail, category counts, and
+possible-duplicate reporting. No synchronisation, write, delete or Zotero
+mutation tool is exposed. The Hermes configuration pins an explicit five-tool
+include list; MCP prompt and resource capabilities are disabled.
 
-## Durum semantiği
+## Status semantics
 
-`ÇALIŞIYOR` bir bileşenin yerel olarak doğrulandığını söyler.
-`ACCEPTED` üreticiden bağımsız bir doğrulayıcının kanıt paketini kabul
-ettiğini söyler. Şu an **hiçbir iş paketi `ACCEPTED` değildir**.
+`WORKING` means a component has been verified locally.
+`ACCEPTED` means an independent verifier accepted its evidence package.
+
+**No work package is currently `ACCEPTED`.** That is not an oversight — the
+mechanisms required to reach that state (signed evidence manifests, an immutable
+store, an independent verifier) do not yet exist. See finding **C1** in the audit
+report.
+
+## Verification
+
+```
+20/20 tests pass · plan seal 195/195 · service and timer active
+MCP smoke test returns 5 read-only tools · Obsidian baseline and vault identical
+```

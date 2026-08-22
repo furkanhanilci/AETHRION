@@ -10,32 +10,47 @@ non_waivable: true
 
 # Using AIRL-OS
 
-## Genel ilke
+## Core principle
 
-AIRL-OS'ta hiçbir iş prosedürsüz yapılmaz. Her adımda bir skill yüklüdür.
+No work happens without a procedure. At every step a skill is loaded, and the
+skill you loaded is part of the evidence trail.
 
-## Nereden başlanır
+## Where to start
 
-| Durum | Skill |
+| Situation | Skill |
 |---|---|
-| Yeni bir araştırma fikri | `framing-research` |
-| Yöntem yazılacak | `writing-protocols` → `writing-analysis-plans` |
-| Deney çalıştırılacak | `preregistration-discipline` → `executing-experiments` |
-| Ajana iş verilecek | `agent-driven-research` |
-| Review istenecek | `requesting-review` |
-| Review geldi | `receiving-review` |
-| Beklenmeyen sonuç | `investigating-anomalies` |
-| Uydurma/tahrifat şüphesi | `investigating-integrity-concerns` |
-| İş bitti denecek | `verification-before-completion` |
-| Proje kapanacak | `finishing-a-project` |
+| A new research idea arrives | `framing-research` |
+| Method needs writing | `writing-protocols` → `writing-analysis-plans` |
+| An experiment is about to run | `preregistration-discipline` → `executing-experiments` |
+| Work is being handed to an agent | `agent-driven-research` |
+| An artifact is ready for review | `requesting-review` |
+| A review verdict arrived | `receiving-review` |
+| A result is unexpected | `investigating-anomalies` |
+| Fabrication or tampering is suspected | `investigating-integrity-concerns` |
+| A human needs to be informed | `notifying-humans` |
+| A human decision is required | `routing-decision-requests` |
+| You are about to say "done" | `verification-before-completion` |
+| A project is closing | `finishing-a-project` |
 
-## Değişmez üç kural
+## The three invariants
 
-1. **Ajan üretir, makine doğrular, insan karar verir.** Bu sıra bozulmaz.
-2. **Taze doğrulama kanıtı olmadan hiçbir şey "tamamlandı" değildir.**
-3. **Şüphedeyken ağır olan yolu seç.** Eksik bilgi en yüksek assurance sınıfına düşer.
+1. **Agents produce, machines verify, humans decide.** This order is never
+   inverted. An agent may recommend a decision; it may not make one.
+2. **Nothing is complete without fresh verification evidence.** Not memory, not
+   a prior run, not another agent's report.
+3. **When in doubt, take the heavier path.** Missing or ambiguous information
+   resolves to the highest assurance class, never the lowest.
 
-## Kırmızı bayraklar
+## What this system is defending against
 
-- Hangi skill'in yüklü olduğunu söyleyemiyorsan → dur, bu skill'i oku
-- Gate geçişi "açıkça uygun" görünüyorsa → gate kaydı yine de üretilir
+Not incompetence — plausibility. A model-run lab can produce work that looks
+rigorous, cites real-looking sources, reports precise-looking numbers, and is
+wrong. Every gate, every mechanical check, and every independence requirement
+exists to make that failure mode visible rather than invisible.
+
+## Red flags
+
+- You cannot name the skill currently loaded → stop and read this file
+- A gate transition looks "obviously fine" → the gate record is still produced
+- You are about to report a result you have not independently verified
+- You are about to accept another agent's claim without checking it

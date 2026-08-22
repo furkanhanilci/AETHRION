@@ -1,3 +1,7 @@
+> [!info] Generated view
+> This note is generated from `skills/agent-driven-research/SKILL.md` in the repository. Edit the
+> canonical file and regenerate; edits made here are overwritten.
+
 ---
 name: agent-driven-research
 version: 1.0.0
@@ -13,73 +17,84 @@ mechanical_checks: [no_session_history_passed, artifacts_passed_as_files, findin
 
 # Agent-Driven Research
 
-## Genel ilke
+## Core principle
 
-Taze ajan + görev review'u + geniş final review = yüksek kalite, hızlı döngü.
+Fresh agent per task, plus task-level review, plus a broad final review. High
+quality, fast iteration, and — critically — an auditable record of who saw what.
 
-## Dispatch paketi
+## Dispatch package
 
-Her producer dispatch'i **tam olarak** şunları alır:
+Every producer dispatch receives **exactly**:
 
-1. Projedeki yerini anlatan **tek satır**
-2. **Task brief dosya yolu** — mekanik olarak çıkarılmış, tam değerlerle
-3. Önceki task'ların **yalnız dokunduğu arayüzler**
-4. Belirsizlik çözümleri (senin yorumun)
-5. Rapor dosyası yolu ve sözleşmesi
+1. One line placing the task in the project
+2. **The task brief file path** — extracted mechanically, with exact values
+3. Only the interfaces from prior tasks that this task touches
+4. Your resolutions of any ambiguity in the spec
+5. The report file path and its contract
 
-**Oturum geçmişi asla geçilmez.**
+**Session history is never passed.** Not as a summary, not as "context".
 
-## Bilgi asimetrisi
+## Information asymmetry
 
 | | Producer | Reviewer |
 |---|---|---|
 | Task brief | ✅ | ✅ |
-| Global kısıtlar (spec'ten **kelimesi kelimesine**) | ✅ | ✅ |
-| Önceki arayüzler | ✅ | — |
-| Producer raporu | yazar | ✅ |
-| Üretilen artifact / diff | üretir | ✅ |
-| **Producer'ın iç muhakemesi** | — | ❌ **asla** |
-| Oturum geçmişi | ❌ | ❌ |
+| Global constraints (**verbatim** from spec) | ✅ | ✅ |
+| Prior interfaces | ✅ | — |
+| Producer's report | writes | ✅ |
+| Produced artifact / diff | produces | ✅ |
+| **Producer's internal reasoning** | — | ❌ **never** |
+| Session history | ❌ | ❌ |
 
-## Dispatch kuralları
+## Dispatch rules
 
-- Task başına **taze** ajan
-- Task başına **tek** producer dispatch'i — paralel producer yok (çakışma)
-- Küçük, aynı şekilli işler **tek dispatch'te** toplanır
-- **Bağlam yapıştırma yok** — artifact dosya olarak verilir, inline metin olarak değil
-- **Producer asla ajan çağırmaz** (bkz. [[independence-discipline]])
+- **Fresh** agent per task
+- **One** producer dispatch per task — never parallel producers on the same
+  artifact (they conflict, and the conflict is invisible in the record)
+- Small, same-shaped work is **batched into one dispatch**
+- **No context pasting** — artifacts are handed over as files with hashes, never
+  as inline text
+- **The producer never dispatches an agent** (see `independence-discipline`)
 
-## Eskalasyon merdiveni
+The file-not-text rule exists so that "what did the reviewer see" has a
+verifiable answer. Inline text leaves no hash.
+
+## Escalation ladder
 
 ```
-Tur 1–3   Aynı producer. Bağlam korunur.
-          Açık bulgular KELİMESİ KELİMESİNE iletilir — özetlenmez.
-          Düzeltme raporu AYNI dosyaya EKLENİR (kalıcı hafıza).
-          Yalnız değişen kısım yeniden review edilir.
+Rounds 1–3   Same producer. Context preserved.
+             Open findings passed VERBATIM — never summarised.
+             Fix report APPENDED to the same file (persistent memory).
+             Only the changed portion is re-reviewed.
 
-Tur 4–5   TAZE producer, DAHA YETENEKLİ model.
-          Çerçeveleme: "Önceki producer bunu N kez denedi; artık senin."
+Rounds 4–5   FRESH producer, MORE CAPABLE model.
+             Framing: "A prior producer attempted this N times; you own it now."
 
-Tur 5+    ►► BREAKER ◄◄
-          Dispatch DURUR. İnsan her açık bulguyu tek tek hükme bağlar.
-          Her hüküm deftere yazılır. SESSİZ İSKARTA YASAK.
+Round 5+     ►► BREAKER ◄◄
+             Dispatch stops. A human adjudicates each open finding
+             individually. Every ruling is written to the ledger.
+             SILENT DISCARD IS FORBIDDEN.
 ```
 
-## Finding Ledger
+Passing findings verbatim matters: a summarised finding loses the specific
+detail that made it actionable, and the next round addresses a paraphrase.
 
-`DisagreementCase` yalnızca defterdeki **her satır** `RESOLVED` veya
-(gerekçe + sahip + süre ile) `PARKED` olduğunda kapanır.
-Statüsüz bulguyla kapanış **yasak**.
+## Finding ledger
+
+A `DisagreementCase` closes only when **every** ledger row is `RESOLVED` or
+`PARKED` with a rationale, an owner and an expiry. Closing with an
+unstatused finding is **forbidden**.
 
 ## Final review
 
-Görev review'larından ayrı olarak, **bütün paket üzerinde** ve **en yetenekli
-modelle** tek bir final review yapılır. Parçaları geçen bir bütün, bütün olarak
-tutarsız olabilir.
+Separately from task reviews, **one final review over the whole package** on the
+most capable available model. A whole assembled from individually-passing parts
+can still be inconsistent as a whole.
 
-## Kırmızı bayraklar
+## Red flags
 
-- Reviewer'a inline metin geçilmiş
-- Bulgular reviewer'a özetlenerek iletilmiş
-- Tur sayacı yok
-- Defterde statüsüz bulgu var
+- Inline text passed to a reviewer
+- Findings summarised rather than passed verbatim
+- No round counter present
+- An unstatused finding in the ledger
+- Two producers dispatched against the same artifact

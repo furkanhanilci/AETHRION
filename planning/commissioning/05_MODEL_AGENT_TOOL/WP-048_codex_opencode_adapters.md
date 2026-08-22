@@ -1,100 +1,108 @@
-# WP-048 — Codex, OpenCode ve Direct Worker Adapter'ları
+# WP-048 — Codex, OpenCode and Direct Worker Adapters
 
-## Paket kartı
+## Package card
 
-| Alan | Değer |
+| Field | Value |
 |---|---|
-| İş paketi | `WP-048` |
+| Work package | `WP-048` |
 | Workstream | `05_MODEL_AGENT_TOOL` |
-| İlk efor sınıfı | **L** — refinement'ta O/M/P tahmini zorunlu |
-| Accountable Owner | Agent Runtime Lead |
-| Bağımsız doğrulayıcı | Security / Eval Office |
+| Initial effort class | **L** — large — split into sub-deliveries if it cannot be reviewed in one pass; a three-point (O/M/P) estimate is mandatory at refinement |
+| Accountable owner | Agent Runtime Lead |
+| Independent verifier | Security / Eval Office |
 | Hard dependencies | WP-023, WP-027, WP-046, WP-047 |
-| İlgili gate | G5,Engineering |
-| İlgili kontroller | CTL-SEC-03, CTL-SEC-04 |
-| İlgili ACC senaryoları | İlgili dikey dilim ve commissioning sırasında atanır |
+| Related gates | G5,Engineering |
+| Related controls | CTL-SEC-03, CTL-SEC-04 |
+| Related acceptance scenarios | Assigned during the relevant vertical slice and commissioning |
+| Current status | `NOT_STARTED` |
 
-## Amaç ve beklenen sonuç
+## Purpose and expected outcome
 
-Farklı agent runtime'ları aynı TaskContract, isolation, tool, result, audit ve cancellation contract'ını sağlayan değiştirilebilir adapter'lara dönüşür.
+Different agent runtimes become interchangeable adapters that all satisfy the same `TaskContract`, isolation, tool, result, audit and cancellation contract.
 
-## Kapsam dışı
+## Out of scope
 
-- Bağımlı paketin kendi iç implementasyonu
-- Production cutover ve nihai operasyon onayı
 
-## Önkoşullar ve Definition of Ready
+- The internal implementation of any dependent package
+- Production cutover and final operational approval
 
-- Bağımlılıklar kabul edilmiştir: [WP-023 — Git, Worktree ve Protected Path Politikası](../03_FOUNDATION/WP-023_git_worktree_branch_policy.md), [WP-027 — Git, OCI Registry ve Build Provenance Temeli](../03_FOUNDATION/WP-027_git_oci_supply_chain.md), [WP-046 — LangGraph Bounded Cognition Runtime](../05_MODEL_AGENT_TOOL/WP-046_langgraph_runtime.md), [WP-047 — Role Bundle Registry ve Agent Sözleşme Derleyicisi](../05_MODEL_AGENT_TOOL/WP-047_role_bundle_registry.md)
-- Named owner, implementer ve producer'dan bağımsız verifier atanmıştır.
-- Etkilenen canonical kayıtlar, interface'ler ve ADR'lar refinement'ta ilişkilendirilmiştir.
-- DataClass, CodeTrust, ToolEffect ve ağ/credential kapsamı sınıflandırılmıştır.
-- Test fixture, environment, rollback noktası ve acceptance ölçüm yöntemi erişilebilirdir.
-- Efor için O/M/P kişi-gün tahmini ve gerçek kapasite rezervasyonu kaydedilmiştir.
+## Preconditions — Definition of Ready
 
-## Uygulama görevleri
+- Dependencies accepted: [WP-023 — Git, Worktree and Protected-Path Policy](../03_FOUNDATION/WP-023_git_worktree_branch_policy.md), [WP-027 — Git, OCI Registry and Build Provenance Foundation](../03_FOUNDATION/WP-027_git_oci_supply_chain.md), [WP-046 — LangGraph Bounded Cognition Runtime](../05_MODEL_AGENT_TOOL/WP-046_langgraph_runtime.md), [WP-047 — Role Bundle Registry and Agent Contract Compiler](../05_MODEL_AGENT_TOOL/WP-047_role_bundle_registry.md)
+- A named owner, a named implementer, and a verifier **independent of the producer** are assigned.
+- Affected canonical records, interfaces and ADRs have been linked during refinement.
+- `DataClass`, `CodeTrust`, `ToolEffect` and the network/credential scope are classified.
+- Test fixtures, the environment, the rollback point and the acceptance measurement method are reachable.
+- An O/M/P person-day estimate is recorded and real capacity is reserved against it.
 
-| Alt iş | Yapılacak iş | Sorumlu | Tamamlanma kanıtı |
+## Implementation tasks
+
+| Sub-task | Work to be done | Responsible | Completion evidence |
 |---|---|---|---|
-| WP-048-T01 | Adapter interface ve lifecycle yaz | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-048-T02 | Codex non-interactive/task adapter uygula | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-048-T03 | OpenCode headless/server adapter uygula | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-048-T04 | Direct/local queue worker adapter uygula | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-048-T05 | Worktree/sandbox/tool credentials bağla | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-048-T06 | Structured result, trace, cancel ve failure normalization ekle | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
+| WP-048-T01 | Write the adapter interface and its lifecycle | Implementation owner | Commit / configuration / record reference |
+| WP-048-T02 | Implement the Codex non-interactive task adapter | Implementation owner | Commit / configuration / record reference |
+| WP-048-T03 | Implement the OpenCode headless/server adapter | Implementation owner | Commit / configuration / record reference |
+| WP-048-T04 | Implement the direct/local queue worker adapter | Implementation owner | Commit / configuration / record reference |
+| WP-048-T05 | Bind worktree, sandbox and tool credentials | Implementation owner | Commit / configuration / record reference |
+| WP-048-T06 | Add structured results, tracing, cancellation and failure normalisation | Implementation owner | Commit / configuration / record reference |
 
-## Zorunlu teslimatlar
+## Mandatory deliverables
 
 - `Runtime adapter SDK`
 - `Codex adapter`
 - `OpenCode adapter`
 - `Direct worker adapter`
 - `Conformance report`
-- Güncellenmiş runbook/operasyon notu ve servis/contract ownership kaydı
-- İmzalı `EvidenceManifest`
+- An updated runbook or operations note, plus the service/contract ownership record
+- A signed `EvidenceManifest`
 
-## Test ve doğrulama planı
+## Test and verification plan
 
-- Aynı canonical task üç adapter'da schema uyumlu
-- Cancel/timeout normalization
-- Permission/path negative test
-- Runtime session kaybı recovery
-- Yetkisiz, eksik, stale, duplicate ve partial-failure girdileri için en az bir negatif test
-- İlgili interface'lerde producer/consumer contract compatibility testi
-- Telemetry correlation ve audit kayıt bütünlüğü kontrolü
+- The same canonical task producing schema-compatible results across all three adapters
+- Cancellation and timeout normalisation
+- A permission and path negative test
+- Recovery from runtime session loss
+- At least one negative test for unauthorised, missing, stale, duplicate and partial-failure inputs
+- Producer/consumer contract compatibility tests on every affected interface
+- Telemetry correlation and audit-record integrity checks
 
-## Kabul kriterleri
+## Acceptance criteria
 
-- [ ] Runtime session AIRL workflow state'i değildir
-- [ ] Adapter raw provider secret almaz
-- [ ] Sonuç canonical AgentResult/artifact contract'ına uyar
-- [ ] Bütün zorunlu testler aynı target revision üzerinde geçmiştir.
-- [ ] Açık Critical/High finding yoktur; non-waivable blocker bulunmamaktadır.
-- [ ] Bağımsız verifier kanıt paketini kabul etmiştir.
-- [ ] Rollback/compensation davranışı denenmiş ve audit edilmiştir.
-- [ ] İlgili dashboard, alert, audit query veya integrity query çalışma kanıtı üretmiştir.
+- [ ] A runtime session is never AIRL workflow state.
+- [ ] No adapter receives a raw provider secret.
+- [ ] Results conform to the canonical `AgentResult` and artifact contract.
+- [ ] All mandatory tests passed **on the same target revision**.
+- [ ] No open Critical or High findings; no non-waivable blocker remains.
+- [ ] The independent verifier has accepted the evidence package.
+- [ ] Rollback/compensation behaviour has been exercised and audited.
+- [ ] The related dashboard, alert, audit query or integrity query has produced working evidence.
 
-## Kabul kanıtı paketi
+## Acceptance evidence package
 
-- Aynı target revision/digest üzerinde alınmış test sonuçları
-- Environment, schema, policy ve dependency sürümlerini içeren EvidenceManifest
-- Bağımsız verifier ReviewRecord veya VerificationRecord'u
-- Rollback/compensation denemesi ve sonuç referansı
-- Açık finding, residual risk ve owner/expiry listesi
+- Test results captured on the same target revision/digest
+- An `EvidenceManifest` recording the environment, schema, policy and dependency versions
+- The independent verifier's `ReviewRecord` or `VerificationRecord`
+- The rollback/compensation trial and its result reference
+- The list of open findings and residual risks with owners and expiry dates
 
-## Riskler ve kontrol noktaları
+## Risks and control points
 
-- Contract veya canonical sahiplik belirsizse implementasyon durur ve Architecture Board'a eskale edilir.
-- Identity, data route, artifact integrity, bağımsızlık veya kritik evidence problemi waiver ile geçirilemez.
-- Geçici manuel kontrol gerekiyorsa owner, scope, expiry, compensating control ve kaldırma paketi kaydedilir.
-- Paket tamamlandı beyanı acceptance değildir; verifier kararı olmadan yalnız `TECH_COMPLETE` olabilir.
+- If a contract or canonical ownership question is unresolved, implementation **stops** and the question escalates to the Architecture Board.
+- Identity, data routing, artifact integrity, independence and critical evidence problems **cannot** be passed by waiver.
+- If a temporary manual control is required, its owner, scope, expiry, compensating control and removal package are recorded.
+- A "package complete" statement is **not** acceptance. Without a verifier decision the package can only be `TECH_COMPLETE`.
+
+### Workstream-specific hazards
+
+- A model alias is not a pinned identity; results obtained under an alias are not reproducible.
+- An agent holding a credential defeats the entire broker design.
+- Fallback routes are the least tested and most consequential path in this workstream.
 
 ## Rollback / compensation
 
-Adapter tekil olarak disable edilebilir; görev eligible başka adapter'a yeni execution lease ile dispatch edilir.
+An adapter can be disabled individually; the task is dispatched to another eligible adapter under a new execution lease.
 
-Immutable artifact, review ve karar geçmişi rollback sırasında silinmez; yeni durum supersession veya invalidation kaydıyla gösterilir.
+Immutable artifacts, reviews and decision history are **not** deleted during a rollback; the new state is expressed through a supersession or invalidation record.
 
-## Handoff ve sonraki paketlere giriş
+## Handoff into downstream packages
 
-Paket kabul edildiğinde teslim artifact'larının version/digest'leri Package Registry'ye yazılır, dependency event'i yayımlanır ve bu pakete bağlı READY adayları yeniden değerlendirilir. Downstream paket yalnız burada listelenen contract ve kanıt referanslarını tüketir; implementasyon iç ayrıntılarına bağlanmaz.
+On acceptance, the version and digest of every delivered artifact is written to the Package Registry, the dependency event is published, and every `READY` candidate blocked on this package is re-evaluated. A downstream package consumes **only** the contracts and evidence references listed above; it does not bind to internal implementation details.

@@ -1,99 +1,111 @@
 # ACC-23 — Artifact Overwrite Attempt
 
-## Senaryo kartı
+## Scenario card
 
-| Alan | Değer |
+| Field | Value |
 |---|---|
-| Senaryo | `ACC-23` |
-| Kategori | Data/Integrity |
+| Scenario | `ACC-23` |
+| Category | Data/Integrity |
 | Severity | **Critical** |
-| Accountable Owner | Data Platform Lead |
-| Bağımsız witness/verifier | Archivist / Security |
-| İlgili paketler | `WP-026`, `WP-087`, `WP-104`, `WP-113` |
-| Production kabulü | Critical senaryo SKIP veya waiver ile PASS sayılamaz |
+| Accountable owner | Data Platform Lead |
+| Independent witness / verifier | Archivist / Security |
+| Related packages | `WP-026`, `WP-087`, `WP-104`, `WP-113` |
+| Production acceptance | A Critical scenario can never be counted as PASS through a SKIP or a waiver |
 
-## Amaç
+## Purpose
 
-Bu senaryo, **Artifact Overwrite Attempt** durumunda hedef mimarinin fail-safe ve kanıt üretme davranışını doğrular. Test aynı release candidate, policy bundle, schema bundle ve environment manifest üzerinde çalıştırılır.
+This scenario verifies the target architecture's fail-safe behaviour and its
+evidence production in the **Artifact Overwrite Attempt** situation. The test runs on the same
+release candidate, policy bundle, schema bundle and environment manifest as
+every other scenario in the same acceptance round.
 
 ## Given / When / Then
 
-**Given:** Canonical content-addressed URI'de hash A bytes vardır; istemci aynı URI/key için hash B bytes yazmak ister.
+**Given:** A canonical content-addressed URI holds the bytes of hash A; a client attempts to write the bytes of hash B to the same URI/key.
 
-**When:** Object write/finalize veya manifest update çağrısı yapılır.
+**When:** The object write/finalize or manifest update call is made.
 
-**Then:** Overwrite reddedilir; yeni bytes yalnız yeni content address/version olarak yazılabilir ve eski references değişmez.
+**Then:** The overwrite is rejected; the new bytes can only be written as a new content address and version, and existing references are unchanged.
 
-## Önkoşullar
+## Preconditions
 
-- İlgili work package'lar `INTEGRATED` veya `COMMISSIONING_READY` durumundadır.
-- Teste özel project/actor/data/artifact kimlikleri production verisinden ayrılmıştır.
-- Release candidate digest ile policy, schema, model/tool ve infrastructure bundle sürümleri freeze edilmiştir.
-- Beklenen canonical records, events, policy decisions, telemetry ve audit assertions registry'ye girilmiştir.
-- Failure injection blast radius, kill switch, cleanup ve witness atanmıştır.
+- The related work packages are `INTEGRATED` or `COMMISSIONING_READY`.
+- Test-specific project, actor, data and artifact identifiers are separated from production data.
+- The release candidate digest and the policy, schema, model/tool and infrastructure bundle versions are frozen.
+- The expected canonical records, events, policy decisions, telemetry and audit assertions are entered in the registry.
+- The failure-injection blast radius, the kill switch, the cleanup procedure and the witness are assigned.
 
-## Test adımları
+## Test steps
 
-| # | İşlem | Toplanacak anlık kanıt |
+| # | Action | Evidence captured at this step |
 |---:|---|---|
-| 1 | Artifact A upload/finalize et | Execution log + trace/event references |
-| 2 | Aynı key'e B upload/overwrite dene | Execution log + trace/event references |
-| 3 | Hash mismatch response/audit al | Execution log + trace/event references |
-| 4 | B'yi yeni content address ile yaz | Execution log + trace/event references |
-| 5 | Old run/claim/publication ref'lerini sorgula | Execution log + trace/event references |
-| 6 | Tamper/integrity scan çalıştır | Execution log + trace/event references |
+| 1 | Upload and finalize artifact A | Execution log + trace/event references |
+| 2 | Attempt to upload/overwrite B at the same key | Execution log + trace/event references |
+| 3 | Collect the hash mismatch response and audit record | Execution log + trace/event references |
+| 4 | Write B under a new content address | Execution log + trace/event references |
+| 5 | Query the old run, claim and publication references | Execution log + trace/event references |
+| 6 | Run the tamper and integrity scan | Execution log + trace/event references |
 
-## Zorunlu invariant ve assertions
+## Mandatory invariants and assertions
 
-- [ ] A bytes/hash değişmez
-- [ ] Overwrite operation deny
-- [ ] B unique address/version
-- [ ] Old references A'ya devam eder
-- [ ] Audit tamper attempt taşır
-- [ ] Expected canonical state ile actual state aynı veya açıklanmış güvenli failure state'indedir.
-- [ ] Duplicate, stale, forged veya partial input unsafe yan etki üretmemiştir.
-- [ ] Trace, event, audit ve business record aynı project/workflow/run correlation zincirindedir.
-- [ ] Test sırasında oluşan her Critical/High finding Finding Registry'ye kaydedilmiştir.
+- [ ] A's bytes and hash are unchanged
+- [ ] The overwrite operation is denied
+- [ ] B receives a unique address and version
+- [ ] Old references continue to resolve to A
+- [ ] The audit trail records the tamper attempt
+- [ ] The actual canonical state equals the expected state, or an explained safe failure state.
+- [ ] Duplicate, stale, forged or partial inputs produced no unsafe side effect.
+- [ ] Trace, event, audit and business records share one project/workflow/run correlation chain.
+- [ ] Every Critical or High finding raised during the test is recorded in the Finding Registry.
 
-## Beklenen canonical kayıtlar
+## Expected canonical records
 
 - `ArtifactRecords A/B`
 - `ObjectStoreAudit`
 - `PolicyDecision`
 - `IntegrityScanRecord`
 
-## Beklenen olaylar
+## Expected events
 
 - `artifact.created`
 - `artifact.overwrite_denied`
 - `artifact.version_created`
 - `integrity.checked`
 
-Beklenen olay sayısı/idempotency ve sıra kısıtları test registry'deki machine-readable assertion dosyasında tutulur. NATS event'i tek başına canonical state kanıtı değildir; ilgili service/Temporal commit'i ayrıca doğrulanır.
+Expected event counts, idempotency and ordering constraints live in the
+machine-readable assertion file inside the test registry. **A NATS event alone
+is not evidence of canonical state**; the corresponding service or Temporal
+commit is verified separately.
 
-## Kanıt paketi
+## Evidence package
 
-- `ACC-23-result.json`: PASS/FAIL, RC digest ve assertion sonuçları.
-- `ACC-23-execution-log.jsonl`: zaman sıralı test/fault/decision kayıtları.
-- `ACC-23-state-before.json` ve `ACC-23-state-after.json`.
-- `ACC-23-events.json`, `ACC-23-policy-decisions.json` ve `ACC-23-audit-export.json`.
-- `ACC-23-evidence-manifest.json`: bütün dosyaların hash, producer ve environment referansı.
-- Bağımsız witness `VerificationRecord` ve varsa finding/disposition kayıtları.
+- `ACC-23-result.json`: PASS/FAIL, the RC digest and the assertion results.
+- `ACC-23-execution-log.jsonl`: time-ordered test, fault and decision records.
+- `ACC-23-state-before.json` and `ACC-23-state-after.json`.
+- `ACC-23-events.json`, `ACC-23-policy-decisions.json` and `ACC-23-audit-export.json`.
+- `ACC-23-evidence-manifest.json`: the hash, producer and environment reference of every file.
+- The independent witness's `VerificationRecord`, plus any finding and disposition records.
 
-## PASS ölçütü
+## PASS criteria
 
-- Bütün scenario-specific assertions ve ortak integrity assertions geçer.
-- Beklenen fail-closed/block/revise davranışı happy-path başarı kadar geçerli bir PASS olabilir; beklenen state ile aynı olmalıdır.
-- Açık Critical/High finding yoktur.
-- Kanıt manifesti eksiksiz, hashleri doğrulanmış ve witness tarafından imzalanmıştır.
-- Aynı release candidate dışındaki sonuçlar birleştirilmemiştir.
+- All scenario-specific assertions and the common integrity assertions pass.
+- **An expected fail-closed, block or revise behaviour is as valid a PASS as a happy-path success** — provided it matches the expected state exactly.
+- No open Critical or High findings remain.
+- The evidence manifest is complete, its hashes verified and the package signed by the witness.
+- Results from a different release candidate have not been merged into this one.
 
-## FAIL ve yeniden test
+## FAIL and retest
 
-Bir invariant, kanıt bütünlüğü veya beklenen kayıt/event assertion'ı başarısızsa senaryo FAIL olur. Correction yalnız VALIDATED finding üzerinden açılır. Target revision veya ilgili policy/schema/model/tool bundle değişirse önceki sonuç geçersiz olur; senaryo ve etkilenen regression kümesi yeniden çalıştırılır.
+The scenario FAILs if any invariant, evidence-integrity check, or expected
+record/event assertion fails. A correction is opened only against a `VALIDATED`
+finding. If the target revision or any related policy, schema, model or tool
+bundle changes, the previous result becomes void and the scenario plus its
+affected regression set are rerun.
 
-## Cleanup ve geri dönüş
+## Cleanup and reversal
 
-B test version retention policy ile temizlenebilir; A baseline test artifact olarak kalır.
+The B test version may be removed under retention policy; A remains as the baseline test artifact.
 
-Cleanup canonical evidence ve audit geçmişini silmez. Destructive test fixture işlemleri yalnız explicit test namespace/kimlikleri üzerinde ve iki aşamalı doğrulamayla yapılır.
+Cleanup never deletes canonical evidence or audit history. Destructive test
+fixture operations run only against explicit test namespaces and identities, and
+only under two-stage confirmation.

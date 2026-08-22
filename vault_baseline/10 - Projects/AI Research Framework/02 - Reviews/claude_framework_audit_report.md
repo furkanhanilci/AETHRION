@@ -1,1185 +1,1289 @@
-# AI Research Framework — Bağımsız Denetim Raporu
+> [!info] Generated view
+> This note is generated from `docs/review/FRAMEWORK_REVIEW_2026-08-21_CLAUDE.md` in the repository. Edit the
+> canonical file and regenerate; edits made here are overwritten.
 
-| Alan | Değer |
+# AI Research Framework — Independent Audit Report
+
+| Field | Value |
 |---|---|
-| Rapor tarihi | 2026-08-21 |
-| Reviewer | Claude Opus 5 (bağımsız, salt-okunur inceleme) |
-| İnceleme kökü | `/home/otonom/Desktop/FH/AI_RESEARCH_FRAMEWORK` |
-| Yöntem | Kaynak kod okuması, test çalıştırma, canlı servis sorgusu, SQLite sorgusu, hash doğrulama, plan tutarlılık analizi (script) |
-| Değiştirilen dosya | Yok (bu rapor hariç) |
-| Commit / push | Yapılmadı |
+| Report date | 2026-08-21 |
+| Last revision | 2026-08-22 (translated to English, expanded, remediation status added) |
+| Reviewer | Claude Opus 5 (independent, read-only review) |
+| Review root | `/home/otonom/Desktop/FH/AI_RESEARCH_FRAMEWORK` |
+| Method | Source reading, test execution, live service queries, SQLite queries, hash verification, scripted plan-consistency analysis |
+| Files modified during the audit | None (except this report) |
+| Commit / push during the audit | None |
 
-> Bu rapor, `docs/review/CLAUDE_FULL_FRAMEWORK_REVIEW_PROMPT.md` içindeki talimatı
-> **girdi** olarak kabul eder, **otorite** olarak değil. Promptun kendisi de
-> Bölüm K'de denetlenmiştir ve gerçek dizin yapısıyla uyumsuz bulunmuştur.
+> This report treats the instruction in `docs/review/CLAUDE_FULL_FRAMEWORK_REVIEW_PROMPT.md`
+> as **input**, not as **authority**. That prompt is itself audited in Section K
+> and was found to be inconsistent with the real directory structure.
+
+> **Reading this report a day later.** The audit was performed on 2026-08-21
+> against the then-current layout (`airl_bridge_api/` as a subdirectory). On
+> 2026-08-22 the repository was flattened, the plan was consolidated into one
+> canonical copy, and the whole corpus was rewritten in English. Findings that
+> have since been closed are marked **✅ REMEDIATED** with what changed. Findings
+> without that marker are still open.
 
 ---
 
-## A. Yönetici özeti
+## A. Executive summary
 
-### Kısa cevap
+### The short answer
 
-Elinizde **çok iyi yazılmış bir plan** ve **küçük ama düzgün çalışan bir dikey
-dilim** var. Aradaki mesafe, dokümantasyonun ima ettiğinden çok daha büyük.
+You have **a very well written plan** and **a small but genuinely working
+vertical slice**. The distance between them is far greater than the
+documentation implies.
 
-- Plan: 130 WP + 40 ACC, 186 dosya, ~88.000 kelime.
-- Uygulama: **1.509 satır Python**, 20 test, 1 SQLite tablosu, 33 kayıt.
-- Bağımsız kabul edilmiş (`ACCEPTED`) work package sayısı: **0**.
-- Ve aşağıda göstereceğim üzere, **mevcut koşullarda 0 olmaya devam etmek zorunda** —
-  bu bir çalışma hızı problemi değil, planın yapısal bir kusuru.
+- Plan: 130 WPs + 40 ACC scenarios, 186 files, ~88,000 words.
+- Implementation: **1,509 lines of Python**, 20 tests, 1 SQLite table, 33 records.
+- Work packages independently accepted (`ACCEPTED`): **0**.
+- And as shown below, **under current conditions it is obliged to stay 0** — this
+  is not a question of working speed, it is a structural defect in the plan.
 
-### Karar
+### The verdict
 
-**NOT PRODUCTION-READY.** Bu beklenen ve dokümanlarda da doğru şekilde
-belirtilmiş bir durum. Asıl bulgu şu değil.
+**NOT PRODUCTION-READY.** That is expected, and the documents state it correctly.
+It is not the real finding.
 
-**Asıl bulgu: plan bugünkü haliyle *başlatılamaz*.** İlk paket olan WP-001 dahil
-hiçbir paketin Definition of Done'ı, bu organizasyonda ve bu altyapıda
-karşılanamaz. Detay: Bulgu **C1** ve **C2**.
+**The real finding: the plan as written cannot be *started*.** No package —
+including the very first one, WP-001 — can satisfy its Definition of Done in this
+organisation on this infrastructure. See findings **C1** and **C2**.
 
-### Durum dağılımı (kanıt bazlı)
+### Status distribution (evidence-based)
 
-| Durum | WP (130) | ACC (40) |
+| Status | WP (130) | ACC (40) |
 |---|---:|---:|
-| `IMPLEMENTED` (bağımsız kanıtla kabul edilmiş) | **0** | **0** |
-| `PARTIAL` (çalışan kod var, kabul kriteri karşılanmamış) | **9** | 0 |
-| `CONTRADICTED` (beyan var, karşılığı yok / çelişiyor) | **2** | 0 |
-| `DOCUMENTED_ONLY` (plan var, çalışan karşılık yok) | **119** | 40 |
-| `MISSING` (plan dosyası eksik) | 0 | 0 |
-| `BLOCKED` (doğrulanamadı) | 0 | 0 |
+| `IMPLEMENTED` (accepted on independent evidence) | **0** | **0** |
+| `PARTIAL` (working code exists, acceptance criteria unmet) | **9** | 0 |
+| `CONTRADICTED` (a claim exists with no counterpart, or contradicting one) | **2** | 0 |
+| `DOCUMENTED_ONLY` (a plan exists, no working counterpart) | **119** | 40 |
+| `MISSING` (plan file absent) | 0 | 0 |
+| `BLOCKED` (could not be verified) | 0 | 0 |
 
-`PARTIAL` olan 9 paket: WP-011, WP-014, WP-015, WP-020, WP-061, WP-062, WP-065,
-WP-073, WP-074.
-`CONTRADICTED` olan 2 paket: **WP-022** (teslimatı repoda yok — Bulgu C3),
-**WP-064** (yetki sınırlandırması yok, tüm kişisel kütüphane okunuyor).
+The 9 `PARTIAL` packages: WP-011, WP-014, WP-015, WP-020, WP-061, WP-062,
+WP-065, WP-073, WP-074.
+The 2 `CONTRADICTED` packages: **WP-022** (its deliverable is not in the
+repository — finding C3) and **WP-064** (no permission scoping; the entire
+personal library is read).
 
-### En kritik üç engel
+### The three most critical obstacles
 
-1. **Kanıt zinciri bootstrap deadlock'u** (C1) — Her paketin DoD'si "imzalı
-   EvidenceManifest immutable store'a yazılmış" şartı taşıyor; immutable store
-   WP-026. WP-001 bile kendi kanıtını yazacağı yere sahip değil ve planda geçici
-   kanıt istisnası tanımlı değil.
-2. **Organizasyonel imkânsızlık** (C2) — Plan 73 farklı owner ve 114 farklı
-   verifier rolü varsayıyor; gerçek organizasyon 1 kişi. "Verifier üreticiden
-   bağımsız" şartı tanım gereği karşılanamaz.
-3. **Kanıt teatrosu riski** (H3, M2, M3) — Şu anda "read-only kanıtı" olarak
-   gösterilen üç artifact da aslında sabit bir `False` değerini test ediyor;
-   "smoke test" hata durumunda bile exit 0 dönüyor; "acceptance" scripti
-   kullanıcının kişisel kütüphanesindeki "LiDAR" kelimesine bağımlı.
+1. **Evidence-chain bootstrap deadlock** (C1) — every package's DoD requires a
+   "signed `EvidenceManifest` written to the immutable store"; the immutable store
+   is WP-026. Even WP-001 has nowhere to write its own evidence, and the plan
+   defines no interim evidence exception.
+2. **Organisational impossibility** (C2) — the plan assumes 73 distinct owners
+   and 114 distinct verifier roles; the actual organisation is one person. The
+   "verifier independent of the producer" condition cannot be met **by definition**.
+3. **Evidence theatre risk** (H3, M2, M3) — all three artifacts currently
+   presented as "read-only evidence" are in fact testing a hard-coded `False`; the
+   "smoke test" exits 0 even on failure; the "acceptance" script depends on the
+   word "LiDAR" appearing in the user's personal library.
 
-### Şu an güvenle çalıştırılabilecek gerçek dikey dilim
+### The real vertical slice that can be run safely today
 
-`Zotero Local API (read-only) → SQLite registry → Obsidian projeksiyon → Hermes MCP (5 read-only tool)`
+`Zotero Local API (read-only) → SQLite registry → Obsidian projection → Hermes MCP (5 read-only tools)`
 
-Bu dilim gerçekten çalışıyor, gerçekten idempotent ve gerçekten yerel. **33
-kaynak, 3 kategori, 20/20 test PASS, servis ve timer aktif** — doğrulandı.
-Sınırı: kütüphane 100 kaynağı geçtiği an sessizce eksik senkron etmeye başlar
-(Bulgu H1).
+This slice genuinely works, is genuinely idempotent and is genuinely local.
+**33 sources, 3 categories, 20/20 tests PASS, service and timer active** —
+verified. Its limit: the moment the library exceeds 100 sources it begins to sync
+**silently incompletely** (finding H1).
 
 ---
 
-## B. Repository ve environment snapshot
+## B. Repository and environment snapshot
 
-| Alan | Değer | Not |
+| Field | Value | Note |
 |---|---|---|
-| Framework kökü | `/home/otonom/Desktop/FH/AI_RESEARCH_FRAMEWORK` | **Git deposu değil.** `.git`, `.codex`, `.agents` boş dizinler |
-| Kanonik plan ağacı | `planning/commissioning/` (186 dosya) | **Versiyon kontrolü altında değil** |
-| Uygulama reposu | `.` (repo koku) | Git repo, branch `main`, HEAD `6c849bd` |
+| Framework root | `/home/otonom/Desktop/FH/AI_RESEARCH_FRAMEWORK` | **Not a Git repository at audit time.** `.git`, `.codex`, `.agents` were empty directories |
+| Canonical plan tree | `planning/commissioning/` (186 files) | **Not under version control** at audit time |
+| Implementation repository | `airl_bridge_api/` | Git repo, branch `main`, HEAD `6c849bd` |
 | Remote | `https://github.com/furkanhanilci/AI-Research-Framework.git` | private, default `main` |
-| Local vs remote | `0 ahead / 0 behind` — senkron | `origin/main = 6c849bd` |
-| Çalışma ağacı | Temiz | `git status --short` boş |
-| Takip edilen dosya | 434 | 211'i `vault_baseline/` |
-| Python | 3.11, `.venv` mevcut | `uv` yönetimli |
-| Test sonucu | **20 passed** | `.venv/bin/python -m pytest -q`, exit 0 |
-| Bridge servisi | `active` | `/health` ve `/ready` 200 döndü |
-| Sync timer | `active`, son çalışma 8 dk önce | 30 dk periyot |
-| Kayıt sayısı | 33 kaynak, 25 sync run | Son 8 run: `SUCCEEDED`, 33 fetched / 33 unchanged |
-| Plan hash doğrulaması | **184/184 OK** | `sha256sum -c SHA256SUMS.txt` |
-| Vault | `/home/otonom/Documents/Obsidian Vault`, 246 not | baseline ile içerik olarak eşleşiyor |
-| Wikilink bütünlüğü | 103 link, **0 kırık** | script ile doğrulandı |
-| Plan içi markdown link | 1011 link, **0 kırık** (her üç kopyada da) | script ile doğrulandı |
-| CI | **Yok** | `.github`, `Makefile`, `ruff`, `mypy`, `pre-commit` — hiçbiri yok |
+| Local vs remote | `0 ahead / 0 behind` — in sync | `origin/main = 6c849bd` |
+| Working tree | Clean | `git status --short` empty |
+| Tracked files | 434 | 211 of them under `vault_baseline/` |
+| Python | 3.11, `.venv` present | managed by `uv` |
+| Test result | **20 passed** | `.venv/bin/python -m pytest -q`, exit 0 |
+| Bridge service | `active` | `/health` and `/ready` returned 200 |
+| Sync timer | `active`, last run 8 minutes earlier | 30-minute period |
+| Record count | 33 sources, 25 sync runs | Last 8 runs: `SUCCEEDED`, 33 fetched / 33 unchanged |
+| Plan hash verification | **184/184 OK** | `sha256sum -c SHA256SUMS.txt` |
+| Vault | `/home/otonom/Documents/Obsidian Vault`, 246 notes | content-identical to the baseline |
+| Wikilink integrity | 103 links, **0 broken** | verified by script |
+| Markdown links inside the plan | 1011 links, **0 broken** (in all three copies) | verified by script |
+| CI | **None** | `.github`, `Makefile`, `ruff`, `mypy`, `pre-commit` — none present |
+
+> ✅ **REMEDIATED (2026-08-22):** the repository was flattened so that the
+> framework root **is** the Git root; `planning/commissioning/` is now tracked,
+> single-copy and hash-sealed inside it (195 files re-sealed, all OK). CI is still
+> absent — see H5.
 
 ---
 
-## C. Gerçekten çalışan şeyler (hakkını teslim edelim)
+## C. What genuinely works (credit where it is due)
 
-Bunları küçümsemeyin; birçoğu bu ölçekte nadiren doğru yapılıyor:
+Do not underestimate these; several are rarely done correctly at this scale:
 
-1. **Idempotent upsert.** `content_hash` karşılaştırmasıyla insert/update/unchanged
-   ayrımı doğru; `(library_type, library_id, key)` üzerinde UNIQUE constraint var.
-   Test edilmiş: `tests/test_database.py:5`.
-2. **Kararlı kimlik.** `airl_id`, Zotero item key binding'inin hash'i — başlık
-   değişince kimlik değişmiyor. Test edilmiş: `tests/test_zotero.py:9`.
-3. **Atomik dosya yazımı.** `mkstemp` + `fsync` + `os.replace` — kısmi yazılmış
-   Markdown dosyası oluşmaz (`obsidian.py:253`).
-4. **Manifest sahipli silme.** Projeksiyon yalnızca kendi manifestinde kayıtlı
-   dosyaları siler; insan notu aynı klasörde olsa bile korunur. **Gerçek bir
-   testi var**: `tests/test_obsidian.py:72`. Bu, veri kaybına karşı en önemli
-   savunma ve doğru kurulmuş.
-5. **Path traversal savunması.** Hem config seviyesinde (`config.py:58`) hem
-   projeksiyon seviyesinde (`obsidian.py:42`, `:124`) vault dışına çıkış engelli.
-6. **Loopback zorlaması.** `config.py:47` — `AIRL_API_HOST` loopback dışında bir
-   değer alırsa servis başlamayı reddediyor. Bu iyi bir fail-closed default.
-7. **XSS/enjeksiyon kaçışı.** Abstract ve başlık `html.escape`, YAML string'leri
-   `json.dumps` ile kaçırılıyor; testi var (`tests/test_obsidian.py:5`).
-8. **systemd sertleştirmesi.** `NoNewPrivileges`, `ProtectSystem=strict`,
-   `ProtectHome=read-only` + dar `ReadWritePaths`. Bu seviyede hardening beklenmezdi.
-9. **Plan bütünlüğü.** 130 paketin bağımlılık grafiği **döngüsüz**, hepsi
-   topolojik sırada (ileri numaralı bağımlılık: 0), CSV ile dosya seti birebir
-   örtüşüyor, 1011 iç link sağlam, 184 dosyanın hash'i tutuyor. Bu ciddi bir emek.
-10. **Dürüst durum semantiği.** `ai_research_framework_current_status_and_roadmap.md`
-    §2, `V0 HAZIR ≠ ACCEPTED` ayrımını açıkça yapıyor. Bu dokümanın kendisi
-    "pazarlama özeti" değil. Bunu koruyun.
-
----
-
-## D. Bulgular
-
-Format: `ID | Severity | Başlık` → Kanıt → Etki → Öneri.
-
-### C1 — CRITICAL — Kanıt zinciri bootstrap deadlock'u: hiçbir paket ACCEPTED olamaz
-
-**Kanıt:**
-- `00_PROGRAM/05_DEFINITION_OF_READY_DONE.md:41` — DoD: *"Evidence manifest
-  imzalanmış ve immutable store'a yazılmıştır."*
-- `01_GOVERNANCE/WP-001_commissioning_charter.md`, zorunlu teslimatlar:
-  `- İmzalı EvidenceManifest` — bu satır **130/130** WP dosyasında var.
-- `paket_bagimlilik_matrisi.csv` — immutable store = **WP-026**, bağımlılıkları
-  `WP-021;WP-014` → `WP-020` → `WP-011` → `WP-010` → ... → `WP-001`.
-- `00_PLANIN_KULLANIMI.md`, `06_KANIT_VE_KABUL_STRATEJISI.md`,
-  `05_DEFINITION_OF_READY_DONE.md` içinde **bootstrap/geçici kanıt istisnası
-  tanımlı değil** (grep: yalnız `TemporaryControlRecord` geçiyor, kanıt deposu
-  için değil manuel kontrol için).
-
-**Etki:** Bağımlılık grafiği döngüsüz olsa da **kanıt zinciri döngüsel**. WP-001'i
-kabul etmek için imzalı bir evidence manifest'i immutable store'a yazmanız
-gerekiyor; immutable store WP-026, o da 5 seviye aşağıda. Program teknik olarak
-adım 1'de duruyor.
-
-**Öneri:** WP-001'den önce bir **WP-000 Interim Evidence Policy** tanımlayın:
-- Geçici kanıt deposu: `delivery/WP-xxx/` + `evidence-manifest.json`
-  (dosya adı, sha256, üretici komut, target git SHA, timestamp).
-- "İmza" yerine geçecek geçici mekanizma: git commit SHA + `git tag -s` veya en
-  azından append-only bir `EVIDENCE_LEDGER.md`.
-- Bu geçici mekanizmanın WP-026 tamamlandığında nasıl migrate edileceği ve
-  expiry kriteri yazılı olsun (planın kendi `TemporaryControlRecord` formatı buna uyar).
+1. **Idempotent upsert.** The insert/update/unchanged distinction via
+   `content_hash` comparison is correct, with a UNIQUE constraint on
+   `(library_type, library_id, key)`. Tested: `tests/test_database.py:5`.
+2. **Stable identity.** `airl_id` is a hash of the Zotero item key binding — the
+   identity does not change when the title changes. Tested: `tests/test_zotero.py:9`.
+3. **Atomic file writes.** `mkstemp` + `fsync` + `os.replace` — no partially
+   written Markdown file can appear (`obsidian.py:253`).
+4. **Manifest-owned deletion.** The projection deletes only files registered in
+   its own manifest; a human note in the same folder survives. **It has a real
+   test**: `tests/test_obsidian.py:72`. This is the single most important defence
+   against data loss and it is built correctly.
+5. **Path traversal defence.** Escape from the vault is blocked at both the
+   config level (`config.py:58`) and the projection level (`obsidian.py:42`, `:124`).
+6. **Loopback enforcement.** `config.py:47` — the service refuses to start if
+   `AIRL_API_HOST` is set to anything but loopback. A good fail-closed default.
+7. **XSS/injection escaping.** Abstracts and titles go through `html.escape`,
+   YAML strings through `json.dumps`; there is a test (`tests/test_obsidian.py:5`).
+8. **systemd hardening.** `NoNewPrivileges`, `ProtectSystem=strict`,
+   `ProtectHome=read-only` plus narrow `ReadWritePaths`. Hardening at this level
+   was not expected.
+9. **Plan integrity.** The dependency graph over 130 packages is **acyclic**, all
+   in topological order (forward dependencies: 0), the CSV matches the file set
+   exactly, 1011 internal links resolve, and 184 file hashes verify. That is
+   serious work.
+10. **Honest status semantics.** `ai_research_framework_current_status_and_roadmap.md`
+    §2 explicitly distinguishes `V0 READY ≠ ACCEPTED`. That document is not a
+    marketing summary. Keep it that way.
 
 ---
 
-### C2 — CRITICAL — Plan 73 owner + 114 verifier rolü varsayıyor; organizasyon 1 kişi
+## D. Findings
 
-**Kanıt:**
-- `paket_bagimlilik_matrisi.csv` analizi: **73 farklı `owner`**, **114 farklı
-  `verifier`** değeri, 130 satırda.
-- `05_DEFINITION_OF_READY_DONE.md:35` — *"Verifier üreticiden bağımsız doğrulama
-  yapmıştır."*
-- `05_DEFINITION_OF_READY_DONE.md:52` (Kabul edilmeyen kanıtlar) — *"Agent'ın veya
-  implementer'ın serbest metin 'başarılı' beyanı"*, *"Reviewer'ın producer trace'ini
-  görerek verdiği bağımsızlık iddiası"*.
-- Gerçek durum: tüm vault notlarında `owner: otonom`; `CODEOWNERS` yalnız bir
-  yorum satırı içeriyor, hiçbir sahip tanımlı değil.
-- Efor dağılımı: **83 paket "L"**, 42 "M", 5 "S". Takvim yok
-  (`08_KAPASITE_VE_TAHMIN.md`: *"sabit takvim yok"*).
+Format: `ID | Severity | Title` → Evidence → Impact → Recommendation.
 
-**Etki:** 83 adet "L" efor paketini, ayrı bir assurance havuzuyla, bağımsız
-verifier ile yürütmek kurumsal bir programın iş tanımı. Tek kişilik bir
-organizasyonda bağımsızlık şartı **tanım gereği** karşılanamaz — SILBO tarafında
-kullandığınız "sealed Fable review" yaklaşımı bunun tek gerçekçi ikamesi ve plan
-bu ikameyi hiçbir yerde tanımlamıyor.
+### C1 — CRITICAL — Evidence-chain bootstrap deadlock: no package can become ACCEPTED
 
-**Öneri:** İki seçenekten birini **açıkça** seçin ve planın 00_PROGRAM'ına yazın:
-- **(a) Kapsamı küçültün:** 130 paketi, tek kişinin yürütebileceği ~20-25 paketlik
-  bir "AIRL-OS Personal Edition"a indirin. Kalanları `DEFERRED` olarak işaretleyin.
-- **(b) Bağımsızlık modelini yeniden tanımlayın:** SILBO'daki sealed-review +
-  exact-quorum protokolünü framework'ün resmi verifier mekanizması yapın
-  (WP-007'nin gerçek uygulaması bu olur). Farklı model ailesi + sealed context +
-  exact T/H = "bağımsızlık" tanımını yazılı hale getirin.
+**Evidence:**
+- `00_PROGRAM/05_DEFINITION_OF_READY_DONE.md:41` — DoD: *"The evidence manifest is
+  signed and written to the immutable store."*
+- `01_GOVERNANCE/WP-001_commissioning_charter.md`, mandatory deliverables:
+  `- A signed EvidenceManifest` — this line appears in **130/130** WP files.
+- `package_dependency_matrix.csv` — the immutable store is **WP-026**, whose
+  dependencies run `WP-021;WP-014` → `WP-020` → `WP-011` → `WP-010` → … → `WP-001`.
+- No bootstrap or interim evidence exception is defined in
+  `00_PLANIN_KULLANIMI.md`, `06_KANIT_VE_KABUL_STRATEJISI.md` or
+  `05_DEFINITION_OF_READY_DONE.md` (grep finds only `TemporaryControlRecord`,
+  which is for manual controls, not for an evidence store).
 
-Bu karar verilmeden yazılacak her satır kod, kabul edilemez kod olacak.
+**Impact:** Although the dependency graph is acyclic, the **evidence chain is
+cyclic**. To accept WP-001 you must write a signed evidence manifest into the
+immutable store; the immutable store is WP-026, five levels downstream. The
+programme technically halts at step 1.
+
+**Recommendation:** Define a **WP-000 Interim Evidence Policy** ahead of WP-001:
+- An interim evidence store: `delivery/WP-xxx/` + `evidence-manifest.json`
+  (file name, sha256, producing command, target Git SHA, timestamp).
+- An interim mechanism standing in for a signature: a Git commit SHA plus
+  `git tag -s`, or at minimum an append-only `EVIDENCE_LEDGER.md`.
+- Write down how that interim mechanism migrates once WP-026 exists, and its
+  expiry criterion (the plan's own `TemporaryControlRecord` format fits).
+
+> **Status: OPEN.** WP-000 is referenced in the revised program documents and in
+> WP-139 (evidence timestamping gives it an external time anchor without
+> infrastructure), but the package itself has not been written.
 
 ---
 
-### C3 — CRITICAL — WP-022 "TECH_COMPLETE" beyan edildi; teslimatı repoda yok
+### C2 — CRITICAL — The plan assumes 73 owners and 114 verifiers; the organisation is one person
 
-**Kanıt:**
-- `implementation_log.md:164-166` — *"WP-022 için ilk repository skeleton alanları
-  eklendi: `schemas/`, `policy/`, `infra/`, `services/`, `workflows/`, `agents/`,
-  `delivery/` ve `docs/architecture/`."*
+**Evidence:**
+- Analysis of `package_dependency_matrix.csv`: **73 distinct `owner` values** and
+  **114 distinct `verifier` values** across 130 rows.
+- `05_DEFINITION_OF_READY_DONE.md:35` — *"The verifier has performed verification
+  independently of the producer."*
+- `05_DEFINITION_OF_READY_DONE.md:52` (evidence that is not accepted) — *"An
+  agent's or implementer's free-text claim of success"*, *"An independence claim
+  from a reviewer who has seen the producer's trace"*.
+- Reality: every vault note carries `owner: otonom`; `CODEOWNERS` contained a
+  single comment line and defined no owner at all.
+- Effort distribution: **83 packages "L"**, 42 "M", 5 "S". No calendar exists
+  (`08_KAPASITE_VE_TAHMIN.md`: *"there is no fixed calendar"*).
+
+**Impact:** Running 83 "L"-effort packages with a separate assurance pool and an
+independent verifier is the job description of an institutional programme. In a
+one-person organisation the independence condition cannot be met **by
+definition** — the "sealed Fable review" approach used on the SILBO side is the
+only realistic substitute, and the plan defines that substitute nowhere.
+
+**Recommendation:** Choose one of two options **explicitly** and write it into
+`00_PROGRAM/`:
+- **(a) Reduce the scope:** cut 130 packages down to an "AIRL-OS Personal Edition"
+  of ~20–25 packages that one person can actually run. Mark the rest `DEFERRED`.
+- **(b) Redefine the independence model:** make the SILBO sealed-review plus
+  exact-quorum protocol the framework's official verifier mechanism (that becomes
+  the real implementation of WP-007). Write down the definition: different model
+  family + sealed context + exact target SHA = "independence".
+
+Until that decision is made, every line of code written will be unacceptable code.
+
+> **Note on a self-correction.** The original phrasing of this finding overstated
+> the gap: the plan's `04_ROL_VE_SORUMLULUK_MATRISI` **does** address small teams
+> and role combination. The precise problem is narrower and worse: role
+> combination is permitted, but **R3 remains permanently BLOCKED**, and no R3
+> classification path is defined for a solo operator. The revised
+> `04_role_and_responsibility_matrix.md` now states this consequence explicitly.
+
+---
+
+### C3 — CRITICAL — WP-022 was declared "TECH_COMPLETE"; its deliverable is not in the repository
+
+**Evidence:**
+- `implementation_log.md:164-166` — *"Initial repository skeleton areas added for
+  WP-022: `schemas/`, `policy/`, `infra/`, `services/`, `workflows/`, `agents/`,
+  `delivery/` and `docs/architecture/`."*
 - `ls -A`: `services/`, `workflows/`, `agents/`, `infra/`, `policy/`,
   `delivery/WP-011/`, `delivery/WP-014/`, `delivery/WP-015/`, `delivery/WP-020/`
-  — **hepsi boş**.
+  — **all empty**.
 - `git ls-files | grep -E '^(services|workflows|agents|infra|policy|delivery)/'`
-  → **hiçbir çıktı yok**. Git boş dizin takip etmez.
-- Dolayısıyla `github.com/furkanhanilci/AI-Research-Framework` reposunda bu
-  dizinlerin **hiçbiri yok**.
-- Yardımcı teslimatlar da içi boş:
-  - `docs/architecture/FOUNDATION.md` → tek satır: `# Foundation repository skeleton`
-  - `schemas/README.md` → tek satır: `# Shared contract schemas`
-  - `dependency-rules.txt` → tek satır, ayrıştırılamaz düz metin:
-    `src/airl_framework -> schemas, policy; src/airl_bridge -> services/knowledge; tests -> all owners`
-  - `CODEOWNERS` → yalnız bir yorum satırı, sıfır kural. **Hiçbir şeyi zorlamıyor.**
+  → **no output**. Git does not track empty directories.
+- Therefore **none** of these directories exists in the
+  `github.com/furkanhanilci/AI-Research-Framework` repository.
+- The supporting deliverables were empty too:
+  - `docs/architecture/FOUNDATION.md` → one line: `# Foundation repository skeleton`
+  - `schemas/README.md` → one line: `# Shared contract schemas`
+  - `dependency-rules.txt` → one unparseable line of prose
+  - `CODEOWNERS` → one comment line, zero rules. **It enforced nothing.**
 
-**Etki:** Bu, planın kendi yasakladığı kanıt tipinin ta kendisi
-(`05_DEFINITION_OF_READY_DONE.md:52`: *"Agent'ın serbest metin 'başarılı' beyanı"*).
-Implementation log'a `TECH_COMPLETE` yazılmış bir iş, uzak repoda hiç yok.
+**Impact:** This is exactly the evidence type the plan itself forbids
+(`05_DEFINITION_OF_READY_DONE.md:52`: *"an agent's free-text claim of success"*).
+Work recorded as `TECH_COMPLETE` in the implementation log does not exist in the
+remote repository at all.
 
-**Öneri:** WP-022 durumunu `implementation_log.md`'de derhal `NOT_STARTED`'a
-düşürün. Yeniden yaparken: her dizine `.gitkeep` + gerçek bir sınır dosyası
-(örn. `policy/` içinde çalışan bir OPA/rego veya en az bir JSON şema),
-`CODEOWNERS`'a gerçek kural, `dependency-rules.txt` yerine **CI'da zorlanan**
-bir import-linter/`tach` konfigürasyonu.
+**Recommendation:** Immediately downgrade WP-022's status in
+`implementation_log.md` to `NOT_STARTED`. On the second attempt: a `.gitkeep` plus
+a real boundary file in every directory (for example a working OPA/rego policy or
+at least one JSON schema under `policy/`), real rules in `CODEOWNERS`, and an
+import-linter/`tach` configuration **enforced in CI** in place of
+`dependency-rules.txt`.
+
+> ✅ **PARTIALLY REMEDIATED (2026-08-22):** `CODEOWNERS` and `dependency-rules.txt`
+> now carry real, parseable content. The empty directories were removed rather
+> than filled, and WP-022 remains un-started. **CI enforcement is still missing**,
+> so the deliverable is still not verifiable mechanically.
 
 ---
 
-### H1 — HIGH — Zotero ingest 100 kayıtta sabit tavanlı; sayfalama ve incremental sync yok
+### H1 — HIGH — Zotero ingest is hard-capped at 100 records; no pagination, no incremental sync
 
-**Kanıt:**
+**Evidence:**
 - `src/airl_bridge/zotero.py:41` — `safe_limit = max(1, min(limit, 100))`
 - `src/airl_bridge/main.py:126,136` — `Query(default=100, ge=1, le=100)`
 - `src/airl_bridge/cli.py:68` — `choices=range(1, 101)`
 - `deploy/airl-bridge-sync.service` — `POST /v1/sync?limit=100`
-- `fetch_top_items` tek bir `GET /items/top` çağrısı yapıyor; `start` parametresi,
-  `Total-Results` header okuması veya `since=` versiyon parametresi **yok**.
+- `fetch_top_items` makes a single `GET /items/top` call; there is **no** `start`
+  parameter, no `Total-Results` header reading and no `since=` version parameter.
 
-**Etki:** Kütüphane 100 kaynağı geçtiği an senkron **sessizce eksik** çalışmaya
-başlar. Hata yok, uyarı yok; `sync_runs` tablosuna `SUCCEEDED` yazılır.
-Dahası: `project_obsidian()` veritabanının tamamını projekte ettiği için, 100
-tavanı yüzünden hiç girmemiş kaynaklar Obsidian'da da hiç görünmez. Şu anda 33
-kaynakla gizli; büyüdüğünüz gün fark edilmesi çok zor bir veri eksikliği olur.
+**Impact:** The moment the library exceeds 100 sources, the sync begins running
+**silently incomplete**. No error, no warning; `SUCCEEDED` is written to the
+`sync_runs` table. Worse: because `project_obsidian()` projects the whole
+database, sources that never entered because of the 100 cap never appear in
+Obsidian either. With 33 sources this is invisible; on the day you grow it becomes
+a data gap that is very hard to notice.
 
-**Öneri (öncelik 1):**
-- `fetch_top_items` içinde `start`/`limit` ile sayfalama döngüsü; `Total-Results`
-  header'ını okuyup tam kapsamı doğrulayın.
-- `sync_runs` tablosuna `library_version` (Zotero `Last-Modified-Version`) ekleyip
-  sonraki çağrıda `?since=` kullanın (bu aynı zamanda WP-067'nin çekirdeği).
-- `fetched < total` durumunda run'ı `PARTIAL` olarak işaretleyin, `SUCCEEDED` değil.
+**Recommendation (priority 1):**
+- A pagination loop over `start`/`limit` inside `fetch_top_items`; read the
+  `Total-Results` header and verify full coverage.
+- Add `library_version` (the Zotero `Last-Modified-Version`) to `sync_runs` and
+  use `?since=` on the next call (this is also the core of WP-067).
+- Mark the run `PARTIAL`, not `SUCCEEDED`, whenever `fetched < total`.
 
----
-
-### H2 — HIGH — Zotero'da silinen kayıt registry'de ve Obsidian'da sonsuza kadar kalır
-
-**Kanıt:**
-- `src/airl_bridge/database.py` — `DELETE` veya tombstone içeren tek bir sorgu yok.
-- `src/airl_bridge/service.py:41` — `project_obsidian()` DB'nin tamamını projekte eder.
-- `obsidian.py:112` `_remove_stale()` yalnız "DB'de artık projeksiyona girmeyen"
-  dosyaları siler; DB hiç küçülmediği için bu yol pratikte hiç tetiklenmez.
-- Zotero `/deleted` endpoint'i hiç çağrılmıyor.
-
-**Etki:** Kullanıcı Zotero'dan bir kaynağı sildiğinde veya kütüphaneden
-çıkardığında, kaynak kanonik registry'de ve Obsidian'da kalır. Zamanla vault
-"hayalet kaynak" biriktirir. Bu doğrudan planın 6 numaralı invariant'ını
-("derived graph canonical kayıtlardan sıfırdan yeniden kurulabilir") ihlal eder:
-canonical kayıt zaten yanlış.
-
-**Öneri:** `since=` senkronuyla birlikte Zotero `/deleted?since=N` okuması ekleyin;
-silinenleri **silmeyin**, `status = WITHDRAWN` + `withdrawn_at` ile tombstone
-yapın (plan WP-011-T05 zaten bunu istiyor) ve projeksiyondan çıkarın.
+> **Status: OPEN.** Documented as a known limitation in `README.md`.
 
 ---
 
-### H3 — HIGH — `zotero_write_enabled` ölçülen bir kontrol değil, sabit; üç "kanıt" artifact'i bunu test ediyor
+### H2 — HIGH — A record deleted in Zotero stays in the registry and in Obsidian forever
 
-**Kanıt:**
-- `src/airl_bridge/models.py:65` — `zotero_write_enabled: bool = False` (varsayılan)
-- `src/airl_bridge/main.py:62-68` — `HealthResponse(...)` bu alanı **hiç set etmiyor**,
-  yani her zaman varsayılan `False`.
+**Evidence:**
+- `src/airl_bridge/database.py` — not a single query containing `DELETE` or a
+  tombstone.
+- `src/airl_bridge/service.py:41` — `project_obsidian()` projects the entire DB.
+- `obsidian.py:112` `_remove_stale()` deletes only files that "no longer enter the
+  projection from the DB"; since the DB never shrinks, this path is never
+  triggered in practice.
+- The Zotero `/deleted` endpoint is never called.
+
+**Impact:** When the user deletes a source from Zotero or removes it from the
+library, the source remains in the canonical registry and in Obsidian. Over time
+the vault accumulates ghost sources. This directly violates the plan's invariant 6
+("the derived graph can be rebuilt from scratch from canonical records"): the
+canonical record is already wrong.
+
+**Recommendation:** Along with `since=` sync, add a read of Zotero
+`/deleted?since=N`; do **not** delete the records — tombstone them with
+`status = WITHDRAWN` + `withdrawn_at` (WP-011-T05 already asks for this) and drop
+them from the projection.
+
+> **Status: OPEN.**
+
+---
+
+### H3 — HIGH — `zotero_write_enabled` is a constant, not a measured control; three "evidence" artifacts test it
+
+**Evidence:**
+- `src/airl_bridge/models.py:65` — `zotero_write_enabled: bool = False` (default)
+- `src/airl_bridge/main.py:62-68` — `HealthResponse(...)` **never sets** the field,
+  so it is always the default `False`.
 - `src/airl_bridge/mcp_server.py:78` — `health.get("zotero_write_enabled", False)`
-  — alan gelmese bile `False`.
-- `src/airl_bridge/cli.py:34` — `"zotero_write_enabled": False` — düz sabit.
-- Ve bunu "doğrulayan" üç artifact:
+  — `False` even when the field is absent.
+- `src/airl_bridge/cli.py:34` — `"zotero_write_enabled": False` — a flat constant.
+- And the three artifacts that "verify" it:
   - `tests/test_api.py:26` — `assert payload["zotero_write_enabled"] is False`
   - `scripts/acceptance_v0.py:41` — `require(health["zotero_write_enabled"] is False, ...)`
-  - `scripts/acceptance_v0.py:77` — çıktıya yine sabit `False` yazıyor.
+  - `scripts/acceptance_v0.py:77` — prints the same constant `False` to its output.
 
-**Etki:** Bu bir totoloji. `False is False` test ediliyor. Kod yarın bir
-`httpx.post` çağrısı kazansa bu üç kontrol de yeşil kalır. `README.md:31`,
-`ARCHITECTURE_V0.md` ve status dokümanının en güçlü güvenlik iddiası —
-"Zotero'ya yazılmıyor" — **sıfır test kapsamına sahip**.
+**Impact:** This is a tautology. `False is False` is being tested. If the code
+gained an `httpx.post` call tomorrow, all three checks would stay green. The
+framework's strongest security claim — "nothing is written to Zotero", stated in
+`README.md:31`, `ARCHITECTURE_V0.md` and the status document — has **zero test
+coverage**.
 
-**Öneri:**
-- `HealthResponse.zotero_write_enabled` alanını kaldırın veya gerçekten
-  hesaplanan bir değere bağlayın.
-- Yerine **davranışsal bir test** yazın: `ZoteroClient`'a `MockTransport` verin ve
-  `GET` dışında bir method geldiğinde `AssertionError` fırlatan handler ile tüm
-  `sync` akışını çalıştırın. Bu, iddiayı gerçekten kanıtlar.
-- Statik bir kontrol ekleyin (CI): `src/airl_bridge/zotero.py` içinde
-  `post|put|patch|delete` regex'i eşleşirse build fail.
+**Recommendation:**
+- Remove `HealthResponse.zotero_write_enabled`, or bind it to a genuinely computed
+  value.
+- Write a **behavioural test** instead: give `ZoteroClient` a `MockTransport` whose
+  handler raises `AssertionError` on any method other than `GET`, and run the whole
+  `sync` flow through it. That actually proves the claim.
+- Add a static check in CI: fail the build if the regex `post|put|patch|delete`
+  matches inside `src/airl_bridge/zotero.py`.
 
----
-
-### H4 — HIGH — `airl_framework` contract çekirdeğinin sıfır üretim tüketicisi var; hâlâ mevcut sistemle çelişiyor
-
-**Kanıt:**
-- `grep -rn airl_framework` → yalnız `pyproject.toml:28`, `tests/test_contracts.py:3`
-  ve iki vault notu. **`src/airl_bridge/` içinde tek bir import yok.**
-- Bridge hiçbir `EventEnvelope` üretmiyor; sistemde event bus da yok.
-- Çelişki: `contracts.py:11` → `_HASH_RE = ^[0-9a-f]{64}$` (çıplak digest).
-  `zotero.py:104` → `content_hash = "sha256:" + hexdigest` (prefix'li).
-  Yani mevcut kanonik kayıt, yeni yazılan `ArtifactManifest` sözleşmesini
-  **daha doğduğu gün ihlal ediyor**.
-- `SourceRecord.airl_id` hiçbir yerde `Identity` ile doğrulanmıyor.
-- `SchemaRegistry` bir `dict` — kalıcı değil, JSON Schema kabul etmiyor
-  (`Mapping[str, Any]` olarak saklayıp hiç valide etmiyor), CI tarafından
-  zorlanmıyor. WP-020'nin beklenen sonucu *"CI tarafından zorlanır"* idi.
-
-**Etki:** `implementation_log.md` Step 001, WP-011/014/015/020'yi
-`TECH_COMPLETE` ilan ediyor. Gerçekte: 170 satırlık, hiçbir şeye bağlı olmayan,
-mevcut veri modeliyle uyumsuz bir kütüphane. Testleri geçiyor ama
-`05_DEFINITION_OF_READY_DONE.md:56`'nın yasakladığı şey bu:
-*"Test geçiyor ama gereksinim yok"*.
-
-**Öneri:** Yeni contract yazmadan önce **mevcut olanı bağlayın**:
-1. `content_hash` formatını tek bir tanıma çekin (öneri: çıplak 64-hex + ayrı
-   `hash_algo` alanı). Migration scripti + geri alma yolu yazın.
-2. `SourceRecord.airl_id` üretimini `Identity` üzerinden geçirin — böylece
-   contract'ın en az bir gerçek tüketicisi olur.
-3. `SchemaRegistry`'yi `schemas/*.json` dosyalarından yükleyen ve `jsonschema` ile
-   gerçekten valide eden bir yapıya çevirin; aksi halde WP-020 `MISSING`'dir.
+> **Status: OPEN.** This is the single highest-value fix in the list: it converts
+> the project's central security claim from an assertion into evidence.
 
 ---
 
-### H5 — HIGH — CI yok; WP-024 ve WP-020'nin kabul kriteri yapısal olarak imkânsız
+### H4 — HIGH — The `airl_framework` contract core has zero production consumers and contradicts the live system
 
-**Kanıt:** `.github/`, `.gitlab-ci.yml`, `Makefile`, `ruff.toml`, `mypy.ini`,
-`.pre-commit-config.yaml` — **hiçbiri yok**. `pyproject.toml` içinde yalnız
-`[tool.hatch...]` ve `[tool.pytest...]` var; lint/type/format konfigürasyonu yok.
+**Evidence:**
+- `grep -rn airl_framework` → only `pyproject.toml:28`, `tests/test_contracts.py:3`
+  and two vault notes. **Not a single import inside `src/airl_bridge/`.**
+- The bridge produces no `EventEnvelope`; there is no event bus in the system.
+- A direct contradiction: `contracts.py:11` → `_HASH_RE = ^[0-9a-f]{64}$` (bare
+  digest), while `zotero.py:104` → `content_hash = "sha256:" + hexdigest`
+  (prefixed). The existing canonical record therefore **violates the newly written
+  `ArtifactManifest` contract on the day it was born**.
+- `SourceRecord.airl_id` is never validated through `Identity`.
+- `SchemaRegistry` is a `dict` — not persistent, does not accept JSON Schema
+  (it stores `Mapping[str, Any]` and never validates), and is not enforced by CI.
+  WP-020's expected outcome was *"enforced by CI"*.
 
-**Etki:** Testler yalnız elle çalışıyor. `05_DEFINITION_OF_READY_DONE.md:24`
-("Unit ve package-level integration testleri çalışmıştır") her paket için manuel
-beyana dayanacak — yani C2/C3 problemi her pakette tekrar edecek. WP-020'nin
-"producer/consumer compatibility CI tarafından zorlanır" hedefi zorlanacak bir
-CI olmadığı için tanım gereği karşılanamaz.
+**Impact:** `implementation_log.md` Step 001 declares WP-011/014/015/020
+`TECH_COMPLETE`. In reality: a 170-line library bound to nothing, incompatible
+with the existing data model. Its tests pass, but this is precisely what
+`05_DEFINITION_OF_READY_DONE.md:56` forbids: *"the tests pass but there is no
+requirement"*.
 
-**Öneri (öncelik 2, C1'den hemen sonra):** Tek bir GitHub Actions workflow'u:
-`uv sync` → `ruff check` → `pytest -q` → H3'teki read-only statik kontrolü →
-`sha256sum -c` plan bütünlük kontrolü. Bu tek dosya, üç ayrı bulguyu birden kapatır
-ve kanıt üretimini otomatikleştirir.
+**Recommendation:** **Bind what exists** before writing new contracts:
+1. Reduce `content_hash` to a single definition (suggestion: bare 64-hex plus a
+   separate `hash_algo` field). Write the migration script and its reversal.
+2. Route `SourceRecord.airl_id` generation through `Identity`, giving the contract
+   at least one real consumer.
+3. Turn `SchemaRegistry` into something that loads `schemas/*.json` and genuinely
+   validates with `jsonschema`; otherwise WP-020 is `MISSING`.
+
+> **Status: OPEN.**
 
 ---
 
-### M1 — MEDIUM — Kimlik doğrulaması olmayan mutating endpoint'ler + Host header doğrulaması yok
+### H5 — HIGH — There is no CI; the acceptance criteria of WP-024 and WP-020 are structurally impossible
 
-**Kanıt:** `src/airl_bridge/main.py:124-138` — `POST /v1/ingest/zotero`,
-`POST /v1/project/obsidian`, `POST /v1/sync`. Auth yok, token yok, CSRF koruması
-yok. `create_app` içinde **hiçbir middleware yok** — ne `CORSMiddleware`,
-ne `TrustedHostMiddleware`.
+**Evidence:** `.github/`, `.gitlab-ci.yml`, `Makefile`, `ruff.toml`, `mypy.ini`,
+`.pre-commit-config.yaml` — **none present**. `pyproject.toml` contains only
+`[tool.hatch...]` and `[tool.pytest...]`; no lint, type or format configuration.
 
-**Etki (loopback'e rağmen gerçek):**
-- **CSRF:** Tarayıcıdaki herhangi bir sayfa, `fetch('http://127.0.0.1:8765/v1/sync?limit=100', {method:'POST', mode:'no-cors'})` ile
-  preflight'sız "simple request" gönderebilir. Yanıtı okuyamaz ama **yan etki
-  gerçekleşir**: senkron çalışır ve vault'un `Zotero Sources` dalı yeniden yazılır.
-- **DNS rebinding:** `Host` header doğrulanmadığı için, saldırganın alan adını
-  127.0.0.1'e rebind etmesi durumunda origin aynı sayılır ve `GET /v1/sources`
-  ile **tüm literatür kayıt defteri okunabilir**.
-- Makinedeki her yerel process de aynı yetkilere sahip.
+**Impact:** Tests run by hand only. `05_DEFINITION_OF_READY_DONE.md:24` ("unit and
+package-level integration tests have run") will rest on a manual declaration for
+every package — meaning the C2/C3 problem repeats in every package. WP-020's goal
+of "producer/consumer compatibility enforced by CI" cannot be met by definition
+when there is no CI to enforce it.
 
-**Öneri:** Düşük maliyetli, yüksek etkili:
+**Recommendation (priority 2, immediately after C1):** a single GitHub Actions
+workflow: `uv sync` → `ruff check` → `pytest -q` → the H3 read-only static check →
+`sha256sum -c` plan integrity check. That one file closes three separate findings
+and automates evidence production.
+
+> **Status: OPEN.** This remains the highest-leverage implementable step.
+
+---
+
+### M1 — MEDIUM — Unauthenticated mutating endpoints and no Host header validation
+
+**Evidence:** `src/airl_bridge/main.py:124-138` — `POST /v1/ingest/zotero`,
+`POST /v1/project/obsidian`, `POST /v1/sync`. No auth, no token, no CSRF
+protection. `create_app` installs **no middleware at all** — neither
+`CORSMiddleware` nor `TrustedHostMiddleware`.
+
+**Impact (real despite loopback binding):**
+- **CSRF:** any page in the browser can send a preflight-free "simple request"
+  with `fetch('http://127.0.0.1:8765/v1/sync?limit=100', {method:'POST', mode:'no-cors'})`.
+  It cannot read the response, but **the side effect happens**: the sync runs and
+  the vault's `Zotero Sources` branch is rewritten.
+- **DNS rebinding:** because the `Host` header is not validated, an attacker who
+  rebinds their domain to 127.0.0.1 is treated as same-origin and can read **the
+  entire literature registry** through `GET /v1/sources`.
+- Every local process on the machine has the same privileges.
+
+**Recommendation:** Low cost, high impact:
 - `TrustedHostMiddleware(allowed_hosts=["127.0.0.1", "localhost", "127.0.0.1:8765"])`
-- Mutating endpoint'ler için `.env`'den okunan bir `AIRL_API_TOKEN` ve
-  `X-AIRL-Token` header kontrolü (systemd sync unit'i de bu header'ı gönderir).
-  Custom header, CSRF'i tek başına kapatır (preflight zorunlu hale gelir).
+- An `AIRL_API_TOKEN` read from `.env` and checked as an `X-AIRL-Token` header on
+  mutating endpoints (the systemd sync unit sends the header too). A custom header
+  alone closes CSRF, because it forces a preflight.
+
+> **Status: OPEN.**
 
 ---
 
-### M2 — MEDIUM — `mcp_smoke.py` hiçbir şeyi assert etmiyor; her koşulda exit 0
+### M2 — MEDIUM — `mcp_smoke.py` asserts nothing and exits 0 under all conditions
 
-**Kanıt:** `scripts/mcp_smoke.py:25-31` — `status.isError` ve `search.isError`
-değerleri **raporlanıyor**, kontrol edilmiyor. Fonksiyonda `assert`/`raise`/
-`sys.exit` yok. Tool listesinin "tam 5 read-only tool" olduğu da doğrulanmıyor
-(`README.md:127` ve `OPERATIONS.md` bunu iddia ediyor).
+**Evidence:** `scripts/mcp_smoke.py:25-31` — `status.isError` and `search.isError`
+are **reported**, never checked. The function contains no `assert`, `raise` or
+`sys.exit`. Nor does it verify that the tool list is "exactly 5 read-only tools",
+which `README.md:127` and `OPERATIONS.md` both claim.
 
-**Etki:** `README.md:117` ve `OPERATIONS.md` bu scripti doğrulama adımı olarak
-gösteriyor. Bridge tamamen kapalı olsa bile script JSON basıp **0 ile çıkar**.
-Bir insan çıktıyı okumazsa yeşil sanılır.
+**Impact:** `README.md:117` and `OPERATIONS.md` present this script as a
+verification step. Even with the bridge entirely down, the script prints JSON and
+**exits 0**. If a human does not read the output, it looks green.
 
-**Öneri:** `assert not status.isError`, `assert not search.isError`,
-`assert sorted(t.name for t in tools.tools) == [beş isim]` ekleyin. Beş satır.
+**Recommendation:** Add `assert not status.isError`, `assert not search.isError`
+and `assert sorted(t.name for t in tools.tools) == [the five names]`. Five lines.
+
+> **Status: OPEN.**
 
 ---
 
-### M3 — MEDIUM — `acceptance_v0.py` kullanıcının kişisel verisine bağımlı; tekrar üretilemez
+### M3 — MEDIUM — `acceptance_v0.py` depends on the user's personal data and is not reproducible
 
-**Kanıt:** `scripts/acceptance_v0.py:39,49` —
-`lidar_results = get("/v1/sources/search", q="LiDAR", limit=2)` ve
+**Evidence:** `scripts/acceptance_v0.py:39,49` —
+`lidar_results = get("/v1/sources/search", q="LiDAR", limit=2)` and
 `require(bool(lidar_results), "Source search returned no LiDAR result")`.
 
-**Etki:** Bu "acceptance" yalnız *bu* makinede, *bu* Zotero kütüphanesiyle geçer.
-Kullanıcı LiDAR makalelerini silse acceptance kırmızıya döner. Planın kendi
-kuralı (`06_KANIT_VE_KABUL_STRATEJISI` / `05_DoD`: aynı target revision üzerinde
-tekrar üretilebilir kanıt) karşılanmıyor. Ayrıca canlı servise ihtiyaç duyduğu
-için CI'da çalıştırılamaz.
+**Impact:** This "acceptance" passes only on *this* machine with *this* Zotero
+library. If the user deletes their LiDAR papers, acceptance turns red. The plan's
+own rule (`06_KANIT_VE_KABUL_STRATEJISI` / `05_DoD`: evidence reproducible on the
+same target revision) is not met. Because it also needs a live service, it cannot
+run in CI.
 
-**Öneri:** İki parçaya bölün: (a) veriden bağımsız yapısal acceptance
-(manifest/registry sayı tutarlılığı, dashboard varlığı, kategori toplamı) — CI'da
-sabit fixture ile çalışır; (b) canlı ortam smoke'u — arama sorgusunu `.env`'den
-alsın, boş sonuç `SKIPPED` olsun, `FAIL` değil.
+**Recommendation:** Split it in two: (a) a data-independent structural acceptance
+(manifest/registry count consistency, dashboard presence, category totals) that
+runs in CI against a fixed fixture; (b) a live-environment smoke check that reads
+its search query from `.env` and treats an empty result as `SKIPPED`, not `FAIL`.
+
+> **Status: OPEN.**
 
 ---
 
-### M4 — MEDIUM — Plan 4 fiziksel kopyada yaşıyor; kanonik otorite çelişkili
+### M4 — MEDIUM — The plan lived in 4 physical copies with contradictory canonical authority
 
-**Kanıt:**
-| # | Konum | Versiyon kontrolü | Bütünlük |
+**Evidence:**
+
+| # | Location | Version control | Integrity |
 |---|---|---|---|
-| 1 | `planning/commissioning/` | **Yok** (kök git repo değil) | `SHA256SUMS.txt` 184/184 OK |
-| 2 | `planning/commissioning/` | Var (git) | Manifest yok |
-| 3 | `vault_baseline/.../01 - Commissioning/` | Var (git) | Manifest yok, dosya adları farklı |
-| 4 | `~/Documents/Obsidian Vault/.../01 - Commissioning/` | Yok | Manifest yok |
+| 1 | `AIRL_OS_DEVREYE_ALMA_PLANI/` (framework root) | **None** (root was not a Git repo) | `SHA256SUMS.txt` 184/184 OK |
+| 2 | `airl_bridge_api/planning/commissioning/` | Yes (git) | No manifest |
+| 3 | `vault_baseline/.../01 - Commissioning/` | Yes (git) | No manifest, different file names |
+| 4 | `~/Documents/Obsidian Vault/.../01 - Commissioning/` | None | No manifest |
 
-- Kopya 1 ve 2 **zaten ayrışmış**: `diff -rq` 12 dosyada fark buluyor
-  (README'de `**Sürüm:**` satırları liste formatına çevrilmiş, bazı dosyalarda
-  trailing newline farkı).
-- Kopya 3/4, `SHA256SUMS.txt` ve `paket_bagimlilik_matrisi.csv` dosyalarını
-  **içermiyor** — yani Obsidian aynası bütünlük açısından hiç doğrulanamaz.
-- Kanonik otorite çelişkisi:
-  - `00_navigation_and_execution_cockpit.md:8,24` → *"kanonik kopya: `planning/commissioning/`"*
-  - `ai_research_framework_current_status_and_roadmap.md:77-84` → `planning/commissioning/` "hedef mimariyi tanımlar"
-  - `CLAUDE_FULL_FRAMEWORK_REVIEW_PROMPT.md:59-73` → inceleme kökü olarak `planning/commissioning/`
+- Copies 1 and 2 had **already diverged**: `diff -rq` found differences in 12 files.
+- Copies 3 and 4 **did not contain** `SHA256SUMS.txt` or the dependency matrix CSV
+  — so the Obsidian mirror could not be verified for integrity at all.
+- Contradictory statements of canonical authority appeared in the cockpit note,
+  the status/roadmap note and the review prompt.
 
-**Etki:** Bu, tam olarak WP-012'nin ("Canonical Sahiplik ve Alan Bazlı Otorite
-Matrisi") çözmesi gereken problem — ve plan bu problemi kendi üzerinde yaşıyor.
-`09_DEGISIKLIK_VE_KONFIGURASYON_KONTROLU.md`'nin varlığına rağmen drift zaten başlamış.
+**Impact:** This is exactly the problem WP-012 ("Canonical Ownership and
+Field-Level Authority Matrix") is meant to solve — and the plan was suffering from
+it itself. Despite the existence of `09_DEGISIKLIK_VE_KONFIGURASYON_KONTROLU.md`,
+drift had already begun.
 
-**Öneri:**
-1. Tek kanonik kopya seçin (öneri: `planning/commissioning/` —
-   çünkü versiyon kontrolünde ve remote'ta).
-2. `planning/commissioning/` kökünü ya silin ya da symlink yapın.
-3. Obsidian aynasını **üretilen** hale getirin: `scripts/mirror_plan.py`
-   (kanonik → vault, isim normalizasyonu + link yeniden yazımı) ve
-   `scripts/check_plan_drift.py` (CI'da hash karşılaştırması).
-4. `SHA256SUMS` dosyasını kanonik kopyanın yanında tutun ve CI'da doğrulayın.
+> ✅ **REMEDIATED (2026-08-22):** consolidated to a single canonical copy at
+> `planning/commissioning/` inside the Git repository, re-sealed
+> (195 files, all OK). The Obsidian tree is now explicitly a generated reading
+> mirror. **Still missing:** the automated mirror generator and the CI drift
+> check, so the mirror can still be edited directly without detection.
 
 ---
 
-### M5 — MEDIUM — WP↔ACC izlenebilirliği 39/40 vakada tutarsız
+### M5 — MEDIUM — WP↔ACC traceability is inconsistent in 39 of 40 cases
 
-**Kanıt (script analizi):**
-- CSV `scenarios` sütunundan çıkan WP↔ACC eşlemesi ile ACC dosyalarının
-  *"İlgili paketler"* alanı **40 senaryodan 39'unda uyuşmuyor**.
-  Örnek ACC-01: CSV → 12 paket (`WP-035, 050, 064, 065, 070, 072, 094, 103, 110, 115, 119, 120`),
-  ACC dosyası → 5 paket (`WP-062, 065, 069, 072, 103`). İki liste birbirinin alt
-  kümesi bile değil (`WP-062`, `WP-069` CSV'de yok).
-- **62/130 WP**, hiçbir ACC dosyasında referans edilmiyor.
-- **39/130 WP** kartında ACC alanı hâlâ placeholder:
-  *"İlgili dikey dilim ve commissioning sırasında atanır"*.
+**Evidence (scripted analysis):**
+- The WP↔ACC mapping derived from the CSV `scenarios` column disagrees with the
+  *"Related packages"* field of the ACC files in **39 of 40 scenarios**.
+  Example ACC-01: CSV → 12 packages; the ACC file → 5 packages. The two lists are
+  not even subsets of each other.
+- **62 of 130 WPs** are referenced by no ACC file at all.
+- **39 of 130 WP** cards still carry the placeholder *"Assigned during the relevant
+  vertical slice and commissioning"*.
 
-**Etki:** `11_KAPSAM_KARSILIK_MATRISI` ve DoD'nin `COMMISSIONED` tanımı
-("paketi kullanan ilgili ACC senaryolarının tamamı geçmeli") makineyle
-hesaplanamıyor. Hangi ACC'nin hangi paketi kapattığı iki kaynağa göre farklı.
+**Impact:** The `COMMISSIONED` definition in `11_KAPSAM_KARSILIK_MATRISI` and the
+DoD ("all ACC scenarios that use this package must pass") cannot be evaluated
+mechanically. Which ACC closes which package differs depending on which source you
+read.
 
-**Öneri:** İzlenebilirliği tek yönlü üretin: CSV'yi tek gerçek kaynak yapın,
-ACC dosyalarındaki "İlgili paketler" alanını **CSV'den üretin**, ve CI'da
-"her WP en az bir ACC'ye bağlı" + "iki yön tutarlı" kontrolünü çalıştırın.
-39 placeholder'ı doldurun veya o paketleri açıkça `NO_ACC_REQUIRED` işaretleyin.
+**Recommendation:** Generate traceability in one direction only: make the CSV the
+single source of truth, **generate** the "Related packages" field of the ACC files
+from it, and run a CI check for "every WP is bound to at least one ACC" plus
+"both directions agree". Fill the 39 placeholders, or mark those packages
+explicitly `NO_ACC_REQUIRED`.
+
+> **Note on a self-correction.** The original phrasing implied the ACC README and
+> the ACC documents disagreed. They agree; the CSV is the outlier, carrying
+> different and undocumented semantics. **Status: OPEN** — the CSV is now
+> regenerated from the WP data, but the ACC → WP direction is still authored by
+> hand.
 
 ---
 
-### M6 — MEDIUM — `sync` işleminde transaction sınırı ve compensation yok
+### M6 — MEDIUM — No transaction boundary or compensation in the `sync` operation
 
-**Kanıt:** `src/airl_bridge/service.py:45-48` —
+**Evidence:** `src/airl_bridge/service.py:45-48` —
 ```python
-ingest = await self.ingest_zotero(limit=limit)   # DB commit edildi
-projection = self.project_obsidian()              # burada patlarsa?
+ingest = await self.ingest_zotero(limit=limit)   # DB already committed
+projection = self.project_obsidian()              # what if this raises?
 ```
-- `finish_sync()` yalnız `IngestResult` alanlarını kaydediyor (`service.py:35`);
-  projeksiyon sonucu **hiçbir yere yazılmıyor**.
-- `ProjectionError` → HTTP 422 (`main.py:56`), ama registry çoktan ilerlemiş.
+- `finish_sync()` records only `IngestResult` fields (`service.py:35`); the
+  projection result is **written nowhere**.
+- `ProjectionError` → HTTP 422 (`main.py:56`), but the registry has already moved on.
 
-**Etki:** Vault kilitli/dolu/erişilemez olduğunda registry ile Obsidian arasında
-sessiz bir divergence oluşur ve bunun kaydı hiçbir yerde tutulmaz. Sonraki timer
-`unchanged` göreceği için projeksiyonu **tekrar denemez bile** — hayır, denerdi
-(projection her seferinde tam yeniden yazım), ama arada geçen sürede vault yanlış
-durumda kalır ve bu durum audit edilebilir değildir.
+**Impact:** When the vault is locked, full or unreachable, a silent divergence
+opens between the registry and Obsidian and is recorded nowhere. The next timer
+run does rewrite the projection in full, but in the interval the vault sits in a
+wrong state that is not auditable.
 
-**Öneri:** `sync_runs` tablosuna `projection_status`, `projected`,
-`removed_stale`, `projection_error` sütunları ekleyin; `sync()`'i
-`ingest → projection` sırasında projeksiyon hatasında run'ı `PARTIAL` yapacak
-şekilde sarın. Bu WP-038'in (human updates & compensation) V0 karşılığıdır.
+**Recommendation:** Add `projection_status`, `projected`, `removed_stale` and
+`projection_error` columns to `sync_runs`; wrap `sync()` so that a projection
+failure marks the run `PARTIAL`. This is the V0 counterpart of WP-038 (human
+updates and compensation).
 
----
-
-### M7 — MEDIUM — Projeksiyon, dry-run'sız ve hedef-doğrulamasız yıkıcı dosya işlemi
-
-**Kanıt:** `obsidian.py:112-132` — manifestte kayıtlı her `.md` dosyası
-koşulsuz `unlink()` ediliyor; `_remove_empty_parents` ile dizinler de siliniyor.
-Config doğrulaması yalnız mutlak yol ve `..` engelliyor (`config.py:58`).
-`AIRL_OBSIDIAN_GENERATED_DIR` `.env`'den geliyor ve `.env` **0644**.
-
-**Etki:** `AIRL_OBSIDIAN_GENERATED_DIR` bir gün yanlışlıkla `20 - Source Notes`
-gibi bir insan klasörüne işaret ederse: ilk run oraya üretir + manifest yazar,
-ikinci run manifestteki dosyaları siler. Mevcut test (`test_obsidian.py:72`)
-insan dosyasını koruyor — ama yalnız *manifeste girmemiş* dosyayı. Bir kez
-projekte edilmiş bir yol geri dönülmez şekilde yönetime alınır.
-
-**Öneri:**
-- `--dry-run` bayrağı ve `POST /v1/project/obsidian?dry_run=true`.
-- Hedef dizin boş değilse ve manifest yoksa → **reddet**, otomatik adopte etme.
-- `projected == 0 && removed_stale > 0` durumunda (yani "her şeyi sil") ek onay
-  iste; şu an bu durum sessizce tüm dalı temizler.
+> **Status: OPEN.**
 
 ---
 
-### M8 — MEDIUM — SQLite bağlantıları hiç kapatılmıyor
+### M7 — MEDIUM — The projection performs destructive file operations without dry-run or target validation
 
-**Kanıt:** `database.py:60-67` `connect()` her çağrıda yeni bağlantı açıyor.
-`with self.connect() as connection:` — Python `sqlite3`'te bu **transaction**
-context manager'ıdır, bağlantıyı **kapatmaz**. `close()` çağrısı dosyada hiç yok.
-`list_sources`, `get_source`, `search_sources`, `count_sources`,
-`list_category_counts`, `start_sync`, `finish_sync`, `upsert_sources`,
-`initialize` — dokuzu da aynı desende.
+**Evidence:** `obsidian.py:112-132` — every `.md` file registered in the manifest
+is `unlink()`ed unconditionally, and `_remove_empty_parents` removes directories
+too. Config validation blocks only absolute paths and `..` (`config.py:58`).
+`AIRL_OBSIDIAN_GENERATED_DIR` comes from `.env`, and `.env` was mode **0644**.
 
-**Etki:** Her HTTP isteği bir bağlantı sızdırıyor; GC'ye kadar açık kalıyor.
-33 kayıt ve 30 dakikalık timer ile fark edilmez; WAL dosyası ve fd sayısı
-gerçek yükte sorun çıkarır.
+**Impact:** If `AIRL_OBSIDIAN_GENERATED_DIR` were one day pointed at a human folder
+such as `20 - Source Notes`, the first run would generate there and write a
+manifest, and the second run would delete the files listed in that manifest. The
+existing test (`test_obsidian.py:72`) protects a human file — but only one that
+never entered the manifest. A path that has been projected once is irreversibly
+taken under management.
 
-**Öneri:** `contextlib.closing(...)` ile sarın veya `Database`'i bir
-connection-per-request bağımlılığına çevirin. Beş satırlık düzeltme.
+**Recommendation:**
+- A `--dry-run` flag and `POST /v1/project/obsidian?dry_run=true`.
+- If the target directory is non-empty and has no manifest → **refuse**; never
+  adopt automatically.
+- Require an additional confirmation when `projected == 0 && removed_stale > 0`
+  (i.e. "delete everything"); today that case silently wipes the whole branch.
+
+> **Status: OPEN.** `.env` permissions were fixed (see L1), which narrows but does
+> not close the risk.
 
 ---
 
-### M9 — MEDIUM — 10.000 satırlık sessiz kesme (silent truncation)
+### M8 — MEDIUM — SQLite connections are never closed
 
-**Kanıt:** `service.py:42` `list_sources(limit=10_000)`,
+**Evidence:** `database.py:60-67` `connect()` opens a new connection on every call.
+`with self.connect() as connection:` is, in Python's `sqlite3`, a **transaction**
+context manager — it does **not** close the connection. There is no `close()` call
+anywhere in the file. `list_sources`, `get_source`, `search_sources`,
+`count_sources`, `list_category_counts`, `start_sync`, `finish_sync`,
+`upsert_sources` and `initialize` all follow the same pattern.
+
+**Impact:** Every HTTP request leaks a connection until garbage collection. With 33
+records and a 30-minute timer this is invisible; under real load the WAL file and
+the file-descriptor count become a problem.
+
+**Recommendation:** Wrap with `contextlib.closing(...)`, or turn `Database` into a
+connection-per-request dependency. A five-line fix.
+
+> **Status: OPEN.**
+
+---
+
+### M9 — MEDIUM — Silent truncation at 10,000 rows
+
+**Evidence:** `service.py:42` `list_sources(limit=10_000)`,
 `main.py:114` `duplicate_source_groups(database.list_sources(limit=10_000))`.
 
-**Etki:** 10.000'i aşan kütüphanede projeksiyon kaynakların bir kısmını görmez,
-sonra `_remove_stale` **görmediği kaynakların dosyalarını "bayat" sayıp siler**.
-H1 (100 tavanı) bugün bunu maskeliyor; H1 düzeltilirse M9 aktif bir veri kaybı
-yoluna dönüşür. **H1'i M9'dan önce düzeltmeyin.**
+**Impact:** In a library exceeding 10,000 sources, the projection does not see
+some sources — and then `_remove_stale` **treats the files of the sources it did
+not see as stale and deletes them**. H1 (the 100 cap) masks this today; if H1 is
+fixed first, M9 becomes an active data-loss path. **Do not fix H1 before M9.**
 
-**Öneri:** `list_sources`'a sayfalayan bir iterator ekleyin (`iter_sources()`)
-ve projeksiyonu onun üzerinden çalıştırın; limit varsayılanını kaldırın.
+**Recommendation:** Add a paginating iterator (`iter_sources()`) to `list_sources`
+and run the projection through it; remove the default limit.
 
----
-
-### M10 — MEDIUM — Dokümantasyon drift'i (yeniden adlandırma sonrası güncellenmemiş)
-
-**Kanıt:**
-| Dosya | İçerik | Gerçek |
-|---|---|---|
-| `docs/ARCHITECTURE_V0.md` | `00 - Plan Navigasyonu ve Yürütme Kokpiti.md` | `00_navigation_and_execution_cockpit.md` |
-| `docs/ARCHITECTURE_V0.md` | `AI Research Framework — Current Status and Roadmap.md` | `ai_research_framework_current_status_and_roadmap.md` |
-| `docs/ARCHITECTURE_V0.md` (invariant 4) | `70 - Literatür Setleri` | `70 - Literature Sets` |
-| `..._current_status_and_roadmap.md:231` | "Python testleri: **16/16** PASS" | **20** (`implementation_log.md:183` doğru yazmış) |
-| `deploy/airl-bridge-sync.service` | "SILBO Obsidian literature tree" | SILBO/framework ayrımı yapıldıktan sonra kalmış |
-| `deploy/airl-bridge-sync.timer` | "SILBO Zotero to Obsidian synchronization" | aynı |
-
-`implementation_log.md` Step 000-F bu yeniden adlandırmayı `PASS` olarak
-kaydediyor, ama en az 6 yerde eski isimler kalmış.
-
-**Not:** systemd unit'lerinin repo kopyası ile kurulu kopyası arasındaki tek fark
-sondaki boş satırdır — **gerçek bir drift değil**, kontrol edildi.
-
-**Öneri:** `scripts/check_docs.py` — dokümanlarda geçen vault yollarının gerçekten
-var olduğunu doğrulayan bir kontrol; CI'da çalışsın. Test sayısını dokümana elle
-yazmayı bırakın.
+> **Status: OPEN.** The ordering constraint (M9 before H1) still stands.
 
 ---
 
-### M11 — MEDIUM — Kanonik plan ağacı versiyon kontrolü altında değil
+### M10 — MEDIUM — Documentation drift (not updated after renames)
 
-**Kanıt:** Framework kökündeki `.git` **boş bir dizin**, git deposu değil
-(`git status` → `fatal: not a git repository`). `planning/commissioning/`
-(186 dosya, hash mühürlü) hiçbir repoda takip edilmiyor.
+**Evidence:** Six locations still referenced pre-rename vault paths and one stated
+"16/16 tests PASS" where the correct figure was 20. `implementation_log.md`
+Step 000-F records that rename as `PASS`, yet the old names survived in at least
+six places.
 
-**Etki:** SHA256SUMS ile mühürlenmiş "kanonik" ağacın geçmişi yok, geri alınamaz,
-yedeklenmiyor. Yanlışlıkla silinirse yalnızca `planning/commissioning/`
-kopyasından (ki o zaten ayrışmış) kurtarılabilir.
+**Note:** The only difference between the repository copy and the installed copy
+of the systemd units is a trailing newline — **not real drift**; this was checked.
 
-**Öneri:** M4 ile birlikte çözün — tek kopya, git içinde, hash manifesti yanında.
+**Recommendation:** `scripts/check_docs.py` — a check that verifies the vault paths
+mentioned in the documentation actually exist; run it in CI. Stop writing test
+counts into documents by hand.
 
----
-
-### L1 — LOW — `.env` ve `.env.example` bayt-bayt aynı; example gerçek yolları içeriyor
-
-`.env` ile `.env.example` identical (315 byte), izin `0644`.
-`.env.example` git'te takip ediliyor ve kullanıcının gerçek ev dizini yollarını
-(`/home/otonom/Documents/Obsidian Vault`) private repoya yayınlıyor. Şu an secret
-yok ama `.env` secret için tasarlanmış dosya; ilk token eklendiğinde `chmod 600`
-unutulacak.
-
-**Öneri:** `.env.example`'ı gerçekten örnek yapın (`<VAULT_PATH>` placeholder'ları),
-`.env`'i `chmod 600`.
+> ✅ **REMEDIATED (2026-08-22):** all documents were rewritten from the current
+> structure. **The `check_docs.py` guard is still missing**, so the drift can recur.
 
 ---
 
-### L2 — LOW — `airl_id` 64-bit kesilmiş hash; çakışma yönetimi yok
+### M11 — MEDIUM — The canonical plan tree is not under version control
 
-`zotero.py:83` — `sha256(binding)[:16]` (64 bit). `database.py:19` `airl_id`
-PRIMARY KEY. Çakışma olursa `sqlite3.IntegrityError` ile senkron ortasında
-patlar, kısmi commit kalır. Doğum günü sınırı ~4 milyar kayıt olduğu için pratik
-risk düşük, ama plan (WP-011) çakışmasız kimlik ve merge/tombstone kuralı
-istiyor — bu ikisi de yok.
+**Evidence:** The `.git` at the framework root was **an empty directory**, not a Git
+repository (`git status` → `fatal: not a git repository`). The canonical plan tree
+(186 files, hash-sealed) was tracked in no repository.
 
----
+**Impact:** The "canonical" tree sealed with SHA256SUMS had no history, could not
+be reverted and was not backed up. If deleted by accident, it could only be
+recovered from a copy that had already diverged.
 
-### L3 — LOW — Kategori klasör adları İngilizce/Türkçe karışık
-
-`catalog.py:10-23` — `01 - Journal Articles`, `02 - Conference Papers`,
-`03 - Reports and Preprints` (İngilizce) vs `04 - Kitaplar`, `05 - Kitap Bölümleri`,
-`06 - Tezler`, `07 - Web Kaynakları`, `08 - Veri Setleri`, `09 - Patentler`,
-`90 - Diğer Belgeler`, `99 - Diğer Kaynaklar` (Türkçe). Aynı sözlükte.
-`README.md:110` bunlara "Turkish publication-type folders" diyor, ama görünen
-üçü İngilizce. `implementation_log.md` Step 000-F "lowercase İngilizce standardı"
-uygulandığını `PASS` olarak kaydediyor.
-
-Şu an yalnız ilk üç tür kullanımda (33 kaynak: journalArticle/report/conferencePaper)
-olduğu için görünmüyor; ilk kitap eklendiğinde vault'ta karışık dil belirecek.
+> ✅ **REMEDIATED (2026-08-22):** solved together with M4 — one copy, inside Git,
+> with the hash manifest beside it.
 
 ---
 
-### L4 — LOW — Güvenlik ve hata yollarının test kapsamı sıfır
+### L1 — LOW — `.env` and `.env.example` were byte-identical; the example contained real paths
 
-`tests/test_api.py` yalnız `GET` çağırıyor (`_get` helper'ı, satır 10).
-Test edilmeyen yollar:
-- Üç `POST` endpoint'inin hiçbiri
+`.env` and `.env.example` were identical (315 bytes) with mode `0644`.
+`.env.example` was tracked in Git and published the user's real home-directory
+paths into a private repository. No secret was present yet — but `.env` is the file
+designed for secrets, and the `chmod 600` would have been forgotten on the day the
+first token was added.
+
+> ✅ **REMEDIATED (2026-08-22):** `.env.example` now uses placeholders
+> (`<VAULT_ABSOLUTE_PATH>`) and `.env` is mode `600`.
+
+---
+
+### L2 — LOW — `airl_id` is a 64-bit truncated hash with no collision handling
+
+`zotero.py:83` — `sha256(binding)[:16]` (64 bits). `database.py:19` makes `airl_id`
+the PRIMARY KEY. A collision would raise `sqlite3.IntegrityError` mid-sync and
+leave a partial commit. The birthday bound is around 4 billion records so the
+practical risk is low, but the plan (WP-011) asks for collision-free identity and a
+merge/tombstone rule, and neither exists.
+
+> **Status: OPEN.**
+
+---
+
+### L3 — LOW — Category folder names mixed English and Turkish
+
+`catalog.py:10-23` mixed English names such as `01 - Journal Articles` with
+Turkish-language names for books, theses and the catch-all categories, inside the
+same dictionary. Only the first three types were in use (33 sources), so the mix
+was invisible; it would have appeared in the vault the moment the first book was
+added.
+
+> ✅ **REMEDIATED (2026-08-22):** all eleven category names are now English
+> (`04 - Books`, `05 - Book Sections`, `06 - Theses`, `07 - Web Sources`,
+> `08 - Datasets`, `09 - Patents`, `90 - Other Documents`, `99 - Other Sources`).
+> Existing projected folders are regenerated from the canonical registry.
+
+---
+
+### L4 — LOW — Zero test coverage of the security and error paths
+
+`tests/test_api.py` only calls `GET` (the `_get` helper, line 10). Untested paths:
+- None of the three `POST` endpoints
 - `ZoteroUnavailable` → 503 handler (`main.py:52`)
 - `ProjectionError` → 422 handler (`main.py:56`)
-- `Settings.from_env` loopback reddi (`config.py:47`)
-- `AIRL_OBSIDIAN_GENERATED_DIR` traversal reddi (`config.py:58`)
-- `library_type` doğrulaması (`config.py:63`)
+- `Settings.from_env` loopback refusal (`config.py:47`)
+- `AIRL_OBSIDIAN_GENERATED_DIR` traversal refusal (`config.py:58`)
+- `library_type` validation (`config.py:63`)
 
-Yani **savunma mekanizmalarının tamamı test edilmemiş**. Bu, planın
-`05_DoD`'sindeki "Security/data/policy negative testleri geçmiştir" şartıyla
-doğrudan çelişiyor.
+In other words, **every defensive mechanism is untested**. This directly
+contradicts the plan's `05_DoD` requirement that "security/data/policy negative
+tests have passed".
 
----
-
-### L5 — LOW — Kök dizinde sahte `.git`, boş `.codex`, boş `.agents`
-
-Bunlar araçları yanıltıyor (bu oturum "git repository: true" ile başladı, ama
-kökte repo yok). Temizleyin veya gerçek repo yapın.
+> **Status: OPEN.**
 
 ---
 
-## E. Plan kalitesi denetimi (nicel)
+### L5 — LOW — A fake `.git`, an empty `.codex` and an empty `.agents` at the root
 
-Plan iyi. Ama "130 detaylı iş paketi" ifadesi olduğundan daha fazlasını ima ediyor.
-Ölçtüm:
+These misled tooling (this session began with "git repository: true" while no repo
+existed at the root). Clean them up or make them a real repository.
 
-| Metrik | Değer |
+> ✅ **REMEDIATED (2026-08-22):** the root is now a real Git repository; the empty
+> marker directories were removed.
+
+---
+
+## E. Plan quality audit (quantitative)
+
+The plan is good. But the phrase "130 detailed work packages" implies more than is
+there. Measured:
+
+| Metric | Value |
 |---|---|
-| WP dosyası | 130, toplam 87.971 kelime, 9.653 boş olmayan satır |
-| **130 dosyanın ≥120'sinde aynen tekrar eden satır** | **5.718 / 9.653 = %59,2** |
-| Tam olarak tek bir WP'ye özgü satır | 3.318 = %34,4 → **WP başına ~25 özgün satır** |
-| ACC dosyası | 40, 2.870 satır |
-| 40 dosyanın ≥36'sında tekrar eden satır | 1.400 = **%48,8** |
-| ACC başına özgün satır | ~32 |
+| WP files | 130, 87,971 words, 9,653 non-blank lines |
+| **Lines repeated verbatim in ≥120 of the 130 files** | **5,718 / 9,653 = 59.2%** |
+| Lines unique to exactly one WP | 3,318 = 34.4% → **~25 unique lines per WP** |
+| ACC files | 40, 2,870 lines |
+| Lines repeated in ≥36 of the 40 files | 1,400 = **48.8%** |
+| Unique lines per ACC | ~32 |
 
-**Yorum:** Her WP'nin `Test ve doğrulama planı`, `Kabul kriterleri`,
-`Kabul kanıtı paketi`, `Riskler`, `Rollback`, `Handoff` bölümleri **birebir aynı
-şablon**. "Uygulama görevleri" tablosunda 130 paketin tamamında `Tamamlanma kanıtı`
-sütunu `Commit/konfigürasyon/kayıt referansı` yazıyor — yani **ölçülebilir bir
-kabul kriteri değil**.
+**Interpretation:** The `Test and verification plan`, `Acceptance criteria`,
+`Acceptance evidence package`, `Risks`, `Rollback` and `Handoff` sections of every
+WP are **the same template verbatim**. In the "Implementation tasks" table of all
+130 packages, the `Completion evidence` column reads
+`Commit / configuration / record reference` — which is **not a measurable
+acceptance criterion**.
 
-Bu şablonun bir değeri var (tutarlılık, unutulan boyut yok). Ama:
-- `05_DoD` "Acceptance kriterleri **ölçülebilir**" diyor; şablon kriterler
-  ölçülebilir değil ("Bütün zorunlu testler geçmiştir" gibi).
-- Gerçek spesifikasyon içeriği **paket başına ~25 satır** — bu, uygulama için
-  yetersiz. Örneğin WP-011'in tüm teknik içeriği 5 satırlık bir tablo
-  (`UUIDv7/opaque ID formatlarını ata` vb.).
+The template has value (consistency, no forgotten dimension). But:
+- `05_DoD` says "acceptance criteria are **measurable**"; the template criteria are
+  not measurable ("all mandatory tests have passed").
+- The genuine specification content is **~25 lines per package** — insufficient for
+  implementation. WP-011's entire technical content, for instance, is a five-line
+  table.
 
-**Öneri:** Şablonu koruyun, ama uygulamaya alınan her paket için bir
-`refinement` adımı zorunlu olsun: paket-özel, ölçülebilir kabul kriterleri
-(sayı, eşik, komut) yazılmadan paket `READY` sayılmasın. Şablon kriterler
-"minimum", refinement kriterleri "gerçek kapı" olsun.
+**Recommendation:** Keep the template, but make a `refinement` step mandatory for
+every package entering implementation: a package is not `READY` until
+package-specific, measurable acceptance criteria (numbers, thresholds, commands)
+are written. Let the template criteria be the *minimum* and the refinement criteria
+be the *real gate*.
 
-**Planın güçlü yanları (nicel):** 130/130 dosya mevcut, CSV ile birebir örtüşüyor,
-bağımlılık grafiği **döngüsüz ve topolojik sıralı** (ileri bağımlılık: 0),
-1011 iç link **0 kırık**, 184 dosya hash doğrulaması **OK**. Bu düzey bütünlük
-nadirdir.
+**The plan's quantitative strengths:** 130/130 files present, matching the CSV
+exactly; the dependency graph **acyclic and topologically ordered** (forward
+dependencies: 0); 1011 internal links with **0 broken**; 184 file hashes verifying
+**OK**. Integrity at this level is rare.
+
+> **Status: PARTIALLY ADDRESSED (2026-08-22).** The rewritten WP files carry
+> substantially more package-specific content (purpose paragraphs, workstream
+> hazards, explicit rollback semantics), which raises the unique-content ratio.
+> The **measurable-criteria requirement is still unmet** — the refinement step
+> remains the correct fix.
 
 ---
 
-## F. Contract ve veri akışı denetimi
+## F. Contract and data-flow audit
 
-| Sözleşme | Planlanan (WP) | Mevcut | Durum |
+| Contract | Planned (WP) | Present | Status |
 |---|---|---|---|
-| Kimlik / korelasyon | WP-011 | `Identity` sınıfı (170 satır), üretimde kullanılmıyor | PARTIAL — H4 |
-| Canonical field authority | WP-012 | Yok; planın kendisi 4 kopyada — M4 | DOCUMENTED_ONLY |
-| Project/task/role | WP-013 | Yok | DOCUMENTED_ONLY |
-| Artifact manifest | WP-014 | `ArtifactManifest` sınıfı; `content_hash` formatı çelişiyor | PARTIAL — H4 |
-| Event envelope | WP-015 | `EventEnvelope` sınıfı; **hiç event üretilmiyor**, bus yok | PARTIAL — H4 |
-| Policy/control/exception | WP-016 | Yok (`policy/` boş) | MISSING |
-| Source/literature | WP-017 | `SourceRecord` (pydantic); representation/status/trust yok | PARTIAL |
-| Claim/evidence/review/decision | WP-018 | Yok | DOCUMENTED_ONLY |
-| Run/environment/repro | WP-019 | `sync_runs` tablosu (ingest sayaçları); manifest yok | PARTIAL (çok zayıf) |
-| Schema registry + SDK | WP-020 | In-process `dict`; JSON Schema yok, valide etmiyor, CI yok | PARTIAL → pratikte MISSING |
+| Identity / correlation | WP-011 | `Identity` class (170 lines), unused in production | PARTIAL — H4 |
+| Canonical field authority | WP-012 | None; the plan itself lived in 4 copies — M4 | DOCUMENTED_ONLY |
+| Project/task/role | WP-013 | None | DOCUMENTED_ONLY |
+| Artifact manifest | WP-014 | `ArtifactManifest` class; `content_hash` format contradicts | PARTIAL — H4 |
+| Event envelope | WP-015 | `EventEnvelope` class; **no event is ever produced**, no bus | PARTIAL — H4 |
+| Policy/control/exception | WP-016 | None (`policy/` empty) | MISSING |
+| Source/literature | WP-017 | `SourceRecord` (pydantic); no representation/status/trust | PARTIAL |
+| Claim/evidence/review/decision | WP-018 | None | DOCUMENTED_ONLY |
+| Run/environment/reproduction | WP-019 | `sync_runs` table (ingest counters); no manifest | PARTIAL (very weak) |
+| Schema registry + SDK | WP-020 | In-process `dict`; no JSON Schema, no validation, no CI | PARTIAL → effectively MISSING |
 
-**Producer/consumer uyumsuzlukları:**
-1. `content_hash` formatı: `"sha256:<hex>"` (üretim) vs `^[0-9a-f]{64}$` (contract) — **aktif çelişki**.
-2. `airl_id` üretimi contract doğrulamasından geçmiyor.
-3. Obsidian frontmatter'ı (`obsidian.py:292-308`) ayrı bir *de facto* şema —
-   `airl_id`, `type`, `status`, `source_category`, `content_hash`, `provenance` —
-   hiçbir registry'de kayıtlı değil, sürümlenmiyor. Vault dosyaları bugün
-   `schema_version` taşımıyor; ileride migration edilemez.
-4. `.airl-projection-manifest.json` `schema_version: 1` taşıyor ama registry'de yok.
-5. SQLite `schema_meta.schema_version = "1"` yazılıyor (`database.py:73`) ama
-   **hiç okunmuyor** — migration mekanizması yok. `data/projection-backups/
-   Sources-before-title-migration-20260821/` klasörü, bir migration'ın elle
-   yapıldığını gösteriyor.
+**Producer/consumer incompatibilities:**
+1. `content_hash` format: `"sha256:<hex>"` (production) vs `^[0-9a-f]{64}$`
+   (contract) — an **active contradiction**.
+2. `airl_id` generation does not pass through contract validation.
+3. The Obsidian frontmatter (`obsidian.py:292-308`) is a separate *de facto*
+   schema — `airl_id`, `type`, `status`, `source_category`, `content_hash`,
+   `provenance` — registered in no registry and unversioned. Vault files carry no
+   `schema_version` today and therefore cannot be migrated later.
+4. `.airl-projection-manifest.json` carries `schema_version: 1` but is not in any
+   registry.
+5. SQLite writes `schema_meta.schema_version = "1"` (`database.py:73`) but **never
+   reads it** — there is no migration mechanism. The
+   `data/projection-backups/Sources-before-title-migration-20260821/` directory
+   shows a migration was performed by hand.
 
 ---
 
-## G. Güvenlik ve güven sınırı denetimi
+## G. Security and trust-boundary audit
 
-| Boyut | Hedef (plan) | Mevcut | Değerlendirme |
+| Dimension | Target (plan) | Present | Assessment |
 |---|---|---|---|
-| Trust zones (Zone 0-3) | WP-051 | Yok; tek process, tek kullanıcı | DOCUMENTED_ONLY |
-| Network egress | WP-057 | Bridge yalnız loopback (config.py:47) — **iyi** | V0 için yeterli |
-| API authn/authz | WP-055/056 | **Yok** — M1 | Açık |
-| CSRF / Host doğrulaması | — | **Yok** — M1 | Açık |
-| Secret yönetimi | WP-055 | `.env` 0644, secret yok ama hazırlık zayıf — L1 | Zayıf |
-| Sandbox | WP-054 | systemd hardening (gerçek ve iyi) | V0 için yeterli |
-| Content quarantine / prompt injection | WP-058 | `html.escape` var (test edilmiş); PDF/abstract Hermes'e ham gidiyor | Kısmi |
-| Policy enforcement | WP-056 | Yok (`policy/` boş) | Yok |
-| Supply-chain admission | WP-059 | Yok; `uv.lock` var (iyi), imza/SBOM yok | Yok |
-| Least privilege | — | Zotero read-only **iddia** ediliyor, test edilmiyor — H3 | Doğrulanmamış |
-| Auditability | WP-099 | `sync_runs` tablosu (ingest sayaçları); event/audit log yok | Çok zayıf |
-| Rollback | — | `data/projection-backups/` 3 yedek + git | V0 için makul |
+| Trust zones (Zone 0–3) | WP-051 | None; one process, one user | DOCUMENTED_ONLY |
+| Network egress | WP-057 | Bridge is loopback-only (`config.py:47`) — **good** | Sufficient for V0 |
+| API authn/authz | WP-055/056 | **None** — M1 | Open |
+| CSRF / Host validation | — | **None** — M1 | Open |
+| Secret management | WP-055 | `.env` was 0644, no secrets yet but weak preparation — L1 | Weak (now fixed) |
+| Sandbox | WP-054 | systemd hardening (real and good) | Sufficient for V0 |
+| Content quarantine / prompt injection | WP-058 | `html.escape` present (tested); PDF/abstract text reaches Hermes raw | Partial |
+| Policy enforcement | WP-056 | None (`policy/` empty) | None |
+| Supply-chain admission | WP-059 | None; `uv.lock` present (good), no signature or SBOM | None |
+| Least privilege | — | Zotero read-only is **claimed**, not tested — H3 | Unverified |
+| Auditability | WP-099 | `sync_runs` table (ingest counters); no event or audit log | Very weak |
+| Rollback | — | `data/projection-backups/` with 3 backups plus Git | Reasonable for V0 |
 
-**Prompt injection notu:** Hermes MCP `get_source`, Zotero abstract'ını
-ham metin olarak modele veriyor (`mcp_server.py:98`). Kötü niyetli bir PDF'ten
-gelen abstract, talimat enjekte edebilir. ACC-05 tam olarak bu senaryo ve
-`DOCUMENTED_ONLY`. V0'da tool'lar read-only olduğu için blast radius düşük —
-ama Hermes'in *diğer* tool'ları (dosya yazma vb.) varsa yükselir.
-**Aksiyon:** MCP çıktısında dış içeriği açık bir sınırla işaretleyin
-(`<untrusted-source-content>` gibi) — ucuz, etkili.
+**Prompt injection note:** Hermes MCP `get_source` passes the Zotero abstract to
+the model as raw text (`mcp_server.py:98`). An abstract originating from a
+malicious PDF can inject instructions. ACC-05 is exactly this scenario and is
+`DOCUMENTED_ONLY`. In V0 the tools are read-only so the blast radius is small — but
+it grows if Hermes has *other* tools (file writes and so on).
+**Action:** mark external content in the MCP output with an explicit boundary (such
+as `<untrusted-source-content>`) — cheap and effective.
 
 ---
 
-## H. Literatür / Zotero / Obsidian denetimi
+## H. Literature / Zotero / Obsidian audit
 
-**Akış doğrulandı:** `Zotero(23119) → Bridge(8765) → SQLite → Obsidian → Hermes MCP`.
-Canlı: `/ready` → `{"status":"ready","zotero":"reachable","source_count":33}`.
-DB: 33 kaynak (25 journalArticle, 6 report, 2 conferencePaper), 25 sync run,
-son 8 run `SUCCEEDED` / 33 unchanged.
+**Flow verified:** `Zotero(23119) → Bridge(8765) → SQLite → Obsidian → Hermes MCP`.
+Live: `/ready` → `{"status":"ready","zotero":"reachable","source_count":33}`.
+DB: 33 sources (25 journalArticle, 6 report, 2 conferencePaper), 25 sync runs, the
+last 8 `SUCCEEDED` / 33 unchanged.
 
-| Kontrol | Sonuç |
+| Check | Result |
 |---|---|
-| Kaynak kimliği kararlı mı? | ✅ Evet, test edilmiş |
-| İdempotent mi? | ✅ Evet, test edilmiş |
-| Başlıkla adlandırma + çakışma eki | ✅ Evet, test edilmiş (`test_obsidian.py:41`) |
-| İnsan notları korunuyor mu? | ✅ Evet, manifest-sahipli silme, test edilmiş |
-| Zotero'ya yazma var mı? | ✅ Kodda yok (elle doğrulandı) — ❌ ama testle kanıtlanmıyor (H3) |
-| Baseline ↔ gerçek vault senkron mu? | ✅ `diff -rq` → yalnız `.obsidian/` config ve boş `2026_08_21.md` farkı |
-| Wikilink bütünlüğü | ✅ 103 link, 0 kırık |
-| Plan aynası link bütünlüğü | ✅ 1011 link, 0 kırık |
-| Duplicate raporlama, otomatik merge yok | ✅ Doğru (`catalog.py:36`, yalnız rapor) |
-| Tam kapsam senkron | ❌ 100 tavanı — H1 |
-| Silme/reconciliation | ❌ Yok — H2 |
-| Annotation/attachment ingest | ❌ Yok (`zotero.py:14` atlanıyor) — WP-068 MISSING |
-| Koleksiyon/tag opt-in yetki sınırı | ❌ Yok, `users/0` tamamı okunuyor — WP-064 CONTRADICTED |
-| Literature set manifest freeze | ❌ Yok — WP-072 MISSING |
-| Vault notlarında `schema_version` | ❌ Yok — migration edilemez |
-| Duplicate not adı | ⚠️ `README.md` ×2, `readme.md` ×2 (Obsidian kısa-yol linkleri belirsizleşebilir) |
+| Is source identity stable? | ✅ Yes, tested |
+| Is it idempotent? | ✅ Yes, tested |
+| Title-based naming with a collision suffix | ✅ Yes, tested (`test_obsidian.py:41`) |
+| Are human notes preserved? | ✅ Yes, manifest-owned deletion, tested |
+| Is there any write to Zotero? | ✅ None in the code (verified by hand) — ❌ but not proven by a test (H3) |
+| Is the baseline in sync with the real vault? | ✅ `diff -rq` → only `.obsidian/` config and one empty daily note |
+| Wikilink integrity | ✅ 103 links, 0 broken |
+| Plan mirror link integrity | ✅ 1011 links, 0 broken |
+| Duplicate reporting without automatic merge | ✅ Correct (`catalog.py:36`, report only) |
+| Full-coverage sync | ❌ 100 cap — H1 |
+| Deletion / reconciliation | ❌ None — H2 |
+| Annotation / attachment ingest | ❌ None (`zotero.py:14` skips them) — WP-068 MISSING |
+| Collection/tag opt-in permission boundary | ❌ None; all of `users/0` is read — WP-064 CONTRADICTED |
+| Literature set manifest freeze | ❌ None — WP-072 MISSING |
+| `schema_version` in vault notes | ❌ None — cannot be migrated |
+| Duplicate note names | ⚠️ `README.md` ×2, `readme.md` ×2 (ambiguous Obsidian shortlinks) — ✅ since renamed to distinct index names |
 
-**Not:** `data/projection-backups/` içinde 3 geri alma yedeği var
-(`Sources-before-title-migration`, `vault-layout-before-silbo-main`,
-`vault-layout-before-ai-framework-consolidation`). Bunlar `.gitignore`'da —
-yani **geri alma yedekleri versiyon kontrolünde değil ve yedeklenmiyor**.
-`OPERATIONS.md` bunları resmi rollback noktası olarak gösteriyor. Riskli.
+**Note:** `data/projection-backups/` holds 3 rollback backups. They are in
+`.gitignore` — meaning **the rollback backups are neither version-controlled nor
+backed up**, while `OPERATIONS.md` presents them as the official rollback point.
+That is risky.
 
 ---
 
-## I. Kanıt ve tekrar üretilebilirlik denetimi
+## I. Evidence and reproducibility audit
 
-Her "başarılı" iddiasını tekrar üretilebilirliğine göre ayırdım:
+Every "success" claim, separated by whether it is reproducible:
 
-| İddia | Kanıt tipi | Tekrar üretilebilir? |
+| Claim | Evidence type | Reproducible? |
 |---|---|---|
-| "20/20 test PASS" | `pytest -q` | ✅ Evet — bu oturumda tekrar üretildi |
-| "33 kaynak, 3 kategori" | canlı `/ready` + SQLite | ⚠️ Yalnız bu makinede, bu kütüphaneyle |
-| "Bridge + timer aktif" | `systemctl --user is-active` | ✅ Evet — doğrulandı |
-| "Plan bütünlüğü" | `sha256sum -c` 184/184 | ✅ Evet — tekrar üretildi |
-| "Baseline = vault" | `diff -rq` | ✅ Evet — tekrar üretildi |
-| "Zotero write kapalı" | sabit `False` | ❌ **Hayır — H3, kanıt değil** |
-| "V0 acceptance: accepted" | `acceptance_v0.py` | ❌ **Hayır — M3, kişisel veriye bağımlı, canlı servis gerekli** |
-| "MCP 5 read-only tool" | `mcp_smoke.py` | ❌ **Hayır — M2, hiçbir şey assert etmiyor** |
-| "Step 001 TECH_COMPLETE (WP-011/014/015/020/022)" | implementation_log | ❌ **WP-022 için yanlış — C3** |
-| SILBO FIX-004/005a `ACCEPTED` | ayrı repo, sealed review + quorum | 🔍 **Bu review'un kapsamı dışı** — ayrı repository, ayrı yetki alanı |
+| "20/20 tests PASS" | `pytest -q` | ✅ Yes — reproduced in this session |
+| "33 sources, 3 categories" | live `/ready` + SQLite | ⚠️ Only on this machine with this library |
+| "Bridge + timer active" | `systemctl --user is-active` | ✅ Yes — verified |
+| "Plan integrity" | `sha256sum -c` 184/184 | ✅ Yes — reproduced |
+| "Baseline = vault" | `diff -rq` | ✅ Yes — reproduced |
+| "Zotero write disabled" | a constant `False` | ❌ **No — H3, not evidence** |
+| "V0 acceptance: accepted" | `acceptance_v0.py` | ❌ **No — M3, depends on personal data, needs a live service** |
+| "MCP: 5 read-only tools" | `mcp_smoke.py` | ❌ **No — M2, asserts nothing** |
+| "Step 001 TECH_COMPLETE (WP-011/014/015/020/022)" | implementation log | ❌ **Wrong for WP-022 — C3** |
+| SILBO FIX-004/005a `ACCEPTED` | separate repo, sealed review + quorum | 🔍 **Out of scope for this review** — separate repository, separate authority |
 
-**Sonuç:** Şu anda "kanıt" olarak gösterilen 3 artifact'in 3'ü de gerçek bir şey
-kanıtlamıyor. Bunlar kötü niyetle yazılmamış — ama planın kendi
-`05_DoD:52` maddesinin ("Yalnız happy-path demo") tam örneği.
+**Conclusion:** All three artifacts currently presented as "evidence" prove
+nothing. They were not written in bad faith — but they are a textbook instance of
+the plan's own `05_DoD:52` clause ("a happy-path demo only").
 
-**Not — SILBO ayrımı:** Status dokümanı ve implementation log'daki SILBO FIX-004/
-FIX-005a/FIX-005 kayıtları ayrı bir repository'ye (`/home/otonom/silbo-fix-00*`)
-ait ve bu inceleme kapsamında **doğrulanmadı**. Bu ayrımın dokümanlarda açıkça
-yapılmış olması iyi. Ancak dikkat: framework durum tablosunun (`§1 Güncel durum
-özeti`) 20 satırının 8'i SILBO satırı ve hepsi `ACCEPTED`/`PASS`. Framework'e
-yüzeysel bakan biri, framework'ün kabul edilmiş olduğu izlenimine kapılır.
-**Öneri:** SILBO satırlarını ayrı bir tabloya taşıyın.
+**Note — the SILBO separation:** the SILBO FIX-004 / FIX-005a / FIX-005 records in
+the status document and the implementation log belong to a separate repository
+(`/home/otonom/silbo-fix-00*`) and were **not verified** within this review. It is
+good that the documents make this separation explicitly. But note: 8 of the 20 rows
+in the framework status table (`§1 Current status summary`) are SILBO rows, all
+marked `ACCEPTED`/`PASS`. Someone glancing at the framework would conclude the
+framework itself had been accepted.
+**Recommendation:** move the SILBO rows into a separate table.
 
 ---
 
 ## J. Risk register
 
-| # | Risk | Etki | Olasılık | Tespit kanıtı | Azaltım | Kapanış ölçütü |
+| # | Risk | Impact | Likelihood | Detection evidence | Mitigation | Closure criterion |
 |---|---|---|---|---|---|---|
-| R1 | Program hiç başlayamaz (evidence deadlock) | Critical | **Kesin** | C1 | WP-000 Interim Evidence Policy | WP-001 geçici kanıtla `ACCEPTED` olabiliyor |
-| R2 | Kapsam organizasyona sığmıyor | Critical | **Kesin** | C2 | Kapsam kesme veya sealed-review verifier modeli | 00_PROGRAM'da yazılı karar |
-| R3 | Beyan ile gerçek arasında fark (WP-022) | High | Gerçekleşti | C3 | Durumu düşür, CI ile beyanı doğrula | `git ls-files` teslimatları gösteriyor |
-| R4 | 100+ kaynakta sessiz veri eksikliği | High | Yüksek (zaman meselesi) | H1 | Sayfalama + `since=` | Test: 250 kayıtlık mock kütüphane tam senkron |
-| R5 | Silinen kaynak hayalet olarak kalır | High | Yüksek | H2 | `/deleted` + tombstone | Test: silinen kaynak `WITHDRAWN`, projeksiyondan çıkıyor |
-| R6 | Read-only iddiası bir gün sessizce bozulur | High | Orta | H3 | Davranışsal test + statik kontrol | MockTransport testi CI'da |
-| R7 | Contract çekirdeği ölü kod olarak çürür | High | Yüksek | H4 | En az bir üretim tüketicisi | `airl_bridge` `Identity` kullanıyor |
-| R8 | Manuel kanıt üretimi tekrarlanamaz | High | Kesin | H5 | GitHub Actions | Her push'ta yeşil pipeline |
-| R9 | Yerel API kötüye kullanımı (CSRF/rebinding) | Medium | Düşük | M1 | TrustedHost + token | Test: token'sız POST 401 |
-| R10 | Plan kopyaları ayrışır | Medium | Gerçekleşti | M4 | Tek kanonik + üretilen ayna + CI drift kontrolü | `check_plan_drift.py` yeşil |
-| R11 | Projeksiyon yanlış klasörü yönetime alır | Medium | Düşük | M7 | dry-run + boş-dizin reddi | Test: dolu insan klasörü reddediliyor |
-| R12 | 10k üstü kütüphanede aktif veri kaybı | Medium | Düşük (H1 sonrası artar) | M9 | Sayfalayan iterator | H1 ile birlikte kapanır |
-| R13 | Rollback yedekleri versiyon kontrolsüz | Medium | Orta | H bölümü | Yedekleri hash'leyip manifest'e bağlayın | Yedek manifesti + doğrulama komutu |
-| R14 | Dokümantasyon drift'i güveni aşındırır | Medium | Gerçekleşti | M10 | `check_docs.py` | CI'da yol doğrulaması |
-| R15 | Prompt injection (Zotero abstract → MCP) | Medium | Düşük (V0'da) | G bölümü | Untrusted-content işaretleme | MCP çıktısında sınır etiketi |
+| R1 | The programme can never start (evidence deadlock) | Critical | **Certain** | C1 | WP-000 Interim Evidence Policy | WP-001 can reach `ACCEPTED` on interim evidence |
+| R2 | The scope does not fit the organisation | Critical | **Certain** | C2 | Cut scope, or adopt the sealed-review verifier model | A written decision in `00_PROGRAM` |
+| R3 | Divergence between claim and reality (WP-022) | High | Occurred | C3 | Downgrade the status; verify claims in CI | `git ls-files` shows the deliverables |
+| R4 | Silent data gap beyond 100 sources | High | High (a matter of time) | H1 | Pagination + `since=` | Test: a 250-record mock library syncs fully |
+| R5 | Deleted sources persist as ghosts | High | High | H2 | `/deleted` + tombstone | Test: a deleted source becomes `WITHDRAWN` and leaves the projection |
+| R6 | The read-only claim silently breaks one day | High | Medium | H3 | Behavioural test + static check | The MockTransport test runs in CI |
+| R7 | The contract core rots as dead code | High | High | H4 | At least one production consumer | `airl_bridge` uses `Identity` |
+| R8 | Manual evidence production is not repeatable | High | Certain | H5 | GitHub Actions | A green pipeline on every push |
+| R9 | Local API abuse (CSRF / rebinding) | Medium | Low | M1 | TrustedHost + token | Test: POST without a token returns 401 |
+| R10 | Plan copies diverge | Medium | Occurred | M4 | One canonical copy + generated mirror + CI drift check | `check_plan_drift.py` green |
+| R11 | The projection adopts the wrong folder | Medium | Low | M7 | dry-run + non-empty-directory refusal | Test: a populated human folder is refused |
+| R12 | Active data loss above 10k sources | Medium | Low (rises after H1) | M9 | Paginating iterator | Closes together with H1 |
+| R13 | Rollback backups are not version-controlled | Medium | Medium | Section H | Hash the backups and bind them to a manifest | A backup manifest + a verification command |
+| R14 | Documentation drift erodes trust | Medium | Occurred | M10 | `check_docs.py` | Path verification in CI |
+| R15 | Prompt injection (Zotero abstract → MCP) | Medium | Low (in V0) | Section G | Untrusted-content tagging | A boundary tag in the MCP output |
 
 ---
 
-## K. `CLAUDE_FULL_FRAMEWORK_REVIEW_PROMPT.md`'nin denetimi
+## K. Audit of `CLAUDE_FULL_FRAMEWORK_REVIEW_PROMPT.md`
 
-Kullanıcı bu prompta güvenmediğini söyledi. Haklıydı. Bulgular:
+The user said they did not trust this prompt. They were right. Findings:
 
-**K1 — Var olmayan dizinleri inceleme kapsamına alıyor (satır 69, 71, 73):**
-- `planning/commissioning/09_OPERATIONS/` → gerçekte `09_EXPERIENCE_OBSERVABILITY/`
-- `planning/commissioning/11_DECOMMISSION/` → gerçekte `11_DAY2_OPERATIONS/`
-- `planning/commissioning/13_CHANGE_CONTROL/` → **hiç yok**
+**K1 — It includes directories that do not exist (lines 69, 71, 73):**
+- `planning/commissioning/09_OPERATIONS/` → actually `09_EXPERIENCE_OBSERVABILITY/`
+- `planning/commissioning/11_DECOMMISSION/` → actually `11_DAY2_OPERATIONS/`
+- `planning/commissioning/13_CHANGE_CONTROL/` → **does not exist at all**
 
-Yani prompt, planın gerçek yapısı okunmadan yazılmış. Bir reviewer bu listeyi
-harfiyen izlerse üç bölümü "MISSING" raporlar ve iki gerçek bölümü hiç incelemez.
+The prompt was written without reading the plan's real structure. A reviewer who
+followed the list literally would report three sections as "MISSING" and never
+examine two real ones.
 
-**K2 — Boş dizinleri inceleme hedefi olarak listeliyor (satır 119-125):**
-`services/`, `workflows/`, `agents/`, `infra/`, `policy/` — hepsi boş ve git'te yok
-(C3). Prompt, olması *istenen* yapıya göre yazılmış, olan yapıya göre değil.
+**K2 — It lists empty directories as review targets (lines 119-125):**
+`services/`, `workflows/`, `agents/`, `infra/`, `policy/` — all empty and untracked
+(C3). The prompt describes the structure that was *wanted*, not the one that exists.
 
-**K3 — Rapor formatı bulguları gömüyor (satır 262-272):**
-130 satırlık WP matrisi + 40 satırlık ACC matrisi istiyor. Bu matrisin ~160
-satırı aynı şeyi söyleyecek (`DOCUMENTED_ONLY`, kanıt: "dosya var, kod yok").
-Gerçek 10-15 bulgu bu tablonun içinde kaybolur. **Rapor formatı titizlik
-gösteriyor, aksiyon üretmiyor.**
+**K3 — The report format buries the findings (lines 262-272):**
+It asks for a 130-row WP matrix plus a 40-row ACC matrix. About 160 of those rows
+would say the same thing (`DOCUMENTED_ONLY`, evidence: "the file exists, the code
+does not"). The real 10–15 findings would vanish inside that table. **The report
+format performs rigour without producing action.**
 
-**K4 — Çalıştırılması istenen komut hatalı (satır 205):**
-`python -m unittest discover -s airl_bridge_api/tests -q` — repo kökünden
-çalışmaz; `pythonpath=["src"]` yalnız pytest konfigürasyonunda tanımlı
-(`pyproject.toml:32`). `unittest` `ModuleNotFoundError` verir.
+**K4 — The command it asks you to run is wrong (line 205):**
+`python -m unittest discover -s airl_bridge_api/tests -q` does not run from the repo
+root; `pythonpath=["src"]` is defined only in the pytest configuration
+(`pyproject.toml:32`). `unittest` raises `ModuleNotFoundError`.
 
-**K5 — Sorulmayan asıl soru:**
-Prompt "ne kadarı kuruldu?" diye 6 kez soruyor ama şunu hiç sormuyor:
-**"Bu plan bu organizasyon tarafından yürütülebilir mi?"** — C1 ve C2, promptun
-körlüğünde kalan ve aslında en pahalı olan iki bulgu.
+**K5 — The question it never asks:**
+The prompt asks "how much has been built?" six times, but never asks:
+**"Can this plan be executed by this organisation?"** — C1 and C2, the two most
+expensive findings, sit in the prompt's blind spot.
 
-**K6 — İyi yanları (korunmalı):** Kanıt sınıflandırması (`IMPLEMENTED`/`PARTIAL`/
-`DOCUMENTED_ONLY`/`CONTRADICTED`/`BLOCKED`), "dosya varlığı kanıt değildir" kuralı,
-"SILBO'yu framework ile karıştırma" kuralı ve salt-okunur kısıtı — bunlar doğru
-ve bu raporda uygulandı.
+**K6 — What it gets right (keep this):** the evidence classification
+(`IMPLEMENTED`/`PARTIAL`/`DOCUMENTED_ONLY`/`CONTRADICTED`/`BLOCKED`), the rule that
+"file existence is not evidence", the rule not to conflate SILBO with the
+framework, and the read-only constraint. Those are correct and were applied in this
+report.
 
-**Öneri:** Promptu düzeltin (K1, K2, K4) ve rapor formatını değiştirin:
-130 satırlık matris yerine **"durumu `DOCUMENTED_ONLY` olmayan paketler"** tablosu
-+ bir özet dağılım. Geri kalanı zaten varsayılan.
-
----
-
-## L. Gerçekçi uygulama sırası
-
-Her adım `implementable` (kod/config değişir) veya `document-only` (karar/metin)
-olarak işaretli. Sıra bağımlılığa göre; **atlanamaz**.
+**Recommendation:** Fix the prompt (K1, K2, K4) and change the report format:
+instead of a 130-row matrix, produce a table of **"packages whose status is not
+`DOCUMENTED_ONLY`"** plus a summary distribution. The rest is the default anyway.
 
 ---
 
-### Step 0 — Kapsam kararı `document-only` 🔴 BLOKE EDİCİ
+## L. A realistic implementation order
 
-**Amaç:** C2'yi çözmek. 130 paket / 73 owner / 114 verifier modeli bu organizasyon
-için geçersiz; hangi modelle devam edileceği yazılı olmadan kod yazmak boşa emek.
-**Ön koşul:** Yok. **Bu ilk iş.**
-**Değişecek:** `00_PROGRAM/` altına yeni `12_ORGANIZASYON_VE_BAGIMSIZLIK_MODELI.md`;
-`04_ROL_VE_SORUMLULUK_MATRISI.md` revizyonu.
-**İçerik:** (a) kapsam: hangi WP'ler `IN_SCOPE` / `DEFERRED`; (b) bağımsızlık:
-SILBO sealed-review + exact-quorum protokolünün framework verifier'ı olarak
-resmileştirilmesi (farklı model ailesi, sealed context, exact target SHA).
-**Kanıt:** Doküman + `ai_research_framework_current_status_and_roadmap.md`
-değişiklik günlüğü satırı.
-**Rollback:** Doküman geri alınır. **Tamamlanma:** WP kataloğundaki her paketin
-`IN_SCOPE`/`DEFERRED` etiketi var ve verifier tanımı yazılı.
+Each step is marked `implementable` (code/config changes) or `document-only`
+(a decision or text). The order follows the dependencies and **cannot be skipped**.
 
 ---
 
-### Step 1 — Interim Evidence Policy (WP-000) `document-only` 🔴 BLOKE EDİCİ
+### Step 0 — The scope decision `document-only` 🔴 BLOCKING
 
-**Amaç:** C1'i çözmek. WP-026 gelene kadar geçerli kanıt deposu tanımı.
-**Ön koşul:** Step 0.
-**Değişecek:** `00_PROGRAM/WP-000_interim_evidence_policy.md`;
-`05_DEFINITION_OF_READY_DONE.md`'ye "geçici kanıt" maddesi;
-`delivery/EVIDENCE_LEDGER.md` (append-only) oluşturulur.
+**Goal:** Resolve C2. The 130-package / 73-owner / 114-verifier model is invalid for
+this organisation; writing code before the model is written down is wasted effort.
+**Precondition:** None. **This is the first job.**
+**Changes:** a new `00_PROGRAM/12_organisation_and_independence_model.md`; a revision
+of `04_role_and_responsibility_matrix.md`.
+**Content:** (a) scope — which WPs are `IN_SCOPE` and which `DEFERRED`;
+(b) independence — formalising the SILBO sealed-review plus exact-quorum protocol as
+the framework's verifier (different model family, sealed context, exact target SHA).
+**Evidence:** the document plus a change-log line in the status/roadmap note.
+**Rollback:** revert the document. **Done when:** every package in the catalogue
+carries an `IN_SCOPE`/`DEFERRED` label and the verifier definition is written.
+
+---
+
+### Step 1 — Interim Evidence Policy (WP-000) `document-only` 🔴 BLOCKING
+
+**Goal:** Resolve C1. Define a valid evidence store until WP-026 exists.
+**Precondition:** Step 0.
+**Changes:** `00_PROGRAM/WP-000_interim_evidence_policy.md`; an "interim evidence"
+clause in `05_definition_of_ready_and_done.md`; an append-only
+`delivery/EVIDENCE_LEDGER.md`.
 **Format:** `delivery/WP-xxx/evidence-manifest.json` →
 `{target_git_sha, command, exit_code, artifacts:[{path, sha256}], produced_at, producer, verifier}`.
-**Kanıt:** Politika dokümanı + ilk manifest örneği.
-**Rollback:** Doküman geri alınır. **Tamamlanma:** Bir paket bu politikayla
-`ACCEPTED` olabiliyor (Step 3'te test edilir).
+**Evidence:** the policy document plus the first manifest example.
+**Rollback:** revert the document. **Done when:** a package can reach `ACCEPTED`
+under this policy (tested in Step 3).
+
+> Note: **WP-139** (evidence timestamping) supplies the external time anchor for
+> this interim store without requiring any of WP-026's infrastructure.
 
 ---
 
-### Step 2 — CI temeli `implementable` (H5, ve 4 bulguyu birden kapatır)
+### Step 2 — CI foundation `implementable` (H5, and closes four findings at once)
 
-**Amaç:** Kanıt üretimini otomatikleştirmek.
-**Ön koşul:** Step 1 (kanıt formatı belli olmalı).
-**Değişecek:** `.github/workflows/ci.yml`, `pyproject.toml` (`[tool.ruff]`),
+**Goal:** Automate evidence production.
+**Precondition:** Step 1 (the evidence format must be settled).
+**Changes:** `.github/workflows/ci.yml`, `pyproject.toml` (`[tool.ruff]`),
 `scripts/check_readonly_boundary.py`, `scripts/check_plan_integrity.py`.
-**İçerik:** `uv sync --extra dev` → `ruff check` → `pytest -q` →
-Zotero write statik kontrolü (H3) → `sha256sum -c SHA256SUMS` (M4/M11).
-**Kanıt:** Yeşil workflow run URL'i + `evidence-manifest.json`.
-**Rollback:** Workflow dosyasını silmek. **Tamamlanma:** Her push'ta 5 kontrol yeşil.
+**Content:** `uv sync --extra dev` → `ruff check` → `pytest -q` → the Zotero write
+static check (H3) → `sha256sum -c SHA256SUMS` (M4/M11).
+**Evidence:** a green workflow run URL plus `evidence-manifest.json`.
+**Rollback:** delete the workflow file. **Done when:** five checks are green on
+every push.
 
 ---
 
-### Step 3 — Read-only sınırının gerçek testi `implementable` (H3)
+### Step 3 — A real test of the read-only boundary `implementable` (H3)
 
-**Amaç:** Framework'ün en güçlü güvenlik iddiasını gerçekten kanıtlamak. **Bu aynı
-zamanda Step 1'in pilotu**: ilk `evidence-manifest.json` bu adımda üretilir.
-**Ön koşul:** Step 2.
-**Değişecek:** `tests/test_readonly_boundary.py` (yeni);
-`src/airl_bridge/models.py:65` ve `main.py:62` (sahte alanı kaldır);
-`scripts/acceptance_v0.py:41,77` (totolojik kontrolü çıkar).
-**Test:** `MockTransport` handler'ı `request.method != "GET"` ise `AssertionError`
-fırlatsın; tüm `sync()` akışı bu transport ile koşsun.
-**Kanıt:** Test çıktısı + manifest. **Rollback:** Commit revert.
-**Tamamlanma:** Testi kırmak için `zotero.py`'a bir `POST` eklemek gerekiyor
-(ve eklendiğinde CI kırmızı oluyor — bir kez deneyip geri alın, bu da kanıt).
-
----
-
-### Step 4 — Sayfalayan iterator (M9) `implementable` — **H1'den ÖNCE**
-
-**Amaç:** 10.000 sessiz kesmesini kaldırmak. H1'den önce yapılmalı, aksi halde
-H1 düzeltmesi aktif veri kaybı yolu açar.
-**Ön koşul:** Step 2.
-**Değişecek:** `database.py` (`iter_sources()`), `service.py:42`, `main.py:114`.
-**Kanıt:** 15.000 satırlık fixture ile projeksiyon testi (tümü projekte ediliyor,
-`removed_stale == 0`). **Rollback:** Commit revert.
-**Tamamlanma:** Kodda `limit=10_000` kalmadı.
+**Goal:** Actually prove the framework's strongest security claim. **This is also
+the pilot for Step 1**: the first `evidence-manifest.json` is produced here.
+**Precondition:** Step 2.
+**Changes:** `tests/test_readonly_boundary.py` (new); `src/airl_bridge/models.py:65`
+and `main.py:62` (remove the fake field); `scripts/acceptance_v0.py:41,77` (remove
+the tautological check).
+**Test:** a `MockTransport` handler that raises `AssertionError` when
+`request.method != "GET"`; run the whole `sync()` flow through it.
+**Evidence:** the test output plus a manifest. **Rollback:** revert the commit.
+**Done when:** breaking the test requires adding a `POST` to `zotero.py` — and when
+you do, CI turns red (try it once and revert; that is evidence too).
 
 ---
 
-### Step 5 — Zotero sayfalama + incremental sync (H1) `implementable`
+### Step 4 — A paginating iterator (M9) `implementable` — **BEFORE H1**
 
-**Ön koşul:** Step 4.
-**Değişecek:** `zotero.py` (`start` döngüsü, `Total-Results` okuması,
-`since=` desteği), `database.py` (`sync_runs.library_version`), `service.py`,
-`cli.py:68` (limit choices kaldır), `main.py:126,136`,
-`deploy/airl-bridge-sync.service`.
-**Kanıt:** 250 kayıtlık mock kütüphane → 250 fetched; `fetched < total` durumunda
-run `PARTIAL`. **Rollback:** Commit revert + `library_version` migration geri alma.
-**Tamamlanma:** Gerçek kütüphanede `source_count == Zotero Total-Results`.
-
----
-
-### Step 6 — Silme reconciliation + tombstone (H2) `implementable`
-
-**Ön koşul:** Step 5 (`since=` altyapısı).
-**Değişecek:** `zotero.py` (`/deleted?since=`), `database.py`
-(`sources.status`, `withdrawn_at`, migration + `schema_version` **okuması**),
-`service.py`, `obsidian.py` (WITHDRAWN'ı projekte etme).
-**Kanıt:** Test: kaynak silindi → `status=WITHDRAWN`, Obsidian dosyası kalktı,
-DB satırı korundu. **Rollback:** Migration geri alma scripti (önceden yazılacak).
-**Tamamlanma:** WP-067'nin V0 karşılığı çalışıyor.
+**Goal:** Remove the silent 10,000-row truncation. It must come before H1, or the
+H1 fix opens an active data-loss path.
+**Precondition:** Step 2.
+**Changes:** `database.py` (`iter_sources()`), `service.py:42`, `main.py:114`.
+**Evidence:** a projection test with a 15,000-row fixture (everything projected,
+`removed_stale == 0`). **Rollback:** revert the commit.
+**Done when:** no `limit=10_000` remains in the code.
 
 ---
 
-### Step 7 — API sertleştirme (M1) `implementable`
+### Step 5 — Zotero pagination + incremental sync (H1) `implementable`
 
-**Ön koşul:** Step 2.
-**Değişecek:** `main.py` (`TrustedHostMiddleware`, token dependency),
-`config.py` (`AIRL_API_TOKEN`), `.env` (chmod 600), `.env.example` (placeholder),
-`deploy/airl-bridge-sync.service` (header), `docs/OPERATIONS.md`.
-**Kanıt:** Test: token'sız POST → 401; yanlış Host → 400.
-**Rollback:** Middleware'i kaldır. **Tamamlanma:** L1 ve M1 kapalı.
+**Precondition:** Step 4.
+**Changes:** `zotero.py` (`start` loop, `Total-Results` reading, `since=` support),
+`database.py` (`sync_runs.library_version`), `service.py`, `cli.py:68` (drop the
+limit choices), `main.py:126,136`, `deploy/airl-bridge-sync.service`.
+**Evidence:** a 250-record mock library → 250 fetched; the run marked `PARTIAL`
+whenever `fetched < total`. **Rollback:** revert the commit plus the
+`library_version` migration reversal.
+**Done when:** on the real library, `source_count == Zotero Total-Results`.
+
+---
+
+### Step 6 — Deletion reconciliation + tombstones (H2) `implementable`
+
+**Precondition:** Step 5 (the `since=` infrastructure).
+**Changes:** `zotero.py` (`/deleted?since=`), `database.py` (`sources.status`,
+`withdrawn_at`, a migration and an actual **read** of `schema_version`),
+`service.py`, `obsidian.py` (do not project `WITHDRAWN`).
+**Evidence:** test — a deleted source becomes `status=WITHDRAWN`, its Obsidian file
+disappears and its DB row survives. **Rollback:** a migration reversal script,
+written in advance. **Done when:** the V0 counterpart of WP-067 works.
+
+---
+
+### Step 7 — API hardening (M1) `implementable`
+
+**Precondition:** Step 2.
+**Changes:** `main.py` (`TrustedHostMiddleware`, a token dependency), `config.py`
+(`AIRL_API_TOKEN`), `.env` (chmod 600), `.env.example` (placeholders),
+`deploy/airl-bridge-sync.service` (the header), `docs/OPERATIONS.md`.
+**Evidence:** test — POST without a token → 401; a wrong Host → 400.
+**Rollback:** remove the middleware. **Done when:** L1 and M1 are closed.
 
 ---
 
 ### Step 8 — Sync transaction/compensation + audit (M6) `implementable`
 
-**Ön koşul:** Step 6.
-**Değişecek:** `database.py` (`sync_runs`'a projeksiyon sütunları),
-`service.py:45`, `models.py`.
-**Kanıt:** Test: projeksiyon hatası → run `PARTIAL`, hata kaydedilmiş, registry
-tutarlı. **Tamamlanma:** WP-038'in V0 karşılığı.
+**Precondition:** Step 6.
+**Changes:** `database.py` (projection columns on `sync_runs`), `service.py:45`,
+`models.py`.
+**Evidence:** test — a projection failure marks the run `PARTIAL`, the error is
+recorded and the registry stays consistent. **Done when:** the V0 counterpart of
+WP-038 works.
 
 ---
 
-### Step 9 — Plan tek kanonik kopyaya indirgeme (M4, M11) `implementable`
+### Step 9 — Reduce the plan to a single canonical copy (M4, M11) `implementable`
 
-**Ön koşul:** Step 2 (CI drift kontrolü için).
-**Değişecek:** `planning/commissioning/` kaldırılır (veya symlink);
-`scripts/mirror_plan.py` (kanonik → vault üretimi); `scripts/check_plan_drift.py`;
-`SHA256SUMS` kanonik kopyanın yanına; cockpit + status + review prompt güncellenir.
-**Kanıt:** CI'da drift kontrolü yeşil; `sha256sum -c` OK.
-**Rollback:** Silme yerine `90 - Archive`'a taşıyın, sonra geri.
-**Tamamlanma:** Plan tek yerde, üretilmiş ayna, CI doğrulamalı.
+**Precondition:** Step 2 (for the CI drift check).
+**Changes:** remove (or symlink) the duplicate plan tree; `scripts/mirror_plan.py`
+(canonical → vault generation); `scripts/check_plan_drift.py`; `SHA256SUMS` beside
+the canonical copy; update the cockpit, status and review prompt.
+**Evidence:** the drift check green in CI; `sha256sum -c` OK.
+**Rollback:** move to `90 - Archive` rather than deleting, then move back.
+**Done when:** the plan lives in one place with a generated mirror, verified by CI.
 
----
-
-### Step 10 — Contract çekirdeğini bağla (H4) `implementable`
-
-**Ön koşul:** Step 3, Step 9.
-**Değişecek:** `zotero.py:104` (`content_hash` formatı → çıplak hex + `hash_algo`),
-migration scripti, `zotero.py:83` (`Identity` üzerinden `airl_id`),
-`schemas/*.json` (gerçek JSON Schema), `contracts.py` (`jsonschema` ile valide et),
-CI'da şema uyumluluk kontrolü.
-**Kanıt:** `grep airl_framework src/airl_bridge/` en az 2 sonuç; şema testi;
-migration dry-run + geri alma denemesi.
-**Tamamlanma:** WP-011/014/020 gerçekten `TECH_COMPLETE` — ve Step 0'daki verifier
-modeliyle `ACCEPTED` olabilir.
+> ✅ Consolidation and re-sealing are **done (2026-08-22)**; the generator and the
+> CI drift check remain.
 
 ---
 
-### Step 11 — Beyanları gerçeğe çek `document-only`
+### Step 10 — Bind the contract core (H4) `implementable`
 
-**Ön koşul:** Step 10.
-**Değişecek:** `implementation_log.md` (WP-022 → `NOT_STARTED`, C3 açıklaması),
-`ai_research_framework_current_status_and_roadmap.md` (test sayısı 20; SILBO
-satırlarını ayrı tabloya al), `docs/ARCHITECTURE_V0.md` (M10 yol düzeltmeleri),
-`deploy/*.service|timer` (SILBO adlandırması), `README.md:110` (L3),
+**Precondition:** Step 3, Step 9.
+**Changes:** `zotero.py:104` (`content_hash` format → bare hex plus `hash_algo`), a
+migration script, `zotero.py:83` (`airl_id` through `Identity`), `schemas/*.json`
+(real JSON Schema), `contracts.py` (validate with `jsonschema`), a schema
+compatibility check in CI.
+**Evidence:** `grep airl_framework src/airl_bridge/` returns at least 2 results; a
+schema test; a migration dry run plus a reversal attempt.
+**Done when:** WP-011/014/020 are genuinely `TECH_COMPLETE` — and can become
+`ACCEPTED` under the verifier model from Step 0.
+
+---
+
+### Step 11 — Pull the claims back to reality `document-only`
+
+**Precondition:** Step 10.
+**Changes:** `implementation_log.md` (WP-022 → `NOT_STARTED`, with the C3
+explanation), the status/roadmap note (test count 20; SILBO rows moved to a
+separate table), `docs/ARCHITECTURE_V0.md` (the M10 path corrections),
+`deploy/*.service|timer` (SILBO naming), `README.md` (L3),
 `docs/review/CLAUDE_FULL_FRAMEWORK_REVIEW_PROMPT.md` (K1, K2, K4).
-**Kanıt:** `scripts/check_docs.py` yeşil. **Tamamlanma:** Dokümanda doğrulanamayan
-tek bir yol/sayı kalmadı.
+**Evidence:** `scripts/check_docs.py` green. **Done when:** not one unverifiable
+path or number remains in the documentation.
+
+> ✅ Mostly **done (2026-08-22)** through the full English rewrite; the
+> `check_docs.py` guard is still missing, so this can regress.
 
 ---
 
-### Step 12 — İlk gerçek ACC senaryosu `implementable`
+### Step 12 — The first real ACC scenario `implementable`
 
-**Amaç:** 40 ACC'den birini gerçekten otomatikleştirmek. Aday: **ACC-22
-(obsidian_human_edit)** — mevcut `test_obsidian.py:72` zaten yarısını yapıyor,
-ve tam olarak sizin en kritik veri kaybı riskinizi kapatıyor.
-**Ön koşul:** Step 1 (kanıt formatı), Step 2 (CI).
-**Değişecek:** `tests/acceptance/test_acc_22.py`,
-`delivery/ACC-22/evidence-manifest.json`, ACC-22 dosyasına "mevcut otomasyon" satırı.
-**Kanıt:** CI'da geçen ACC testi + imzalı manifest.
-**Tamamlanma:** 40 ACC'den 1'i `IMPLEMENTED`. Bu, programın gerçekten
-başlayabildiğinin ilk kanıtı olur.
-
----
-
-**Step 12'den sonra:** Faz C (WP-013/016/017 contract'ları), sonra WP-061-074
-literatür platformu. Ama önce Step 0 ve Step 1 — onlar olmadan geri kalanı
-"kabul edilemez kod" üretmeye devam eder.
+**Goal:** Actually automate one of the 40 ACC scenarios. Candidate: **ACC-22
+(Obsidian human edit preservation)** — the existing `test_obsidian.py:72` already
+does half of it, and it closes your most critical data-loss risk.
+**Precondition:** Step 1 (the evidence format), Step 2 (CI).
+**Changes:** `tests/acceptance/test_acc_22.py`,
+`delivery/ACC-22/evidence-manifest.json`, and a "current automation" line in the
+ACC-22 document.
+**Evidence:** the ACC test passing in CI plus a signed manifest.
+**Done when:** 1 of the 40 ACCs is `IMPLEMENTED`. That becomes the first proof that
+the programme can actually start.
 
 ---
 
-## M. Final verdict — 6 soruya doğrudan cevap
+**After Step 12:** Phase C (the WP-013/016/017 contracts), then the WP-061–074
+literature platform. But Step 0 and Step 1 come first — without them, everything
+else keeps producing unacceptable code.
 
-**1. Framework'ün ne kadarı gerçekten kurulmuş?**
-Kabaca **%2-3**'ü. Ölçüt: 130 WP'nin 0'ı `ACCEPTED`, 9'u `PARTIAL`. Çalışan kod
-1.509 satır. Kurulan şey tek bir dikey dilim: read-only literatür köprüsü.
-Kurulmayan şey: control plane, event backbone, execution fabric, evidence ledger,
-observability, security platform — yani mimarinin 6 düzleminden 5'i.
+---
 
-**2. Hangi kısımlar yalnızca planlanmış?**
-119/130 WP ve 40/40 ACC. Somut olarak: Temporal, NATS, PostgreSQL, MLflow,
+## M. Final verdict — direct answers to the six questions
+
+**1. How much of the framework has actually been built?**
+Roughly **2–3%**. Measure: 0 of 130 WPs are `ACCEPTED`, 9 are `PARTIAL`. Working
+code totals 1,509 lines. What exists is a single vertical slice: a read-only
+literature bridge. What does not exist: the control plane, event backbone,
+execution fabric, evidence ledger, observability and security platform — that is
+five of the architecture's six planes.
+
+**2. Which parts are only planned?**
+119/130 WPs and 40/40 ACCs. Concretely: Temporal, NATS, PostgreSQL, MLflow,
 Kubernetes, gVisor, SPIFFE/Vault, OPA, LiteLLM, LangGraph, Neo4j/pgvector,
-Langfuse, Grafana, cost ledger, clean-room reproduction, claim/evidence ledger,
-blind review, publication package. **Hiçbiri için tek satır kod yok.**
+Langfuse, Grafana, the cost ledger, clean-room reproduction, the claim/evidence
+ledger, blind review and the publication package. **Not one line of code exists for
+any of them.**
 
-**3. En kritik üç engel?**
-(a) **C1** — kanıt zinciri bootstrap deadlock'u: WP-001 bile kabul edilemez.
-(b) **C2** — 73 owner/114 verifier varsayımı vs 1 kişilik organizasyon.
-(c) **H3+M2+M3** — kanıt üretim mekanizmasının kendisi bozuk; "yeşil" gördüğünüz
-üç artifact hiçbir şey doğrulamıyor. Bu üçü çözülmeden her ilerleme sahte
-ilerleme olur.
+**3. The three most critical obstacles?**
+(a) **C1** — the evidence-chain bootstrap deadlock: even WP-001 cannot be accepted.
+(b) **C2** — a 73-owner / 114-verifier assumption against a one-person organisation.
+(c) **H3 + M2 + M3** — the evidence production mechanism is itself broken; the three
+artifacts you see as "green" verify nothing. Until these three are fixed, every
+advance is a fake advance.
 
-**4. Şu an güvenle çalıştırılabilecek gerçek dikey dilim?**
-Literature Bridge V0: `Zotero (read-only) → SQLite → Obsidian → Hermes MCP`.
-33 kaynak ölçeğinde güvenli, idempotent, insan notlarını koruyor, yerel.
-**Sınır: kütüphane 100 kaynağı geçtiği an sessizce eksik senkron eder (H1).**
-Bunu bugün not edin; büyüdüğünüzde fark edilmesi çok zor.
+**4. The real vertical slice that can be run safely today?**
+Literature Bridge V0: `Zotero (read-only) → SQLite → Obsidian → Hermes MCP`. At the
+33-source scale it is safe, idempotent, preserves human notes and stays local.
+**Limit: the moment the library exceeds 100 sources it syncs silently incompletely
+(H1).** Note that today; once you grow it becomes very hard to notice.
 
-**5. Bir sonraki uygulama adımı tam olarak nedir?**
-Kod değil. **Step 0**: `00_PROGRAM/12_ORGANIZASYON_VE_BAGIMSIZLIK_MODELI.md`
-yazın — hangi WP'ler `IN_SCOPE`, ve tek kişilik organizasyonda "bağımsız verifier"
-ne demek. Hemen ardından **Step 1**: `WP-000_interim_evidence_policy.md`.
-Bu ikisi olmadan yazacağınız kod, planın kendi kurallarına göre kabul edilemez.
+**5. What is the next implementation step, exactly?**
+Not code. **Step 0**: write
+`00_PROGRAM/12_organisation_and_independence_model.md` — which WPs are `IN_SCOPE`,
+and what "independent verifier" means in a one-person organisation. Immediately
+after: **Step 1**, `WP-000_interim_evidence_policy.md`. Without these two, any code
+you write is unacceptable by the plan's own rules.
 
-**6. Hangi kanıtlar eksik olduğu için "tamamlandı" denemez?**
-- Zotero read-only sınırının **davranışsal** testi (H3)
-- Assert eden bir MCP doğrulaması (M2)
-- Veriden bağımsız, tekrar üretilebilir acceptance (M3)
-- Tekrarlanabilir, otomatik test çalıştırma kanıtı — CI (H5)
-- Üretici-bağımsız verifier kararı (C2) — hiçbir paket için yok
-- İmzalı EvidenceManifest ve immutable store (C1) — mekanizma yok
-- Rollback/compensation denemesi (DoD zorunlu) — hiçbir paket için yapılmamış
-- Negative security testleri (L4) — savunma yollarının hiçbiri test edilmemiş
-- WP-022 teslimatı (C3) — repoda yok
+**6. Which missing evidence prevents anything being called "complete"?**
+- A **behavioural** test of the Zotero read-only boundary (H3)
+- An MCP verification that actually asserts (M2)
+- Data-independent, reproducible acceptance (M3)
+- Repeatable, automated test-execution evidence — CI (H5)
+- A producer-independent verifier decision (C2) — absent for every package
+- A signed `EvidenceManifest` and an immutable store (C1) — no mechanism exists
+- A rollback/compensation trial (mandatory in the DoD) — performed for no package
+- Negative security tests (L4) — none of the defensive paths are tested
+- The WP-022 deliverable (C3) — not in the repository
 
 ---
 
-## N. Kanıt eki
+## N. Evidence appendix
 
-### Çalıştırılan komutlar ve sonuçlar
+### Commands executed and their results
 
-> **Not:** Bu komutlar denetim anındaki dizin yapısına göre çalıştırıldı
-> (`airl_bridge_api/` alt dizini). Denetimden sonra repo kökü
-> `AI_RESEARCH_FRAMEWORK/` seviyesine düzleştirildi; yollar buna göre okunmalıdır.
+> **Note:** these commands were run against the directory structure as it stood at
+> audit time (with an `airl_bridge_api/` subdirectory). The repository was
+> subsequently flattened to the `AI_RESEARCH_FRAMEWORK/` level; read the paths
+> accordingly.
 
-| Komut | Exit | Sonuç |
+| Command | Exit | Result |
 |---|---:|---|
 | `.venv/bin/python -m pytest -q` | 0 | **20 passed**, 1 warning (pydantic_settings forward-ref) |
 | `curl -s http://127.0.0.1:8765/health` | 0 | `{"status":"ok","version":"0.1.0",...,"zotero_write_enabled":false}` |
 | `curl -s http://127.0.0.1:8765/ready` | 0 | `{"status":"ready","zotero":"reachable","obsidian_vault":true,"source_count":33}` |
-| `systemctl --user is-active airl-bridge.service airl-bridge-sync.timer` | 0 | `active` / `active`; son sync 8 dk önce |
-| `sha256sum -c planning/commissioning/00_PROGRAM/SHA256SUMS.txt` | 0 | **184/184 OK**, 0 FAILED |
-| `sqlite3 data/airl_bridge.sqlite3` (Python) | 0 | 33 sources, 25 sync_runs, son 8'i `SUCCEEDED` |
-| `git -C airl_bridge_api log --oneline` | 0 | 21 commit, HEAD `6c849bd`, `origin/main` ile 0/0 |
-| `git -C airl_bridge_api ls-files \| grep -E '^(services\|workflows\|agents\|infra\|policy\|delivery)/'` | 1 | **Çıktı yok** → C3 |
-| `diff -rq vault_baseline "$VAULT"` | 1 | Yalnız `.obsidian/` config + boş `2026_08_21.md` + `Zotero Sources/` |
-| `diff -rq planning/commissioning planning/commissioning` | 1 | **12 dosya farklı** → M4 |
-| `diff .env .env.example` | 0 | **Bayt-bayt aynı** → L1 |
-| `diff deploy/*.service ~/.config/systemd/user/*.service` | 1 | Yalnız trailing newline — **gerçek drift değil** |
-| Wikilink tarayıcı (Python) | 0 | 246 not, 103 wikilink, **0 kırık**, 2 duplicate basename |
-| Markdown link tarayıcı (Python) | 0 | Her üç plan kopyasında 1011 link, **0 kırık** |
-| Plan tutarlılık analizi (Python) | 0 | 130/130 WP dosya+CSV eşleşiyor, **döngü yok**, ileri bağımlılık **0** |
-| Boilerplate analizi (Python) | 0 | WP'lerde **%59,2** tekrar; ACC'lerde **%48,8** |
-| WP↔ACC çapraz kontrol (Python) | 0 | **39/40 tutarsız**; 62/130 WP hiç ACC referansı almıyor |
-| Rol analizi (CSV) | 0 | **73 owner**, **114 verifier**, efor: 83 L / 42 M / 5 S |
-| `ls .github Makefile ruff.toml mypy.ini .pre-commit-config.yaml` | 2 | **Hiçbiri yok** → H5 |
-| `gh api repos/furkanhanilci/AI-Research-Framework` | 0 | `private=true`, `default_branch=main`, `pushed_at=2026-08-21T20:21:35Z` |
+| `systemctl --user is-active airl-bridge.service airl-bridge-sync.timer` | 0 | `active` / `active`; last sync 8 minutes earlier |
+| `sha256sum -c .../SHA256SUMS.txt` | 0 | **184/184 OK**, 0 FAILED |
+| `sqlite3 data/airl_bridge.sqlite3` (via Python) | 0 | 33 sources, 25 sync_runs, last 8 `SUCCEEDED` |
+| `git -C airl_bridge_api log --oneline` | 0 | 21 commits, HEAD `6c849bd`, 0/0 against `origin/main` |
+| `git ls-files \| grep -E '^(services\|workflows\|agents\|infra\|policy\|delivery)/'` | 1 | **No output** → C3 |
+| `diff -rq vault_baseline "$VAULT"` | 1 | Only `.obsidian/` config + an empty daily note + `Zotero Sources/` |
+| `diff -rq <plan copy 1> <plan copy 2>` | 1 | **12 files differ** → M4 |
+| `diff .env .env.example` | 0 | **Byte-identical** → L1 |
+| `diff deploy/*.service ~/.config/systemd/user/*.service` | 1 | Trailing newline only — **not real drift** |
+| Wikilink scanner (Python) | 0 | 246 notes, 103 wikilinks, **0 broken**, 2 duplicate basenames |
+| Markdown link scanner (Python) | 0 | 1011 links in each of the three plan copies, **0 broken** |
+| Plan consistency analysis (Python) | 0 | 130/130 WP file↔CSV match, **no cycles**, forward dependencies **0** |
+| Boilerplate analysis (Python) | 0 | **59.2%** repetition in WPs; **48.8%** in ACCs |
+| WP↔ACC cross-check (Python) | 0 | **39/40 inconsistent**; 62/130 WPs receive no ACC reference |
+| Role analysis (CSV) | 0 | **73 owners**, **114 verifiers**; effort: 83 L / 42 M / 5 S |
+| `ls .github Makefile ruff.toml mypy.ini .pre-commit-config.yaml` | 2 | **None present** → H5 |
+| `gh api repos/furkanhanilci/AI-Research-Framework` | 0 | `private=true`, `default_branch=main` |
 
-### Taranan hacim
+### Volume scanned
 
-| Alan | Sayı |
+| Area | Count |
 |---|---:|
-| Plan dosyası (kanonik ağaç) | 186 (184 md + 1 csv + 1 txt) |
-| Plan kelime sayısı (yalnız WP'ler) | 87.971 |
-| Python kaynak satırı (`src/`) | 1.509 |
-| Test satırı (`tests/`) | 381 |
-| Test sayısı | 20 (16 pytest + 4 unittest tarzı) |
-| API endpoint | 10 (7 GET, 3 POST) |
-| MCP tool | 5 (hepsi read-only) |
-| Obsidian notu (gerçek vault) | 246 |
-| Vault baseline dosyası | 211 |
-| Git takipli dosya | 434 |
-| Zotero kaynağı | 33 |
+| Plan files (canonical tree) | 186 (184 md + 1 csv + 1 txt) |
+| Plan word count (WPs only) | 87,971 |
+| Python source lines (`src/`) | 1,509 |
+| Test lines (`tests/`) | 381 |
+| Tests | 20 |
+| API endpoints | 10 (7 GET, 3 POST) |
+| MCP tools | 5 (all read-only) |
+| Obsidian notes (real vault) | 246 |
+| Vault baseline files | 211 |
+| Git-tracked files | 434 |
+| Zotero sources | 33 |
 
-### Doğrulanamayan alanlar (BLOCKED)
+### Areas that could not be verified (BLOCKED)
 
-| Alan | Neden |
+| Area | Reason |
 |---|---|
-| SILBO FIX-004 / FIX-005a / FIX-005 kabul zinciri | Ayrı repository (`/home/otonom/silbo-fix-00*`), bu review'un kapsamı dışı; iddialar doğrulanmadı |
-| Hermes `tools.include` beş-araç kısıtı | Hermes konfigürasyon dosyası repo dışında; `README.md:130` ve `OPERATIONS.md` iddiası doğrulanmadı |
-| GitHub branch protection / required checks | `gh api` ile repo metadata alındı, koruma kuralları sorgulanmadı (salt-okunur sınır) |
-| `acceptance_v0.py` çalıştırma | Canlı servise POST/GET yapıyor ve kişisel veriye bağımlı; okunup değerlendirildi, çalıştırılmadı |
-| Zotero Local API'nin gerçek toplam kayıt sayısı | Doğrudan Zotero sorgulanmadı; `source_count=33` Bridge üzerinden alındı |
+| The SILBO FIX-004 / FIX-005a / FIX-005 acceptance chain | A separate repository, outside this review's scope; the claims were not verified |
+| The Hermes `tools.include` five-tool restriction | The Hermes configuration file lives outside the repository; the claim in `README.md` and `OPERATIONS.md` was not verified |
+| GitHub branch protection / required checks | Repository metadata was read via `gh api`; protection rules were not queried (read-only boundary) |
+| Running `acceptance_v0.py` | It POSTs and GETs against the live service and depends on personal data; it was read and assessed, not executed |
+| The real total record count in the Zotero Local API | Zotero was not queried directly; `source_count=33` came through the bridge |
 
 ---
 
-## Kapanış notu
+## Closing note
 
-Sert olmam istendi, oldum. Ama tespit edilmesi gereken şey şu: **buradaki asıl
-problem yetersiz çalışma değil.** Kod kalitesi, atomik yazım, manifest-sahipli
-silme, systemd hardening, plan bütünlüğü — bunlar iyi mühendislik.
+I was asked to be harsh, and I was. But the thing that needs stating is this:
+**the real problem here is not insufficient work.** Code quality, atomic writes,
+manifest-owned deletion, systemd hardening, plan integrity — that is good
+engineering.
 
-Problem, **planın ölçeğiyle organizasyonun ölçeği arasındaki uçurum** ve bu
-uçurumun kanıt üretim mekanizmasını sahteleştirmeye başlaması. `zotero_write_enabled
-is False` testi, `mcp_smoke.py`'ın exit 0'ı ve WP-022'nin boş dizinleri — üçü de
-aynı baskının belirtisi: 130 paketlik bir programda ilerliyor görünme ihtiyacı.
+The problem is **the gulf between the scale of the plan and the scale of the
+organisation**, and the fact that this gulf has begun to falsify the evidence
+production mechanism. The `zotero_write_enabled is False` test, `mcp_smoke.py`'s
+exit 0 and WP-022's empty directories are all the same phenomenon: the appearance
+of evidence without the substance of it.
 
-Step 0 ve Step 1, o baskıyı kaldırır. Kapsamı dürüstçe kesin, kanıt kuralını
-uygulanabilir yapın; ondan sonra bu ekip (bir kişi) gerçekten `ACCEPTED`
-paketler üretebilir. Şu anda üretemez — ve bu, planın kusuru, sizin değil.
+That is fixable, and the fix is not more work — it is a smaller scope and a real
+verifier. Steps 0 and 1 cost a day each and unblock everything else.

@@ -1,3 +1,7 @@
+> [!info] Generated view
+> This note is generated from `skills/preregistration-discipline/SKILL.md` in the repository. Edit the
+> canonical file and regenerate; edits made here are overwritten.
+
 ---
 name: preregistration-discipline
 version: 1.0.0
@@ -13,55 +17,70 @@ mechanical_checks: [plan_hash_precedes_result_timestamp, claim_labeled_explorato
 
 # Preregistration Discipline
 
-## Demir kural
+## Iron law
 
-> **ÖN-KAYIT KİLİTLENMEDEN CONFIRMATORY İDDİA ÜRETİLEMEZ.**
+> **NO CONFIRMATORY CLAIM WITHOUT A LOCKED PREREGISTRATION.**
 >
-> Plan kilitlenmeden hesaplanan her sonuç kalıcı olarak `exploratory` etiketlenir.
+> Any result computed before the plan was locked is permanently relabelled
+> `exploratory`.
 
-## Neden kod disiplininden daha sert
+## Why this is stricter than its coding equivalent
 
-Kodda testten önce yazılan kod silinebilir. Araştırmada **sonucu gördükten
-sonra görmemiş olamazsınız.** Bu yüzden ceza silme değil, **kalıcı yeniden
-etiketleme**dir. O analiz bir daha asla `confirmatory` olamaz.
+In code, work written before the test can be deleted. In research, **you cannot
+un-see a result.** The penalty is therefore not deletion but permanent
+relabelling: that analysis can never be `confirmatory`, at any later point, by
+any subsequent action.
 
-## Prosedür
+## Procedure
 
-**FREEZE** — `AnalysisPlanManifest` kilitle. Hangi sonucun ne anlama geleceği,
-hangi testin uygulanacağı, dışlama kuralları ve stop rule önceden yazılır.
-Hash kaydedilir.
+**FREEZE** — Lock the `AnalysisPlanManifest`. It states what each possible
+result will mean, which test applies, the exclusion rules, and the stopping
+rule. Record its hash. Anchor the hash externally (see WP-139) so the ordering
+is provable to someone who does not trust this system.
 
-**SEVERITY** — Falsification planının gerçekten ayırt edici olduğunu doğrula:
-*iddia yanlış olsaydı bu test onu yakalar mıydı?* Yakalamazsa test değersizdir.
+**SEVERITY** — Confirm the falsification plan is genuinely discriminating: *if
+the claim were false, would this test actually catch it?* A test that would not
+catch a false claim produces no evidence when it passes.
 
-**EXECUTE** — Plana tam olarak uy.
+**EXECUTE** — Follow the plan exactly.
 
-**REPORT** — Plandan her sapma açıkça listelenir. Plan dışı her analiz
-`exploratory`.
+**REPORT** — List every deviation explicitly. Any analysis outside the plan is
+`exploratory`, and is reported as such in the same document rather than in a
+footnote.
 
-## Rasyonalizasyon tablosu
+## Exploratory is not a lesser status
 
-| Gerekçe | Hüküm |
+Exploratory work is how hypotheses are generated and is genuinely valuable. The
+discipline is not "avoid exploratory work" — it is "never present exploratory
+work as confirmatory". Mislabelling is the offence, not exploration.
+
+## Rationalization table
+
+| Justification | Ruling |
 |---|---|
-| "Analiz planı zaten protokolde ima ediliyor" | **İma ≠ kilit.** `AnalysisPlanManifest` ayrı bir hash'tir. |
-| "Sonucu görmeden hangi testin uygun olduğunu bilemezdim" | **Doğru — ve tam bu yüzden `exploratory`.** Etiketle, devam et. |
-| "Bu yalnız küçük bir kovaryat eklemesi" | **Küçük değişiklik diye bir şey yok.** Plan sonrası her değişiklik `exploratory`. |
-| "Ön analiz keşifsel amaçlıydı, asıl analiz plana uygun" | Keşif aynı veriden geldiyse bağımsız değildir. **İkisi de `exploratory`.** |
-| "Zaman baskısı var, plan sonradan yazılır" | Plan kilitlenmeden G5 başlamaz. |
-| "Sonuç zaten çok net" | Netlik ön-kayıt muafiyeti değildir. |
+| "The analysis plan is already implied by the protocol" | **Implication is not a lock.** `AnalysisPlanManifest` is a separate hash. |
+| "I could not know which test was appropriate without seeing the data" | **Correct — and that is exactly why it is `exploratory`.** Label it and continue. |
+| "This is only a small covariate addition" | **There is no such thing as a small change here.** Every post-lock change is exploratory. |
+| "The pilot analysis was exploratory; the real one follows the plan" | If the pilot used the same data, they are not independent. **Both are exploratory.** |
+| "There is schedule pressure" | G5 does not start before the plan is locked. |
+| "The result is unambiguous anyway" | Clarity is not a preregistration exemption. |
+| "I wrote the hypothesis down, just not formally" | An unhashed, untimestamped note is not a preregistration. |
 
-## Doğrulama kontrol listesi
+## Verification checklist
 
-- [ ] Her confirmatory claim için kilitli bir `AnalysisPlanManifest` var
-- [ ] Plan hash'i sonuç üretiminden **önce** kaydedildi (timestamp kanıtı)
-- [ ] Falsification testi severity açısından değerlendirildi
-- [ ] Plandan her sapma raporda listelendi
-- [ ] Plan dışı her analiz `exploratory` etiketli
+- [ ] Every confirmatory claim has a locked `AnalysisPlanManifest`
+- [ ] The plan hash was recorded **before** any result existed, with external
+      timestamp evidence
+- [ ] The falsification test was assessed for severity, not just presence
+- [ ] Every deviation from the plan is listed in the report
+- [ ] Every out-of-plan analysis is labelled `exploratory`
+- [ ] If blinded analysis applied, the unblinding record exists
 
-Hepsini işaretleyemiyorsan: bu claim `confirmatory` olamaz.
+If you cannot tick all of these, the claim cannot be `confirmatory`.
 
-## Kırmızı bayraklar
+## Red flags
 
-- Analiz planı ile sonuç aynı commit'te
-- "HARKing" — hipotez sonuçlardan sonra yazılmış
-- Dışlama kuralı sonuçlar görüldükten sonra eklenmiş
+- Analysis plan and results appear in the same commit
+- The hypothesis reads as though it was written after the results (HARKing)
+- An exclusion rule was added after the results were seen
+- A claim is labelled `confirmatory` with no plan hash recorded

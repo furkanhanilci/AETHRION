@@ -1,100 +1,108 @@
-# WP-063 — Source Representation, Lisans ve Durum İzleme
+# WP-063 — Source Representation, Licence and Status Monitoring
 
-## Paket kartı
+## Package card
 
-| Alan | Değer |
+| Field | Value |
 |---|---|
-| İş paketi | `WP-063` |
+| Work package | `WP-063` |
 | Workstream | `07_LITERATURE_KNOWLEDGE` |
-| İlk efor sınıfı | **L** — refinement'ta O/M/P tahmini zorunlu |
-| Accountable Owner | Knowledge Lead |
-| Bağımsız doğrulayıcı | Archivist / Safety / Citation Auditor |
+| Initial effort class | **L** — large — split into sub-deliveries if it cannot be reviewed in one pass; a three-point (O/M/P) estimate is mandatory at refinement |
+| Accountable owner | Knowledge Lead |
+| Independent verifier | Archivist / Safety / Citation Auditor |
 | Hard dependencies | WP-014, WP-017, WP-026, WP-037, WP-050, WP-058, WP-061, WP-062 |
-| İlgili gate | G3,G10 |
-| İlgili kontroller | CTL-LIT-02, CTL-DAT-03 |
-| İlgili ACC senaryoları | ACC-04 |
+| Related gates | G3,G10 |
+| Related controls | CTL-LIT-02, CTL-DAT-03 |
+| Related acceptance scenarios | ACC-04 |
+| Current status | `NOT_STARTED` |
 
-## Amaç ve beklenen sonuç
+## Purpose and expected outcome
 
-PDF, HTML, preprint, dataset documentation ve correction/retraction temsilcileri hash, format, lisans, parser ve availability ile sürümlenir; durum değişimi ImpactScan tetikler.
+PDF, HTML, preprint, dataset documentation and correction/retraction representations are versioned with hash, format, licence, parser and availability; a status change triggers an `ImpactScan`.
 
-## Kapsam dışı
+## Out of scope
 
-- Bağımlı paketin kendi iç implementasyonu
-- Production cutover ve nihai operasyon onayı
 
-## Önkoşullar ve Definition of Ready
+- The internal implementation of any dependent package
+- Production cutover and final operational approval
 
-- Bağımlılıklar kabul edilmiştir: [WP-014 — Artifact, Dataset ve Immutable Manifest Şemaları](../02_CONTRACTS/WP-014_artifact_manifest_contracts.md), [WP-017 — Source Registry ve Literature Contract Şemaları](../02_CONTRACTS/WP-017_source_literature_contracts.md), [WP-026 — Content-Addressed Object Store ve WORM](../03_FOUNDATION/WP-026_object_store_worm.md), [WP-037 — G10 Temporal Schedule ve Kısa ImpactScan](../04_CONTROL_EVENT/WP-037_g10_impactscan.md), [WP-050 — İlk Tool Connector Paketi](../05_MODEL_AGENT_TOOL/WP-050_tool_connectors.md), [WP-058 — Untrusted Content Quarantine ve Prompt-Injection Firewall](../06_EXECUTION_SECURITY/WP-058_content_quarantine_firewall.md), [WP-061 — Canonical Source Registry Servisi](../07_LITERATURE_KNOWLEDGE/WP-061_source_registry_service.md), [WP-062 — Kaynak Kimlik Çözümleme, Dedup ve Merge](../07_LITERATURE_KNOWLEDGE/WP-062_source_identity_resolver.md)
-- Named owner, implementer ve producer'dan bağımsız verifier atanmıştır.
-- Etkilenen canonical kayıtlar, interface'ler ve ADR'lar refinement'ta ilişkilendirilmiştir.
-- DataClass, CodeTrust, ToolEffect ve ağ/credential kapsamı sınıflandırılmıştır.
-- Test fixture, environment, rollback noktası ve acceptance ölçüm yöntemi erişilebilirdir.
-- Efor için O/M/P kişi-gün tahmini ve gerçek kapasite rezervasyonu kaydedilmiştir.
+## Preconditions — Definition of Ready
 
-## Uygulama görevleri
+- Dependencies accepted: [WP-014 — Artifact, Dataset and Immutable Manifest Schemas](../02_CONTRACTS/WP-014_artifact_manifest_contracts.md), [WP-017 — Source Registry and Literature Contract Schemas](../02_CONTRACTS/WP-017_source_literature_contracts.md), [WP-026 — Content-Addressed Object Store and WORM](../03_FOUNDATION/WP-026_object_store_worm.md), [WP-037 — G10 Temporal Schedules and Short ImpactScan Workflows](../04_CONTROL_EVENT/WP-037_g10_impactscan.md), [WP-050 — Initial Tool Connector Package](../05_MODEL_AGENT_TOOL/WP-050_tool_connectors.md), [WP-058 — Untrusted Content Quarantine and Prompt-Injection Firewall](../06_EXECUTION_SECURITY/WP-058_content_quarantine_firewall.md), [WP-061 — Canonical Source Registry Service](../07_LITERATURE_KNOWLEDGE/WP-061_source_registry_service.md), [WP-062 — Source Identity Resolution, Deduplication and Merge](../07_LITERATURE_KNOWLEDGE/WP-062_source_identity_resolver.md)
+- A named owner, a named implementer, and a verifier **independent of the producer** are assigned.
+- Affected canonical records, interfaces and ADRs have been linked during refinement.
+- `DataClass`, `CodeTrust`, `ToolEffect` and the network/credential scope are classified.
+- Test fixtures, the environment, the rollback point and the acceptance measurement method are reachable.
+- An O/M/P person-day estimate is recorded and real capacity is reserved against it.
 
-| Alt iş | Yapılacak iş | Sorumlu | Tamamlanma kanıtı |
+## Implementation tasks
+
+| Sub-task | Work to be done | Responsible | Completion evidence |
 |---|---|---|---|
-| WP-063-T01 | Representation ingest/hash/license/access metadata yaz | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-063-T02 | Format-specific structural locator map'ini üret | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-063-T03 | Version/correction/preprint→published ilişkilerini kur | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-063-T04 | Crossref/Crossmark/retraction/status feed adapter'larını bağla | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-063-T05 | Periodic status Schedule ve event üretimini ekle | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-063-T06 | Unavailable old representation ve retention davranışını tanımla | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
+| WP-063-T01 | Write representation ingest with hash, licence and access metadata | Implementation owner | Commit / configuration / record reference |
+| WP-063-T02 | Produce the format-specific structural locator map | Implementation owner | Commit / configuration / record reference |
+| WP-063-T03 | Establish the version, correction and preprint → published relationships | Implementation owner | Commit / configuration / record reference |
+| WP-063-T04 | Bind the Crossref, Crossmark, retraction and status feed adapters | Implementation owner | Commit / configuration / record reference |
+| WP-063-T05 | Add the periodic status Schedule and its event emission | Implementation owner | Commit / configuration / record reference |
+| WP-063-T06 | Define behaviour for unavailable old representations and their retention | Implementation owner | Commit / configuration / record reference |
 
-## Zorunlu teslimatlar
+## Mandatory deliverables
 
 - `Representation ingest service`
 - `License/status policy`
 - `Status monitor`
 - `Format locator metadata`
 - `Retention mapping`
-- Güncellenmiş runbook/operasyon notu ve servis/contract ownership kaydı
-- İmzalı `EvidenceManifest`
+- An updated runbook or operations note, plus the service/contract ownership record
+- A signed `EvidenceManifest`
 
-## Test ve doğrulama planı
+## Test and verification plan
 
-- Yeni PDF eski bytes'ı değiştirmez
-- Retraction event ImpactCase
-- License deny hash-only fallback
-- Old representation availability/reanchor testi
-- Yetkisiz, eksik, stale, duplicate ve partial-failure girdileri için en az bir negatif test
-- İlgili interface'lerde producer/consumer contract compatibility testi
-- Telemetry correlation ve audit kayıt bütünlüğü kontrolü
+- A new PDF never altering the previous bytes
+- A retraction event raising an `ImpactCase`
+- A licence denial falling back to hash-only retention
+- Old-representation availability and re-anchoring
+- At least one negative test for unauthorised, missing, stale, duplicate and partial-failure inputs
+- Producer/consumer contract compatibility tests on every affected interface
+- Telemetry correlation and audit-record integrity checks
 
-## Kabul kriterleri
+## Acceptance criteria
 
-- [ ] Eski immutable representation erişilebiliyorsa evidence orphan olmaz
-- [ ] Status değişimi eski manifesti mutate etmez
-- [ ] Lisans izin vermiyorsa bytes değil kimlik/hash saklanır
-- [ ] Bütün zorunlu testler aynı target revision üzerinde geçmiştir.
-- [ ] Açık Critical/High finding yoktur; non-waivable blocker bulunmamaktadır.
-- [ ] Bağımsız verifier kanıt paketini kabul etmiştir.
-- [ ] Rollback/compensation davranışı denenmiş ve audit edilmiştir.
-- [ ] İlgili dashboard, alert, audit query veya integrity query çalışma kanıtı üretmiştir.
+- [ ] Evidence is not orphaned while the old immutable representation remains reachable.
+- [ ] A status change never mutates a previously frozen manifest.
+- [ ] Where the licence forbids storage, identity and hash are kept instead of bytes.
+- [ ] All mandatory tests passed **on the same target revision**.
+- [ ] No open Critical or High findings; no non-waivable blocker remains.
+- [ ] The independent verifier has accepted the evidence package.
+- [ ] Rollback/compensation behaviour has been exercised and audited.
+- [ ] The related dashboard, alert, audit query or integrity query has produced working evidence.
 
-## Kabul kanıtı paketi
+## Acceptance evidence package
 
-- Aynı target revision/digest üzerinde alınmış test sonuçları
-- Environment, schema, policy ve dependency sürümlerini içeren EvidenceManifest
-- Bağımsız verifier ReviewRecord veya VerificationRecord'u
-- Rollback/compensation denemesi ve sonuç referansı
-- Açık finding, residual risk ve owner/expiry listesi
+- Test results captured on the same target revision/digest
+- An `EvidenceManifest` recording the environment, schema, policy and dependency versions
+- The independent verifier's `ReviewRecord` or `VerificationRecord`
+- The rollback/compensation trial and its result reference
+- The list of open findings and residual risks with owners and expiry dates
 
-## Riskler ve kontrol noktaları
+## Risks and control points
 
-- Contract veya canonical sahiplik belirsizse implementasyon durur ve Architecture Board'a eskale edilir.
-- Identity, data route, artifact integrity, bağımsızlık veya kritik evidence problemi waiver ile geçirilemez.
-- Geçici manuel kontrol gerekiyorsa owner, scope, expiry, compensating control ve kaldırma paketi kaydedilir.
-- Paket tamamlandı beyanı acceptance değildir; verifier kararı olmadan yalnız `TECH_COMPLETE` olabilir.
+- If a contract or canonical ownership question is unresolved, implementation **stops** and the question escalates to the Architecture Board.
+- Identity, data routing, artifact integrity, independence and critical evidence problems **cannot** be passed by waiver.
+- If a temporary manual control is required, its owner, scope, expiry, compensating control and removal package are recorded.
+- A "package complete" statement is **not** acceptance. Without a verifier decision the package can only be `TECH_COMPLETE`.
+
+### Workstream-specific hazards
+
+- Identity errors in sources propagate into every claim that cites them.
+- A write into a shared library without a version precondition can silently destroy a human edit.
+- A literature set that is not frozen cannot support a reproducible claim.
 
 ## Rollback / compensation
 
-Hatalı status yeni status event'iyle supersede edilir; retraction etkisi manuel silinmez.
+An incorrect status is superseded by a new status event; the effect of a retraction is never manually erased.
 
-Immutable artifact, review ve karar geçmişi rollback sırasında silinmez; yeni durum supersession veya invalidation kaydıyla gösterilir.
+Immutable artifacts, reviews and decision history are **not** deleted during a rollback; the new state is expressed through a supersession or invalidation record.
 
-## Handoff ve sonraki paketlere giriş
+## Handoff into downstream packages
 
-Paket kabul edildiğinde teslim artifact'larının version/digest'leri Package Registry'ye yazılır, dependency event'i yayımlanır ve bu pakete bağlı READY adayları yeniden değerlendirilir. Downstream paket yalnız burada listelenen contract ve kanıt referanslarını tüketir; implementasyon iç ayrıntılarına bağlanmaz.
+On acceptance, the version and digest of every delivered artifact is written to the Package Registry, the dependency event is published, and every `READY` candidate blocked on this package is re-evaluated. A downstream package consumes **only** the contracts and evidence references listed above; it does not bind to internal implementation details.

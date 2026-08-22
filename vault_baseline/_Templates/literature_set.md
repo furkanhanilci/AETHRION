@@ -14,27 +14,27 @@ tags:
 
 # {{title}}
 
-## Arama sorusu ve kapsam
+## Search question and scope
 
 
-## Arama stratejisi
+## Search strategy
 
-| Kaynak | Sorgu | Tarih | Sonuç sayısı |
+| Source | Query | Date | Result count |
 |---|---|---|---|
 | | | | |
 
-## Dahil etme ölçütleri
+## Inclusion criteria
 
 -
 
-## Hariç tutma ölçütleri
+## Exclusion criteria
 
 -
 
-## Dahil edilen kaynaklar
+## Included sources
 
 - [[]]
 
-## Coverage ve açık boşluklar
+## Coverage and open gaps
 
 -

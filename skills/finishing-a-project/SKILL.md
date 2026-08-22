@@ -13,58 +13,65 @@ mechanical_checks: [all_verifications_green, exact_confirmation_word_received]
 
 # Finishing a Project
 
-## Genel ilke
+## Core principle
 
-Kapanış bir sunum onayı değildir. Doğrulama kırmızıysa menü **gösterilmez**.
+Closure is not a presentation sign-off. **If verification is red, the menu is
+never shown.**
 
-## Kapanış kontrol listesi
+## Closure checklist
 
-1. **Tam doğrulama paketini çalıştır** — taze koşum
-   - Testler, şema kontrolleri, mekanik adli kontroller (statcheck, GRIM)
+1. **Run the full verification suite** — fresh
+   - Tests, schema checks, mechanical forensics (statcheck, GRIM)
    - Scope conformance
-   - Manifest/hash bütünlüğü
-   - **Herhangi biri kırmızıysa DUR ve raporla**
-2. **Ortam durumunu yakala** — hangi target, hangi bundle sürümleri
-3. **Baz referansı doğrula** — hangi manifest'ten türedi
-4. **Açık bulguları listele** — `FindingLedger`'da statüsüz satır var mı?
-5. **İNSANA MENÜ SUN**
-6. Seçimi uygula
-7. Temizlik — kanıt hariç
+   - Manifest and hash integrity
+   - **If any is red: STOP and report.** Do not proceed to step 2.
+2. **Capture environment state** — which target, which bundle versions
+3. **Confirm the base reference** — which manifest this derives from
+4. **List open findings** — is any ledger row unstatused?
+5. **PRESENT THE MENU TO THE HUMAN**
+6. Apply the choice
+7. Clean up — evidence excepted
 
-## İnsan menüsü
+## The human menu
 
-| Seçenek | Sonuç |
+| Option | Result |
 |---|---|
-| `ACCEPT` | `DecisionRecord` imzalanır, G9'a geçer |
-| `CONDITIONAL_ACCEPT` | Kapsam kısıtı ile kabul; `obligations` yazılır |
-| `REVISE` | Belirli değişiklik istenir; hangi gate'e döneceği yazılır |
-| `ADDITIONAL_EVIDENCE` | Ek koşum/review istenir |
-| `REJECT` | Yalnız protokol ihlali, bütünlük sorunu veya G7 başarısızlığı gerekçesiyle |
+| `ACCEPT` | `DecisionRecord` signed; proceeds to G9 |
+| `CONDITIONAL_ACCEPT` | Accepted with scope restriction; `obligations` recorded |
+| `REVISE` | Specific changes requested; the return gate is named |
+| `ADDITIONAL_EVIDENCE` | Further runs or reviews requested |
+| `REJECT` | Only for protocol violation, integrity concern, or G7 failure |
 
-> **`REJECT` gerekçesi "sonuç beklediğim gibi değil" olamaz.**
-> Bkz. `preregistration-discipline` ve in-principle acceptance.
+> **`REJECT` may not be justified by "the result was not what I hoped for".**
+> Where an in-principle acceptance exists, the direction of the result is not a
+> valid ground for rejection. This is the mechanism that keeps negative results
+> in the literature.
 
-## Tam kelime onayı — yıkıcı işlemler
+## Exact-word confirmation for destructive actions
 
-Aşağıdaki işlemler **yalnız tam kelime yazıldığında** yetkilendirilir:
+These are authorised **only** when the exact word is typed:
 
-| İşlem | Gerekli kelime |
+| Action | Required word |
 |---|---|
-| Claim geri çekme | `RETRACT` |
-| Yayın supersede | `SUPERSEDE` |
-| Proje iptali | `ABANDON` |
-| Literature set çözme | `UNFREEZE` |
+| Retract a claim | `RETRACT` |
+| Supersede a publication | `SUPERSEDE` |
+| Abandon a project | `ABANDON` |
+| Unfreeze a literature set | `UNFREEZE` |
+| Submit an external record | `SUBMIT` |
 
-> "Tamam kaldır", "olur iptal et", "evet sil" **yetki değildir.**
+> "Yes remove it", "sure, cancel it", "go ahead" are **not** authorisation.
 
-## Zaman aşımı
+The rule exists because these actions are irreversible and an approximate
+agreement is easy to produce by accident — or to fabricate.
 
-Karar SLA'sı dolduğunda **auto-approve yoktur.** Ya bir üst role eskale olur
-ya da workflow pause kalır.
+## Timeout
 
-## Kırmızı bayraklar
+When a decision SLA expires there is **no auto-approve.** It escalates one level
+or the workflow pauses. Silence is not consent.
 
-- Menü doğrulama kırmızıyken sunulmuş
-- Açık bulgular listelenmeden karar istenmiş
-- Yıkıcı işlem için tam kelime alınmamış
-- Karar süresi anormal kısa (bkz. dikkat bütçesi telemetrisi)
+## Red flags
+
+- The menu was presented while verification was red
+- A decision was requested without listing open findings
+- A destructive action taken without the exact word
+- Decision time anomalously short (see attention-budget telemetry)

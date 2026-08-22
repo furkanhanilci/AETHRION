@@ -13,61 +13,73 @@ mechanical_checks: [no_placeholders, required_sections_present, falsification_pl
 
 # Writing Protocols
 
-## Genel ilke
+## Core principle
 
-Protokol, sonucu görmeden yazılan sözleşmedir. Uygulayıcının yorumuna alan
-bırakmaz.
+A protocol is a contract written before the result is known. It leaves the
+implementer no interpretive latitude on anything that could change the outcome.
 
-## Zorunlu bölümler
+## Required sections
 
 `hypotheses` · `variables` · `dataset` · `baseline` · `success_metrics` ·
 `falsification_plan` · `stop_rules` · `exclusion_rules` · `uncertainty` ·
 `material_changes`
 
-Eksik bölüm → `GATE_FAIL`. Mekanik kontrol.
+A missing section is `GATE_FAIL`, checked mechanically. This is not a style
+review.
 
-## Placeholder yasağı
+## Placeholder ban
 
-Yasak ifadeler: `TBD`, `edge case'leri ele al`, `benzer şekilde`,
-`gerektiğinde ayarla`, `uygun bir eşik`, `standart yöntem`.
+Forbidden: `TBD`, `handle edge cases`, `similar to the above`, `tune as needed`,
+`an appropriate threshold`, `standard method`, `etc.`
 
-Her değer **tam** yazılır: eşik sayısı, tekrar sayısı, tolerans, sürüm.
+Every value is written in full: the threshold number, the repetition count, the
+tolerance, the version string. A placeholder in a frozen protocol is an
+un-frozen decision.
 
-## Dışlama kuralları — özel dikkat
+## Exclusion rules — the highest-risk section
 
-`exclusion_rules` sonuçları şekillendirebilecek en tehlikeli alandır.
-Her kural için **gerekçe ve önceden tanımlı eşik** zorunludur.
+`exclusion_rules` is where a protocol most easily becomes result-shaping. Each
+rule carries a **rationale** and a **pre-specified threshold**.
 
-> Dışlama kuralı sonuçlar görüldükten sonra eklenemez veya değiştirilemez.
-> Değişirse yeni `ProtocolManifest` versiyonu ve `exploratory` etiketi.
+> An exclusion rule may not be added or altered after results are seen. If it
+> changes, a new `ProtocolManifest` version is issued and the affected analysis
+> is labelled `exploratory`.
 
-## Falsification ve severity
+State also what happens to excluded records: they are reported in the flow
+counts, never silently dropped.
 
-Her hipotez için: *"Bu iddia yanlış olsaydı, hangi gözlem bunu gösterirdi?"*
-Ve ardından: *"Bu test onu **yakalar mıydı**?"* — güç değerlendirmesi
-Statistical Methods Owner tarafından imzalanır.
+## Falsification and severity
 
-Yakalamayan test kanıt üretmez.
+For each hypothesis: *"If this claim were false, what observation would show
+it?"* Then the harder question: *"Would this test actually catch it?"*
+
+Severity is assessed and signed by the Statistical Methods Owner. **A test that
+lacks the power to detect the error produces no evidence when it passes.** A
+protocol full of weak tests is more dangerous than one with few strong tests,
+because it looks thorough.
 
 ## Pre-mortem (R2, R3)
 
-G4 öncesi Red Team: *"Bir yıl geçti, proje tamamen başarısız oldu. Neden?"*
-Çıkan maddeler `falsification_plan`'a eklenir.
+Before G4, the Red Team runs: *"A year has passed and this project failed
+completely. Why?"* Moving from future tense to past tense breaks defensive
+reasoning. The resulting items are added to `falsification_plan`.
 
-## Öz-review kontrol listesi
+## Self-review checklist
 
-Protokol insan onayına gitmeden önce **kendisi** kontrol edilir:
+The protocol reviews **itself** before consuming human attention:
 
-- [ ] Her gereksinim bir bölüme eşleniyor
-- [ ] Hiçbir placeholder yok
-- [ ] Değişken adları ve tipleri bölümler arası tutarlı
-- [ ] Stop rule ile success metric çelişmiyor
-- [ ] Dışlama kuralları önceden tanımlı ve gerekçeli
+- [ ] Every requirement maps to a section
+- [ ] No placeholders anywhere
+- [ ] Variable names and types are consistent across sections
+- [ ] Stop rules and success metrics do not contradict each other
+- [ ] Exclusion rules are pre-specified and justified
+- [ ] Falsification tests were assessed for power, not just presence
 
-Geçemezse insan zamanı harcanmaz.
+Failing this consumes no reviewer time — it is returned first.
 
-## Kırmızı bayraklar
+## Red flags
 
-- `success_metrics` var ama `falsification_plan` yok
-- Eşik değeri "uygun görülen" gibi bir ifadeyle geçilmiş
-- Protokol ve analiz planı aynı dosyada
+- `success_metrics` present but `falsification_plan` absent
+- A threshold expressed as "as appropriate" or "reasonable"
+- Protocol and analysis plan in the same file
+- Every falsification test is one the method would obviously pass

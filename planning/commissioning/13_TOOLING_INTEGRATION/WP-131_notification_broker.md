@@ -1,96 +1,103 @@
-# WP-131 — Notification Broker Temeli
+# WP-131 — Notification Broker Foundation
 
-## Paket kartı
+## Package card
 
-| Alan | Değer |
+| Field | Value |
 |---|---|
-| İş paketi | `WP-131` |
+| Work package | `WP-131` |
 | Workstream | `13_TOOLING_INTEGRATION` |
-| İlk efor sınıfı | **M** — refinement'ta O/M/P tahmini zorunlu |
-| Accountable Owner | Platform Security Lead |
-| Bağımsız doğrulayıcı | Safety & Governance Owner |
-| Hard dependencies | WP-049 (Tool Registry/Broker), WP-016 (PolicyDecision şemaları) |
-| İlgili gate | Platform |
-| İlgili kontroller | CTL-SEC-04, CTL-DAT-02 |
-| İlgili ACC senaryoları | ACC-41, ACC-42 |
-| İlgili skill | `notifying-humans` |
+| Initial effort class | **M** — medium; a three-point (O/M/P) estimate is mandatory at refinement |
+| Accountable owner | Platform Security Lead |
+| Independent verifier | Safety & Governance Owner |
+| Hard dependencies | WP-049 (Tool Registry/Broker), WP-016 (PolicyDecision schemas) |
+| Related gates | Platform |
+| Related controls | CTL-SEC-04, CTL-DAT-02 |
+| Related acceptance scenarios | ACC-41, ACC-42 |
+| Related skill | `notifying-humans` |
+| Current status | `NOT_STARTED` |
 
-## Amaç ve beklenen sonuç
+## Purpose and expected outcome
 
-Ajanların insanlara ulaşması için **Tool Broker'ın bir alt sınıfı** kurulur.
-Ajan bir bildirim **niyeti** üretir; gönderimi yalnız broker yapar.
+A **subclass of the Tool Broker** is built so that agents can reach humans. The
+agent produces a notification **intent**; only the broker performs the send.
 
-> **Değişmez:** Ajan hiçbir mesajı doğrudan göndermez. Her gönderim
-> kimlik → policy → veri sınıfı → DLP → idempotency → gönderim →
-> `NotificationReceipt` zincirinden geçer.
+> **Invariant:** An agent never sends a message directly. Every send passes
+> through the chain identity → policy → data class → DLP → idempotency →
+> transmission → `NotificationReceipt`.
 
-Bildirim `T3` yan etki sınıfındadır (dış sistem mutasyonu) ve ExecutionProfile'ın
-varsayılan-reddet ağ politikasında **açık bir egress istisnası** gerektirir.
+Notification is a `T3` side-effect class (it mutates an external system) and
+therefore requires an **explicit egress exception** against the default-deny
+network policy of the `ExecutionProfile`.
 
-## Kapsam dışı
+The reason for the indirection is not ceremony. A message that has left the
+system cannot be recalled. Every check that matters must therefore happen
+*before* transmission, at a single point that can be audited — which is exactly
+what a broker is.
 
-- Kanal başına konnektör implementasyonu (WP-132)
-- Gelen mesaj işleme (WP-136)
-- Karar yetkilendirme (WP-135)
+## Out of scope
 
-## Önkoşullar ve Definition of Ready
+- Per-channel connector implementation (WP-132)
+- Inbound message handling (WP-136)
+- Decision authorisation (WP-135)
 
-- Bağımlılıklar kabul edilmiştir: WP-049 (Tool Registry/Broker), WP-016 (PolicyDecision şemaları)
-- Named owner, implementer ve producer'dan bağımsız verifier atanmıştır.
-- DataClass, CodeTrust, ToolEffect ve ağ/credential kapsamı sınıflandırılmıştır.
-- Test fixture, environment, rollback noktası ve acceptance ölçüm yöntemi erişilebilirdir.
+## Preconditions — Definition of Ready
 
-## Uygulama görevleri
+- Dependencies accepted: WP-049 (Tool Registry/Broker), WP-016 (PolicyDecision schemas)
+- A named owner, a named implementer and a verifier independent of the producer are assigned.
+- `DataClass`, `CodeTrust`, `ToolEffect` and the network/credential scope are classified.
+- Test fixtures, the environment, the rollback point and the acceptance measurement method are reachable.
 
-| Alt iş | Yapılacak iş | Tamamlanma kanıtı |
+## Implementation tasks
+
+| Sub-task | Work to be done | Completion evidence |
 |---|---|---|
-| WP-131-T01 | Broker arayüzünü ve `NotificationIntent` şemasını tanımla | Şema dosyası + contract testi |
-| WP-131-T02 | Policy kontrol zincirini kur (kimlik, TaskContract, veri sınıfı) | Zincirin her adımı için negatif test |
-| WP-131-T03 | Idempotency anahtarı üretimi ve tekrar-gönderim engeli | Aynı anahtarla ikinci çağrı gönderim yapmaz |
-| WP-131-T04 | `NotificationReceipt` ve `ToolReceipt` üretimi | Her gönderim için kayıt; kayıtsız gönderim imkânsız |
-| WP-131-T05 | Rate limit ve sessiz saat politikası | Eşik aşımında gönderim ertelenir, düşmez |
-| WP-131-T06 | Taşıyıcı soyutlaması (Apprise veya eşdeğeri) arkasına konur | Kanal değişimi broker sözleşmesini değiştirmez |
+| WP-131-T01 | Define the broker interface and the `NotificationIntent` schema | Schema file + contract test |
+| WP-131-T02 | Build the policy check chain (identity, `TaskContract`, data class) | A negative test for every step of the chain |
+| WP-131-T03 | Idempotency key generation and duplicate-send prevention | A second call with the same key performs no send |
+| WP-131-T04 | Emit `NotificationReceipt` and `ToolReceipt` | A record for every send; a send without a record is impossible |
+| WP-131-T05 | Rate limiting and quiet-hours policy | Over threshold the send is deferred, never dropped |
+| WP-131-T06 | Place a transport abstraction (Apprise or equivalent) behind the interface | Changing channel does not change the broker contract |
 
-## Zorunlu teslimatlar
+## Mandatory deliverables
 
-- `NotificationBroker` servis arayüzü ve implementasyonu
-- `NotificationIntent` ve `NotificationReceipt` şemaları
-- Policy zinciri ve idempotency kayıt defteri
-- Egress allowlist tanımı
-- Güncellenmiş runbook ve servis ownership kaydı
-- İmzalı `EvidenceManifest`
+- The `NotificationBroker` service interface and implementation
+- The `NotificationIntent` and `NotificationReceipt` schemas
+- The policy chain and the idempotency ledger
+- The egress allowlist definition
+- An updated runbook and the service ownership record
+- A signed `EvidenceManifest`
 
-## Test ve doğrulama planı
+## Test and verification plan
 
-- **Ajan doğrudan gönderemez:** broker dışından yapılan gönderim denemesi reddedilir
-- **Idempotency:** aynı anahtarla iki çağrı → tek gönderim, iki receipt aynı `sent_id`
-- **Timeout davranışı:** yanıt gelmezse körlemesine tekrar yok; durum sorgulanır
-- **Rate limit:** eşik aşımında kuyruğa alınır, sessizce düşmez
-- Yetkisiz, eksik, duplicate ve partial-failure girdileri için negatif test
+- **An agent cannot send directly:** a send attempted outside the broker is rejected
+- **Idempotency:** two calls with the same key → one send, two receipts sharing one `sent_id`
+- **Timeout behaviour:** no blind retry when no response arrives; the state is queried instead
+- **Rate limit:** over threshold the message queues rather than being silently dropped
+- Negative tests for unauthorised, missing, duplicate and partial-failure inputs
 
-## Kabul kriterleri
+## Acceptance criteria
 
-- [ ] Broker dışından yapılan hiçbir gönderim başarılı olamaz (statik + runtime kontrol)
-- [ ] Her gönderim tam olarak bir `NotificationReceipt` üretir; receiptsiz gönderim yoktur
-- [ ] Aynı idempotency anahtarıyla N çağrı → tam olarak 1 gönderim
-- [ ] Timeout sonrası otomatik tekrar gönderim **sıfırdır**
-- [ ] Bütün zorunlu testler aynı target revision üzerinde geçmiştir.
-- [ ] Açık Critical/High finding yoktur.
-- [ ] Bağımsız verifier kanıt paketini kabul etmiştir.
+- [ ] No send originating outside the broker can succeed (static **and** runtime checks)
+- [ ] Every send produces exactly one `NotificationReceipt`; there is no send without a receipt
+- [ ] N calls with the same idempotency key → exactly 1 send
+- [ ] Automatic re-sends after a timeout number **zero**
+- [ ] All mandatory tests passed on the same target revision.
+- [ ] No open Critical or High findings.
+- [ ] The independent verifier has accepted the evidence package.
 
-## Riskler ve kontrol noktaları
+## Risks and control points
 
-- Broker devre dışıyken bildirim **sessizce kaybolmaz**; kuyruğa alınır ve kuyruk derinliği izlenir
-- Egress allowlist genişletmesi Safety/Data Owner onayı gerektirir
-- Paket tamamlandı beyanı acceptance değildir; verifier kararı olmadan yalnız `TECH_COMPLETE` olabilir.
+- When the broker is down, notifications are **not silently lost**; they queue and the queue depth is monitored
+- Extending the egress allowlist requires Safety/Data Owner approval
+- A "package complete" statement is not acceptance. Without a verifier decision the package can only be `TECH_COMPLETE`.
 
 ## Rollback / compensation
 
-Broker devre dışı bırakılır; bekleyen bildirimler kuyrukta kalır ve yeniden etkinleştirmede
-sırayla gönderilir. Gönderilmiş bildirim geri alınamaz — bu yüzden gönderim öncesi kontroller
-non-waivable'dır.
+The broker is disabled; pending notifications stay in the queue and are sent in
+order on re-enable. A notification that has already been sent cannot be recalled
+— which is precisely why the pre-send checks are non-waivable.
 
-## Handoff ve sonraki paketlere giriş
+## Handoff into downstream packages
 
-WP-132 kanal kaydını, WP-133 giden akışları, WP-134 eskalasyonu ve WP-135 karar
-yönlendirmesini bu broker üzerine kurar. Hiçbiri broker olmadan başlatılmaz.
+WP-132 builds the channel registry, WP-133 the outbound flows, WP-134 escalation
+and WP-135 decision routing on top of this broker. None of them starts without it.

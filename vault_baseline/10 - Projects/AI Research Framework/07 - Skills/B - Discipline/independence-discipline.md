@@ -1,3 +1,7 @@
+> [!info] Generated view
+> This note is generated from `skills/independence-discipline/SKILL.md` in the repository. Edit the
+> canonical file and regenerate; edits made here are overwritten.
+
 ---
 name: independence-discipline
 version: 1.0.0
@@ -12,56 +16,67 @@ mechanical_checks: [no_producer_spawned_agents, reviewer_assigned_by_assurance_o
 
 # Independence Discipline
 
-## Demir kural
+## Iron law
 
-> **PRODUCER KENDİ DOĞRULAYICISINI VEYA YARDIMCISINI ÇAĞIRAMAZ.**
+> **A PRODUCER MAY NOT SUMMON ITS OWN VERIFIER OR ITS OWN HELPER.**
 >
-> Ne yardımcı, ne reviewer, ne "ikinci görüş". Hiçbiri.
+> Not a helper, not a reviewer, not a "second opinion". None of them.
 
-## Neden bu boyut tüm sınıflarda non-compensable
+## Why this dimension is non-compensable in every class
 
-İhlal edilirse **diğer yedi bağımsızlık boyutunun ölçümü de geçersizdir.**
-Producer'ın çağırdığı yardımcı fiilen ortak yazardır; ama bağımsızlık
-defterinde görünmez. Matris yanlış `PASS` verir.
+If it is violated, **the measurement of the other seven dimensions becomes
+meaningless.** A helper summoned by the producer is effectively a co-author but
+does not appear in the independence record, so the matrix returns a `PASS` that
+describes a state of affairs that does not exist.
 
-## Kim kimi atar
+## Who assigns whom
 
-| İş | Atayan |
+| Work | Assigned by |
 |---|---|
-| Producer task'ı | Task Compiler |
+| Producer task | Task Compiler |
 | Reviewer | Assurance Lead |
 | Reproducer | Assurance Lead |
-| Arbiter | Assurance Lead (her iki tarafı da görür) |
-| Yardımcı ajan | **Hiç kimse — yoktur** |
+| Arbiter | Assurance Lead (sees both sides) |
+| Helper agent | **Nobody — helpers do not exist** |
 
-## Sekiz boyut
+## The eight dimensions
 
-| Boyut | R1 | R2 | R3 | Non-compensable |
+| Dimension | R1 | R2 | R3 | Non-compensable in |
 |---|---|---|---|---|
 | **Delegation Boundary** | PASS | PASS | PASS | **R1, R2, R3** |
 | Context Isolation | PASS | PASS | PASS | R2, R3 |
 | Human Identity | PARTIAL | PASS | PASS | R3 |
 | Incentive & Reporting | PASS | PASS | PASS | R3 |
-| Model Lineage (**ölçülmüş**) | PARTIAL | PASS | PASS | — |
+| Model Lineage (**measured**) | PARTIAL | PASS | PASS | — |
 | Credentials | PARTIAL | PASS | PASS | — |
 | Runtime Environment | PARTIAL | PASS | PASS | — |
 | Data & Retrieval Path | PARTIAL | PASS | PASS | — |
 
-**Model Lineage beyan değil ölçümdür.** Bkz. [[measuring-agreement]]: hata
-korelasyonu eşiği aşan iki profil aynı bağımsızlık kotasına sayılmaz.
+## Model lineage is a measurement, not a declaration
 
-## Rasyonalizasyon tablosu
+Two tiers of the same model family are **not** independent — shared training
+lineage produces correlated errors. In R2 and R3 the reviewer must come from a
+different **provider family**, and even that is provisional: the binding
+constraint is the measured pairwise error correlation. See `measuring-agreement`.
 
-| Gerekçe | Hüküm |
+Reviewing Sonnet-tier work with Opus-tier from the same provider is recorded as
+`self_check`, not as independent review.
+
+## Rationalization table
+
+| Justification | Ruling |
 |---|---|
-| "Sadece bir formatlama yardımcısı" | Yardımcı yardımcıdır. **Yasak.** |
-| "Kendi işimi kontrol ettim, bu iyi bir pratik" | Öz-kontrol iyidir; **bağımsız review değildir.** Kayda `self_check` olarak geçer. |
-| "Farklı model kullandım, yani bağımsız" | Farklı model, aynı çağıran. **Delegation ihlali.** |
-| "Reviewer meşguldü" | Kuyruk bekler. Auto-approve yoktur. |
-| "R1 projesi, gevşek olabilir" | Bu boyut **R1'de de** non-compensable. |
+| "It is only a formatting helper" | A helper is a helper. **Forbidden.** |
+| "I checked my own work — that is good practice" | Self-checking is good; it is **not independent review**. Record it as `self_check`. |
+| "I used a different model, so it is independent" | Different model, same caller. **Delegation violation.** |
+| "The reviewer was unavailable" | The queue waits. There is no auto-approve. |
+| "This is R1, the rules are looser" | This dimension is non-compensable **in R1 too**. |
+| "The helper only read files, it did not write anything" | Reading shapes the output. Still a violation. |
+| "I am the only person here" | Then human identity is `PARTIAL` and R3 work is blocked. That is the correct outcome, not a reason to bypass. |
 
-## Kırmızı bayraklar
+## Red flags
 
-- Korelasyon zincirinde producer'dan türeyen ikinci bir agent invocation
-- Reviewer'ın producer ile aynı workload identity'yi kullanması
-- Review paketinin producer tarafından üretilmiş olması
+- A second agent invocation descending from the producer in the correlation chain
+- Reviewer and producer sharing a workload identity
+- A review packet built by the producer
+- An independence record marked `PASS` with no measurement behind the lineage claim

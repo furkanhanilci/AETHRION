@@ -1,6 +1,6 @@
-# İnsan Source Notes
+# Human Source Notes
 
-Generated Zotero kaydı yerine insan değerlendirmesi ve sentezi burada tutulur.
+Human assessment and synthesis lives here, not in the generated Zotero records.
 
 ```query
 path:"20 - Source Notes" type:source-note

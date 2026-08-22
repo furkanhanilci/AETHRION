@@ -11,16 +11,16 @@ tags:
 
 # {{title}}
 
-## Tanım
+## Definition
 
 
-## Operasyonel kullanım
+## Operational use
 
 
-## İlişkili kavramlar
+## Related concepts
 
 - [[]]
 
-## Kaynaklar
+## Sources
 
 - [[]]

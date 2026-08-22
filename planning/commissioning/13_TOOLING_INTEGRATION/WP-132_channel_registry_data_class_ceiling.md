@@ -1,104 +1,106 @@
-# WP-132 — Kanal Kaydı ve Veri Sınıfı Tavanı
+# WP-132 — Channel Registry and Data-Class Ceiling
 
-## Paket kartı
+## Package card
 
-| Alan | Değer |
+| Field | Value |
 |---|---|
-| İş paketi | `WP-132` |
+| Work package | `WP-132` |
 | Workstream | `13_TOOLING_INTEGRATION` |
-| İlk efor sınıfı | **M** — refinement'ta O/M/P tahmini zorunlu |
-| Accountable Owner | Safety & Governance Owner |
-| Bağımsız doğrulayıcı | Platform Security Lead |
+| Initial effort class | **M** — medium; a three-point (O/M/P) estimate is mandatory at refinement |
+| Accountable owner | Safety & Governance Owner |
+| Independent verifier | Platform Security Lead |
 | Hard dependencies | WP-131, WP-006 (ExecutionProfile) |
-| İlgili gate | Platform |
-| İlgili kontroller | CTL-DAT-02, CTL-DAT-03 |
-| İlgili ACC senaryoları | ACC-41 |
-| İlgili skill | `notifying-humans` |
+| Related gates | Platform |
+| Related controls | CTL-DAT-02, CTL-DAT-03 |
+| Related acceptance scenarios | ACC-41 |
+| Related skill | `notifying-humans` |
+| Current status | `NOT_STARTED` |
 
-## Amaç ve beklenen sonuç
+## Purpose and expected outcome
 
-Her bildirim kanalı için **veri sınıfı tavanı** kayıt altına alınır ve
-kod içinde zorlanır. Tavan bir öneri değil, gönderim öncesi bir kapıdır.
+Every notification channel is registered with a **data-class ceiling** that is
+enforced in code. The ceiling is a pre-send gate, not a recommendation.
 
-| Kanal | Tavan | Gerekçe |
+| Channel | Ceiling | Rationale |
 |---|---|---|
-| ntfy (self-hosted) | **D2** | Kendi sunucunuz, dış işleme yok |
-| Matrix (self-hosted) | **D2** | E2E şifreleme + kendi homeserver |
-| Signal | D2 | E2E; otomasyonu zor |
-| E-posta (kendi SMTP) | D1 | Transit şifreli, sunucuda değil |
-| Telegram | **D1** | Bulut, sunucu tarafı okunabilir |
-| Discord / Slack | **D1** | Bulut, üçüncü taraf |
-| **WhatsApp** | **D0** | Bulut + 24 saat penceresi + onaylı şablon zorunluluğu |
+| ntfy (self-hosted) | **D2** | Your own server; no third-party processing |
+| Matrix (self-hosted) | **D2** | End-to-end encryption on your own homeserver |
+| Signal | D2 | End-to-end encrypted; hard to automate |
+| Email (own SMTP) | D1 | Encrypted in transit, not at rest on the server |
+| Telegram | **D1** | Cloud; readable server-side |
+| Discord / Slack | **D1** | Cloud; third party |
+| **WhatsApp** | **D0** | Cloud + a 24-hour window + mandatory approved templates |
 
-> **D3/D4 hiçbir mesajlaşma kanalına gitmez.** Yalnız içeriksiz tetikleyici
-> gönderilebilir: "kimlikli bir olay var, konsola bak".
+> **D3/D4 content never goes to any messaging channel.** Only a contentless
+> trigger may be sent: "an identified event exists — check the console."
 
-**WhatsApp operasyonel uyarısı:** Business Cloud API'de kullanıcının son
-mesajından itibaren 24 saatlik pencere dışında yalnız önceden onaylanmış
-şablonlar gönderilebilir. Bu, ajan-başlatmalı bildirim için WhatsApp'ı en
-kırılgan kanal yapar; en sona bırakılır.
+**WhatsApp operational warning:** on the Business Cloud API, outside the
+24-hour window following the user's last message, only pre-approved templates
+may be sent. That makes WhatsApp the most fragile channel for agent-initiated
+notification, and it is therefore scheduled last.
 
-## Kapsam dışı
+## Out of scope
 
-- Kanal konnektörlerinin kendi implementasyon detayı (taşıyıcı kütüphane işi)
-- Gelen mesaj yönü (WP-136)
+- The internal implementation detail of the channel connectors (transport library work)
+- The inbound direction (WP-136)
 
-## Önkoşullar ve Definition of Ready
+## Preconditions — Definition of Ready
 
-- Bağımlılıklar kabul edilmiştir: WP-131, WP-006 (ExecutionProfile)
-- Named owner, implementer ve producer'dan bağımsız verifier atanmıştır.
-- DataClass, CodeTrust, ToolEffect ve ağ/credential kapsamı sınıflandırılmıştır.
-- Test fixture, environment, rollback noktası ve acceptance ölçüm yöntemi erişilebilirdir.
+- Dependencies accepted: WP-131, WP-006 (ExecutionProfile)
+- A named owner, a named implementer and a verifier independent of the producer are assigned.
+- `DataClass`, `CodeTrust`, `ToolEffect` and the network/credential scope are classified.
+- Test fixtures, the environment, the rollback point and the acceptance measurement method are reachable.
 
-## Uygulama görevleri
+## Implementation tasks
 
-| Alt iş | Yapılacak iş | Tamamlanma kanıtı |
+| Sub-task | Work to be done | Completion evidence |
 |---|---|---|
-| WP-132-T01 | `ChannelRegistry` şemasını tanımla (kanal, tavan, egress host, kimlik) | Şema + kayıt dosyası |
-| WP-132-T02 | Tavanı kod içinde zorla; policy engine'e bağla | Tavan üstü gönderim testte reddedilir |
-| WP-132-T03 | DLP taraması (secret, token, PII) gönderim öncesi zorunlu | Secret içeren mesaj gönderilmez |
-| WP-132-T04 | Şablon kaydı — serbest metin gönderimi kapalı | Şablonsuz gönderim reddedilir |
-| WP-132-T05 | İlk kanallar: ntfy (self-hosted) + Telegram | İki kanal uçtan uca çalışır |
-| WP-132-T06 | Egress allowlist'i her kanal için ayrı tanımla | Allowlist dışı host'a çıkış engellenir |
+| WP-132-T01 | Define the `ChannelRegistry` schema (channel, ceiling, egress host, identity) | Schema + populated registry file |
+| WP-132-T02 | Enforce the ceiling in code and bind it to the policy engine | An above-ceiling send is rejected in test |
+| WP-132-T03 | Make DLP scanning (secrets, tokens, PII) mandatory before send | A message containing a secret is not sent |
+| WP-132-T04 | Template registry — free-text sending is disabled | An untemplated send is rejected |
+| WP-132-T05 | First channels: ntfy (self-hosted) + Telegram | Both channels work end to end |
+| WP-132-T06 | Define the egress allowlist separately per channel | Egress to a host outside the allowlist is blocked |
 
-## Zorunlu teslimatlar
+## Mandatory deliverables
 
-- `ChannelRegistry` şeması ve dolu kayıt
-- Veri sınıfı tavanı zorlaması (kod + test)
-- DLP tarama entegrasyonu
-- Mesaj şablon kaydı
-- Kanal başına egress allowlist
+- The `ChannelRegistry` schema and its populated registry
+- Data-class ceiling enforcement (code + tests)
+- DLP scanning integration
+- The message template registry
+- A per-channel egress allowlist
 
-## Test ve doğrulama planı
+## Test and verification plan
 
-- **Tavan zorlaması:** her kanal için tavan+1 sınıfında içerik → gönderim reddedilir
-- **D3/D4:** hiçbir kanala içerik gitmez; yalnız içeriksiz tetikleyici üretilir
-- **DLP:** API anahtarı, token ve PII içeren örnek mesajlar yakalanır
-- **Şablon:** serbest metin gönderimi reddedilir
-- **Egress:** allowlist dışı host'a giden istek engellenir
+- **Ceiling enforcement:** content at ceiling+1 for each channel → send rejected
+- **D3/D4:** no content reaches any channel; only a contentless trigger is produced
+- **DLP:** sample messages carrying API keys, tokens and PII are caught
+- **Templates:** free-text sending is rejected
+- **Egress:** a request to a host outside the allowlist is blocked
 
-## Kabul kriterleri
+## Acceptance criteria
 
-- [ ] Kanal başına tavan **kodda** tanımlı ve testle zorlanıyor; yalnız dokümanda değil
-- [ ] D3/D4 içerik hiçbir kanaldan çıkamaz (negatif test)
-- [ ] DLP taraması atlanabilir bir yol yok
-- [ ] WhatsApp yalnız D0 ve yalnız onaylı şablonla erişilebilir
-- [ ] Bütün zorunlu testler aynı target revision üzerinde geçmiştir.
-- [ ] Açık Critical/High finding yoktur.
-- [ ] Bağımsız verifier kanıt paketini kabul etmiştir.
+- [ ] The per-channel ceiling is defined **in code** and enforced by tests, not only documented
+- [ ] D3/D4 content cannot leave through any channel (negative test)
+- [ ] There is no code path that skips DLP scanning
+- [ ] WhatsApp is reachable only at D0 and only through approved templates
+- [ ] All mandatory tests passed on the same target revision.
+- [ ] No open Critical or High findings.
+- [ ] The independent verifier has accepted the evidence package.
 
-## Riskler ve kontrol noktaları
+## Risks and control points
 
-- Kanal tavanı kişiye göre değişmez; "benim kendi Telegram'ım" istisnası yoktur
-- Yeni kanal eklemek Safety/Data Owner onayı ve yeni bir tavan kaydı gerektirir
-- Paket tamamlandı beyanı acceptance değildir; verifier kararı olmadan yalnız `TECH_COMPLETE` olabilir.
+- A channel ceiling does not vary by person; there is no "but it's my own Telegram" exception
+- Adding a new channel requires Safety/Data Owner approval and a new ceiling entry
+- A "package complete" statement is not acceptance. Without a verifier decision the package can only be `TECH_COMPLETE`.
 
 ## Rollback / compensation
 
-Kanal kaydından çıkarılır; bekleyen mesajlar o kanal için düşürülmez, kuyrukta
-kalır ve alternatif kanala yönlendirilmez (yönlendirme tavan ihlali doğurabilir).
+The channel is removed from the registry; pending messages for that channel are
+not dropped — they stay queued and are **not** rerouted to another channel,
+because rerouting could breach a ceiling.
 
-## Handoff ve sonraki paketlere giriş
+## Handoff into downstream packages
 
-WP-133 ve WP-134 bu kayıttaki kanalları kullanır. Kayıtta olmayan kanal
-kullanılamaz.
+WP-133 and WP-134 use the channels in this registry. A channel that is not
+registered cannot be used.

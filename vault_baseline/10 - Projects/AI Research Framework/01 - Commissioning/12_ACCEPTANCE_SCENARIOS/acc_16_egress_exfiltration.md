@@ -1,61 +1,64 @@
 # ACC-16 — Egress Exfiltration Attempt
 
-## Senaryo kartı
+## Scenario card
 
-| Alan | Değer |
+| Field | Value |
 |---|---|
-| Senaryo | `ACC-16` |
-| Kategori | Security/Network |
+| Scenario | `ACC-16` |
+| Category | Security/Network |
 | Severity | **Critical** |
-| Accountable Owner | Network Security Lead |
-| Bağımsız witness/verifier | Red Team / Privacy Owner |
-| İlgili paketler | `WP-057`, `WP-060`, `WP-112` |
-| Production kabulü | Critical senaryo SKIP veya waiver ile PASS sayılamaz |
+| Accountable owner | Network Security Lead |
+| Independent witness / verifier | Red Team / Privacy Owner |
+| Related packages | `WP-057`, `WP-060`, `WP-112` |
+| Production acceptance | A Critical scenario can never be counted as PASS through a SKIP or a waiver |
 
-## Amaç
+## Purpose
 
-Bu senaryo, **Egress Exfiltration Attempt** durumunda hedef mimarinin fail-safe ve kanıt üretme davranışını doğrular. Test aynı release candidate, policy bundle, schema bundle ve environment manifest üzerinde çalıştırılır.
+This scenario verifies the target architecture's fail-safe behaviour and its
+evidence production in the **Egress Exfiltration Attempt** situation. The test runs on the same
+release candidate, policy bundle, schema bundle and environment manifest as
+every other scenario in the same acceptance round.
 
 ## Given / When / Then
 
-**Given:** Sandbox içindeki payload unknown domain/raw IP/DNS tunnel üzerinden canary secret göndermeyi dener.
+**Given:** A payload inside the sandbox attempts to send a canary secret over an unknown domain, a raw IP and a DNS tunnel.
 
-**When:** Execution egress proxy ve DLP üzerinden çalışır.
+**When:** Execution proceeds through the egress proxy and DLP.
 
-**Then:** Trafik deny edilir, canary dışarı çıkmaz, credential lease revoke ve security incident/audit oluşur.
+**Then:** The traffic is denied, the canary never leaves, the credential lease is revoked and a security incident and audit record are created.
 
-## Önkoşullar
+## Preconditions
 
-- İlgili work package'lar `INTEGRATED` veya `COMMISSIONING_READY` durumundadır.
-- Teste özel project/actor/data/artifact kimlikleri production verisinden ayrılmıştır.
-- Release candidate digest ile policy, schema, model/tool ve infrastructure bundle sürümleri freeze edilmiştir.
-- Beklenen canonical records, events, policy decisions, telemetry ve audit assertions registry'ye girilmiştir.
-- Failure injection blast radius, kill switch, cleanup ve witness atanmıştır.
+- The related work packages are `INTEGRATED` or `COMMISSIONING_READY`.
+- Test-specific project, actor, data and artifact identifiers are separated from production data.
+- The release candidate digest and the policy, schema, model/tool and infrastructure bundle versions are frozen.
+- The expected canonical records, events, policy decisions, telemetry and audit assertions are entered in the registry.
+- The failure-injection blast radius, the kill switch, the cleanup procedure and the witness are assigned.
 
-## Test adımları
+## Test steps
 
-| # | İşlem | Toplanacak anlık kanıt |
+| # | Action | Evidence captured at this step |
 |---:|---|---|
-| 1 | Canary secret/attack destination kur | Execution log + trace/event references |
-| 2 | Sandbox workload'a scoped lease ver | Execution log + trace/event references |
-| 3 | HTTPS/raw IP/DNS/proxy bypass attempts çalıştır | Execution log + trace/event references |
-| 4 | Egress/DLP/Vault/network logs gözle | Execution log + trace/event references |
-| 5 | Lease revoke ve incident workflow doğrula | Execution log + trace/event references |
-| 6 | Canary destination'a byte ulaşmadığını teyit et | Execution log + trace/event references |
+| 1 | Set up the canary secret and the attack destination | Execution log + trace/event references |
+| 2 | Issue a scoped lease to the sandbox workload | Execution log + trace/event references |
+| 3 | Run the HTTPS, raw IP, DNS and proxy-bypass attempts | Execution log + trace/event references |
+| 4 | Observe the egress, DLP, Vault and network logs | Execution log + trace/event references |
+| 5 | Verify lease revocation and the incident workflow | Execution log + trace/event references |
+| 6 | Confirm that no byte reached the canary destination | Execution log + trace/event references |
 
-## Zorunlu invariant ve assertions
+## Mandatory invariants and assertions
 
-- [ ] Exfiltrated bytes=0
-- [ ] Unknown domain/raw IP/DNS deny
-- [ ] DLP canary match
-- [ ] Lease revoked
-- [ ] Security event correlation complete
-- [ ] Expected canonical state ile actual state aynı veya açıklanmış güvenli failure state'indedir.
-- [ ] Duplicate, stale, forged veya partial input unsafe yan etki üretmemiştir.
-- [ ] Trace, event, audit ve business record aynı project/workflow/run correlation zincirindedir.
-- [ ] Test sırasında oluşan her Critical/High finding Finding Registry'ye kaydedilmiştir.
+- [ ] Exfiltrated bytes = 0
+- [ ] Unknown domains, raw IPs and DNS tunnels are denied
+- [ ] DLP matches the canary
+- [ ] The lease is revoked
+- [ ] Security event correlation is complete
+- [ ] The actual canonical state equals the expected state, or an explained safe failure state.
+- [ ] Duplicate, stale, forged or partial inputs produced no unsafe side effect.
+- [ ] Trace, event, audit and business records share one project/workflow/run correlation chain.
+- [ ] Every Critical or High finding raised during the test is recorded in the Finding Registry.
 
-## Beklenen canonical kayıtlar
+## Expected canonical records
 
 - `EgressDecision`
 - `DLPRecord`
@@ -63,38 +66,47 @@ Bu senaryo, **Egress Exfiltration Attempt** durumunda hedef mimarinin fail-safe 
 - `SecurityIncident`
 - `NetworkTrace`
 
-## Beklenen olaylar
+## Expected events
 
 - `egress.denied`
 - `dlp.secret_detected`
 - `credential.revoked`
 - `incident.opened`
 
-Beklenen olay sayısı/idempotency ve sıra kısıtları test registry'deki machine-readable assertion dosyasında tutulur. NATS event'i tek başına canonical state kanıtı değildir; ilgili service/Temporal commit'i ayrıca doğrulanır.
+Expected event counts, idempotency and ordering constraints live in the
+machine-readable assertion file inside the test registry. **A NATS event alone
+is not evidence of canonical state**; the corresponding service or Temporal
+commit is verified separately.
 
-## Kanıt paketi
+## Evidence package
 
-- `ACC-16-result.json`: PASS/FAIL, RC digest ve assertion sonuçları.
-- `ACC-16-execution-log.jsonl`: zaman sıralı test/fault/decision kayıtları.
-- `ACC-16-state-before.json` ve `ACC-16-state-after.json`.
-- `ACC-16-events.json`, `ACC-16-policy-decisions.json` ve `ACC-16-audit-export.json`.
-- `ACC-16-evidence-manifest.json`: bütün dosyaların hash, producer ve environment referansı.
-- Bağımsız witness `VerificationRecord` ve varsa finding/disposition kayıtları.
+- `ACC-16-result.json`: PASS/FAIL, the RC digest and the assertion results.
+- `ACC-16-execution-log.jsonl`: time-ordered test, fault and decision records.
+- `ACC-16-state-before.json` and `ACC-16-state-after.json`.
+- `ACC-16-events.json`, `ACC-16-policy-decisions.json` and `ACC-16-audit-export.json`.
+- `ACC-16-evidence-manifest.json`: the hash, producer and environment reference of every file.
+- The independent witness's `VerificationRecord`, plus any finding and disposition records.
 
-## PASS ölçütü
+## PASS criteria
 
-- Bütün scenario-specific assertions ve ortak integrity assertions geçer.
-- Beklenen fail-closed/block/revise davranışı happy-path başarı kadar geçerli bir PASS olabilir; beklenen state ile aynı olmalıdır.
-- Açık Critical/High finding yoktur.
-- Kanıt manifesti eksiksiz, hashleri doğrulanmış ve witness tarafından imzalanmıştır.
-- Aynı release candidate dışındaki sonuçlar birleştirilmemiştir.
+- All scenario-specific assertions and the common integrity assertions pass.
+- **An expected fail-closed, block or revise behaviour is as valid a PASS as a happy-path success** — provided it matches the expected state exactly.
+- No open Critical or High findings remain.
+- The evidence manifest is complete, its hashes verified and the package signed by the witness.
+- Results from a different release candidate have not been merged into this one.
 
-## FAIL ve yeniden test
+## FAIL and retest
 
-Bir invariant, kanıt bütünlüğü veya beklenen kayıt/event assertion'ı başarısızsa senaryo FAIL olur. Correction yalnız VALIDATED finding üzerinden açılır. Target revision veya ilgili policy/schema/model/tool bundle değişirse önceki sonuç geçersiz olur; senaryo ve etkilenen regression kümesi yeniden çalıştırılır.
+The scenario FAILs if any invariant, evidence-integrity check, or expected
+record/event assertion fails. A correction is opened only against a `VALIDATED`
+finding. If the target revision or any related policy, schema, model or tool
+bundle changes, the previous result becomes void and the scenario plus its
+affected regression set are rerun.
 
-## Cleanup ve geri dönüş
+## Cleanup and reversal
 
-Canary credentials revoke/rotate; malicious workload destroy, destination/log fixture cleanup.
+Canary credentials are revoked and rotated; the malicious workload is destroyed and the destination and log fixtures are cleaned up.
 
-Cleanup canonical evidence ve audit geçmişini silmez. Destructive test fixture işlemleri yalnız explicit test namespace/kimlikleri üzerinde ve iki aşamalı doğrulamayla yapılır.
+Cleanup never deletes canonical evidence or audit history. Destructive test
+fixture operations run only against explicit test namespaces and identities, and
+only under two-stage confirmation.

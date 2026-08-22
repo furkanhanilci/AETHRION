@@ -1,97 +1,99 @@
-# WP-135 — Karar Yönlendirme ve İmzalı Derin Bağlantı
+# WP-135 — Decision Routing and Signed Deep Links
 
-## Paket kartı
+## Package card
 
-| Alan | Değer |
+| Field | Value |
 |---|---|
-| İş paketi | `WP-135` |
+| Work package | `WP-135` |
 | Workstream | `13_TOOLING_INTEGRATION` |
-| İlk efor sınıfı | **M** — refinement'ta O/M/P tahmini zorunlu |
-| Accountable Owner | Governance Lead |
-| Bağımsız doğrulayıcı | Platform Security Lead |
-| Hard dependencies | WP-131, WP-132, WP-055 (SPIFFE/Vault kimlik), WP-093 (Decision Queue UI) |
-| İlgili gate | G1, G4, G8, G9 |
-| İlgili kontroller | CTL-GOV-01, CTL-SEC-04 |
-| İlgili ACC senaryoları | ACC-25, ACC-26 |
-| İlgili skill | `routing-decision-requests` |
+| Initial effort class | **M** — medium; a three-point (O/M/P) estimate is mandatory at refinement |
+| Accountable owner | Governance Lead |
+| Independent verifier | Platform Security Lead |
+| Hard dependencies | WP-131, WP-132, WP-055 (SPIFFE/Vault identity), WP-093 (Decision Queue UI) |
+| Related gates | G1, G4, G8, G9 |
+| Related controls | CTL-GOV-01, CTL-SEC-04 |
+| Related acceptance scenarios | ACC-25, ACC-26 |
+| Related skill | `routing-decision-requests` |
+| Current status | `NOT_STARTED` |
 
-## Amaç ve beklenen sonuç
+## Purpose and expected outcome
 
-İnsan kararı gerektiren olaylar bildirimle **duyurulur**, ama karar
-kimlik doğrulamalı bir yüzeyde verilir.
+Events requiring a human decision are **announced** by notification, but the
+decision itself is taken on an authenticated surface.
 
-> **Değişmez:** Mesajlaşma bir **bildirim kanalıdır**, yetkilendirme kanalı
-> değildir. Hiçbir karar bir sohbet cevabıyla verilemez.
+> **Invariant:** Messaging is a **notification channel**, not an authorisation
+> channel. No decision can be given by a chat reply.
 
-Gerekçe: Telegram/Discord/WhatsApp/e-posta hesapları ele geçirilebilir, taklit
-edilebilir, iletilebilir. `DecisionRecord` imzalı ve bağlayıcı bir kayıttır;
-kanıt zincirinin sonunu bir sohbet mesajına bağlamak tüm zinciri o kanalın
-güvenliğine indirger. Bu, **ACC-25 (Human Approval Forgery)** senaryosunun
-önleyici tarafıdır.
+The reasoning: Telegram, Discord, WhatsApp and email accounts can be
+compromised, impersonated or forwarded. A `DecisionRecord` is a signed, binding
+record; anchoring the end of the evidence chain to a chat message reduces the
+entire chain to the security of that channel. This is the preventive side of
+the **ACC-25 (Human Approval Forgery)** scenario.
 
-Sohbet cevabı **yapabilir**: okundu bilgisi, ek bilgi talebi, SLA uzatma talebi.
-**Yapamaz**: onay, ret, yıkıcı işlem.
+A chat reply **can**: acknowledge receipt, request more information, request an
+SLA extension. It **cannot**: approve, reject, or trigger a destructive action.
 
-## Kapsam dışı
+## Out of scope
 
-- Karar yüzeyinin UI'ı (WP-093)
-- Kararın içeriği ve rubriği (ilgili gate paketi)
+- The decision surface UI itself (WP-093)
+- The content and rubric of the decision (the relevant gate package)
 
-## Önkoşullar ve Definition of Ready
+## Preconditions — Definition of Ready
 
-- Bağımlılıklar kabul edilmiştir: WP-131, WP-132, WP-055 (SPIFFE/Vault kimlik), WP-093 (Decision Queue UI)
-- Named owner, implementer ve producer'dan bağımsız verifier atanmıştır.
-- DataClass, CodeTrust, ToolEffect ve ağ/credential kapsamı sınıflandırılmıştır.
-- Test fixture, environment, rollback noktası ve acceptance ölçüm yöntemi erişilebilirdir.
+- Dependencies accepted: WP-131, WP-132, WP-055 (SPIFFE/Vault identity), WP-093 (Decision Queue UI)
+- A named owner, a named implementer and a verifier independent of the producer are assigned.
+- `DataClass`, `CodeTrust`, `ToolEffect` and the network/credential scope are classified.
+- Test fixtures, the environment, the rollback point and the acceptance measurement method are reachable.
 
-## Uygulama görevleri
+## Implementation tasks
 
-| Alt iş | Yapılacak iş | Tamamlanma kanıtı |
+| Sub-task | Work to be done | Completion evidence |
 |---|---|---|
-| WP-135-T01 | İmzalı, süreli, tek kullanımlık derin bağlantı üretimi | Süre dolduğunda bağlantı geçersiz |
-| WP-135-T02 | Bağlantının yetkiyi değil **yüzeye erişimi** taşıdığını zorla | Bağlantı tek başına karar veremez |
-| WP-135-T03 | Kullanıcı-bağlı doğrulama (iletilen bağlantı geçersiz) | Farklı kimlikle açılan bağlantı reddedilir |
-| WP-135-T04 | Sohbet kanalından gelen onay/ret girişimini reddet | Girişim loglanır ve reddedilir |
-| WP-135-T05 | İnsan dikkat bütçesi kotasını uygula | Kota dolunca kuyruk bekler, auto-approve yok |
-| WP-135-T06 | Karar telemetrisi (süre, açılan bölüm, geri alma oranı) | Ölçüm Metascience'a akar |
+| WP-135-T01 | Generate signed, time-limited, single-use deep links | The link is invalid after expiry |
+| WP-135-T02 | Enforce that the link carries **surface access**, never authority | A link alone cannot produce a decision |
+| WP-135-T03 | User-bound verification (a forwarded link is invalid) | A link opened under a different identity is rejected |
+| WP-135-T04 | Reject approval/rejection attempts arriving from a chat channel | The attempt is logged and rejected |
+| WP-135-T05 | Apply the human attention-budget quota | When the quota is exhausted the queue waits; no auto-approve |
+| WP-135-T06 | Decision telemetry (duration, sections opened, reversal rate) | Measurements flow to Metascience |
 
-## Zorunlu teslimatlar
+## Mandatory deliverables
 
-- İmzalı derin bağlantı üretici ve doğrulayıcı
-- Kimlik doğrulamalı karar yüzeyi bağlantısı
-- Sohbet kanalı onay reddi
-- Dikkat bütçesi kotası
-- Karar telemetrisi
+- The signed deep-link generator and validator
+- The authenticated decision-surface link
+- Chat-channel approval rejection
+- The attention-budget quota
+- Decision telemetry
 
-## Test ve doğrulama planı
+## Test and verification plan
 
-- **Sohbetten onay:** kanal üzerinden gelen "onaylıyorum" mesajı karar üretmez
-- **Bağlantı süresi:** TTL sonrası bağlantı geçersiz
-- **Tek kullanım:** ikinci kullanım reddedilir
-- **İletme:** başka kimlikle açılan bağlantı reddedilir
-- **Kota:** haftalık kota dolduğunda yeni karar isteği kuyrukta bekler; auto-approve yok
+- **Approval from chat:** an "I approve" message on a channel produces no decision
+- **Link lifetime:** the link is invalid after its TTL
+- **Single use:** a second use is rejected
+- **Forwarding:** a link opened under another identity is rejected
+- **Quota:** when the weekly quota is exhausted, new decision requests wait; there is no auto-approve
 
-## Kabul kriterleri
+## Acceptance criteria
 
-- [ ] Hiçbir `DecisionRecord`'un kaynağı bir mesajlaşma kanalı olamaz
-- [ ] Derin bağlantı süreli, tek kullanımlık ve kullanıcı-bağlı
-- [ ] Kota dolduğunda sistem **bekler**; hızlı gözden geçirme modu yoktur
-- [ ] Karar süresi dağılımı ve G10 geri alma oranı ölçülüyor
-- [ ] Bütün zorunlu testler aynı target revision üzerinde geçmiştir.
-- [ ] Açık Critical/High finding yoktur.
-- [ ] Bağımsız verifier kanıt paketini kabul etmiştir.
+- [ ] No `DecisionRecord` can originate from a messaging channel
+- [ ] Deep links are time-limited, single-use and user-bound
+- [ ] When the quota is exhausted the system **waits**; there is no express-review mode
+- [ ] The decision-time distribution and the G10 reversal rate are measured
+- [ ] All mandatory tests passed on the same target revision.
+- [ ] No open Critical or High findings.
+- [ ] The independent verifier has accepted the evidence package.
 
-## Riskler ve kontrol noktaları
+## Risks and control points
 
-- Kota, laboratuvarın çıktı hızını sınırlar. **Bu bir hata değil, tasarımdır.**
-- Bağlantı sızıntısı: TTL kısa tutulur; kullanım sonrası iptal edilir
-- Paket tamamlandı beyanı acceptance değildir; verifier kararı olmadan yalnız `TECH_COMPLETE` olabilir.
+- The quota limits the laboratory's throughput. **This is a design choice, not a defect.**
+- Link leakage: TTLs are kept short and links are revoked after use
+- A "package complete" statement is not acceptance. Without a verifier decision the package can only be `TECH_COMPLETE`.
 
 ## Rollback / compensation
 
-Derin bağlantı mekanizması devre dışı bırakılırsa kararlar yalnız yüzeyden
-verilir; bildirim içeriksiz tetikleyiciye düşer. Karar akışı durmaz.
+If the deep-link mechanism is disabled, decisions are taken only on the surface
+itself and notifications degrade to contentless triggers. The decision flow does
+not stop.
 
-## Handoff ve sonraki paketlere giriş
+## Handoff into downstream packages
 
-WP-136 gelen kanaldan gelen onay girişimlerini reddetme kuralını devralır.
+WP-136 inherits the rule for rejecting approval attempts arriving on inbound channels.

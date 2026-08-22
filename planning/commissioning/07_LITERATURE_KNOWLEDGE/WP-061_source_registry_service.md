@@ -1,100 +1,108 @@
-# WP-061 — Canonical Source Registry Servisi
+# WP-061 — Canonical Source Registry Service
 
-## Paket kartı
+## Package card
 
-| Alan | Değer |
+| Field | Value |
 |---|---|
-| İş paketi | `WP-061` |
+| Work package | `WP-061` |
 | Workstream | `07_LITERATURE_KNOWLEDGE` |
-| İlk efor sınıfı | **L** — refinement'ta O/M/P tahmini zorunlu |
-| Accountable Owner | Knowledge Platform Lead |
-| Bağımsız doğrulayıcı | Data Architect / Citation Auditor |
+| Initial effort class | **L** — large — split into sub-deliveries if it cannot be reviewed in one pass; a three-point (O/M/P) estimate is mandatory at refinement |
+| Accountable owner | Knowledge Platform Lead |
+| Independent verifier | Data Architect / Citation Auditor |
 | Hard dependencies | WP-012, WP-017, WP-020, WP-025, WP-026, WP-028, WP-055, WP-056 |
-| İlgili gate | G3,G10 |
-| İlgili kontroller | CTL-LIT-01, CTL-OPS-01 |
-| İlgili ACC senaryoları | ACC-03, ACC-28 |
+| Related gates | G3,G10 |
+| Related controls | CTL-LIT-01, CTL-OPS-01 |
+| Related acceptance scenarios | ACC-03, ACC-28 |
+| Current status | `NOT_STARTED` |
 
-## Amaç ve beklenen sonuç
+## Purpose and expected outcome
 
-Bibliyografik kimlik, representation, trust, status, project membership ve Zotero binding kayıtlarının canonical PostgreSQL servisi kurulur.
+The canonical PostgreSQL service for bibliographic identity, representations, trust, status, project membership and Zotero bindings is established. This is where a source acquires the identity everything else cites.
 
-## Kapsam dışı
+## Out of scope
 
-- Bağımlı paketin kendi iç implementasyonu
-- Production cutover ve nihai operasyon onayı
 
-## Önkoşullar ve Definition of Ready
+- The internal implementation of any dependent package
+- Production cutover and final operational approval
 
-- Bağımlılıklar kabul edilmiştir: [WP-012 — Canonical Sahiplik ve Alan Bazlı Otorite Matrisi](../02_CONTRACTS/WP-012_canonical_field_authority.md), [WP-017 — Source Registry ve Literature Contract Şemaları](../02_CONTRACTS/WP-017_source_literature_contracts.md), [WP-020 — Schema Registry, Compatibility ve Contract SDK](../02_CONTRACTS/WP-020_schema_registry_sdk.md), [WP-025 — PostgreSQL HA ve Registry Veri Temeli](../03_FOUNDATION/WP-025_postgres_ha_temeli.md), [WP-026 — Content-Addressed Object Store ve WORM](../03_FOUNDATION/WP-026_object_store_worm.md), [WP-028 — NATS JetStream ve Transactional Outbox Temeli](../03_FOUNDATION/WP-028_nats_jetstream_outbox.md), [WP-055 — SPIFFE/SPIRE Workload Identity ve Vault](../06_EXECUTION_SECURITY/WP-055_spiffe_vault_identity.md), [WP-056 — OPA Policy Platform ve Bundle Dağıtımı](../06_EXECUTION_SECURITY/WP-056_opa_policy_platform.md)
-- Named owner, implementer ve producer'dan bağımsız verifier atanmıştır.
-- Etkilenen canonical kayıtlar, interface'ler ve ADR'lar refinement'ta ilişkilendirilmiştir.
-- DataClass, CodeTrust, ToolEffect ve ağ/credential kapsamı sınıflandırılmıştır.
-- Test fixture, environment, rollback noktası ve acceptance ölçüm yöntemi erişilebilirdir.
-- Efor için O/M/P kişi-gün tahmini ve gerçek kapasite rezervasyonu kaydedilmiştir.
+## Preconditions — Definition of Ready
 
-## Uygulama görevleri
+- Dependencies accepted: [WP-012 — Canonical Ownership and Field-Level Authority Matrix](../02_CONTRACTS/WP-012_canonical_field_authority.md), [WP-017 — Source Registry and Literature Contract Schemas](../02_CONTRACTS/WP-017_source_literature_contracts.md), [WP-020 — Schema Registry, Compatibility and Contract SDK](../02_CONTRACTS/WP-020_schema_registry_sdk.md), [WP-025 — PostgreSQL HA and Registry Data Foundation](../03_FOUNDATION/WP-025_postgres_ha_foundation.md), [WP-026 — Content-Addressed Object Store and WORM](../03_FOUNDATION/WP-026_object_store_worm.md), [WP-028 — NATS JetStream and Transactional Outbox Foundation](../03_FOUNDATION/WP-028_nats_jetstream_outbox.md), [WP-055 — SPIFFE/SPIRE Workload Identity and Vault](../06_EXECUTION_SECURITY/WP-055_spiffe_vault_identity.md), [WP-056 — OPA Policy Platform and Bundle Distribution](../06_EXECUTION_SECURITY/WP-056_opa_policy_platform.md)
+- A named owner, a named implementer, and a verifier **independent of the producer** are assigned.
+- Affected canonical records, interfaces and ADRs have been linked during refinement.
+- `DataClass`, `CodeTrust`, `ToolEffect` and the network/credential scope are classified.
+- Test fixtures, the environment, the rollback point and the acceptance measurement method are reachable.
+- An O/M/P person-day estimate is recorded and real capacity is reserved against it.
 
-| Alt iş | Yapılacak iş | Sorumlu | Tamamlanma kanıtı |
+## Implementation tasks
+
+| Sub-task | Work to be done | Responsible | Completion evidence |
 |---|---|---|---|
-| WP-061-T01 | SourceRecord/Representation/Trust/Binding tablolarını migrate et | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-061-T02 | Create/read/version/merge/tombstone API'lerini yaz | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-061-T03 | Optimistic concurrency ve outbox event üretimini bağla | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-061-T04 | Field authority ve data-class RBAC uygula | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-061-T05 | Search/filter/history ve bulk ingest API ekle | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-061-T06 | Backup, SLO ve audit query'lerini kur | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
+| WP-061-T01 | Migrate the `SourceRecord`, representation, trust and binding tables | Implementation owner | Commit / configuration / record reference |
+| WP-061-T02 | Write the create, read, version, merge and tombstone APIs | Implementation owner | Commit / configuration / record reference |
+| WP-061-T03 | Bind optimistic concurrency and outbox event emission | Implementation owner | Commit / configuration / record reference |
+| WP-061-T04 | Apply field authority and data-class RBAC | Implementation owner | Commit / configuration / record reference |
+| WP-061-T05 | Add search, filter, history and bulk ingest APIs | Implementation owner | Commit / configuration / record reference |
+| WP-061-T06 | Establish backups, SLOs and the audit queries | Implementation owner | Commit / configuration / record reference |
 
-## Zorunlu teslimatlar
+## Mandatory deliverables
 
 - `Source Registry service`
 - `Database migrations`
 - `API/OpenAPI`
 - `Outbox events`
 - `Service runbook`
-- Güncellenmiş runbook/operasyon notu ve servis/contract ownership kaydı
-- İmzalı `EvidenceManifest`
+- An updated runbook or operations note, plus the service/contract ownership record
+- A signed `EvidenceManifest`
 
-## Test ve doğrulama planı
+## Test and verification plan
 
-- Concurrent update 409/merge case
-- Unauthorized field write
+- A concurrent update producing a 409 or a merge case
+- An unauthorised field write
 - Source history traversal
-- DB fail/retry idempotency
-- Yetkisiz, eksik, stale, duplicate ve partial-failure girdileri için en az bir negatif test
-- İlgili interface'lerde producer/consumer contract compatibility testi
-- Telemetry correlation ve audit kayıt bütünlüğü kontrolü
+- Database failure and retry idempotency
+- At least one negative test for unauthorised, missing, stale, duplicate and partial-failure inputs
+- Producer/consumer contract compatibility tests on every affected interface
+- Telemetry correlation and audit-record integrity checks
 
-## Kabul kriterleri
+## Acceptance criteria
 
-- [ ] Source Registry canonical identity/status sahibidir
-- [ ] Hiçbir Zotero key/DOI tek başına primary key olmaz
-- [ ] Her mutation version ve actor taşır
-- [ ] Bütün zorunlu testler aynı target revision üzerinde geçmiştir.
-- [ ] Açık Critical/High finding yoktur; non-waivable blocker bulunmamaktadır.
-- [ ] Bağımsız verifier kanıt paketini kabul etmiştir.
-- [ ] Rollback/compensation davranışı denenmiş ve audit edilmiştir.
-- [ ] İlgili dashboard, alert, audit query veya integrity query çalışma kanıtı üretmiştir.
+- [ ] The Source Registry owns canonical identity and status.
+- [ ] No Zotero key or DOI is ever the primary key on its own.
+- [ ] Every mutation carries a version and an actor.
+- [ ] All mandatory tests passed **on the same target revision**.
+- [ ] No open Critical or High findings; no non-waivable blocker remains.
+- [ ] The independent verifier has accepted the evidence package.
+- [ ] Rollback/compensation behaviour has been exercised and audited.
+- [ ] The related dashboard, alert, audit query or integrity query has produced working evidence.
 
-## Kabul kanıtı paketi
+## Acceptance evidence package
 
-- Aynı target revision/digest üzerinde alınmış test sonuçları
-- Environment, schema, policy ve dependency sürümlerini içeren EvidenceManifest
-- Bağımsız verifier ReviewRecord veya VerificationRecord'u
-- Rollback/compensation denemesi ve sonuç referansı
-- Açık finding, residual risk ve owner/expiry listesi
+- Test results captured on the same target revision/digest
+- An `EvidenceManifest` recording the environment, schema, policy and dependency versions
+- The independent verifier's `ReviewRecord` or `VerificationRecord`
+- The rollback/compensation trial and its result reference
+- The list of open findings and residual risks with owners and expiry dates
 
-## Riskler ve kontrol noktaları
+## Risks and control points
 
-- Contract veya canonical sahiplik belirsizse implementasyon durur ve Architecture Board'a eskale edilir.
-- Identity, data route, artifact integrity, bağımsızlık veya kritik evidence problemi waiver ile geçirilemez.
-- Geçici manuel kontrol gerekiyorsa owner, scope, expiry, compensating control ve kaldırma paketi kaydedilir.
-- Paket tamamlandı beyanı acceptance değildir; verifier kararı olmadan yalnız `TECH_COMPLETE` olabilir.
+- If a contract or canonical ownership question is unresolved, implementation **stops** and the question escalates to the Architecture Board.
+- Identity, data routing, artifact integrity, independence and critical evidence problems **cannot** be passed by waiver.
+- If a temporary manual control is required, its owner, scope, expiry, compensating control and removal package are recorded.
+- A "package complete" statement is **not** acceptance. Without a verifier decision the package can only be `TECH_COMPLETE`.
+
+### Workstream-specific hazards
+
+- Identity errors in sources propagate into every claim that cites them.
+- A write into a shared library without a version precondition can silently destroy a human edit.
+- A literature set that is not frozen cannot support a reproducible claim.
 
 ## Rollback / compensation
 
-Hatalı migration expand-contract ile düzeltilir; yanlış merge split/supersession event üretir, kayıt silinmez.
+A faulty migration is corrected through expand-contract; a wrong merge emits a split or supersession event, and records are never deleted.
 
-Immutable artifact, review ve karar geçmişi rollback sırasında silinmez; yeni durum supersession veya invalidation kaydıyla gösterilir.
+Immutable artifacts, reviews and decision history are **not** deleted during a rollback; the new state is expressed through a supersession or invalidation record.
 
-## Handoff ve sonraki paketlere giriş
+## Handoff into downstream packages
 
-Paket kabul edildiğinde teslim artifact'larının version/digest'leri Package Registry'ye yazılır, dependency event'i yayımlanır ve bu pakete bağlı READY adayları yeniden değerlendirilir. Downstream paket yalnız burada listelenen contract ve kanıt referanslarını tüketir; implementasyon iç ayrıntılarına bağlanmaz.
+On acceptance, the version and digest of every delivered artifact is written to the Package Registry, the dependency event is published, and every `READY` candidate blocked on this package is re-evaluated. A downstream package consumes **only** the contracts and evidence references listed above; it does not bind to internal implementation details.

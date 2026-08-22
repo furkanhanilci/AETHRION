@@ -1,93 +1,94 @@
-# WP-134 — Eskalasyon ve Paging
+# WP-134 — Escalation and Paging
 
-## Paket kartı
+## Package card
 
-| Alan | Değer |
+| Field | Value |
 |---|---|
-| İş paketi | `WP-134` |
+| Work package | `WP-134` |
 | Workstream | `13_TOOLING_INTEGRATION` |
-| İlk efor sınıfı | **M** — refinement'ta O/M/P tahmini zorunlu |
-| Accountable Owner | SRE Lead |
-| Bağımsız doğrulayıcı | Assurance Lead |
-| Hard dependencies | WP-131, WP-132, WP-004 (İnsan kararı SLA) |
-| İlgili gate | G0–G10 |
-| İlgili kontroller | CTL-GOV-03, CTL-OBS-01 |
-| İlgili ACC senaryoları | ACC-26, ACC-43 |
-| İlgili skill | `escalating-and-paging` |
+| Initial effort class | **M** — medium; a three-point (O/M/P) estimate is mandatory at refinement |
+| Accountable owner | SRE Lead |
+| Independent verifier | Assurance Lead |
+| Hard dependencies | WP-131, WP-132, WP-004 (Human decision SLA) |
+| Related gates | G0–G10 |
+| Related controls | CTL-GOV-03, CTL-OBS-01 |
+| Related acceptance scenarios | ACC-26, ACC-43 |
+| Related skill | `escalating-and-paging` |
+| Current status | `NOT_STARTED` |
 
-## Amaç ve beklenen sonuç
+## Purpose and expected outcome
 
-SLA aşımı, bütçe hard-stop, bütünlük şüphesi ve hat durdurma olayları
-tanımlı bir zincirde yükseltilir.
+SLA breaches, budget hard stops, integrity suspicions and line-stop events
+escalate along a defined chain.
 
-> **Değişmez:** Zaman aşımı **asla otomatik onaya dönüşmez.** Ya bir üst role
-> eskale olur ya da workflow pause kalır.
+> **Invariant:** A timeout **never** becomes an automatic approval. It either
+> escalates to a higher role or the workflow stays paused.
 
-Her basamakta **onaylama (acknowledgement) zorunludur**. Onaylanmayan eskalasyon
-bir sonraki basamağa çıkar; kaybolmaz.
+**Acknowledgement is mandatory at every step.** An unacknowledged escalation
+moves to the next step; it never disappears.
 
-`CRITICAL` şiddetindeki olaylar **sessiz saat politikasını deler**: bütünlük
-şüphesi, sandbox kaçış girişimi, bütçe hard limiti ve negatif kontrolde bulgu
-beklemez.
+`CRITICAL` severity events **pierce the quiet-hours policy**: integrity
+suspicion, a sandbox escape attempt, a budget hard limit and a positive finding
+on a negative control do not wait until morning.
 
-## Kapsam dışı
+## Out of scope
 
-- Eskalasyon kararının içeriği (ilgili gate paketinin işi)
+- The content of the escalated decision (the relevant gate package owns that)
 
-## Önkoşullar ve Definition of Ready
+## Preconditions — Definition of Ready
 
-- Bağımlılıklar kabul edilmiştir: WP-131, WP-132, WP-004 (İnsan kararı SLA)
-- Named owner, implementer ve producer'dan bağımsız verifier atanmıştır.
-- DataClass, CodeTrust, ToolEffect ve ağ/credential kapsamı sınıflandırılmıştır.
-- Test fixture, environment, rollback noktası ve acceptance ölçüm yöntemi erişilebilirdir.
+- Dependencies accepted: WP-131, WP-132, WP-004 (Human decision SLA)
+- A named owner, a named implementer and a verifier independent of the producer are assigned.
+- `DataClass`, `CodeTrust`, `ToolEffect` and the network/credential scope are classified.
+- Test fixtures, the environment, the rollback point and the acceptance measurement method are reachable.
 
-## Uygulama görevleri
+## Implementation tasks
 
-| Alt iş | Yapılacak iş | Tamamlanma kanıtı |
+| Sub-task | Work to be done | Completion evidence |
 |---|---|---|
-| WP-134-T01 | Eskalasyon zincirini ve basamak SLA'larını tanımla | Zincir kaydı |
-| WP-134-T02 | Tetikleyici → şiddet → kanal matrisini kur | Matris + her satır için test |
-| WP-134-T03 | Onaylama (ack) mekanizması ve onaylanmayan eskalasyonun yükselmesi | Ack'siz eskalasyon üst basamağa çıkar |
-| WP-134-T04 | Sessiz saat politikası ve `CRITICAL` delme kuralı | Sessiz saatte CRITICAL gönderilir |
-| WP-134-T05 | Gürültü kontrolü: aynı olay için tekrar birleştirilir | Tekrar eden eskalasyon çoğaltılmaz |
-| WP-134-T06 | Eskalasyon telemetrisi (yanıt süresi, ack oranı, yanlış pozitif) | Ölçüm Metascience'a akar |
+| WP-134-T01 | Define the escalation chain and the per-step SLAs | Chain registry |
+| WP-134-T02 | Build the trigger → severity → channel matrix | Matrix + a test per row |
+| WP-134-T03 | Acknowledgement mechanism and promotion of unacknowledged escalations | An unacknowledged escalation reaches the next step |
+| WP-134-T04 | Quiet-hours policy and the `CRITICAL` pierce rule | A `CRITICAL` is delivered during quiet hours |
+| WP-134-T05 | Noise control: repeats for the same event are coalesced | A repeated escalation is not duplicated |
+| WP-134-T06 | Escalation telemetry (response time, ack rate, false positives) | Measurements flow to Metascience |
 
-## Zorunlu teslimatlar
+## Mandatory deliverables
 
-- Eskalasyon zinciri ve SLA kaydı
-- Tetikleyici → şiddet → kanal matrisi
-- Acknowledgement mekanizması
-- Sessiz saat politikası
-- Eskalasyon telemetrisi
+- The escalation chain and SLA registry
+- The trigger → severity → channel matrix
+- The acknowledgement mechanism
+- The quiet-hours policy
+- Escalation telemetry
 
-## Test ve doğrulama planı
+## Test and verification plan
 
-- **Auto-approve yok:** SLA dolduğunda durum kendiliğinden ilerlemiyor (negatif test)
-- **Ack zinciri:** onaylanmayan eskalasyon N dakika sonra üst basamağa çıkar
-- **CRITICAL delme:** sessiz saatte CRITICAL bildirimi bastırılmaz
-- **Birleştirme:** aynı olay için 10 tetikleme → 1 bildirim + sayaç
+- **No auto-approve:** when the SLA expires, state does not advance on its own (negative test)
+- **Ack chain:** an unacknowledged escalation reaches the next step after N minutes
+- **`CRITICAL` pierce:** a `CRITICAL` notification is not suppressed during quiet hours
+- **Coalescing:** 10 triggers for the same event → 1 notification plus a counter
 
-## Kabul kriterleri
+## Acceptance criteria
 
-- [ ] SLA aşımından sonra hiçbir gate kendiliğinden geçmiyor
-- [ ] Onaylanmayan her eskalasyon üst basamağa çıkıyor; hiçbiri kaybolmuyor
-- [ ] `CRITICAL` sessiz saatte bastırılmıyor
-- [ ] Yanlış pozitif oranı ölçülüyor ve eşikler ona göre ayarlanıyor
-- [ ] Bütün zorunlu testler aynı target revision üzerinde geçmiştir.
-- [ ] Açık Critical/High finding yoktur.
-- [ ] Bağımsız verifier kanıt paketini kabul etmiştir.
+- [ ] After an SLA breach, no gate advances by itself
+- [ ] Every unacknowledged escalation is promoted; none is lost
+- [ ] `CRITICAL` is never suppressed during quiet hours
+- [ ] The false-positive rate is measured and thresholds are tuned from that measurement
+- [ ] All mandatory tests passed on the same target revision.
+- [ ] No open Critical or High findings.
+- [ ] The independent verifier has accepted the evidence package.
 
-## Riskler ve kontrol noktaları
+## Risks and control points
 
-- Eskalasyon yorgunluğu eskalasyonun kendisinden tehlikelidir; yanlış pozitif oranı izlenir
-- Eşik kapatma yasaktır; eşik **ölçerek** ayarlanır
-- Paket tamamlandı beyanı acceptance değildir; verifier kararı olmadan yalnız `TECH_COMPLETE` olabilir.
+- Escalation fatigue is more dangerous than the escalation itself; the false-positive rate is monitored
+- Turning a threshold off is forbidden; a threshold is tuned **by measurement**
+- A "package complete" statement is not acceptance. Without a verifier decision the package can only be `TECH_COMPLETE`.
 
 ## Rollback / compensation
 
-Eskalasyon kanalı devre dışı bırakılırsa workflow **pause** olur — sessizce
-ilerlemez. Bu davranış non-waivable'dır.
+If the escalation channel is disabled, the workflow **pauses** — it does not
+proceed silently. This behaviour is non-waivable.
 
-## Handoff ve sonraki paketlere giriş
+## Handoff into downstream packages
 
-WP-135 karar bekleyen olayların yönlendirmesini bu zincire bağlar.
+WP-135 binds the routing of decision-pending events to this chain.

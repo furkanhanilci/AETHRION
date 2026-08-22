@@ -13,67 +13,73 @@ mechanical_checks: [human_approved_before_submission, data_class_ceiling_enforce
 
 # Submitting External Records
 
-## Genel ilke
+## Core principle
 
-İç kayıtlarınız kendi kendini doğrular. **Dış kayıt bağımsız bir tanıktır.**
+Your internal records verify themselves. **An external record is an independent
+witness.**
 
-Ön-kayıt disiplininizin en güçlü hali, kilidin **dışarıda ve değiştirilemez**
-olmasıdır.
+The strongest form of preregistration discipline is one where the lock is
+**outside your control and unalterable**.
 
-## Demir kural
+## Iron law
 
-> **DIŞ GÖNDERİM GERİ ALINAMAZ — HER BİRİ AÇIK İNSAN ONAYI GEREKTİRİR.**
+> **EXTERNAL SUBMISSION IS IRREVERSIBLE — EACH ONE REQUIRES EXPLICIT HUMAN
+> APPROVAL.**
 >
-> Ajan hazırlar, insan gönderir.
+> The agent prepares; the human submits.
 
-## Ne, nereye, ne zaman
+## What goes where, and when
 
-| Kayıt | Hedef | Gate | Kazanç |
+| Record | Target | Gate | Gain |
 |---|---|---|---|
-| Ön-kayıt (protokol + analiz planı) | **OSF Registries** | **G2** | Zaman damgalı, değiştirilemez kayıt + kalıcı DOI |
-| Kod + ortam | **Zenodo** / Software Heritage | G9 | Kalıcı arşiv + DOI ("Artifacts Available") |
-| Veri seti | Zenodo / alan repository | G9 | DOI + **Croissant** metadata |
-| Yayın paketi | Zenodo / kurum repository | G9 | RO-Crate + DOI |
-| Yazar kimliği | **ORCID** | G9 | Kalıcı yazar kimliği |
-| Ön baskı | arXiv / bioRxiv | G9 | Görünürlük (**gönderim otomasyonu sınırlı**) |
+| Preregistration (protocol + analysis plan) | **OSF Registries** | **G2** | Timestamped, immutable record + persistent DOI |
+| Code and environment | **Zenodo** / Software Heritage | G9 | Permanent archive + DOI |
+| Dataset | Zenodo / domain repository | G9 | DOI + machine-readable dataset metadata |
+| Publication package | Zenodo / institutional repository | G9 | RO-Crate + DOI |
+| Author identity | **ORCID** | G9 | Persistent author identifier |
+| Preprint | arXiv / bioRxiv | G9 | Visibility (**submission is not fully automatable**) |
 
-> **Doğrulama notu:** OSF kayıtları zaman damgalı, değiştirilemez ve DOI'lidir;
-> programatik gönderim yolu (OSF API v2) uygulama öncesi doğrulanmalıdır.
-> arXiv gönderimi tam otomatikleştirilemez — insan adımı gerekir.
+> **Verification note:** OSF registrations are timestamped, immutable and
+> DOI-bearing; the programmatic submission path must be verified before
+> implementation. arXiv submission requires a human step and cannot be fully
+> automated.
 
-## Neden G2'de dış ön-kayıt
+## Why external preregistration at G2
 
-İç `AnalysisPlanManifest` hash'i sizin sisteminizde tutulur. Dış bir kayıt,
-**sizin sisteminize güvenmeyen** birine karşı da kanıttır. In-principle
-acceptance'ın dış çapası budur.
+Your internal `AnalysisPlanManifest` hash lives in your own system. An external
+record is evidence **to someone who does not trust your system** — which is the
+only kind of evidence that matters to an outside reader. This is the external
+anchor for in-principle acceptance.
 
-Hassas çalışmalar için OSF **ambargo** seçeneği vardır: kayıt zaman damgalanır
-ama belirli bir süre gizli kalır.
+For sensitive work, OSF supports **embargo**: the registration is timestamped
+but remains private for a defined period. Timestamp and disclosure are separable.
 
-## Gönderim öncesi
+## Before submitting
 
-- [ ] İnsan onayı alındı (**tam kelime**: `SUBMIT`)
-- [ ] Veri sınıfı ≤ D1
-- [ ] DLP taraması geçti
-- [ ] Lisans ve atıf bilgisi tam (`CITATION.cff`, `CodeMeta`)
-- [ ] Ambargo kararı verildi
-- [ ] Geri alınamazlık kabul edildi
+- [ ] Human approval received (**exact word**: `SUBMIT`)
+- [ ] Data class ≤ D1
+- [ ] DLP scan passed
+- [ ] Licence and citation metadata complete (`CITATION.cff`, `CodeMeta`)
+- [ ] Embargo decision made
+- [ ] Irreversibility acknowledged
 
-## Sonrası
+## Afterwards
 
-Dönen DOI **manifest'e ve `EvidenceManifest`'e yazılır.** Kaydedilmeyen DOI
-kanıt zincirinin dışında kalır ve işe yaramaz.
+The returned DOI is written **into the manifest and the `EvidenceManifest`**.
+An unrecorded DOI sits outside the evidence chain and is therefore useless — it
+proves something exists but nothing links to it.
 
-## Rasyonalizasyon tablosu
+## Rationalization table
 
-| Gerekçe | Hüküm |
+| Justification | Ruling |
 |---|---|
-| "Sonra düzeltiriz" | **Dış kayıt geri alınamaz.** Düzeltme yeni sürümdür, silme değil. |
-| "Önce gönderelim, ambargo sonra" | Ambargo gönderim anında seçilir. |
-| "İç hash yeterli" | İç hash sizin sisteminize güvenmeyi gerektirir. |
+| "We can fix it later" | **An external record is irreversible.** A correction is a new version, not a deletion. |
+| "Submit now, decide the embargo later" | The embargo is chosen at submission time. |
+| "The internal hash is enough" | The internal hash requires trusting your system. |
+| "It's just a draft" | A draft submitted externally is a submitted record. |
 
-## Kırmızı bayraklar
+## Red flags
 
-- Dış gönderim ajan tarafından tetiklenmiş
-- DOI dönmüş ama manifest'e yazılmamış
-- D2+ içerik dış kayda gitmiş
+- An external submission triggered by an agent
+- A DOI returned but not written to the manifest
+- D2+ content in an external record

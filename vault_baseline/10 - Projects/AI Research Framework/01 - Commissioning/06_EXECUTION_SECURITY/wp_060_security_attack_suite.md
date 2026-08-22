@@ -1,98 +1,106 @@
-# WP-060 — Agentic Security Attack Suite ve Red-Team Kabulü
+# WP-060 — Agentic Security Attack Suite and Red-Team Acceptance
 
-## Paket kartı
+## Package card
 
-| Alan | Değer |
+| Field | Value |
 |---|---|
-| İş paketi | `WP-060` |
+| Work package | `WP-060` |
 | Workstream | `06_EXECUTION_SECURITY` |
-| İlk efor sınıfı | **L** — refinement'ta O/M/P tahmini zorunlu |
-| Accountable Owner | Red Team Lead |
-| Bağımsız doğrulayıcı | Safety Owner / Commissioning Board |
+| Initial effort class | **L** — large — split into sub-deliveries if it cannot be reviewed in one pass; a three-point (O/M/P) estimate is mandatory at refinement |
+| Accountable owner | Red Team Lead |
+| Independent verifier | Safety Owner / Commissioning Board |
 | Hard dependencies | WP-049, WP-050, WP-051, WP-052, WP-053, WP-054, WP-055, WP-056, WP-057, WP-058, WP-059 |
-| İlgili gate | G0–G10,Platform |
-| İlgili kontroller | CTL-SEC-01..05, CTL-OBS-02 |
-| İlgili ACC senaryoları | ACC-05, ACC-06, ACC-09, ACC-15, ACC-16, ACC-17, ACC-18, ACC-25, ACC-32, ACC-37 |
+| Related gates | G0–G10,Platform |
+| Related controls | CTL-SEC-01..05, CTL-OBS-02 |
+| Related acceptance scenarios | ACC-05, ACC-06, ACC-09, ACC-15, ACC-16, ACC-17, ACC-18, ACC-25, ACC-32, ACC-37 |
+| Current status | `NOT_STARTED` |
 
-## Amaç ve beklenen sonuç
+## Purpose and expected outcome
 
-Prompt injection, tool misuse, secret exfiltration, memory poisoning, sandbox escape, supply chain, data poisoning, reviewer manipulation, cost denial ve audit tampering saldırıları otomatik/manuel suite olur.
+Prompt injection, tool misuse, secret exfiltration, memory poisoning, sandbox escape, supply-chain, data poisoning, reviewer manipulation, cost denial and audit tampering attacks become an automated and manual suite that runs on a schedule.
 
-## Kapsam dışı
+## Out of scope
 
-- Bağımlı paketin kendi iç implementasyonu
-- Production cutover ve nihai operasyon onayı
 
-## Önkoşullar ve Definition of Ready
+- The internal implementation of any dependent package
+- Production cutover and final operational approval
 
-- Bağımlılıklar kabul edilmiştir: [WP-049 — Tool Registry ve Tool Broker Çekirdeği](../05_MODEL_AGENT_TOOL/wp_049_tool_registry_broker.md), [WP-050 — İlk Tool Connector Paketi](../05_MODEL_AGENT_TOOL/wp_050_tool_connectors.md), [WP-051 — Dört Trust Zone ve Ağ Segmentasyonu](../06_EXECUTION_SECURITY/wp_051_trust_zone_network.md), [WP-052 — Kubernetes Cluster ve Node Pool Baseline](../06_EXECUTION_SECURITY/wp_052_kubernetes_cluster.md), [WP-053 — Kueue Queue, Kota ve Öncelik Politikası](../06_EXECUTION_SECURITY/wp_053_kueue_quota.md), [WP-054 — gVisor Sandbox ve Execution Cell Lifecycle](../06_EXECUTION_SECURITY/wp_054_gvisor_sandbox.md), [WP-055 — SPIFFE/SPIRE Workload Identity ve Vault](../06_EXECUTION_SECURITY/wp_055_spiffe_vault_identity.md), [WP-056 — OPA Policy Platform ve Bundle Dağıtımı](../06_EXECUTION_SECURITY/wp_056_opa_policy_platform.md), [WP-057 — Default-Deny Egress Proxy, DLP ve Allowlist](../06_EXECUTION_SECURITY/wp_057_egress_proxy_dlp.md), [WP-058 — Untrusted Content Quarantine ve Prompt-Injection Firewall](../06_EXECUTION_SECURITY/wp_058_content_quarantine_firewall.md), [WP-059 — Supply-Chain Admission, Sigstore ve SLSA Policy](../06_EXECUTION_SECURITY/wp_059_supply_chain_admission.md)
-- Named owner, implementer ve producer'dan bağımsız verifier atanmıştır.
-- Etkilenen canonical kayıtlar, interface'ler ve ADR'lar refinement'ta ilişkilendirilmiştir.
-- DataClass, CodeTrust, ToolEffect ve ağ/credential kapsamı sınıflandırılmıştır.
-- Test fixture, environment, rollback noktası ve acceptance ölçüm yöntemi erişilebilirdir.
-- Efor için O/M/P kişi-gün tahmini ve gerçek kapasite rezervasyonu kaydedilmiştir.
+## Preconditions — Definition of Ready
 
-## Uygulama görevleri
+- Dependencies accepted: [WP-049 — Tool Registry and Tool Broker Core](../05_MODEL_AGENT_TOOL/wp_049_tool_registry_broker.md), [WP-050 — Initial Tool Connector Package](../05_MODEL_AGENT_TOOL/wp_050_tool_connectors.md), [WP-051 — Four Trust Zones and Network Segmentation](../06_EXECUTION_SECURITY/wp_051_trust_zone_network.md), [WP-052 — Kubernetes Cluster and Node Pool Baseline](../06_EXECUTION_SECURITY/wp_052_kubernetes_cluster.md), [WP-053 — Kueue Queue, Quota and Priority Policy](../06_EXECUTION_SECURITY/wp_053_kueue_quota.md), [WP-054 — gVisor Sandbox and Execution Cell Lifecycle](../06_EXECUTION_SECURITY/wp_054_gvisor_sandbox.md), [WP-055 — SPIFFE/SPIRE Workload Identity and Vault](../06_EXECUTION_SECURITY/wp_055_spiffe_vault_identity.md), [WP-056 — OPA Policy Platform and Bundle Distribution](../06_EXECUTION_SECURITY/wp_056_opa_policy_platform.md), [WP-057 — Default-Deny Egress Proxy, DLP and Allowlist](../06_EXECUTION_SECURITY/wp_057_egress_proxy_dlp.md), [WP-058 — Untrusted Content Quarantine and Prompt-Injection Firewall](../06_EXECUTION_SECURITY/wp_058_content_quarantine_firewall.md), [WP-059 — Supply-Chain Admission, Sigstore and SLSA Policy](../06_EXECUTION_SECURITY/wp_059_supply_chain_admission.md)
+- A named owner, a named implementer, and a verifier **independent of the producer** are assigned.
+- Affected canonical records, interfaces and ADRs have been linked during refinement.
+- `DataClass`, `CodeTrust`, `ToolEffect` and the network/credential scope are classified.
+- Test fixtures, the environment, the rollback point and the acceptance measurement method are reachable.
+- An O/M/P person-day estimate is recorded and real capacity is reserved against it.
 
-| Alt iş | Yapılacak iş | Sorumlu | Tamamlanma kanıtı |
+## Implementation tasks
+
+| Sub-task | Work to be done | Responsible | Completion evidence |
 |---|---|---|---|
-| WP-060-T01 | Threat-control map'ten attack case'leri türet | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-060-T02 | Canary secret, malicious PDF/repo/tool fixtures hazırla | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-060-T03 | Tool confused-deputy/target scope testleri yaz | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-060-T04 | Sandbox/kernel/network/cost/audit saldırıları ekle | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-060-T05 | Expected deny/contain/detect/respond evidence tanımla | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-060-T06 | Regression schedule ve finding pipeline bağla | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
+| WP-060-T01 | Derive the attack cases from the threat-to-control map | Implementation owner | Commit / configuration / record reference |
+| WP-060-T02 | Prepare canary secrets and malicious PDF, repository and tool fixtures | Implementation owner | Commit / configuration / record reference |
+| WP-060-T03 | Write confused-deputy and target-scope tests against the Tool Broker | Implementation owner | Commit / configuration / record reference |
+| WP-060-T04 | Add sandbox, kernel, network, cost and audit attacks | Implementation owner | Commit / configuration / record reference |
+| WP-060-T05 | Define the expected deny / contain / detect / respond evidence for each case | Implementation owner | Commit / configuration / record reference |
+| WP-060-T06 | Bind the regression schedule and the finding pipeline | Implementation owner | Commit / configuration / record reference |
 
-## Zorunlu teslimatlar
+## Mandatory deliverables
 
 - `Agentic attack suite`
 - `Malicious fixture corpus`
 - `Red-team report template`
 - `Security regression schedule`
-- Güncellenmiş runbook/operasyon notu ve servis/contract ownership kaydı
-- İmzalı `EvidenceManifest`
+- An updated runbook or operations note, plus the service/contract ownership record
+- A signed `EvidenceManifest`
 
-## Test ve doğrulama planı
+## Test and verification plan
 
-- ACC-05/06/09/15/16/17/18/25/32/37 saldırı yolları
-- Audit tamper/hash verification
-- Memory poisoning human-zone overwrite
-- Yetkisiz, eksik, stale, duplicate ve partial-failure girdileri için en az bir negatif test
-- İlgili interface'lerde producer/consumer contract compatibility testi
-- Telemetry correlation ve audit kayıt bütünlüğü kontrolü
+- The attack paths behind ACC-05, 06, 09, 15, 16, 17, 18, 25, 32 and 37
+- Audit tampering and hash verification
+- Memory poisoning attempting to overwrite a human-authored zone
+- At least one negative test for unauthorised, missing, stale, duplicate and partial-failure inputs
+- Producer/consumer contract compatibility tests on every affected interface
+- Telemetry correlation and audit-record integrity checks
 
-## Kabul kriterleri
+## Acceptance criteria
 
-- [ ] Critical attack'ların tamamı deny/contain ve audit üretir
-- [ ] Açık critical finding=0
-- [ ] False positive correction kontrolü zayıflatmadan yapılır
-- [ ] Bütün zorunlu testler aynı target revision üzerinde geçmiştir.
-- [ ] Açık Critical/High finding yoktur; non-waivable blocker bulunmamaktadır.
-- [ ] Bağımsız verifier kanıt paketini kabul etmiştir.
-- [ ] Rollback/compensation davranışı denenmiş ve audit edilmiştir.
-- [ ] İlgili dashboard, alert, audit query veya integrity query çalışma kanıtı üretmiştir.
+- [ ] Every critical attack is denied or contained **and** produces audit evidence.
+- [ ] Open critical findings = 0.
+- [ ] False positives are corrected without weakening the control that produced them.
+- [ ] All mandatory tests passed **on the same target revision**.
+- [ ] No open Critical or High findings; no non-waivable blocker remains.
+- [ ] The independent verifier has accepted the evidence package.
+- [ ] Rollback/compensation behaviour has been exercised and audited.
+- [ ] The related dashboard, alert, audit query or integrity query has produced working evidence.
 
-## Kabul kanıtı paketi
+## Acceptance evidence package
 
-- Aynı target revision/digest üzerinde alınmış test sonuçları
-- Environment, schema, policy ve dependency sürümlerini içeren EvidenceManifest
-- Bağımsız verifier ReviewRecord veya VerificationRecord'u
-- Rollback/compensation denemesi ve sonuç referansı
-- Açık finding, residual risk ve owner/expiry listesi
+- Test results captured on the same target revision/digest
+- An `EvidenceManifest` recording the environment, schema, policy and dependency versions
+- The independent verifier's `ReviewRecord` or `VerificationRecord`
+- The rollback/compensation trial and its result reference
+- The list of open findings and residual risks with owners and expiry dates
 
-## Riskler ve kontrol noktaları
+## Risks and control points
 
-- Contract veya canonical sahiplik belirsizse implementasyon durur ve Architecture Board'a eskale edilir.
-- Identity, data route, artifact integrity, bağımsızlık veya kritik evidence problemi waiver ile geçirilemez.
-- Geçici manuel kontrol gerekiyorsa owner, scope, expiry, compensating control ve kaldırma paketi kaydedilir.
-- Paket tamamlandı beyanı acceptance değildir; verifier kararı olmadan yalnız `TECH_COMPLETE` olabilir.
+- If a contract or canonical ownership question is unresolved, implementation **stops** and the question escalates to the Architecture Board.
+- Identity, data routing, artifact integrity, independence and critical evidence problems **cannot** be passed by waiver.
+- If a temporary manual control is required, its owner, scope, expiry, compensating control and removal package are recorded.
+- A "package complete" statement is **not** acceptance. Without a verifier decision the package can only be `TECH_COMPLETE`.
+
+### Workstream-specific hazards
+
+- A control not exercised by a negative test is an assumption.
+- Default-allow egress anywhere in the chain nullifies every other isolation control.
+- Sandbox escape is tested by attempting it, not by reading the configuration.
 
 ## Rollback / compensation
 
-Failed suite deployment/cutover'ı bloklar; correction yalnız validated finding ile, sonra tam etkilenen regression tekrar çalışır.
+A failed suite blocks deployment and cutover; corrections are made only against validated findings, after which the full affected regression is rerun.
 
-Immutable artifact, review ve karar geçmişi rollback sırasında silinmez; yeni durum supersession veya invalidation kaydıyla gösterilir.
+Immutable artifacts, reviews and decision history are **not** deleted during a rollback; the new state is expressed through a supersession or invalidation record.
 
-## Handoff ve sonraki paketlere giriş
+## Handoff into downstream packages
 
-Paket kabul edildiğinde teslim artifact'larının version/digest'leri Package Registry'ye yazılır, dependency event'i yayımlanır ve bu pakete bağlı READY adayları yeniden değerlendirilir. Downstream paket yalnız burada listelenen contract ve kanıt referanslarını tüketir; implementasyon iç ayrıntılarına bağlanmaz.
+On acceptance, the version and digest of every delivered artifact is written to the Package Registry, the dependency event is published, and every `READY` candidate blocked on this package is re-evaluated. A downstream package consumes **only** the contracts and evidence references listed above; it does not bind to internal implementation details.

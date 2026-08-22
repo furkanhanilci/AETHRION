@@ -1,61 +1,64 @@
 # ACC-02 — Agent-Used Source Write-Back
 
-## Senaryo kartı
+## Scenario card
 
-| Alan | Değer |
+| Field | Value |
 |---|---|
-| Senaryo | `ACC-02` |
-| Kategori | Research/Literature |
+| Scenario | `ACC-02` |
+| Category | Research/Literature |
 | Severity | **Critical** |
-| Accountable Owner | Evidence Lead |
-| Bağımsız witness/verifier | Knowledge Curator |
-| İlgili paketler | `WP-066`, `WP-072`, `WP-103` |
-| Production kabulü | Critical senaryo SKIP veya waiver ile PASS sayılamaz |
+| Accountable owner | Evidence Lead |
+| Independent witness / verifier | Knowledge Curator |
+| Related packages | `WP-066`, `WP-072`, `WP-103` |
+| Production acceptance | A Critical scenario can never be counted as PASS through a SKIP or a waiver |
 
-## Amaç
+## Purpose
 
-Bu senaryo, **Agent-Used Source Write-Back** durumunda hedef mimarinin fail-safe ve kanıt üretme davranışını doğrular. Test aynı release candidate, policy bundle, schema bundle ve environment manifest üzerinde çalıştırılır.
+This scenario verifies the target architecture's fail-safe behaviour and its
+evidence production in the **Agent-Used Source Write-Back** situation. The test runs on the same
+release candidate, policy bundle, schema bundle and environment manifest as
+every other scenario in the same acceptance round.
 
 ## Given / When / Then
 
-**Given:** Agent keşfinde bulunan yeni kaynak bir material claim tarafından kullanılmış, Source Registry kaydı tamamlanmış ve grup kütüphanesinde henüz yoktur.
+**Given:** A source found by agent discovery has been used by a material claim, its Source Registry record is complete, and it is not yet in the group library.
 
-**When:** Used-source eligibility policy geçer ve Zotero write-back connector'ı çağrılır.
+**When:** The used-source eligibility policy passes and the Zotero write-back connector is invoked.
 
-**Then:** Kaynak yalnız doğru AIRL grup kütüphanesindeki `40_Used` ve ilgili proje koleksiyonuna idempotent yazılır; registry binding ve receipt oluşur.
+**Then:** The source is written idempotently **only** into `40_Used` and the relevant project collection of the correct AIRL group library; the registry binding and a receipt are created.
 
-## Önkoşullar
+## Preconditions
 
-- İlgili work package'lar `INTEGRATED` veya `COMMISSIONING_READY` durumundadır.
-- Teste özel project/actor/data/artifact kimlikleri production verisinden ayrılmıştır.
-- Release candidate digest ile policy, schema, model/tool ve infrastructure bundle sürümleri freeze edilmiştir.
-- Beklenen canonical records, events, policy decisions, telemetry ve audit assertions registry'ye girilmiştir.
-- Failure injection blast radius, kill switch, cleanup ve witness atanmıştır.
+- The related work packages are `INTEGRATED` or `COMMISSIONING_READY`.
+- Test-specific project, actor, data and artifact identifiers are separated from production data.
+- The release candidate digest and the policy, schema, model/tool and infrastructure bundle versions are frozen.
+- The expected canonical records, events, policy decisions, telemetry and audit assertions are entered in the registry.
+- The failure-injection blast radius, the kill switch, the cleanup procedure and the witness are assigned.
 
-## Test adımları
+## Test steps
 
-| # | İşlem | Toplanacak anlık kanıt |
+| # | Action | Evidence captured at this step |
 |---:|---|---|
-| 1 | Kaynağı agent candidate olarak ingest et | Execution log + trace/event references |
-| 2 | EvidenceSpan ve material Claim bağlantısı oluştur | Execution log + trace/event references |
-| 3 | Eligibility policy kararını doğrula | Execution log + trace/event references |
-| 4 | Write-back çağrısını iki kez aynı idempotency key ile gönder | Execution log + trace/event references |
-| 5 | Zotero item/collections/version ve registry binding'i oku | Execution log + trace/event references |
-| 6 | Manifest/export içinde kaynağı doğrula | Execution log + trace/event references |
+| 1 | Ingest the source as an agent candidate | Execution log + trace/event references |
+| 2 | Create the `EvidenceSpan` and the material claim link | Execution log + trace/event references |
+| 3 | Verify the eligibility policy decision | Execution log + trace/event references |
+| 4 | Send the write-back call twice with the same idempotency key | Execution log + trace/event references |
+| 5 | Read the Zotero item, collections and version, and the registry binding | Execution log + trace/event references |
+| 6 | Verify the source inside the manifest and its exports | Execution log + trace/event references |
 
-## Zorunlu invariant ve assertions
+## Mandatory invariants and assertions
 
-- [ ] Zotero'da tek item vardır
-- [ ] Item doğru managed collections içindedir
-- [ ] İkinci çağrı yeni item/yan etki üretmez
-- [ ] SyncReceipt previous/new version ve policy ID taşır
-- [ ] Kişisel library'de write yoktur
-- [ ] Expected canonical state ile actual state aynı veya açıklanmış güvenli failure state'indedir.
-- [ ] Duplicate, stale, forged veya partial input unsafe yan etki üretmemiştir.
-- [ ] Trace, event, audit ve business record aynı project/workflow/run correlation zincirindedir.
-- [ ] Test sırasında oluşan her Critical/High finding Finding Registry'ye kaydedilmiştir.
+- [ ] Exactly one item exists in Zotero
+- [ ] The item is inside the correct managed collections
+- [ ] The second call produces no new item and no side effect
+- [ ] The `SyncReceipt` carries the previous and new version plus the policy ID
+- [ ] There is no write to the personal library
+- [ ] The actual canonical state equals the expected state, or an explained safe failure state.
+- [ ] Duplicate, stale, forged or partial inputs produced no unsafe side effect.
+- [ ] Trace, event, audit and business records share one project/workflow/run correlation chain.
+- [ ] Every Critical or High finding raised during the test is recorded in the Finding Registry.
 
-## Beklenen canonical kayıtlar
+## Expected canonical records
 
 - `SourceRecord`
 - `ClaimRecord`
@@ -63,38 +66,47 @@ Bu senaryo, **Agent-Used Source Write-Back** durumunda hedef mimarinin fail-safe
 - `ZoteroBinding`
 - `SyncReceipt(write)`
 
-## Beklenen olaylar
+## Expected events
 
 - `source.used`
 - `zotero.write.requested`
 - `zotero.write.completed`
 - `literature.source.promoted`
 
-Beklenen olay sayısı/idempotency ve sıra kısıtları test registry'deki machine-readable assertion dosyasında tutulur. NATS event'i tek başına canonical state kanıtı değildir; ilgili service/Temporal commit'i ayrıca doğrulanır.
+Expected event counts, idempotency and ordering constraints live in the
+machine-readable assertion file inside the test registry. **A NATS event alone
+is not evidence of canonical state**; the corresponding service or Temporal
+commit is verified separately.
 
-## Kanıt paketi
+## Evidence package
 
-- `ACC-02-result.json`: PASS/FAIL, RC digest ve assertion sonuçları.
-- `ACC-02-execution-log.jsonl`: zaman sıralı test/fault/decision kayıtları.
-- `ACC-02-state-before.json` ve `ACC-02-state-after.json`.
-- `ACC-02-events.json`, `ACC-02-policy-decisions.json` ve `ACC-02-audit-export.json`.
-- `ACC-02-evidence-manifest.json`: bütün dosyaların hash, producer ve environment referansı.
-- Bağımsız witness `VerificationRecord` ve varsa finding/disposition kayıtları.
+- `ACC-02-result.json`: PASS/FAIL, the RC digest and the assertion results.
+- `ACC-02-execution-log.jsonl`: time-ordered test, fault and decision records.
+- `ACC-02-state-before.json` and `ACC-02-state-after.json`.
+- `ACC-02-events.json`, `ACC-02-policy-decisions.json` and `ACC-02-audit-export.json`.
+- `ACC-02-evidence-manifest.json`: the hash, producer and environment reference of every file.
+- The independent witness's `VerificationRecord`, plus any finding and disposition records.
 
-## PASS ölçütü
+## PASS criteria
 
-- Bütün scenario-specific assertions ve ortak integrity assertions geçer.
-- Beklenen fail-closed/block/revise davranışı happy-path başarı kadar geçerli bir PASS olabilir; beklenen state ile aynı olmalıdır.
-- Açık Critical/High finding yoktur.
-- Kanıt manifesti eksiksiz, hashleri doğrulanmış ve witness tarafından imzalanmıştır.
-- Aynı release candidate dışındaki sonuçlar birleştirilmemiştir.
+- All scenario-specific assertions and the common integrity assertions pass.
+- **An expected fail-closed, block or revise behaviour is as valid a PASS as a happy-path success** — provided it matches the expected state exactly.
+- No open Critical or High findings remain.
+- The evidence manifest is complete, its hashes verified and the package signed by the witness.
+- Results from a different release candidate have not been merged into this one.
 
-## FAIL ve yeniden test
+## FAIL and retest
 
-Bir invariant, kanıt bütünlüğü veya beklenen kayıt/event assertion'ı başarısızsa senaryo FAIL olur. Correction yalnız VALIDATED finding üzerinden açılır. Target revision veya ilgili policy/schema/model/tool bundle değişirse önceki sonuç geçersiz olur; senaryo ve etkilenen regression kümesi yeniden çalıştırılır.
+The scenario FAILs if any invariant, evidence-integrity check, or expected
+record/event assertion fails. A correction is opened only against a `VALIDATED`
+finding. If the target revision or any related policy, schema, model or tool
+bundle changes, the previous result becomes void and the scenario plus its
+affected regression set are rerun.
 
-## Cleanup ve geri dönüş
+## Cleanup and reversal
 
-Test grup item'ını managed cleanup policy ile trash'e al; canonical source/claim test kayıtlarını TEST disposition ile koru.
+Move the test group item to trash under the managed cleanup policy; retain the canonical source and claim test records with a `TEST` disposition.
 
-Cleanup canonical evidence ve audit geçmişini silmez. Destructive test fixture işlemleri yalnız explicit test namespace/kimlikleri üzerinde ve iki aşamalı doğrulamayla yapılır.
+Cleanup never deletes canonical evidence or audit history. Destructive test
+fixture operations run only against explicit test namespaces and identities, and
+only under two-stage confirmation.

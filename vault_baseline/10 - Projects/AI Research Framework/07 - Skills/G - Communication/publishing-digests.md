@@ -1,3 +1,7 @@
+> [!info] Generated view
+> This note is generated from `skills/publishing-digests/SKILL.md` in the repository. Edit the
+> canonical file and regenerate; edits made here are overwritten.
+
 ---
 name: publishing-digests
 version: 1.0.0
@@ -12,53 +16,57 @@ mechanical_checks: [read_only_sources, dlp_scan_passed, no_decision_embedded]
 
 # Publishing Digests
 
-## Genel ilke
+## Core principle
 
-Özet **salt-okunur bir türevdir**. Karar taşımaz, durum değiştirmez.
+A digest is a **read-only derivative**. It carries no decision and changes no
+state.
 
-## Ritim
+## Rhythm
 
-| Sıklık | İçerik | Alıcı |
+| Frequency | Content | Audience |
 |---|---|---|
-| **Günlük** | Açık kararlar + SLA riski + dünkü koşumlar + bütçe | Decision Owner |
-| **Haftalık** | Portföy durumu, gate akışı, bloke işler, açık bulgular | Tüm roller |
-| **Aylık** | **Metascience**: kalibrasyon, uyum, gate yield, kontrol FP/FN, claim survival | Assurance + Metascience |
-| **Çeyreklik** | Maliyet derinlemesine, model requalification, olay analizi | FinOps + Platform |
+| **Daily** | Open decisions, SLA risk, yesterday's runs, budget, attention-budget usage | Decision Owner |
+| **Weekly** | Portfolio state, gate flow, blocked work, open findings | All roles |
+| **Monthly** | **Metascience**: calibration, agreement, gate yield, control FP/FN, claim survival | Assurance + Metascience |
+| **Quarterly** | Cost deep-dive, model requalification, incident review | FinOps + Platform |
 
-## Günlük özet — zorunlu bölümler
-
-```
-1. Karar bekleyenler      → sayı, en eski bekleyen, SLA riski
-2. Bloke gate'ler         → hangi proje, hangi blocker, kim sahip
-3. Açık CRITICAL bulgular → sayı ve yaş
-4. Bütçe                  → kullanım oranı, hard limite kalan
-5. Dün tamamlananlar      → koşum, review, karar sayısı
-6. Dikkat bütçesi         → bu hafta kaç karar verildi / kota
-```
-
-## Aylık metascience özeti — en değerli olan
+## Daily digest — required sections
 
 ```
-- Confidence kalibrasyonu: Brier skoru, boyut bazında
-- Reviewer uyumu: κ ve ikili hata korelasyonu; kotayı bozan çiftler
-- Gate yield: hangi gate kaç gerçek bulgu yakaladı, birim maliyeti
-- Kontrol enjeksiyonu: yanlış pozitif / yanlış negatif oranı
-- Claim survival: 6/12/24 aylık hayatta kalma oranı
-- İnsan kararı: süre dağılımı, geri alma oranı, dissent override oranı
+1. Awaiting decision   → count, oldest pending, SLA risk
+2. Blocked gates       → which project, which blocker, which owner
+3. Open CRITICAL findings → count and age
+4. Budget              → utilisation, remaining to hard limit
+5. Completed yesterday → runs, reviews, decisions
+6. Attention budget    → decisions made this week / quota
 ```
 
-> Bu rapor laboratuvarın **karnesidir**. Kötü görünüyorsa gizlenmez.
+## Monthly metascience digest — the most valuable one
 
-## Kurallar
+```
+- Confidence calibration: Brier score, per dimension
+- Reviewer agreement: κ and pairwise error correlation; pairs breaking quota
+- Gate yield: real findings caught per gate, and unit cost
+- Control injection: false positive / false negative rate
+- Claim survival: 6 / 12 / 24-month survival rate
+- Human decisions: time distribution, reversal rate, dissent-override rate
+```
 
-- Kaynaklar salt-okunur; özet üretimi hiçbir durumu değiştirmez
-- Veri sınıfı tavanı [[notifying-humans]]'daki gibi uygulanır
-- Sayılar **kalibre edilmiş** olanlardır; `UNCALIBRATED` alanlar öyle gösterilir
-- Kötü haber gömülmez — özetin başında görünür
+> **This report is the lab's report card.** If it looks bad, it is not hidden.
+> It appears at the top, not in an appendix. A report card that only shows good
+> months is not a report card.
 
-## Kırmızı bayraklar
+## Rules
 
-- Özet üretimi bir durum değiştirmiş
-- `UNCALIBRATED` alanlar sayı gibi sunulmuş
-- Aylık metascience özeti hiç üretilmemiş
-- Kötü metrikler yalnız ekte
+- Sources are read-only; producing a digest changes no state
+- The data-class ceiling applies exactly as in `notifying-humans`
+- Numbers shown are the **calibrated** ones; `UNCALIBRATED` fields are shown as
+  such, never as numbers
+- Bad news is not buried — it leads
+
+## Red flags
+
+- Digest generation changed a state
+- `UNCALIBRATED` fields presented as numbers
+- The monthly metascience digest has never been produced
+- Poor metrics appear only in an appendix

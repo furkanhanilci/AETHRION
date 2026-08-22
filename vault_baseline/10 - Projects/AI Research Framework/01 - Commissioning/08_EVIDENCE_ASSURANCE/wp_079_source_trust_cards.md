@@ -1,99 +1,107 @@
-# WP-079 — SourceTrustCard ve Çalışma Kalitesi Değerlendirmesi
+# WP-079 — SourceTrustCard and Study Quality Assessment
 
-## Paket kartı
+## Package card
 
-| Alan | Değer |
+| Field | Value |
 |---|---|
-| İş paketi | `WP-079` |
+| Work package | `WP-079` |
 | Workstream | `08_EVIDENCE_ASSURANCE` |
-| İlk efor sınıfı | **M** — refinement'ta O/M/P tahmini zorunlu |
-| Accountable Owner | Methodologist |
-| Bağımsız doğrulayıcı | Independent Domain/Statistician Reviewer |
+| Initial effort class | **M** — medium — needs a dedicated integration window; a three-point (O/M/P) estimate is mandatory at refinement |
+| Accountable owner | Methodologist |
+| Independent verifier | Independent Domain/Statistician Reviewer |
 | Hard dependencies | WP-005, WP-017, WP-063, WP-075, WP-076, WP-078 |
-| İlgili gate | G3,G6,G10 |
-| İlgili kontroller | CTL-EPI-02, CTL-LIT-02 |
-| İlgili ACC senaryoları | İlgili dikey dilim ve commissioning sırasında atanır |
+| Related gates | G3,G6,G10 |
+| Related controls | CTL-EPI-02, CTL-LIT-02 |
+| Related acceptance scenarios | Assigned during the relevant vertical slice and commissioning |
+| Current status | `NOT_STARTED` |
 
-## Amaç ve beklenen sonuç
+## Purpose and expected outcome
 
-Kaynağın status, çalışma tasarımı, sample, measurement, bias, analysis, external validity ve reporting sınırları tek puan yerine gerekçeli trust kartında tutulur.
+A source's status, study design, sample, measurement, bias, analysis, external validity and reporting limits are held in a reasoned trust card rather than collapsed into a single score.
 
-## Kapsam dışı
+## Out of scope
 
-- Bağımlı paketin kendi iç implementasyonu
-- Production cutover ve nihai operasyon onayı
 
-## Önkoşullar ve Definition of Ready
+- The internal implementation of any dependent package
+- Production cutover and final operational approval
 
-- Bağımlılıklar kabul edilmiştir: [WP-005 — Araştırma Risk ve Assurance Profili](../01_GOVERNANCE/wp_005_risk_assurance_profile.md), [WP-017 — Source Registry ve Literature Contract Şemaları](../02_CONTRACTS/wp_017_source_literature_contracts.md), [WP-063 — Source Representation, Lisans ve Durum İzleme](../07_LITERATURE_KNOWLEDGE/wp_063_source_representation_status.md), [WP-075 — Canonical Claim/Evidence Ledger Servisi](../08_EVIDENCE_ASSURANCE/wp_075_claim_evidence_ledger.md), [WP-076 — Evidence Span Anchoring ve Re-anchoring](../08_EVIDENCE_ASSURANCE/wp_076_evidence_anchor_resolver.md), [WP-078 — Yapılandırılmış Evidence Extraction Hattı](../08_EVIDENCE_ASSURANCE/wp_078_evidence_extraction_pipeline.md)
-- Named owner, implementer ve producer'dan bağımsız verifier atanmıştır.
-- Etkilenen canonical kayıtlar, interface'ler ve ADR'lar refinement'ta ilişkilendirilmiştir.
-- DataClass, CodeTrust, ToolEffect ve ağ/credential kapsamı sınıflandırılmıştır.
-- Test fixture, environment, rollback noktası ve acceptance ölçüm yöntemi erişilebilirdir.
-- Efor için O/M/P kişi-gün tahmini ve gerçek kapasite rezervasyonu kaydedilmiştir.
+## Preconditions — Definition of Ready
 
-## Uygulama görevleri
+- Dependencies accepted: [WP-005 — Research Risk and Assurance Profile](../01_GOVERNANCE/wp_005_risk_assurance_profile.md), [WP-017 — Source Registry and Literature Contract Schemas](../02_CONTRACTS/wp_017_source_literature_contracts.md), [WP-063 — Source Representation, Licence and Status Monitoring](../07_LITERATURE_KNOWLEDGE/wp_063_source_representation_status.md), [WP-075 — Canonical Claim/Evidence Ledger Service](../08_EVIDENCE_ASSURANCE/wp_075_claim_evidence_ledger.md), [WP-076 — Evidence Span Anchoring and Re-anchoring](../08_EVIDENCE_ASSURANCE/wp_076_evidence_anchor_resolver.md), [WP-078 — Structured Evidence Extraction Pipeline](../08_EVIDENCE_ASSURANCE/wp_078_evidence_extraction_pipeline.md)
+- A named owner, a named implementer, and a verifier **independent of the producer** are assigned.
+- Affected canonical records, interfaces and ADRs have been linked during refinement.
+- `DataClass`, `CodeTrust`, `ToolEffect` and the network/credential scope are classified.
+- Test fixtures, the environment, the rollback point and the acceptance measurement method are reachable.
+- An O/M/P person-day estimate is recorded and real capacity is reserved against it.
 
-| Alt iş | Yapılacak iş | Sorumlu | Tamamlanma kanıtı |
+## Implementation tasks
+
+| Sub-task | Work to be done | Responsible | Completion evidence |
 |---|---|---|---|
-| WP-079-T01 | Kaynak türüne göre rubric/profile tanımla | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-079-T02 | Status/license/provenance otomatik alanlarını bağla | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-079-T03 | Method/bias/precision/applicability boyutlarını ayrı değerlendir | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-079-T04 | Human/agent assessment ve disagreement semantiği yaz | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-079-T05 | Expiry/new version/retraction impact kuralı ekle | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-079-T06 | Calibration sample ve reviewer guide hazırla | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
+| WP-079-T01 | Define rubrics and profiles per source type | Implementation owner | Commit / configuration / record reference |
+| WP-079-T02 | Bind the automatic status, licence and provenance fields | Implementation owner | Commit / configuration / record reference |
+| WP-079-T03 | Assess method, bias, precision and applicability as separate dimensions | Implementation owner | Commit / configuration / record reference |
+| WP-079-T04 | Write the human/agent assessment and disagreement semantics | Implementation owner | Commit / configuration / record reference |
+| WP-079-T05 | Add expiry, new-version and retraction impact rules | Implementation owner | Commit / configuration / record reference |
+| WP-079-T06 | Prepare the calibration sample and the reviewer guide | Implementation owner | Commit / configuration / record reference |
 
-## Zorunlu teslimatlar
+## Mandatory deliverables
 
 - `SourceTrustCard engine`
 - `Rubric profiles`
 - `Calibration set`
 - `Trust review UI contract`
-- Güncellenmiş runbook/operasyon notu ve servis/contract ownership kaydı
-- İmzalı `EvidenceManifest`
+- An updated runbook or operations note, plus the service/contract ownership record
+- A signed `EvidenceManifest`
 
-## Test ve doğrulama planı
+## Test and verification plan
 
-- High prestige weak method not high trust
-- Retraction override
+- A prestigious venue with a weak method not yielding high trust
+- Retraction overriding every other dimension
 - Reviewer calibration
-- Missing data UNKNOWN not zero
-- Yetkisiz, eksik, stale, duplicate ve partial-failure girdileri için en az bir negatif test
-- İlgili interface'lerde producer/consumer contract compatibility testi
-- Telemetry correlation ve audit kayıt bütünlüğü kontrolü
+- Missing data recorded as `UNKNOWN` rather than zero
+- At least one negative test for unauthorised, missing, stale, duplicate and partial-failure inputs
+- Producer/consumer contract compatibility tests on every affected interface
+- Telemetry correlation and audit-record integrity checks
 
-## Kabul kriterleri
+## Acceptance criteria
 
-- [ ] Trust tek authority score değildir
-- [ ] Kart rule/evidence/rationale taşır
-- [ ] Kaynak kalitesi claim entailment veya reproduction yerine geçmez
-- [ ] Bütün zorunlu testler aynı target revision üzerinde geçmiştir.
-- [ ] Açık Critical/High finding yoktur; non-waivable blocker bulunmamaktadır.
-- [ ] Bağımsız verifier kanıt paketini kabul etmiştir.
-- [ ] Rollback/compensation davranışı denenmiş ve audit edilmiştir.
-- [ ] İlgili dashboard, alert, audit query veya integrity query çalışma kanıtı üretmiştir.
+- [ ] Trust is not a single authority score.
+- [ ] Every card carries its rules, evidence and rationale.
+- [ ] Source quality never substitutes for claim entailment or reproduction.
+- [ ] All mandatory tests passed **on the same target revision**.
+- [ ] No open Critical or High findings; no non-waivable blocker remains.
+- [ ] The independent verifier has accepted the evidence package.
+- [ ] Rollback/compensation behaviour has been exercised and audited.
+- [ ] The related dashboard, alert, audit query or integrity query has produced working evidence.
 
-## Kabul kanıtı paketi
+## Acceptance evidence package
 
-- Aynı target revision/digest üzerinde alınmış test sonuçları
-- Environment, schema, policy ve dependency sürümlerini içeren EvidenceManifest
-- Bağımsız verifier ReviewRecord veya VerificationRecord'u
-- Rollback/compensation denemesi ve sonuç referansı
-- Açık finding, residual risk ve owner/expiry listesi
+- Test results captured on the same target revision/digest
+- An `EvidenceManifest` recording the environment, schema, policy and dependency versions
+- The independent verifier's `ReviewRecord` or `VerificationRecord`
+- The rollback/compensation trial and its result reference
+- The list of open findings and residual risks with owners and expiry dates
 
-## Riskler ve kontrol noktaları
+## Risks and control points
 
-- Contract veya canonical sahiplik belirsizse implementasyon durur ve Architecture Board'a eskale edilir.
-- Identity, data route, artifact integrity, bağımsızlık veya kritik evidence problemi waiver ile geçirilemez.
-- Geçici manuel kontrol gerekiyorsa owner, scope, expiry, compensating control ve kaldırma paketi kaydedilir.
-- Paket tamamlandı beyanı acceptance değildir; verifier kararı olmadan yalnız `TECH_COMPLETE` olabilir.
+- If a contract or canonical ownership question is unresolved, implementation **stops** and the question escalates to the Architecture Board.
+- Identity, data routing, artifact integrity, independence and critical evidence problems **cannot** be passed by waiver.
+- If a temporary manual control is required, its owner, scope, expiry, compensating control and removal package are recorded.
+- A "package complete" statement is **not** acceptance. Without a verifier decision the package can only be `TECH_COMPLETE`.
+
+### Workstream-specific hazards
+
+- Independence asserted in a record but not enforced by the router is decorative.
+- A review that sees the producer's conclusion first is anchored, not independent.
+- Reproduction that reuses the producer's environment reproduces the environment, not the result.
 
 ## Rollback / compensation
 
-Rubric değişikliği eski kartı mutate etmez; re-assessment queue ve version üretir.
+A rubric change never mutates an existing card; it produces a re-assessment queue and a new card version.
 
-Immutable artifact, review ve karar geçmişi rollback sırasında silinmez; yeni durum supersession veya invalidation kaydıyla gösterilir.
+Immutable artifacts, reviews and decision history are **not** deleted during a rollback; the new state is expressed through a supersession or invalidation record.
 
-## Handoff ve sonraki paketlere giriş
+## Handoff into downstream packages
 
-Paket kabul edildiğinde teslim artifact'larının version/digest'leri Package Registry'ye yazılır, dependency event'i yayımlanır ve bu pakete bağlı READY adayları yeniden değerlendirilir. Downstream paket yalnız burada listelenen contract ve kanıt referanslarını tüketir; implementasyon iç ayrıntılarına bağlanmaz.
+On acceptance, the version and digest of every delivered artifact is written to the Package Registry, the dependency event is published, and every `READY` candidate blocked on this package is re-evaluated. A downstream package consumes **only** the contracts and evidence references listed above; it does not bind to internal implementation details.

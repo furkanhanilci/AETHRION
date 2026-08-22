@@ -1,99 +1,107 @@
-# WP-108 — Retraction, Drift ve Supersession Dikey Dilimi
+# WP-108 — Retraction, Drift and Supersession Vertical Slice
 
-## Paket kartı
+## Package card
 
-| Alan | Değer |
+| Field | Value |
 |---|---|
-| İş paketi | `WP-108` |
+| Work package | `WP-108` |
 | Workstream | `10_INTEGRATION_CUTOVER` |
-| İlk efor sınıfı | **L** — refinement'ta O/M/P tahmini zorunlu |
-| Accountable Owner | Knowledge Monitoring Lead |
-| Bağımsız doğrulayıcı | Assurance / Eval Office / Decision Owner |
+| Initial effort class | **L** — large — split into sub-deliveries if it cannot be reviewed in one pass; a three-point (O/M/P) estimate is mandatory at refinement |
+| Accountable owner | Knowledge Monitoring Lead |
+| Independent verifier | Assurance / Eval Office / Decision Owner |
 | Hard dependencies | WP-037, WP-042, WP-044, WP-063, WP-075, WP-077, WP-090, WP-095, WP-106 |
-| İlgili gate | G10 |
-| İlgili kontroller | CTL-LIT-02, CTL-MOD-02 |
-| İlgili ACC senaryoları | ACC-04, ACC-31, ACC-36 |
+| Related gates | G10 |
+| Related controls | CTL-LIT-02, CTL-MOD-02 |
+| Related acceptance scenarios | ACC-04, ACC-31, ACC-36 |
+| Current status | `NOT_STARTED` |
 
-## Amaç ve beklenen sonuç
+## Purpose and expected outcome
 
-Source retraction/correction, model snapshot revoke, dataset/policy change ve incident; etkilenen claim/run/publication/task'ları doğru owner ve yeniden değerlendirme yoluna taşır.
+Source retractions and corrections, model snapshot revocations, dataset and policy changes and incidents route the affected claims, runs, publications and tasks to the right owner and re-evaluation path.
 
-## Kapsam dışı
+## Out of scope
 
-- Bağımlı paketin kendi iç implementasyonu
-- Production cutover ve nihai operasyon onayı
 
-## Önkoşullar ve Definition of Ready
+- The internal implementation of any dependent package
+- Production cutover and final operational approval
 
-- Bağımlılıklar kabul edilmiştir: [WP-037 — G10 Temporal Schedule ve Kısa ImpactScan](../04_CONTROL_EVENT/wp_037_g10_impactscan.md), [WP-042 — Capability Registry ve Profil Yaşam Döngüsü](../05_MODEL_AGENT_TOOL/wp_042_capability_registry.md), [WP-044 — Model Qualification ve Admission Pipeline](../05_MODEL_AGENT_TOOL/wp_044_model_qualification_admission.md), [WP-063 — Source Representation, Lisans ve Durum İzleme](../07_LITERATURE_KNOWLEDGE/wp_063_source_representation_status.md), [WP-075 — Canonical Claim/Evidence Ledger Servisi](../08_EVIDENCE_ASSURANCE/wp_075_claim_evidence_ledger.md), [WP-077 — Claim State, Dependency ve Assessment Motoru](../08_EVIDENCE_ASSURANCE/wp_077_claim_state_dependency.md), [WP-090 — PublicationPackage, RO-Crate ve Provenance Export](../08_EVIDENCE_ASSURANCE/wp_090_publication_package.md), [WP-095 — Claim/Evidence Explorer ve Provenance Graph](../09_EXPERIENCE_OBSERVABILITY/wp_095_claim_evidence_explorer.md), [WP-106 — Dikey Dilim 5 — Human Decision → Publish → Monitor](../10_INTEGRATION_CUTOVER/wp_106_vertical_slice_decision_publish_monitor.md)
-- Named owner, implementer ve producer'dan bağımsız verifier atanmıştır.
-- Etkilenen canonical kayıtlar, interface'ler ve ADR'lar refinement'ta ilişkilendirilmiştir.
-- DataClass, CodeTrust, ToolEffect ve ağ/credential kapsamı sınıflandırılmıştır.
-- Test fixture, environment, rollback noktası ve acceptance ölçüm yöntemi erişilebilirdir.
-- Efor için O/M/P kişi-gün tahmini ve gerçek kapasite rezervasyonu kaydedilmiştir.
+## Preconditions — Definition of Ready
 
-## Uygulama görevleri
+- Dependencies accepted: [WP-037 — G10 Temporal Schedules and Short ImpactScan Workflows](../04_CONTROL_EVENT/wp_037_g10_impactscan.md), [WP-042 — Capability Registry and Profile Lifecycle](../05_MODEL_AGENT_TOOL/wp_042_capability_registry.md), [WP-044 — Model Qualification and Admission Pipeline](../05_MODEL_AGENT_TOOL/wp_044_model_qualification_admission.md), [WP-063 — Source Representation, Licence and Status Monitoring](../07_LITERATURE_KNOWLEDGE/wp_063_source_representation_status.md), [WP-075 — Canonical Claim/Evidence Ledger Service](../08_EVIDENCE_ASSURANCE/wp_075_claim_evidence_ledger.md), [WP-077 — Claim State, Dependency and Assessment Engine](../08_EVIDENCE_ASSURANCE/wp_077_claim_state_dependency.md), [WP-090 — PublicationPackage, RO-Crate and Provenance Export](../08_EVIDENCE_ASSURANCE/wp_090_publication_package.md), [WP-095 — Claim/Evidence Explorer and Provenance Graph](../09_EXPERIENCE_OBSERVABILITY/wp_095_claim_evidence_explorer.md), [WP-106 — Vertical Slice 5 — Human Decision, Publish and Monitor](../10_INTEGRATION_CUTOVER/wp_106_vertical_slice_decision_publish_monitor.md)
+- A named owner, a named implementer, and a verifier **independent of the producer** are assigned.
+- Affected canonical records, interfaces and ADRs have been linked during refinement.
+- `DataClass`, `CodeTrust`, `ToolEffect` and the network/credential scope are classified.
+- Test fixtures, the environment, the rollback point and the acceptance measurement method are reachable.
+- An O/M/P person-day estimate is recorded and real capacity is reserved against it.
 
-| Alt iş | Yapılacak iş | Sorumlu | Tamamlanma kanıtı |
+## Implementation tasks
+
+| Sub-task | Work to be done | Responsible | Completion evidence |
 |---|---|---|---|
-| WP-108-T01 | Retraction/correction/model/data/policy/incident fixtures üret | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-108-T02 | Schedule/event→ImpactScan ve graph query çalıştır | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-108-T03 | Affected claim/task/project/publication setini karşılaştır | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-108-T04 | Priority/SLA/owner ve provisional/challenged state uygula | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-108-T05 | Re-review/repro/republish veya no-impact disposition yap | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-108-T06 | False-positive ve duplicate trigger idempotency test et | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
+| WP-108-T01 | Produce the retraction, correction, model, data, policy and incident fixtures | Implementation owner | Commit / configuration / record reference |
+| WP-108-T02 | Run the schedule/event → `ImpactScan` and the graph query | Implementation owner | Commit / configuration / record reference |
+| WP-108-T03 | Compare the computed affected claim/task/project/publication set against the expected set | Implementation owner | Commit / configuration / record reference |
+| WP-108-T04 | Apply priority, SLA, owner and the provisional/challenged state | Implementation owner | Commit / configuration / record reference |
+| WP-108-T05 | Perform re-review, reproduction, republication or a no-impact disposition | Implementation owner | Commit / configuration / record reference |
+| WP-108-T06 | Test false-positive handling and duplicate-trigger idempotency | Implementation owner | Commit / configuration / record reference |
 
-## Zorunlu teslimatlar
+## Mandatory deliverables
 
 - `Impact vertical dossier`
 - `ImpactCase set`
 - `Affected-object accuracy report`
 - `Supersession/re-evaluation records`
-- Güncellenmiş runbook/operasyon notu ve servis/contract ownership kaydı
-- İmzalı `EvidenceManifest`
+- An updated runbook or operations note, plus the service/contract ownership record
+- A signed `EvidenceManifest`
 
-## Test ve doğrulama planı
+## Test and verification plan
 
-- ACC-04/31/36
-- Duplicate trigger one case
-- False-positive disposition
-- Open task model revoke
-- Yetkisiz, eksik, stale, duplicate ve partial-failure girdileri için en az bir negatif test
-- İlgili interface'lerde producer/consumer contract compatibility testi
-- Telemetry correlation ve audit kayıt bütünlüğü kontrolü
+- ACC-04, 31 and 36
+- A duplicate trigger producing one case
+- A false-positive disposition
+- A model revocation against an open task
+- At least one negative test for unauthorised, missing, stale, duplicate and partial-failure inputs
+- Producer/consumer contract compatibility tests on every affected interface
+- Telemetry correlation and audit-record integrity checks
 
-## Kabul kriterleri
+## Acceptance criteria
 
-- [ ] Affected set recall critical fixtures için %100
-- [ ] Eski object sessiz mutate edilmez
-- [ ] Her material impact named owner ve deadline taşır
-- [ ] Bütün zorunlu testler aynı target revision üzerinde geçmiştir.
-- [ ] Açık Critical/High finding yoktur; non-waivable blocker bulunmamaktadır.
-- [ ] Bağımsız verifier kanıt paketini kabul etmiştir.
-- [ ] Rollback/compensation davranışı denenmiş ve audit edilmiştir.
-- [ ] İlgili dashboard, alert, audit query veya integrity query çalışma kanıtı üretmiştir.
+- [ ] Affected-set recall is 100% for the critical fixtures.
+- [ ] No existing object is silently mutated.
+- [ ] Every material impact carries a named owner and a deadline.
+- [ ] All mandatory tests passed **on the same target revision**.
+- [ ] No open Critical or High findings; no non-waivable blocker remains.
+- [ ] The independent verifier has accepted the evidence package.
+- [ ] Rollback/compensation behaviour has been exercised and audited.
+- [ ] The related dashboard, alert, audit query or integrity query has produced working evidence.
 
-## Kabul kanıtı paketi
+## Acceptance evidence package
 
-- Aynı target revision/digest üzerinde alınmış test sonuçları
-- Environment, schema, policy ve dependency sürümlerini içeren EvidenceManifest
-- Bağımsız verifier ReviewRecord veya VerificationRecord'u
-- Rollback/compensation denemesi ve sonuç referansı
-- Açık finding, residual risk ve owner/expiry listesi
+- Test results captured on the same target revision/digest
+- An `EvidenceManifest` recording the environment, schema, policy and dependency versions
+- The independent verifier's `ReviewRecord` or `VerificationRecord`
+- The rollback/compensation trial and its result reference
+- The list of open findings and residual risks with owners and expiry dates
 
-## Riskler ve kontrol noktaları
+## Risks and control points
 
-- Contract veya canonical sahiplik belirsizse implementasyon durur ve Architecture Board'a eskale edilir.
-- Identity, data route, artifact integrity, bağımsızlık veya kritik evidence problemi waiver ile geçirilemez.
-- Geçici manuel kontrol gerekiyorsa owner, scope, expiry, compensating control ve kaldırma paketi kaydedilir.
-- Paket tamamlandı beyanı acceptance değildir; verifier kararı olmadan yalnız `TECH_COMPLETE` olabilir.
+- If a contract or canonical ownership question is unresolved, implementation **stops** and the question escalates to the Architecture Board.
+- Identity, data routing, artifact integrity, independence and critical evidence problems **cannot** be passed by waiver.
+- If a temporary manual control is required, its owner, scope, expiry, compensating control and removal package are recorded.
+- A "package complete" statement is **not** acceptance. Without a verifier decision the package can only be `TECH_COMPLETE`.
+
+### Workstream-specific hazards
+
+- Vertical slices fail at the seams; per-package green says little about the seam.
+- A cutover rehearsal that differs from the real procedure has rehearsed the wrong thing.
+- The rollback point must be verified by a query, not by an assertion.
 
 ## Rollback / compensation
 
-Hatalı case disposition supersede edilir; trigger ve eski status audit history'de kalır.
+A faulty case disposition is superseded; the trigger and the previous status remain in the audit history.
 
-Immutable artifact, review ve karar geçmişi rollback sırasında silinmez; yeni durum supersession veya invalidation kaydıyla gösterilir.
+Immutable artifacts, reviews and decision history are **not** deleted during a rollback; the new state is expressed through a supersession or invalidation record.
 
-## Handoff ve sonraki paketlere giriş
+## Handoff into downstream packages
 
-Paket kabul edildiğinde teslim artifact'larının version/digest'leri Package Registry'ye yazılır, dependency event'i yayımlanır ve bu pakete bağlı READY adayları yeniden değerlendirilir. Downstream paket yalnız burada listelenen contract ve kanıt referanslarını tüketir; implementasyon iç ayrıntılarına bağlanmaz.
+On acceptance, the version and digest of every delivered artifact is written to the Package Registry, the dependency event is published, and every `READY` candidate blocked on this package is re-evaluated. A downstream package consumes **only** the contracts and evidence references listed above; it does not bind to internal implementation details.

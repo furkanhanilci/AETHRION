@@ -11,58 +11,76 @@ emits: [Skill, BaselineTestRecord]
 
 # Writing Skills
 
-## Genel ilke
+## Core principle
 
-Skill, dokümantasyona uygulanmış TDD'dir. Önce ajanın **nasıl başarısız
-olduğunu izle**, sonra o spesifik başarısızlıkları kapatan minimum belgeyi yaz.
+A skill is test-driven development applied to documentation. First observe how
+an agent fails **without** the skill, then write the minimum text that closes
+those specific failures.
 
-## Demir kural
+## Iron law
 
-> **BAŞARISIZ BİR BASELINE TESTİ OLMADAN SKILL YAZILMAZ.**
+> **NO SKILL WITHOUT A FAILING BASELINE TEST FIRST.**
 
-İstisna yok: "basit ekleme", "sadece güncelleme", "test edilmemiş küçük
-düzeltme". Test edilmemiş iş silinir, baştan başlanır.
+No exceptions: not for "a small addition", not for "just an update", not for
+"an untested minor fix". Untested work is deleted and restarted.
 
-## Prosedür
+## Procedure
 
-**RED** — Skill olmadan baseline senaryoyu çalıştır. Ajanın davranışını ve
-ürettiği gerekçeleri **kelimesi kelimesine** kaydet (`baselines/`).
+**RED** — Run the baseline scenario without the skill. Record the agent's
+behaviour and, **verbatim**, the justifications it produces for non-compliance.
+Store them under `baselines/`.
 
-**GREEN** — Yalnız o başarısızlıkları kapatan minimum skill'i yaz. Yeniden
-çalıştır, uyum sağladığını doğrula.
+**GREEN** — Write the minimum skill that closes exactly those failures. Re-run.
+Confirm compliance.
 
-**REFACTOR** — Yeni kaçamak gerekçelerini bul, açıkça kapat, tekrar test et.
+**REFACTOR** — Find the new evasions the skill did not anticipate. Close them
+explicitly. Re-test. Repeat until the loophole set stops growing.
 
-## `description` kuralı — kritik
+## The `description` rule — critical
 
-`description` **yalnız tetikleyici koşulu** anlatır, asla prosedürü.
+`description` states **trigger conditions only**, never the procedure.
 
 - ✅ `Use when a ClaimCandidate exists without a linked EvidenceSpan`
 - ❌ `Use for evidence extraction — find source, extract span, score confidence`
 
-**Sebep:** Prosedürü özetleyen açıklama, ajanın skill'i okumak yerine özeti
-izlemesine yol açar. Bu deneysel olarak gözlenmiş bir hata modudur.
+**Why:** a description that summarises the procedure causes the agent to follow
+the summary instead of reading the skill. This is an observed failure mode, not
+a style preference. In one documented case a description mentioning "code review
+between tasks" produced one review where the skill's own flowchart required two.
 
-## Disiplin skill'leri için zorunlu bölümler
+## Required sections for discipline skills
 
-- **Demir kural** — tek cümle, istisnasız
-- **Rasyonalizasyon tablosu** — baseline'da gözlenen gerçek gerekçeler + hüküm
-- **Kırmızı bayraklar** — skill'in atlandığını gösteren işaretler
+- **Iron law** — one sentence, no exceptions clause
+- **Rationalization table** — the real justifications observed in baseline
+  testing, each with a ruling
+- **Red flags** — observable signs the skill was skipped
 
-Zayıf: *"Plan olmadan analiz mi yaptın? Etiketle."*
-Güçlü: *"Plan olmadan analiz mi yaptın? `exploratory`. Kalıcı olarak. İstisna yok: referans diye saklama, 'ön analizdi' deme, 'küçüktü' deme."*
+Weak: *"Ran analysis without a plan? Label it."*
 
-## Boyut sınırı
+Strong: *"Ran analysis without a plan? It is `exploratory`. Permanently. No
+exceptions: not as 'reference', not as 'that was just a pilot', not as 'it was
+a small change'."*
 
-Giriş skill'leri `<150` kelime. Sık yüklenenler `<200`. Diğerleri `<500`.
+The difference is that the strong form names the specific evasions in advance.
 
-## Bileşim
+## Size limits
 
-Bağımlı skill'e **referans ver, gömme**:
-`**GEREKLİ ARKA PLAN:** airl:anchoring-spans`
+Entry skills `<150` words. Frequently loaded `<200`. Others `<500`. A skill is
+loaded on every trigger; its size is a tax paid every time.
 
-## Kırmızı bayraklar
+Heavy reference material belongs in a sibling `procedure.md`, not in `SKILL.md`.
 
-- Baseline testi olmayan skill → geçersiz, birleştirilmez
-- Rasyonalizasyon tablosu olmayan disiplin skill'i → dayanıksız
-- Birden çok skill'i test etmeden toplu üretmek → ihlal
+## Composition
+
+Reference dependent skills; do not inline them:
+
+- ✅ `**REQUIRED BACKGROUND:** airl:anchoring-spans`
+- ❌ Pasting the other skill's content — this burns context on every load
+
+## Red flags
+
+- A skill with no baseline test → invalid, not merged
+- A discipline skill with no rationalization table → will not survive contact
+  with a motivated agent
+- Several skills authored in a batch without testing each → violation
+- A rationalization table containing invented excuses rather than observed ones

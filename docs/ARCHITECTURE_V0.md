@@ -1,77 +1,95 @@
-# AI Research Framework Yerel Bilgi Mimarisi — V0
+# Local Knowledge Architecture — V0
 
-## Amaç
+## Purpose
 
-Bu dikey dilim Zotero'yu kaynak otoritesi, SQLite kayıt defterini kanonik
-entegrasyon katmanı, Obsidian'ı okunabilir bilgi çalışma alanı ve Hermes'i
-salt-okunur agent erişim yüzeyi olarak kullanır.
+This vertical slice treats Zotero as the source authority, SQLite as the
+canonical integration layer, Obsidian as the readable knowledge workspace, and
+Hermes as a read-only agent access surface.
+
+It is deliberately small. Its job is to prove that a full evidence path can run
+end to end before any of the larger infrastructure exists.
 
 ```text
-Zotero Local API (salt-okunur)
+Zotero Local API (read-only)
         |
         v
 AIRL Bridge API @ 127.0.0.1:8765
         |
-        +--> SQLite/WAL kanonik kaynak kayıt defteri
+        +--> SQLite/WAL canonical source registry
         |
         +--> Obsidian: 70 - Literature Sets/Zotero Sources
         |
-        +--> Hermes MCP: beş salt-okunur araç
+        +--> Hermes MCP: five read-only tools
 ```
 
-## Obsidian yerleşimi
+## Obsidian layout
 
 ```text
 00 - Home/
-  AI Research Framework Home.md
+  ai_research_framework_home.md
 01 - Inbox/
 10 - Projects/
   AI Research Framework/
-    AI Research Framework — Current Status and Roadmap.md
-    00 - Plan Navigasyonu ve Yürütme Kokpiti.md
-    01 - Commissioning/
-20 - Source Notes/                 # insan sentezi
+    00_navigation_and_execution_cockpit.md
+    ai_research_framework_current_status_and_roadmap.md
+    01 - Commissioning/  02 - Reviews/  03 - Implementation/
+    04 - Architecture/   05 - Evidence/ 06 - Components/  07 - Skills/
+20 - Source Notes/                 # human synthesis
 30 - Concepts/
 40 - Claims/
 50 - Decisions/
 60 - Runs/
 70 - Literature Sets/
-  Literature Sets.md               # insan kürasyonu
-  Zotero Sources/                 # otomatik yönetilen dal
+  literature_sets.md               # human curation
+  Zotero Sources/                  # automatically managed branch
     00 - Control Dashboard/
     01 - Journal Articles/
     02 - Conference Papers/
     03 - Reports and Preprints/
+80 - Daily/
 90 - Archive/
 _Templates/
 ```
 
-## Değişmezler
+## Invariants
 
-1. Bridge ve Zotero bağlantıları yalnız yerel makinede dinler.
-2. Zotero'dan veri alma salt-okunurdur; API anahtarı ve yazma işlemi yoktur.
-3. `Zotero Sources` dalı yeniden üretilebilir ve elle düzenlenmez.
-4. İnsan sentezi `20 - Source Notes`, kürasyonlu setler `70 - Literatür
-   Setleri` kökü altında tutulur.
-5. Üretilen dosyalar makale başlığıyla adlandırılır; yalnız aynı başlık
-   çakışmalarında kararlı `Zotero ITEMKEY` eki kullanılır.
-6. Olası kopyalar raporlanır; otomatik silme veya birleştirme yapılmaz.
-7. Hermes'e yalnız durum, arama, ayrıntı, kategori ve kopya raporu araçları
-   açılır.
-8. Senkron tekrarlanabilir; aynı Zotero öğesi aynı kanonik kimliği korur.
+1. The Bridge and the Zotero connection listen on the local machine only.
+2. Ingest from Zotero is read-only. There is no API key and no write operation.
+3. The `Zotero Sources` branch is regenerated and is not hand-edited.
+4. Human synthesis lives in `20 - Source Notes`; curated sets live at the root of
+   `70 - Literature Sets`.
+5. Generated files are named from the article title; a stable
+   `Zotero ITEMKEY` suffix is used only for same-title collisions.
+6. Possible duplicates are reported. Nothing is merged or deleted automatically.
+7. Hermes is offered only status, search, detail, category and duplicate-report
+   tools.
+8. Synchronisation is repeatable; the same Zotero item retains the same canonical
+   identity.
 
-## Yetki sınırları
+## Authority boundaries
 
-| Bileşen | Okuma | Yazma |
+| Component | Reads | Writes |
 |---|---|---|
-| Zotero Local API | Kaynak metadata | Yok |
-| Bridge API | Kaynak kayıtları | Yerel SQLite ve otomatik Obsidian dalı |
-| Hermes MCP | Beş katalog işlemi | Yok |
-| İnsan | Tüm vault görünümü | Otomatik Zotero dalı dışındaki bilgi alanları |
+| Zotero Local API | Source metadata | Nothing |
+| Bridge API | Source records | Local SQLite and the automatic Obsidian branch |
+| Hermes MCP | Five catalogue operations | Nothing |
+| Human | The entire vault | Everything except the automatic Zotero branch |
 
-## Ertelenen kapsam
+## Known limitations
 
-Zotero write-back, otomatik kopya birleştirme, iki yönlü Obsidian senkronu,
-uzak API yayını, Temporal/LangGraph/Kubernetes ve üretim kimlik altyapısı V0
-kapsamında değildir. Bunlar ayrı kabul ölçütleri ve geri alma planı olmadan
-etkinleştirilmemelidir.
+These are real and documented rather than deferred:
+
+| Limitation | Effect | Finding |
+|---|---|---|
+| Ingest capped at 100 records, no pagination | Silent partial sync above 100 sources | H1 |
+| No deletion reconciliation | Sources removed in Zotero persist as ghosts | H2 |
+| `zotero_write_enabled` is a constant | The read-only guarantee is asserted, not tested | H3 |
+| Unauthenticated mutating endpoints on loopback | Local CSRF and DNS-rebinding exposure | M1 |
+| Silent truncation at 10,000 rows | Projection would drop sources beyond that | M9 |
+
+## Deferred scope
+
+Zotero write-back, automatic duplicate merging, bidirectional Obsidian
+synchronisation, remote API exposure, Temporal/LangGraph/Kubernetes, and
+production identity infrastructure are outside V0. None of them should be
+enabled without their own acceptance criteria and a rollback plan.

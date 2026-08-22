@@ -1,31 +1,33 @@
 # Implementation Index
 
-Gerçek uygulama adımlarının proje görünümü. Ayrıntılı kronoloji
-[[10 - Projects/AI Research Framework/implementation_log|Implementation Log]] içindedir.
+The project view of the real implementation steps. The detailed chronology lives
+in [[10 - Projects/AI Research Framework/implementation_log|Implementation Log]].
 
-## Adım kaydı zorunlulukları
+## What every step record must carry
 
-Her adım şunları ayrı ayrı taşır:
+Each step records these separately:
 
-- ne yapıldı
-- neden yapıldı
-- hangi WP/ACC'ye bağlandı
-- **kanıt ve taze test çıktısı**
-- neyin hâlâ eksik olduğu
-- bir sonraki exact adım
+- what was done
+- why it was done
+- which WP or ACC it is bound to
+- **the evidence and the fresh test output**
+- what is still missing
+- the exact next step
 
-## Adım geçmişi
+## Step history
 
-| Adım | Tarih | Durum |
+| Step | Date | Status |
 |---|---|---|
-| Step 003 — Bağımsız denetim ve hedef yapı tasarımı | 2026-08-22 | `DESIGN_PROPOSED` |
-| Step 002 — Merkezi proje organizasyonu | 2026-08-21 | `DOCUMENTATION_VISIBLE` |
-| Step 001 — Foundation ve contract çekirdeği | 2026-08-22 | `TECH_COMPLETE` |
-| Step 000-A…G — Geriye dönük kayıt | 2026-08-21 | tamamlandı |
+| Step 004 — Full English revision of the corpus | 2026-08-22 | `DOCUMENTATION_COMPLETE` |
+| Step 003 — Independent audit and target-structure design | 2026-08-22 | `DESIGN_PROPOSED` |
+| Step 002 — Central project organisation | 2026-08-21 | `DOCUMENTATION_VISIBLE` |
+| Step 001 — Foundation and contract core | 2026-08-22 | `TECH_COMPLETE` |
+| Step 000-A…G — Retrospective record | 2026-08-21 | complete |
 
-## Uygulama disiplini
+## Implementation discipline
 
-Bir adım `TECH_COMPLETE` olabilir; `ACCEPTED` olması bağımsız doğrulayıcı
-kararına bağlıdır. Bkz. [[verification-before-completion]].
+A step may reach `TECH_COMPLETE`; reaching `ACCEPTED` depends on an independent
+verifier's decision. See [[verification-before-completion]].
 
-> Bridge burada framework'ün **bir bileşeni** olarak izlenir, kökü olarak değil.
+> The Bridge is tracked here as **one component** of the framework, not as its
+> root.

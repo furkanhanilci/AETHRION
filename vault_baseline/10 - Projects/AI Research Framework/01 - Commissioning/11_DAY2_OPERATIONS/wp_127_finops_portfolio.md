@@ -1,100 +1,108 @@
-# WP-127 — FinOps, Kapasite ve Portfolio Review Ritmi
+# WP-127 — FinOps, Capacity and Portfolio Review Rhythm
 
-## Paket kartı
+## Package card
 
-| Alan | Değer |
+| Field | Value |
 |---|---|
-| İş paketi | `WP-127` |
+| Work package | `WP-127` |
 | Workstream | `11_DAY2_OPERATIONS` |
-| İlk efor sınıfı | **M** — refinement'ta O/M/P tahmini zorunlu |
-| Accountable Owner | FinOps Lead / Research Director |
-| Bağımsız doğrulayıcı | Internal Audit / Assurance |
+| Initial effort class | **M** — medium — needs a dedicated integration window; a three-point (O/M/P) estimate is mandatory at refinement |
+| Accountable owner | FinOps Lead / Research Director |
+| Independent verifier | Internal Audit / Assurance |
 | Hard dependencies | WP-100, WP-117, WP-121 |
-| İlgili gate | G0,G4,G8,Day-2 |
-| İlgili kontroller | CTL-CST-01, CTL-CST-02 |
-| İlgili ACC senaryoları | ACC-09, ACC-29 |
+| Related gates | G0,G4,G8,Day-2 |
+| Related controls | CTL-CST-01, CTL-CST-02 |
+| Related acceptance scenarios | ACC-09, ACC-29 |
+| Current status | `NOT_STARTED` |
 
-## Amaç ve beklenen sonuç
+## Purpose and expected outcome
 
-Aylık invoice reconciliation, forecast, quality-adjusted cost/outcome, queue capacity, model mix ve stop/pivot portföy kararları kalıcı hale gelir.
+Monthly invoice reconciliation, forecasting, quality-adjusted cost versus outcome, queue capacity, model mix and stop/pivot portfolio decisions become permanent practice.
 
-## Kapsam dışı
+## Out of scope
 
-- Bağımlı paketin kendi iç implementasyonu
-- Production cutover ve nihai operasyon onayı
 
-## Önkoşullar ve Definition of Ready
+- The internal implementation of any dependent package
+- Production cutover and final operational approval
 
-- Bağımlılıklar kabul edilmiştir: [WP-100 — Cost Ledger, Bütçe Zarfları ve FinOps](../09_EXPERIENCE_OBSERVABILITY/wp_100_cost_ledger_finops.md), [WP-117 — Performans, Kapasite ve Yük Commissioning](../10_INTEGRATION_CUTOVER/wp_117_performance_capacity.md), [WP-121 — Hypercare, Stabilizasyon ve Program Kapanışı](../10_INTEGRATION_CUTOVER/wp_121_hypercare_stabilization.md)
-- Named owner, implementer ve producer'dan bağımsız verifier atanmıştır.
-- Etkilenen canonical kayıtlar, interface'ler ve ADR'lar refinement'ta ilişkilendirilmiştir.
-- DataClass, CodeTrust, ToolEffect ve ağ/credential kapsamı sınıflandırılmıştır.
-- Test fixture, environment, rollback noktası ve acceptance ölçüm yöntemi erişilebilirdir.
-- Efor için O/M/P kişi-gün tahmini ve gerçek kapasite rezervasyonu kaydedilmiştir.
+## Preconditions — Definition of Ready
 
-## Uygulama görevleri
+- Dependencies accepted: [WP-100 — Cost Ledger, Budget Envelopes and FinOps](../09_EXPERIENCE_OBSERVABILITY/wp_100_cost_ledger_finops.md), [WP-117 — Performance, Capacity and Load Commissioning](../10_INTEGRATION_CUTOVER/wp_117_performance_capacity.md), [WP-121 — Hypercare, Stabilisation and Programme Closure](../10_INTEGRATION_CUTOVER/wp_121_hypercare_stabilization.md)
+- A named owner, a named implementer, and a verifier **independent of the producer** are assigned.
+- Affected canonical records, interfaces and ADRs have been linked during refinement.
+- `DataClass`, `CodeTrust`, `ToolEffect` and the network/credential scope are classified.
+- Test fixtures, the environment, the rollback point and the acceptance measurement method are reachable.
+- An O/M/P person-day estimate is recorded and real capacity is reserved against it.
 
-| Alt iş | Yapılacak iş | Sorumlu | Tamamlanma kanıtı |
+## Implementation tasks
+
+| Sub-task | Work to be done | Responsible | Completion evidence |
 |---|---|---|---|
-| WP-127-T01 | Invoice/provider/compute/storage reconciliation çalıştır | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-127-T02 | Project/outcome budget variance ve forecast üret | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-127-T03 | Model/agent fan-out ve verification EVI analiz et | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-127-T04 | Capacity/headroom/queue wait planını güncelle | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-127-T05 | Low-value/high-cost project stop/pivot kararını kaydet | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-127-T06 | Annual cost policy benchmark/reopen tetikle | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
+| WP-127-T01 | Run the invoice, provider, compute and storage reconciliation | Implementation owner | Commit / configuration / record reference |
+| WP-127-T02 | Produce the project and outcome budget variance and forecast | Implementation owner | Commit / configuration / record reference |
+| WP-127-T03 | Analyse model/agent fan-out and the expected value of verification | Implementation owner | Commit / configuration / record reference |
+| WP-127-T04 | Update the capacity, headroom and queue-wait plan | Implementation owner | Commit / configuration / record reference |
+| WP-127-T05 | Record the stop/pivot decision for low-value, high-cost projects | Implementation owner | Commit / configuration / record reference |
+| WP-127-T06 | Trigger the annual cost policy benchmark and reopen | Implementation owner | Commit / configuration / record reference |
 
-## Zorunlu teslimatlar
+## Mandatory deliverables
 
 - `Monthly FinOps report`
 - `Invoice cases`
 - `Portfolio decision records`
 - `Capacity forecast`
 - `Optimization backlog`
-- Güncellenmiş runbook/operasyon notu ve servis/contract ownership kaydı
-- İmzalı `EvidenceManifest`
+- An updated runbook or operations note, plus the service/contract ownership record
+- A signed `EvidenceManifest`
 
-## Test ve doğrulama planı
+## Test and verification plan
 
-- Invoice variance sample
-- Hard budget event audit
+- An invoice variance sample
+- A hard budget event audit
 - Cost allocation completeness
-- Quality-adjusted route comparison
-- Yetkisiz, eksik, stale, duplicate ve partial-failure girdileri için en az bir negatif test
-- İlgili interface'lerde producer/consumer contract compatibility testi
-- Telemetry correlation ve audit kayıt bütünlüğü kontrolü
+- A quality-adjusted route comparison
+- At least one negative test for unauthorised, missing, stale, duplicate and partial-failure inputs
+- Producer/consumer contract compatibility tests on every affected interface
+- Telemetry correlation and audit-record integrity checks
 
-## Kabul kriterleri
+## Acceptance criteria
 
-- [ ] Maliyet yalnız token fiyatıyla optimize edilmez
-- [ ] Assurance insan maliyeti görünürdür
-- [ ] Bütçe override named decision/expiry taşır
-- [ ] Bütün zorunlu testler aynı target revision üzerinde geçmiştir.
-- [ ] Açık Critical/High finding yoktur; non-waivable blocker bulunmamaktadır.
-- [ ] Bağımsız verifier kanıt paketini kabul etmiştir.
-- [ ] Rollback/compensation davranışı denenmiş ve audit edilmiştir.
-- [ ] İlgili dashboard, alert, audit query veya integrity query çalışma kanıtı üretmiştir.
+- [ ] Cost is never optimised on token price alone.
+- [ ] The human cost of assurance is visible in the report.
+- [ ] Every budget override carries a named decision and an expiry.
+- [ ] All mandatory tests passed **on the same target revision**.
+- [ ] No open Critical or High findings; no non-waivable blocker remains.
+- [ ] The independent verifier has accepted the evidence package.
+- [ ] Rollback/compensation behaviour has been exercised and audited.
+- [ ] The related dashboard, alert, audit query or integrity query has produced working evidence.
 
-## Kabul kanıtı paketi
+## Acceptance evidence package
 
-- Aynı target revision/digest üzerinde alınmış test sonuçları
-- Environment, schema, policy ve dependency sürümlerini içeren EvidenceManifest
-- Bağımsız verifier ReviewRecord veya VerificationRecord'u
-- Rollback/compensation denemesi ve sonuç referansı
-- Açık finding, residual risk ve owner/expiry listesi
+- Test results captured on the same target revision/digest
+- An `EvidenceManifest` recording the environment, schema, policy and dependency versions
+- The independent verifier's `ReviewRecord` or `VerificationRecord`
+- The rollback/compensation trial and its result reference
+- The list of open findings and residual risks with owners and expiry dates
 
-## Riskler ve kontrol noktaları
+## Risks and control points
 
-- Contract veya canonical sahiplik belirsizse implementasyon durur ve Architecture Board'a eskale edilir.
-- Identity, data route, artifact integrity, bağımsızlık veya kritik evidence problemi waiver ile geçirilemez.
-- Geçici manuel kontrol gerekiyorsa owner, scope, expiry, compensating control ve kaldırma paketi kaydedilir.
-- Paket tamamlandı beyanı acceptance değildir; verifier kararı olmadan yalnız `TECH_COMPLETE` olabilir.
+- If a contract or canonical ownership question is unresolved, implementation **stops** and the question escalates to the Architecture Board.
+- Identity, data routing, artifact integrity, independence and critical evidence problems **cannot** be passed by waiver.
+- If a temporary manual control is required, its owner, scope, expiry, compensating control and removal package are recorded.
+- A "package complete" statement is **not** acceptance. Without a verifier decision the package can only be `TECH_COMPLETE`.
+
+### Workstream-specific hazards
+
+- Day-2 controls decay fastest because nothing fails when they stop running.
+- Periodic work that stops silently is indistinguishable from periodic work with nothing to do.
+- Operational evidence must keep being produced after go-live, or the assurance argument expires.
 
 ## Rollback / compensation
 
-Yanlış allocation reconciliation adjustment ile; geçmiş fatura/ledger event'i silinmez.
+A wrong allocation is fixed through a reconciliation adjustment; historical invoices and ledger events are never deleted.
 
-Immutable artifact, review ve karar geçmişi rollback sırasında silinmez; yeni durum supersession veya invalidation kaydıyla gösterilir.
+Immutable artifacts, reviews and decision history are **not** deleted during a rollback; the new state is expressed through a supersession or invalidation record.
 
-## Handoff ve sonraki paketlere giriş
+## Handoff into downstream packages
 
-Paket kabul edildiğinde teslim artifact'larının version/digest'leri Package Registry'ye yazılır, dependency event'i yayımlanır ve bu pakete bağlı READY adayları yeniden değerlendirilir. Downstream paket yalnız burada listelenen contract ve kanıt referanslarını tüketir; implementasyon iç ayrıntılarına bağlanmaz.
+On acceptance, the version and digest of every delivered artifact is written to the Package Registry, the dependency event is published, and every `READY` candidate blocked on this package is re-evaluated. A downstream package consumes **only** the contracts and evidence references listed above; it does not bind to internal implementation details.

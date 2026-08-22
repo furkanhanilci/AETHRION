@@ -1,99 +1,107 @@
-# WP-047 — Role Bundle Registry ve Agent Sözleşme Derleyicisi
+# WP-047 — Role Bundle Registry and Agent Contract Compiler
 
-## Paket kartı
+## Package card
 
-| Alan | Değer |
+| Field | Value |
 |---|---|
-| İş paketi | `WP-047` |
+| Work package | `WP-047` |
 | Workstream | `05_MODEL_AGENT_TOOL` |
-| İlk efor sınıfı | **L** — refinement'ta O/M/P tahmini zorunlu |
-| Accountable Owner | Agent Platform Lead |
-| Bağımsız doğrulayıcı | Governance / Eval Office |
+| Initial effort class | **L** — large — split into sub-deliveries if it cannot be reviewed in one pass; a three-point (O/M/P) estimate is mandatory at refinement |
+| Accountable owner | Agent Platform Lead |
+| Independent verifier | Governance / Eval Office |
 | Hard dependencies | WP-003, WP-007, WP-013, WP-020, WP-042, WP-045, WP-046 |
-| İlgili gate | G1–G7 |
-| İlgili kontroller | CTL-GOV-02, CTL-MOD-01 |
-| İlgili ACC senaryoları | İlgili dikey dilim ve commissioning sırasında atanır |
+| Related gates | G1–G7 |
+| Related controls | CTL-GOV-02, CTL-MOD-01 |
+| Related acceptance scenarios | Assigned during the relevant vertical slice and commissioning |
+| Current status | `NOT_STARTED` |
 
-## Amaç ve beklenen sonuç
+## Purpose and expected outcome
 
-Rol mandate'i, prompt/policy, input/output schema, allowed tools, context, eval ve acceptance şartı versioned RoleBundle'a derlenir.
+A role's mandate, prompt/policy, input/output schema, allowed tools, context and evaluation and acceptance conditions are compiled into a versioned `RoleBundle`.
 
-## Kapsam dışı
+## Out of scope
 
-- Bağımlı paketin kendi iç implementasyonu
-- Production cutover ve nihai operasyon onayı
 
-## Önkoşullar ve Definition of Ready
+- The internal implementation of any dependent package
+- Production cutover and final operational approval
 
-- Bağımlılıklar kabul edilmiştir: [WP-003 — Rol Kataloğu ve RACI Baseline](../01_GOVERNANCE/wp_003_role_catalog_raci.md), [WP-007 — IndependenceProfile ve Separation-of-Duties Politikası](../01_GOVERNANCE/wp_007_independence_profile.md), [WP-013 — Project, Task ve Role Contract Şemaları](../02_CONTRACTS/wp_013_project_task_role_contracts.md), [WP-020 — Schema Registry, Compatibility ve Contract SDK](../02_CONTRACTS/wp_020_schema_registry_sdk.md), [WP-042 — Capability Registry ve Profil Yaşam Döngüsü](../05_MODEL_AGENT_TOOL/wp_042_capability_registry.md), [WP-045 — Policy Router ve Minimum Yeterli Model Paketi](../05_MODEL_AGENT_TOOL/wp_045_policy_router_budget.md), [WP-046 — LangGraph Bounded Cognition Runtime](../05_MODEL_AGENT_TOOL/wp_046_langgraph_runtime.md)
-- Named owner, implementer ve producer'dan bağımsız verifier atanmıştır.
-- Etkilenen canonical kayıtlar, interface'ler ve ADR'lar refinement'ta ilişkilendirilmiştir.
-- DataClass, CodeTrust, ToolEffect ve ağ/credential kapsamı sınıflandırılmıştır.
-- Test fixture, environment, rollback noktası ve acceptance ölçüm yöntemi erişilebilirdir.
-- Efor için O/M/P kişi-gün tahmini ve gerçek kapasite rezervasyonu kaydedilmiştir.
+## Preconditions — Definition of Ready
 
-## Uygulama görevleri
+- Dependencies accepted: [WP-003 — Role Catalogue and RACI Baseline](../01_GOVERNANCE/wp_003_role_catalog_raci.md), [WP-007 — IndependenceProfile and Separation-of-Duties Policy](../01_GOVERNANCE/wp_007_independence_profile.md), [WP-013 — Project, Task and Role Contract Schemas](../02_CONTRACTS/wp_013_project_task_role_contracts.md), [WP-020 — Schema Registry, Compatibility and Contract SDK](../02_CONTRACTS/wp_020_schema_registry_sdk.md), [WP-042 — Capability Registry and Profile Lifecycle](../05_MODEL_AGENT_TOOL/wp_042_capability_registry.md), [WP-045 — Policy Router and Minimum-Sufficient Model Package](../05_MODEL_AGENT_TOOL/wp_045_policy_router_budget.md), [WP-046 — LangGraph Bounded Cognition Runtime](../05_MODEL_AGENT_TOOL/wp_046_langgraph_runtime.md)
+- A named owner, a named implementer, and a verifier **independent of the producer** are assigned.
+- Affected canonical records, interfaces and ADRs have been linked during refinement.
+- `DataClass`, `CodeTrust`, `ToolEffect` and the network/credential scope are classified.
+- Test fixtures, the environment, the rollback point and the acceptance measurement method are reachable.
+- An O/M/P person-day estimate is recorded and real capacity is reserved against it.
 
-| Alt iş | Yapılacak iş | Sorumlu | Tamamlanma kanıtı |
+## Implementation tasks
+
+| Sub-task | Work to be done | Responsible | Completion evidence |
 |---|---|---|---|
-| WP-047-T01 | RoleBundle schema ve Git registry kur | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-047-T02 | RoleContract→runtime prompt/tool/context compiler yaz | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-047-T03 | Planner, scout, extractor, methodologist, coder, reviewer, reproducer ve curator başlangıç bundle'larını oluştur | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-047-T04 | Context budget ve frozen-package policy bağla | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-047-T05 | Bundle signature/admission/eval refs ekle | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-047-T06 | Deprecation/migration yönetimi kur | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
+| WP-047-T01 | Build the `RoleBundle` schema and its Git registry | Implementation owner | Commit / configuration / record reference |
+| WP-047-T02 | Write the `RoleContract` → runtime prompt/tool/context compiler | Implementation owner | Commit / configuration / record reference |
+| WP-047-T03 | Create the initial bundles for planner, scout, extractor, methodologist, coder, reviewer, reproducer and curator | Implementation owner | Commit / configuration / record reference |
+| WP-047-T04 | Bind the context budget and frozen-package policy | Implementation owner | Commit / configuration / record reference |
+| WP-047-T05 | Add bundle signature, admission and evaluation references | Implementation owner | Commit / configuration / record reference |
+| WP-047-T06 | Establish deprecation and migration management | Implementation owner | Commit / configuration / record reference |
 
-## Zorunlu teslimatlar
+## Mandatory deliverables
 
 - `Role Bundle Registry`
 - `Bundle compiler`
 - `Core role bundles`
 - `Bundle conformance tests`
-- Güncellenmiş runbook/operasyon notu ve servis/contract ownership kaydı
-- İmzalı `EvidenceManifest`
+- An updated runbook or operations note, plus the service/contract ownership record
+- A signed `EvidenceManifest`
 
-## Test ve doğrulama planı
+## Test and verification plan
 
-- Forbidden tool excluded
-- Missing acceptance compile fail
-- Reviewer producer trace contamination negative test
+- Forbidden tools excluded at compile time
+- A compile failure when acceptance criteria are missing
+- A negative test for reviewer contamination by the producer's trace
 - Bundle signature validation
-- Yetkisiz, eksik, stale, duplicate ve partial-failure girdileri için en az bir negatif test
-- İlgili interface'lerde producer/consumer contract compatibility testi
-- Telemetry correlation ve audit kayıt bütünlüğü kontrolü
+- At least one negative test for unauthorised, missing, stale, duplicate and partial-failure inputs
+- Producer/consumer contract compatibility tests on every affected interface
+- Telemetry correlation and audit-record integrity checks
 
-## Kabul kriterleri
+## Acceptance criteria
 
-- [ ] Rol model adı değildir
-- [ ] Bundle explicit input/output/non-goal taşır
-- [ ] Reviewer bundle blind context ve independence obligation uygular
-- [ ] Bütün zorunlu testler aynı target revision üzerinde geçmiştir.
-- [ ] Açık Critical/High finding yoktur; non-waivable blocker bulunmamaktadır.
-- [ ] Bağımsız verifier kanıt paketini kabul etmiştir.
-- [ ] Rollback/compensation davranışı denenmiş ve audit edilmiştir.
-- [ ] İlgili dashboard, alert, audit query veya integrity query çalışma kanıtı üretmiştir.
+- [ ] A role is not a model name.
+- [ ] Every bundle carries explicit inputs, outputs and non-goals.
+- [ ] The reviewer bundle enforces blind context and its independence obligations.
+- [ ] All mandatory tests passed **on the same target revision**.
+- [ ] No open Critical or High findings; no non-waivable blocker remains.
+- [ ] The independent verifier has accepted the evidence package.
+- [ ] Rollback/compensation behaviour has been exercised and audited.
+- [ ] The related dashboard, alert, audit query or integrity query has produced working evidence.
 
-## Kabul kanıtı paketi
+## Acceptance evidence package
 
-- Aynı target revision/digest üzerinde alınmış test sonuçları
-- Environment, schema, policy ve dependency sürümlerini içeren EvidenceManifest
-- Bağımsız verifier ReviewRecord veya VerificationRecord'u
-- Rollback/compensation denemesi ve sonuç referansı
-- Açık finding, residual risk ve owner/expiry listesi
+- Test results captured on the same target revision/digest
+- An `EvidenceManifest` recording the environment, schema, policy and dependency versions
+- The independent verifier's `ReviewRecord` or `VerificationRecord`
+- The rollback/compensation trial and its result reference
+- The list of open findings and residual risks with owners and expiry dates
 
-## Riskler ve kontrol noktaları
+## Risks and control points
 
-- Contract veya canonical sahiplik belirsizse implementasyon durur ve Architecture Board'a eskale edilir.
-- Identity, data route, artifact integrity, bağımsızlık veya kritik evidence problemi waiver ile geçirilemez.
-- Geçici manuel kontrol gerekiyorsa owner, scope, expiry, compensating control ve kaldırma paketi kaydedilir.
-- Paket tamamlandı beyanı acceptance değildir; verifier kararı olmadan yalnız `TECH_COMPLETE` olabilir.
+- If a contract or canonical ownership question is unresolved, implementation **stops** and the question escalates to the Architecture Board.
+- Identity, data routing, artifact integrity, independence and critical evidence problems **cannot** be passed by waiver.
+- If a temporary manual control is required, its owner, scope, expiry, compensating control and removal package are recorded.
+- A "package complete" statement is **not** acceptance. Without a verifier decision the package can only be `TECH_COMPLETE`.
+
+### Workstream-specific hazards
+
+- A model alias is not a pinned identity; results obtained under an alias are not reproducible.
+- An agent holding a credential defeats the entire broker design.
+- Fallback routes are the least tested and most consequential path in this workstream.
 
 ## Rollback / compensation
 
-Hatalı bundle revoke edilir; registry pointer önceki imzalı sürüme döner ve açık task'lar impact alır.
+A faulty bundle is revoked; the registry pointer returns to the previous signed version and open tasks receive an impact assessment.
 
-Immutable artifact, review ve karar geçmişi rollback sırasında silinmez; yeni durum supersession veya invalidation kaydıyla gösterilir.
+Immutable artifacts, reviews and decision history are **not** deleted during a rollback; the new state is expressed through a supersession or invalidation record.
 
-## Handoff ve sonraki paketlere giriş
+## Handoff into downstream packages
 
-Paket kabul edildiğinde teslim artifact'larının version/digest'leri Package Registry'ye yazılır, dependency event'i yayımlanır ve bu pakete bağlı READY adayları yeniden değerlendirilir. Downstream paket yalnız burada listelenen contract ve kanıt referanslarını tüketir; implementasyon iç ayrıntılarına bağlanmaz.
+On acceptance, the version and digest of every delivered artifact is written to the Package Registry, the dependency event is published, and every `READY` candidate blocked on this package is re-evaluated. A downstream package consumes **only** the contracts and evidence references listed above; it does not bind to internal implementation details.

@@ -1,3 +1,7 @@
+> [!info] Generated view
+> This note is generated from `skills/evidence-before-claim/SKILL.md` in the repository. Edit the
+> canonical file and regenerate; edits made here are overwritten.
+
 ---
 name: evidence-before-claim
 version: 1.0.0
@@ -13,41 +17,56 @@ mechanical_checks: [every_claim_resolves_to_span, span_quote_exact_match]
 
 # Evidence Before Claim
 
-## Demir kural
+## Iron law
 
-> **HER İDDİA CÜMLESİ BİR `EvidenceSpan`'e VEYA BİR `ExperimentRun`'A ÇÖZÜLMELİDİR.**
+> **EVERY ASSERTION MUST RESOLVE TO AN `EvidenceSpan` OR AN `ExperimentRun`.**
 >
-> Çözülemeyen cümle yayınlanamaz.
+> An assertion that resolves to neither cannot be published.
 
-## Prosedür
+## Procedure
 
-1. İddiayı yaz
-2. Kaynağını belirle: literatür span'i mi, kendi koşumun mu?
-3. Span ise: [[anchoring-spans]] ile çapala; **birebir alıntı** eşleşmeli
-4. Koşum ise: `run_id` + artifact hash bağla
-5. `support_type` ata: `supports` / `contradicts` / `qualifies` / `contextualizes`
-6. Çelişen kanıtı da bağla — **`contradicted_by` boş bırakılmaz**
+1. Write the claim
+2. Identify its basis: a literature span, or your own run
+3. If a span: anchor it with `anchoring-spans`. The quote must match the source
+   representation **exactly**
+4. If a run: bind `run_id` plus the artifact hash
+5. Assign `support_type`: `supports` / `contradicts` / `qualifies` /
+   `contextualizes`
+6. Bind contradicting evidence too — `contradicted_by` is not left empty
+7. If no basis can be found: record `NOT_FOUND` and **drop the claim**
 
-## Ayrım: kanıt tipi
+## Evidence type by claim type
 
-| İddia tipi | Gerekli bağ |
+| Claim type | Required binding |
 |---|---|
 | `empirical` | `ExperimentRun` + artifact hash |
-| `methodological` | `EvidenceSpan` (kaynak) veya `ProtocolManifest` |
-| `interpretive` | En az bir `EvidenceSpan` **ve** açık bir yorum işareti |
+| `methodological` | `EvidenceSpan` (source) or `ProtocolManifest` |
+| `interpretive` | At least one `EvidenceSpan` **and** an explicit interpretation marker |
 
-## Rasyonalizasyon tablosu
+An interpretive claim presented without its marker reads as empirical. That is
+the most common way overclaiming enters a report.
 
-| Gerekçe | Hüküm |
+## Contradicting evidence is part of the claim
+
+A claim whose `contradicted_by` list is empty asserts that no contradicting
+evidence exists. That is itself a claim, and it requires evidence that the
+search was performed. Record the search, not just the absence.
+
+## Rationalization table
+
+| Justification | Ruling |
 |---|---|
-| "Bu alanda genel kabul görmüş bilgi" | **Kaynağını göster.** Genel kabul de bir kaynağa dayanır. |
-| "Sonuçlardan açıkça çıkıyor" | Açıksa `run_id`'yi bağlamak kolaydır. Bağla. |
-| "Span'i bulamadım ama makale bunu söylüyor" | **Bulunamayan span = kanıt yok.** İddiayı düşür veya kaynağı yeniden çıkar. |
-| "Alıntı yaklaşık, anlamı aynı" | **Birebir eşleşme zorunlu.** Yaklaşık alıntı uydurma riskidir. |
-| "Çelişen kaynak zaten zayıf" | Zayıflığı yaz; **gizleme.** `contradicted_by` doldurulur. |
+| "This is common knowledge in the field" | **Show the source.** Common knowledge also has one. |
+| "It follows obviously from the results" | If it is obvious, binding the `run_id` is trivial. Bind it. |
+| "The paper says this but I could not find the exact sentence" | **A span you cannot find is not evidence.** Drop the claim or re-extract the source. |
+| "The quote is approximate but the meaning is the same" | Exact match is required. Approximate quoting is the signature of fabrication. |
+| "I took it from the abstract" | An abstract is a representation. Pin which representation. |
+| "It is visible in the figure" | Figure data is extracted and hashed separately. |
+| "The contradicting source is weak anyway" | Then say so in the record. **Do not omit it.** |
 
-## Kırmızı bayraklar
+## Red flags
 
-- Alıntı metni kaynak temsilinde bulunamıyor (LLM uydurma imzası)
-- DOI var ama span yok
-- `contradicted_by` sistematik olarak boş
+- The `quote_exact_match` mechanical check is red
+- A DOI is present but no span is
+- One span is cited as support for two mutually inconsistent claims
+- `contradicted_by` is systematically empty across a whole project

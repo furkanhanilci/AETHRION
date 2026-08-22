@@ -1,100 +1,108 @@
-# WP-102 — Dikey Dilim 1 — Intake → Protocol Freeze
+# WP-102 — Vertical Slice 1 — Intake through Protocol Freeze
 
-## Paket kartı
+## Package card
 
-| Alan | Değer |
+| Field | Value |
 |---|---|
-| İş paketi | `WP-102` |
+| Work package | `WP-102` |
 | Workstream | `10_INTEGRATION_CUTOVER` |
-| İlk efor sınıfı | **L** — refinement'ta O/M/P tahmini zorunlu |
-| Accountable Owner | Research Workflow Lead |
-| Bağımsız doğrulayıcı | Assurance / Project Decision Owner |
+| Initial effort class | **L** — large — split into sub-deliveries if it cannot be reviewed in one pass; a three-point (O/M/P) estimate is mandatory at refinement |
+| Accountable owner | Research Workflow Lead |
+| Independent verifier | Assurance / Project Decision Owner |
 | Hard dependencies | WP-034, WP-035, WP-056, WP-091, WP-092, WP-093, WP-100, WP-101 |
-| İlgili gate | G0,G1,G2 |
-| İlgili kontroller | CTL-GOV-01, CTL-GOV-03 |
-| İlgili ACC senaryoları | ACC-06, ACC-25, ACC-26 |
+| Related gates | G0,G1,G2 |
+| Related controls | CTL-GOV-01, CTL-GOV-03 |
+| Related acceptance scenarios | ACC-06, ACC-25, ACC-26 |
+| Current status | `NOT_STARTED` |
 
-## Amaç ve beklenen sonuç
+## Purpose and expected outcome
 
-Gerçekçi bir R1 ve bir R3 proje, G0–G2 boyunca risk/control plan, charter, protocol, human decision ve audit zinciriyle ilerler.
+A realistic R1 project and a realistic R3 project travel from G0 to G2 with a complete risk/control plan, charter, protocol, human decision and audit chain. This is the first slice where the design meets reality.
 
-## Kapsam dışı
+## Out of scope
 
-- Bağımlı paketin kendi iç implementasyonu
-- Production cutover ve nihai operasyon onayı
 
-## Önkoşullar ve Definition of Ready
+- The internal implementation of any dependent package
+- Production cutover and final operational approval
 
-- Bağımlılıklar kabul edilmiştir: [WP-034 — G0 Intake ve G1 Charter Workflow'ları](../04_CONTROL_EVENT/wp_034_g0_g1_workflows.md), [WP-035 — G2 Protocol, G3 Literature ve G4 Baseline Workflow'ları](../04_CONTROL_EVENT/wp_035_g2_g4_workflows.md), [WP-056 — OPA Policy Platform ve Bundle Dağıtımı](../06_EXECUTION_SECURITY/wp_056_opa_policy_platform.md), [WP-091 — Lab Cockpit Bilgi Mimarisi ve Uygulama Kabuğu](../09_EXPERIENCE_OBSERVABILITY/wp_091_lab_cockpit_shell.md), [WP-092 — Project Workspace ve G0–G10 Gate Timeline](../09_EXPERIENCE_OBSERVABILITY/wp_092_project_gate_timeline.md), [WP-093 — Human Decision Queue ve Evidence-Delta UI](../09_EXPERIENCE_OBSERVABILITY/wp_093_decision_queue_ui.md), [WP-100 — Cost Ledger, Bütçe Zarfları ve FinOps](../09_EXPERIENCE_OBSERVABILITY/wp_100_cost_ledger_finops.md), [WP-101 — Service Catalog, SLO ve Alert/Runbook Bağlama](../09_EXPERIENCE_OBSERVABILITY/wp_101_service_slo_alerting.md)
-- Named owner, implementer ve producer'dan bağımsız verifier atanmıştır.
-- Etkilenen canonical kayıtlar, interface'ler ve ADR'lar refinement'ta ilişkilendirilmiştir.
-- DataClass, CodeTrust, ToolEffect ve ağ/credential kapsamı sınıflandırılmıştır.
-- Test fixture, environment, rollback noktası ve acceptance ölçüm yöntemi erişilebilirdir.
-- Efor için O/M/P kişi-gün tahmini ve gerçek kapasite rezervasyonu kaydedilmiştir.
+## Preconditions — Definition of Ready
 
-## Uygulama görevleri
+- Dependencies accepted: [WP-034 — G0 Intake and G1 Charter Workflows](../04_CONTROL_EVENT/wp_034_g0_g1_workflows.md), [WP-035 — G2 Protocol, G3 Literature and G4 Baseline Workflows](../04_CONTROL_EVENT/wp_035_g2_g4_workflows.md), [WP-056 — OPA Policy Platform and Bundle Distribution](../06_EXECUTION_SECURITY/wp_056_opa_policy_platform.md), [WP-091 — Lab Cockpit Information Architecture and Application Shell](../09_EXPERIENCE_OBSERVABILITY/wp_091_lab_cockpit_shell.md), [WP-092 — Project Workspace and G0–G10 Gate Timeline](../09_EXPERIENCE_OBSERVABILITY/wp_092_project_gate_timeline.md), [WP-093 — Human Decision Queue and Evidence-Delta UI](../09_EXPERIENCE_OBSERVABILITY/wp_093_decision_queue_ui.md), [WP-100 — Cost Ledger, Budget Envelopes and FinOps](../09_EXPERIENCE_OBSERVABILITY/wp_100_cost_ledger_finops.md), [WP-101 — Service Catalogue, SLOs and Alert/Runbook Binding](../09_EXPERIENCE_OBSERVABILITY/wp_101_service_slo_alerting.md)
+- A named owner, a named implementer, and a verifier **independent of the producer** are assigned.
+- Affected canonical records, interfaces and ADRs have been linked during refinement.
+- `DataClass`, `CodeTrust`, `ToolEffect` and the network/credential scope are classified.
+- Test fixtures, the environment, the rollback point and the acceptance measurement method are reachable.
+- An O/M/P person-day estimate is recorded and real capacity is reserved against it.
 
-| Alt iş | Yapılacak iş | Sorumlu | Tamamlanma kanıtı |
+## Implementation tasks
+
+| Sub-task | Work to be done | Responsible | Completion evidence |
 |---|---|---|---|
-| WP-102-T01 | R1/R3 synthetic project fixtures hazırla | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-102-T02 | Cockpit'ten Intake başlat | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-102-T03 | Risk/Execution/Independence policy kararlarını doğrula | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-102-T04 | Charter/SLA/delegation ve protocol freeze'i çalıştır | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-102-T05 | Budget reservation/audit/telemetry zincirini kontrol et | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-102-T06 | Revise/block/reopen path'lerini test et | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
+| WP-102-T01 | Prepare the R1 and R3 synthetic project fixtures | Implementation owner | Commit / configuration / record reference |
+| WP-102-T02 | Start the intake from the cockpit | Implementation owner | Commit / configuration / record reference |
+| WP-102-T03 | Verify the risk, execution and independence policy decisions | Implementation owner | Commit / configuration / record reference |
+| WP-102-T04 | Run the charter, SLA, delegation and protocol freeze | Implementation owner | Commit / configuration / record reference |
+| WP-102-T05 | Check the budget reservation, audit and telemetry chain | Implementation owner | Commit / configuration / record reference |
+| WP-102-T06 | Test the revise, block and reopen paths | Implementation owner | Commit / configuration / record reference |
 
-## Zorunlu teslimatlar
+## Mandatory deliverables
 
 - `Vertical slice dossier`
 - `R1/R3 project histories`
 - `Trace/audit/decision evidence`
 - `Integration findings`
-- Güncellenmiş runbook/operasyon notu ve servis/contract ownership kaydı
-- İmzalı `EvidenceManifest`
+- An updated runbook or operations note, plus the service/contract ownership record
+- A signed `EvidenceManifest`
 
-## Test ve doğrulama planı
+## Test and verification plan
 
-- Happy path R1/R3
-- Unknown risk BLOCKED
-- Expired delegation
-- Protocol material amendment
+- Happy path for both R1 and R3
+- `BLOCKED` on an unknown risk value
+- An expired delegation
+- A material protocol amendment
 - Budget unavailable
-- Yetkisiz, eksik, stale, duplicate ve partial-failure girdileri için en az bir negatif test
-- İlgili interface'lerde producer/consumer contract compatibility testi
-- Telemetry correlation ve audit kayıt bütünlüğü kontrolü
+- At least one negative test for unauthorised, missing, stale, duplicate and partial-failure inputs
+- Producer/consumer contract compatibility tests on every affected interface
+- Telemetry correlation and audit-record integrity checks
 
-## Kabul kriterleri
+## Acceptance criteria
 
-- [ ] G0–G2 bütün canonical kayıtları bağlıdır
-- [ ] R3 daha derin assurance alır ama aynı gate'leri kullanır
-- [ ] Açık critical integration finding yoktur
-- [ ] Bütün zorunlu testler aynı target revision üzerinde geçmiştir.
-- [ ] Açık Critical/High finding yoktur; non-waivable blocker bulunmamaktadır.
-- [ ] Bağımsız verifier kanıt paketini kabul etmiştir.
-- [ ] Rollback/compensation davranışı denenmiş ve audit edilmiştir.
-- [ ] İlgili dashboard, alert, audit query veya integrity query çalışma kanıtı üretmiştir.
+- [ ] Every canonical record from G0 to G2 is linked.
+- [ ] R3 receives deeper assurance but uses the same gates.
+- [ ] No open critical integration finding remains.
+- [ ] All mandatory tests passed **on the same target revision**.
+- [ ] No open Critical or High findings; no non-waivable blocker remains.
+- [ ] The independent verifier has accepted the evidence package.
+- [ ] Rollback/compensation behaviour has been exercised and audited.
+- [ ] The related dashboard, alert, audit query or integrity query has produced working evidence.
 
-## Kabul kanıtı paketi
+## Acceptance evidence package
 
-- Aynı target revision/digest üzerinde alınmış test sonuçları
-- Environment, schema, policy ve dependency sürümlerini içeren EvidenceManifest
-- Bağımsız verifier ReviewRecord veya VerificationRecord'u
-- Rollback/compensation denemesi ve sonuç referansı
-- Açık finding, residual risk ve owner/expiry listesi
+- Test results captured on the same target revision/digest
+- An `EvidenceManifest` recording the environment, schema, policy and dependency versions
+- The independent verifier's `ReviewRecord` or `VerificationRecord`
+- The rollback/compensation trial and its result reference
+- The list of open findings and residual risks with owners and expiry dates
 
-## Riskler ve kontrol noktaları
+## Risks and control points
 
-- Contract veya canonical sahiplik belirsizse implementasyon durur ve Architecture Board'a eskale edilir.
-- Identity, data route, artifact integrity, bağımsızlık veya kritik evidence problemi waiver ile geçirilemez.
-- Geçici manuel kontrol gerekiyorsa owner, scope, expiry, compensating control ve kaldırma paketi kaydedilir.
-- Paket tamamlandı beyanı acceptance değildir; verifier kararı olmadan yalnız `TECH_COMPLETE` olabilir.
+- If a contract or canonical ownership question is unresolved, implementation **stops** and the question escalates to the Architecture Board.
+- Identity, data routing, artifact integrity, independence and critical evidence problems **cannot** be passed by waiver.
+- If a temporary manual control is required, its owner, scope, expiry, compensating control and removal package are recorded.
+- A "package complete" statement is **not** acceptance. Without a verifier decision the package can only be `TECH_COMPLETE`.
+
+### Workstream-specific hazards
+
+- Vertical slices fail at the seams; per-package green says little about the seam.
+- A cutover rehearsal that differs from the real procedure has rehearsed the wrong thing.
+- The rollback point must be verified by a query, not by an assertion.
 
 ## Rollback / compensation
 
-Dilim başarısızsa production benzeri proje kapatılır; synthetic artifacts retained, correction package açılır.
+If the slice fails, the production-like project is closed; synthetic artifacts are retained and a correction package is opened.
 
-Immutable artifact, review ve karar geçmişi rollback sırasında silinmez; yeni durum supersession veya invalidation kaydıyla gösterilir.
+Immutable artifacts, reviews and decision history are **not** deleted during a rollback; the new state is expressed through a supersession or invalidation record.
 
-## Handoff ve sonraki paketlere giriş
+## Handoff into downstream packages
 
-Paket kabul edildiğinde teslim artifact'larının version/digest'leri Package Registry'ye yazılır, dependency event'i yayımlanır ve bu pakete bağlı READY adayları yeniden değerlendirilir. Downstream paket yalnız burada listelenen contract ve kanıt referanslarını tüketir; implementasyon iç ayrıntılarına bağlanmaz.
+On acceptance, the version and digest of every delivered artifact is written to the Package Registry, the dependency event is published, and every `READY` candidate blocked on this package is re-evaluated. A downstream package consumes **only** the contracts and evidence references listed above; it does not bind to internal implementation details.

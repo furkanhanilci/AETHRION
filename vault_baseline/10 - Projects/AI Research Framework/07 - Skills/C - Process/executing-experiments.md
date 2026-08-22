@@ -1,3 +1,7 @@
+> [!info] Generated view
+> This note is generated from `skills/executing-experiments/SKILL.md` in the repository. Edit the
+> canonical file and regenerate; edits made here are overwritten.
+
 ---
 name: executing-experiments
 version: 1.0.0
@@ -12,62 +16,73 @@ mechanical_checks: [manifest_hashes_pinned, budget_within_hard_limit, artifacts_
 
 # Executing Experiments
 
-## Genel ilke
+## Core principle
 
-Koşum, dondurulmuş manifest'in mekanik uygulanmasıdır. Koşum sırasında karar
-verilmez.
+Execution is the mechanical application of a frozen manifest. **No decisions are
+made during execution.** If a decision is required, execution stops and returns
+to G2.
 
-## Ön koşullar — hepsi zorunlu
+## Preconditions — all mandatory
 
-- [ ] `ProtocolManifest` kilitli
-- [ ] `AnalysisPlanManifest` kilitli
-- [ ] `LiteratureSetManifest` dondurulmuş
-- [ ] Baseline koşumu tamamlanmış ve raporlanmış
-- [ ] Bütçe onaylı; soft/hard limit tanımlı
-- [ ] Model/tool qualification geçerli
+- [ ] `ProtocolManifest` locked
+- [ ] `AnalysisPlanManifest` locked
+- [ ] `LiteratureSetManifest` frozen
+- [ ] Baseline run completed and reported
+- [ ] Budget approved; soft and hard limits defined
+- [ ] Model and tool qualification current
 
-Biri eksikse **G5 başlamaz.**
+If any is missing, **G5 does not begin.** There is no partial start.
 
-## Her koşumda pinlenen
+## Pinned per run
 
 ```
-code_commit · container_digest · model_snapshot · policy_revision
+code_commit · container_digest · capability_fingerprint · policy_revision
 protocol_hash · analysis_plan_hash · literature_set_hash · seed
 ```
 
-Bunlar `ExperimentRun`'a yazılır. **Pinlenmemiş koşum kanıt üretmez.**
+These are written into `ExperimentRun`. **An unpinned run produces no evidence.**
 
-## Prosedür
+> **Note on model identity:** current-generation hosted models carry no
+> date-suffixed snapshot identifier. What is pinned is a **capability
+> fingerprint** (the model's declared limits and capability tree, hashed), plus
+> full input/output logging. Genuine determinism requires local open-weight
+> models with a weight-file hash — this is why R3 runs are local.
 
-1. `TaskContract` doğrula → `ExecutionProfile` hesapla
-2. Kueue rezervasyonu (bütçe)
-3. İmzalı image + read-only girdiler
-4. Sandbox aç; **ağ varsayılan olarak BLOCK**
-5. Koş
-6. Çıktıyı tara (malware, secret, DLP)
-7. Manifest + hash üret
-8. Immutable store'a yaz
-9. Lease, workload identity ve secret'ları iptal et
+## Procedure
 
-## Negatif sonuç
+1. Validate the `TaskContract`; compute the `ExecutionProfile`
+2. Reserve compute against the budget
+3. Signed image; read-only inputs mounted
+4. Open the sandbox; **network defaults to BLOCK**
+5. Run
+6. Scan outputs (malware, secrets, DLP)
+7. Produce manifest and hashes
+8. Write to the immutable store
+9. Revoke lease, workload identity and secrets
 
-> **Negatif sonuç bir artifact'tır, bir istisna değil.** Silinmez, tekrar
-> koşulmaz, "başarısız koşum" olarak sınıflandırılmaz.
+## Negative results
 
-## Bütçe
+> **A negative result is an artifact, not an exception.** It is not deleted, not
+> re-run in search of a different outcome, and not classified as a failed run.
 
-Soft limitte uyarı, hard limitte **durdur**. Workflow state kaybolmadan pause
-olur. Hard limit aşımı için waiver yoktur.
+A pipeline that quietly discards negative results manufactures a positive
+literature out of nothing.
 
-## Batch içi hata
+## Budget
 
-Bir koşum düşerse: **tüm batch yeniden koşulmaz.** Düşen koşum ayrı incelenir
-([[investigating-anomalies]]). Yeniden koşulan koşum yeni bir `run_id` alır;
-eskisinin üzerine yazılmaz.
+Warning at the soft limit, **stop** at the hard limit. The workflow pauses
+without losing state. There is no waiver for exceeding a hard limit.
 
-## Kırmızı bayraklar
+## Failure inside a batch
 
-- Aynı `run_id` iki kez yazılmış
-- `model_snapshot` alanı boş
-- Başarısız koşumlar rapordan çıkarılmış
-- Koşum sırasında protokol parametresi değişmiş
+If one run fails, **the batch is not re-run wholesale.** The failing run is
+investigated separately (`investigating-anomalies`). A re-run receives a new
+`run_id`; it never overwrites the original.
+
+## Red flags
+
+- The same `run_id` written twice
+- `capability_fingerprint` empty
+- Failed runs absent from the report
+- A protocol parameter changed mid-execution
+- The batch was re-run after seeing partial results

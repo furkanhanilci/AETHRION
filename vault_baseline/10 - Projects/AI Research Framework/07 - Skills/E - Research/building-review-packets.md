@@ -1,3 +1,7 @@
+> [!info] Generated view
+> This note is generated from `skills/building-review-packets/SKILL.md` in the repository. Edit the
+> canonical file and regenerate; edits made here are overwritten.
+
 ---
 name: building-review-packets
 version: 1.0.0
@@ -12,32 +16,34 @@ mechanical_checks: [allowlist_enforced_in_code, packet_hash_recorded, no_inline_
 
 # Building Review Packets
 
-## Demir kural
+## Iron law
 
-> **PAKET BİR PROGRAM TARAFINDAN ÜRETİLİR, BİR PROMPT TARAFINDAN DEĞİL.**
+> **THE PACKET IS BUILT BY A PROGRAM, NOT BY A PROMPT.**
 
-Allowlist kodda tanımlıdır, testi vardır ve ACL ile zorlanır. Bir insanın veya
-ajanın "şunu da ekle" demesiyle genişlemez.
+The allowlist is defined in code, has tests, and is enforced by ACL. It does not
+expand because a human or an agent says "include this too".
 
-## Neden
+## Why
 
-Reviewer'ın **ne gördüğü** kanıt zincirinin parçasıdır. Prompt ile üretilen
-paket denetlenemez; program ile üretilen paket hash'lenebilir.
+**What the reviewer saw** is part of the evidence chain. A prompt-assembled
+packet cannot be audited; a program-assembled packet can be hashed. The
+difference is whether "the reviewer had access to X" is a checkable statement or
+a recollection.
 
-## Allowlist — pakete girenler
+## Allowlist — what enters
 
 ```
 protocol_manifest_hash
 analysis_plan_hash
 literature_set_hash
-aggregated_metrics          # dağılım özetleri
+aggregated_metrics          # distribution summaries
 figure_digests              # spec_hash + data_hash + renderer_version
 claim_drafts
-global_constraints          # spec'ten KELİMESİ KELİMESİNE
-exclusion_rule_application  # hangi kayıt neden dışlandı
+global_constraints          # VERBATIM from the spec
+exclusion_rule_application  # which record was excluded, under which rule
 ```
 
-## Denylist — asla girmeyenler
+## Denylist — what never enters
 
 ```
 producer_worktree
@@ -49,24 +55,27 @@ other_reviewers_verdicts
 session_history
 ```
 
-## Dışlama şeffaflığı
+## Exclusion transparency
 
-Reviewer yalnız toplu metrik görürse **seçici dışlamayı denetleyemez.**
-Bu yüzden `exclusion_rule_application` pakete **girer**: hangi kayıt, hangi
-önceden tanımlı kurala göre dışlandı.
+A reviewer who sees only aggregate metrics **cannot audit selective exclusion**.
+So `exclusion_rule_application` **is** in the packet: which record, under which
+pre-specified rule, was excluded.
 
-Bu, bağlam izolasyonu ile denetlenebilirlik arasındaki gerilimin çözümüdür.
+This is the resolution of the tension between context isolation and
+auditability. Isolation hides the producer's *reasoning*; it must not hide the
+producer's *choices*.
 
-## Teslim biçimi
+## Delivery
 
-- **Dosya + hash.** Inline metin yasak.
-- Erişim listesi, oluşturma ve son kullanma tarihi
-- İndirme takibi açık
-- `packet_hash` `ReviewVerdict`'e yazılır
+- **Files plus hashes.** Inline text is forbidden
+- Access list, creation and expiry timestamps
+- Download tracking enabled
+- `packet_hash` written into the resulting `ReviewVerdict`
 
-## Kırmızı bayraklar
+## Red flags
 
-- Paket elle derlenmiş
-- `packet_hash` kaydedilmemiş
-- Reviewer'a ek bilgi sohbet içinde verilmiş
-- Denylist öğesi pakette
+- The packet was assembled by hand
+- `packet_hash` not recorded
+- Supplementary information given to the reviewer in conversation
+- A denylist item present in the packet
+- Exclusion records absent while exclusions were applied

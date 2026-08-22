@@ -1,94 +1,96 @@
-# WP-140 — Servis Canlılık İzleme ve Dead-Man's Switch
+# WP-140 — Service Liveness Monitoring and Dead-Man's Switch
 
-## Paket kartı
+## Package card
 
-| Alan | Değer |
+| Field | Value |
 |---|---|
-| İş paketi | `WP-140` |
+| Work package | `WP-140` |
 | Workstream | `13_TOOLING_INTEGRATION` |
-| İlk efor sınıfı | **S** — refinement'ta O/M/P tahmini zorunlu |
-| Accountable Owner | SRE Lead |
-| Bağımsız doğrulayıcı | Metascience Lead |
+| Initial effort class | **S** — small; a three-point (O/M/P) estimate is mandatory at refinement |
+| Accountable owner | SRE Lead |
+| Independent verifier | Metascience Lead |
 | Hard dependencies | WP-101 (Service SLO), WP-131, WP-134 |
-| İlgili gate | Platform, G10 |
-| İlgili kontroller | CTL-OBS-01 |
-| İlgili ACC senaryoları | ACC-43 |
-| İlgili skill | `escalating-and-paging` |
+| Related gates | Platform, G10 |
+| Related controls | CTL-OBS-01 |
+| Related acceptance scenarios | ACC-43 |
+| Related skill | `escalating-and-paging` |
+| Current status | `NOT_STARTED` |
 
-## Amaç ve beklenen sonuç
+## Purpose and expected outcome
 
-Periyodik işlerin **çalışmadığını** fark eden bir mekanizma kurulur.
+A mechanism is built that notices when periodic work **is not running**.
 
-Sessiz ölüm, bu mimarinin en tehlikeli arıza biçimidir: bir besleme, bir timer
-veya bir sync durduğunda hiçbir hata üretmez — yalnız hiçbir şey olmaz. Denetim
-raporundaki **H1/H2** bulguları (sessiz eksik senkron, silinen kaynağın hayalet
-kalması) bu sınıftandır.
+Silent death is the most dangerous failure mode in this architecture: when a
+feed, a timer or a sync stops, it produces no error — nothing simply happens.
+The **H1/H2** findings in the audit report (silently partial sync, a deleted
+source lingering as a ghost) belong to this class.
 
-**Dead-man's switch deseni:** her periyodik iş, başarıyla bittiğinde bir
-"hâlâ hayattayım" sinyali gönderir. Sinyal beklenen pencerede gelmezse
-**alarm üretilir** — işin kendisi hata vermemiş olsa bile.
+**Dead-man's switch pattern:** every periodic job emits an "I am still alive"
+signal when it completes successfully. If the signal does not arrive within the
+expected window, **an alarm is raised** — even though the job itself never
+reported an error.
 
-Kapsanacak işler: Zotero sync timer, G10 besleme taramaları, kalibrasyon
-koşuları, digest üreticileri, kontrol enjeksiyonu, yedekleme işleri.
+Jobs to cover: the Zotero sync timer, G10 feed scans, calibration runs, digest
+generators, control injection, and backup jobs.
 
-## Kapsam dışı
+## Out of scope
 
-- İşin kendi iç doğruluğu (ilgili paketin işi)
+- The internal correctness of the job itself (owned by the relevant package)
 
-## Önkoşullar ve Definition of Ready
+## Preconditions — Definition of Ready
 
-- Bağımlılıklar kabul edilmiştir: WP-101 (Service SLO), WP-131, WP-134
-- Named owner, implementer ve producer'dan bağımsız verifier atanmıştır.
-- DataClass, CodeTrust, ToolEffect ve ağ/credential kapsamı sınıflandırılmıştır.
-- Test fixture, environment, rollback noktası ve acceptance ölçüm yöntemi erişilebilirdir.
+- Dependencies accepted: WP-101 (Service SLO), WP-131, WP-134
+- A named owner, a named implementer and a verifier independent of the producer are assigned.
+- `DataClass`, `CodeTrust`, `ToolEffect` and the network/credential scope are classified.
+- Test fixtures, the environment, the rollback point and the acceptance measurement method are reachable.
 
-## Uygulama görevleri
+## Implementation tasks
 
-| Alt iş | Yapılacak iş | Tamamlanma kanıtı |
+| Sub-task | Work to be done | Completion evidence |
 |---|---|---|
-| WP-140-T01 | Periyodik iş envanteri ve beklenen aralık kaydı | Envanter dosyası |
-| WP-140-T02 | Her iş için başarı sinyali (heartbeat) yayını | Sinyal kaydı |
-| WP-140-T03 | Sinyal gelmediğinde alarm (self-hosted izleyici) | Test: işi durdur → alarm gelir |
-| WP-140-T04 | Kısmi başarı ayrımı: `SUCCEEDED` vs `PARTIAL` | Eksik senkron `SUCCEEDED` sayılmaz |
-| WP-140-T05 | Alarm eskalasyonunu WP-134 zincirine bağla | Onaylanmayan alarm yükselir |
-| WP-140-T06 | Canlılık panosu ve son çalışma zamanları | Her iş için son başarı görünür |
+| WP-140-T01 | Inventory of periodic jobs and their expected intervals | Inventory file |
+| WP-140-T02 | Emit a success signal (heartbeat) for every job | Signal records |
+| WP-140-T03 | Alarm when no signal arrives (self-hosted monitor) | Test: stop the job → alarm arrives |
+| WP-140-T04 | Distinguish partial success: `SUCCEEDED` vs `PARTIAL` | A partial sync is never counted as `SUCCEEDED` |
+| WP-140-T05 | Bind alarm escalation to the WP-134 chain | An unacknowledged alarm is promoted |
+| WP-140-T06 | Liveness dashboard with last-run times | The last success is visible for every job |
 
-## Zorunlu teslimatlar
+## Mandatory deliverables
 
-- Periyodik iş envanteri
-- Heartbeat yayını ve izleyici (ör. self-hosted Uptime Kuma / Healthchecks)
-- Kısmi başarı ayrımı
-- Canlılık panosu
+- The periodic job inventory
+- Heartbeat emission and the monitor (e.g. self-hosted Uptime Kuma / Healthchecks)
+- The partial-success distinction
+- The liveness dashboard
 
-## Test ve doğrulama planı
+## Test and verification plan
 
-- **Sessiz ölüm:** işi durdur → beklenen pencerede alarm üretiliyor
-- **Kısmi başarı:** eksik kayıt işlenen koşu `PARTIAL` işaretleniyor, `SUCCEEDED` değil
-- **İzleyicinin kendisi:** izleyici durursa bu da tespit ediliyor (meta-heartbeat)
-- **Alarm eskalasyonu:** onaylanmayan alarm üst basamağa çıkıyor
+- **Silent death:** stop the job → an alarm is raised within the expected window
+- **Partial success:** a run that processed fewer records than expected is marked `PARTIAL`, not `SUCCEEDED`
+- **The monitor itself:** if the monitor stops, that is also detected (meta-heartbeat)
+- **Alarm escalation:** an unacknowledged alarm is promoted to the next step
 
-## Kabul kriterleri
+## Acceptance criteria
 
-- [ ] Her periyodik iş için beklenen aralık tanımlı ve izleniyor
-- [ ] Bir iş sessizce durduğunda **saatler içinde** alarm üretiliyor
-- [ ] Kısmi başarı `SUCCEEDED` olarak raporlanamıyor
-- [ ] İzleyicinin kendi ölümü de tespit ediliyor
-- [ ] Bütün zorunlu testler aynı target revision üzerinde geçmiştir.
-- [ ] Açık Critical/High finding yoktur.
-- [ ] Bağımsız verifier kanıt paketini kabul etmiştir.
+- [ ] Every periodic job has a defined, monitored expected interval
+- [ ] When a job stops silently, an alarm is raised **within hours**
+- [ ] Partial success cannot be reported as `SUCCEEDED`
+- [ ] The monitor's own death is detected
+- [ ] All mandatory tests passed on the same target revision.
+- [ ] No open Critical or High findings.
+- [ ] The independent verifier has accepted the evidence package.
 
-## Riskler ve kontrol noktaları
+## Risks and control points
 
-- İzleyici tek arıza noktası olmamalı; meta-heartbeat zorunlu
-- Alarm eşikleri çok dar olursa gürültü, çok geniş olursa geç tespit — ölçerek ayarlanır
-- Paket tamamlandı beyanı acceptance değildir; verifier kararı olmadan yalnız `TECH_COMPLETE` olabilir.
+- The monitor must not be a single point of failure; the meta-heartbeat is mandatory
+- Thresholds that are too tight produce noise, too loose produce late detection — they are tuned by measurement
+- A "package complete" statement is not acceptance. Without a verifier decision the package can only be `TECH_COMPLETE`.
 
 ## Rollback / compensation
 
-İzleme devre dışı bırakılırsa periyodik işler çalışmaya devam eder ama
-sessiz ölüm görünmez hale gelir. Bu bir **High** risktir ve açık waiver gerektirir.
+If monitoring is disabled, the periodic jobs keep running but silent death
+becomes invisible again. That is a **High** risk and requires an explicit waiver.
 
-## Handoff ve sonraki paketlere giriş
+## Handoff into downstream packages
 
-WP-137 besleme canlılığını, WP-134 alarm eskalasyonunu bu mekanizmaya bağlar.
-Metascience düzlemi canlılık verisini gate yield ölçümünde kullanır.
+WP-137 binds feed liveness and WP-134 binds alarm escalation to this mechanism.
+The metascience plane uses liveness data in its gate-yield measurement.

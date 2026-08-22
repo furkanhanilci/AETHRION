@@ -1,3 +1,7 @@
+> [!info] Generated view
+> This note is generated from `skills/calibrating-confidence/SKILL.md` in the repository. Edit the
+> canonical file and regenerate; edits made here are overwritten.
+
 ---
 name: calibrating-confidence
 version: 1.0.0
@@ -11,57 +15,63 @@ mechanical_checks: [raw_and_calibrated_stored, uncalibrated_flag_when_insufficie
 
 # Calibrating Confidence
 
-## Genel ilke
+## Core principle
 
-Ölçülmemiş bir güven skoru süslemedir. Ve süsleme, **false rigor**'un tam
-tanımıdır.
+An unmeasured confidence score is decoration. And decoration is exactly what
+**false rigor** consists of.
 
-## Demir kural
+## Iron law
 
-> **KALİBRE EDİLMEMİŞ SKOR SAYI OLARAK GÖSTERİLMEZ.**
+> **AN UNCALIBRATED SCORE IS NOT DISPLAYED AS A NUMBER.**
 >
-> Yeterli sonuç verisi yoksa `UNCALIBRATED` yazılır. Sahte hassasiyet yasaktır.
+> Without sufficient outcome data, the field reads `UNCALIBRATED`. Fake
+> precision is forbidden.
 
-## İki alan, tek gerçek
+The difference between `0.95` and `0.87` means nothing until it has been
+measured. Displaying it anyway transfers unearned certainty to the reader.
+
+## Two fields, one truth
 
 ```yaml
 confidence_dimensions:
   entailment:
-    raw: 0.90            # modelin ham çıktısı
-    calibrated: 0.72     # sonuçlarla kalibre edilmiş
-    n_outcomes: 47       # kaç sonuçla kalibre edildi
+    raw: 0.90            # the model's raw output
+    calibrated: 0.72     # calibrated against outcomes
+    n_outcomes: 47       # how many outcomes informed this
     status: CALIBRATED   # CALIBRATED | UNCALIBRATED
 ```
 
-## Kalibrasyon döngüsü
+## Calibration loop
 
-1. **Tahmin kaydedilir** — claim üretildiğinde ham skorlar
-2. **Sonuç beklenir** — G7 doğrulaması, G10 hayatta kalma
-3. **Skor hesaplanır** — Brier skoru + kalibrasyon eğrisi
-4. **Yeniden kalibre edilir** — izotonik regresyon veya Platt ölçekleme
-5. **Yayınlanır** — hangi boyut ne kadar güvenilir
+1. **Record the prediction** — raw scores at claim creation
+2. **Wait for the outcome** — G7 verification, G10 survival
+3. **Score it** — Brier score plus a calibration curve
+4. **Recalibrate** — isotonic regression or Platt scaling
+5. **Publish** — which dimension is how trustworthy
 
-## Birleştirme kuralı — çarpma yok, ortalama yok
+## Combination rule — no multiplying, no averaging
 
-Yedi boyut bağımsız değil ve farklı şeyler ölçüyor. Çarpım yapay olarak
-düşük, ortalama yapay olarak yüksek sonuç verir.
+The seven dimensions are neither independent nor commensurable. Multiplying
+produces an artificially low number; averaging produces an artificially high one.
+Both are arithmetic performed on quantities that do not support it.
 
-> **En zayıf halka:** `claim_strength = min(calibrated_dimensions)`
-> ve **hangi boyutun bağladığı** açıkça gösterilir.
+> **Weakest link:** `claim_strength = min(calibrated_dimensions)`,
+> and **which dimension binds** is displayed alongside it.
 
-Bir claim, en zayıf kanıt boyutu kadar güçlüdür.
+A claim is exactly as strong as its weakest evidential dimension. Naming that
+dimension is more informative than any composite.
 
-## Yorumlama
+## Interpreting Brier
 
-| Brier | Anlam |
+| Brier | Meaning |
 |---|---|
-| Düşük | İyi kalibre — sayılar anlamlı |
-| Yüksek + aşırı güven | Model kendine fazla güveniyor → skorları sıkıştır |
-| Yüksek + az güven | Model çekingen → skorları genişlet |
+| Low | Well calibrated — the numbers carry information |
+| High + overconfident | Compress the scores |
+| High + underconfident | Expand the scores |
 
-## Kırmızı bayraklar
+## Red flags
 
-- Üç haneli hassasiyette skor, `n_outcomes` yok
-- `raw` ve `calibrated` aynı
-- Yedi boyut çarpılarak tek skora indirilmiş
-- Kalibrasyon hiç güncellenmemiş
+- Three-decimal precision with no `n_outcomes`
+- `raw` equal to `calibrated`
+- Seven dimensions collapsed into one via multiplication
+- Calibration never refreshed after the first fit

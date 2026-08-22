@@ -27,10 +27,10 @@ def _get(path: str, *, params: dict[str, Any] | None = None) -> Any:
     except httpx.HTTPStatusError as exc:
         detail = exc.response.text[:500]
         raise RuntimeError(
-            f"AIRL Bridge isteği başarısız ({exc.response.status_code}): {detail}"
+            f"AIRL Bridge request failed ({exc.response.status_code}): {detail}"
         ) from exc
     except httpx.HTTPError as exc:
-        raise RuntimeError(f"AIRL Bridge erişilemiyor: {exc}") from exc
+        raise RuntimeError(f"AIRL Bridge is unreachable: {exc}") from exc
     return response.json()
 
 
@@ -66,7 +66,7 @@ def _compact_source(source: dict[str, Any]) -> dict[str, Any]:
 
 
 def bridge_status() -> dict[str, Any]:
-    """AIRL Bridge, Zotero bağlantısı ve kayıt sayısının çalışma durumunu getir."""
+    """Return the operating status of AIRL Bridge, the Zotero connection and the record count."""
     health = _get("/health")
     ready = _get("/ready")
     return {
@@ -80,17 +80,17 @@ def bridge_status() -> dict[str, Any]:
 
 
 def search_sources(query: str, limit: int = 10) -> list[dict[str, Any]]:
-    """Başlık, özet, DOI, etiket veya yazar içinde Zotero kaynaklarını ara."""
+    """Search Zotero sources across title, abstract, DOI, tags and authors."""
     query = query.strip()
     if len(query) < 2:
-        raise ValueError("Arama sorgusu en az iki karakter olmalıdır.")
+        raise ValueError("The search query must be at least two characters long.")
     bounded_limit = max(1, min(limit, 25))
     sources = _get("/v1/sources/search", params={"q": query, "limit": bounded_limit})
     return [_compact_source(source) for source in sources]
 
 
 def get_source(airl_id: str) -> dict[str, Any]:
-    """AIRL kimliği verilen tek kaynağın ayrıntılarını getir."""
+    """Return the details of a single source identified by its AIRL identifier."""
     source = _get(f"/v1/sources/{quote(airl_id.strip(), safe='')}")
     result = _compact_source(source)
     result.update(
@@ -106,12 +106,12 @@ def get_source(airl_id: str) -> dict[str, Any]:
 
 
 def list_categories() -> list[dict[str, Any]]:
-    """Kaynak türlerini Türkçe kategori adları ve kayıt sayılarıyla listele."""
+    """List source types with their category names and record counts."""
     return _get("/v1/categories")
 
 
 def list_possible_duplicates(limit_groups: int = 20) -> list[dict[str, Any]]:
-    """Aynı normalize başlığa sahip olası kopya kaynak gruplarını salt okunur listele."""
+    """List, read-only, the groups of possible duplicate sources sharing a normalised title."""
     bounded_limit = max(1, min(limit_groups, 50))
     groups = _get("/v1/duplicates")[:bounded_limit]
     return [

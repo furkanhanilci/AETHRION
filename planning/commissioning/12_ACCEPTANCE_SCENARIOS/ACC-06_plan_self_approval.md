@@ -1,60 +1,63 @@
 # ACC-06 — Planner Self-Approval Attempt
 
-## Senaryo kartı
+## Scenario card
 
-| Alan | Değer |
+| Field | Value |
 |---|---|
-| Senaryo | `ACC-06` |
-| Kategori | Governance/Assurance |
+| Scenario | `ACC-06` |
+| Category | Governance/Assurance |
 | Severity | **Critical** |
-| Accountable Owner | Assurance Lead |
-| Bağımsız witness/verifier | Internal Audit |
-| İlgili paketler | `WP-007`, `WP-088`, `WP-102`, `WP-105` |
-| Production kabulü | Critical senaryo SKIP veya waiver ile PASS sayılamaz |
+| Accountable owner | Assurance Lead |
+| Independent witness / verifier | Internal Audit |
+| Related packages | `WP-007`, `WP-088`, `WP-102`, `WP-105` |
+| Production acceptance | A Critical scenario can never be counted as PASS through a SKIP or a waiver |
 
-## Amaç
+## Purpose
 
-Bu senaryo, **Planner Self-Approval Attempt** durumunda hedef mimarinin fail-safe ve kanıt üretme davranışını doğrular. Test aynı release candidate, policy bundle, schema bundle ve environment manifest üzerinde çalıştırılır.
+This scenario verifies the target architecture's fail-safe behaviour and its
+evidence production in the **Planner Self-Approval Attempt** situation. The test runs on the same
+release candidate, policy bundle, schema bundle and environment manifest as
+every other scenario in the same acceptance round.
 
 ## Given / When / Then
 
-**Given:** Bir planı üreten actor/model profile aynı artifact için reviewer veya approver assignment adayı olarak sunulur.
+**Given:** The actor or model profile that produced a plan is offered as a reviewer or approver assignment candidate for the same artifact.
 
-**When:** Assignment service IndependenceProfile eligibility kontrolü yapar.
+**When:** The assignment service performs the `IndependenceProfile` eligibility check.
 
-**Then:** Atama policy tarafından reddedilir; gate BLOCKED veya uygun bağımsız reviewer bekler ve ihlal denemesi audit edilir.
+**Then:** The assignment is rejected by policy; the gate becomes `BLOCKED` or waits for a suitable independent reviewer, and the violation attempt is audited.
 
-## Önkoşullar
+## Preconditions
 
-- İlgili work package'lar `INTEGRATED` veya `COMMISSIONING_READY` durumundadır.
-- Teste özel project/actor/data/artifact kimlikleri production verisinden ayrılmıştır.
-- Release candidate digest ile policy, schema, model/tool ve infrastructure bundle sürümleri freeze edilmiştir.
-- Beklenen canonical records, events, policy decisions, telemetry ve audit assertions registry'ye girilmiştir.
-- Failure injection blast radius, kill switch, cleanup ve witness atanmıştır.
+- The related work packages are `INTEGRATED` or `COMMISSIONING_READY`.
+- Test-specific project, actor, data and artifact identifiers are separated from production data.
+- The release candidate digest and the policy, schema, model/tool and infrastructure bundle versions are frozen.
+- The expected canonical records, events, policy decisions, telemetry and audit assertions are entered in the registry.
+- The failure-injection blast radius, the kill switch, the cleanup procedure and the witness are assigned.
 
-## Test adımları
+## Test steps
 
-| # | İşlem | Toplanacak anlık kanıt |
+| # | Action | Evidence captured at this step |
 |---:|---|---|
-| 1 | Producer identity/model/context/credential alanlarını kaydet | Execution log + trace/event references |
-| 2 | Aynı actor'ı reviewer olarak ata | Execution log + trace/event references |
-| 3 | Aynı insan farklı model ama kirli context varyantını dene | Execution log + trace/event references |
-| 4 | R1 ve R3 policy sonuçlarını karşılaştır | Execution log + trace/event references |
-| 5 | Uygun bağımsız reviewer ata ve akışı sürdür | Execution log + trace/event references |
+| 1 | Record the producer identity, model, context and credential fields | Execution log + trace/event references |
+| 2 | Assign the same actor as reviewer | Execution log + trace/event references |
+| 3 | Try the variant with the same human, a different model, but a contaminated context | Execution log + trace/event references |
+| 4 | Compare the R1 and R3 policy outcomes | Execution log + trace/event references |
+| 5 | Assign a suitable independent reviewer and continue the flow | Execution log + trace/event references |
 
-## Zorunlu invariant ve assertions
+## Mandatory invariants and assertions
 
-- [ ] Self assignment deny
-- [ ] Context contamination non-compliant
-- [ ] R3 gerekli human/model separation
-- [ ] Denied attempt gate'i PASS yapmaz
-- [ ] Audit rule/bundle/input taşır
-- [ ] Expected canonical state ile actual state aynı veya açıklanmış güvenli failure state'indedir.
-- [ ] Duplicate, stale, forged veya partial input unsafe yan etki üretmemiştir.
-- [ ] Trace, event, audit ve business record aynı project/workflow/run correlation zincirindedir.
-- [ ] Test sırasında oluşan her Critical/High finding Finding Registry'ye kaydedilmiştir.
+- [ ] Self-assignment is denied
+- [ ] Context contamination is non-compliant
+- [ ] R3 enforces the required human and model separation
+- [ ] A denied attempt never turns the gate into `PASS`
+- [ ] The audit record carries the rule, bundle and input
+- [ ] The actual canonical state equals the expected state, or an explained safe failure state.
+- [ ] Duplicate, stale, forged or partial inputs produced no unsafe side effect.
+- [ ] Trace, event, audit and business records share one project/workflow/run correlation chain.
+- [ ] Every Critical or High finding raised during the test is recorded in the Finding Registry.
 
-## Beklenen canonical kayıtlar
+## Expected canonical records
 
 - `IndependenceProfile`
 - `AssignmentDecision`
@@ -62,38 +65,47 @@ Bu senaryo, **Planner Self-Approval Attempt** durumunda hedef mimarinin fail-saf
 - `GateRecord`
 - `AuditRecord`
 
-## Beklenen olaylar
+## Expected events
 
 - `review.assignment.denied`
 - `independence.violated`
 - `workflow.blocked`
 - `review.assignment.created`
 
-Beklenen olay sayısı/idempotency ve sıra kısıtları test registry'deki machine-readable assertion dosyasında tutulur. NATS event'i tek başına canonical state kanıtı değildir; ilgili service/Temporal commit'i ayrıca doğrulanır.
+Expected event counts, idempotency and ordering constraints live in the
+machine-readable assertion file inside the test registry. **A NATS event alone
+is not evidence of canonical state**; the corresponding service or Temporal
+commit is verified separately.
 
-## Kanıt paketi
+## Evidence package
 
-- `ACC-06-result.json`: PASS/FAIL, RC digest ve assertion sonuçları.
-- `ACC-06-execution-log.jsonl`: zaman sıralı test/fault/decision kayıtları.
-- `ACC-06-state-before.json` ve `ACC-06-state-after.json`.
-- `ACC-06-events.json`, `ACC-06-policy-decisions.json` ve `ACC-06-audit-export.json`.
-- `ACC-06-evidence-manifest.json`: bütün dosyaların hash, producer ve environment referansı.
-- Bağımsız witness `VerificationRecord` ve varsa finding/disposition kayıtları.
+- `ACC-06-result.json`: PASS/FAIL, the RC digest and the assertion results.
+- `ACC-06-execution-log.jsonl`: time-ordered test, fault and decision records.
+- `ACC-06-state-before.json` and `ACC-06-state-after.json`.
+- `ACC-06-events.json`, `ACC-06-policy-decisions.json` and `ACC-06-audit-export.json`.
+- `ACC-06-evidence-manifest.json`: the hash, producer and environment reference of every file.
+- The independent witness's `VerificationRecord`, plus any finding and disposition records.
 
-## PASS ölçütü
+## PASS criteria
 
-- Bütün scenario-specific assertions ve ortak integrity assertions geçer.
-- Beklenen fail-closed/block/revise davranışı happy-path başarı kadar geçerli bir PASS olabilir; beklenen state ile aynı olmalıdır.
-- Açık Critical/High finding yoktur.
-- Kanıt manifesti eksiksiz, hashleri doğrulanmış ve witness tarafından imzalanmıştır.
-- Aynı release candidate dışındaki sonuçlar birleştirilmemiştir.
+- All scenario-specific assertions and the common integrity assertions pass.
+- **An expected fail-closed, block or revise behaviour is as valid a PASS as a happy-path success** — provided it matches the expected state exactly.
+- No open Critical or High findings remain.
+- The evidence manifest is complete, its hashes verified and the package signed by the witness.
+- Results from a different release candidate have not been merged into this one.
 
-## FAIL ve yeniden test
+## FAIL and retest
 
-Bir invariant, kanıt bütünlüğü veya beklenen kayıt/event assertion'ı başarısızsa senaryo FAIL olur. Correction yalnız VALIDATED finding üzerinden açılır. Target revision veya ilgili policy/schema/model/tool bundle değişirse önceki sonuç geçersiz olur; senaryo ve etkilenen regression kümesi yeniden çalıştırılır.
+The scenario FAILs if any invariant, evidence-integrity check, or expected
+record/event assertion fails. A correction is opened only against a `VALIDATED`
+finding. If the target revision or any related policy, schema, model or tool
+bundle changes, the previous result becomes void and the scenario plus its
+affected regression set are rerun.
 
-## Cleanup ve geri dönüş
+## Cleanup and reversal
 
-Test assignments cancel edilir; denial/audit kayıtları retained kalır.
+Test assignments are cancelled; denial and audit records are retained.
 
-Cleanup canonical evidence ve audit geçmişini silmez. Destructive test fixture işlemleri yalnız explicit test namespace/kimlikleri üzerinde ve iki aşamalı doğrulamayla yapılır.
+Cleanup never deletes canonical evidence or audit history. Destructive test
+fixture operations run only against explicit test namespaces and identities, and
+only under two-stage confirmation.

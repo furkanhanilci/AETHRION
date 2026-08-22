@@ -1,3 +1,7 @@
+> [!info] Generated view
+> This note is generated from `skills/extracting-evidence/SKILL.md` in the repository. Edit the
+> canonical file and regenerate; edits made here are overwritten.
+
 ---
 name: extracting-evidence
 version: 1.0.0
@@ -12,59 +16,62 @@ mechanical_checks: [quote_exact_match_in_representation, support_type_assigned]
 
 # Extracting Evidence
 
-## Genel ilke
+## Core principle
 
-Kanıt **kaynakta gerçekten yazan** şeydir — kaynağın söylediğini düşündüğün
-şey değil.
+Evidence is what the source **actually says** — not what you believe it says.
 
-## Demir kural
+## Iron law
 
-> **ALINTI, KAYNAK TEMSİLİNDE BİREBİR BULUNMALIDIR.**
+> **THE QUOTE MUST MATCH THE SOURCE REPRESENTATION EXACTLY.**
 >
-> Bulunamayan alıntı kanıt değildir. Yaklaşık alıntı **uydurma riskidir**.
+> A quote that cannot be located is not evidence. An approximate quote is a
+> fabrication risk.
 
-## Prosedür
+## Procedure
 
-1. Claim'i oku; **hangi tam ifadenin** destek sayılacağını belirle
-2. Kaynak temsilinde ara — `SourceRepresentation` hash'i ile pinlenmiş olan
-3. Bulunan span'i [[anchoring-spans]] ile çapala (çok seçicili)
-4. `support_type` ata:
-   - `supports` — iddiayı destekler
-   - `contradicts` — iddiayı çürütür
-   - `qualifies` — koşullandırır/sınırlar
-   - `contextualizes` — arka plan sağlar
-5. Confidence ver — **ham skor**; kalibrasyon ayrı katmanda
-6. Bulunamadıysa: **`NOT_FOUND` kaydet.** Uydurma.
+1. Read the claim; decide **which exact statement** would constitute support
+2. Search the source representation — the one pinned by hash
+3. Anchor the span with `anchoring-spans` (multi-selector)
+4. Assign `support_type`:
+   - `supports` — supports the claim
+   - `contradicts` — refutes it
+   - `qualifies` — conditions or limits it
+   - `contextualizes` — provides background
+5. Give a confidence score — **raw**; calibration happens in a separate layer
+6. If not found: record `NOT_FOUND`. **Do not invent one.**
 
-## Çıkarım kalitesi
+## Extraction quality
 
-PDF için **GROBID** tercih edilir: bölüm yapısı, referanslar ve koordinatlar
-düz metin çıkarımından çok daha güvenilirdir. Kullanılan araç ve sürümü
-`extraction_tool` alanına yazılır.
+For PDFs, prefer structure-aware extraction (section structure, references,
+coordinates) over flat text extraction — the difference shows up directly in
+anchor stability. Record the tool and its version in `extraction_tool`.
 
-## Bağlam kaydı
+## Context capture
 
-Span yalnız cümle değildir. `prefix` ve `suffix` kaydedilir — çünkü
-*"X doğru değildir"* ile *"X doğrudur"* arasındaki fark bağlamdadır.
+A span is not only a sentence. `prefix` and `suffix` are recorded, because the
+difference between *"X is not true"* and *"X is true"* lives in the context.
 
-Ve: **olumsuzlama, koşul ve sınırlama ifadelerini asla kırpma.**
+And: **never trim negation, condition or limitation clauses.** "X holds under
+condition C" quoted as "X holds" is a fabricated claim assembled from real words.
 
-## Çelişen kanıt
+## Contradicting evidence
 
-Claim'i çürüten span aranır ve bağlanır. `contradicted_by` boş bırakılmaz —
-boşsa arandığına dair kanıt gerekir.
+Spans that refute the claim are sought and bound. `contradicted_by` is not left
+empty; if it is, evidence of the search is required.
 
-## Rasyonalizasyon tablosu
+## Rationalization table
 
-| Gerekçe | Hüküm |
+| Justification | Ruling |
 |---|---|
-| "Makale bunu söylüyor ama tam cümleyi bulamadım" | **Kanıt yok.** İddiayı düşür veya kaynağı yeniden çıkar. |
-| "Anlamı aynı, kelimeler farklı" | Birebir eşleşme zorunlu. |
-| "Özetten aldım" | Özet bir temsildir; hangi temsil olduğunu pinle. |
-| "Şekilde görünüyor" | Şekil verisi ayrı çıkarılır ve hash'lenir. |
+| "The paper says this but I couldn't find the sentence" | **No evidence.** Drop the claim or re-extract the source. |
+| "The wording differs but the meaning is the same" | Exact match required. |
+| "I took it from the abstract" | An abstract is a representation. Pin which one. |
+| "It's visible in the figure" | Figure data is extracted and hashed separately. |
+| "The negation clause wasn't relevant" | It is always relevant. Quote it. |
 
-## Kırmızı bayraklar
+## Red flags
 
-- `quote_exact_match` mekanik kontrolü kırmızı
-- Aynı span birden çok çelişkili claim'i destekliyor
-- `contradicted_by` sistematik olarak boş
+- `quote_exact_match` is red — the signature of a fabricated citation
+- One span supporting two mutually inconsistent claims
+- `contradicted_by` systematically empty
+- Extraction tool and version not recorded

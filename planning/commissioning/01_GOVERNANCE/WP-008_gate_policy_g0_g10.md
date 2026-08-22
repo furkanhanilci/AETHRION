@@ -1,99 +1,107 @@
-# WP-008 — G0–G10 Gate ve Assurance Politikası
+# WP-008 — G0–G10 Gate and Assurance Policy
 
-## Paket kartı
+## Package card
 
-| Alan | Değer |
+| Field | Value |
 |---|---|
-| İş paketi | `WP-008` |
+| Work package | `WP-008` |
 | Workstream | `01_GOVERNANCE` |
-| İlk efor sınıfı | **L** — refinement'ta O/M/P tahmini zorunlu |
-| Accountable Owner | Research Director |
-| Bağımsız doğrulayıcı | Assurance Lead / Safety Owner |
+| Initial effort class | **L** — large — split into sub-deliveries if it cannot be reviewed in one pass; a three-point (O/M/P) estimate is mandatory at refinement |
+| Accountable owner | Research Director |
+| Independent verifier | Assurance Lead / Safety Owner |
 | Hard dependencies | WP-004, WP-005, WP-007 |
-| İlgili gate | G0–G10 |
-| İlgili kontroller | CTL-GOV-01, CTL-EPI-03 |
-| İlgili ACC senaryoları | İlgili dikey dilim ve commissioning sırasında atanır |
+| Related gates | G0–G10 |
+| Related controls | CTL-GOV-01, CTL-EPI-03 |
+| Related acceptance scenarios | Assigned during the relevant vertical slice and commissioning |
+| Current status | `NOT_STARTED` |
 
-## Amaç ve beklenen sonuç
+## Purpose and expected outcome
 
-Her gate'in değişmez amacı, giriş/çıkış artifact'ı, hard blocker'ı, risk bazlı derinliği, reopen ve escalation davranışı tek policy baseline'ında kapanır.
+Each gate's invariant purpose, entry and exit artifacts, hard blockers, risk-based depth, reopen behaviour and escalation path are closed out in a single policy baseline.
 
-## Kapsam dışı
+## Out of scope
 
-- Bağımlı paketin kendi iç implementasyonu
-- Production cutover ve nihai operasyon onayı
 
-## Önkoşullar ve Definition of Ready
+- The internal implementation of any dependent package
+- Production cutover and final operational approval
 
-- Bağımlılıklar kabul edilmiştir: [WP-004 — İnsan Kararı, SLA, Delegasyon ve Eskalasyon Politikası](../01_GOVERNANCE/WP-004_insan_karar_sla_delegasyon.md), [WP-005 — Araştırma Risk ve Assurance Profili](../01_GOVERNANCE/WP-005_risk_assurance_profili.md), [WP-007 — IndependenceProfile ve Separation-of-Duties Politikası](../01_GOVERNANCE/WP-007_independence_profili.md)
-- Named owner, implementer ve producer'dan bağımsız verifier atanmıştır.
-- Etkilenen canonical kayıtlar, interface'ler ve ADR'lar refinement'ta ilişkilendirilmiştir.
-- DataClass, CodeTrust, ToolEffect ve ağ/credential kapsamı sınıflandırılmıştır.
-- Test fixture, environment, rollback noktası ve acceptance ölçüm yöntemi erişilebilirdir.
-- Efor için O/M/P kişi-gün tahmini ve gerçek kapasite rezervasyonu kaydedilmiştir.
+## Preconditions — Definition of Ready
 
-## Uygulama görevleri
+- Dependencies accepted: [WP-004 — Human Decision, SLA, Delegation and Escalation Policy](../01_GOVERNANCE/WP-004_human_decision_sla_delegation.md), [WP-005 — Research Risk and Assurance Profile](../01_GOVERNANCE/WP-005_risk_assurance_profile.md), [WP-007 — IndependenceProfile and Separation-of-Duties Policy](../01_GOVERNANCE/WP-007_independence_profile.md)
+- A named owner, a named implementer, and a verifier **independent of the producer** are assigned.
+- Affected canonical records, interfaces and ADRs have been linked during refinement.
+- `DataClass`, `CodeTrust`, `ToolEffect` and the network/credential scope are classified.
+- Test fixtures, the environment, the rollback point and the acceptance measurement method are reachable.
+- An O/M/P person-day estimate is recorded and real capacity is reserved against it.
 
-| Alt iş | Yapılacak iş | Sorumlu | Tamamlanma kanıtı |
+## Implementation tasks
+
+| Sub-task | Work to be done | Responsible | Completion evidence |
 |---|---|---|---|
-| WP-008-T01 | G0–G10 giriş/çıkış ve GateRecord alanlarını yaz | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-008-T02 | R1/R2/R3 assurance overlay'lerini bağla | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-008-T03 | Gate'ler aynı oturumda kapanabilse de ayrı kayıt üretme kuralını tanımla | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-008-T04 | Protocol/literature/run/review/repro reopen kurallarını yaz | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-008-T05 | Non-waivable blocker ve residual-risk kabul sınırını eşle | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-008-T06 | G10 supersession/impact davranışını tanımla | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
+| WP-008-T01 | Write the entry/exit conditions and `GateRecord` fields for G0–G10 | Implementation owner | Commit / configuration / record reference |
+| WP-008-T02 | Bind the R1/R2/R3 assurance overlays to each gate | Implementation owner | Commit / configuration / record reference |
+| WP-008-T03 | Define the rule that gates may close in one session but must still produce separate records | Implementation owner | Commit / configuration / record reference |
+| WP-008-T04 | Write the reopen rules for protocol, literature, run, review and reproduction changes | Implementation owner | Commit / configuration / record reference |
+| WP-008-T05 | Map the non-waivable blockers and the residual-risk acceptance boundary | Implementation owner | Commit / configuration / record reference |
+| WP-008-T06 | Define G10 supersession and impact behaviour | Implementation owner | Commit / configuration / record reference |
 
-## Zorunlu teslimatlar
+## Mandatory deliverables
 
 - `Gate Policy v1`
 - `Gate artifact matrix`
 - `Reopen/return transition table`
 - `Gate owner matrix`
-- Güncellenmiş runbook/operasyon notu ve servis/contract ownership kaydı
-- İmzalı `EvidenceManifest`
+- An updated runbook or operations note, plus the service/contract ownership record
+- A signed `EvidenceManifest`
 
-## Test ve doğrulama planı
+## Test and verification plan
 
-- Happy path state walkthrough
-- Her gate için en az bir hard-fail testi
-- Risk derinliği ve ayrı GateRecord testi
-- G7 fail→CHALLENGED geri dönüş testi
-- Yetkisiz, eksik, stale, duplicate ve partial-failure girdileri için en az bir negatif test
-- İlgili interface'lerde producer/consumer contract compatibility testi
-- Telemetry correlation ve audit kayıt bütünlüğü kontrolü
+- A happy-path state walkthrough
+- At least one hard-fail test per gate
+- A test of risk-based depth and of separate `GateRecord` emission
+- A G7 fail → `CHALLENGED` return-path test
+- At least one negative test for unauthorised, missing, stale, duplicate and partial-failure inputs
+- Producer/consumer contract compatibility tests on every affected interface
+- Telemetry correlation and audit-record integrity checks
 
-## Kabul kriterleri
+## Acceptance criteria
 
-- [ ] On bir gate'in tümünde owner, artifact, acceptance ve blocker vardır
-- [ ] Risk gate'i kaldırmaz
-- [ ] Kritik blocker insan override ile geçilemez
-- [ ] Bütün zorunlu testler aynı target revision üzerinde geçmiştir.
-- [ ] Açık Critical/High finding yoktur; non-waivable blocker bulunmamaktadır.
-- [ ] Bağımsız verifier kanıt paketini kabul etmiştir.
-- [ ] Rollback/compensation davranışı denenmiş ve audit edilmiştir.
-- [ ] İlgili dashboard, alert, audit query veya integrity query çalışma kanıtı üretmiştir.
+- [ ] All eleven gates have an owner, entry/exit artifacts, acceptance criteria and blockers.
+- [ ] A low risk class reduces depth but never removes a gate.
+- [ ] A critical blocker cannot be passed by human override.
+- [ ] All mandatory tests passed **on the same target revision**.
+- [ ] No open Critical or High findings; no non-waivable blocker remains.
+- [ ] The independent verifier has accepted the evidence package.
+- [ ] Rollback/compensation behaviour has been exercised and audited.
+- [ ] The related dashboard, alert, audit query or integrity query has produced working evidence.
 
-## Kabul kanıtı paketi
+## Acceptance evidence package
 
-- Aynı target revision/digest üzerinde alınmış test sonuçları
-- Environment, schema, policy ve dependency sürümlerini içeren EvidenceManifest
-- Bağımsız verifier ReviewRecord veya VerificationRecord'u
-- Rollback/compensation denemesi ve sonuç referansı
-- Açık finding, residual risk ve owner/expiry listesi
+- Test results captured on the same target revision/digest
+- An `EvidenceManifest` recording the environment, schema, policy and dependency versions
+- The independent verifier's `ReviewRecord` or `VerificationRecord`
+- The rollback/compensation trial and its result reference
+- The list of open findings and residual risks with owners and expiry dates
 
-## Riskler ve kontrol noktaları
+## Risks and control points
 
-- Contract veya canonical sahiplik belirsizse implementasyon durur ve Architecture Board'a eskale edilir.
-- Identity, data route, artifact integrity, bağımsızlık veya kritik evidence problemi waiver ile geçirilemez.
-- Geçici manuel kontrol gerekiyorsa owner, scope, expiry, compensating control ve kaldırma paketi kaydedilir.
-- Paket tamamlandı beyanı acceptance değildir; verifier kararı olmadan yalnız `TECH_COMPLETE` olabilir.
+- If a contract or canonical ownership question is unresolved, implementation **stops** and the question escalates to the Architecture Board.
+- Identity, data routing, artifact integrity, independence and critical evidence problems **cannot** be passed by waiver.
+- If a temporary manual control is required, its owner, scope, expiry, compensating control and removal package are recorded.
+- A "package complete" statement is **not** acceptance. Without a verifier decision the package can only be `TECH_COMPLETE`.
+
+### Workstream-specific hazards
+
+- A policy that is written but not machine-checkable is an intention, not a control.
+- Role and authority documents drift silently; every change here needs a baseline bump.
+- The hardest failure in this workstream is a rule that everyone agrees with and nobody can enforce.
 
 ## Rollback / compensation
 
-Yeni gate policy açık workflow'lara doğrudan uygulanmaz; impact scan ve versioned transition ile promote edilir.
+A new gate policy is never applied directly to open workflows; it is promoted through an impact scan and a versioned transition.
 
-Immutable artifact, review ve karar geçmişi rollback sırasında silinmez; yeni durum supersession veya invalidation kaydıyla gösterilir.
+Immutable artifacts, reviews and decision history are **not** deleted during a rollback; the new state is expressed through a supersession or invalidation record.
 
-## Handoff ve sonraki paketlere giriş
+## Handoff into downstream packages
 
-Paket kabul edildiğinde teslim artifact'larının version/digest'leri Package Registry'ye yazılır, dependency event'i yayımlanır ve bu pakete bağlı READY adayları yeniden değerlendirilir. Downstream paket yalnız burada listelenen contract ve kanıt referanslarını tüketir; implementasyon iç ayrıntılarına bağlanmaz.
+On acceptance, the version and digest of every delivered artifact is written to the Package Registry, the dependency event is published, and every `READY` candidate blocked on this package is re-evaluated. A downstream package consumes **only** the contracts and evidence references listed above; it does not bind to internal implementation details.

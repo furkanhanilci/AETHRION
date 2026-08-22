@@ -1,97 +1,106 @@
-# WP-001 — Commissioning Charter ve Program Yetkisi
+# WP-001 — Commissioning Charter and Programme Authority
 
-## Paket kartı
+## Package card
 
-| Alan | Değer |
+| Field | Value |
 |---|---|
-| İş paketi | `WP-001` |
+| Work package | `WP-001` |
 | Workstream | `01_GOVERNANCE` |
-| İlk efor sınıfı | **S** — refinement'ta O/M/P tahmini zorunlu |
-| Accountable Owner | Executive Sponsor |
-| Bağımsız doğrulayıcı | Internal Audit / Commissioning Board |
-| Hard dependencies | Yok |
-| İlgili gate | Program |
-| İlgili kontroller | CTL-GOV-01 |
-| İlgili ACC senaryoları | İlgili dikey dilim ve commissioning sırasında atanır |
+| Initial effort class | **S** — small — one owner, one review cycle; a three-point (O/M/P) estimate is mandatory at refinement |
+| Accountable owner | Executive Sponsor |
+| Independent verifier | Internal Audit / Commissioning Board |
+| Hard dependencies | — |
+| Related gates | Program |
+| Related controls | CTL-GOV-01 |
+| Related acceptance scenarios | Assigned during the relevant vertical slice and commissioning |
+| Current status | `NOT_STARTED` |
 
-## Amaç ve beklenen sonuç
+## Purpose and expected outcome
 
-Programın amacı, üretim sınırı, finansman yetkisi, karar organları ve tek-cutover kuralı imzalı bir charter ile yürürlüğe girer.
+The programme's purpose, its production boundary, its funding authority, its decision bodies and the single-cutover rule are brought into force through a signed charter. Until this charter exists, no other package has the standing to bind anyone.
 
-## Kapsam dışı
+## Out of scope
 
-- Teknoloji seçimi
-- Detaylı iş takvimi
+- Technology selection
+- The detailed delivery calendar
+- The internal implementation of any dependent package
+- Production cutover and final operational approval
 
-## Önkoşullar ve Definition of Ready
+## Preconditions — Definition of Ready
 
-- Bağımlılıklar kabul edilmiştir: Yok — programın başlangıç paketidir.
-- Named owner, implementer ve producer'dan bağımsız verifier atanmıştır.
-- Etkilenen canonical kayıtlar, interface'ler ve ADR'lar refinement'ta ilişkilendirilmiştir.
-- DataClass, CodeTrust, ToolEffect ve ağ/credential kapsamı sınıflandırılmıştır.
-- Test fixture, environment, rollback noktası ve acceptance ölçüm yöntemi erişilebilirdir.
-- Efor için O/M/P kişi-gün tahmini ve gerçek kapasite rezervasyonu kaydedilmiştir.
+- No hard dependency — this package can start as soon as the programme is authorised.
+- A named owner, a named implementer, and a verifier **independent of the producer** are assigned.
+- Affected canonical records, interfaces and ADRs have been linked during refinement.
+- `DataClass`, `CodeTrust`, `ToolEffect` and the network/credential scope are classified.
+- Test fixtures, the environment, the rollback point and the acceptance measurement method are reachable.
+- An O/M/P person-day estimate is recorded and real capacity is reserved against it.
 
-## Uygulama görevleri
+## Implementation tasks
 
-| Alt iş | Yapılacak iş | Sorumlu | Tamamlanma kanıtı |
+| Sub-task | Work to be done | Responsible | Completion evidence |
 |---|---|---|---|
-| WP-001-T01 | İş sonucunu, kapsamı ve kapsam dışını yaz | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-001-T02 | Executive Sponsor, Program Lead, Chief Architect, Assurance ve Safety yetkilerini ata | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-001-T03 | Production cutover ve abort yetkisini tanımla | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-001-T04 | Başlangıç bütçe zarfı ile procurement sınırlarını kaydet | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-001-T05 | Success KPI, anti-metric ve stop/pivot koşullarını onaylat | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
+| WP-001-T01 | Write the business outcome, the scope and the explicit out-of-scope boundary | Implementation owner | Commit / configuration / record reference |
+| WP-001-T02 | Assign the authorities of the Executive Sponsor, Programme Lead, Chief Architect, Assurance and Safety | Implementation owner | Commit / configuration / record reference |
+| WP-001-T03 | Define who holds production cutover authority and who holds abort authority | Implementation owner | Commit / configuration / record reference |
+| WP-001-T04 | Record the initial budget envelope together with procurement limits | Implementation owner | Commit / configuration / record reference |
+| WP-001-T05 | Obtain approval of the success KPIs, the anti-metrics and the stop/pivot conditions | Implementation owner | Commit / configuration / record reference |
 
-## Zorunlu teslimatlar
+## Mandatory deliverables
 
 - `CommissioningCharter`
 - `Program authority matrix`
 - `Initial budget envelope`
 - `Executive DecisionRecord`
-- Güncellenmiş runbook/operasyon notu ve servis/contract ownership kaydı
-- İmzalı `EvidenceManifest`
+- An updated runbook or operations note, plus the service/contract ownership record
+- A signed `EvidenceManifest`
 
-## Test ve doğrulama planı
+## Test and verification plan
 
-- Charter schema ve zorunlu alan kontrolü
-- Yetki çakışması tabletop testi
-- Cutover/abort karar senaryosu
-- Yetkisiz, eksik, stale, duplicate ve partial-failure girdileri için en az bir negatif test
-- İlgili interface'lerde producer/consumer contract compatibility testi
-- Telemetry correlation ve audit kayıt bütünlüğü kontrolü
+- Charter schema and mandatory-field validation
+- An authority-collision tabletop exercise
+- A cutover/abort decision walkthrough
+- At least one negative test for unauthorised, missing, stale, duplicate and partial-failure inputs
+- Producer/consumer contract compatibility tests on every affected interface
+- Telemetry correlation and audit-record integrity checks
 
-## Kabul kriterleri
+## Acceptance criteria
 
-- [ ] Bütün accountable roller isimlidir
-- [ ] Tek-cutover ve sıfır kritik bulgu şartı açıktır
-- [ ] Bütçe, kapsam ve stop/pivot yetkileri imzalıdır
-- [ ] Bütün zorunlu testler aynı target revision üzerinde geçmiştir.
-- [ ] Açık Critical/High finding yoktur; non-waivable blocker bulunmamaktadır.
-- [ ] Bağımsız verifier kanıt paketini kabul etmiştir.
-- [ ] Rollback/compensation davranışı denenmiş ve audit edilmiştir.
-- [ ] İlgili dashboard, alert, audit query veya integrity query çalışma kanıtı üretmiştir.
+- [ ] Every accountable role is filled by a **named person**, not a job title.
+- [ ] The single-cutover rule and the zero-critical-finding condition are stated explicitly.
+- [ ] Budget, scope and stop/pivot authorities are signed.
+- [ ] All mandatory tests passed **on the same target revision**.
+- [ ] No open Critical or High findings; no non-waivable blocker remains.
+- [ ] The independent verifier has accepted the evidence package.
+- [ ] Rollback/compensation behaviour has been exercised and audited.
+- [ ] The related dashboard, alert, audit query or integrity query has produced working evidence.
 
-## Kabul kanıtı paketi
+## Acceptance evidence package
 
-- Aynı target revision/digest üzerinde alınmış test sonuçları
-- Environment, schema, policy ve dependency sürümlerini içeren EvidenceManifest
-- Bağımsız verifier ReviewRecord veya VerificationRecord'u
-- Rollback/compensation denemesi ve sonuç referansı
-- Açık finding, residual risk ve owner/expiry listesi
+- Test results captured on the same target revision/digest
+- An `EvidenceManifest` recording the environment, schema, policy and dependency versions
+- The independent verifier's `ReviewRecord` or `VerificationRecord`
+- The rollback/compensation trial and its result reference
+- The list of open findings and residual risks with owners and expiry dates
 
-## Riskler ve kontrol noktaları
+## Risks and control points
 
-- Contract veya canonical sahiplik belirsizse implementasyon durur ve Architecture Board'a eskale edilir.
-- Identity, data route, artifact integrity, bağımsızlık veya kritik evidence problemi waiver ile geçirilemez.
-- Geçici manuel kontrol gerekiyorsa owner, scope, expiry, compensating control ve kaldırma paketi kaydedilir.
-- Paket tamamlandı beyanı acceptance değildir; verifier kararı olmadan yalnız `TECH_COMPLETE` olabilir.
+- If a contract or canonical ownership question is unresolved, implementation **stops** and the question escalates to the Architecture Board.
+- Identity, data routing, artifact integrity, independence and critical evidence problems **cannot** be passed by waiver.
+- If a temporary manual control is required, its owner, scope, expiry, compensating control and removal package are recorded.
+- A "package complete" statement is **not** acceptance. Without a verifier decision the package can only be `TECH_COMPLETE`.
+
+### Workstream-specific hazards
+
+- A policy that is written but not machine-checkable is an intention, not a control.
+- Role and authority documents drift silently; every change here needs a baseline bump.
+- The hardest failure in this workstream is a rule that everyone agrees with and nobody can enforce.
 
 ## Rollback / compensation
 
-Charter kabul edilmezse hiçbir platform procurement veya production bağlantısı açılmaz; taslak arşivlenir.
+If the charter is not accepted, no platform procurement and no production commitment is opened; the draft is archived with the reason for rejection recorded.
 
-Immutable artifact, review ve karar geçmişi rollback sırasında silinmez; yeni durum supersession veya invalidation kaydıyla gösterilir.
+Immutable artifacts, reviews and decision history are **not** deleted during a rollback; the new state is expressed through a supersession or invalidation record.
 
-## Handoff ve sonraki paketlere giriş
+## Handoff into downstream packages
 
-Paket kabul edildiğinde teslim artifact'larının version/digest'leri Package Registry'ye yazılır, dependency event'i yayımlanır ve bu pakete bağlı READY adayları yeniden değerlendirilir. Downstream paket yalnız burada listelenen contract ve kanıt referanslarını tüketir; implementasyon iç ayrıntılarına bağlanmaz.
+On acceptance, the version and digest of every delivered artifact is written to the Package Registry, the dependency event is published, and every `READY` candidate blocked on this package is re-evaluated. A downstream package consumes **only** the contracts and evidence references listed above; it does not bind to internal implementation details.

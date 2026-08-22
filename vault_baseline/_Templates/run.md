@@ -4,7 +4,7 @@ type: run
 run_status: planned
 project_id:
 code_revision:
-model_snapshot:
+capability_fingerprint:
 dataset_manifest:
 artifact_refs: []
 started_at:
@@ -15,22 +15,22 @@ tags:
 
 # {{title}}
 
-## Amaç ve hipotez
+## Purpose and hypothesis
 
 
-## Ortam ve parametreler
+## Environment and parameters
 
 ```yaml
 
 ```
 
-## Sonuçlar
+## Results
 
 
-## Artifact ve loglar
+## Artifacts and logs
 
 -
 
-## Bulgular ve karar etkisi
+## Findings and effect on decisions
 
 - [[]]

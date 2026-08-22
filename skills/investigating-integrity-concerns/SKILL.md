@@ -12,63 +12,72 @@ mechanical_checks: [statcheck, grim, grimmer, citation_entailment, artifact_hash
 
 # Investigating Integrity Concerns
 
-## Genel ilke
+## Core principle
 
-Uydurma alıntı ve uydurma sayı, dil modellerinin en bilinen hata modudur.
-Bu risk bir AI laboratuvarında **artar**, azalmaz.
+Fabricated citations and fabricated numbers are the best-documented failure mode
+of language models. In an AI-operated lab this risk **increases**, not decreases
+— and it arrives looking exactly like competent work.
 
-## Demir kural
+## Iron law
 
-> **BÜTÜNLÜK ŞÜPHESİ HER GATE'İ DURDURUR.**
+> **AN INTEGRITY CONCERN HALTS ANY GATE.**
 >
-> Research Integrity Officer, Assurance Lead'den bağımsız raporlar ve
-> herhangi bir gate'i durdurabilir.
+> The Research Integrity Officer reports independently of the Assurance Lead and
+> may stop any gate. Independent reporting matters: an integrity concern about
+> work the Assurance Lead approved cannot route through the Assurance Lead.
 
-## Mekanik tetikleyiciler — insan yorumu beklemez
+## Mechanical triggers — no human interpretation required
 
-| Kontrol | Ne yakalar |
+| Check | What it catches |
 |---|---|
-| **statcheck** | Rapor edilen test istatistiği ↔ p-değeri tutarsızlığı |
-| **GRIM** | Bildirilen ortalama, N ve granülerlikle **imkânsız** |
-| **GRIMMER** | Aynısı standart sapma için |
-| **SPRITE** | Ortalama+SD+N ile olası dağılımların yeniden kurulumu |
-| **Alıntı entailment** | Alıntı, kaynak span'inde **bulunamıyor** |
-| **Artifact hash** | Manifest ile bytes uyuşmuyor |
-| **Benford** | Sayı dağılımı anomalisi |
+| **statcheck** | Reported test statistic inconsistent with the reported p-value |
+| **GRIM** | A reported mean that is **impossible** given N and granularity |
+| **GRIMMER** | The same for standard deviations |
+| **SPRITE** | Reconstructs plausible data from mean + SD + N |
+| **Citation entailment** | Quote **not present** in the source span |
+| **Artifact hash** | Manifest and bytes disagree |
+| **Benford** | Digit-distribution anomaly |
 
-Bunlardan biri kırmızıysa `IntegrityCase` **otomatik açılır**.
+Any red result opens an `IntegrityCase` **automatically**. This is deliberate:
+these checks are cheap, deterministic, and not subject to the social cost of a
+human raising a concern.
 
-## Yaşam döngüsü
+## Lifecycle
 
 ```
 ALLEGED → TRIAGED → INVESTIGATING → SUBSTANTIATED    → CLOSED
                                   ↘ UNSUBSTANTIATED  → CLOSED
 ```
 
-## Prosedür
+## Procedure
 
-1. **Koru** — ilgili artifact'lar dondurulur; hiçbir şey silinmez veya düzeltilmez
-2. **Kapsamı belirle** — hangi claim'ler, hangi koşumlar, hangi model profili
-3. **Yeniden üret** — mekanik kontrolü bağımsız olarak tekrarla
-4. **Kaynağa git** — birincil kaynağa, producer'ın önbelleğine değil
-5. **Hüküm ver** — `SUBSTANTIATED` / `UNSUBSTANTIATED`
-6. **Sonuç uygula**
+1. **Preserve** — freeze the relevant artifacts. Nothing is deleted or corrected
+2. **Scope** — which claims, which runs, which model profile
+3. **Reproduce** — repeat the mechanical check independently
+4. **Go to source** — the primary source, never the producer's cache
+5. **Rule** — `SUBSTANTIATED` / `UNSUBSTANTIATED`
+6. **Apply consequences**
 
-## `SUBSTANTIATED` sonrası
+Step 1 comes first for a reason: the natural instinct on discovering an error is
+to fix it, and fixing it destroys the evidence of how it arose.
 
-- İlgili claim'ler → `RETRACTED`
-- Üreten **model profili** → `SUSPENDED` (Capability Registry)
-- O profilin tüm geçmiş çıktıları taranır
-- `ImpactCase` açılır; bağlı yayınlar bilgilendirilir
-- Metascience'a olay kaydı
+## After `SUBSTANTIATED`
 
-## `UNSUBSTANTIATED` sonrası
+- Affected claims → `RETRACTED`
+- The producing **model profile** → `SUSPENDED` in the Capability Registry
+- All prior outputs from that profile are screened
+- An `ImpactCase` opens; dependent publications are notified
+- The event is recorded for Metascience
 
-Kayıt kapanır ve **korunur**. Şüpheyi bildiren cezalandırılmaz. Yanlış
-pozitif oranı Metascience tarafından izlenir.
+## After `UNSUBSTANTIATED`
 
-## Kırmızı bayraklar
+The record closes and is **retained**. The person or process that raised the
+concern is not penalised. The false-positive rate is tracked by Metascience — a
+system that punishes false alarms stops receiving true ones.
 
-- Mekanik kontrol kırmızı ama case açılmamış
-- Artifact case açılmadan önce değiştirilmiş
-- Case'i, çıktıyı üreten rolün kendisi kapatmış
+## Red flags
+
+- A mechanical check is red but no case was opened
+- An artifact was modified before the case opened
+- The case was closed by the same role that produced the output
+- A pattern of concerns clustering on one model profile, unexamined

@@ -1,93 +1,95 @@
-# WP-133 — Giden Bildirim ve Periyodik Digest
+# WP-133 — Outbound Notification and Periodic Digest
 
-## Paket kartı
+## Package card
 
-| Alan | Değer |
+| Field | Value |
 |---|---|
-| İş paketi | `WP-133` |
+| Work package | `WP-133` |
 | Workstream | `13_TOOLING_INTEGRATION` |
-| İlk efor sınıfı | **S** — refinement'ta O/M/P tahmini zorunlu |
-| Accountable Owner | SRE Lead |
-| Bağımsız doğrulayıcı | Metascience Lead |
+| Initial effort class | **S** — small; a three-point (O/M/P) estimate is mandatory at refinement |
+| Accountable owner | SRE Lead |
+| Independent verifier | Metascience Lead |
 | Hard dependencies | WP-131, WP-132 |
-| İlgili gate | G10 |
-| İlgili kontroller | CTL-OBS-01 |
-| İlgili ACC senaryoları | ACC-41 |
-| İlgili skill | `notifying-humans`, `publishing-digests` |
+| Related gates | G10 |
+| Related controls | CTL-OBS-01 |
+| Related acceptance scenarios | ACC-41 |
+| Related skill | `notifying-humans`, `publishing-digests` |
+| Current status | `NOT_STARTED` |
 
-## Amaç ve beklenen sonuç
+## Purpose and expected outcome
 
-Operasyonel bildirimler ve periyodik özetler yayınlanır. Özet **salt-okunur
-bir türevdir**: karar taşımaz, hiçbir durumu değiştirmez.
+Operational notifications and periodic summaries are published. A digest is a
+**read-only derivative**: it carries no decision and changes no state.
 
-Ritim:
+Cadence:
 
-| Sıklık | İçerik | Alıcı |
+| Frequency | Content | Audience |
 |---|---|---|
-| Günlük | Açık kararlar, SLA riski, dünkü koşumlar, bütçe, dikkat bütçesi kullanımı | Decision Owner |
-| Haftalık | Portföy, gate akışı, bloke işler, açık bulgular | Tüm roller |
-| **Aylık** | **Metascience karnesi**: kalibrasyon, uyum, gate yield, kontrol FP/FN, claim survival | Assurance + Metascience |
-| Çeyreklik | Maliyet, model requalification, olay analizi | FinOps + Platform |
+| Daily | Open decisions, SLA risk, yesterday's runs, budget, attention-budget usage | Decision Owner |
+| Weekly | Portfolio, gate flow, blocked work, open findings | All roles |
+| **Monthly** | **Metascience scorecard**: calibration, agreement, gate yield, control FP/FN, claim survival | Assurance + Metascience |
+| Quarterly | Cost, model requalification, incident analysis | FinOps + Platform |
 
-> Aylık metascience özeti laboratuvarın karnesidir. Kötü görünüyorsa gizlenmez;
-> özetin başında görünür.
+> The monthly metascience summary is the laboratory's own report card. If it
+> looks bad, it is not hidden — it appears at the **top** of the digest, not in
+> an appendix.
 
-## Kapsam dışı
+## Out of scope
 
-- Metascience ölçümlerinin kendisi (ayrı workstream)
-- Karar yetkilendirme (WP-135)
+- The metascience measurements themselves (separate workstream)
+- Decision authorisation (WP-135)
 
-## Önkoşullar ve Definition of Ready
+## Preconditions — Definition of Ready
 
-- Bağımlılıklar kabul edilmiştir: WP-131, WP-132
-- Named owner, implementer ve producer'dan bağımsız verifier atanmıştır.
-- DataClass, CodeTrust, ToolEffect ve ağ/credential kapsamı sınıflandırılmıştır.
-- Test fixture, environment, rollback noktası ve acceptance ölçüm yöntemi erişilebilirdir.
+- Dependencies accepted: WP-131, WP-132
+- A named owner, a named implementer and a verifier independent of the producer are assigned.
+- `DataClass`, `CodeTrust`, `ToolEffect` and the network/credential scope are classified.
+- Test fixtures, the environment, the rollback point and the acceptance measurement method are reachable.
 
-## Uygulama görevleri
+## Implementation tasks
 
-| Alt iş | Yapılacak iş | Tamamlanma kanıtı |
+| Sub-task | Work to be done | Completion evidence |
 |---|---|---|
-| WP-133-T01 | Bildirim tiplerini ve şablonlarını tanımla | Şablon kaydı |
-| WP-133-T02 | Aciliyet → kanal eşlemesini kur | Eşleme tablosu + test |
-| WP-133-T03 | Günlük ve haftalık digest üreticisi | Üretim hiçbir durumu değiştirmez (kanıt) |
-| WP-133-T04 | Aylık metascience digest'i | `UNCALIBRATED` alanlar sayı gibi sunulmaz |
-| WP-133-T05 | Digest kaynaklarının salt-okunur olduğunu zorla | Yazma denemesi testte reddedilir |
+| WP-133-T01 | Define the notification types and their templates | Template registry |
+| WP-133-T02 | Establish the urgency → channel mapping | Mapping table + test |
+| WP-133-T03 | Build the daily and weekly digest generators | Evidence that generation changes no state |
+| WP-133-T04 | Build the monthly metascience digest | `UNCALIBRATED` fields are never rendered as numbers |
+| WP-133-T05 | Enforce that every digest source is read-only | A write attempt is rejected in test |
 
-## Zorunlu teslimatlar
+## Mandatory deliverables
 
-- Bildirim şablon kaydı
-- Aciliyet → kanal eşlemesi
-- Günlük / haftalık / aylık / çeyreklik digest üreticileri
-- Salt-okunur kaynak garantisi
+- The notification template registry
+- The urgency → channel mapping
+- Daily, weekly, monthly and quarterly digest generators
+- The read-only source guarantee
 
-## Test ve doğrulama planı
+## Test and verification plan
 
-- **Yan etkisizlik:** digest üretimi öncesi/sonrası kanonik durum hash'i aynı
-- **Kalibrasyon dürüstlüğü:** yetersiz veri olan boyut `UNCALIBRATED` olarak render edilir
-- **Kanal eşlemesi:** her aciliyet seviyesi doğru kanala gider
-- Boş veri, kısmi veri ve hata durumunda digest üretimi çökmeden eksik alanı işaretler
+- **No side effects:** the canonical state hash is identical before and after digest generation
+- **Calibration honesty:** a dimension with insufficient data renders as `UNCALIBRATED`
+- **Channel mapping:** each urgency level routes to the correct channel
+- With empty data, partial data or an error, generation marks the missing field instead of crashing
 
-## Kabul kriterleri
+## Acceptance criteria
 
-- [ ] Digest üretimi hiçbir canonical kaydı değiştirmiyor (hash kanıtı)
-- [ ] `UNCALIBRATED` alanlar sayı olarak gösterilmiyor
-- [ ] Kötü metrikler ekte değil, özetin başında
-- [ ] Günlük özet dikkat bütçesi kullanımını gösteriyor
-- [ ] Bütün zorunlu testler aynı target revision üzerinde geçmiştir.
-- [ ] Açık Critical/High finding yoktur.
-- [ ] Bağımsız verifier kanıt paketini kabul etmiştir.
+- [ ] Digest generation modifies no canonical record (hash evidence)
+- [ ] `UNCALIBRATED` fields are not displayed as numbers
+- [ ] Bad metrics appear at the top of the summary, not in an appendix
+- [ ] The daily summary shows attention-budget usage
+- [ ] All mandatory tests passed on the same target revision.
+- [ ] No open Critical or High findings.
+- [ ] The independent verifier has accepted the evidence package.
 
-## Riskler ve kontrol noktaları
+## Risks and control points
 
-- Digest yorgunluğu: çok sık veya çok uzun özet okunmaz hale gelir; okunma oranı izlenir
-- Özet üretimi bir durum değiştirirse bu bir Critical bulgudur
-- Paket tamamlandı beyanı acceptance değildir; verifier kararı olmadan yalnız `TECH_COMPLETE` olabilir.
+- Digest fatigue: a summary that is too frequent or too long stops being read; open rate is monitored
+- If digest generation ever changes state, that is a Critical finding
+- A "package complete" statement is not acceptance. Without a verifier decision the package can only be `TECH_COMPLETE`.
 
 ## Rollback / compensation
 
-Digest yayını durdurulur; kaynak veriler etkilenmez.
+Digest publication is stopped; the source data is unaffected.
 
-## Handoff ve sonraki paketlere giriş
+## Handoff into downstream packages
 
-WP-134 aynı kanal eşlemesini eskalasyon için kullanır.
+WP-134 reuses the same channel mapping for escalation.

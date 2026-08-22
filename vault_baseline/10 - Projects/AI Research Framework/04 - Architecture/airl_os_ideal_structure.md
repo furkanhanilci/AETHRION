@@ -1,802 +1,847 @@
-# AIRL-OS — İdeal Yapı Önerisi, Katkılar ve Mimari Review
+> [!info] Generated view
+> This note is generated from `docs/architecture/AIRL_OS_IDEAL_STRUCTURE.md` in the repository. Edit the
+> canonical file and regenerate; edits made here are overwritten.
 
-| Alan | Değer |
+# AIRL-OS — Ideal Structure Proposal, Contributions and Architecture Review
+
+| Field | Value |
 |---|---|
-| Belge tipi | Mimari katkı + tasarım denetimi |
-| Girdi | `AIRL-OS-Architecture.md` v1.0 (3.434 satır), `planning/commissioning/` (186 dosya), `obra/superpowers` |
-| Kardeş belge | [[10 - Projects/AI Research Framework/04 - Architecture/airl_os_skill_layer|AIRL-OS Skill Layer]] — operasyonel skill katmanı (Superpowers tam entegrasyonu) |
-| Yazan | Claude Opus 5 (bağımsız) |
-| Tarih | 2026-08-22 |
-| Durum | Öneri — insan kararı bekliyor |
+| Document type | Architectural contribution + design audit |
+| Input | `AIRL-OS-Architecture.md` v1.0 (3,434 lines), `planning/commissioning/` (186 files), `obra/superpowers` |
+| Sibling document | `AIRL_OS_SKILL_LAYER.md` — the operational skill layer (full Superpowers integration) |
+| Author | Claude Opus 5 (independent) |
+| Date | 2026-08-22 |
+| Status | Proposal — awaiting a human decision |
 
-> **Okuma sırası:** Bölüm C (7. Düzlem) ve Bölüm D (rol→model) bu belgenin
-> omurgasıdır. Bölüm A/B katkı kataloğu, Bölüm G mevcut tasarımın denetimidir.
-> Aceleniz varsa: **C → D → G.**
-
----
-
-## 0. Bu belge ne yapıyor
-
-Mevcut `AIRL-OS-Architecture.md` **güçlü bir mimari**. Otorite bölüşümü doğru,
-Temporal/LangGraph ayrımı doğru, Tool Broker deseni doğru, re-anchoring state
-machine'i nadir görülen kalitede.
-
-Bu belge üç şey yapıyor:
-
-1. **Ekliyor** — gerçek araştırma organizasyonlarında var olan ama planınızda
-   olmayan roller, review mekanizmaları ve araçlar.
-2. **Yapısal bir eksik öneriyor** — mevcut mimari *araştırmayı* ölçüyor;
-   *laboratuvarın kendi doğruluk üretme kapasitesini* ölçmüyor. Bunun için
-   7. bir düzlem öneriyorum.
-3. **Denetliyor** — ideal yapıya göre mevcut tasarımın boşluklarını çıkarıyor.
-
-**Temel tez:** Model tarafından yürütülen bir laboratuvarda, "bağımsız review"
-bir *varsayım* olamaz. **Ölçülen bir büyüklük** olmak zorunda.
+> **Reading order:** Section C (the 7th plane) and Section D (role → model) are
+> the spine of this document. Sections A and B are a contribution catalogue;
+> Section G is the audit of the existing design.
+> If you are short of time: **C → D → G.**
 
 ---
 
-# BÖLÜM A — Eklenen roller
+## 0. What this document does
 
-Mevcut yapınız: 6 kalıcı fonksiyon + geçici proje hücresi (Decision Owner,
-Scientific Owner, Evidence Lead, Engineering Owner, Assurance Lead, Safety/Data
-Owner).
+The existing `AIRL-OS-Architecture.md` is **a strong architecture**. The division
+of authority is right, the Temporal/LangGraph separation is right, the Tool
+Broker pattern is right, and the re-anchoring state machine is of a quality
+rarely seen.
 
-Gerçek araştırma organizasyonlarında var olup sizde olmayan roller:
+This document does three things:
 
-## A1. Statistical Methods Owner (İstatistiksel Yöntem Sahibi) — 🔴 kritik
+1. **Adds** — roles, review mechanisms and tools that exist in real research
+   organisations and are absent from your plan.
+2. **Proposes a structural addition** — the current architecture measures *the
+   research*; it does not measure *the laboratory's own capacity to produce
+   correct results*. For that I propose a **seventh plane**.
+3. **Audits** — it extracts the gaps in the current design relative to that ideal
+   structure.
 
-**Gerçek dünya karşılığı:** Klinik araştırmada biyoistatistikçi. **SAP**
-(Statistical Analysis Plan) yazar ve unblinding'den önce kilitler. SAP
-kilitlenmeden veri açılmaz. Bu rol **bloke edici**dir.
-
-**Neden sizde eksik:** `ProtocolManifest`'inizde `uncertainty`,
-`confidence_target: 0.95`, `exclusion_rules` ve `stop_rules` var — hepsi
-istatistiksel kararlar. Ama bunların **sahibi yok**. Scientific Owner protokolü
-yazıyor, kimse istatistiksel geçerliliği imzalamıyor.
-
-**AIRL-OS'ta:**
-- G2'de **ProtocolManifest'ten ayrı bir `AnalysisPlanManifest`** üretir ve kilitler.
-- G4 baseline'da güç analizi (power) ve minimum tespit edilebilir etki büyüklüğü verir.
-- G6'da `statistical_validity` boyutunu **bloke edebilir**.
-- **Exploratory / Confirmatory ayrımının sahibi.** Ön-kayıtta olmayan her analiz
-  `exploratory` etiketiyle raporlanır; `confirmatory` iddia üretemez.
-
-**Kritik ek:** `AnalysisPlanManifest`, `ProtocolManifest`'ten **ayrı**
-kilitlenmeli. Sebep: protokol "ne ölçeceğiz", analiz planı "nasıl karar
-vereceğiz". İkisini birleştirmek, sonuçları gördükten sonra karar kuralını
-değiştirme kapısını açık bırakır.
+**The central thesis:** in a laboratory operated by models, "independent review"
+cannot be an *assumption*. It has to become **a measured quantity**.
 
 ---
 
-## A2. Research Integrity Officer (Araştırma Bütünlüğü Sorumlusu) — 🔴 kritik
+# PART A — Roles added
 
-**Gerçek dünya karşılığı:** ABD'de ORI düzenlemeleri (42 CFR Part 93) uyarınca
-her kurumda zorunlu RIO. FFP (Fabrication, Falsification, Plagiarism)
-iddialarını yönetir. Araştırma hattından **bağımsız** raporlama çizgisi vardır.
+Your current structure: 6 durable functions plus a temporary project cell
+(Decision Owner, Scientific Owner, Evidence Lead, Engineering Owner, Assurance
+Lead, Safety/Data Owner).
 
-**Neden sizde eksik:** G6 non-waivable blocker listenizde
-*"Fabrication/tamper şüphesi (reviewer tarafından)"* var. Ama:
-- Şüpheyi **kim** araştırıyor?
-- Süreç ne? Şüpheli çalışma durur mu, devam eder mi?
-- Sonuç nereye kaydedilir?
-- Yanlış suçlama nasıl kapanır?
+Roles that exist in real research organisations and are missing here:
 
-Hiçbiri tanımlı değil. Bir AI laboratuvarında bu risk **artar**, azalmaz —
-uydurma alıntı ve uydurma sayı, LLM'lerin en bilinen hata modu.
+## A1. Statistical Methods Owner — 🔴 critical
 
-**AIRL-OS'ta:**
-- **Her gate'i durdurma yetkisi**, Assurance Lead'den bağımsız raporlama.
-- `IntegrityCase` nesnesi: `ALLEGED → TRIAGED → INVESTIGATING → SUBSTANTIATED / UNSUBSTANTIATED → CLOSED`
-- Mekanik tetikleyiciler (aşağıda B7 — istatistiksel adli kontroller) doğrudan
-  `IntegrityCase` açar; insan yorumu beklemez.
-- Sonuç `SUBSTANTIATED` ise: ilgili claim'ler `RETRACTED`, üreten model profili
-  `SUSPENDED`, tüm geçmiş çıktıları taranır.
+**Real-world counterpart:** the biostatistician in clinical research. They write
+the **SAP** (Statistical Analysis Plan) and lock it before unblinding. The data
+is not opened until the SAP is locked. This role is **blocking**.
+
+**Why it is missing here:** your `ProtocolManifest` carries `uncertainty`,
+`confidence_target: 0.95`, `exclusion_rules` and `stop_rules` — all statistical
+decisions. But **none of them has an owner**. The Scientific Owner writes the
+protocol; nobody signs off on statistical validity.
+
+**In AIRL-OS:**
+- At G2, produces and locks an **`AnalysisPlanManifest` separate from the
+  `ProtocolManifest`**.
+- At the G4 baseline, supplies the power analysis and the minimum detectable
+  effect size.
+- At G6, can **block** on the `statistical_validity` dimension.
+- **Owns the exploratory / confirmatory distinction.** Any analysis absent from
+  the preregistration is reported under the `exploratory` label and cannot
+  produce a `confirmatory` claim.
+
+**A critical addition:** the `AnalysisPlanManifest` must lock **separately** from
+the `ProtocolManifest`. The reason: the protocol says "what we will measure"; the
+analysis plan says "how we will decide". Merging them leaves open the door to
+changing the decision rule after seeing the results.
 
 ---
 
-## A3. Data Steward (Veri Yöneticisi)
+## A2. Research Integrity Officer (RIO) — 🔴 critical
 
-**Gerçek dünya karşılığı:** FAIR ilkelerinin (Findable, Accessible,
-Interoperable, Reusable) sahibi. Fon veren kurumların zorunlu tuttuğu **DMP**
-(Data Management Plan) yazarı. Kütüphaneciden farklı bir meslek.
+**Real-world counterpart:** under US ORI regulations (42 CFR Part 93), every
+institution must have a RIO. They manage FFP (Fabrication, Falsification,
+Plagiarism) allegations and have a reporting line **independent** of the research
+chain.
 
-**Neden sizde eksik:** `Evidence Lead` bibliyografik yönetim yapıyor. Ama bir
-araştırma laboratuvarı **veri seti üretir** — ve sizin mimaride üretilen
-datasetlerin yaşam döngüsü sahibi yok. `SourceEntity.source_type` içinde
-`'dataset'` var ama dataset *üretimi* modellenmemiş.
+**Why it is missing here:** your G6 non-waivable blocker list contains
+*"suspicion of fabrication/tampering (raised by a reviewer)"*. But:
+- **Who** investigates the suspicion?
+- What is the process? Does the suspect work stop, or continue?
+- Where is the outcome recorded?
+- How does a false accusation get closed?
 
-**AIRL-OS'ta:**
-- G1'de `DataManagementPlan` üretir: hangi veri üretilecek, nerede saklanacak,
-  ne kadar süreyle, kim erişecek, nasıl atıf alacak.
-- Üretilen her dataset için **Croissant** (MLCommons) metadata + DOI (Zenodo).
-- Retention/legal hold politikasının sahibi.
-- D0–D4 sınıflandırmasını Safety/Data Owner ile birlikte uygular.
+None of this is defined. In an AI laboratory this risk **increases** rather than
+decreases — fabricated citations and fabricated numbers are among the
+best-documented LLM failure modes.
+
+**In AIRL-OS:**
+- **Authority to stop any gate**, with a reporting line independent of the
+  Assurance Lead.
+- An `IntegrityCase` object:
+  `ALLEGED → TRIAGED → INVESTIGATING → SUBSTANTIATED / UNSUBSTANTIATED → CLOSED`
+- The mechanical triggers (B7 below — statistical forensic checks) open an
+  `IntegrityCase` **directly**, without waiting for human interpretation.
+- If the outcome is `SUBSTANTIATED`: the affected claims become `RETRACTED`, the
+  producing model profile is `SUSPENDED`, and all of its historical output is
+  swept.
+
+---
+
+## A3. Data Steward
+
+**Real-world counterpart:** the owner of the FAIR principles (Findable,
+Accessible, Interoperable, Reusable) and the author of the **DMP** (Data
+Management Plan) that funders require. A different profession from the librarian.
+
+**Why it is missing here:** the `Evidence Lead` handles bibliographic management.
+But a research laboratory **produces data sets** — and in your architecture the
+lifecycle of a produced dataset has no owner. `SourceEntity.source_type` includes
+`'dataset'`, but dataset *production* is not modelled.
+
+**In AIRL-OS:**
+- At G1, produces the `DataManagementPlan`: which data will be produced, where it
+  will be stored, for how long, who may access it and how it will be cited.
+- **Croissant** (MLCommons) metadata plus a DOI (Zenodo) for every produced
+  dataset.
+- Owns the retention and legal-hold policy.
+- Applies the D0–D4 classification jointly with the Safety/Data Owner.
 
 ---
 
 ## A4. Research Software Engineer (RSE)
 
-**Gerçek dünya karşılığı:** Artık ayrı bir meslek (Society of RSE, US-RSE).
-Bilimsel kod kalitesi, sürdürülebilirlik ve *paketlenebilir tekrar
-üretilebilirlik* sahibi. Data engineer veya platform engineer değil.
+**Real-world counterpart:** now a distinct profession (Society of RSE, US-RSE).
+Owns scientific code quality, sustainability and *packageable reproducibility*.
+Not a data engineer, and not a platform engineer.
 
-**Neden sizde eksik:** `Engineering Owner` üç işi birden yapıyor: kod yazmak,
-altyapı kurmak, deney yürütmek. Gerçek laboratuvarlarda bunlar ayrılır çünkü
-teşvikleri çelişir — deneyi yürütmek isteyen kişi, kodu tekrar üretilebilir
-paketlemek istemez.
+**Why it is missing here:** the `Engineering Owner` does three jobs at once:
+writing code, building infrastructure and running experiments. Real laboratories
+separate these because the incentives conflict — the person who wants to run the
+experiment does not want to package the code reproducibly.
 
-**AIRL-OS'ta:**
-- G7 reproduction paketinin sahibi: `RO-Crate` + `CITATION.cff` + `CodeMeta`.
-- **ACM artifact badge seviyesini** atar (bkz. B4).
-- Ortam determinizminden sorumlu: Nix/Apptainer, digest-pinned image, seed kontrolü.
-- Engineering Owner **üretir**, RSE **paketlenebilir kılar** — ayrı teşvik.
-
----
-
-## A5. Scientific Editor / Claims Discipline (Bilimsel Editör)
-
-**Gerçek dünya karşılığı:** Dergi editörü + kurum içi teknik yazım. Görevi:
-metnin verinin izin verdiğinden fazlasını söylememesi.
-
-**Neden bu bir AI laboratuvarında kritik:** LLM'lerin en tutarlı hatası
-**aşırı genelleme**. Sizin ReviewVerdict örneğinizde bile
-`claim_scope_assessment: "Overstated in places"` var — yani bunu zaten
-gözlemlemişsiniz.
-
-**AIRL-OS'ta — ve bu mekanik olarak zorlanabilir:**
-
-> **Scope Conformance Check:** G9 yayın metnindeki her iddia cümlesi, Claim
-> Ledger'daki bir `ClaimVersion`'a eşlenmek zorundadır ve o cümlenin kapsamı
-> `ClaimVersion.scope_qualification`'ı aşamaz. Eşlenemeyen cümle → yayın BLOCKED.
-
-Bu, "false rigor"a karşı en ucuz ve en etkili mekanik kontrollerden biri.
-`DecisionRecord.obligations` alanınız (*"Publication must include scope
-restriction"*) zaten bunu istiyor ama **denetleyen bir mekanizma yok**.
+**In AIRL-OS:**
+- Owns the G7 reproduction package: `RO-Crate` + `CITATION.cff` + `CodeMeta`.
+- **Assigns the ACM artifact badge level** (see B4).
+- Responsible for environment determinism: Nix/Apptainer, digest-pinned images,
+  seed control.
+- The Engineering Owner **produces**; the RSE **makes it packageable** — separate
+  incentives.
 
 ---
 
-## A6. Red Team Lead (Kalıcı fonksiyon)
+## A5. Scientific Editor / Claims Discipline
 
-**Gerçek dünya karşılığı:** İstihbarat analizinde "Team B" ve yapılandırılmış
-analitik teknikler. Kalıcı, göreve bağlı değil.
+**Real-world counterpart:** a journal editor plus in-house technical writing.
+Their job: ensure the text does not say more than the data permits.
 
-**Neden sizde eksik:** `Adversarial Reviewer` bir **task rolü**. Yani proje
-başına atanıyor ve o projenin bağlamında çalışıyor. Kalıcı bir kırmızı takım
-farklı bir şey yapar: **laboratuvarın sistematik kör noktalarını** bulur, tek
-tek projelerin değil.
+**Why this is critical in an AI laboratory:** the most consistent LLM error is
+**overgeneralisation**. Even your own example `ReviewVerdict` contains
+`claim_scope_assessment: "Overstated in places"` — you have already observed it.
 
-**AIRL-OS'ta:**
-- Proje bazlı değil, **portföy bazlı**. "Son 10 projede hangi hata tipi tekrar ediyor?"
-- **Pre-mortem** yürütür (bkz. B8) — G4'ten önce.
-- Kontrol enjeksiyonunun sahibi (bkz. C4) — ve bunu ajanlardan gizli tutar.
-- WP-060'taki *güvenlik* saldırı paketinden ayrıdır; bu **bilimsel** kırmızı takım.
+**In AIRL-OS — and this can be enforced mechanically:**
 
----
+> **Scope Conformance Check:** every assertion in the G9 publication text must map
+> to a `ClaimVersion` in the Claim Ledger, and that sentence's scope may not
+> exceed `ClaimVersion.scope_qualification`. A sentence that cannot be mapped →
+> publication BLOCKED.
 
-## A7. Knowledge Steward (Kurumsal Hafıza)
-
-**Gerçek dünya karşılığı:** İnsan laboratuvarlarında bu rol *örtük* olarak
-kıdemli araştırmacılarda bulunur — "bunu 2019'da denedik, çalışmadı."
-
-**Neden bir AI laboratuvarında açık bir rol olmak zorunda:** Modellerin
-kurumsal hafızası yok. Her proje sıfırdan başlar. On projeden sonra aynı ölü
-sokağa onuncu kez girersiniz.
-
-**AIRL-OS'ta:**
-- **Projeler arası claim çelişki tespiti**: yeni bir `ClaimVersion` üretildiğinde,
-  Claim Ledger'da `refutes` ilişkisi kurulabilecek eski claim var mı?
-- **Negatif sonuç kataloğu**: `ACC-39` senaryonuz negatif sonucu test ediyor ama
-  hiçbir yerde *aranabilir* hale getirilmiyor.
-- **Yöntem yeniden kullanımı**: `ProtocolManifest`'ler arası benzerlik; "bu
-  protokol daha önce kullanıldı, sonuçları şunlardı."
-- Neo4j burada gerçekten değer üretir — sizin de belirttiğiniz gibi türev bir
-  görünüm, ama bu sorgular için doğru araç.
+This is one of the cheapest and most effective mechanical controls against "false
+rigor". Your `DecisionRecord.obligations` field (*"Publication must include scope
+restriction"*) already asks for it, but **no mechanism audits it**.
 
 ---
 
-## A8. Rol kataloğu — özet
+## A6. Red Team Lead (a durable function)
 
-| Rol | Durum | Tip | Bloke edebilir |
+**Real-world counterpart:** "Team B" in intelligence analysis and the structured
+analytic techniques. Permanent, not attached to a single assignment.
+
+**Why it is missing here:** your `Adversarial Reviewer` is a **task role** —
+assigned per project and working within that project's context. A permanent red
+team does something different: it finds **the laboratory's systematic blind
+spots**, not the flaws of individual projects.
+
+**In AIRL-OS:**
+- Portfolio-based rather than project-based: "which error type recurs across the
+  last ten projects?"
+- Runs the **pre-mortem** (see B8) — before G4.
+- Owns control injection (see C4) — and keeps it hidden from the agents.
+- Distinct from the *security* attack suite in WP-060; this is the **scientific**
+  red team.
+
+---
+
+## A7. Knowledge Steward (institutional memory)
+
+**Real-world counterpart:** in human laboratories this role sits *implicitly* in
+senior researchers — "we tried that in 2019, it didn't work."
+
+**Why it must be an explicit role in an AI laboratory:** models have no
+institutional memory. Every project starts from zero. After ten projects you walk
+into the same dead end for the tenth time.
+
+**In AIRL-OS:**
+- **Cross-project claim contradiction detection**: when a new `ClaimVersion` is
+  produced, is there an older claim to which a `refutes` relation should be
+  established?
+- **A negative-result catalogue**: your `ACC-39` scenario tests negative results
+  but nothing makes them *searchable*.
+- **Method reuse**: similarity across `ProtocolManifest`s; "this protocol has been
+  used before, and these were its results."
+- Neo4j genuinely earns its place here — a derived view, as you note, but the
+  right tool for these queries.
+
+---
+
+## A8. Role catalogue — summary
+
+| Role | Status | Type | Can block |
 |---|---|---|---|
-| Project Decision Owner | mevcut | **insan** | G8, G9 |
-| Scientific Owner | mevcut | insan + model destekli | G2 |
-| Evidence Lead | mevcut | insan + model destekli | G3 |
-| Engineering Owner | mevcut | insan + model destekli | G4, G5 |
-| Assurance Lead | mevcut | insan + model destekli | G6, G7 |
-| Safety/Data Owner | mevcut | insan | tümü (veri sınıfı) |
-| **Statistical Methods Owner** | **eklendi** | insan + model | **G2, G4, G6** |
-| **Research Integrity Officer** | **eklendi** | **insan** | **tümü** |
-| **Data Steward** | **eklendi** | insan + model | G1, G9 |
-| **Research Software Engineer** | **eklendi** | model + insan onayı | G7 |
-| **Scientific Editor** | **eklendi** | model + mekanik kontrol | **G9** |
-| **Red Team Lead** | **eklendi** | insan + model | G4 (pre-mortem) |
-| **Knowledge Steward** | **eklendi** | model + mekanik | G0 (duplicate) |
-| **Metascience Lead** | **eklendi** | insan + mekanik | — (ölçer, bloke etmez) |
+| Project Decision Owner | existing | **human** | G8, G9 |
+| Scientific Owner | existing | human + model-assisted | G2 |
+| Evidence Lead | existing | human + model-assisted | G3 |
+| Engineering Owner | existing | human + model-assisted | G4, G5 |
+| Assurance Lead | existing | human + model-assisted | G6, G7 |
+| Safety/Data Owner | existing | human | all (data class) |
+| **Statistical Methods Owner** | **added** | human + model | **G2, G4, G6** |
+| **Research Integrity Officer** | **added** | **human** | **all** |
+| **Data Steward** | **added** | human + model | G1, G9 |
+| **Research Software Engineer** | **added** | model + human approval | G7 |
+| **Scientific Editor** | **added** | model + mechanical check | **G9** |
+| **Red Team Lead** | **added** | human + model | G4 (pre-mortem) |
+| **Knowledge Steward** | **added** | model + mechanical | G0 (duplicates) |
+| **Metascience Lead** | **added** | human + mechanical | — (measures, does not block) |
 
 ---
 
-# BÖLÜM B — Eklenen review mekanizmaları
+# PART B — Review mechanisms added
 
-Mevcut mekanizmalarınız: mechanical, blind, adversarial, citation audit,
-security, arbitration, reproduction. İyi bir set. Eksik olanlar:
+Your existing mechanisms: mechanical, blind, adversarial, citation audit,
+security, arbitration, reproduction. A good set. What is missing:
 
-## B1. Stage-1 Registered Report kabulü — 🔴 en yüksek etkili ekleme
+## B1. Stage-1 Registered Report acceptance — 🔴 the highest-impact addition
 
-**Gerçek dünya:** Registered Reports formatında protokol, **veri toplanmadan
-önce** hakem değerlendirmesinden geçer ve kabul edilirse (*in-principle
-acceptance*) yayın **sonuçtan bağımsız olarak** garanti edilir. Yayın
-yanlılığını (publication bias) kökten öldüren tek mekanizma.
+**Real world:** in the Registered Reports format, the protocol is peer-reviewed
+**before data collection**, and if accepted (*in-principle acceptance*)
+publication is guaranteed **independently of the result**. It is the only
+mechanism that kills publication bias at the root.
 
-**Sizde neden eksik:** G2'de protokol donduruluyor ✅ ama G8'de karar **sonuçlara
-bakılarak** veriliyor. Yani:
+**Why it is missing here:** you freeze the protocol at G2 ✅, but the G8 decision
+is taken **while looking at the results**. That is:
 
 ```
-G2: protokol donduruldu
-G5: sonuç çıktı — negatif
-G8: Decision Owner "REJECT" diyebilir
-→ negatif sonuç yayınlanmaz → yayın yanlılığı korunur
+G2: the protocol is frozen
+G5: the result arrives — negative
+G8: the Decision Owner can say "REJECT"
+→ the negative result is not published → publication bias survives
 ```
 
-`ACC-39 — Negative Research Result` senaryonuz bu riski *test ediyor* ama
-mimaride bunu *engelleyen* bir mekanizma yok.
+Your `ACC-39 — Negative Research Result` scenario *tests* this risk, but nothing
+in the architecture *prevents* it.
 
-**AIRL-OS'ta:**
+**In AIRL-OS:**
 
-> **G2'de `InPrincipleAcceptance` üretilir.** Protokol + analiz planı bağımsız
-> olarak kabul edildiyse, G8 kararı yalnız şu eksende olabilir: *"protokol
-> uygulandı mı?"* — *"sonuç hoşuma gitti mi?"* değil.
+> **`InPrincipleAcceptance` is produced at G2.** If the protocol plus the analysis
+> plan were accepted independently, the G8 decision may only turn on one axis:
+> *"was the protocol followed?"* — never *"do I like the result?"*
 >
-> G8'in `REJECT` verebileceği tek durum: protokol ihlali, bütünlük sorunu veya
-> G7 reproduction başarısızlığı. **Sonucun yönü gerekçe olamaz.**
+> The only grounds on which G8 may `REJECT` are a protocol violation, an integrity
+> problem, or a G7 reproduction failure. **The direction of the result is never a
+> reason.**
 
-Bu tek değişiklik, laboratuvarınızın bilimsel güvenilirliğini diğer tüm
-mekanizmaların toplamından fazla artırır.
-
----
-
-## B2. Blinded Analysis (Körleştirilmiş analiz)
-
-**Gerçek dünya:** Parçacık fiziğinde standart. Analist, analiz kilitlenene kadar
-gerçek sonucu göremez — veri "tuzlanır" (salting), etiketler karıştırılır veya
-sinyal bölgesi maskelenir. LIGO kör enjeksiyon kullandı.
-
-**Sizde neden eksik:** Sizin "blind review"unuz **reviewer'ı** kör ediyor
-(producer'ın trace'ini görmüyor). Ama **analistin kendisi** sonucu görerek
-analiz yapıyor. Asıl serbestlik derecesi orada.
-
-**AIRL-OS'ta:**
-- G5 çıktısı, analiz ajanına **koşul etiketleri maskelenmiş** olarak verilir.
-- Analiz pipeline'ı `AnalysisPlanManifest`'e göre kilitlenir.
-- Kilit sonrası unblinding; kilitten sonra yapılan her değişiklik `exploratory`.
-- Uygulanabilirlik: her deney tipinde mümkün değil — R2/R3'te **zorunlu**,
-  R1'de opsiyonel.
+This single change raises your laboratory's scientific credibility more than all
+the other mechanisms combined.
 
 ---
 
-## B3. Multi-Analyst + Multiverse Analysis — 🔴 AI laboratuvarı için ideal
+## B2. Blinded analysis
 
-**Gerçek dünya:** Silberzahn ve ark. (2018) aynı veri setini 29 bağımsız ekibe
-verdi; etki büyüklükleri geniş bir aralığa yayıldı ve bazıları zıt yönlüydü.
-Aynı veri, aynı soru, farklı savunulabilir analiz yolları → farklı sonuç.
-Buna **analitik serbestlik dereceleri** denir.
+**Real world:** standard in particle physics. The analyst cannot see the real
+result until the analysis is locked — the data is "salted", labels are shuffled,
+or the signal region is masked. LIGO used blind injections.
 
-**Neden bu tam olarak sizin sisteminiz için:** İnsan laboratuvarları bunu
-yapamaz — 29 ekip pahalıdır. **Sizin laboratuvarınız yapabilir.** N bağımsız
-analiz ajanı çalıştırmak ucuzdur.
+**Why it is missing here:** your "blind review" blinds the **reviewer** (who does
+not see the producer's trace). But **the analyst** performs the analysis while
+seeing the result. That is where the real degrees of freedom sit.
 
-**AIRL-OS'ta:**
+**In AIRL-OS:**
+- G5 output is given to the analysis agent with **condition labels masked**.
+- The analysis pipeline is locked against the `AnalysisPlanManifest`.
+- Unblinding follows the lock; any change made after the lock is `exploratory`.
+- Applicability: not possible for every experiment type — **mandatory at R2/R3**,
+  optional at R1.
+
+---
+
+## B3. Multi-analyst + multiverse analysis — 🔴 ideal for an AI laboratory
+
+**Real world:** Silberzahn et al. (2018) gave the same dataset to 29 independent
+teams; the effect sizes spread widely and some pointed in opposite directions.
+Same data, same question, different defensible analysis paths → different
+results. These are **analytical degrees of freedom**.
+
+**Why this fits your system exactly:** human laboratories cannot do this — 29
+teams is expensive. **Your laboratory can.** Running N independent analysis agents
+is cheap.
+
+**In AIRL-OS:**
 
 ```
-G5 sonuç → N bağımsız analiz ajanı (farklı model ailesi, aynı AnalysisPlan)
-        → sonuç dağılımı
-        → dağılım dar mı? claim sağlam.
-        → dağılım geniş mi? claim'in confidence'ı DÜŞER ve
-          scope_qualification zorunlu hale gelir.
+G5 result → N independent analysis agents (different model families,
+            the same AnalysisPlan)
+          → the distribution of results
+          → is the distribution narrow? the claim is robust.
+          → is the distribution wide? the claim's confidence DROPS and
+            scope_qualification becomes mandatory.
 ```
 
-Ve **specification curve / multiverse**: tek bir analiz yolu yerine tüm
-savunulabilir yolları (dışlama kuralları, dönüşümler, kovaryatlar) çalıştırıp
-sonucun **dağılımını** raporlayın. p-hacking'e karşı doğrudan savunma.
+And **specification curve / multiverse**: instead of a single analysis path, run
+all the defensible ones (exclusion rules, transformations, covariates) and report
+the **distribution** of the result. A direct defence against p-hacking.
 
-**Bu, `reproducibility` confidence boyutunuza gerçek bir ölçüm temeli verir.**
+**This gives your `reproducibility` confidence dimension a real measurement basis.**
 
 ---
 
-## B4. ACM Artifact Badge seviyeleri — terminoloji düzeltmesi
+## B4. ACM artifact badge levels — a terminology correction
 
-**Sorun:** Dokümanınız `repeatability, reproducibility, replication` üçlüsünü
-girişte anıyor ama hiçbir yerde tanımlamıyor. Ve G7 metodolojinizde
-*"farklı solver (Gurobi vs CPLEX), farklı seed"* deyip `±2%` eşleşme bekliyor —
-bu **replication**, reproduction değil.
+**The problem:** your document mentions the triple `repeatability,
+reproducibility, replication` in the introduction and defines none of them. And
+the G7 methodology says *"a different solver (Gurobi vs CPLEX), a different
+seed"* while expecting a `±2%` match — that is **replication**, not reproduction.
 
-**Hazır ve yerleşik çözüm — ACM/NISO rozet vokabüleri:**
+**A ready, established solution — the ACM/NISO badge vocabulary:**
 
-| Seviye | Anlamı | AIRL-OS gate |
+| Level | Meaning | AIRL-OS gate |
 |---|---|---|
-| **Artifacts Available** | Artifact kalıcı bir arşivde, DOI'li | G9 |
-| **Artifacts Evaluated — Functional** | Belgelenmiş, tutarlı, tam, çalışıyor | G5 sonu |
-| **Artifacts Evaluated — Reusable** | Yukarıdakiler + yeniden kullanılabilir kalitede | G7 (RSE) |
-| **Results Reproduced** | **Farklı ekip, aynı artifact** ile sonuç elde edildi | **G7** |
-| **Results Replicated** | **Farklı ekip, farklı artifact** ile sonuç elde edildi | **G7+ / bağımsız** |
+| **Artifacts Available** | The artifact is in a permanent archive with a DOI | G9 |
+| **Artifacts Evaluated — Functional** | Documented, consistent, complete, it runs | end of G5 |
+| **Artifacts Evaluated — Reusable** | The above plus reusable quality | G7 (RSE) |
+| **Results Reproduced** | **A different team obtained the result with the same artifact** | **G7** |
+| **Results Replicated** | **A different team obtained the result with a different artifact** | **G7+ / independent** |
 
-Ve NASEM tanımı: *reproducibility* = aynı veri + aynı kod → aynı sonuç
-(**deterministik**, tolerans ≈ 0); *replicability* = yeni veri/yeni uygulama →
-tutarlı sonuç (**istatistiksel**, tolerans dağılım karşılaştırmasıyla).
+And the NASEM definitions: *reproducibility* = same data + same code → same result
+(**deterministic**, tolerance ≈ 0); *replicability* = new data or a new
+implementation → a consistent result (**statistical**, tolerance judged by
+distribution comparison).
 
-**Sonuç:** Sizin G7'niz aslında **iki ayrı gate** olmalı:
+**Conclusion:** your G7 should really be **two separate gates**:
 
-- **G7a — Reproduction:** aynı manifest, aynı seed, aynı image digest → **bit
-  düzeyinde veya `< %0,1`**. Tolerans yok. Model yargısı yok. Ya tutar ya tutmaz.
-- **G7b — Replication:** farklı seed, farklı uygulama, farklı ortam → **dağılım
-  karşılaştırması** (CI örtüşmesi / eşdeğerlik testi), tek bir `%` değil.
+- **G7a — Reproduction:** same manifest, same seed, same image digest → **bit-level
+  or `< 0.1%`**. No tolerance. No model judgement. It either holds or it does not.
+- **G7b — Replication:** different seed, different implementation, different
+  environment → **a distribution comparison** (CI overlap / equivalence testing),
+  not a single `%`.
 
-Mevcut `±2% / >=95% / >5%` üçlü çelişkisi bu ayrımla kendiliğinden çözülür.
+The current three-way contradiction (`±2% / >=95% / >5%`) resolves itself under
+this split.
 
 ---
 
-## B5. Delphi konsensüsü (tek hakem yerine)
+## B5. Delphi consensus (instead of a single arbiter)
 
-**Gerçek dünya:** RAND'ın Delphi yöntemi. Çok turlu, **anonim**, kontrollü geri
-beslemeli uzlaşma. Ankraj etkisini ve baskın görüşün diğerlerini sürüklemesini
-engellemek için tasarlandı.
+**Real world:** RAND's Delphi method. Multi-round, **anonymous**, with controlled
+feedback. Designed to prevent anchoring and to stop a dominant opinion dragging
+the others along.
 
-**Sizde neden eksik:** `DisagreementCase` → tek bir `arbiter`. Tek hakem tek
-hata noktasıdır ve modelse kendi yanlılıklarını taşır.
+**Why it is missing here:** `DisagreementCase` → a single `arbiter`. A single
+arbiter is a single point of failure, and if it is a model it brings its own
+biases.
 
-**AIRL-OS'ta:**
+**In AIRL-OS:**
 ```
-Tur 1: N reviewer bağımsız verdict + gerekçe (birbirini görmez)
-Tur 2: anonimleştirilmiş gerekçe özeti dağıtılır; herkes verdict'ini
-       revize edebilir — DEĞİŞTİRİRSE GEREKÇE ZORUNLU
-Tur 3: hâlâ uzlaşma yoksa → insan arbiter, ve arbiter TÜM turları görür
+Round 1: N reviewers give an independent verdict plus rationale
+         (they do not see each other)
+Round 2: an anonymised rationale summary is circulated; everyone may revise
+         their verdict — A REVISION REQUIRES A RATIONALE
+Round 3: if there is still no consensus → a human arbiter, who sees ALL rounds
 ```
-Yakınsama ölçülür: turlar arası verdict değişim oranı. Çok hızlı yakınsama =
-sürü etkisi şüphesi, ayrı bir sinyal.
+Convergence is measured: the verdict-change rate between rounds. Very fast
+convergence = suspicion of herding, and is itself a separate signal.
 
 ---
 
 ## B6. Analysis of Competing Hypotheses (ACH)
 
-**Gerçek dünya:** Richards Heuer, CIA. Yapılandırılmış analitik teknik.
-Mantığı ters çevirir: *"hangi hipotezi destekliyor?"* değil,
-**"hangi hipotezleri ELİYOR?"**
+**Real world:** Richards Heuer, CIA. A structured analytic technique. It inverts
+the logic: not *"which hypothesis does this support?"* but
+**"which hypotheses does it ELIMINATE?"**
 
-Mekanik:
-1. Tüm makul hipotezleri listele (favori olanı değil)
-2. Tüm kanıtı listele
-3. Her kanıt × her hipotez matrisi: tutarlı / tutarsız / ilgisiz
-4. **Tanısallık (diagnosticity)**: bir kanıt tüm hipotezlerle tutarlıysa
-   **değersizdir** — ayırt etmiyor
-5. En çok *tutarsızlığa* sahip hipotezleri ele; kalanı sırala
+The mechanics:
+1. List all plausible hypotheses (not just the favourite one)
+2. List all the evidence
+3. Build the evidence × hypothesis matrix: consistent / inconsistent / irrelevant
+4. **Diagnosticity**: a piece of evidence consistent with *every* hypothesis is
+   **worthless** — it discriminates nothing
+5. Eliminate the hypotheses with the most *inconsistencies*; rank the rest
 
-**Neden Claim Ledger'ınıza mükemmel oturuyor:** `EvidenceSpan.support_type`
-zaten `supports | contradicts | qualifies | contextualizes` — ACH matrisinin
-hücresi bu. Eksik olan tek şey **tanısallık skoru**: bu kanıt rakip hipotezleri
-ayırt ediyor mu?
+**Why it fits your Claim Ledger perfectly:** `EvidenceSpan.support_type` is
+already `supports | contradicts | qualifies | contextualizes` — that is the cell
+of an ACH matrix. The only missing piece is a **diagnosticity score**: does this
+evidence discriminate between the competing hypotheses?
 
-**Bu, "çok kanıt topladık" ile "ayırt edici kanıt topladık" arasındaki farkı
-ölçen tek mekanizma.** Ve `PR-12 False Rigor`'un tam panzehri.
+**This is the only mechanism that measures the difference between "we collected a
+lot of evidence" and "we collected discriminating evidence."** And it is the exact
+antidote to `PR-12 False Rigor`.
 
 ---
 
-## B7. Mekanik istatistiksel adli kontroller — 🔴 ucuz, otomatik, yüksek getirili
+## B7. Mechanical statistical forensic checks — 🔴 cheap, automatic, high-yield
 
-Bunlar **model yargısı gerektirmez**. Deterministik, hızlı, otomatik. E1
-katmanında (mekanik), pahalı model review'undan **önce** çalışır.
+These require **no model judgement**. They are deterministic, fast and automatic.
+They run in the E1 layer (mechanical), **before** expensive model review.
 
-| Kontrol | Ne yapar | Nerede |
+| Check | What it does | Where |
 |---|---|---|
-| **statcheck** | Raporlanan test istatistiği ile p-değerinin iç tutarlılığını kontrol eder | G6 mekanik |
-| **GRIM** | Bildirilen ortalamanın N ve ölçüm granülerliğiyle **mümkün olup olmadığını** kontrol eder | G6 mekanik |
-| **GRIMMER** | Aynısını standart sapma için yapar | G6 mekanik |
-| **SPRITE** | Verilen ortalama+SD+N ile olası veri dağılımlarını yeniden kurar | Integrity Case |
-| **Benford analizi** | Sayı dağılımı anomalisi | Integrity Case |
-| **Alıntı entailment** | Her alıntının kaynak span'ini gerçekten desteklediğini kontrol | G6 (WP-080) |
-| **Scope conformance** | Yayın metni ↔ ClaimVersion kapsam eşlemesi (A5) | G9 |
-| **Hash/manifest** | Artifact bütünlüğü | tüm gate'ler |
+| **statcheck** | Checks the internal consistency of a reported test statistic and its p-value | G6 mechanical |
+| **GRIM** | Checks whether a reported mean is **possible** given N and measurement granularity | G6 mechanical |
+| **GRIMMER** | The same for standard deviations | G6 mechanical |
+| **SPRITE** | Reconstructs the possible data distributions from a given mean + SD + N | Integrity Case |
+| **Benford analysis** | Digit-distribution anomalies | Integrity Case |
+| **Citation entailment** | Checks that each citation's source span genuinely supports it | G6 (WP-080) |
+| **Scope conformance** | Publication text ↔ ClaimVersion scope mapping (A5) | G9 |
+| **Hash/manifest** | Artifact integrity | all gates |
 
-**Kritik ilke:** Bunların hepsi model kararı olmadan `IntegrityCase` veya
-`GATE_BLOCKED` üretebilir. LLM'in uydurduğu bir sayı GRIM'den geçemez.
-
----
-
-## B8. Pre-mortem (G4 öncesi)
-
-**Gerçek dünya:** Gary Klein. Proje başlamadan önce: *"Bir yıl geçti, proje
-tamamen başarısız oldu. Neden?"* Prospektif geriye dönük bakış, gelecek zaman
-kipinden geçmiş zaman kipine geçerek savunmacılığı kırar.
-
-**AIRL-OS'ta:** G4 (Baseline & Budget) onayından önce Red Team, `ProtocolManifest`
-ve `AnalysisPlanManifest` üzerinde pre-mortem yürütür. Çıktı, `falsification_plan`'a
-**yeni maddeler ekler**. Maliyeti bir saat, getirisi büyük.
+**The critical principle:** all of these can open an `IntegrityCase` or produce a
+`GATE_BLOCKED` without any model decision. **A number an LLM invented cannot pass
+GRIM.**
 
 ---
 
-## B9. Severity Assessment (Ciddiyet değerlendirmesi)
+## B8. Pre-mortem (before G4)
 
-**Gerçek dünya:** Deborah Mayo'nun hata istatistiği. Bir test **ciddidir** ancak
-ve ancak: iddia yanlış olsaydı, bu test bunu **büyük olasılıkla yakalardı**.
+**Real world:** Gary Klein. Before the project starts: *"A year has passed and the
+project failed completely. Why?"* Prospective hindsight breaks defensiveness by
+moving from the future tense into the past tense.
 
-**Sizde neden eksik:** `falsification_plan`'ınız *"eğer consensus < 90%: yöntem
-başarısız"* diyor. Ama sormuyor: **"yöntem gerçekten başarısız olsaydı, bu test
-onu yakalar mıydı?"** — yani testin **gücü**.
-
-Güçsüz bir test geçmek, kanıt değildir. Bu, "çok test yaptık" ile "zorlu test
-yaptık" arasındaki farktır.
-
-**AIRL-OS'ta:** her `ClaimVersion` için `severity_assessment`:
-`{test_id, would_detect_if_false: probability, basis}` — Statistical Methods
-Owner tarafından imzalanır.
+**In AIRL-OS:** before the G4 (Baseline & Budget) approval, the Red Team runs a
+pre-mortem over the `ProtocolManifest` and the `AnalysisPlanManifest`. Its output
+**adds new items to the `falsification_plan`**. It costs an hour and returns a
+great deal.
 
 ---
 
-## B10. Adversarial Collaboration (gerçek uyuşmazlıklar için)
+## B9. Severity assessment
 
-**Gerçek dünya:** Kahneman'ın önerisi. Anlaşamayan iki taraf, anlaşmazlığı
-çözecek deneyi **birlikte tasarlar** ve hangi sonucun ne anlama geleceğini
-**önceden** kabul eder.
+**Real world:** Deborah Mayo's error statistics. A test is **severe** if and only
+if: were the claim false, this test would **very probably** have caught it.
 
-**AIRL-OS'ta:** `DisagreementCase` arbitration ile kapanmazsa, otomatik hakem
-kararı yerine: iki taraf birlikte yeni bir `ProtocolManifest` üretir, önceden
-karar kuralını yazar, deney çalışır. Ucuz olmayan ama kesin çözüm.
-R3'te `arbitration_failed` durumunun varsayılan yolu bu olmalı.
+**Why it is missing here:** your `falsification_plan` says *"if consensus < 90%:
+the method fails"*. But it never asks: **"if the method really had failed, would
+this test have caught it?"** — that is, the test's **power**.
+
+Passing a weak test is not evidence. This is the difference between "we ran many
+tests" and "we ran demanding tests".
+
+**In AIRL-OS:** a `severity_assessment` for every `ClaimVersion`:
+`{test_id, would_detect_if_false: probability, basis}` — signed by the Statistical
+Methods Owner.
 
 ---
 
-## B11. Review mekanizmaları — özet
+## B10. Adversarial collaboration (for genuine disagreements)
 
-| Mekanizma | Durum | Gate | Model mi, mekanik mi? |
+**Real world:** Kahneman's proposal. Two disagreeing parties **jointly design** the
+experiment that will settle the disagreement and agree **in advance** what each
+outcome will mean.
+
+**In AIRL-OS:** if a `DisagreementCase` does not close through arbitration, then
+instead of an automatic arbiter ruling: the two sides jointly produce a new
+`ProtocolManifest`, write the decision rule in advance, and run the experiment.
+Not cheap, but conclusive. It should be the default path for the
+`arbitration_failed` state at R3.
+
+---
+
+## B11. Review mechanisms — summary
+
+| Mechanism | Status | Gate | Model or mechanical? |
 |---|---|---|---|
-| Mekanik doğrulama (hash, manifest) | mevcut | tümü | **mekanik** |
-| Blind review | mevcut | G6 | model |
-| Adversarial review | mevcut | G6 | model |
-| Citation/entailment audit | mevcut | G6 | mekanik + model |
-| Security review | mevcut | G6 | mekanik + model |
-| Arbitration | mevcut | G6 | insan |
-| Reproduction | mevcut | G7 | **mekanik** |
-| **Stage-1 in-principle acceptance** | **eklendi** | **G2** | model + insan |
-| **Blinded analysis** | **eklendi** | **G5→G6** | mekanik |
-| **Multi-analyst / multiverse** | **eklendi** | **G6** | model (N adet) |
-| **ACM badge seviyelendirme** | **eklendi** | **G7a/G7b** | mekanik |
-| **Delphi konsensüs** | **eklendi** | **G6** | model (N tur) |
-| **ACH + tanısallık** | **eklendi** | **G6** | model + mekanik matris |
-| **statcheck/GRIM/GRIMMER/SPRITE** | **eklendi** | **G6 mekanik** | **mekanik** |
-| **Pre-mortem** | **eklendi** | **G4** | model + insan |
-| **Severity assessment** | **eklendi** | **G2, G6** | insan imzalı |
-| **Adversarial collaboration** | **eklendi** | **G6 escalation** | insan + model |
-| **Scope conformance** | **eklendi** | **G9** | **mekanik** |
+| Mechanical verification (hash, manifest) | existing | all | **mechanical** |
+| Blind review | existing | G6 | model |
+| Adversarial review | existing | G6 | model |
+| Citation/entailment audit | existing | G6 | mechanical + model |
+| Security review | existing | G6 | mechanical + model |
+| Arbitration | existing | G6 | human |
+| Reproduction | existing | G7 | **mechanical** |
+| **Stage-1 in-principle acceptance** | **added** | **G2** | model + human |
+| **Blinded analysis** | **added** | **G5→G6** | mechanical |
+| **Multi-analyst / multiverse** | **added** | **G6** | model (N of them) |
+| **ACM badge levelling** | **added** | **G7a/G7b** | mechanical |
+| **Delphi consensus** | **added** | **G6** | model (N rounds) |
+| **ACH + diagnosticity** | **added** | **G6** | model + mechanical matrix |
+| **statcheck/GRIM/GRIMMER/SPRITE** | **added** | **G6 mechanical** | **mechanical** |
+| **Pre-mortem** | **added** | **G4** | model + human |
+| **Severity assessment** | **added** | **G2, G6** | human-signed |
+| **Adversarial collaboration** | **added** | **G6 escalation** | human + model |
+| **Scope conformance** | **added** | **G9** | **mechanical** |
 
 ---
 
-# BÖLÜM C — 7. Düzlem: Metascience & Calibration
+# PART C — The 7th plane: Metascience & Calibration
 
-## C0. Neden yeni bir düzlem gerekiyor
+## C0. Why a new plane is needed
 
-Mevcut altı düzleminiz **araştırmayı** yönetiyor. Hiçbiri şu soruyu sormuyor:
+Your six existing planes manage **the research**. None of them asks:
 
-> **"Bu laboratuvar doğru sonuç üretiyor mu? Nereden biliyoruz?"**
+> **"Is this laboratory producing correct results? How do we know?"**
 
-Bir insan laboratuvarında bu soru dolaylı yollarla cevaplanır: itibar,
-atıflar, replikasyonlar, zaman. Bir **model tarafından yürütülen** laboratuvarda
-bu yollar yok — ve olmadığı için ölçülmek zorunda.
+In a human laboratory that question is answered indirectly: reputation, citations,
+replications, time. In a laboratory **operated by models** those routes do not
+exist — and because they do not exist, the question has to be measured.
 
-Ve şu ampirik gerçek meseleyi zorunlu kılıyor:
+And one empirical fact makes it unavoidable:
 
-> **Farklı model ailesi kullanmak, bağımsızlık garantisi vermez.**
-> Frontier modeller büyük ölçüde örtüşen korpuslarda eğitiliyor. Aynı hatayı
-> aynı güvenle yapabilirler. İki reviewer'ın hemfikir olması, hata korelasyonu
-> ölçülmediği sürece kanıt değeri taşımaz.
+> **Using a different model family is not a guarantee of independence.**
+> Frontier models are trained on heavily overlapping corpora. They can make the
+> same mistake with the same confidence. Two reviewers agreeing carries no
+> evidential value until the error correlation between them has been measured.
 
-Sizin `IndependenceMatrix`'iniz Model Lineage'ı **non-compensable değil** olarak
-işaretlemiş — bu doğru sezgi. Ama o zaman geriye kalan tek gerçek bağımsızlık
-ekseni **mekanik doğrulama**dır, ve bunun ölçülmesi gerekir.
+Your `IndependenceMatrix` marks Model Lineage as **not non-compensable** — that is
+the right instinct. But it follows that the only remaining genuinely independent
+axis is **mechanical verification**, and that has to be measured.
 
 ---
 
-## C1. Agreement Calibration — bağımsızlığın ölçülmesi
+## C1. Agreement calibration — measuring independence
 
-**Mekanizma:**
+**The mechanism:**
 
 ```
-Kalıcı bir "agreement calibration set" tutulur:
-  - Doğru cevabı bilinen N adet review görevi
-  - Her nitelikli model profili periyodik olarak bu seti işler
-  - Ölçülen:
-      * doğruluk (accuracy)
-      * ikili hata korelasyonu (pairwise error correlation)
-      * şansı aşan uyum (Fleiss' κ / Krippendorff's α)
+A permanent "agreement calibration set" is maintained:
+  - N review tasks whose correct answer is known
+  - Every qualified model profile processes the set periodically
+  - Measured:
+      * accuracy
+      * pairwise error correlation
+      * beyond-chance agreement (Fleiss' κ / Krippendorff's α)
 ```
 
-**Ve karar kuralı:**
+**And the decision rule:**
 
-> İki model profilinin **hata korelasyonu** `ρ` eşiğin üzerindeyse, ikisi birden
-> aynı claim'in bağımsızlık kotasına sayılamaz. Independence Matrix'in
-> `Model Lineage` boyutu artık **beyan değil, ölçüm**.
+> If the **error correlation** `ρ` between two model profiles exceeds the
+> threshold, the two cannot both count toward the independence quota for the same
+> claim. The `Model Lineage` dimension of the Independence Matrix becomes
+> **a measurement rather than a declaration**.
 
-Bu, WP-007'yi kağıt üzerinde bağımsızlıktan gerçek bağımsızlığa çeviren tek
-mekanizmadır. Ve ölçmek ucuzdur.
+This is the only mechanism that converts WP-007 from paper independence into real
+independence. And measuring it is cheap.
 
-**Ek sinyal:** Uyumun *çok* yüksek olması da alarmdır — κ ≈ 1,0 bağımsız
-yargıçlarda beklenmez; ya görev trivialdir ya da yargıçlar bağımsız değildir.
+**A second signal:** agreement that is *too* high is also an alarm — κ ≈ 1.0 is not
+expected among independent judges. Either the task is trivial, or the judges are
+not independent.
 
 ---
 
-## C2. Confidence Calibration — 7 skalanın kurtarılması
+## C2. Confidence calibration — rescuing the seven scales
 
-**Sorun:** `ClaimVersion` yedi confidence boyutu taşıyor
+**The problem:** `ClaimVersion` carries seven confidence dimensions
 (`identity_confidence`, `entailment`, `method_validity`, `independence`,
-`reproducibility`, `scope_fit`, `currency`) — hepsi `0.0–1.0`, iki-üç haneli
-hassasiyetle.
+`reproducibility`, `scope_fit`, `currency`) — all `0.0–1.0`, at two or three
+decimal places.
 
-**Bu sayılar bugün hiçbir şey ifade etmiyor**, çünkü:
-- Üreticileri (LLM'ler) kalibre değil
-- Birleştirme kuralı tanımlı değil
-- Doğrulukla karşılaştırılmıyor
+**Today those numbers mean nothing**, because:
+- Their producers (LLMs) are not calibrated
+- No combination rule is defined
+- They are never compared against outcomes
 
-`0.95` ile `0.87` arasındaki fark, ölçülmediği sürece **süslemeden ibarettir.**
-Ve bu tam olarak sizin `PR-12 — False Rigor` riskinizin tanımıdır.
+Until it is measured, the difference between `0.95` and `0.87` is **decoration.**
+And that is precisely the definition of your own `PR-12 — False Rigor` risk.
 
-**Çözüm — üç adım:**
+**The fix — three steps:**
 
-1. **Ölç.** Her tahmin edilen confidence, sonunda bir sonuçla eşleşir
-   (claim G7'de doğrulandı mı? G10'da hayatta kaldı mı?). **Brier skoru** ve
-   kalibrasyon eğrisi hesaplanır.
-2. **Yeniden kalibre et.** Ham model skorları → izotonik regresyon veya Platt
-   ölçekleme ile kalibre edilmiş olasılığa çevrilir. `ClaimVersion` **ikisini de**
-   saklar: `raw_confidence` ve `calibrated_confidence`.
-3. **Kalibre değilse gösterme.** Bir boyut için yeterli sonuç verisi yoksa,
-   sayı yerine `UNCALIBRATED` gösterilir. **Sahte hassasiyet yasaktır.**
+1. **Measure.** Every predicted confidence eventually meets an outcome (was the
+   claim verified at G7? did it survive G10?). Compute the **Brier score** and the
+   calibration curve.
+2. **Recalibrate.** Convert raw model scores into calibrated probabilities via
+   isotonic regression or Platt scaling. `ClaimVersion` stores **both**:
+   `raw_confidence` and `calibrated_confidence`.
+3. **If it is not calibrated, do not display it.** Where there is insufficient
+   outcome data for a dimension, display `UNCALIBRATED` instead of a number.
+   **False precision is forbidden.**
 
-**Ve birleştirme kuralı:** Çarpmayın, ortalamayı almayın. Bu boyutlar bağımsız
-değil ve farklı şeyleri ölçüyor. Önerim: **en zayıf halka kuralı** —
-`claim_strength = min(dimensions)` + hangi boyutun bağladığı açıkça gösterilir.
-Bir claim en zayıf kanıt boyutu kadar güçlüdür.
+**And the combination rule:** do not multiply, do not average. These dimensions are
+not independent and they measure different things. My proposal: **the weakest-link
+rule** — `claim_strength = min(dimensions)`, with the binding dimension named
+explicitly. A claim is only as strong as its weakest evidential dimension.
 
 ---
 
-## C3. Gate Yield — hangi kapı gerçekten işe yarıyor?
+## C3. Gate yield — which gate is actually working?
 
-**Ölçüm:** Her gate için: kaç madde girdi, kaç tanesi bloklandı/revize edildi,
-ve o bulgular sonradan **gerçek** çıktı mı?
+**The measurement:** for each gate — how many items entered, how many were blocked
+or sent back, and did those findings later turn out to be **real**?
 
 ```
-gate_yield(G6-adversarial) = onaylanan bulgu / toplam bulgu
-false_positive_rate(G6-adversarial) = reddedilen bulgu / toplam bulgu
-maliyet(G6-adversarial) = token + wall-clock + insan dakikası
+gate_yield(G6-adversarial) = confirmed findings / total findings
+false_positive_rate(G6-adversarial) = rejected findings / total findings
+cost(G6-adversarial) = tokens + wall-clock + human minutes
 ```
 
-**Neden kritik:** Assurance'ın bir maliyeti var ve sonsuz derinlik mümkün değil.
-Hangi kapının gerçekten hata yakaladığını bilmezseniz, assurance **ritüele**
-dönüşür — çok artifact, az koruma. Bu, `PR-04` (verification backlog) ve
-`PR-12`'nin ortak kökü.
+**Why this is critical:** assurance has a cost and infinite depth is not possible.
+If you do not know which gate actually catches errors, assurance decays into
+**ritual** — many artifacts, little protection. That is the common root of `PR-04`
+(verification backlog) and `PR-12`.
 
-Düşük yield'li bir gate ya kaldırılır ya yeniden tasarlanır. Yüksek yield'li
-gate derinleştirilir.
-
----
-
-## C4. Kontrol enjeksiyonu — laboratuvarın kendi hata oranı — 🔴
-
-**Gerçek dünya:** Genomik ve epidemiyolojide standart — pozitif kontrol
-(cevabı bilinen), negatif kontrol (etki olmaması gereken, ör. permüte edilmiş
-veri). Pipeline karıştırılmış veride "etki bulursa" pipeline bozuktur.
-
-**AIRL-OS'ta:**
-
-> Projelerin küçük bir oranı (**ör. %5–10**) *tohumlanmış* olarak açılır:
-> - **Pozitif kontrol:** cevabı önceden bilinen bir soru
-> - **Negatif kontrol:** null veri / permüte edilmiş veri — bulunacak etki yok
->
-> Bunlar gerçek projelerden **ayırt edilemez** olmalı ve **ajanlardan gizli**
-> tutulmalıdır (Red Team Lead ve Metascience Lead bilir).
->
-> Ölçülen: laboratuvarın **yanlış pozitif oranı** ve **yanlış negatif oranı**.
-
-**Bu, laboratuvarın tek gerçek doğruluk ölçüsüdür.** Diğer her şey süreç
-metriğidir; bu sonuç metriğidir.
-
-Ve bu, daha önce belirttiğim "laboratuvarın kendi eval harness'ı yok" boşluğunun
-somut çözümü. MLE-bench/PaperBench dışarıdan ölçer; kontrol enjeksiyonu
-**canlı hatta, gerçek koşullarda** ölçer.
+A gate with low yield is either removed or redesigned. A gate with high yield is
+deepened.
 
 ---
 
-## C5. İnsan dikkat bütçesi ve rubber-stamping tespiti
+## C4. Control injection — the laboratory's own error rate — 🔴
 
-**Sorun:** `PR-11 — Human rubber-stamping` sizin kendi risk register'ınızda.
-Ama mimaride buna karşı bir mekanizma yok — yalnız SLA var, ve SLA baskısı
-rubber-stamping'i **artırır**.
+**Real world:** standard in genomics and epidemiology — positive controls (whose
+answer is known) and negative controls (where no effect should exist, e.g.
+permuted data). If a pipeline "finds an effect" in shuffled data, the pipeline is
+broken.
 
-Ve bir model laboratuvarında bu risk yapısaldır: modeller insandan çok daha
-hızlı üretir; insan darboğaz olur; darboğaz olan insan onaylamaya başlar.
+**In AIRL-OS:**
 
-**Mekanizma:**
+> A small proportion of projects (**say 5–10%**) are opened *seeded*:
+> - **Positive control:** a question whose answer is known in advance
+> - **Negative control:** null or permuted data — there is no effect to find
+>
+> These must be **indistinguishable** from real projects and **hidden from the
+> agents** (the Red Team Lead and the Metascience Lead know).
+>
+> Measured: the laboratory's **false positive rate** and **false negative rate**.
+
+**This is the laboratory's only real measure of correctness.** Everything else is a
+process metric; this is an outcome metric.
+
+It is also the concrete solution to the gap noted earlier — "the laboratory has no
+evaluation harness of its own". MLE-bench and PaperBench measure from the outside;
+control injection measures **on the live line, under real conditions**.
+
+---
+
+## C5. Human attention budget and rubber-stamping detection
+
+**The problem:** `PR-11 — Human rubber-stamping` is in your own risk register. But
+the architecture contains no mechanism against it — only an SLA, and SLA pressure
+**increases** rubber-stamping.
+
+In a model-operated laboratory this risk is structural: models produce far faster
+than humans; the human becomes the bottleneck; a bottlenecked human starts
+approving.
+
+**The mechanism:**
 
 ```yaml
 HumanAttentionBudget:
-  max_g8_decisions_per_week: 5          # SERT KOTA, SLA değil
-  min_evidence_view_seconds: <pakete göre hesaplanır>
-  mandatory_disagreement_exposure: true  # açık uyuşmazlık gizlenemez
-  
-  ölçülen:
-    decision_time_distribution      # çok kısa = alarm
+  max_g8_decisions_per_week: 5          # A HARD QUOTA, not an SLA
+  min_evidence_view_seconds: <computed from the packet>
+  mandatory_disagreement_exposure: true  # open disagreement cannot be hidden
+
+  measured:
+    decision_time_distribution      # very short = alarm
     evidence_sections_actually_opened
-    reversal_rate_at_G10            # G8'de kabul, G10'da geri alınan oranı
-    dissent_override_rate           # adversarial REJECT'e rağmen ACCEPT oranı
+    reversal_rate_at_G10            # accepted at G8, reversed at G10
+    dissent_override_rate           # ACCEPT despite an adversarial REJECT
 ```
 
-**Kota dolduğunda ne olur:** Kuyruk **bekler**. Auto-approve yok, SLA
-uzatılmaz, "hızlı gözden geçirme" modu yok. Laboratuvarın çıktı hızı, insan
-karar kapasitesiyle sınırlıdır — ve bu bir hata değil, **tasarım**.
+**What happens when the quota is exhausted:** the queue **waits**. No auto-approve,
+no SLA extension, no "quick review" mode. The laboratory's throughput is bounded by
+human decision capacity — and that is not a defect, it is **the design**.
 
 ---
 
-## C6. Claim Survival — laboratuvarın nihai skoru
+## C6. Claim survival — the laboratory's final score
 
-**Ölçüm:** G8'de kabul edilen claim'lerin 6/12/24 ay sonra durumu.
+**The measurement:** the status of claims accepted at G8 after 6, 12 and 24 months.
 
 ```
 survival_rate = RECONFIRMED / (RECONFIRMED + REVISED + SUPERSEDED + RETRACTED)
 ```
 
-G10 `ImpactCase` altyapınız bu veriyi **zaten üretiyor**. Toplanması gereken tek
-şey, bunu bir zaman serisi olarak takip etmek.
+Your G10 `ImpactCase` infrastructure **already produces** this data. The only thing
+needed is to track it as a time series.
 
-Ve bu, tüm sistemin gerçek KPI'sıdır. Diğer her metrik ara metriktir.
-Survival rate düşüyorsa, hangi gate'in yield'i düştüğü C3 ile bulunur.
-
----
-
-## C7. Metascience Plane — özet
-
-| Ölçüm | Cevapladığı soru | Girdi | Sıklık |
-|---|---|---|---|
-| **Agreement calibration** (κ, ρ) | Reviewer'larım gerçekten bağımsız mı? | calibration set | aylık |
-| **Confidence calibration** (Brier) | Confidence sayıları anlamlı mı? | claim sonuçları | çeyreklik |
-| **Gate yield** | Hangi kapı gerçekten hata yakalıyor? | bulgu → doğrulama | çeyreklik |
-| **Kontrol enjeksiyonu** | Laboratuvarın FP/FN oranı ne? | tohumlanmış projeler | sürekli |
-| **Dikkat bütçesi** | İnsan gerçekten karar veriyor mu? | karar telemetrisi | haftalık |
-| **Claim survival** | Ürettiğimiz bilgi ayakta kalıyor mu? | G10 ImpactCase | sürekli |
-
-**Kritik kural:** Metascience düzlemi **hiçbir gate'i bloke etmez.** Ölçer ve
-raporlar. Bloke etme yetkisi verilirse, ölçülen şeyi optimize etme baskısı
-doğar (Goodhart yasası) ve ölçüm bozulur. Tek istisna: kontrol enjeksiyonunda
-**negatif kontrolde etki bulunması** — bu pipeline bozukluğudur ve hattı durdurur.
+And this is the true KPI of the whole system. Every other metric is intermediate.
+If the survival rate falls, C3 tells you which gate's yield fell with it.
 
 ---
 
-# BÖLÜM D — Rol → Model atama mimarisi
+## C7. The Metascience Plane — summary
 
-> **Karara bağlandı:** Somut model havuzu, gate→aktör tablosu, effort→R sınıfı
-> eşlemesi ve snapshot pinning kısıtı ayrı belgede: [[10 - Projects/AI Research Framework/04 - Architecture/airl_os_role_model_assignment|Rol → Model Atama]]
-
-## D1. Atama ilkesi: doğrulama asimetrisi
-
-Her gate için tek soru:
-
-> **Bu adımda mekanik bir doğrulama mümkün mü?**
-> - **Evet** → mekanik önce çalışır, **model onu geçersiz kılamaz**
-> - **Hayır** → model üretir, ama çıktısı *yanlışlanabilir* olmak zorunda
-
-**Model, hipotez üreticisidir; verifier değildir.** Modelin çıktısı,
-mekanik olarak kontrol edilebilen bir forma indirgenemiyorsa, o çıktı kanıt
-değil, öneridir.
-
-## D2. Gate → aktör matrisi
-
-| Gate | Mekanik (deterministik) | Model | İnsan |
+| Measurement | Question it answers | Input | Frequency |
 |---|---|---|---|
-| **G0 Intake** | duplicate arama (Neo4j + embedding) | triage, benzerlik özeti | greenlight (5 dk) |
-| **G1 Charter** | `RiskProfile → AssuranceClass` (**policy engine, model değil**) | charter taslağı, risk vektörü önerisi | **karar sorusunu yazar**, onaylar |
-| **G2 Protocol** | şablon tamlık kontrolü | protokol taslağı, pre-mortem, Stage-1 review (farklı aile) | Scientific Owner + Stat Owner **imzalar** |
-| **G2b Analysis Plan** | — | analiz planı taslağı, güç analizi | **Stat Methods Owner kilitler** |
-| **G3 Literature** | GROBID çıkarım, DOI çözümü, dedup, hash | keşif, sorgu planı, tarama (aktif öğrenme) | Evidence Lead **dondurur** |
-| **G4 Baseline** | baseline koşusu (deterministik) | compute planı, red-team pre-mortem | budget onayı (FinOps + Eng) |
-| **G5 Execute** | **deney koşusunun kendisi** | — *(model deneyin konusu değilse döngüde yok)* | — |
-| **G6-0 Mekanik** | statcheck, GRIM/GRIMMER, entailment, hash, manifest | — | — |
-| **G6-1 Blind** | ReviewPacketBuilder (**program**, prompt değil) | N reviewer, **ölçülmüş bağımsız** aileler | — |
-| **G6-2 Adversarial** | — | adversarial + ACH tanısallık matrisi | — |
-| **G6-3 Disagreement** | verdict karşılaştırma | Delphi turları | arbiter (**yalnız yakınsamazsa**) |
-| **G7a Reproduction** | **aynı manifest, aynı seed → deterministik** | — | — |
-| **G7b Replication** | farklı seed/uygulama → **dağılım testi** | — | RSE badge atar |
-| **G8 Decision** | kanıt paketi bütünlüğü | **öneri üretebilir, karar veremez** | **YALNIZ İNSAN** (kotalı) |
-| **G9 Publish** | **scope conformance** (mekanik), RO-Crate, hash | metin taslağı | Decision Owner + Editor |
-| **G10 Monitor** | feed'ler (Crossref/Retraction Watch/CVE) | sinyal triyajı, materiality önerisi | material sinyalde karar |
+| **Agreement calibration** (κ, ρ) | Are my reviewers genuinely independent? | the calibration set | monthly |
+| **Confidence calibration** (Brier) | Do the confidence numbers mean anything? | claim outcomes | quarterly |
+| **Gate yield** | Which gate actually catches errors? | finding → confirmation | quarterly |
+| **Control injection** | What are the lab's FP/FN rates? | seeded projects | continuous |
+| **Attention budget** | Is the human genuinely deciding? | decision telemetry | weekly |
+| **Claim survival** | Does the knowledge we produce hold up? | G10 ImpactCase | continuous |
 
-**Üç kural:**
-1. G5'te model yoksa (deney modelin kendisi değilse), sonuç **model
-   yanlılığından arınmıştır**. Bu, laboratuvarın en temiz katmanıdır — koruyun.
-2. G7a'da model **hiç yok**. Ya tutar ya tutmaz.
-3. G8'de model **yalnız öneri** üretir. Bu sizde zaten non-waivable ✅.
+**The critical rule:** the metascience plane **blocks no gate.** It measures and
+reports. If it were given blocking authority, pressure to optimise the measured
+quantity would appear (Goodhart's law) and the measurement would be destroyed. The
+single exception: **finding an effect in a negative control** during control
+injection — that is a broken pipeline, and it stops the line.
 
-## D3. Model havuzu ve kota mimarisi
+---
+
+# PART D — Role → model assignment architecture
+
+> **Decided separately:** the concrete model pool, the gate→actor table, the
+> effort→R class mapping and the snapshot-pinning constraint live in
+> `AIRL_OS_ROLE_MODEL_ASSIGNMENT.md`.
+
+## D1. The assignment principle: verification asymmetry
+
+For every gate there is one question:
+
+> **Is a mechanical verification possible at this step?**
+> - **Yes** → the mechanical check runs first, and **the model cannot override it**
+> - **No** → the model produces, but its output must be *falsifiable*
+
+**A model is a hypothesis generator, not a verifier.** If a model's output cannot
+be reduced to a form that a machine can check, that output is a suggestion, not
+evidence.
+
+## D2. Gate → actor matrix
+
+| Gate | Mechanical (deterministic) | Model | Human |
+|---|---|---|---|
+| **G0 Intake** | duplicate search (Neo4j + embeddings) | triage, similarity summary | greenlight (5 min) |
+| **G1 Charter** | `RiskProfile → AssuranceClass` (**a policy engine, not a model**) | charter draft, risk vector proposal | **writes the decision question**, approves |
+| **G2 Protocol** | template completeness check | protocol draft, pre-mortem, Stage-1 review (different family) | Scientific Owner + Statistical Methods Owner **sign** |
+| **G2b Analysis Plan** | — | analysis plan draft, power analysis | **the Statistical Methods Owner locks it** |
+| **G3 Literature** | GROBID extraction, DOI resolution, dedup, hashing | discovery, query planning, screening (active learning) | Evidence Lead **freezes** |
+| **G4 Baseline** | the baseline run (deterministic) | compute plan, red-team pre-mortem | budget approval (FinOps + Eng) |
+| **G5 Execute** | **the experiment run itself** | — *(not in the loop unless the model is the subject)* | — |
+| **G6-0 Mechanical** | statcheck, GRIM/GRIMMER, entailment, hashes, manifests | — | — |
+| **G6-1 Blind** | `ReviewPacketBuilder` (**a program**, not a prompt) | N reviewers from **measured-independent** families | — |
+| **G6-2 Adversarial** | — | adversarial review + the ACH diagnosticity matrix | — |
+| **G6-3 Disagreement** | verdict comparison | Delphi rounds | arbiter (**only if it fails to converge**) |
+| **G7a Reproduction** | **same manifest, same seed → deterministic** | — | — |
+| **G7b Replication** | different seed/implementation → **distribution test** | — | the RSE assigns the badge |
+| **G8 Decision** | evidence package completeness | **may produce a recommendation, never a decision** | **HUMAN ONLY** (under quota) |
+| **G9 Publish** | **scope conformance** (mechanical), RO-Crate, hashes | text draft | Decision Owner + Editor |
+| **G10 Monitor** | feeds (Crossref / Retraction Watch / CVE) | signal triage, materiality proposal | decides on a material signal |
+
+**Three rules:**
+1. If there is no model at G5 (unless the model is the subject of the experiment),
+   the result is **free of model bias**. That is the laboratory's cleanest layer —
+   protect it.
+2. There is **no model at all** at G7a. It either holds or it does not.
+3. At G8 the model produces **only a recommendation**. This is already
+   non-waivable in your design ✅.
+
+## D3. Model pool and quota architecture
 
 ```yaml
 ModelPool:
-  producer_tier:      # üretim: hız + maliyet dengeli
-  reviewer_tier:      # review: producer'dan ÖLÇÜLMÜŞ bağımsız (C1)
-  adversarial_tier:   # en yetenekli; reddetme oranıyla ödüllendirilir
-  arbiter_tier:       # yalnız uyuşmazlıkta; her iki tarafı da görür
-  local_tier:         # open-weight, YEREL — R3 ve G7 için ZORUNLU
+  producer_tier:      # production: balanced speed and cost
+  reviewer_tier:      # review: MEASURED independent of the producer (C1)
+  adversarial_tier:   # most capable; rewarded on refutation rate
+  arbiter_tier:       # only on disagreement; sees both sides
+  local_tier:         # open-weight, LOCAL — MANDATORY for R3 and G7
 
-Kurallar:
-  - Bir claim'in producer'ı ve final reviewer'ı aynı profil OLAMAZ
-  - Aynı claim'de hata korelasyonu ρ > eşik olan iki profil bağımsızlık
-    kotasına birlikte sayılamaz          # C1 çıktısı
-  - Adversarial reviewer'ın metriği REDDETME kalitesidir, onay hızı değil
-  - R3 claim üreten koşu YEREL/open-weight model kullanır  # bkz. D4
+Rules:
+  - the producer and the final reviewer of a claim MUST NOT be the same profile
+  - two profiles whose error correlation ρ exceeds the threshold cannot both
+    count toward the independence quota for the same claim   # output of C1
+  - the adversarial reviewer's metric is the QUALITY OF ITS REFUTATION,
+    not its approval speed
+  - a run producing an R3 claim uses a LOCAL / open-weight model   # see D4
 ```
 
-## D4. Model snapshot saklama — G7 için yapısal zorunluluk
+## D4. Model snapshot retention — a structural requirement for G7
 
-> **Sorun:** `ExperimentRun.model_snapshot: "Claude Sonnet 5 20260801"` ve
-> Reproducibility **non-waivable**. Ama hosted sağlayıcılar snapshot'ları
-> süresiz saklamaz. 6 ay sonra G7a çalıştırdığınızda o snapshot yoksa,
-> "frozen manifest ile tekrar üret" garantisi çöker.
+> **The problem:** `ExperimentRun.model_snapshot: "Claude Sonnet 5 20260801"` and
+> reproducibility is **non-waivable**. But hosted providers do not retain snapshots
+> indefinitely. If you run G7a six months later and that snapshot is gone, the
+> guarantee of "reproduce from the frozen manifest" collapses.
 
-**Kaçınılmaz sonuç:**
+**The unavoidable conclusion:**
 
-| Assurance sınıfı | Model politikası | Gerekçe |
+| Assurance class | Model policy | Rationale |
 |---|---|---|
-| R1 | hosted OK | Repro toleransı düşük kritiklikte |
-| R2 | hosted OK + **tam I/O kaydı** (Langfuse) | Snapshot gidince en azından giriş/çıkış kanıtı kalır |
-| **R3** | **yerel / open-weight ZORUNLU** (GGUF + SHA-256) | Ağırlıklar sizde; G7a gerçekten mümkün |
+| R1 | hosted OK | Reproduction tolerance at low criticality |
+| R2 | hosted OK + **full I/O logging** (Langfuse) | When the snapshot disappears, at least the input/output evidence remains |
+| **R3** | **local / open-weight MANDATORY** (GGUF + SHA-256) | The weights are yours; G7a is genuinely possible |
 
-Elinizdeki 2×RTX A5000 + yerel GGUF altyapısı bu yüzden **opsiyonel bir tercih
-değil, R3'ün önkoşulu.** SILBO tarafında zaten yaptığınız
-`system_fingerprint` dondurma pratiği tam olarak doğru refleks — bunu
-framework seviyesine taşıyın.
+Your 2× RTX A5000 plus a local GGUF stack is therefore **not an optional
+preference but a precondition for R3.** The `system_fingerprint` freezing practice
+you already apply on the SILBO side is exactly the right reflex — lift it to
+framework level.
 
 ---
 
-# BÖLÜM E — `obra/superpowers`'tan alınacak operasyonel mekanikler
+# PART E — Operational mechanics to take from `obra/superpowers`
 
-Superpowers bir *kodlama* metodolojisi, ama çözdüğü problem sizinkiyle aynı:
-**bir ajanın ürettiği işe nasıl güvenilir.** Ve sizin mimarinizde **kavramsal
-olarak var ama operasyonel olarak eksik** olan şeyleri operasyonelleştirmiş.
+Superpowers is a *coding* methodology, but the problem it solves is the same as
+yours: **how do you trust the work an agent produced?** And it has
+operationalised things that exist **conceptually but not operationally** in your
+architecture.
 
-## E1. Bilgi asimetrisinin dosya seviyesinde tanımlanması
+## E1. Defining information asymmetry at the file level
 
-Superpowers'ta implementer ve reviewer'ın **tam olarak hangi dosyaları gördüğü**
-tanımlı:
+In Superpowers, exactly which files the implementer and the reviewer see is
+defined:
 
-| | Implementer görür | Reviewer görür |
+| | Implementer sees | Reviewer sees |
 |---|---|---|
 | Task brief | ✅ | ✅ |
-| Önceki task'ların *arayüzleri* | ✅ | ✅ (global constraints) |
-| Implementer'ın raporu | yazar | ✅ |
-| Kod diff'i | üretir | ✅ |
-| **Implementer'ın iç muhakemesi** | — | ❌ **asla** |
-| Oturum geçmişi | ❌ | ❌ |
+| The *interfaces* of previous tasks | ✅ | ✅ (global constraints) |
+| The implementer's report | writes it | ✅ |
+| The code diff | produces it | ✅ |
+| **The implementer's internal reasoning** | — | ❌ **never** |
+| Session history | ❌ | ❌ |
 
-Sizin `ReviewPacket.excluded_from_packet` listeniz aynı fikirde ✅. Ama
-Superpowers bir adım daha ileri gidiyor: **"No context pasting — hand artifacts
-as files, not inline text."**
+Your `ReviewPacket.excluded_from_packet` list already agrees ✅. But Superpowers
+goes one step further: **"No context pasting — hand artifacts as files, not inline
+text."**
 
-**Alınacak:** `ReviewPacketBuilder` bir **program** olmalı, bir prompt değil.
-Allowlist kodda, ACL'de ve testte tanımlı. Reviewer'a inline metin geçilmez;
-yalnız dosya yolu ve hash verilir. Böylece "reviewer ne gördü" sorusunun cevabı
-**denetlenebilir** olur — `evidence_packet_hash` alanınız zaten bunu istiyor.
+**To take:** `ReviewPacketBuilder` must be a **program**, not a prompt. The
+allowlist lives in code, in the ACL and in a test. No inline text is passed to the
+reviewer; only a file path and a hash. That makes the question "what did the
+reviewer see?" **auditable** — which is exactly what your `evidence_packet_hash`
+field is asking for.
 
-## E2. "Implementer asla subagent dispatch etmez" — 🔴 kritik kural
+## E2. "The implementer never dispatches subagents" — 🔴 a critical rule
 
 > *"the implementer never dispatches subagents — not helpers, and never a reviewer."*
 
-**Sizin mimarinizde bu kural yok.** `Assurance Lead` reviewer atıyor ✅ ama
-hiçbir yerde **producer'ın kendi yardımcılarını çağırmasını yasaklayan** bir
-kural yok. Yasak yoksa şu olur:
+**Your architecture does not contain this rule.** The `Assurance Lead` assigns
+reviewers ✅, but nowhere is the **producer forbidden from summoning its own
+helpers**. Without that prohibition:
 
 ```
-Producer agent → "yardımcı" ajan çağırır → yardımcı işin bir kısmını yapar
-→ yardımcı fiilen ortak yazar → ama bağımsızlık defterinde görünmüyor
-→ IndependenceMatrix yanlış PASS veriyor
+Producer agent → calls a "helper" agent → the helper does part of the work
+→ the helper is effectively a co-author → but does not appear in the
+   independence ledger
+→ the IndependenceMatrix issues a false PASS
 ```
 
-**Alınacak — Independence Matrix'e 8. boyut:**
+**To take — an 8th dimension for the Independence Matrix:**
 
 ```yaml
 - dimension: "Delegation Boundary"
-  description: "Producer kendi doğrulayıcısını veya yardımcısını çağırabildi mi?"
+  description: "Was the producer able to summon its own verifier or helper?"
   controls:
     - "Producer cannot spawn sub-agents"
     - "Reviewer assignment only by Assurance Lead / Task Compiler"
@@ -807,379 +852,440 @@ Producer agent → "yardımcı" ajan çağırır → yardımcı işin bir kısm�
   non_compensable_for: [R1, R2, R3]
 ```
 
-Bu boyut **tüm sınıflarda non-compensable** olmalı — çünkü ihlal edilirse diğer
-altı boyutun ölçümü de geçersiz hale gelir.
+This dimension must be **non-compensable in every class** — because if it is
+violated, the measurement of the other six dimensions becomes void as well.
 
-## E3. Sınırlı eskalasyon merdiveni + "the breaker"
+## E3. A bounded escalation ladder plus "the breaker"
 
-Superpowers'ın uyuşmazlık çözümü:
+Superpowers' disagreement resolution:
 
 ```
-Tur 1–3: aynı implementer, bağlam korunur, bulgular VERBATIM iletilir
-Tur 4–5: TAZE implementer, DAHA YETENEKLİ model,
-         açık çerçeveleme: "önceki N kez denedi, artık senin"
-Tur 5 sonu hâlâ açıksa → BREAKER:
-         dispatch DURUR, insan her açık bulguyu tek tek adjudicate eder
-         her hüküm deftere yazılır — SESSİZ İSKARTA YASAK
+Rounds 1–3: the same implementer, context preserved, findings relayed VERBATIM
+Rounds 4–5: a FRESH implementer on a MORE CAPABLE model,
+            framed explicitly: "a previous one tried N times; it is yours now"
+Still open at the end of round 5 → THE BREAKER:
+            dispatch STOPS, a human adjudicates every open finding one by one,
+            every ruling is written into the ledger — SILENT DISCARD FORBIDDEN
 ```
 
-**Sizin `DisagreementCase`'inizde eksik olan:** sınır yok. Kaç tur? Ne zaman
-insana gider? Model değişir mi? Ve en önemlisi: **açık bulguların sessizce
-kaybolmaması** garantisi yok.
+**What is missing from your `DisagreementCase`:** there is no bound. How many
+rounds? When does it reach a human? Does the model change? And most importantly:
+**there is no guarantee that open findings do not vanish silently.**
 
-**Alınacak:** `DisagreementCase`'e `round`, `escalation_tier`,
-`max_rounds` ve **`FindingLedger`** ekleyin. Her açık bulgu ya çözülür ya
-`PARKED` + gerekçe + sahip + süre alır. `06_KANIT_VE_KABUL_STRATEJISI.md`'deki
-finding yaşam döngünüz doğru, ama **turlu eskalasyona bağlı değil.**
+**To take:** add `round`, `escalation_tier`, `max_rounds` and a **`FindingLedger`**
+to `DisagreementCase`. Every open finding is either resolved or marked `PARKED`
+with a rationale, an owner and an expiry. Your finding lifecycle in the evidence
+and acceptance strategy is correct, but it is **not bound to a round-based
+escalation.**
 
-## E4. Sınıflandırma önce + "şüphedeyken ağır olanı seç"
+## E4. Classify first, and "when in doubt, choose the heavier path"
 
 > *"when in doubt between two paths, take the heavier one"*
 
-**Sizin `determine_assurance_class` fonksiyonunuz tam tersini yapıyor:**
+**Your `determine_assurance_class` function does the opposite:**
 
 ```python
     # ...
-    return R1     # ← fallthrough default = EN HAFİF
+    return R1     # ← the fall-through default is the LIGHTEST
 ```
 
-Bu **fail-open**. Eksik veya belirsiz bir `RiskProfile` alanı, projeyi en
-düşük assurance sınıfına düşürür.
+That is **fail-open**. A missing or ambiguous `RiskProfile` field drops the project
+into the lowest assurance class.
 
-**Alınacak:**
+**To take:**
 ```python
 if not risk_profile.is_complete():
-    return R3            # eksik bilgi = en ağır yol
+    return R3            # missing information = the heaviest path
 # ...
-return R2                # fallthrough default R1 değil R2
+return R2                # the fall-through default is R2, not R1
 ```
 
-## E5. Yol yükseltme (mid-project risk reclassification)
+## E5. Path escalation (mid-project risk reclassification)
 
 > *"Hidden complexity discovered mid-task requires path escalation — stop,
 > announce the upgrade, restart at the heavier level."*
 
-**Sizin mimarinizde bu yok.** R1 olarak başlayan bir proje G5'te D3 veriye
-dokunduğunu keşfederse ne olur? Doküman sessiz.
+**Your architecture does not have this.** What happens when a project that started
+as R1 discovers at G5 that it is touching D3 data? The document is silent.
 
-**Alınacak:** `RiskReclassificationEvent`. Yükselme olduğunda:
-- Workflow **pause**
-- Yeni sınıfın gate derinliği uygulanır
-- **Daha hafif sınıfta geçilmiş gate'ler yeniden değerlendirilir**
-- Düşürme (R3 → R2) yalnız Safety/Data Owner + Assurance Lead ortak kararıyla
+**To take:** a `RiskReclassificationEvent`. On an escalation:
+- The workflow **pauses**
+- The gate depth of the new class is applied
+- **Gates already passed at the lighter class are re-evaluated**
+- A downgrade (R3 → R2) requires a joint decision by the Safety/Data Owner and the
+  Assurance Lead
 
-## E6. İnsan onayına gitmeden önce zorunlu öz-review
+## E6. A mandatory self-review before reaching human approval
 
 > *"Specs must pass a self-review (checking for placeholders, contradictions,
 > scope drift) before user review."*
 
-Ucuz mekanik kapı, pahalı insan kapısından önce. Sizin E0–E5 kanıt katmanı
-modeliniz zaten bu felsefede ✅ ama **G8'e giden pakette uygulanmıyor**.
+A cheap mechanical gate before an expensive human one. Your E0–E5 evidence-layer
+model is already in this spirit ✅ but it is **not applied to the packet that
+reaches G8**.
 
-**Alınacak:** `DecisionRequest` insan kuyruğuna girmeden önce otomatik kontrol:
-placeholder var mı, çelişkili verdict var mı, kapsam kayması var mı, eksik
-zorunlu alan var mı. Geçemezse insan zamanı harcanmaz.
+**To take:** an automatic check before a `DecisionRequest` enters the human queue —
+are there placeholders, contradictory verdicts, scope drift, missing mandatory
+fields? If it does not pass, no human time is spent.
 
-## E7. Defter tabanlı kurtarma (ledger-driven recovery)
+## E7. Ledger-driven recovery
 
-Superpowers'ta bağlam sıkışırsa `progress.md` tamamlanan işleri, git de
-commit'leri verir. **Deterministik kurtarma.**
+In Superpowers, when context runs out, `progress.md` supplies the completed work
+and Git supplies the commits. **Deterministic recovery.**
 
-Sizin `implementation_log.md`'niz aynı fikirde ama **makine-okunur değil** —
-serbest metin. Bir ajan bunu güvenilir şekilde ayrıştıramaz.
+Your `implementation_log.md` agrees in spirit, but it is **not machine-readable** —
+it is free text. An agent cannot parse it reliably.
 
-**Alınacak:** İnsan-okunur log yanında `progress.jsonl` (append-only):
+**To take:** alongside the human-readable log, a `progress.jsonl` (append-only):
 `{step_id, wp_ids, status, target_sha, evidence_manifest, timestamp}`.
 
-## E8. Superpowers'ın bağımsız olarak doğruladığı kararlarınız
+## E8. Decisions of yours that Superpowers independently confirms
 
-Bunlar sizin doğru olduğunuzun teyidi — iki bağımsız tasarım aynı sonuca varmış:
+These confirm you were right — two independent designs reached the same
+conclusion:
 
-| Superpowers | AIRL-OS | Ortak içgörü |
+| Superpowers | AIRL-OS | The shared insight |
 |---|---|---|
-| "Approval ceremony scales, the gate never disappears" | "Oturumlar birleşebilir, gate kayıtları ayrılmalı" (Karar #4) | Ritüel esner, kayıt esnemez |
-| Final whole-branch review, en yetenekli model | *(sizde yok)* | Parça review ≠ bütün review |
-| Fresh subagent per task, oturum geçmişi yok | Context Isolation (non-compensable R2/R3) | Bağlam kirliliği bağımsızlığı öldürür |
-| TDD: testten önce yazılan kod **silinir** | *(sizde yok)* | Sıra tersine dönerse kanıt geçersiz |
+| "Approval ceremony scales, the gate never disappears" | "Sessions may merge; gate records must stay separate" (Decision #4) | The ritual flexes; the record does not |
+| Final whole-branch review with the most capable model | *(absent in yours)* | Reviewing the parts ≠ reviewing the whole |
+| A fresh subagent per task, no session history | Context Isolation (non-compensable at R2/R3) | Context contamination kills independence |
+| TDD: code written before the test is **deleted** | *(absent in yours)* | If the order reverses, the evidence is void |
 
-**Son satır özellikle önemli.** TDD'nin araştırmadaki karşılığı:
+**The last row matters most.** The research counterpart of TDD:
 
-> **Ön-kayıttan (G2b Analysis Plan) önce hesaplanmış sonuçlar, `confirmatory`
-> kanıt olarak kullanılamaz.** Yalnız `exploratory` olarak raporlanır.
+> **Results computed before the preregistration (the G2b analysis plan) cannot be
+> used as `confirmatory` evidence.** They are reported only as `exploratory`.
 
-Ve `E8-2`: G9'da **bütün yayın paketi üzerinde** en yetenekli modelle tek bir
-final review — parça parça claim review'undan ayrı. Parçaları geçen bir bütün,
-bütün olarak tutarsız olabilir.
+And `E8-2`: at G9, a single final review **over the whole publication package**
+with the most capable model — separate from the piecewise claim review. A whole
+whose parts each passed can still be inconsistent as a whole.
 
 ---
 
-# BÖLÜM F — Araç yığını
+# PART F — Tool stack
 
-Fonksiyon bazlı. **Kalın** olanlar mevcut tasarımda yok ve doğrudan bir boşluğu kapatıyor.
+Organised by function. **Bold** entries are absent from the current design and
+close a gap directly.
 
-## F1. Literatür ve kanıt
+## F1. Literature and evidence
 
-| Araç | Görev | Neden |
+| Tool | Job | Why |
 |---|---|---|
-| **GROBID** | PDF → yapılandırılmış TEI XML | pdfplumber'dan **çok daha iyi** bölüm/referans/koordinat çıkarımı — span anchoring kalitenizi doğrudan artırır |
-| **OpenAlex** | Atıf ağı, kapsam | Crossref'ten geniş, ücretsiz, tam açık |
-| Crossref + Retraction Watch | Retraction feed | G10 — zaten planınızda |
-| **Semantic Scholar / S2ORC** | Tam metin, alıntı bağlamı | Alıntı niyeti sınıflandırması |
-| **Unpaywall** | Açık erişim tam metin | Yasal PDF erişimi (`PR-14` lisans riski) |
-| **ASReview** | Aktif öğrenmeli tarama | **WP-071 screening/inclusion tam karşılığı — hazır ve açık kaynak** |
-| **anystyle** | Referans ayrıştırma | Kaynakça normalizasyonu |
-| **Nougat / PDFFigures2** | Şekil/tablo çıkarımı | Şekildeki veriyi kanıta bağlamak |
-| PaperQA2 | Alıntı-doğrulamalı QA | Entailment denetimi için referans uygulama |
+| **GROBID** | PDF → structured TEI XML | **Far better** section, reference and coordinate extraction than pdfplumber — it raises your span-anchoring quality directly |
+| **OpenAlex** | Citation network, coverage | Broader than Crossref, free, fully open |
+| Crossref + Retraction Watch | Retraction feed | G10 — already in your plan |
+| **Semantic Scholar / S2ORC** | Full text, citation context | Citation-intent classification |
+| **Unpaywall** | Open-access full text | Lawful PDF access (`PR-14` licence risk) |
+| **ASReview** | Active-learning screening | **An exact match for WP-071 screening/inclusion — ready and open source** |
+| **anystyle** | Reference parsing | Bibliography normalisation |
+| **Nougat / PDFFigures2** | Figure and table extraction | Binding data inside a figure to evidence |
+| PaperQA2 | Citation-verified QA | A reference implementation for entailment auditing |
 
-## F2. Kanıt standartları ve provenance
+## F2. Evidence standards and provenance
 
-| Araç/standart | Görev | Neden |
+| Tool / standard | Job | Why |
 |---|---|---|
-| W3C Web Annotation | Span anchoring | Zaten kullanıyorsunuz ✅ |
-| **W3C PROV-O** | Lineage modeli | Kendi lineage şemanız yerine standarda hizalayın — araç ekosistemi hazır |
-| **Nanopublications** | Atomik, atıf alabilir claim + provenance | **`ClaimVersion`'ınız neredeyse birebir nanopub** — hizalarsanız dışa aktarım ve birlikte çalışabilirlik bedava gelir |
-| **CiTO (SPAR)** | Atıf tipleme ontolojisi | `support_type` enum'unuzun standart karşılığı: `cito:supports`, `cito:disputes`, `cito:extends` |
-| RO-Crate | Yayın paketi | WP-090'da zaten var ✅ |
-| **Croissant (MLCommons)** | ML dataset metadata | Data Steward (A3) için |
-| CITATION.cff + CodeMeta | Yazılım atıfı | RSE (A4) için |
-| Zenodo / Software Heritage | Kalıcı arşiv + DOI | "Artifacts Available" rozeti |
+| W3C Web Annotation | Span anchoring | Already in use ✅ |
+| **W3C PROV-O** | Lineage model | Align to the standard instead of a bespoke lineage schema — the tool ecosystem is ready |
+| **Nanopublications** | Atomic, citable claim + provenance | **Your `ClaimVersion` is almost exactly a nanopub** — aligning gives you export and interoperability for free |
+| **CiTO (SPAR)** | Citation typing ontology | The standard counterpart of your `support_type` enum: `cito:supports`, `cito:disputes`, `cito:extends` |
+| RO-Crate | Publication package | Already in WP-090 ✅ |
+| **Croissant (MLCommons)** | ML dataset metadata | For the Data Steward (A3) |
+| CITATION.cff + CodeMeta | Software citation | For the RSE (A4) |
+| Zenodo / Software Heritage | Permanent archive + DOI | The "Artifacts Available" badge |
 
-## F3. İstatistiksel disiplin ve adli kontrol
+## F3. Statistical discipline and forensic checking
 
-| Araç | Görev | Katman |
+| Tool | Job | Layer |
 |---|---|---|
-| **statcheck** | Rapor edilen istatistiklerin iç tutarlılığı | **G6 mekanik** |
-| **GRIM / GRIMMER / SPRITE** | Ortalama/SD'nin N ile mümkün olup olmadığı | **G6 mekanik** |
-| **specr / multiverse / boba** | Specification curve, multiverse analizi | **G6 (B3)** |
-| **DABEST** | Etki büyüklüğü + CI (p-değeri yerine) | G6 raporlama |
-| PyMC / Stan | Bayesçi belirsizlik | Statistical Methods Owner |
-| **p-curve / z-curve** | Bulgu kümesinin kanıtsal değeri | Metascience (C3) |
-| scikit-learn `calibration` | İzotonik / Platt kalibrasyonu | **Metascience (C2)** |
-| statsmodels / pingouin | Genel istatistik | G6 |
+| **statcheck** | Internal consistency of reported statistics | **G6 mechanical** |
+| **GRIM / GRIMMER / SPRITE** | Whether a mean or SD is possible given N | **G6 mechanical** |
+| **specr / multiverse / boba** | Specification curve, multiverse analysis | **G6 (B3)** |
+| **DABEST** | Effect size + CI (instead of p-values) | G6 reporting |
+| PyMC / Stan | Bayesian uncertainty | Statistical Methods Owner |
+| **p-curve / z-curve** | The evidential value of a set of findings | Metascience (C3) |
+| scikit-learn `calibration` | Isotonic / Platt calibration | **Metascience (C2)** |
+| statsmodels / pingouin | General statistics | G6 |
 
-## F4. Tekrar üretilebilirlik
+## F4. Reproducibility
 
-| Araç | Görev |
+| Tool | Job |
 |---|---|
-| **Nix veya Apptainer** | Gerçek bit-düzeyi ortam determinizmi — Docker digest yeterli değil |
-| DVC / lakeFS | Veri versiyonlama |
-| MLflow | Run registry — planınızda var ✅ |
-| **marimo** | Reaktif, git-dostu, deterministik notebook — Jupyter'ın tekrar üretilemezlik problemini çözer |
-| sigstore/cosign + in-toto | Artifact imzalama — planınızda var ✅ |
-| **Quarto** | Literate publishing, çapraz referans, çok formatlı — **G9 PublicationPackage için ideal** |
+| **Nix or Apptainer** | Real bit-level environment determinism — a Docker digest is not enough |
+| DVC / lakeFS | Data versioning |
+| MLflow | Run registry — already in your plan ✅ |
+| **marimo** | Reactive, Git-friendly, deterministic notebooks — solves Jupyter's non-reproducibility problem |
+| sigstore/cosign + in-toto | Artifact signing — already in your plan ✅ |
+| **Quarto** | Literate publishing, cross-references, multi-format — **ideal for the G9 PublicationPackage** |
 
-## F5. Görselleştirme (özellikle istediğiniz alan)
+## F5. Visualisation (an area you specifically asked about)
 
-| Araç | Ne için | Neden bu |
+| Tool | For what | Why this one |
 |---|---|---|
-| **Vega-Lite** | Tüm istatistiksel grafikler | **Grafik = spec + veri hash'i.** Spec JSON, versiyonlanabilir, diff'lenebilir, tekrar üretilebilir. Mimarinizin manifest felsefesine tam oturur |
-| **Observable Framework** | Statik, veri-yönlendirmeli dashboard | Build-time veri, runtime bağımlılığı yok; artifact olarak dondurulabilir |
-| **Cytoscape.js / Sigma.js** | Claim–evidence–source grafiği | Ana bilgi görselleştirmeniz bu olacak |
-| **Great Tables** | Yayın kalitesinde tablo | G9 |
-| **Mermaid** | Mimari/akış diyagramları | Metin tabanlı, git-dostu, Obsidian yerel destekliyor |
-| **Kroki** | Çok formatlı diyagram render servisi | Tek servis, birçok diyagram dili |
-| **Label Studio** | Evidence span doğrulama arayüzü | **İnsanın span'i onayladığı yer — şu an mimaride bu arayüz yok** |
-| **Argilla** | LLM çıktısı review/annotation | Reviewer verdict'lerinin insan kontrolü |
-| Perfetto / Jaeger | Trace görselleştirme | OTel korelasyon zinciri |
-| Grafana | Operasyonel dashboard | Planınızda var ✅ |
+| **Vega-Lite** | All statistical charts | **A chart = a spec + a data hash.** The spec is JSON: versionable, diffable, reproducible. It fits your manifest philosophy exactly |
+| **Observable Framework** | Static, data-driven dashboards | Build-time data, no runtime dependency; can be frozen as an artifact |
+| **Cytoscape.js / Sigma.js** | The claim–evidence–source graph | This will be your primary knowledge visualisation |
+| **Great Tables** | Publication-quality tables | G9 |
+| **Mermaid** | Architecture and flow diagrams | Text-based, Git-friendly, natively supported by Obsidian |
+| **Kroki** | Multi-format diagram rendering service | One service, many diagram languages |
+| **Label Studio** | Evidence span verification interface | **Where a human confirms a span — this interface does not exist in the architecture today** |
+| **Argilla** | LLM output review/annotation | Human control over reviewer verdicts |
+| Perfetto / Jaeger | Trace visualisation | The OTel correlation chain |
+| Grafana | Operational dashboards | Already in your plan ✅ |
 
-**Görselleştirme için mimari kural önerisi:**
+**A proposed architectural rule for visualisation:**
 
-> Her figür bir **artifact**'tır: `{spec_hash, data_hash, renderer_version}`.
-> Yayındaki hiçbir figür, manifest'te bu üçlüye sahip olmadan yer alamaz.
-> Böylece "figürdeki eğri veriden mi geliyor?" sorusu mekanik olarak
-> cevaplanır. `figure_1_digest` alanınız zaten var — bunu spec+data ayrımıyla
-> genişletin.
+> Every figure is an **artifact**: `{spec_hash, data_hash, renderer_version}`.
+> No figure may appear in a publication without those three in the manifest.
+> That makes "does the curve in this figure come from the data?" a mechanically
+> answerable question. Your `figure_1_digest` field already exists — extend it with
+> the spec/data separation.
 
-## F6. Model ve ajan altyapısı
+## F6. Model and agent infrastructure
 
-| Araç | Görev |
+| Tool | Job |
 |---|---|
-| LiteLLM | Model gateway — planınızda var ✅ |
-| **vLLM / llama.cpp** | Yerel open-weight sunum — **R3 için zorunlu (D4)** |
-| **Instructor / Outlines** | Yapılandırılmış çıktı zorlaması — serbest metin parse etmeyi bırakın |
-| **Inspect (UK AISI)** | Titiz model değerlendirme çerçevesi — **Capability Registry qualification için** |
-| **DSPy** | Metrik güdümlü prompt optimizasyonu | Prompt'u elle değil ölçerek iyileştirin |
-| promptfoo / DeepEval | Eval pipeline | Golden set (WP-043) |
-| Langfuse | LLM trace — planınızda var ✅ |
-| **Ragas** | Retrieval kalitesi | G3 kapsam analizi |
+| LiteLLM | Model gateway — already in your plan ✅ |
+| **vLLM / llama.cpp** | Local open-weight serving — **mandatory for R3 (D4)** |
+| **Instructor / Outlines** | Structured output enforcement — stop parsing free text |
+| **Inspect (UK AISI)** | Rigorous model evaluation framework — **for Capability Registry qualification** |
+| **DSPy** | Metric-driven prompt optimisation — improve prompts by measurement, not by hand |
+| promptfoo / DeepEval | Evaluation pipeline | The golden set (WP-043) |
+| Langfuse | LLM tracing — already in your plan ✅ |
+| **Ragas** | Retrieval quality | G3 coverage analysis |
 
-## F7. Güvenlik
+## F7. Security
 
-| Araç | Görev |
+| Tool | Job |
 |---|---|
-| gVisor | Sandbox — planınızda var ✅ |
-| **Kata Containers / Firecracker** | Critical profil için gerçek VM izolasyonu (dokümanınız zaten "container değil VM" diyor) |
-| **Falco** | Runtime davranış izleme — sandbox kaçış tespiti (ACC-15) |
-| **Presidio** | PII tespiti | DLP (ACC-32 secret-in-trace) |
-| Trivy / Grype | SBOM + zafiyet | WP-059 |
-| **Kyverno** | K8s admission policy | OPA'ya alternatif/tamamlayıcı |
-| Vault + SPIFFE/SPIRE | Kimlik — planınızda var ✅ |
-| **mitmproxy / Squid+ICAP** | Egress denetimi | WP-057 |
+| gVisor | Sandbox — already in your plan ✅ |
+| **Kata Containers / Firecracker** | Real VM isolation for the critical profile (your document already says "a VM, not a container") |
+| **Falco** | Runtime behaviour monitoring — sandbox escape detection (ACC-15) |
+| **Presidio** | PII detection | DLP (ACC-32 secret-in-trace) |
+| Trivy / Grype | SBOM + vulnerabilities | WP-059 |
+| **Kyverno** | Kubernetes admission policy | An alternative or complement to OPA |
+| Vault + SPIFFE/SPIRE | Identity — already in your plan ✅ |
+| **mitmproxy / Squid+ICAP** | Egress inspection | WP-057 |
+
+## F8. Communication and notification
+
+These require **a new component** in the architecture: the **Notification
+Broker** — a subclass of the Tool Broker. The agent produces a notification
+*intent*; the broker sends it.
+
+| Tool | Role | Data-class ceiling |
+|---|---|---|
+| **Apprise** | Transport abstraction — 143 services, one URL format | — (policy sits above it) |
+| **ntfy (self-hosted)** | Push notification, no account required | **D2** |
+| **Matrix (self-hosted)** | E2E encrypted messaging on your own homeserver | **D2** |
+| Signal (`signal-cli`) | E2E; hard to automate | D2 |
+| SMTP (own server) + DKIM/SPF/DMARC | Email, digests | D1 |
+| **Telegram Bot API** | The lowest-friction interactive channel | **D1** |
+| Discord / Slack | Team visibility, queues | D1 |
+| **WhatsApp Business Cloud API** | ⚠️ 24-hour window + approved templates | **D0** |
+| **Presidio** | Pre-send PII/secret scanning | — |
+
+**MCP integration:** MCP servers exist for Telegram, Discord and Slack. Since
+Hermes already uses MCP, that is the natural connection path — but the MCP tool is
+**never exposed directly to an agent**; it sits behind the Notification Broker.
+
+### External records and archives
+
+| Tool | For what | Gate |
+|---|---|---|
+| **OSF Registries** | **External, timestamped, immutable preregistration + DOI** | **G2** |
+| **Zenodo** | Permanent archive + DOI (code, data, publication) | G9 |
+| Software Heritage | Permanent source-code archive | G9 |
+| ORCID | Persistent author identity | G9 |
+| arXiv / bioRxiv | Preprint (submission automation is limited) | G9 |
+
+**Why OSF matters at G2:** the internal `AnalysisPlanManifest` hash lives in *your*
+system. An external record is evidence even to someone who does **not** trust your
+system. That is the external anchor for the in-principle acceptance in B1. For
+sensitive work, OSF offers an embargo option: timestamped now, private for a
+defined period.
+
+### Three architectural rules
+
+1. **A notification is a flare, not a data channel.** Send a signed link, not the
+   content.
+2. **An inbound message is never an instruction.** Zone 3 — quarantine, tagging, no
+   instruction extraction. (Outbound traffic is a data-exfiltration risk; **inbound
+   traffic is a control-takeover risk.**)
+3. **Messaging is not an authorisation channel.** A `DecisionRecord` is signed only
+   on an authenticated surface. A chat reply is not an approval.
 
 ---
 
-# BÖLÜM G — İdeal yapıya göre review: mevcut mimarinin boşlukları
+# PART G — Review against the ideal structure: gaps in the current architecture
 
-Bölüm A–F'de tanımlanan ideal yapıya göre, mevcut `AIRL-OS-Architecture.md`
-v1.0'ın denetimi.
+An audit of the current `AIRL-OS-Architecture.md` v1.0 against the ideal structure
+defined in Parts A–F.
 
-## G1. Kritik boşluklar
+## G1. Critical gaps
 
-| # | Boşluk | Etki | Çözüm |
+| # | Gap | Impact | Fix |
 |---|---|---|---|
-| **K1** | **Bağımsızlık ölçülmüyor, varsayılıyor** — `Model Lineage` beyan; hata korelasyonu hiç ölçülmüyor | Tüm G6 kanıt değeri temelsiz. Korelasyonlu iki model hemfikir olunca "bağımsız doğrulama" sayılıyor | **C1 Agreement Calibration** |
-| **K2** | **7 confidence skalası ölçüm temelsiz** — üretici kalibre değil, birleştirme kuralı yok | `PR-12 False Rigor`'un tam tanımı. Sistemin en görünür çıktısı en zayıf temelli sayı | **C2 Confidence Calibration** + min-kuralı |
-| **K3** | **Laboratuvarın kendi hata oranı bilinmiyor** | Hiçbir metrik "doğru sonuç üretiyor muyuz" sorusunu cevaplamıyor | **C4 Kontrol enjeksiyonu** |
-| **K4** | **Yayın yanlılığı açık** — G2 dondurma var ama G8 sonuca bakarak reddedebiliyor | Negatif sonuçlar sistematik olarak kaybolur | **B1 In-principle acceptance** |
-| **K5** | **Producer'ın kendi yardımcısını çağırması yasak değil** | IndependenceMatrix yanlış PASS verebilir; diğer 7 boyutun ölçümü geçersizleşir | **E2 Delegation Boundary boyutu** |
-| **K6** | **R3 + hosted model = imkânsız G7** | Reproducibility "non-waivable" ama sağlanamaz | **D4 R3 → yerel/open-weight zorunlu** |
-| **K7** | **`determine_assurance_class` fail-open** | Eksik risk profili → en hafif sınıf | **E4: eksikse R3, fallthrough R2** |
-| **K8** | **Kim insan, kim model belirsiz** | Org chart insan tarif ediyor, RoleContract model. R3'te Human Identity non-compensable → tek kişilik operasyonda tüm R3 kalıcı BLOCKED | **Karar gerekli — A8 tablosu doldurulmalı** |
+| **K1** | **Independence is assumed, not measured** — `Model Lineage` is a declaration; error correlation is never measured | The evidential value of all of G6 is unfounded. When two correlated models agree it is counted as "independent verification" | **C1 Agreement Calibration** |
+| **K2** | **The 7 confidence scales have no measurement basis** — the producer is uncalibrated and no combination rule exists | The exact definition of `PR-12 False Rigor`. The system's most visible output rests on its weakest foundation | **C2 Confidence Calibration** + the min rule |
+| **K3** | **The laboratory's own error rate is unknown** | No metric answers "are we producing correct results?" | **C4 Control injection** |
+| **K4** | **Publication bias is open** — G2 freezes, but G8 can reject on the result | Negative results are lost systematically | **B1 In-principle acceptance** |
+| **K5** | **A producer summoning its own helper is not forbidden** | The IndependenceMatrix can issue a false PASS; the other seven dimensions become void | **E2 Delegation Boundary dimension** |
+| **K6** | **R3 + a hosted model = an impossible G7** | Reproducibility is "non-waivable" but cannot be delivered | **D4 R3 → local/open-weight mandatory** |
+| **K7** | **`determine_assurance_class` is fail-open** | A missing risk profile → the lightest class | **E4: missing → R3, fall-through → R2** |
+| **K8** | **Who is human and who is a model is unclear** | The org chart describes humans, the RoleContract describes models. At R3, Human Identity is non-compensable → in a solo operation every R3 project is permanently BLOCKED | **A decision is required — the A8 table must be filled in** |
 
-## G2. Yüksek öncelikli boşluklar
+## G2. High-priority gaps
 
-| # | Boşluk | Çözüm |
+| # | Gap | Fix |
 |---|---|---|
-| **Y1** | Analiz planı protokolden ayrı kilitlenmiyor → sonucu görüp karar kuralı değiştirilebilir | **A1 + G2b `AnalysisPlanManifest`** |
-| **Y2** | Analist kör değil (yalnız reviewer kör) | **B2 Blinded analysis** |
-| **Y3** | `repeatability/reproducibility/replication` tanımsız; tolerans **3 farklı değerde** (±2% / ≥95% / >5%) | **B4 ACM badge + G7a/G7b ayrımı** |
-| **Y4** | Fabrication şüphesinin süreci ve sahibi yok | **A2 Research Integrity Officer** |
-| **Y5** | Uyuşmazlıkta tek hakem, tur sınırı yok, açık bulgu sessizce kaybolabilir | **B5 Delphi + E3 breaker + FindingLedger** |
-| **Y6** | Rubber-stamping'e karşı mekanizma yok (`PR-11` register'da ama mimaride yok) | **C5 Dikkat bütçesi (kota, SLA değil)** |
-| **Y7** | Reviewer yalnız aggregate görüyor → seçici dışlama denetlenemez | Dışlama kararları için **ayrı mekanik denetim**; `exclusion_rules` uygulaması hash'lenip pakete konur |
-| **Y8** | Gate'lerin hangisinin işe yaradığı ölçülmüyor | **C3 Gate yield** |
-| **Y9** | Proje ortasında risk yükseltme mekanizması yok | **E5 RiskReclassificationEvent** |
-| **Y10** | Yayın metni ↔ claim kapsamı denetlenmiyor (`obligations` var, denetleyen yok) | **A5 + mekanik scope conformance** |
-| **Y11** | Projeler arası hafıza yok | **A7 Knowledge Steward** |
-| **Y12** | Zotero grup kütüphanesi = bulut egress; D2+ veri politikası tanımsız | Grup kütüphanesi veri sınıfı tavanı **açıkça** belirlenmeli (öneri: **≤ D1**) |
+| **Y1** | The analysis plan is not locked separately from the protocol → the decision rule can be changed after seeing the result | **A1 + a G2b `AnalysisPlanManifest`** |
+| **Y2** | The analyst is not blinded (only the reviewer is) | **B2 Blinded analysis** |
+| **Y3** | `repeatability/reproducibility/replication` are undefined; the tolerance appears at **three different values** (±2% / ≥95% / >5%) | **B4 ACM badges + the G7a/G7b split** |
+| **Y4** | Suspicion of fabrication has no process and no owner | **A2 Research Integrity Officer** |
+| **Y5** | Disagreement has a single arbiter, no round limit, and open findings can vanish silently | **B5 Delphi + E3 breaker + FindingLedger** |
+| **Y6** | No mechanism against rubber-stamping (`PR-11` is in the register but not in the architecture) | **C5 Attention budget (a quota, not an SLA)** |
+| **Y7** | The reviewer sees only aggregates → selective exclusion cannot be audited | A **separate mechanical audit** for exclusion decisions; the applied `exclusion_rules` are hashed into the packet |
+| **Y8** | Which gates are working is never measured | **C3 Gate yield** |
+| **Y9** | There is no mid-project risk escalation mechanism | **E5 RiskReclassificationEvent** |
+| **Y10** | Publication text ↔ claim scope is not audited (`obligations` exists, nothing audits it) | **A5 + mechanical scope conformance** |
+| **Y11** | There is no memory across projects | **A7 Knowledge Steward** |
+| **Y12** | A Zotero group library is cloud egress; the D2+ data policy is undefined | The group library's data-class ceiling must be set **explicitly** (suggestion: **≤ D1**) |
+| **Y13** | **There is no human notification/messaging layer at all** — a decision queue exists but no defined path to reach a human | **F8 Notification Broker** + the data-class ceiling + `notifying-humans` |
+| **Y14** | The inbound quarantine chain was designed for PDFs and literature only; the email/message surface widens ACC-05 | `receiving-external-messages` — Zone 3 tagging, no instruction extraction |
+| **Y15** | The preregistration is protected only by an internal hash — no external anchor | **OSF Registries** for an external timestamp and DOI at G2 |
 
-## G3. Orta öncelikli boşluklar
+## G3. Medium-priority gaps
 
-| # | Boşluk | Çözüm |
+| # | Gap | Fix |
 |---|---|---|
-| **O1** | ExecutionProfile Light için gVisor çelişkisi (§2 "optional" ↔ §9 `gvisor-kvm`) | Tek otoriteli tablo; öneri: **her zaman gVisor**, fark yalnız seccomp profilinde |
-| **O2** | `determine_assurance_class` içinde ulaşılamaz kod (`downstream_user_count` bloğu fonksiyon dışında) | Fonksiyona alın |
-| **O3** | Stokastik deneyde nokta tahmini % ile karşılaştırılıyor | **Dağılım karşılaştırması** (CI örtüşmesi / eşdeğerlik testi) |
-| **O4** | Testin *gücü* sorgulanmıyor | **B9 Severity assessment** |
-| **O5** | Kanıtın *tanısallığı* sorgulanmıyor — çok kanıt ≠ ayırt edici kanıt | **B6 ACH matrisi** |
-| **O6** | Tek analiz yolu; analitik serbestlik dereceleri ölçülmüyor | **B3 Multi-analyst / multiverse** |
-| **O7** | `ReviewPacketBuilder` prompt mu program mı belirsiz | **E1: program, testli allowlist** |
-| **O8** | Bütün yayın paketi üzerinde final review yok | **E8-2: en yetenekli modelle whole-package review** |
-| **O9** | Üretilen dataset'lerin yaşam döngüsü sahibi yok | **A3 Data Steward + Croissant + DOI** |
-| **O10** | Figürlerin tekrar üretilebilirliği tanımsız | **F5: figür = spec_hash + data_hash + renderer_version** |
-| **O11** | pdfplumber span anchoring için zayıf | **GROBID** |
-| **O12** | Ön-kayıt öncesi hesaplanan sonucun statüsü tanımsız | **E8: `confirmatory` olamaz, `exploratory` olarak raporlanır** |
+| **O1** | A gVisor contradiction for the Light ExecutionProfile (§2 "optional" ↔ §9 `gvisor-kvm`) | One authoritative table; suggestion: **always gVisor**, differing only in the seccomp profile |
+| **O2** | Unreachable code inside `determine_assurance_class` (the `downstream_user_count` block sits outside the function) | Move it into the function |
+| **O3** | A point estimate is compared by percentage in a stochastic experiment | **Distribution comparison** (CI overlap / equivalence testing) |
+| **O4** | The *power* of a test is never questioned | **B9 Severity assessment** |
+| **O5** | The *diagnosticity* of evidence is never questioned — much evidence ≠ discriminating evidence | **B6 ACH matrix** |
+| **O6** | A single analysis path; analytical degrees of freedom are unmeasured | **B3 Multi-analyst / multiverse** |
+| **O7** | Whether `ReviewPacketBuilder` is a prompt or a program is ambiguous | **E1: a program, with a tested allowlist** |
+| **O8** | There is no final review over the whole publication package | **E8-2: whole-package review with the most capable model** |
+| **O9** | Produced datasets have no lifecycle owner | **A3 Data Steward + Croissant + DOI** |
+| **O10** | Figure reproducibility is undefined | **F5: a figure = spec_hash + data_hash + renderer_version** |
+| **O11** | pdfplumber is weak for span anchoring | **GROBID** |
+| **O12** | The status of a result computed before preregistration is undefined | **E8: it cannot be `confirmatory`; it is reported as `exploratory`** |
 
-## G4. Mevcut tasarımın korunması gereken güçlü yanları
+## G4. Strengths of the current design that must be preserved
 
-Bunlara dokunmayın:
+Do not touch these:
 
-1. **Agent niyet üretir, Broker etki üretir** — yetki genişlemesini mimari kapatıyor
-2. **RoleContract ≠ model** — "farklı modeller yürütsün" hedefinin doğru temeli
-3. **Re-anchoring cascade** (RELOCATED/AMBIGUOUS/NEEDS_REANCHOR/ORPHANED) — nadir kalitede
-4. **412 → reconciliation, körlemesine retry yok** — insan verisini gerçekten koruyor
-5. **G10 = Schedule, workflow değil** — replay tuzağından kaçınmış
-6. **Child workflow bağımsız versiyonlama** — aynı sebep
-7. **Timeout asla auto-approve değil** — fail-closed
-8. **Adversarial Reviewer ayrı rol** — çoğu sistemde yok
-9. **Neo4j canonical değil, türev** — rebuild edilebilir
-10. **Oturumlar birleşebilir, gate kayıtları ayrılır** — Superpowers'ın bağımsız olarak doğruladığı karar
-11. **ExecutionProfile 4 eksenli** — "D0 = hafif sandbox" yanılgısını reddetmiş
-12. **`SourceRepresentation` versiyonlama + eski hash immutable** — eski kanıt hep doğrulanabilir
+1. **The agent produces intent, the broker produces effect** — the architecture
+   closes privilege escalation.
+2. **RoleContract ≠ model** — the correct foundation for "let different models run
+   it".
+3. **The re-anchoring cascade** (RELOCATED/AMBIGUOUS/NEEDS_REANCHOR/ORPHANED) — a
+   rare quality.
+4. **412 → reconciliation, never a blind retry** — it genuinely protects human data.
+5. **G10 = a Schedule, not a workflow** — it avoids the replay trap.
+6. **Independent versioning of child workflows** — the same reason.
+7. **A timeout is never an auto-approval** — fail-closed.
+8. **Adversarial Reviewer as a separate role** — absent in most systems.
+9. **Neo4j is derived, not canonical** — rebuildable.
+10. **Sessions may merge; gate records stay separate** — a decision Superpowers
+    independently confirms.
+11. **A four-axis ExecutionProfile** — it rejects the "D0 = light sandbox" fallacy.
+12. **`SourceRepresentation` versioning with the old hash immutable** — old evidence
+    stays verifiable forever.
 
 ---
 
-# BÖLÜM H — Uygulama sırası
+# PART H — Implementation order
 
-Bağımlılığa göre. Her adım `karar` / `mekanik` / `model` olarak işaretli.
+By dependency. Each step is marked `decision` / `mechanical` / `model`.
 
-## Faz 0 — Kararlar (kod yok, ama her şey buna bağlı)
+## Phase 0 — Decisions (no code, but everything depends on them)
 
-| # | İş | Tip |
+| # | Work | Type |
 |---|---|---|
-| 0.1 | **A8 rol tablosunu doldurun**: her rol insan mı, model mi, mekanik mi, ertelendi mi | `karar` |
-| 0.2 | **Model roster'ı**: hangi profil hangi tier'da (D3) | `karar` |
-| 0.3 | **R3 kapsamı**: tek kişilik operasyonda R3 mümkün mü? Değilse hangi projeler R3 olabilir? | `karar` |
-| 0.4 | **D4 kabulü**: R3 → yerel/open-weight zorunlu | `karar` |
-| 0.5 | **B1 kabulü**: G8 sonucun yönüne göre reddedemez | `karar` |
-| 0.6 | Grup kütüphanesi veri sınıfı tavanı (öneri ≤ D1) | `karar` |
+| 0.1 | **Fill in the A8 role table**: is each role human, model, mechanical or deferred | `decision` |
+| 0.2 | **The model roster**: which profile in which tier (D3) | `decision` |
+| 0.3 | **R3 scope**: is R3 possible in a solo operation? If not, which projects may be R3? | `decision` |
+| 0.4 | **Accept D4**: R3 → local/open-weight mandatory | `decision` |
+| 0.5 | **Accept B1**: G8 may not reject on the direction of the result | `decision` |
+| 0.6 | The group library's data-class ceiling (suggestion ≤ D1) | `decision` |
 
-## Faz 1 — Ucuz mekanik kazançlar (model gerekmez, hemen değer üretir)
+## Phase 1 — Cheap mechanical wins (no models needed; immediate value)
 
-| # | İş | Kapattığı |
+| # | Work | Closes |
 |---|---|---|
-| 1.1 | statcheck + GRIM/GRIMMER pipeline'ı | B7, K2'nin bir kısmı |
-| 1.2 | Scope conformance kontrolü (yayın metni ↔ ClaimVersion) | A5, Y10 |
-| 1.3 | `ReviewPacketBuilder` programa çevrilir + allowlist testi | E1, O7 |
-| 1.4 | `determine_assurance_class` fail-closed + ulaşılamaz kod düzeltmesi | K7, O2 |
-| 1.5 | Delegation Boundary boyutu Independence Matrix'e eklenir | **K5** |
-| 1.6 | G7a/G7b ayrımı + ACM badge vokabüleri; tolerans çelişkisi çözülür | **Y3** |
-| 1.7 | `progress.jsonl` makine-okunur defter | E7 |
+| 1.1 | The statcheck + GRIM/GRIMMER pipeline | B7, part of K2 |
+| 1.2 | Scope conformance checking (publication text ↔ ClaimVersion) | A5, Y10 |
+| 1.3 | Convert `ReviewPacketBuilder` into a program + an allowlist test | E1, O7 |
+| 1.4 | Make `determine_assurance_class` fail-closed + fix the unreachable code | K7, O2 |
+| 1.5 | Add the Delegation Boundary dimension to the Independence Matrix | **K5** |
+| 1.6 | The G7a/G7b split + the ACM badge vocabulary; resolve the tolerance contradiction | **Y3** |
+| 1.7 | The machine-readable `progress.jsonl` ledger | E7 |
 
-## Faz 2 — Ön-kayıt disiplini
+## Phase 2 — Preregistration discipline
 
-| # | İş | Kapattığı |
+| # | Work | Closes |
 |---|---|---|
-| 2.1 | `AnalysisPlanManifest` ayrı nesne + ayrı kilit | **Y1** |
+| 2.1 | `AnalysisPlanManifest` as a separate object with a separate lock | **Y1** |
 | 2.2 | `InPrincipleAcceptance` (G2 Stage-1) | **K4** |
-| 2.3 | exploratory / confirmatory etiketlemesi zorunlu | O12, E8 |
-| 2.4 | Severity assessment alanı | O4 |
-| 2.5 | Pre-mortem G4 öncesi zorunlu | B8 |
+| 2.3 | Mandatory exploratory / confirmatory labelling | O12, E8 |
+| 2.4 | The severity assessment field | O4 |
+| 2.5 | A mandatory pre-mortem before G4 | B8 |
 
-## Faz 3 — Metascience düzlemi
+## Phase 3 — The metascience plane
 
-| # | İş | Kapattığı |
+| # | Work | Closes |
 |---|---|---|
-| 3.1 | Agreement calibration set + κ/ρ ölçümü | **K1** |
-| 3.2 | Confidence kalibrasyonu: raw + calibrated + `UNCALIBRATED` durumu | **K2** |
-| 3.3 | Kontrol enjeksiyonu (pozitif/negatif, ajanlardan gizli) | **K3** |
-| 3.4 | İnsan dikkat bütçesi + telemetri | **Y6** |
-| 3.5 | Gate yield ölçümü | Y8 |
-| 3.6 | Claim survival zaman serisi (G10 verisinden) | C6 |
+| 3.1 | The agreement calibration set + κ/ρ measurement | **K1** |
+| 3.2 | Confidence calibration: raw + calibrated + the `UNCALIBRATED` state | **K2** |
+| 3.3 | Control injection (positive/negative, hidden from the agents) | **K3** |
+| 3.4 | The human attention budget + its telemetry | **Y6** |
+| 3.5 | Gate yield measurement | Y8 |
+| 3.6 | The claim survival time series (from G10 data) | C6 |
 
-## Faz 4 — Gelişmiş review mekanizmaları
+## Phase 4 — Advanced review mechanisms
 
-| # | İş | Kapattığı |
+| # | Work | Closes |
 |---|---|---|
-| 4.1 | Delphi turları + FindingLedger + breaker | **Y5** |
-| 4.2 | Multi-analyst (N bağımsız analiz ajanı) | O6 |
-| 4.3 | ACH tanısallık matrisi | O5 |
+| 4.1 | Delphi rounds + FindingLedger + the breaker | **Y5** |
+| 4.2 | Multi-analyst (N independent analysis agents) | O6 |
+| 4.3 | The ACH diagnosticity matrix | O5 |
 | 4.4 | Blinded analysis | **Y2** |
 | 4.5 | Multiverse / specification curve | O6 |
 | 4.6 | Whole-package final review | O8 |
 
-## Faz 5 — Roller ve süreç
+## Phase 5 — Roles and process
 
-| # | İş |
+| # | Work |
 |---|---|
-| 5.1 | Research Integrity Officer + `IntegrityCase` yaşam döngüsü (**Y4**) |
-| 5.2 | Statistical Methods Owner yetkileri (**A1**) |
+| 5.1 | Research Integrity Officer + the `IntegrityCase` lifecycle (**Y4**) |
+| 5.2 | Statistical Methods Owner authorities (**A1**) |
 | 5.3 | Data Steward + Croissant + DOI (**O9**) |
 | 5.4 | RSE + RO-Crate + Nix/Apptainer (**A4**) |
-| 5.5 | Knowledge Steward + projeler arası çelişki tespiti (**Y11**) |
+| 5.5 | Knowledge Steward + cross-project contradiction detection (**Y11**) |
 | 5.6 | `RiskReclassificationEvent` (**Y9**) |
 
 ---
 
-## Kapanış
+## Closing
 
-Mevcut mimariniz, AI ile yürütülen bir araştırma laboratuvarı için gördüğüm en
-eksiksiz yönetişim tasarımlarından biri. Otorite bölüşümü, broker deseni ve
-re-anchoring cascade'i gerçekten iyi.
+Your current architecture is one of the most complete governance designs I have
+seen for an AI-operated research laboratory. The division of authority, the broker
+pattern and the re-anchoring cascade are genuinely good.
 
-Eksik olan tek şey **dönüşlülük** (reflexivity): sistem araştırmayı denetliyor
-ama kendini denetlemiyor. Ve model tarafından yürütülen bir laboratuvarda bu,
-isteğe bağlı bir ekleme değil — **çünkü bağımsız insan hakemin yerini alan şey,
-korelasyonlu olabilecek modellerdir ve bu korelasyon ölçülmediği sürece tüm
-kanıt zinciri varsayıma dayanır.**
+The one thing missing is **reflexivity**: the system audits the research but does
+not audit itself. And in a laboratory operated by models that is not an optional
+extra — **because what replaces the independent human referee is a set of models
+that may be correlated, and until that correlation is measured the entire evidence
+chain rests on an assumption.**
 
-7. düzlem (Bölüm C) bunu kapatır. Faz 1'deki yedi mekanik kazanç ise model
-gerektirmez, ucuzdur ve hemen değer üretir — oradan başlayın.
+The seventh plane (Part C) closes that. The seven mechanical wins in Phase 1
+require no models, cost little and produce value immediately — start there.
 
 ---
 
-**Devamı:** Bu belge *ne* eklenmesi gerektiğini tanımlar. Bunların ajanlar
-tarafından *nasıl* yürütüleceği — skill katmanı, demir kurallar, rasyonalizasyon
-tabloları, eskalasyon merdiveni ve `ProducerResponse` — kardeş belgede:
-[[10 - Projects/AI Research Framework/04 - Architecture/airl_os_skill_layer|AIRL-OS Skill Layer]]
+**Continued:** this document defines *what* should be added. *How* agents will
+execute it — the skill layer, the iron laws, the rationalisation tables, the
+escalation ladder and `ProducerResponse` — lives in the sibling document:
+`AIRL_OS_SKILL_LAYER.md`

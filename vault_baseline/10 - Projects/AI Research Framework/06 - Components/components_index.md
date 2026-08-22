@@ -1,27 +1,27 @@
 # Components Index
 
-Framework bileşenleri ve gerçek durumları. Bir bileşenin planlanmış olması
-kurulduğu anlamına gelmez.
+Framework components and their real status. **A component being planned does not
+mean it has been built.**
 
-## Bileşen durumu
+## Component status
 
-| Bileşen | Durum | Kayıt |
+| Component | Status | Record |
 |---|---|---|
-| **Bridge** (Zotero → SQLite → Obsidian → MCP) | ✅ **ÇALIŞIYOR** | [[10 - Projects/AI Research Framework/06 - Components/Bridge/bridge_component_status\|Bridge Component Status]] |
-| Contract çekirdeği (`airl_framework`) | ⚠️ `TECH_COMPLETE` — üretim tüketicisi yok | — |
-| Skill Registry | 📐 tasarlandı, test edilmedi | [[skills_index]] |
-| Temporal / Gate Service | ⬜ kurulmadı | — |
-| NATS / Outbox | ⬜ kurulmadı | — |
-| Source Registry (PostgreSQL) | ⬜ kurulmadı (SQLite V0 var) | — |
-| Claim / Evidence Ledger | ⬜ kurulmadı | — |
-| Tool Broker / Execution Broker | ⬜ kurulmadı | — |
-| **Notification Broker** | 📐 **önerildi** | Skill Layer, Bölüm 4-G |
-| Model Gateway / Capability Registry | ⬜ kurulmadı | — |
-| Metascience düzlemi | 📐 önerildi | İdeal Yapı, Bölüm C |
+| **Bridge** (Zotero → SQLite → Obsidian → MCP) | ✅ **WORKING** | [[10 - Projects/AI Research Framework/06 - Components/Bridge/bridge_component_status\|Bridge Component Status]] |
+| Contract core (`airl_framework`) | ⚠️ `TECH_COMPLETE` — no production consumer | — |
+| Skill Registry | 📐 designed, not yet tested | [[skills_index]] |
+| Temporal / Gate Service | ⬜ not built | — |
+| NATS / Outbox | ⬜ not built | — |
+| Source Registry (PostgreSQL) | ⬜ not built (SQLite V0 exists) | — |
+| Claim / Evidence Ledger | ⬜ not built | — |
+| Tool Broker / Execution Broker | ⬜ not built | — |
+| **Notification Broker** | 📐 **proposed** | Skill Layer, Section 4-G |
+| Model Gateway / Capability Registry | ⬜ not built | — |
+| Metascience plane | 📐 proposed | Ideal Structure, Section C |
 
-**Gösterim:** ✅ çalışıyor · ⚠️ kısmi · 📐 tasarlandı · ⬜ kurulmadı
+**Notation:** ✅ working · ⚠️ partial · 📐 designed · ⬜ not built
 
-## Sınır
+## The boundary
 
-Bridge, framework'ün **ilk dikey dilimidir**, kökü değil. Bridge'in çalışması
-130 iş paketinin kurulduğu anlamına gelmez.
+The Bridge is the framework's **first vertical slice**, not its root. The Bridge
+working does not mean the 140 work packages have been built.

@@ -11,46 +11,58 @@ mechanical_checks: [fresh_command_execution, exit_code_captured]
 
 # Verification Before Completion
 
-## Demir kural
+## Iron law
 
-> **TAZE DOĞRULAMA KANITI OLMADAN "TAMAMLANDI" DENMEZ.**
+> **NO COMPLETION CLAIM WITHOUT FRESH VERIFICATION EVIDENCE.**
 
-## Prosedür
+## Procedure
 
-1. İddiayı kanıtlayacak komutu **belirle**
-2. Komutu **taze** çalıştır — hafızadan, önceki koşumdan veya ajan raporundan alıntı yapma
-3. Tam çıktıyı **oku**: exit code, hata sayısı, uyarılar
-4. Çıktının iddiayı gerçekten desteklediğini **doğrula**
-5. Kanıtı iddiaya **ekli** olarak raporla
+1. **Identify** the command that would prove the claim
+2. **Execute** it fresh — not from memory, not from a previous run, not from
+   another agent's report
+3. **Read** the full output: exit code, failure count, warnings
+4. **Confirm** the output actually supports the claim being made
+5. **Report** with the evidence attached to the claim
 
-## Kanıt nedir
+Step 4 is the one most often skipped. A command that runs successfully does not
+automatically prove the thing you are claiming — check that it tests what you
+say it tests.
 
-| İddia | Kabul edilen kanıt |
+## What counts as evidence
+
+| Claim | Accepted evidence |
 |---|---|
-| Testler geçiyor | Taze koşumda `0 failures`, exit 0 |
-| Şema geçerli | Validator çıktısı, 0 hata |
-| Artifact bozulmamış | Yeniden hesaplanan SHA-256 = manifest |
-| Anomali düzeldi | Orijinal belirti artık üretilemiyor |
-| Kriter karşılandı | Satır satır kontrol listesi |
+| Tests pass | Fresh run showing `0 failures`, exit 0 |
+| Schema is valid | Validator output, 0 errors |
+| Artifact is intact | Recomputed SHA-256 equals the manifest value |
+| Anomaly is resolved | The original symptom no longer reproduces |
+| Criterion is met | Line-by-line checklist against the stated criterion |
+| Service is healthy | Fresh request and its response body |
 
-## Yasak ifadeler (doğrulamadan önce)
+## Forbidden language before verification
 
-"çalışmalı", "muhtemelen doğru", "görünüşe göre", "büyük ihtimalle",
-"Harika!", "Mükemmel!", "Tamamlandı" — ve **ajan raporuna bağımsız doğrulama
-olmadan güvenmek**.
+"should work", "probably correct", "appears to", "most likely", "Great!",
+"Perfect!", "Done" — and **trusting an agent's report without independent
+confirmation**.
 
-## Rasyonalizasyon tablosu
+These are not style objections. Each one is a claim of fact stated without the
+fact having been checked.
 
-| Gerekçe | Hüküm |
+## Rationalization table
+
+| Justification | Ruling |
 |---|---|
-| "Az önce çalıştırmıştım" | **Taze çalıştır.** Arada durum değişmiş olabilir. |
-| "Ajan geçtiğini raporladı" | **Ajan raporu kanıt değildir.** Kendin doğrula. |
-| "Bu kadar basit bir şey bozulamaz" | Basitlik doğrulama muafiyeti değildir. |
-| "Kısmi kontrol yeterli" | Kısmi kontrol kısmi kanıttır; iddia tam. |
-| "Zaman yok" | O zaman iddia da yok. Durumu `IN_PROGRESS` bırak. |
+| "I ran it a moment ago" | **Run it fresh.** State can change between runs, including because of your own edits. |
+| "The agent reported it passed" | **An agent report is not evidence.** Verify it yourself. |
+| "Something this simple cannot break" | Simplicity is not a verification exemption. |
+| "A partial check is enough" | A partial check yields a partial claim. State the partial claim instead. |
+| "There is no time" | Then there is no claim. Leave the status at `IN_PROGRESS`. |
+| "The previous step passed, so this one must" | Adjacent success is not evidence. |
+| "It worked in a different environment" | Then verify it in this one. |
 
-## Kırmızı bayraklar
+## Red flags
 
-- Rapor içinde exit code yok
-- "Testler geçiyor" cümlesinin yanında çıktı yok
-- Kanıt başka bir ajanın metnine dayanıyor
+- A report with no exit code
+- "Tests pass" with no output beside it
+- Evidence that consists of another agent's prose
+- A claim whose verifying command you cannot name

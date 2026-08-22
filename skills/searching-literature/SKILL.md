@@ -11,58 +11,67 @@ mechanical_checks: [queries_recorded_verbatim, databases_and_dates_pinned]
 
 # Searching Literature
 
-## Genel ilke
+## Core principle
 
-Arama **protokoldür**, keşif değil. Tekrar çalıştırıldığında aynı sonucu
-vermelidir.
+A search is a **protocol**, not an exploration. Re-run later, it must return the
+same result — or the difference must be explainable.
 
-## Ön kayıt
+## Pre-registration
 
-Arama başlamadan önce yazılır ve kilitlenir:
+Written and locked before searching begins:
 
 ```yaml
-queries: [...]              # kelimesi kelimesine, operatörlerle
-databases: [...]            # ve her birinin sürümü/erişim tarihi
+queries: [...]              # verbatim, including operators
+databases: [...]            # each with version and access date
 date_range: "..."
 inclusion_criteria: [...]
 exclusion_criteria: [...]
 language_policy: "..."
 ```
 
-## Kaynak çeşitliliği — tek kaynak yeterli değil
+## Source diversity — one source is never enough
 
-| Kaynak | Ne için |
+| Source | Purpose |
 |---|---|
-| **OpenAlex** | Geniş kapsam, atıf ağı, ücretsiz |
-| **Crossref** | DOI otoritesi, metadata |
-| **Semantic Scholar / S2ORC** | Tam metin, alıntı bağlamı |
-| arXiv / bioRxiv | Ön baskı |
-| **Unpaywall** | Yasal açık erişim tam metin |
-| Alan-özel (PubMed, DBLP, IEEE) | Kapsam tamamlama |
+| **OpenAlex** | Broad coverage, citation graph, open |
+| **Crossref** | DOI authority, metadata |
+| **Semantic Scholar / S2ORC** | Full text, citation context |
+| arXiv / bioRxiv | Preprints |
+| **Unpaywall** | Lawful open-access full text |
+| Domain-specific (PubMed, DBLP, IEEE) | Coverage completion |
 
-**Çok modlu tarama:** anahtar kelime, atıf ağı (ileri + geri), yazar, ve
-alan-özel taksonomi. Tek yöntem her şeyi bulmaz.
+**Multi-modal searching:** keyword, citation graph (forward **and** backward),
+author, and domain taxonomy. No single method finds everything, and the items
+each method misses are not random.
 
-## Seed genişletme
+## Seed expansion
 
-1. `01_Human_Seed`'den başla — insanın seçtiği çekirdek
-2. **Geriye atıf** (referanslar) ve **ileriye atıf** (kim atıf verdi)
-3. Anahtar kelime çıkarımı → yeni sorgular
-4. Doygunluk: **son N kaynak yeni kavram getirmiyorsa** dur
+1. Start from `01_Human_Seed` — the human-selected core
+2. **Backward citation** (references) and **forward citation** (who cited it)
+3. Extract keywords from what you find → new queries
+4. **Saturation:** stop when the last N sources introduce no new concept
 
-## Kapsam analizi
+Saturation is a stopping rule, not a feeling. State N in advance.
 
-Konu bazında kapsam raporlanır. Kapsanmamış alt konu **açıkça listelenir** —
-"tam kapsam" iddiası kanıt ister.
+## Coverage analysis
 
-## Çelişen kaynak
+Coverage is reported per topic. Uncovered sub-topics are **listed explicitly** —
+a claim of "complete coverage" requires evidence, and the honest report names
+what was not covered.
 
-> Bulguları **çürüten** kaynaklar aktif olarak aranır ve
-> `Project/Contradictory`'ye yazılır. Bulunamadıysa bu da raporlanır.
+## Contradicting sources
 
-## Kırmızı bayraklar
+> Sources that **refute** the finding are actively sought and written to
+> `Project/Contradictory`. If none were found, that fact is reported along with
+> evidence that the search was made.
 
-- Sorgular kelimesi kelimesine kaydedilmemiş
-- Tek veritabanı kullanılmış
-- Çelişen kaynak bölümü boş ve arandığına dair kanıt yok
-- Erişim tarihi yok (sonuçlar tekrar üretilemez)
+An empty contradictory set with no search record is indistinguishable from not
+having looked.
+
+## Red flags
+
+- Queries not recorded verbatim
+- A single database used
+- The contradictory section is empty with no evidence of searching
+- No access date recorded — results are not reproducible
+- Saturation asserted without a stated stopping rule

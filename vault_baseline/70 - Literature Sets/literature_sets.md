@@ -1,16 +1,17 @@
 # Literature Sets
 
-Bu alan iki katmana ayrılır:
+This area has two layers:
 
-- İnsan tarafından küratörlenen tematik set notları bu klasörün kökünde tutulur.
-- Zotero kayıtlarının salt-okunur görünümü [[70 - Literature Sets/Zotero Sources/00 - Control Dashboard/Source Catalog|Zotero Kaynak Kataloğu]] altında otomatik yönetilir.
+- Human-curated thematic set notes live at the root of this folder.
+- The read-only view of Zotero records is managed automatically under
+  [[70 - Literature Sets/Zotero Sources/00 - Control Dashboard/Source Catalog|Zotero Source Catalogue]].
 
-## Kürasyonlu setler
+## Curated sets
 
 ```query
 path:"70 - Literature Sets" ["type":"literature-set"]
 ```
 
-## Kalite kontrol
+## Quality control
 
-- [[70 - Literature Sets/Zotero Sources/00 - Control Dashboard/Potential Duplicates|Olası Kopyaları İncele]]
+- [[70 - Literature Sets/Zotero Sources/00 - Control Dashboard/Potential Duplicates|Review potential duplicates]]

@@ -1,6 +1,6 @@
-# İşletim Rehberi
+# Operations Guide
 
-## Günlük durum kontrolü
+## Daily status check
 
 ```bash
 curl -fsS http://127.0.0.1:8765/ready
@@ -8,16 +8,21 @@ systemctl --user is-active airl-bridge.service airl-bridge-sync.timer
 systemctl --user list-timers airl-bridge-sync.timer --no-pager
 ```
 
-## Elle senkron
+Expect `{"status":"ready","zotero":"reachable",...}` and two `active` results.
+
+## Manual synchronisation
 
 ```bash
 curl -fsS -X POST 'http://127.0.0.1:8765/v1/sync?limit=100'
 ```
 
-Bu işlem Zotero'ya yazmaz. SQLite kayıt defterini günceller ve yalnız
-`70 - Literature Sets/Zotero Sources` dalını yeniden üretir.
+This does not write to Zotero. It updates the SQLite registry and regenerates
+only the `70 - Literature Sets/Zotero Sources` branch.
 
-## Hermes doğrulama
+> ⚠️ `limit` is capped at 100 and there is no pagination. Above 100 sources the
+> synchronisation is silently partial — see finding **H1**.
+
+## Hermes verification
 
 ```bash
 hermes mcp test airl_bridge
@@ -25,39 +30,77 @@ cd /home/otonom/Desktop/FH/AI_RESEARCH_FRAMEWORK
 .venv/bin/python scripts/mcp_smoke.py
 ```
 
-Hermes yapılandırmasındaki `tools.include` listesi beş araç içermelidir.
-`prompts` ve `resources` kapalı kalmalıdır.
+The `tools.include` list in the Hermes configuration must contain exactly five
+tools. `prompts` and `resources` must remain disabled.
 
-## Loglar
+> ⚠️ `mcp_smoke.py` currently reports `isError` without asserting on it, so it
+> exits 0 even when every call fails. Read its output; do not treat exit status
+> as a pass. See finding **M2**.
+
+## Logs
 
 ```bash
 journalctl --user -u airl-bridge.service -n 100 --no-pager
 journalctl --user -u airl-bridge-sync.service -n 100 --no-pager
 ```
 
-Zotero kapalıyken zamanlanmış görev başarısız olabilir; sonraki zamanlayıcı
-çalışması tekrar dener. Bridge veritabanı ve son başarılı Obsidian görünümü
-korunur.
+If Zotero is closed the scheduled run fails and the next timer retries. The
+database and the last successful Obsidian projection are preserved.
 
-## Yerleşim geçişi yedeği
+## Plan integrity
 
-Eski `80_Generated` ağacı ve eski `AIRL Ana Sayfa.md`, aşağıdaki geri alınabilir
-yerel yedekte tutulur:
-
-```text
-data/projection-backups/vault-layout-before-silbo-main-20260821/
+```bash
+sha256sum -c planning/commissioning/00_PROGRAM/SHA256SUMS.txt
 ```
 
-Yedek doğrulanmadan veya açık insan onayı olmadan silinmemelidir.
+All entries must report `OK`. A failure means a plan file changed without the
+seal being regenerated — investigate before proceeding.
 
-## Güvenli yeniden kurulum sırası
+## Obsidian baseline parity
+
+The repository copy under `vault_baseline/` and the live vault must be
+byte-identical for every tracked file:
+
+```bash
+diff -rq vault_baseline "/home/otonom/Documents/Obsidian Vault" \
+  | grep -v "Only in .*\(\.obsidian\|Zotero Sources\)"
+```
+
+No output means parity holds.
+
+## Layout migration backups
+
+Reversible local backups of earlier vault layouts:
+
+```text
+data/projection-backups/
+  Sources-before-title-migration-<date>/
+  vault-layout-before-<change>-<date>/
+```
+
+> ⚠️ These backups are excluded from version control and are not backed up
+> elsewhere. Do not delete one without verifying it first, and do not rely on
+> them as the only recovery path.
+
+## Safe reinstall sequence
 
 1. `uv sync --extra dev`
-2. `.env` içindeki vault yolunu doğrula.
-3. `deploy/airl-bridge.service` birimini kullanıcı systemd alanına kopyala.
-4. Bridge servisini etkinleştir ve `/ready` yanıtını doğrula.
-5. Vault baseline dosyalarını kopyala.
-6. Bir kez elle senkron çalıştır.
-7. Hermes MCP sunucusunu ekle ve beş araçlık izin listesini uygula.
-8. Senkron timer'ını etkinleştir.
-9. `scripts/acceptance_v0.py` ve test paketini çalıştır.
+2. Copy `.env.example` to `.env` and set the vault path
+3. Copy the units from `deploy/` into the user systemd directory
+4. Enable the Bridge service and verify `/ready`
+5. Copy the vault baseline files
+6. Run one manual synchronisation
+7. Add the Hermes MCP server and apply the five-tool allowlist
+8. Enable the synchronisation timer
+9. Run `scripts/acceptance_v0.py` and the test suite
+
+## After a path change
+
+If the repository moves, three things break and must be repaired together:
+
+1. **venv console scripts** — shebangs carry absolute paths
+2. **The editable install** — `.venv/lib/*/site-packages/_editable_impl_*.pth`
+3. **systemd units and the Hermes config** — absolute paths in both
+
+Symptom of missing (2): `ModuleNotFoundError: No module named 'airl_bridge'`
+while `python -m` still works.

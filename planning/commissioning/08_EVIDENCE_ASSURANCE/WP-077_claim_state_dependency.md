@@ -1,100 +1,108 @@
-# WP-077 — Claim State, Dependency ve Assessment Motoru
+# WP-077 — Claim State, Dependency and Assessment Engine
 
-## Paket kartı
+## Package card
 
-| Alan | Değer |
+| Field | Value |
 |---|---|
-| İş paketi | `WP-077` |
+| Work package | `WP-077` |
 | Workstream | `08_EVIDENCE_ASSURANCE` |
-| İlk efor sınıfı | **L** — refinement'ta O/M/P tahmini zorunlu |
-| Accountable Owner | Evidence Platform Lead |
-| Bağımsız doğrulayıcı | Methodologist / Assurance Lead |
+| Initial effort class | **L** — large — split into sub-deliveries if it cannot be reviewed in one pass; a three-point (O/M/P) estimate is mandatory at refinement |
+| Accountable owner | Evidence Platform Lead |
+| Independent verifier | Methodologist / Assurance Lead |
 | Hard dependencies | WP-005, WP-018, WP-075, WP-076 |
-| İlgili gate | G5–G10 |
-| İlgili kontroller | CTL-EPI-01, CTL-EPI-03 |
-| İlgili ACC senaryoları | ACC-08, ACC-19, ACC-20 |
+| Related gates | G5–G10 |
+| Related controls | CTL-EPI-01, CTL-EPI-03 |
+| Related acceptance scenarios | ACC-08, ACC-19, ACC-20 |
+| Current status | `NOT_STARTED` |
 
-## Amaç ve beklenen sonuç
+## Purpose and expected outcome
 
-Empirical/methodological/interpretive claim'ler; evidence, validity, conflict, reproduction ve dependency blocker'larıyla PROVISIONAL/SUPPORTED/CONTESTED/CHALLENGED/REPLICATED gibi durumlara geçer.
+Empirical, methodological and interpretive claims move between `PROVISIONAL`, `SUPPORTED`, `CONTESTED`, `CHALLENGED` and `REPLICATED` under evidence, validity, conflict, reproduction and dependency blockers.
 
-## Kapsam dışı
+## Out of scope
 
-- Bağımlı paketin kendi iç implementasyonu
-- Production cutover ve nihai operasyon onayı
 
-## Önkoşullar ve Definition of Ready
+- The internal implementation of any dependent package
+- Production cutover and final operational approval
 
-- Bağımlılıklar kabul edilmiştir: [WP-005 — Araştırma Risk ve Assurance Profili](../01_GOVERNANCE/WP-005_risk_assurance_profili.md), [WP-018 — Claim, Evidence, Review ve Decision Şemaları](../02_CONTRACTS/WP-018_claim_review_decision_contracts.md), [WP-075 — Canonical Claim/Evidence Ledger Servisi](../08_EVIDENCE_ASSURANCE/WP-075_claim_evidence_ledger.md), [WP-076 — Evidence Span Anchoring ve Re-anchoring](../08_EVIDENCE_ASSURANCE/WP-076_evidence_anchor_resolver.md)
-- Named owner, implementer ve producer'dan bağımsız verifier atanmıştır.
-- Etkilenen canonical kayıtlar, interface'ler ve ADR'lar refinement'ta ilişkilendirilmiştir.
-- DataClass, CodeTrust, ToolEffect ve ağ/credential kapsamı sınıflandırılmıştır.
-- Test fixture, environment, rollback noktası ve acceptance ölçüm yöntemi erişilebilirdir.
-- Efor için O/M/P kişi-gün tahmini ve gerçek kapasite rezervasyonu kaydedilmiştir.
+## Preconditions — Definition of Ready
 
-## Uygulama görevleri
+- Dependencies accepted: [WP-005 — Research Risk and Assurance Profile](../01_GOVERNANCE/WP-005_risk_assurance_profile.md), [WP-018 — Claim, Evidence, Review and Decision Schemas](../02_CONTRACTS/WP-018_claim_review_decision_contracts.md), [WP-075 — Canonical Claim/Evidence Ledger Service](../08_EVIDENCE_ASSURANCE/WP-075_claim_evidence_ledger.md), [WP-076 — Evidence Span Anchoring and Re-anchoring](../08_EVIDENCE_ASSURANCE/WP-076_evidence_anchor_resolver.md)
+- A named owner, a named implementer, and a verifier **independent of the producer** are assigned.
+- Affected canonical records, interfaces and ADRs have been linked during refinement.
+- `DataClass`, `CodeTrust`, `ToolEffect` and the network/credential scope are classified.
+- Test fixtures, the environment, the rollback point and the acceptance measurement method are reachable.
+- An O/M/P person-day estimate is recorded and real capacity is reserved against it.
 
-| Alt iş | Yapılacak iş | Sorumlu | Tamamlanma kanıtı |
+## Implementation tasks
+
+| Sub-task | Work to be done | Responsible | Completion evidence |
 |---|---|---|---|
-| WP-077-T01 | Claim type ve lifecycle transition kurallarını uygula | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-077-T02 | supports/contradicts/derived-from dependency graph validation yaz | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-077-T03 | Assessment vektörünü provenance/method/directness/consistency/repro/scope/uncertainty boyutlarıyla kur | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-077-T04 | Non-compensable blocker precedence uygula | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-077-T05 | Dependency status propagation ve impact queue ekle | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
-| WP-077-T06 | Human/assurance disposition API'sini yaz | Uygulama sahibi | Commit/konfigürasyon/kayıt referansı |
+| WP-077-T01 | Implement the claim type and lifecycle transition rules | Implementation owner | Commit / configuration / record reference |
+| WP-077-T02 | Write validation for the supports / contradicts / derived-from dependency graph | Implementation owner | Commit / configuration / record reference |
+| WP-077-T03 | Build the assessment vector across provenance, method, directness, consistency, reproduction, scope and uncertainty | Implementation owner | Commit / configuration / record reference |
+| WP-077-T04 | Apply non-compensable blocker precedence | Implementation owner | Commit / configuration / record reference |
+| WP-077-T05 | Add dependency status propagation and the impact queue | Implementation owner | Commit / configuration / record reference |
+| WP-077-T06 | Write the human and assurance disposition API | Implementation owner | Commit / configuration / record reference |
 
-## Zorunlu teslimatlar
+## Mandatory deliverables
 
 - `Claim state engine`
 - `Dependency validator`
 - `Assessment rubric`
 - `Impact propagation worker`
-- Güncellenmiş runbook/operasyon notu ve servis/contract ownership kaydı
-- İmzalı `EvidenceManifest`
+- An updated runbook or operations note, plus the service/contract ownership record
+- A signed `EvidenceManifest`
 
-## Test ve doğrulama planı
+## Test and verification plan
 
-- Broken provenance BLOCKED
-- Strong source weak method telafi etmez
-- Contradictory evidence CONTESTED
-- Repro pass state promotion
-- Upstream supersession propagation
-- Yetkisiz, eksik, stale, duplicate ve partial-failure girdileri için en az bir negatif test
-- İlgili interface'lerde producer/consumer contract compatibility testi
-- Telemetry correlation ve audit kayıt bütünlüğü kontrolü
+- `BLOCKED` on broken provenance
+- A strong source failing to compensate for a weak method
+- `CONTESTED` on contradictory evidence
+- State promotion on a reproduction pass
+- Propagation of an upstream supersession
+- At least one negative test for unauthorised, missing, stale, duplicate and partial-failure inputs
+- Producer/consumer contract compatibility tests on every affected interface
+- Telemetry correlation and audit-record integrity checks
 
-## Kabul kriterleri
+## Acceptance criteria
 
-- [ ] Yedi boyut tek confidence yüzdesine ortalanmaz
-- [ ] Critical blocker yüksek kaynak kalitesiyle telafi olmaz
-- [ ] State değişimi rule/evidence refs taşır
-- [ ] Bütün zorunlu testler aynı target revision üzerinde geçmiştir.
-- [ ] Açık Critical/High finding yoktur; non-waivable blocker bulunmamaktadır.
-- [ ] Bağımsız verifier kanıt paketini kabul etmiştir.
-- [ ] Rollback/compensation davranışı denenmiş ve audit edilmiştir.
-- [ ] İlgili dashboard, alert, audit query veya integrity query çalışma kanıtı üretmiştir.
+- [ ] The seven dimensions are never averaged into a single confidence percentage.
+- [ ] A critical blocker is not offset by high source quality.
+- [ ] Every state change carries its rule and evidence references.
+- [ ] All mandatory tests passed **on the same target revision**.
+- [ ] No open Critical or High findings; no non-waivable blocker remains.
+- [ ] The independent verifier has accepted the evidence package.
+- [ ] Rollback/compensation behaviour has been exercised and audited.
+- [ ] The related dashboard, alert, audit query or integrity query has produced working evidence.
 
-## Kabul kanıtı paketi
+## Acceptance evidence package
 
-- Aynı target revision/digest üzerinde alınmış test sonuçları
-- Environment, schema, policy ve dependency sürümlerini içeren EvidenceManifest
-- Bağımsız verifier ReviewRecord veya VerificationRecord'u
-- Rollback/compensation denemesi ve sonuç referansı
-- Açık finding, residual risk ve owner/expiry listesi
+- Test results captured on the same target revision/digest
+- An `EvidenceManifest` recording the environment, schema, policy and dependency versions
+- The independent verifier's `ReviewRecord` or `VerificationRecord`
+- The rollback/compensation trial and its result reference
+- The list of open findings and residual risks with owners and expiry dates
 
-## Riskler ve kontrol noktaları
+## Risks and control points
 
-- Contract veya canonical sahiplik belirsizse implementasyon durur ve Architecture Board'a eskale edilir.
-- Identity, data route, artifact integrity, bağımsızlık veya kritik evidence problemi waiver ile geçirilemez.
-- Geçici manuel kontrol gerekiyorsa owner, scope, expiry, compensating control ve kaldırma paketi kaydedilir.
-- Paket tamamlandı beyanı acceptance değildir; verifier kararı olmadan yalnız `TECH_COMPLETE` olabilir.
+- If a contract or canonical ownership question is unresolved, implementation **stops** and the question escalates to the Architecture Board.
+- Identity, data routing, artifact integrity, independence and critical evidence problems **cannot** be passed by waiver.
+- If a temporary manual control is required, its owner, scope, expiry, compensating control and removal package are recorded.
+- A "package complete" statement is **not** acceptance. Without a verifier decision the package can only be `TECH_COMPLETE`.
+
+### Workstream-specific hazards
+
+- Independence asserted in a record but not enforced by the router is decorative.
+- A review that sees the producer's conclusion first is anchored, not independent.
+- Reproduction that reuses the producer's environment reproduces the environment, not the result.
 
 ## Rollback / compensation
 
-Yanlış assessment yeni version/disposition ile düzeltilir; publication impact scan otomatik açılır.
+A wrong assessment is corrected through a new version or disposition; a publication impact scan opens automatically.
 
-Immutable artifact, review ve karar geçmişi rollback sırasında silinmez; yeni durum supersession veya invalidation kaydıyla gösterilir.
+Immutable artifacts, reviews and decision history are **not** deleted during a rollback; the new state is expressed through a supersession or invalidation record.
 
-## Handoff ve sonraki paketlere giriş
+## Handoff into downstream packages
 
-Paket kabul edildiğinde teslim artifact'larının version/digest'leri Package Registry'ye yazılır, dependency event'i yayımlanır ve bu pakete bağlı READY adayları yeniden değerlendirilir. Downstream paket yalnız burada listelenen contract ve kanıt referanslarını tüketir; implementasyon iç ayrıntılarına bağlanmaz.
+On acceptance, the version and digest of every delivered artifact is written to the Package Registry, the dependency event is published, and every `READY` candidate blocked on this package is re-evaluated. A downstream package consumes **only** the contracts and evidence references listed above; it does not bind to internal implementation details.

@@ -1,3 +1,7 @@
+> [!info] Generated view
+> This note is generated from `skills/receiving-review/SKILL.md` in the repository. Edit the
+> canonical file and regenerate; edits made here are overwritten.
+
 ---
 name: receiving-review
 version: 1.0.0
@@ -12,52 +16,56 @@ mechanical_checks: [every_condition_has_stance, no_unanswered_condition_at_gate]
 
 # Receiving Review
 
-## Genel ilke
+## Core principle
 
-> **Uygulamadan önce doğrula. Varsaymadan önce sor.
-> Sosyal rahatlık yerine teknik doğruluk.**
+> **Verify before implementing. Ask before assuming.
+> Technical correctness over social comfort.**
 
-## Demir kural
+## Iron law
 
-> **HER KOŞULUN BİR TUTUMU (`stance`) OLMAK ZORUNDA.**
+> **EVERY CONDITION MUST CARRY A STANCE.**
 >
-> Cevapsız koşulla G8'e geçiş yasaktır.
+> Proceeding to G8 with an unanswered condition is forbidden.
 
-## Sıra
+## Sequence
 
 ```
-Oku → Anla → DOĞRULA → Değerlendir → Yanıtla → Uygula
+Read → Understand → VERIFY → Evaluate → Respond → Implement
 ```
 
-**Herhangi bir madde belirsizse: DUR.** Hiçbir şey uygulama.
-Belirsizlikler birbirine bağlı olabilir; birini yanlış anlamak diğerini bozar.
+**If any item is unclear: STOP.** Implement nothing. Unclear items are often
+coupled — misreading one corrupts the fix for another.
 
-Sonra sırayla: bloke ediciler → basit düzeltmeler → karmaşık düzeltmeler.
-**Her biri tek tek, her birini ayrı doğrula**, sonunda regresyon kontrolü.
+Then, in order: blocking issues → simple fixes → complex fixes. **One at a time,
+each verified separately**, with a regression check at the end.
 
-## İtiraz meşrudur
+## Disagreement is legitimate
 
-Şu durumlarda **itiraz et**:
+Push back when the finding:
 
-- Bulgu mevcut çalışan davranışı bozuyorsa
-- Reviewer tam bağlama sahip değilse
-- Kapsamda olmayan bir şey isteniyorsa (YAGNI)
-- Dondurulmuş protokolle çelişiyorsa
-- Teknik olarak yanlışsa
+- Breaks existing working behaviour
+- Was made without full context
+- Requests something outside scope (YAGNI)
+- Contradicts the frozen protocol
+- Is technically incorrect
 
-**Nasıl:** Teknik gerekçeyle, savunmacı olmadan. Çalışan koşuma, teste veya
-manifest'e referans ver.
+**How:** with technical reasoning, without defensiveness. Point at a passing
+test, a run record, or a manifest.
 
-## Yasak: performatif katılım
+**Why this matters in a model-run lab:** models are sycophantic. Left
+unspecified, a producer agrees where it should object — and review degenerates
+into an approval ritual in which nobody learns anything. Making disagreement
+explicitly legitimate is what keeps review informative.
 
-> "Harika nokta!", "Kesinlikle haklısınız!", "Çok iyi yakalamışsınız!"
+## Forbidden: performative agreement
 
-Anlayışı **eylem** gösterir, iltifat değil. Bu, dil modellerinin bilinen bir
-hata modudur ve review'u onay teatrosuna çevirir.
+> "Great point!", "You're absolutely right!", "Good catch!"
 
-Düzeltme gerektiğinde tek cümle yeterli: *"Doğruladım, haklısınız. Düzeltiyorum."*
+Comprehension is demonstrated by **action**, not by compliment. When a
+correction is warranted, one sentence suffices: *"Verified — you're right.
+Fixing now."*
 
-## `ProducerResponse` — zorunlu çıktı
+## `ProducerResponse` — required output
 
 ```yaml
 per_condition:
@@ -65,27 +73,29 @@ per_condition:
     stance: "ACCEPTED"          # ACCEPTED | DISPUTED | CLARIFICATION_NEEDED
     action_taken: "..."
     evidence_ref: "..."
-    verified_by: "mechanical:scope-conformance"   # KİM doğruladı
+    verified_by: "mechanical:scope-conformance"   # WHO verified it
   - condition_id: "C-02"
     stance: "DISPUTED"
     technical_rationale: "..."
     escalated_to: "DisagreementCase disagree-..."
 ```
 
-`ACCEPTED` ise **bağımsız doğrulama** zorunlu — producer'ın kendi beyanı yetmez.
-`DISPUTED` ise `DisagreementCase`'e bağlanır.
+`ACCEPTED` requires **independent verification** — the producer's own assertion
+is not sufficient. `DISPUTED` is bound to a `DisagreementCase`.
 
-## Rasyonalizasyon tablosu
+## Rationalization table
 
-| Gerekçe | Hüküm |
+| Justification | Ruling |
 |---|---|
-| "Koşulu zaten karşılıyoruz" | **Kanıtla.** `verified_by` doldurulur. |
-| "Bu minor, sonra bakarız" | Minor da bir `stance` alır. `PARKED` + sahip + süre. |
-| "Reviewer yanlış anlamış" | Olabilir — `DISPUTED` yaz, gerekçe ver. **Sessizce geçme.** |
-| "Hepsine katılıyorum" (hepsi tek seferde) | Şüpheli. Her koşul ayrı doğrulanır. |
+| "We already satisfy that condition" | **Prove it.** Fill `verified_by`. |
+| "It's minor, we'll look later" | Minor still takes a stance: `PARKED` with owner and expiry. |
+| "The reviewer misunderstood" | Possibly — write `DISPUTED` with reasoning. **Do not pass over it silently.** |
+| "I agree with all of them" (all at once) | Suspicious. Each condition is verified separately. |
+| "Arguing back will slow us down" | Unexamined agreement is slower — it surfaces at G7 instead. |
 
-## Kırmızı bayraklar
+## Red flags
 
-- Tüm koşullar tek hamlede `ACCEPTED`
-- `verified_by` alanı producer'ın kendisi
-- Yanıtta iltifat var, kanıt yok
+- All conditions `ACCEPTED` in a single move
+- `verified_by` naming the producer itself
+- A response containing compliments but no evidence
+- A condition with no stance at gate time

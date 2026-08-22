@@ -1,14 +1,14 @@
 # Daily Notes
 
-Günlük çalışma kaydı. Şablon: `_Templates/daily_note.md`
+The daily working record. Template: `_Templates/daily_note.md`
 
 ```query
 path:"80 - Daily" ["type":"daily-note"]
 ```
 
-## Kullanım
+## How to use it
 
-Günlük not bir **karar kaydı değildir**. Kararlar `50 - Decisions`,
-uygulama adımları
-[[10 - Projects/AI Research Framework/implementation_log|Implementation Log]]
-içine yazılır. Buradaki notlar geçici çalışma hafızasıdır.
+A daily note is **not a decision record**. Decisions go into `50 - Decisions`,
+implementation steps into
+[[10 - Projects/AI Research Framework/implementation_log|Implementation Log]].
+The notes here are temporary working memory.
