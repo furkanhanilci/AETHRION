@@ -60,7 +60,7 @@ zero open critical findings.
 | Markdown files under this tree | 220 |
 | Files covered by the hash seal | 221 (220 Markdown + 1 CSV) |
 
-> **Commissioning baseline v1.0.2 — 2026-08-22.** This is the baseline the
+> **Commissioning baseline v1.0.3 — 2026-08-22.** This is the baseline the
 > programme will actually be commissioned against. Everything after this point
 > is a **recorded change**: edit the canonical file, regenerate the seal
 > deliberately, and record the change in the implementation log. Improvements
@@ -82,6 +82,16 @@ zero open critical findings.
 > change, which is the one sanctioned reason to regenerate it; re-sealing to
 > silence a failing check remains prohibited. Both the seal and
 > `validate_commissioning_plan.py` pass on the new baseline.
+
+> **v1.0.3 removes a false assurance claim.** Three programme documents said the
+> `EvidenceManifest` is recorded in a public transparency log. It is not: WP-000
+> runs the `airl-interim-v0.1` profile, which signs with a local key and
+> explicitly does not submit to a log — WP-000 §5 always said so, and the
+> summaries above it did not. The same three files still called finding **C2**
+> an open decision after `ADR-001` decided it. Naming only; no requirement,
+> identifier, dependency, acceptance phase or scenario changed. Found by a
+> stale-claim checker that had to be widened first, because the old one was a
+> list of literals and could not see either defect.
 
 Verify the seal from the repository root:
 
@@ -210,10 +220,15 @@ then no package can produce acceptable evidence at all.
 >
 > [**WP-000 — Interim Evidence Policy and Attestation Bootstrap**](01_GOVERNANCE/WP-000_interim_evidence_policy.md)
 > now closes the storage half: the manifest is issued as a signed in-toto
-> attestation recorded in a public transparency log and anchored in time, so
-> immutability is delegated rather than deferred. The rationale is in
+> attestation and anchored in time, so immutability is delegated rather than
+> deferred. The profile in force is `airl-interim-v0.1`, which signs with a
+> local key and is **not** submitted to a transparency log; the permanent
+> profile that is, arrives with WP-139. The rationale is in
 > `docs/architecture/AETHRION_EXTERNAL_STANDARDS.md` §3.
 >
 > The other half — finding **C2**, who may act as an independent verifier in a
-> one-person operation — is **still open** and is a decision, not code. See the
-> audit report in `docs/review/`.
+> one-person operation — is **decided**, by
+> [`ADR-001`](../../docs/architecture/ADR-001_solo_operator_independence.md):
+> R1 proceeds solo, R2 proceeds and is declared partial in the record, and R3 is
+> `BLOCKED` rather than waived. A decision is not an implementation — R3 work
+> still cannot be accepted here — but the question is no longer open.

@@ -2,8 +2,8 @@
   "anchor_type": "interim/local",
   "owned_by": "WP-000",
   "successor": "WP-139 assumes ownership of timestamping",
-  "issued_at": "2026-08-22T16:02:23.499449+00:00",
-  "repository_head": "62179fda22d15445c85b204be94282972fa657fd",
-  "envelope_sha256": "a0ff7213c49286aae7396fa33d3616ae0cfcd87b220bd7a60cf16cae113f47e4",
+  "issued_at": "2026-08-22T16:19:14.215055+00:00",
+  "repository_head": "8d4d2acead3bd6216212dbdd9fc8cd0e80d278e6",
+  "envelope_sha256": "79649c44524af641fc0918d773100de18e00cd957022b86fcd8187857d346252",
   "limitation": "no external timestamp authority; strength is bounded by the issuer's clock and by the commit this anchor names"
 }

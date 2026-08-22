@@ -9,7 +9,7 @@
 | Date | 2026-08-22 |
 | Status | Reference — describes the target role layer. **No role is bound in running software today.** |
 
-**In one paragraph.** Fourteen durable functions carry the laboratory's accountabilities, and each is defined here by its mandate, what it decides, what it may never do, what it produces, when it escalates, and which other roles it may be held with. The organising rule is that a role is a function rather than a person: independence is expressed as separation constraints on a `RoleBinding`, not as headcount, which is what makes a fourteen-role catalogue describable in a one-person operation — and what turns finding C2 from an impossibility into an undecided question.
+**In one paragraph.** Fourteen durable functions carry the laboratory's accountabilities, and each is defined here by its mandate, what it decides, what it may never do, what it produces, when it escalates, and which other roles it may be held with. The organising rule is that a role is a function rather than a person: independence is expressed as separation constraints on a `RoleBinding`, not as headcount, which is what makes a fourteen-role catalogue describable in a one-person operation — and what turned finding C2 from an impossibility into a decidable question, decided in `ADR-001`.
 
 ![Role authority and separation constraints](../figures/aethrion_roles.svg)
 
@@ -58,10 +58,12 @@ exists:**
    Where that leaves a gate unsatisfiable, the correct outcome is `BLOCKED`, not
    a quietly relaxed rule.
 
-> **This does not resolve finding C2.** Which combinations count as independent
-> in a one-person operation is an undecided question, and until it is decided no
-> work package can reach `ACCEPTED`. What this document supplies is the *form*
-> the answer must take.
+> **This document does not resolve finding C2 — `ADR-001` does.** What this one
+> supplies is the *form* the answer had to take: independence as a separation
+> constraint on a `RoleBinding` rather than a headcount. `ADR-001` then chose the
+> content: R1 solo, R2 declared partial, R3 `BLOCKED`. Packages in R3 still
+> cannot reach `ACCEPTED` here, which is a consequence of the decision rather
+> than the absence of one.
 
 ---
 
@@ -308,10 +310,10 @@ including the Decision Owner, for the subset marked non-waivable.
 
 The last two rows are the ones that bite in a one-person operation: **the
 Assurance Lead and the Metascience Lead cannot be the producer**, which is
-exactly the corner where finding **C2** lives. The available resolutions are to
-supply that function mechanically, to bring in an external party, or to accept
-that the affected assurance class stays unreachable — and choosing between them
-is the open decision.
+exactly the corner where finding **C2** lived. Three resolutions were available
+— supply the function mechanically, bring in an external party, or accept that
+the affected assurance class stays unreachable — and `ADR-001` chose the third
+for R3: it is `BLOCKED`, declared rather than waived.
 
 ---
 

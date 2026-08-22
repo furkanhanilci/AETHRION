@@ -50,7 +50,7 @@ def main() -> None:
            col_w - 32, size=16, lh=21, max_lines=2)
     authored = [("Hand-authored", "architecture, decision records, planning corpus, skills", INK),
                 ("Generated, committed", "STATUS.md, workstream indexes, figures — never hand-edited", PURPLE),
-                ("Sealed", "221 planning files, byte-identical to baseline v1.0.2", VERM),
+                ("Sealed", "221 planning files, byte-identical to baseline v1.0.3", VERM),
                 ("Signed", "evidence manifests, Ed25519, interim profile", GREEN)]
     for i, (h, b, col) in enumerate(authored):
         c.cell(L + 16, top + 96 + i * 74, col_w - 32, 66, h, b, accent=col,

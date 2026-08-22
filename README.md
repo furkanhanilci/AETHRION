@@ -52,7 +52,7 @@ implied.
 | Skill registry (52 skills, two families) | ✅ Format-conformant · ⚠️ wired for Claude Code only · 📐 behaviour **not yet tested** | `skills/` |
 | Obsidian information architecture | ✅ V0 ready | `vault_baseline/` |
 | Target architecture and skill layer | 📐 Designed, awaiting decision | `docs/architecture/` |
-| Commissioning programme — **baseline v1.0.2** | ⬜ Planned, not started; 141 package documents, 51 scenarios | `planning/commissioning/` |
+| Commissioning programme — **baseline v1.0.3** | ⬜ Planned, not started; 141 package documents, 51 scenarios | `planning/commissioning/` |
 | Interim evidence policy (WP-000) | ✅ `TECH_COMPLETE` — tooling implemented, specimen issued and verified | `scripts/evidence_manifest.py` · `delivery/WP-000/` |
 | Verification on push (BVC-01) | 📐 Decided and written, **not yet active** — needs a workflow-scoped token | `deploy/bvc-01-verify.yml` |
 | Human notification channels (ntfy · Telegram · Discord/Slack · WhatsApp) | ⬜ **Planned** — WP-132/135 specify a channel registry with a per-channel data-class ceiling; three skills written, **nothing connected, nothing sends** | `planning/commissioning/13_TOOLING_INTEGRATION/` |
@@ -66,7 +66,7 @@ implied.
 src/          Bridge component and the shared contract core
 tests/        Test suite
 skills/       52 skills — HOW agents work; engineering + scientific + shared
-planning/     WP-000, WP-001..140, ACC-01..51 (hash-sealed canonical plan, baseline v1.0.2)
+planning/     WP-000, WP-001..140, ACC-01..51 (hash-sealed canonical plan, baseline v1.0.3)
 docs/         Architecture, review, branding and operations documents
 docs/assets/  Branding assets — the logo, and the rules that keep it canonical
 schemas/      Shared contract schemas

@@ -817,7 +817,7 @@ flowchart LR
 | Evidence issuance and verification (WP-000 tooling) | **Working** — `TECH_COMPLETE`, not `ACCEPTED` |
 | Shared contract core | Prototype — **zero production consumers**, hash format conflicts with the bridge |
 | Skill registry — 52 skills | Format-conformant and loadable; **behaviour untested** |
-| Document authoring subsystem — router, 12 modules, 4 profiles | Written; **one specimen rendered**, no real document |
+| Document authoring subsystem — router, 12 modules, 4 profiles | Written; one specimen **authored and resolution-checked**, **never rendered** — no toolchain is installed |
 | G0–G10 contracts, roles, gates | Designed |
 | Temporal · LangGraph · NATS · brokers · ledgers · Model Gateway | Planned |
 | Cedar policy set, ADR-003 enforcement | Decided, **not authored** |

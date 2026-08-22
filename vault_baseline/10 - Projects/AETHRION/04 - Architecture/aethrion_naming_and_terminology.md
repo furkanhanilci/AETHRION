@@ -96,7 +96,8 @@ Where such a name appears, it carries a marker:
 > *Historical name; current project identity: AETHRION.*
 
 The sealed commissioning plan was re-sealed as **baseline v1.0.2** to carry the
-current name. That is a recorded change under
+current name, and again as **v1.0.3** to remove a false assurance claim the
+rename pass had not touched. That is a recorded change under
 `00_PROGRAM/09_change_and_configuration_control.md`, not a silent rewrite: the
 seal was regenerated deliberately, the reason is written down, and the three
 plan-integrity checks were re-run afterwards.

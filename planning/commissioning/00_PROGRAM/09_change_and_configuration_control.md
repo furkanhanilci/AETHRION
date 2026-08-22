@@ -81,12 +81,14 @@ post-go-live packages, and stale ranges.
 in the implementation log. Re-sealing to silence a failing check is the one
 prohibited use of the seal.
 
-**The current baseline is v1.0.2**, which carries the project's name change to
-AETHRION across 29 files. It is the worked example of the rule above: the change
+**The current baseline is v1.0.3.** v1.0.2 carried the project's name change to
+AETHRION across 29 files; v1.0.3 corrected three programme documents that claimed
+the evidence manifest is recorded in a public transparency log — it is not — and
+that still called finding C2 an open decision after ADR-001 decided it. It is the worked example of the rule above: the change
 was naming only, the seal was regenerated deliberately rather than to quiet a
 failure, all three checks were re-run afterwards, and the reason is written down
 here and in the implementation log. A reader can confirm the claim rather than
-trust it — `git diff v1.0.1..v1.0.2 -- planning/` shows no requirement,
+trust it — `git diff v1.0.1..v1.0.3 -- planning/` shows no requirement,
 identifier, dependency, acceptance phase or scenario was touched.
 
 ## Plan integrity

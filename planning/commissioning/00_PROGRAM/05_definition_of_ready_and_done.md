@@ -59,10 +59,13 @@ A package becomes `READY` only when all of the following hold:
 > timestamping mechanism it needs is **WP-139**.
 >
 > WP-000 resolves the **storage** half of the deadlock by expressing the
-> `EvidenceManifest` as a signed in-toto attestation in a public transparency
-> log, rather than by building an immutable store first. It does **not** resolve
-> finding **C2** — who may act as an independent verifier in a small
-> organisation — which remains an open decision.
+> `EvidenceManifest` as a signed in-toto attestation with an external time
+> anchor, rather than by building an immutable store first. The profile in force
+> is `airl-interim-v0.1`: a local signing key and a local anchor, **not** a
+> transparency log and **not** keyless — WP-139 supplies those. The **other**
+> half, finding **C2**, is decided by
+> [`ADR-001`](../../../docs/architecture/ADR-001_solo_operator_independence.md):
+> R1 solo, R2 declared partial, R3 `BLOCKED`.
 
 ## Definition of Commissioned
 
