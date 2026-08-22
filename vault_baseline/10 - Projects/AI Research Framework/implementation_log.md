@@ -19,6 +19,79 @@ the last entry, the cockpit and the relevant WP files are read again.
 
 ---
 
+## Step 009 — Figures that cannot overflow, and a document standard
+
+**Time:** 2026-08-22
+**Scope:** figure layout correctness · a written document standard applied to the
+corpus entry points
+
+### The defect
+
+The figures shipped in Step 008 had labels that overflowed their boxes. The check
+in place compared text against the **canvas**, so a string that spilled out of a
+node but stayed on the page passed. **The wrong invariant was being verified** —
+which is precisely the failure mode this framework is built to catch, appearing
+in the framework's own tooling.
+
+### The fix, in two independent layers
+
+1. **`figure_kit` now measures text.** It carries the Helvetica advance-width
+   table with a 3 % safety margin, so `text_width` is a measurement rather than a
+   character count. `Canvas.cell` fits every string against the box's **inner**
+   width: wrap first, then shrink toward the 16-unit floor, and **raise** if it
+   still will not fit. A figure that cannot be laid out honestly now fails the
+   build. It did fail, three times, during this step — each failure was a real
+   overflow that would otherwise have shipped.
+2. **`scripts/check_figures.py` re-measures the rendered SVG.** It finds the
+   tightest box enclosing each text anchor and reports anything that escapes it.
+   It deliberately does not trust the generator, so one bad assumption cannot
+   hide behind itself twice. It caught both remaining overflows immediately.
+
+`make_figures.py` runs generation and containment together, so they cannot drift
+apart, and the check is now part of the verification bundle.
+
+### Document standard
+
+`docs/DOCUMENT_STANDARD.md` — required structure (front-matter table, a
+one-paragraph summary, numbered sections, a closing question→file table), a
+controlled **status vocabulary** (`WORKING`, `TECH_COMPLETE`, `ACCEPTED`,
+`SPECIFIED`, `PROPOSAL`, `DESIGNED`), formatting conventions, and five honesty
+rules:
+
+- distance from working software is stated, never implied — diagrams included
+- counts are re-derived when a document is touched, never remembered
+- decision records stay in the past tense; documents rewritten to match the
+  present stop being records
+- evidence is never edited; current state goes in a new dated document
+- a limitations section is mandatory in any document describing a component
+
+Applied to every entry point: `README`, `OPERATIONS`, `ARCHITECTURE_V0`,
+`FOUNDATION`, `skills/README`, `docs/figures/README`, all six architecture
+documents and the verification report. **The frozen 2026-08-21 audit was left
+untouched** under rule 4.
+
+### Evidence
+
+- `python3 scripts/check_figures.py` → **3 figures, 0 overflows**
+- `make_figures.py --check` → 3 figures, 0 drift
+- `uv run pytest` → 20 passed · `validate_skills.py` → 49 conform
+- Plan seal **202/202** · mirror drift **0** (203 plan, 65 skill/doc/figure)
+
+### Limits
+
+- The containment check verifies *geometry*, not *design*. It cannot tell whether
+  a figure communicates; it only guarantees nothing is clipped.
+- The document standard is enforced by review except for the four mechanical
+  checks listed in its §5. That is a limitation, not a plan.
+- Nothing about the framework's capability changed. Again.
+
+### Next step
+
+Unchanged and now three steps overdue: **issue one signed specimen
+`EvidenceManifest` under WP-000**, then CI — which now has seven checks waiting.
+
+---
+
 ## Step 008 — The role layer, and figures that are generated rather than drawn
 
 **Time:** 2026-08-22

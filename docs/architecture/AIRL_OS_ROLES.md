@@ -9,6 +9,8 @@
 | Date | 2026-08-22 |
 | Status | Reference — describes the target role layer. **No role is bound in running software today.** |
 
+**In one paragraph.** Fourteen durable functions carry the laboratory's accountabilities, and each is defined here by its mandate, what it decides, what it may never do, what it produces, when it escalates, and which other roles it may be held with. The organising rule is that a role is a function rather than a person: independence is expressed as separation constraints on a `RoleBinding`, not as headcount, which is what makes a fourteen-role catalogue describable in a one-person operation — and what turns finding C2 from an impossibility into an undecided question.
+
 ![Role authority and separation constraints](../figures/airl_os_roles.svg)
 
 *Figure 1 — Fourteen durable functions ordered by the authority they hold, and

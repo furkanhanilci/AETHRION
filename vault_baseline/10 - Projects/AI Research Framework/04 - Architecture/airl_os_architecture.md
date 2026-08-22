@@ -12,6 +12,8 @@
 | Date | 2026-08-22 |
 | Status | Describes the **target architecture** and, in §10, exactly how much of it exists |
 
+**In one paragraph.** AIRL-OS is an evidence-centred research operating system: AI agents perform bounded research tasks, deterministic systems verify whatever can be verified mechanically, independent assurance challenges what survives, humans retain scientific decision authority, and every material claim stays traceable from source span and experiment through to publication and later revision. This document is the explanatory entry point to that design — the principle, the evidence chain, the planes, the G0–G10 lifecycle, the role and skill layers, and how evidence is signed. §10 states how much of it exists, and the answer is: one vertical slice.
+
 > **Read §10 before believing §§2–9.** This document describes a design. One
 > vertical slice of it runs. The distance between the two is the most important
 > fact about this repository, and it is stated in one place so that no section

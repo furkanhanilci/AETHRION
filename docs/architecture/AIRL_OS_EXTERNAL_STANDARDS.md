@@ -8,6 +8,8 @@
 | Date | 2026-08-22 |
 | Status | Sections 2–4 **decided**; Section 5 is a deferred queue |
 
+**In one paragraph.** Every format this laboratory invents is a format it must also specify, validate, document and maintain, so this register records what AIRL-OS adopts instead of inventing, and what it defers with reasons. Three adoptions are decided: the Agent Skills open format for the skill layer, in-toto attestations signed through Sigstore and recorded in Rekor for evidence, and the PRISMA family plus a declared screening stopping rule for the literature gate. The second of these removes the storage half of the C1 deadlock without building anything.
+
 ---
 
 ## 1. The rule

@@ -4,7 +4,7 @@ type: handover
 status: active
 owner: otonom
 created_at: "2026-08-22"
-session_end_commit: d0bdc14
+session_end_commit: pending-step-009
 tags:
   - ai-framework/handover
   - ai-framework/execution
@@ -28,7 +28,7 @@ tags:
 |---|---|
 | Repository | `/home/otonom/Desktop/FH/AI_RESEARCH_FRAMEWORK` |
 | Branch | `main`, working tree **clean** |
-| HEAD = origin/main | **`d0bdc14`** — 0 ahead / 0 behind |
+| HEAD = origin/main | Step 009 in the working tree until committed |
 | Remote | `github.com/furkanhanilci/AI-Research-Framework` (private) — **the only authorised remote** |
 | Last steps | 004 English revision · 005 file-by-file review · 006 skill families + WP-000 · **007 commissioning baseline v1.0** |
 | Bridge service | `active` · sync timer `active` |
@@ -68,7 +68,7 @@ git log --oneline -1                                 # expect: aec0686 (or later
 
 uv run pytest                                        # expect: 20 passed
 python3 scripts/validate_skills.py                   # expect: 49 skills conform
-python3 scripts/make_figures.py --check              # expect: 3 figures, 0 drift
+python3 scripts/make_figures.py --check              # expect: 0 drift, 0 overflow
 (cd planning/commissioning && sha256sum -c 00_PROGRAM/SHA256SUMS.txt | grep -c ': OK$')
                                                      # expect: 202
 uv run python scripts/mcp_smoke.py     >/dev/null && echo "smoke OK"
@@ -80,7 +80,7 @@ systemctl --user is-active airl-bridge.service airl-bridge-sync.timer
 ```
 
 Expected end state: `20 passed`, `49 skills conform`, `202`, `smoke OK`,
-`acceptance OK`, `0 drift entries` twice (203 plan files, 64 skill/doc/figure files),
+`acceptance OK`, `0 drift entries` twice (203 plan files, 65 skill/doc/figure files),
 `active active`.
 
 ---
@@ -102,6 +102,16 @@ reasoning than the version it replaced.
   the code
 - **two mirror generators added**: `scripts/mirror_plan.py` and
   `scripts/mirror_vault.py`, both with a `--check` drift mode
+
+### Step 009 — figures that cannot overflow, and a document standard
+
+- Step 008's figures had text overflowing their boxes: the check compared against
+  the **canvas**, not the box. The wrong invariant was verified.
+- `figure_kit` now measures text with real Helvetica metrics and **fails the
+  build** when a string will not fit; `check_figures.py` independently re-measures
+  the rendered SVG. Both run from `make_figures.py`.
+- `docs/DOCUMENT_STANDARD.md`: structure, status vocabulary, five honesty rules;
+  applied to every entry-point document. The frozen audit was left untouched.
 
 ### Step 008 — role layer and generated figures
 

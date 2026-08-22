@@ -32,7 +32,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from figure_kit import (BLUE, GREEN, INK, MUTE, ORANGE, PURPLE, RULE, VERM,
                         Canvas, tint)
 
-W, H = 1200, 880
+W, H = 1200, 906
 L = 24
 NW, NH, NGAP = 206, 74, 32
 
@@ -80,13 +80,12 @@ def main() -> None:
     top = 176
     for i, (name, sub, accent, built) in enumerate(CHAIN):
         x, y = node_xy(i, top)
-        if built:
-            c.rect(x, y, NW, NH, fill=tint(accent, 0.18), stroke=INK, sw=2.0)
-        else:
-            c.rect(x, y, NW, NH, fill="#FFFFFF", stroke=MUTE, sw=1.4, dash="5 4")
-        c.text(x + NW / 2, y + 31, name, size=18, weight="600",
-               fill=INK if built else MUTE)
-        c.text(x + NW / 2, y + 52, sub, size=16, fill=MUTE)
+        c.cell(x, y, NW, NH, name, sub,
+               accent=accent if built else MUTE,
+               fill=tint(accent, 0.18) if built else "#FFFFFF",
+               stroke_override=INK if built else MUTE,
+               sw=2.0 if built else 1.4, dash=None if built else "5 4",
+               head_fill=INK if built else MUTE)
         if built:
             c.text(x + NW / 2, y - 10, "working", size=16, weight="700", fill=GREEN)
 
@@ -132,9 +131,8 @@ def main() -> None:
     sw_, sh, sg = 178, 62, 18
     for i, (name, sub) in enumerate(steps):
         x = L + i * (sw_ + sg)
-        c.rect(x, ay, sw_, sh, fill="#FFFFFF", stroke=MUTE, sw=1.4, dash="5 4")
-        c.text(x + sw_ / 2, ay + 26, name, size=17, weight="600", fill=MUTE)
-        c.text(x + sw_ / 2, ay + 46, sub, size=16, fill=MUTE)
+        c.cell(x, ay, sw_, sh, name, sub, accent=MUTE, fill="#FFFFFF", sw=1.4,
+               dash="5 4", head_size=17, head_fill=MUTE)
         if i:
             c.path(f"M {x - sg} {ay + sh / 2} L {x - 6} {ay + sh / 2}",
                    stroke=MUTE, sw=1.6, dash="4 4")
@@ -144,19 +142,22 @@ def main() -> None:
 
     # ---- blockers ---------------------------------------------------------
     by = ay + sh + 52
+    bw = (W - 2 * L - 24) / 2
     for i, (tag, title, body) in enumerate((
             ("C1", "Evidence bootstrap",
              "Storage half addressed on paper by WP-000. No manifest has been issued, signed or logged."),
             ("C2", "Independent verification",
-             "Who may verify in a one-person operation is undecided."))):
-        x = L + i * 580
-        c.rect(x, by, 556, 74, fill=tint(VERM, 0.08), stroke=VERM, sw=1.6)
+             "Who may verify in a one-person operation is undecided; no standard answers it."))):
+        x = L + i * (bw + 24)
+        c.rect(x, by, bw, 92, fill=tint(VERM, 0.08), stroke=VERM, sw=1.6)
         c.text(x + 16, by + 30, tag, size=21, weight="700", anchor="start", fill=VERM)
-        c.text(x + 56, by + 30, title, size=18, weight="600", anchor="start")
-        c.text(x + 16, by + 56, body, size=16, anchor="start", fill=INK)
-    c.text(L, by + 100,
-           "Until both are resolved no work package can reach ACCEPTED — which is why nine of the ten links above are drawn hollow.",
-           size=16, anchor="start", fill=INK, weight="500")
+        c.para(x + 16 + 38, by + 30, title, bw - 70, size=18, weight="600", fill=INK,
+               max_lines=1)
+        c.para(x + 16, by + 58, body, bw - 32, size=16, fill=INK, max_lines=2, lh=21)
+    c.para(L, by + 118,
+           "Until both are resolved no work package can reach ACCEPTED — which is why nine of the ten links above are "
+           "drawn hollow.",
+           W - 2 * L, size=16, fill=INK, weight="500")
 
     out = Path(__file__).resolve().parent.parent / "docs" / "figures" / "airl_os_evidence_chain.svg"
     out.write_text(c.render(), encoding="utf-8")

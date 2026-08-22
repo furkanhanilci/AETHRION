@@ -1,15 +1,48 @@
 # Figure Inventory and Design Specification
 
+| Field | Value |
+|---|---|
+| Document type | Convention — figure inventory and design specification |
+| Scope | The three generated figures, their design system and their guarantees |
+| Sibling documents | `../DOCUMENT_STANDARD.md` · `../architecture/AIRL_OS_ARCHITECTURE.md` |
+| Status | `WORKING` — figures are generated and mechanically checked |
+| Date | 2026-08-22 |
+
+**In one paragraph.** Figures here are generated artifacts, not drawings: the corpus is the source, the generator is version-controlled, and the SVG is reproducible from a clean checkout. There are three of them rather than one per document, because a figure earns its place only by carrying a mechanism prose carries badly. Every string is measured against the box it sits in, and a figure that cannot be laid out honestly fails the build.
+
 Figures here are **generated artifacts**, like the Obsidian mirrors and the
 package catalogue. The canonical source is the architecture corpus; the
 generator is version-controlled; the SVG is reproducible from a clean checkout.
 
 ```bash
-python3 scripts/make_figures.py           # regenerate
+python3 scripts/make_figures.py           # regenerate, then verify containment
 python3 scripts/make_figures.py --check   # fail on drift
+python3 scripts/check_figures.py          # verify containment alone
 ```
 
 **Editing an SVG by hand is a defect.** Change the generator.
+
+### The layout guarantee, and why it exists
+
+The first figure set shipped with labels that overflowed their boxes. The check
+in place at the time compared text against the **canvas**, so a string that
+spilled out of a node but stayed on the page passed. That is a textbook case of
+verifying the wrong invariant.
+
+Two mechanisms now make it impossible:
+
+1. **`figure_kit` measures text.** It carries the Helvetica advance-width table
+   (units per 1000 em) and a 3 % safety margin, so `text_width` is a real
+   measurement rather than a character count. `Canvas.cell` fits every string
+   against the box's **inner** width: it wraps first, then shrinks toward the
+   16-unit floor, and **raises** if the text still will not fit. A figure that
+   cannot be laid out honestly fails the build instead of shipping clipped.
+2. **`check_figures.py` re-measures the rendered SVG.** It parses the output,
+   finds the tightest box enclosing each text anchor, and reports any string
+   that escapes it. It deliberately does **not** trust the generator, so one bug
+   cannot hide behind the same assumption twice.
+
+`make_figures.py` runs both, so regeneration and verification cannot drift apart.
 
 ---
 

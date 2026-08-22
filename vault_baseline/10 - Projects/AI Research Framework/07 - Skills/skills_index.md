@@ -4,8 +4,15 @@
 
 # AIRL-OS Skill Registry
 
-A `RoleContract` defines **who** an agent is.
-The 49 skills here define **how** it works.
+| Field | Value |
+|---|---|
+| Document type | Registry index |
+| Scope | All 49 skills, both families, and how they are validated |
+| Sibling documents | `docs/architecture/AIRL_OS_SKILL_LAYER.md` §14 · `docs/architecture/AIRL_OS_ROLES.md` |
+| Status | `SPECIFIED` — format-conformant and loadable; **no skill is behaviour-tested** |
+| Date | 2026-08-22 |
+
+**In one paragraph.** A `RoleContract` defines who an agent is; the skills here define how it works. They come in two families — engineering, vendored from `obra/superpowers` with a pinned commit, and scientific research, AIRL-native — over one shared discipline core, and research adaptations extend their engineering counterparts rather than replacing them. All 49 conform to the Agent Skills open format, which is what makes them load in a stock harness; none has a behaviour baseline, which is what keeps them out of `ACCEPTED`.
 
 Design rationale: [`docs/architecture/AIRL_OS_SKILL_LAYER.md`](../docs/architecture/AIRL_OS_SKILL_LAYER.md) — **read §14 first**
 Target structure: [`docs/architecture/AIRL_OS_IDEAL_STRUCTURE.md`](../docs/architecture/AIRL_OS_IDEAL_STRUCTURE.md)

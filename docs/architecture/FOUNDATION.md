@@ -1,5 +1,15 @@
 # Foundation Layer
 
+| Field | Value |
+|---|---|
+| Document type | Architecture reference — the foundation layer |
+| Scope | Shared contracts, registries and platform services the rest of the system binds to |
+| Sibling documents | `AIRL_OS_ARCHITECTURE.md` · `../../planning/commissioning/03_FOUNDATION/` |
+| Status | `TECH_COMPLETE` for the contract core; everything else `DESIGNED` |
+| Date | 2026-08-22 |
+
+**In one paragraph.** The foundation is what every later service binds to: one identity and correlation standard, one artifact manifest, one event envelope, one schema registry, and the platform services beneath them. Today the contract core exists in `src/airl_framework` with **no production consumer** and a digest format that contradicts the bridge's — a contract with no consumer is a parallel universe, and closing that gap matters more than adding another contract.
+
 > System-wide context and diagrams: [`AIRL_OS_ARCHITECTURE.md`](AIRL_OS_ARCHITECTURE.md).
 
 > **Status:** this document replaces a one-line stub that read

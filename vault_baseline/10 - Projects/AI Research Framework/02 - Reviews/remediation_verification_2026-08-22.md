@@ -4,6 +4,8 @@
 
 # Remediation Verification — 2026-08-22
 
+**In one paragraph.** This report states what is true today, measured against a frozen audit that must not be edited to match the present. Two audit findings were genuinely closed, one had its storage half addressed on paper, and the rest remain open. New surface has been added since the audit — a skill registry, an interim evidence policy, six acceptance scenarios — and none of it is executed, which is stated here precisely so the additions do not read as progress against the audit's central finding.
+
 | Field | Value |
 |---|---|
 | Document type | Verification report against a frozen audit |

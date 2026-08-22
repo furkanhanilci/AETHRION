@@ -1,5 +1,15 @@
 # Local Knowledge Architecture — V0
 
+| Field | Value |
+|---|---|
+| Document type | Architecture reference — the implemented slice |
+| Scope | The Literature Bridge V0 as built; nothing designed or planned |
+| Sibling documents | `architecture/AIRL_OS_ARCHITECTURE.md` §9 · `OPERATIONS.md` |
+| Status | `WORKING` — verified locally, never independently accepted |
+| Date | 2026-08-22 |
+
+**In one paragraph.** This describes the only part of AIRL-OS that exists as running software: Zotero's local API is read read-only, sources are given stable AIRL identity in a canonical SQLite registry, that registry is projected into Obsidian under a manifest that owns its own deletions, and an MCP server exposes exactly five read-only tools. Its design decisions — no write path, identity boundary, manifest-owned deletion, bounded blast radius — are what the rest of the architecture generalises.
+
 > System-wide context and diagrams: [`AIRL_OS_ARCHITECTURE.md`](architecture/AIRL_OS_ARCHITECTURE.md).
 
 ## Purpose

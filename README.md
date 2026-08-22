@@ -5,9 +5,20 @@ An evidence-centred, auditable operating system for research (AIRL-OS).
 Its central thesis: **agents produce, machines verify, humans decide** — and
 those three roles are kept structurally separate.
 
-This repository holds the target architecture, the execution discipline, and the
-components that actually work today. **A plan is not evidence of
-implementation**; the table below separates the two.
+**In one paragraph.** A capable model's characteristic failure is not
+incompetence but plausibility: fluent, well-cited, confident output that is
+wrong, and that no amount of further model capability detects from the inside.
+AIRL-OS answers that by treating model output as a hypothesis which must survive
+mechanical verification, independent review and a human decision before it
+becomes a claim — with every claim traceable back to an exact source span and
+forward to a signed attestation. This repository holds the target architecture
+for that system, the execution discipline agents work under, and the one vertical
+slice that actually runs today.
+
+**A plan is not evidence of implementation**; the table below separates the two,
+and every document here is written under [`docs/DOCUMENT_STANDARD.md`](docs/DOCUMENT_STANDARD.md),
+whose central rule is that distance from working software is stated rather than
+implied.
 
 | Area | Status | Location |
 |---|---|---|
@@ -47,6 +58,7 @@ vault_baseline/  Versioned copy of the Obsidian vault
 | **How** should agents work? | [`docs/architecture/AIRL_OS_SKILL_LAYER.md`](docs/architecture/AIRL_OS_SKILL_LAYER.md) · [`skills/README.md`](skills/README.md) |
 | **Who** performs each role — human, model or code? | [Roles](#6-roles--who-is-accountable-for-what) below · [`AIRL_OS_ROLES.md`](docs/architecture/AIRL_OS_ROLES.md) — definitions and authority flows · [`AIRL_OS_ROLE_MODEL_ASSIGNMENT.md`](docs/architecture/AIRL_OS_ROLE_MODEL_ASSIGNMENT.md) — which model |
 | How are the figures produced? | [`docs/figures/README.md`](docs/figures/README.md) — inventory and design specification |
+| How are these documents written? | [`docs/DOCUMENT_STANDARD.md`](docs/DOCUMENT_STANDARD.md) — structure, status vocabulary, honesty rules |
 | What is **adopted** rather than invented? | [`docs/architecture/AIRL_OS_EXTERNAL_STANDARDS.md`](docs/architecture/AIRL_OS_EXTERNAL_STANDARDS.md) |
 | Architecture of the working vertical slice | [`docs/ARCHITECTURE_V0.md`](docs/ARCHITECTURE_V0.md) |
 | Day-to-day operation | [`docs/OPERATIONS.md`](docs/OPERATIONS.md) |
@@ -632,7 +644,7 @@ uv run pytest                          # 20 tests
 uv run python scripts/mcp_smoke.py     # asserts the five-tool boundary; exits 1 on failure
 uv run python scripts/acceptance_v0.py # data-independent structural acceptance
 python3 scripts/validate_skills.py     # Agent Skills format + AIRL metadata contract
-python3 scripts/make_figures.py --check # figures still match their generators
+python3 scripts/make_figures.py --check # figures match generators, text fits its box
 (cd planning/commissioning && sha256sum -c 00_PROGRAM/SHA256SUMS.txt)
 ```
 
@@ -670,8 +682,8 @@ verify in a one-person operation — remains open, and no standard resolves it.
 MCP smoke: 5 read-only tools, exits 1 when the Bridge is down
 Acceptance: 11 structural checks pass, data-independent
 Skills: 49/49 conform to the Agent Skills format and the AIRL metadata contract
-Figures: 3/3 match their generators
-Mirror drift: 0 (203 plan files, 64 skill/doc/figure files)
+Figures: 3/3 match their generators; 0 text overflows out of their boxes
+Mirror drift: 0 (203 plan files, 65 skill/doc/figure files)
 Obsidian baseline and vault identical
 ```
 

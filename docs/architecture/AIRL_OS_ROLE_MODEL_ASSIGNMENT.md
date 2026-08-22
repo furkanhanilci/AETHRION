@@ -8,6 +8,8 @@
 | Date | 2026-08-22 |
 | Status | **Proposal — human approval required before implementation** |
 
+**In one paragraph.** This decision record assigns every role and every gate to an actor class — human, model, or deterministic code — and binds reviewer count and effort to the assurance class. It opens with a constraint rather than a preference: hosted models have no pinnable snapshot, so an R3 claim requires a local open-weight model or G7a reproduction is structurally impossible. The model catalogue in §2 is a dated snapshot that belongs in the WP-042 Capability Registry, not in an architecture document.
+
 ---
 
 ## 0. First: a finding that breaks the architecture

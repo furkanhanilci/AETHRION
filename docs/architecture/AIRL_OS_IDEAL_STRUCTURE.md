@@ -9,6 +9,8 @@
 | Date | 2026-08-22 |
 | Status | Proposal — awaiting a human decision |
 
+**In one paragraph.** This document reviews the target architecture against what a rigorous laboratory would need and proposes what is missing: seven durable roles, ten review mechanisms, a metascience plane that measures the laboratory's own error rate, the operational discipline worth taking from agent engineering practice, and a tool stack. It closes with the gaps in the current design, ranked, and an implementation order. It is a **proposal** throughout except where a later decision record overrides it.
+
 > **Reading order:** Section C (the 7th plane) and Section D (role → model) are
 > the spine of this document. Sections A and B are a contribution catalogue;
 > Section G is the audit of the existing design.

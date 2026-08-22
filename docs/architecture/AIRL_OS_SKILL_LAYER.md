@@ -9,6 +9,8 @@
 | Date | 2026-08-22 |
 | Status | Proposal — awaiting a human decision, **except Section 14, which is decided** |
 
+**In one paragraph.** A `RoleContract` says who an agent is; nothing said how it works, and that gap was filled by the prompt — an unversioned, untested, unauditable layer. This report analyses `obra/superpowers` and derives the skill layer that closes it. Sections 2–13 record the original analysis; **§14 is the decided correction**: research skills extend their engineering counterparts rather than replacing them, both families live in one registry in the Agent Skills open format, and provenance to upstream is pinned per skill.
+
 > **Read Section 14 first.** It overrules the "convert each engineering skill into
 > a research skill" reading that runs through Sections 2–13, and fixes the format
 > the skills are written in.

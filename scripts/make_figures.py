@@ -36,6 +36,13 @@ def main() -> int:
     for name in MODULES:
         importlib.import_module(name).main()
 
+    # Layout is not trusted to the generator that produced it: re-measure the
+    # rendered SVG and fail if any string escaped the box it was drawn in.
+    import check_figures
+    if check_figures.main() != 0:
+        print("figure containment check FAILED", file=sys.stderr)
+        return 1
+
     drift = []
     for path in sorted(out_dir.glob("*.svg")):
         if before.get(path.name) != path.read_bytes():
