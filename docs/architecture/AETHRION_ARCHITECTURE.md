@@ -956,6 +956,32 @@ been run.
 
 ---
 
+### 11.2 Human notification channels — PLANNED, with skills already written
+
+The invariant "messaging is not an authorisation channel" implies a channel
+layer, and the plan has one: **WP-131–135** in the tooling wave define a channel
+registry with a **data-class ceiling** per channel, and signed deep links for
+decision routing. The channels named in `WP-132` are ntfy (self-hosted),
+Telegram, Discord/Slack and WhatsApp, each admitted only up to a data class:
+Telegram and Discord/Slack at **D1**, WhatsApp at **D0** only, and only through
+approved templates, because outside its 24-hour window the Business Cloud API
+will not carry a free-form message at all.
+
+| Component | Status |
+|---|---|
+| Channel registry and data-class ceiling (WP-132) | **PLANNED** — specified, no code |
+| Decision routing with signed deep links (WP-135) | **PLANNED** — specified, no code |
+| `notifying-humans`, `routing-decision-requests`, `escalating-and-paging` skills | **WRITTEN** — format-conformant, never executed |
+| Any channel actually connected | **None.** Nothing sends anything today |
+
+Three rules survive from the plan into the skills and are worth stating here,
+because they are the reason the layer is not simply "add a bot": an agent never
+sends a message — a broker does; a channel ceiling does not vary by person, so
+there is no "but it is my own Telegram" exception; and a timeout never becomes
+an approval.
+
+---
+
 ## 12. The invariants
 
 1. **Agents produce, machines verify, humans decide** — the order is never inverted.

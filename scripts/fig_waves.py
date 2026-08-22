@@ -43,7 +43,7 @@ WAVES = [
     ("W7", "Commissioning", "security, resilience, pilot", [116, 119], ORANGE),
     ("W8", "Cutover", "rehearsal, go-live, hypercare", [120, 121], VERM),
     ("W9", "Day-2", "continuous assurance", [122, 130], PURPLE),
-    ("WT", "Tooling", "records, timestamping, liveness", [131, 140], MUTE),
+    ("WT", "Tooling", "notification, records, timestamping", [131, 140], MUTE),
 ]
 
 

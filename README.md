@@ -55,6 +55,7 @@ implied.
 | Commissioning programme — **baseline v1.0.2** | ⬜ Planned, not started; 141 package documents, 51 scenarios | `planning/commissioning/` |
 | Interim evidence policy (WP-000) | ✅ `TECH_COMPLETE` — tooling implemented, specimen issued and verified | `scripts/evidence_manifest.py` · `delivery/WP-000/` |
 | Verification on push (BVC-01) | 📐 Decided and written, **not yet active** — needs a workflow-scoped token | `deploy/bvc-01-verify.yml` |
+| Human notification channels (ntfy · Telegram · Discord/Slack · WhatsApp) | ⬜ **Planned** — WP-132/135 specify a channel registry with a per-channel data-class ceiling; three skills written, **nothing connected, nothing sends** | `planning/commissioning/13_TOOLING_INTEGRATION/` |
 | Document production (authoring + figures + reporting) | 📐 Skill and reference modules written; resolution checks run · **no renderer installed** | `skills/authoring-research-documents/` |
 | Reference verification (CoE Audit check 1) | ✅ **Working and measured** — 81.8% of the registry corroborated | `scripts/verify_references.py` |
 | Source monitoring (first slice of G10) | ✅ **Working** — positive control fires; 18 of 33 sources carry no DOI | `scripts/monitor_sources.py` |

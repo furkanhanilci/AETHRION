@@ -105,7 +105,7 @@
 <rect x="24.0" y="880.0" width="66.0" height="50.0" rx="4" fill="#e6e7e7" stroke="#63666A" stroke-width="1.6"/>
 <text x="57.0" y="911.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="19" font-weight="700" font-style="normal" fill="#1A1A1A" text-anchor="middle">WT</text>
 <text x="104.0" y="902.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="18" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="start">Tooling</text>
-<text x="104.0" y="922.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="start">records, timestamping, liveness</text>
+<text x="104.0" y="922.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="start">notification, records, timestamping</text>
 <rect x="386.0" y="892.0" width="213.3" height="26.0" rx="4" fill="#eff0f0" stroke="#63666A" stroke-width="1.2" stroke-dasharray="5 4"/>
 <text x="609.3" y="910.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="start">10 packages</text>
 <path d="M 57.0 868 L 57.0 878" fill="none" stroke="#C8C8C8" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrowsm)"/>
