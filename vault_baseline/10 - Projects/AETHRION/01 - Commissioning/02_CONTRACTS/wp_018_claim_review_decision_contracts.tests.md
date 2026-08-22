@@ -2,6 +2,8 @@
 title: "WP-018 — Claim, Evidence, Review and Decision Schemas — Test Procedures"
 aliases:
   - "WP-018 tests"
+cssclasses:
+  - aethrion-test-procedure
 type: test-procedure
 category: commissioning
 status: NOT_STARTED

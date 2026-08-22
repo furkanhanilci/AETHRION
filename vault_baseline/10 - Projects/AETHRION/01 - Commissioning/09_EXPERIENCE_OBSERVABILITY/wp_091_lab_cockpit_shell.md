@@ -3,6 +3,8 @@ title: "WP-091 — Lab Cockpit Information Architecture and Application Shell"
 aliases:
   - "WP-091"
   - "WP-091 — Lab Cockpit Information Architecture and Application Shell"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

@@ -2,6 +2,8 @@
 title: "WP-079 — SourceTrustCard and Study Quality Assessment — Acceptance Criteria"
 aliases:
   - "WP-079 acceptance"
+cssclasses:
+  - aethrion-acceptance-criteria
 type: acceptance-criteria
 category: commissioning
 status: NOT_STARTED

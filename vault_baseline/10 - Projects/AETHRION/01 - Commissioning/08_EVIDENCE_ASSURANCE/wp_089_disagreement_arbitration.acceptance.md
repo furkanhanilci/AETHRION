@@ -2,6 +2,8 @@
 title: "WP-089 — DisagreementCase and Evidence-Weighted Arbitration — Acceptance Criteria"
 aliases:
   - "WP-089 acceptance"
+cssclasses:
+  - aethrion-acceptance-criteria
 type: acceptance-criteria
 category: commissioning
 status: NOT_STARTED

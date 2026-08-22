@@ -3,6 +3,8 @@ title: "WP-035 — G2 Protocol, G3 Literature and G4 Baseline Workflows"
 aliases:
   - "WP-035"
   - "WP-035 — G2 Protocol, G3 Literature and G4 Baseline Workflows"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

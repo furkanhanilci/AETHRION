@@ -2,6 +2,8 @@
 title: "Searching Literature"
 aliases:
   - "searching-literature"
+cssclasses:
+  - aethrion-skill
 type: skill
 category: skill
 status: WORKING

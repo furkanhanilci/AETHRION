@@ -2,6 +2,8 @@
 title: "WP-021 — Development, Staging and Production Environment Baseline — Test Procedures"
 aliases:
   - "WP-021 tests"
+cssclasses:
+  - aethrion-test-procedure
 type: test-procedure
 category: commissioning
 status: NOT_STARTED

@@ -3,6 +3,8 @@ title: "WP-039 — Event Consumer, DLQ and Safe Replay Framework"
 aliases:
   - "WP-039"
   - "WP-039 — Event Consumer, DLQ and Safe Replay Framework"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

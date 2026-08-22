@@ -2,6 +2,8 @@
 title: "WP-066 — Agent Candidate and Used-Source Write-Back — Test Procedures"
 aliases:
   - "WP-066 tests"
+cssclasses:
+  - aethrion-test-procedure
 type: test-procedure
 category: commissioning
 status: NOT_STARTED

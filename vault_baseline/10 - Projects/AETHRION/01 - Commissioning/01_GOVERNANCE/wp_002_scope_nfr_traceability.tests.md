@@ -2,6 +2,8 @@
 title: "WP-002 — Scope, NFRs and Requirement Traceability — Test Procedures"
 aliases:
   - "WP-002 tests"
+cssclasses:
+  - aethrion-test-procedure
 type: test-procedure
 category: commissioning
 status: NOT_STARTED

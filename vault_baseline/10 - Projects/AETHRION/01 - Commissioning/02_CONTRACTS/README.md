@@ -1,5 +1,7 @@
 ---
 title: "02_CONTRACTS — Canonical contracts"
+cssclasses:
+  - aethrion-index
 type: index
 category: commissioning
 summary: "The identity, manifest, event, policy, source, claim and run schemas that every plane binds to."

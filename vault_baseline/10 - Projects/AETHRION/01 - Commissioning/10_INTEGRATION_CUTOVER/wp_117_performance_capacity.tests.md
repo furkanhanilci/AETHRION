@@ -2,6 +2,8 @@
 title: "WP-117 — Performance, Capacity and Load Commissioning — Test Procedures"
 aliases:
   - "WP-117 tests"
+cssclasses:
+  - aethrion-test-procedure
 type: test-procedure
 category: commissioning
 status: NOT_STARTED

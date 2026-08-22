@@ -2,6 +2,8 @@
 title: "Scope Discipline"
 aliases:
   - "scope-discipline"
+cssclasses:
+  - aethrion-skill
 type: skill
 category: skill
 status: WORKING

@@ -3,6 +3,8 @@ title: "WP-131 — Notification Broker Foundation"
 aliases:
   - "WP-131"
   - "WP-131 — Notification Broker Foundation"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

@@ -3,6 +3,8 @@ title: "WP-113 — Evidence, Reproduction and Publication Acceptance Package"
 aliases:
   - "WP-113"
   - "WP-113 — Evidence, Reproduction and Publication Acceptance Package"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

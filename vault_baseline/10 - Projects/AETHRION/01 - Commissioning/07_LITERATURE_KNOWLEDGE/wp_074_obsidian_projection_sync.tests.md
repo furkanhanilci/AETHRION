@@ -2,6 +2,8 @@
 title: "WP-074 — Obsidian Projection, Link Integrity and Knowledge Write-Back — Test Procedures"
 aliases:
   - "WP-074 tests"
+cssclasses:
+  - aethrion-test-procedure
 type: test-procedure
 category: commissioning
 status: NOT_STARTED

@@ -2,6 +2,8 @@
 title: "WP-070 — Human + Agent Two-Way Literature Discovery — Test Procedures"
 aliases:
   - "WP-070 tests"
+cssclasses:
+  - aethrion-test-procedure
 type: test-procedure
 category: commissioning
 status: NOT_STARTED

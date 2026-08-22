@@ -2,6 +2,8 @@
 title: "ACC-11 — No Eligible Fallback"
 aliases:
   - "ACC-11"
+cssclasses:
+  - aethrion-acceptance-scenario
 type: acceptance-scenario
 category: commissioning
 summary: "This scenario verifies the target architecture's fail-safe behaviour and its evidence production in the No Eligible Fallback situation."

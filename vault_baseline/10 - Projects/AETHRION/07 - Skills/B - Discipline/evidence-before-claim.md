@@ -2,6 +2,8 @@
 title: "Evidence Before Claim"
 aliases:
   - "evidence-before-claim"
+cssclasses:
+  - aethrion-skill
 type: skill
 category: skill
 status: WORKING

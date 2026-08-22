@@ -2,6 +2,8 @@
 title: "WP-122 — Service Health, SLO and Error-Budget Rhythm — Acceptance Criteria"
 aliases:
   - "WP-122 acceptance"
+cssclasses:
+  - aethrion-acceptance-criteria
 type: acceptance-criteria
 category: commissioning
 status: NOT_STARTED

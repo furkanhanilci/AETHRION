@@ -3,6 +3,8 @@ title: "WP-112 — Security and Privacy Acceptance Package"
 aliases:
   - "WP-112"
   - "WP-112 — Security and Privacy Acceptance Package"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

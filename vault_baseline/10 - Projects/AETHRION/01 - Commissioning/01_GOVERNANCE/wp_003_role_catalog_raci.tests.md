@@ -2,6 +2,8 @@
 title: "WP-003 — Role Catalogue and RACI Baseline — Test Procedures"
 aliases:
   - "WP-003 tests"
+cssclasses:
+  - aethrion-test-procedure
 type: test-procedure
 category: commissioning
 status: NOT_STARTED

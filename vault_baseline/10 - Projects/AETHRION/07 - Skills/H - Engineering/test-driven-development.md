@@ -2,6 +2,8 @@
 title: "Test-Driven Development (TDD)"
 aliases:
   - "test-driven-development"
+cssclasses:
+  - aethrion-skill
 type: skill
 category: skill
 status: WORKING

@@ -1,5 +1,7 @@
 ---
 title: "AETHRION — Mature Components to Build On"
+cssclasses:
+  - aethrion-reference
 type: reference
 category: architecture
 summary: "The purpose of adopting an existing implementation is not to reduce scope — it is that a gate backed by something a community maintains and tests is stronger than the same gate backed by code written here for the first time."

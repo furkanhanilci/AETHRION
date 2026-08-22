@@ -2,6 +2,8 @@
 title: "WP-027 — Git, OCI Registry and Build Provenance Foundation — Test Procedures"
 aliases:
   - "WP-027 tests"
+cssclasses:
+  - aethrion-test-procedure
 type: test-procedure
 category: commissioning
 status: NOT_STARTED

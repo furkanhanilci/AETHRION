@@ -2,6 +2,8 @@
 title: "WP-004 — Human Decision, SLA, Delegation and Escalation Policy — Acceptance Criteria"
 aliases:
   - "WP-004 acceptance"
+cssclasses:
+  - aethrion-acceptance-criteria
 type: acceptance-criteria
 category: commissioning
 status: NOT_STARTED

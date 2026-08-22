@@ -1,5 +1,7 @@
 ---
 title: "10_INTEGRATION_CUTOVER — Integration and cutover"
+cssclasses:
+  - aethrion-index
 type: index
 category: commissioning
 summary: "Vertical slices, the full-system regression, the commissioning dossier and the single production cutover."

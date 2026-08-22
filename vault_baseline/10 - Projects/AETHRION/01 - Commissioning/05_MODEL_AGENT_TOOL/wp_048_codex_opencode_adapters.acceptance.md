@@ -2,6 +2,8 @@
 title: "WP-048 — Harness Runtime Adapters: Claude Code, Codex, OpenCode, Hermes and Direct Worker — Acceptance Criteria"
 aliases:
   - "WP-048 acceptance"
+cssclasses:
+  - aethrion-acceptance-criteria
 type: acceptance-criteria
 category: commissioning
 status: NOT_STARTED

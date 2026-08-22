@@ -2,6 +2,8 @@
 title: "WP-031 — Temporal Platform, Namespaces and HA — Acceptance Criteria"
 aliases:
   - "WP-031 acceptance"
+cssclasses:
+  - aethrion-acceptance-criteria
 type: acceptance-criteria
 category: commissioning
 status: NOT_STARTED

@@ -2,6 +2,8 @@
 title: "ACC-03 — Duplicate and Metadata Collision"
 aliases:
   - "ACC-03"
+cssclasses:
+  - aethrion-acceptance-scenario
 type: acceptance-scenario
 category: commissioning
 summary: "This scenario verifies the target architecture's fail-safe behaviour and its evidence production in the Duplicate and Metadata Collision situation."

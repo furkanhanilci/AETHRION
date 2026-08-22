@@ -8,6 +8,8 @@ aliases:
   - AETHRION Home
 tags:
   - aethrion/index
+cssclasses:
+  - aethrion-index
 ---
 
 ![[aethrion-logo.png|150]]

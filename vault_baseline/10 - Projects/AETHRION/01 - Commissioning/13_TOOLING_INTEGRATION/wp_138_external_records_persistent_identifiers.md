@@ -3,6 +3,8 @@ title: "WP-138 — External Records and Persistent Identifiers"
 aliases:
   - "WP-138"
   - "WP-138 — External Records and Persistent Identifiers"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

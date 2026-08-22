@@ -2,6 +2,8 @@
 title: "WP-036 — G5 Execute through G9 Publish Workflows — Test Procedures"
 aliases:
   - "WP-036 tests"
+cssclasses:
+  - aethrion-test-procedure
 type: test-procedure
 category: commissioning
 status: NOT_STARTED

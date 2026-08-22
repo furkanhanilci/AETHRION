@@ -2,6 +2,8 @@
 title: "Systematic Debugging"
 aliases:
   - "systematic-debugging"
+cssclasses:
+  - aethrion-skill
 type: skill
 category: skill
 status: WORKING

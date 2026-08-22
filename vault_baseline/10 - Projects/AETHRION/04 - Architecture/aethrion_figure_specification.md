@@ -1,5 +1,7 @@
 ---
 title: "Figure Inventory and Design Specification"
+cssclasses:
+  - aethrion-reference
 type: reference
 category: architecture
 status: WORKING

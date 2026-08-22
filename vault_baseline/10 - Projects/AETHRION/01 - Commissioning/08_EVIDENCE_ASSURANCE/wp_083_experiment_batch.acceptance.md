@@ -2,6 +2,8 @@
 title: "WP-083 — ExperimentBatch and Staged Execution — Acceptance Criteria"
 aliases:
   - "WP-083 acceptance"
+cssclasses:
+  - aethrion-acceptance-criteria
 type: acceptance-criteria
 category: commissioning
 status: NOT_STARTED

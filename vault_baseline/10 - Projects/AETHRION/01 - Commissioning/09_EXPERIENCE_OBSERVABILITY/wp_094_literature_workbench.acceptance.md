@@ -2,6 +2,8 @@
 title: "WP-094 — Literature Workbench and Reconciliation UI — Acceptance Criteria"
 aliases:
   - "WP-094 acceptance"
+cssclasses:
+  - aethrion-acceptance-criteria
 type: acceptance-criteria
 category: commissioning
 status: NOT_STARTED

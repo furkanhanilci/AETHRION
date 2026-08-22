@@ -2,6 +2,8 @@
 title: "WP-135 — Decision Routing and Signed Deep Links — Acceptance Criteria"
 aliases:
   - "WP-135 acceptance"
+cssclasses:
+  - aethrion-acceptance-criteria
 type: acceptance-criteria
 category: commissioning
 status: NOT_STARTED

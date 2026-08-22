@@ -2,6 +2,8 @@
 title: "WP-107 — Engineering Vertical Slice — Spec, Worktree, Signed Release — Acceptance Criteria"
 aliases:
   - "WP-107 acceptance"
+cssclasses:
+  - aethrion-acceptance-criteria
 type: acceptance-criteria
 category: commissioning
 status: NOT_STARTED

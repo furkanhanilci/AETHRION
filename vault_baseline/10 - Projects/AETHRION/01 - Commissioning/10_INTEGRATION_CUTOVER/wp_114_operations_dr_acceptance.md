@@ -3,6 +3,8 @@ title: "WP-114 — Operations, DR and Restore Acceptance Package"
 aliases:
   - "WP-114"
   - "WP-114 — Operations, DR and Restore Acceptance Package"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

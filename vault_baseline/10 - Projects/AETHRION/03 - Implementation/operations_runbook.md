@@ -1,5 +1,7 @@
 ---
 title: "Operations Guide"
+cssclasses:
+  - aethrion-reference
 type: reference
 category: implementation
 status: WORKING

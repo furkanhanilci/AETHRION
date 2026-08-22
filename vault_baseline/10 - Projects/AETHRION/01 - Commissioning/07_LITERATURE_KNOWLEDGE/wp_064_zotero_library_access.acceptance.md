@@ -2,6 +2,8 @@
 title: "WP-064 — Zotero Library, Collection and Permission Model — Acceptance Criteria"
 aliases:
   - "WP-064 acceptance"
+cssclasses:
+  - aethrion-acceptance-criteria
 type: acceptance-criteria
 category: commissioning
 status: NOT_STARTED

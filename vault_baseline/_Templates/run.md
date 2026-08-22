@@ -11,6 +11,8 @@ started_at:
 completed_at:
 tags:
   - aethrion/run
+cssclasses:
+  - aethrion-run
 ---
 
 # {{title}}

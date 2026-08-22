@@ -2,6 +2,8 @@
 title: "WP-075 — Canonical Claim/Evidence Ledger Service — Test Procedures"
 aliases:
   - "WP-075 tests"
+cssclasses:
+  - aethrion-test-procedure
 type: test-procedure
 category: commissioning
 status: NOT_STARTED

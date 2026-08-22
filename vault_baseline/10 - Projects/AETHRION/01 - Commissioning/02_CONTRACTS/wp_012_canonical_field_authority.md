@@ -3,6 +3,8 @@ title: "WP-012 — Canonical Ownership and Field-Level Authority Matrix"
 aliases:
   - "WP-012"
   - "WP-012 — Canonical Ownership and Field-Level Authority Matrix"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

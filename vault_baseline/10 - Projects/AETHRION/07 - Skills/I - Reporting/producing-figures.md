@@ -2,6 +2,8 @@
 title: "Producing Figures"
 aliases:
   - "producing-figures"
+cssclasses:
+  - aethrion-skill
 type: skill
 category: skill
 status: WORKING

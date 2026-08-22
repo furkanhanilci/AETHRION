@@ -2,6 +2,8 @@
 title: "WP-063 — Source Representation, Licence and Status Monitoring — Test Procedures"
 aliases:
   - "WP-063 tests"
+cssclasses:
+  - aethrion-test-procedure
 type: test-procedure
 category: commissioning
 status: NOT_STARTED

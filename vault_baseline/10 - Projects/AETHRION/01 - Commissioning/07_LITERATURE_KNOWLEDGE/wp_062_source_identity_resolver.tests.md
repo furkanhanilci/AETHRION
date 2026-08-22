@@ -2,6 +2,8 @@
 title: "WP-062 — Source Identity Resolution, Deduplication and Merge — Test Procedures"
 aliases:
   - "WP-062 tests"
+cssclasses:
+  - aethrion-test-procedure
 type: test-procedure
 category: commissioning
 status: NOT_STARTED

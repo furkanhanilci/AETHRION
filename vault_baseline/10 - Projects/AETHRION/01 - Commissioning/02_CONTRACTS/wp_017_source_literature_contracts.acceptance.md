@@ -2,6 +2,8 @@
 title: "WP-017 — Source Registry and Literature Contract Schemas — Acceptance Criteria"
 aliases:
   - "WP-017 acceptance"
+cssclasses:
+  - aethrion-acceptance-criteria
 type: acceptance-criteria
 category: commissioning
 status: NOT_STARTED

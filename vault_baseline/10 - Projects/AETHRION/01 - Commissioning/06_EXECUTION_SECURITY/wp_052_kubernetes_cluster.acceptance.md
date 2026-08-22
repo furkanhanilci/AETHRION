@@ -2,6 +2,8 @@
 title: "WP-052 — Kubernetes Cluster and Node Pool Baseline — Acceptance Criteria"
 aliases:
   - "WP-052 acceptance"
+cssclasses:
+  - aethrion-acceptance-criteria
 type: acceptance-criteria
 category: commissioning
 status: NOT_STARTED

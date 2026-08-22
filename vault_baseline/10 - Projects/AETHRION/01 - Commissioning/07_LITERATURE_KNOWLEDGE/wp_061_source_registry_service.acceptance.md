@@ -2,6 +2,8 @@
 title: "WP-061 — Canonical Source Registry Service — Acceptance Criteria"
 aliases:
   - "WP-061 acceptance"
+cssclasses:
+  - aethrion-acceptance-criteria
 type: acceptance-criteria
 category: commissioning
 status: NOT_STARTED

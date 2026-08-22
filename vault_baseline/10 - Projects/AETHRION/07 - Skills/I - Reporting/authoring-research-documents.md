@@ -2,6 +2,8 @@
 title: "Authoring Research Documents"
 aliases:
   - "authoring-research-documents"
+cssclasses:
+  - aethrion-skill
 type: skill
 category: skill
 status: WORKING

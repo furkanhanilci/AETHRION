@@ -3,6 +3,8 @@ title: "WP-087 — Mechanical Verification Engine"
 aliases:
   - "WP-087"
   - "WP-087 — Mechanical Verification Engine"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

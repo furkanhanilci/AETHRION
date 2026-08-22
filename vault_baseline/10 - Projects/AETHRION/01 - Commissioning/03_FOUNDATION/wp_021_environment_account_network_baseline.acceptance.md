@@ -2,6 +2,8 @@
 title: "WP-021 — Development, Staging and Production Environment Baseline — Acceptance Criteria"
 aliases:
   - "WP-021 acceptance"
+cssclasses:
+  - aethrion-acceptance-criteria
 type: acceptance-criteria
 category: commissioning
 status: NOT_STARTED

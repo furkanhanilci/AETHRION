@@ -2,6 +2,8 @@
 title: "WP-055 — SPIFFE/SPIRE Workload Identity and Vault — Acceptance Criteria"
 aliases:
   - "WP-055 acceptance"
+cssclasses:
+  - aethrion-acceptance-criteria
 type: acceptance-criteria
 category: commissioning
 status: NOT_STARTED

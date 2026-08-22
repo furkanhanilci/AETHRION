@@ -3,6 +3,8 @@ title: "WP-133 — Outbound Notification and Periodic Digest"
 aliases:
   - "WP-133"
   - "WP-133 — Outbound Notification and Periodic Digest"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

@@ -2,6 +2,8 @@
 title: "ACC-32 — Secret in Prompt or Trace"
 aliases:
   - "ACC-32"
+cssclasses:
+  - aethrion-acceptance-scenario
 type: acceptance-scenario
 category: commissioning
 summary: "This scenario verifies the target architecture's fail-safe behaviour and its evidence production in the Secret in Prompt or Trace situation."

@@ -2,6 +2,8 @@
 title: "Subagent-Driven Development"
 aliases:
   - "subagent-driven-development"
+cssclasses:
+  - aethrion-skill
 type: skill
 category: skill
 status: WORKING

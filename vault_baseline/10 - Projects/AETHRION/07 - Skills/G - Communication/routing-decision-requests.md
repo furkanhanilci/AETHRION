@@ -2,6 +2,8 @@
 title: "Routing Decision Requests"
 aliases:
   - "routing-decision-requests"
+cssclasses:
+  - aethrion-skill
 type: skill
 category: skill
 status: WORKING

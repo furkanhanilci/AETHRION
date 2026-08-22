@@ -2,6 +2,8 @@
 title: "Dispatching Parallel Agents"
 aliases:
   - "dispatching-parallel-agents"
+cssclasses:
+  - aethrion-skill
 type: skill
 category: skill
 status: WORKING

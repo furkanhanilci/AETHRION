@@ -3,6 +3,8 @@ title: "WP-127 — FinOps, Capacity and Portfolio Review Rhythm"
 aliases:
   - "WP-127"
   - "WP-127 — FinOps, Capacity and Portfolio Review Rhythm"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

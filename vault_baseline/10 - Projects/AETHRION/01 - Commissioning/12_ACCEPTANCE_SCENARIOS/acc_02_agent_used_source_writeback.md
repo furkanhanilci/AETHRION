@@ -2,6 +2,8 @@
 title: "ACC-02 — Agent-Used Source Write-Back"
 aliases:
   - "ACC-02"
+cssclasses:
+  - aethrion-acceptance-scenario
 type: acceptance-scenario
 category: commissioning
 summary: "This scenario verifies the target architecture's fail-safe behaviour and its evidence production in the Agent-Used Source Write-Back situation."

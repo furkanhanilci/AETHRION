@@ -22,6 +22,8 @@ creators:
   - "Yunfan Wu"
   - "Saeed Anwar"
   - "Chongyi Li"
+cssclasses:
+  - aethrion-source
 ---
 
 <h1>Investigating Attention Mechanism in 3D Point Cloud Object Detection</h1>

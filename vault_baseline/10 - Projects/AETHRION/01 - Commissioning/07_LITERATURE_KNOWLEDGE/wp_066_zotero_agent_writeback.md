@@ -3,6 +3,8 @@ title: "WP-066 — Agent Candidate and Used-Source Write-Back"
 aliases:
   - "WP-066"
   - "WP-066 — Agent Candidate and Used-Source Write-Back"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

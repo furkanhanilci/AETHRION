@@ -2,6 +2,8 @@
 title: "WP-019 — Run, Environment and Reproduction Schemas — Acceptance Criteria"
 aliases:
   - "WP-019 acceptance"
+cssclasses:
+  - aethrion-acceptance-criteria
 type: acceptance-criteria
 category: commissioning
 status: NOT_STARTED

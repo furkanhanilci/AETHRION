@@ -2,6 +2,8 @@
 title: "WP-088 — Blind, Cross-Family and Adversarial Review — Test Procedures"
 aliases:
   - "WP-088 tests"
+cssclasses:
+  - aethrion-test-procedure
 type: test-procedure
 category: commissioning
 status: NOT_STARTED

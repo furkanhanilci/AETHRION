@@ -2,6 +2,8 @@
 title: "WP-128 — Incident, Postmortem and Learning Closure — Test Procedures"
 aliases:
   - "WP-128 tests"
+cssclasses:
+  - aethrion-test-procedure
 type: test-procedure
 category: commissioning
 status: NOT_STARTED

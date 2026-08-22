@@ -2,6 +2,8 @@
 title: "WP-106 — Vertical Slice 5 — Human Decision, Publish and Monitor — Test Procedures"
 aliases:
   - "WP-106 tests"
+cssclasses:
+  - aethrion-test-procedure
 type: test-procedure
 category: commissioning
 status: NOT_STARTED

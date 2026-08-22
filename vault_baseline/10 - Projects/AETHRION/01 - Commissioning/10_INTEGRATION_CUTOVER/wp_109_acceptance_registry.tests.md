@@ -2,6 +2,8 @@
 title: "WP-109 — Forty Acceptance Scenario Registry and Harness — Test Procedures"
 aliases:
   - "WP-109 tests"
+cssclasses:
+  - aethrion-test-procedure
 type: test-procedure
 category: commissioning
 status: NOT_STARTED

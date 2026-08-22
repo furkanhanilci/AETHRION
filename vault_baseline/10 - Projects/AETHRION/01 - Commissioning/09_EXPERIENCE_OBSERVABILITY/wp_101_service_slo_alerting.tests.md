@@ -2,6 +2,8 @@
 title: "WP-101 — Service Catalogue, SLOs and Alert/Runbook Binding — Test Procedures"
 aliases:
   - "WP-101 tests"
+cssclasses:
+  - aethrion-test-procedure
 type: test-procedure
 category: commissioning
 status: NOT_STARTED

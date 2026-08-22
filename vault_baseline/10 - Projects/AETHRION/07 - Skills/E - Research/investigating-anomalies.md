@@ -2,6 +2,8 @@
 title: "Investigating Anomalies"
 aliases:
   - "investigating-anomalies"
+cssclasses:
+  - aethrion-skill
 type: skill
 category: skill
 status: WORKING

@@ -2,6 +2,8 @@
 title: "WP-071 — Screening, Inclusion/Exclusion and Coverage — Test Procedures"
 aliases:
   - "WP-071 tests"
+cssclasses:
+  - aethrion-test-procedure
 type: test-procedure
 category: commissioning
 status: NOT_STARTED

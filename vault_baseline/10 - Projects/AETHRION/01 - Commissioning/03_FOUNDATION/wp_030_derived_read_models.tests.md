@@ -2,6 +2,8 @@
 title: "WP-030 — Neo4j, pgvector and OpenSearch Derived Read Models — Test Procedures"
 aliases:
   - "WP-030 tests"
+cssclasses:
+  - aethrion-test-procedure
 type: test-procedure
 category: commissioning
 status: NOT_STARTED

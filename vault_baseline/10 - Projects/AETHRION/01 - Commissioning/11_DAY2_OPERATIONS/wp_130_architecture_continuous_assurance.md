@@ -3,6 +3,8 @@ title: "WP-130 — Architecture and Platform Continuous Assurance"
 aliases:
   - "WP-130"
   - "WP-130 — Architecture and Platform Continuous Assurance"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

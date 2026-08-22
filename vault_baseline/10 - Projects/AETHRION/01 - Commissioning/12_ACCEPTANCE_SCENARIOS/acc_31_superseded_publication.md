@@ -2,6 +2,8 @@
 title: "ACC-31 — Superseded Publication"
 aliases:
   - "ACC-31"
+cssclasses:
+  - aethrion-acceptance-scenario
 type: acceptance-scenario
 category: commissioning
 summary: "This scenario verifies the target architecture's fail-safe behaviour and its evidence production in the Superseded Publication situation."

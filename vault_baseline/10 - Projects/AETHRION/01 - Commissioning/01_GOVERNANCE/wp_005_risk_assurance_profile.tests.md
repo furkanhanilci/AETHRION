@@ -2,6 +2,8 @@
 title: "WP-005 — Research Risk and Assurance Profile — Test Procedures"
 aliases:
   - "WP-005 tests"
+cssclasses:
+  - aethrion-test-procedure
 type: test-procedure
 category: commissioning
 status: NOT_STARTED

@@ -2,6 +2,8 @@
 title: "WP-102 — Vertical Slice 1 — Intake through Protocol Freeze — Acceptance Criteria"
 aliases:
   - "WP-102 acceptance"
+cssclasses:
+  - aethrion-acceptance-criteria
 type: acceptance-criteria
 category: commissioning
 status: NOT_STARTED

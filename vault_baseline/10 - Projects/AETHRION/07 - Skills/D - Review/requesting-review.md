@@ -2,6 +2,8 @@
 title: "Requesting Review"
 aliases:
   - "requesting-review"
+cssclasses:
+  - aethrion-skill
 type: skill
 category: skill
 status: WORKING

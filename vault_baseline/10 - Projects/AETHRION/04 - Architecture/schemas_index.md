@@ -1,5 +1,7 @@
 ---
 title: "Shared Contract Schemas"
+cssclasses:
+  - aethrion-reference
 type: reference
 category: architecture
 source: "schemas/README.md"

@@ -3,6 +3,8 @@ title: "WP-102 — Vertical Slice 1 — Intake through Protocol Freeze"
 aliases:
   - "WP-102"
   - "WP-102 — Vertical Slice 1 — Intake through Protocol Freeze"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

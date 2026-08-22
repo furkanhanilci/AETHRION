@@ -2,6 +2,8 @@
 title: "Brainstorming Ideas Into Designs"
 aliases:
   - "brainstorming"
+cssclasses:
+  - aethrion-skill
 type: skill
 category: skill
 status: WORKING

@@ -2,6 +2,8 @@
 title: "WP-045 — Policy Router and Minimum-Sufficient Model Package — Acceptance Criteria"
 aliases:
   - "WP-045 acceptance"
+cssclasses:
+  - aethrion-acceptance-criteria
 type: acceptance-criteria
 category: commissioning
 status: NOT_STARTED

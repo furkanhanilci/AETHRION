@@ -2,6 +2,8 @@
 title: "ACC-42 — Notification Broker Unavailable During an Escalating Condition"
 aliases:
   - "ACC-42"
+cssclasses:
+  - aethrion-acceptance-scenario
 type: acceptance-scenario
 category: commissioning
 summary: "A laboratory that cannot reach a human must not conclude that no human was needed."

@@ -3,6 +3,8 @@ title: "WP-137 — G10 External Feed Connectors"
 aliases:
   - "WP-137"
   - "WP-137 — G10 External Feed Connectors"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

@@ -3,6 +3,8 @@ title: "WP-042 — Capability Registry and Profile Lifecycle"
 aliases:
   - "WP-042"
   - "WP-042 — Capability Registry and Profile Lifecycle"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

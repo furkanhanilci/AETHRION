@@ -1,5 +1,7 @@
 ---
 title: "Evidence and Acceptance Strategy"
+cssclasses:
+  - aethrion-reference
 type: reference
 category: commissioning
 source: "planning/commissioning/00_PROGRAM/06_evidence_and_acceptance_strategy.md"

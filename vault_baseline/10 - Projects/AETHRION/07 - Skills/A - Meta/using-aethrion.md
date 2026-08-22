@@ -2,6 +2,8 @@
 title: "Using AETHRION"
 aliases:
   - "using-aethrion"
+cssclasses:
+  - aethrion-skill
 type: skill
 category: skill
 status: WORKING

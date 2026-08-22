@@ -1,5 +1,7 @@
 ---
 title: "Target State, System Boundary and Invariants"
+cssclasses:
+  - aethrion-reference
 type: reference
 category: commissioning
 source: "planning/commissioning/00_PROGRAM/01_target_state_and_invariants.md"

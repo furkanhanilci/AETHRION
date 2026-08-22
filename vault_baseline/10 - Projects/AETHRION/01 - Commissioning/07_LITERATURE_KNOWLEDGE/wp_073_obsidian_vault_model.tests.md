@@ -2,6 +2,8 @@
 title: "WP-073 — Obsidian Vault, Human/Generated Zones and Templates — Test Procedures"
 aliases:
   - "WP-073 tests"
+cssclasses:
+  - aethrion-test-procedure
 type: test-procedure
 category: commissioning
 status: NOT_STARTED

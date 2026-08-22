@@ -9,6 +9,8 @@ generated: false
 tags:
   - aethrion/index
   - aethrion/review
+cssclasses:
+  - aethrion-index
 ---
 
 # Reviews Index

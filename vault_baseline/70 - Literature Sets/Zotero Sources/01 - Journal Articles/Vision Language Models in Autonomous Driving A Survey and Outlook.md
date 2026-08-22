@@ -39,6 +39,8 @@ creators:
   - "Walter Zimmer"
   - "Hu Cao"
   - "Alois C. Knoll"
+cssclasses:
+  - aethrion-source
 ---
 
 <h1>Vision Language Models in Autonomous Driving: A Survey and Outlook</h1>

@@ -1,5 +1,7 @@
 ---
 title: "Tests"
+cssclasses:
+  - aethrion-index
 type: index
 category: implementation
 status: WORKING

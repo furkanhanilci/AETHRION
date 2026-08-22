@@ -2,6 +2,8 @@
 title: "Monitoring External Feeds"
 aliases:
   - "monitoring-external-feeds"
+cssclasses:
+  - aethrion-skill
 type: skill
 category: skill
 status: WORKING

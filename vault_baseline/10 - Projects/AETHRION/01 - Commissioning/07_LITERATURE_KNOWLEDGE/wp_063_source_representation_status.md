@@ -3,6 +3,8 @@ title: "WP-063 — Source Representation, Licence and Status Monitoring"
 aliases:
   - "WP-063"
   - "WP-063 — Source Representation, Licence and Status Monitoring"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

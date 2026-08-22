@@ -3,6 +3,8 @@ title: "WP-067 — Zotero Two-Way Sync and Reconciliation"
 aliases:
   - "WP-067"
   - "WP-067 — Zotero Two-Way Sync and Reconciliation"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

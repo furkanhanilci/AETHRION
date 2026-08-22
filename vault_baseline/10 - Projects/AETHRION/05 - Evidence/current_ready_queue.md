@@ -1,5 +1,7 @@
 ---
 title: "Ready Queue"
+cssclasses:
+  - aethrion-reference
 type: reference
 category: evidence
 summary: "V1 is the whole commissioning plan, and this page is the only place that answers what can I start today."

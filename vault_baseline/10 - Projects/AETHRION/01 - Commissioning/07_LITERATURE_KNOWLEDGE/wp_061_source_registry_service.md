@@ -3,6 +3,8 @@ title: "WP-061 — Canonical Source Registry Service"
 aliases:
   - "WP-061"
   - "WP-061 — Canonical Source Registry Service"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

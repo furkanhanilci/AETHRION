@@ -3,6 +3,8 @@ title: "WP-082 — Run Registry and MLflow Lineage Integration"
 aliases:
   - "WP-082"
   - "WP-082 — Run Registry and MLflow Lineage Integration"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

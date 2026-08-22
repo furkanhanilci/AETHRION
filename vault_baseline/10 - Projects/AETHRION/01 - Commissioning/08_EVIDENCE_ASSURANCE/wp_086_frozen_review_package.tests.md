@@ -2,6 +2,8 @@
 title: "WP-086 — Frozen and Blind Review Package Builder — Test Procedures"
 aliases:
   - "WP-086 tests"
+cssclasses:
+  - aethrion-test-procedure
 type: test-procedure
 category: commissioning
 status: NOT_STARTED

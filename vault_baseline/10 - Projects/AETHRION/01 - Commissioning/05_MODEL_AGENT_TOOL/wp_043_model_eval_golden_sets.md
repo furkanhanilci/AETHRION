@@ -3,6 +3,8 @@ title: "WP-043 — Role-Based Model and **Skill** Evaluation, and Golden Set Man
 aliases:
   - "WP-043"
   - "WP-043 — Role-Based Model and **Skill** Evaluation, and Golden Set Management"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

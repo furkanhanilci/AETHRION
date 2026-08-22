@@ -3,6 +3,8 @@ title: "WP-004 — Human Decision, SLA, Delegation and Escalation Policy"
 aliases:
   - "WP-004"
   - "WP-004 — Human Decision, SLA, Delegation and Escalation Policy"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

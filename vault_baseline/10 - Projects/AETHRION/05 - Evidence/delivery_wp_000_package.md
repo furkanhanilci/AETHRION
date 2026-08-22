@@ -1,5 +1,7 @@
 ---
 title: "WP-000 evidence package"
+cssclasses:
+  - aethrion-reference
 type: reference
 category: evidence
 status: TECH_COMPLETE

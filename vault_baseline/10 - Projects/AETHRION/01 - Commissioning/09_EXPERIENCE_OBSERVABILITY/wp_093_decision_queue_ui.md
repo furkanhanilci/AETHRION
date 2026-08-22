@@ -3,6 +3,8 @@ title: "WP-093 — Human Decision Queue and Evidence-Delta UI"
 aliases:
   - "WP-093"
   - "WP-093 — Human Decision Queue and Evidence-Delta UI"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

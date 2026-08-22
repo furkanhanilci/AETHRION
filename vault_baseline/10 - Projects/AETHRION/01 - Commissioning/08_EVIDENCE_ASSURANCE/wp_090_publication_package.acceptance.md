@@ -2,6 +2,8 @@
 title: "WP-090 — PublicationPackage, RO-Crate and Provenance Export — Acceptance Criteria"
 aliases:
   - "WP-090 acceptance"
+cssclasses:
+  - aethrion-acceptance-criteria
 type: acceptance-criteria
 category: commissioning
 status: NOT_STARTED

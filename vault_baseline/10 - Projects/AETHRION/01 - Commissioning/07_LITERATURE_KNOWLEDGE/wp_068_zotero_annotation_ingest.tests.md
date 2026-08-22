@@ -2,6 +2,8 @@
 title: "WP-068 — Zotero Annotation → EvidenceCandidate Pipeline — Test Procedures"
 aliases:
   - "WP-068 tests"
+cssclasses:
+  - aethrion-test-procedure
 type: test-procedure
 category: commissioning
 status: NOT_STARTED

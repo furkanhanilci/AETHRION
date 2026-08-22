@@ -2,6 +2,8 @@
 title: "WP-000 — Interim Evidence Policy and Attestation Bootstrap — Acceptance Criteria"
 aliases:
   - "WP-000 acceptance"
+cssclasses:
+  - aethrion-acceptance-criteria
 type: acceptance-criteria
 category: commissioning
 status: TECH_COMPLETE

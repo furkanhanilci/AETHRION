@@ -2,6 +2,8 @@
 title: "WP-109 — Forty Acceptance Scenario Registry and Harness — Acceptance Criteria"
 aliases:
   - "WP-109 acceptance"
+cssclasses:
+  - aethrion-acceptance-criteria
 type: acceptance-criteria
 category: commissioning
 status: NOT_STARTED

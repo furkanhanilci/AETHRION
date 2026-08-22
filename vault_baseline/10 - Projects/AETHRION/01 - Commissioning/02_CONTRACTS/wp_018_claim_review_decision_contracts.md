@@ -3,6 +3,8 @@ title: "WP-018 — Claim, Evidence, Review and Decision Schemas"
 aliases:
   - "WP-018"
   - "WP-018 — Claim, Evidence, Review and Decision Schemas"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

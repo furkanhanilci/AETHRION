@@ -2,6 +2,8 @@
 title: "WP-123 — Control Effectiveness and Policy Regression Rhythm — Test Procedures"
 aliases:
   - "WP-123 tests"
+cssclasses:
+  - aethrion-test-procedure
 type: test-procedure
 category: commissioning
 status: NOT_STARTED

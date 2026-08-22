@@ -3,6 +3,8 @@ title: "WP-116 — Resilience, Chaos and Failure-Injection Commissioning"
 aliases:
   - "WP-116"
   - "WP-116 — Resilience, Chaos and Failure-Injection Commissioning"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

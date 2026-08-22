@@ -3,6 +3,8 @@ title: "WP-069 — SearchProtocol and LiteratureCampaign Orchestration"
 aliases:
   - "WP-069"
   - "WP-069 — SearchProtocol and LiteratureCampaign Orchestration"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

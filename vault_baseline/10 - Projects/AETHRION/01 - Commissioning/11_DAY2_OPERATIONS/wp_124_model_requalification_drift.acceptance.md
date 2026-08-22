@@ -2,6 +2,8 @@
 title: "WP-124 — Model Requalification, Drift and Ejection Rhythm — Acceptance Criteria"
 aliases:
   - "WP-124 acceptance"
+cssclasses:
+  - aethrion-acceptance-criteria
 type: acceptance-criteria
 category: commissioning
 status: NOT_STARTED

@@ -12,6 +12,8 @@ tags:
   - aethrion/project
   - aethrion/plan
   - aethrion/cockpit
+cssclasses:
+  - aethrion-project
 ---
 
 # AETHRION — Navigation and Execution Cockpit

@@ -3,6 +3,8 @@ title: "WP-015 — Event Envelope, Subject and Schema Taxonomy"
 aliases:
   - "WP-015"
   - "WP-015 — Event Envelope, Subject and Schema Taxonomy"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

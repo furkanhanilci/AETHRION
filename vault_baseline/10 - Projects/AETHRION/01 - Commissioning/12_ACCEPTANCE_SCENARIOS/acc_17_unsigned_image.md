@@ -2,6 +2,8 @@
 title: "ACC-17 — Unsigned or Mutable Image"
 aliases:
   - "ACC-17"
+cssclasses:
+  - aethrion-acceptance-scenario
 type: acceptance-scenario
 category: commissioning
 summary: "This scenario verifies the target architecture's fail-safe behaviour and its evidence production in the Unsigned or Mutable Image situation."

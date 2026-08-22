@@ -2,6 +2,8 @@
 title: "WP-037 — G10 Temporal Schedules and Short ImpactScan Workflows — Acceptance Criteria"
 aliases:
   - "WP-037 acceptance"
+cssclasses:
+  - aethrion-acceptance-criteria
 type: acceptance-criteria
 category: commissioning
 status: NOT_STARTED

@@ -2,6 +2,8 @@
 title: "ACC-13 — Temporal Worker Crash"
 aliases:
   - "ACC-13"
+cssclasses:
+  - aethrion-acceptance-scenario
 type: acceptance-scenario
 category: commissioning
 summary: "This scenario verifies the target architecture's fail-safe behaviour and its evidence production in the Temporal Worker Crash situation."

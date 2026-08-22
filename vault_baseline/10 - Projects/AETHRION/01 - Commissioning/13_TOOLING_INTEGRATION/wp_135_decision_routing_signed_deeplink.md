@@ -3,6 +3,8 @@ title: "WP-135 — Decision Routing and Signed Deep Links"
 aliases:
   - "WP-135"
   - "WP-135 — Decision Routing and Signed Deep Links"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

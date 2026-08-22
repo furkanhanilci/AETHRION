@@ -3,6 +3,8 @@ title: "WP-068 — Zotero Annotation → EvidenceCandidate Pipeline"
 aliases:
   - "WP-068"
   - "WP-068 — Zotero Annotation → EvidenceCandidate Pipeline"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

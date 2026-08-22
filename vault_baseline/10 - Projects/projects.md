@@ -9,6 +9,8 @@ generated: false
 tags:
   - aethrion/index
   - aethrion/project
+cssclasses:
+  - aethrion-index
 ---
 
 # Projects

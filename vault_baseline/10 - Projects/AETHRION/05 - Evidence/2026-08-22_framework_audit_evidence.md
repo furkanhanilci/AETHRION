@@ -9,6 +9,8 @@ generated: false
 tags:
   - aethrion/evidence
   - aethrion/review
+cssclasses:
+  - aethrion-evidence
 ---
 
 # Framework Audit Evidence — 2026-08-22

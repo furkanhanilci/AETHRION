@@ -2,6 +2,8 @@
 title: "WP-010 — Architecture Decision and Rejected-Alternatives Baseline — Acceptance Criteria"
 aliases:
   - "WP-010 acceptance"
+cssclasses:
+  - aethrion-acceptance-criteria
 type: acceptance-criteria
 category: commissioning
 status: NOT_STARTED

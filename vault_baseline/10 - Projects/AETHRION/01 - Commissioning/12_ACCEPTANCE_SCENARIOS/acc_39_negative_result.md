@@ -2,6 +2,8 @@
 title: "ACC-39 — Negative Research Result"
 aliases:
   - "ACC-39"
+cssclasses:
+  - aethrion-acceptance-scenario
 type: acceptance-scenario
 category: commissioning
 summary: "This scenario verifies the target architecture's fail-safe behaviour and its evidence production in the Negative Research Result situation."

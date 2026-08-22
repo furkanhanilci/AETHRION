@@ -25,6 +25,8 @@ creators:
   - "Siddhartha Srinivasa"
   - "Eric M. Wolff"
   - "Xin Huang"
+cssclasses:
+  - aethrion-source
 ---
 
 <h1>VLM-AD: End-to-End Autonomous Driving through Vision-Language Model Supervision</h1>

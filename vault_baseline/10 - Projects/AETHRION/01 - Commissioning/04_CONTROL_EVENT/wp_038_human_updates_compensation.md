@@ -3,6 +3,8 @@ title: "WP-038 — Human Update, Cancellation and Compensation Semantics"
 aliases:
   - "WP-038"
   - "WP-038 — Human Update, Cancellation and Compensation Semantics"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

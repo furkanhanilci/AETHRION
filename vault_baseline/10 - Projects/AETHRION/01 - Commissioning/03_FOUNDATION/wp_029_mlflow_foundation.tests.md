@@ -2,6 +2,8 @@
 title: "WP-029 — MLflow Experiment and Evaluation Tracking Foundation — Test Procedures"
 aliases:
   - "WP-029 tests"
+cssclasses:
+  - aethrion-test-procedure
 type: test-procedure
 category: commissioning
 status: NOT_STARTED

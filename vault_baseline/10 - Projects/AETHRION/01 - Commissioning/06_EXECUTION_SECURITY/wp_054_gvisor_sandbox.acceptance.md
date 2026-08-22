@@ -2,6 +2,8 @@
 title: "WP-054 — gVisor Sandbox and Execution Cell Lifecycle — Acceptance Criteria"
 aliases:
   - "WP-054 acceptance"
+cssclasses:
+  - aethrion-acceptance-criteria
 type: acceptance-criteria
 category: commissioning
 status: NOT_STARTED

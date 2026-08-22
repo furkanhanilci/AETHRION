@@ -3,6 +3,8 @@ title: "WP-021 — Development, Staging and Production Environment Baseline"
 aliases:
   - "WP-021"
   - "WP-021 — Development, Staging and Production Environment Baseline"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

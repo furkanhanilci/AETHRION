@@ -2,6 +2,8 @@
 title: "WP-018 — Claim, Evidence, Review and Decision Schemas — Acceptance Criteria"
 aliases:
   - "WP-018 acceptance"
+cssclasses:
+  - aethrion-acceptance-criteria
 type: acceptance-criteria
 category: commissioning
 status: NOT_STARTED

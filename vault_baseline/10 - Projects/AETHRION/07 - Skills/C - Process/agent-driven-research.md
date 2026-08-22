@@ -2,6 +2,8 @@
 title: "Agent-Driven Research"
 aliases:
   - "agent-driven-research"
+cssclasses:
+  - aethrion-skill
 type: skill
 category: skill
 status: WORKING

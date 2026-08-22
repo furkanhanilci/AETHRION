@@ -26,6 +26,8 @@ creators:
   - "Weixian Shi"
   - "Tharun Sethuraman"
   - "Maren Bennewitz"
+cssclasses:
+  - aethrion-source
 ---
 
 <h1>Spatiotemporal Attention Enhances Lidar-Based Robot Navigation in Dynamic Environments</h1>

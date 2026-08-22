@@ -9,6 +9,8 @@ generated: false
 tags:
   - aethrion/index
   - aethrion/component
+cssclasses:
+  - aethrion-index
 ---
 
 # Components Index

@@ -2,6 +2,8 @@
 title: "WP-106 — Vertical Slice 5 — Human Decision, Publish and Monitor — Acceptance Criteria"
 aliases:
   - "WP-106 acceptance"
+cssclasses:
+  - aethrion-acceptance-criteria
 type: acceptance-criteria
 category: commissioning
 status: NOT_STARTED

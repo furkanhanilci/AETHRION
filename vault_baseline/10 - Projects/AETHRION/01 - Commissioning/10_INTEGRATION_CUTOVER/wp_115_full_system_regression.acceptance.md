@@ -2,6 +2,8 @@
 title: "WP-115 — Full System Regression and Commissioning Dossier — Acceptance Criteria"
 aliases:
   - "WP-115 acceptance"
+cssclasses:
+  - aethrion-acceptance-criteria
 type: acceptance-criteria
 category: commissioning
 status: NOT_STARTED

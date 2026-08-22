@@ -2,6 +2,8 @@
 title: "WP-008 — G0–G10 Gate and Assurance Policy — Acceptance Criteria"
 aliases:
   - "WP-008 acceptance"
+cssclasses:
+  - aethrion-acceptance-criteria
 type: acceptance-criteria
 category: commissioning
 status: NOT_STARTED

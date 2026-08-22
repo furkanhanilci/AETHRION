@@ -2,6 +2,8 @@
 title: "WP-133 — Outbound Notification and Periodic Digest — Test Procedures"
 aliases:
   - "WP-133 tests"
+cssclasses:
+  - aethrion-test-procedure
 type: test-procedure
 category: commissioning
 status: NOT_STARTED

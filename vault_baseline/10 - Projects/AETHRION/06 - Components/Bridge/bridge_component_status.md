@@ -9,6 +9,8 @@ generated: false
 tags:
   - aethrion/component
   - aethrion/status
+cssclasses:
+  - aethrion-reference
 ---
 
 # Bridge Component Status

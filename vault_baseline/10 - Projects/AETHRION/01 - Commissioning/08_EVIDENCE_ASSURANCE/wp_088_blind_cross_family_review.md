@@ -3,6 +3,8 @@ title: "WP-088 — Blind, Cross-Family and Adversarial Review"
 aliases:
   - "WP-088"
   - "WP-088 — Blind, Cross-Family and Adversarial Review"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

@@ -2,6 +2,8 @@
 title: "WP-061 — Canonical Source Registry Service — Test Procedures"
 aliases:
   - "WP-061 tests"
+cssclasses:
+  - aethrion-test-procedure
 type: test-procedure
 category: commissioning
 status: NOT_STARTED

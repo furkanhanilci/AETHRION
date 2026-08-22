@@ -2,6 +2,8 @@
 title: "WP-088 — Blind, Cross-Family and Adversarial Review — Acceptance Criteria"
 aliases:
   - "WP-088 acceptance"
+cssclasses:
+  - aethrion-acceptance-criteria
 type: acceptance-criteria
 category: commissioning
 status: NOT_STARTED

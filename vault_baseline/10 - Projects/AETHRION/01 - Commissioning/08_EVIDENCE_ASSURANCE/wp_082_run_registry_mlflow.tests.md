@@ -2,6 +2,8 @@
 title: "WP-082 — Run Registry and MLflow Lineage Integration — Test Procedures"
 aliases:
   - "WP-082 tests"
+cssclasses:
+  - aethrion-test-procedure
 type: test-procedure
 category: commissioning
 status: NOT_STARTED

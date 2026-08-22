@@ -3,6 +3,8 @@ title: "WP-073 — Obsidian Vault, Human/Generated Zones and Templates"
 aliases:
   - "WP-073"
   - "WP-073 — Obsidian Vault, Human/Generated Zones and Templates"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

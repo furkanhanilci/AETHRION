@@ -2,6 +2,8 @@
 title: "WP-060 — Agentic Security Attack Suite and Red-Team Acceptance — Test Procedures"
 aliases:
   - "WP-060 tests"
+cssclasses:
+  - aethrion-test-procedure
 type: test-procedure
 category: commissioning
 status: NOT_STARTED

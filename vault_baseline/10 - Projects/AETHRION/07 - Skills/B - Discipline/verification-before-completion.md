@@ -2,6 +2,8 @@
 title: "Verification Before Completion"
 aliases:
   - "verification-before-completion"
+cssclasses:
+  - aethrion-skill
 type: skill
 category: skill
 status: WORKING

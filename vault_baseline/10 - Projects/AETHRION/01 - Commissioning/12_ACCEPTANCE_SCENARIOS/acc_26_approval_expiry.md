@@ -2,6 +2,8 @@
 title: "ACC-26 — Approval, Delegation and Exception Expiry"
 aliases:
   - "ACC-26"
+cssclasses:
+  - aethrion-acceptance-scenario
 type: acceptance-scenario
 category: commissioning
 summary: "This scenario verifies the target architecture's fail-safe behaviour and its evidence production in the Approval, Delegation and Exception Expiry situation."

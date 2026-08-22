@@ -3,6 +3,8 @@ title: "WP-014 — Artifact, Dataset and Immutable Manifest Schemas"
 aliases:
   - "WP-014"
   - "WP-014 — Artifact, Dataset and Immutable Manifest Schemas"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

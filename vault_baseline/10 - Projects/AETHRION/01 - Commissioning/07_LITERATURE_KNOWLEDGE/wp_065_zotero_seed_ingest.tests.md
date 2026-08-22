@@ -2,6 +2,8 @@
 title: "WP-065 — Personal Zotero Seed Ingest Pipeline — Test Procedures"
 aliases:
   - "WP-065 tests"
+cssclasses:
+  - aethrion-test-procedure
 type: test-procedure
 category: commissioning
 status: NOT_STARTED

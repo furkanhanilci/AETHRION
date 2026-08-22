@@ -3,6 +3,8 @@ title: "WP-094 — Literature Workbench and Reconciliation UI"
 aliases:
   - "WP-094"
   - "WP-094 — Literature Workbench and Reconciliation UI"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

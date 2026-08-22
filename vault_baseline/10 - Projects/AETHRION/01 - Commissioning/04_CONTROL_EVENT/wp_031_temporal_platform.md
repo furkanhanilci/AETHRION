@@ -3,6 +3,8 @@ title: "WP-031 — Temporal Platform, Namespaces and HA"
 aliases:
   - "WP-031"
   - "WP-031 — Temporal Platform, Namespaces and HA"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

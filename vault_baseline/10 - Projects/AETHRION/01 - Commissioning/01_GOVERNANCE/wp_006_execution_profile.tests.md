@@ -2,6 +2,8 @@
 title: "WP-006 — ExecutionProfile and Route Policy — Test Procedures"
 aliases:
   - "WP-006 tests"
+cssclasses:
+  - aethrion-test-procedure
 type: test-procedure
 category: commissioning
 status: NOT_STARTED

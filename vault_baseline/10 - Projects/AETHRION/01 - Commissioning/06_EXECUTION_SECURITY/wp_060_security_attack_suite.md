@@ -3,6 +3,8 @@ title: "WP-060 — Agentic Security Attack Suite and Red-Team Acceptance"
 aliases:
   - "WP-060"
   - "WP-060 — Agentic Security Attack Suite and Red-Team Acceptance"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

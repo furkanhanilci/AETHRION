@@ -2,6 +2,8 @@
 title: "WP-005 — Research Risk and Assurance Profile — Acceptance Criteria"
 aliases:
   - "WP-005 acceptance"
+cssclasses:
+  - aethrion-acceptance-criteria
 type: acceptance-criteria
 category: commissioning
 status: NOT_STARTED

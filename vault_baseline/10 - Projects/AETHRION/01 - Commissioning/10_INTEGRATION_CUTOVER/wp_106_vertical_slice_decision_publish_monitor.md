@@ -3,6 +3,8 @@ title: "WP-106 — Vertical Slice 5 — Human Decision, Publish and Monitor"
 aliases:
   - "WP-106"
   - "WP-106 — Vertical Slice 5 — Human Decision, Publish and Monitor"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

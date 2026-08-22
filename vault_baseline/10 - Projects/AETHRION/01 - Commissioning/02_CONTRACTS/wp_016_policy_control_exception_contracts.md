@@ -3,6 +3,8 @@ title: "WP-016 — PolicyDecision, Control and Exception Schemas"
 aliases:
   - "WP-016"
   - "WP-016 — PolicyDecision, Control and Exception Schemas"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

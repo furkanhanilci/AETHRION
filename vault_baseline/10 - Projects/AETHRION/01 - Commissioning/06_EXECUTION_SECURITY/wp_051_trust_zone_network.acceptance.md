@@ -2,6 +2,8 @@
 title: "WP-051 — Four Trust Zones and Network Segmentation — Acceptance Criteria"
 aliases:
   - "WP-051 acceptance"
+cssclasses:
+  - aethrion-acceptance-criteria
 type: acceptance-criteria
 category: commissioning
 status: NOT_STARTED

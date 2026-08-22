@@ -1,5 +1,7 @@
 ---
 title: "AETHRION Commissioning Programme"
+cssclasses:
+  - aethrion-index
 type: index
 category: commissioning
 source: "planning/commissioning/README.md"

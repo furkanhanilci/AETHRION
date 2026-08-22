@@ -2,6 +2,8 @@
 title: "WP-113 — Evidence, Reproduction and Publication Acceptance Package — Acceptance Criteria"
 aliases:
   - "WP-113 acceptance"
+cssclasses:
+  - aethrion-acceptance-criteria
 type: acceptance-criteria
 category: commissioning
 status: NOT_STARTED

@@ -2,6 +2,8 @@
 title: "WP-059 — Supply-Chain Admission, Sigstore and SLSA Policy — Test Procedures"
 aliases:
   - "WP-059 tests"
+cssclasses:
+  - aethrion-test-procedure
 type: test-procedure
 category: commissioning
 status: NOT_STARTED

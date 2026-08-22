@@ -2,6 +2,8 @@
 title: "WP-011 — Identity and End-to-End Correlation Standard — Test Procedures"
 aliases:
   - "WP-011 tests"
+cssclasses:
+  - aethrion-test-procedure
 type: test-procedure
 category: commissioning
 status: NOT_STARTED

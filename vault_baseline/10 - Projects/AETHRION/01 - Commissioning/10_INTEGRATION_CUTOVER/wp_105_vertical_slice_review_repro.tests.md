@@ -2,6 +2,8 @@
 title: "WP-105 — Vertical Slice 4 — Blind Review, Arbitration and Clean-Room — Test Procedures"
 aliases:
   - "WP-105 tests"
+cssclasses:
+  - aethrion-test-procedure
 type: test-procedure
 category: commissioning
 status: NOT_STARTED

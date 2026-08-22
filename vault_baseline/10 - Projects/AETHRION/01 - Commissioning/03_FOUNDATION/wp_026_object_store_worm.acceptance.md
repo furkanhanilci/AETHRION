@@ -2,6 +2,8 @@
 title: "WP-026 — Content-Addressed Object Store and WORM — Acceptance Criteria"
 aliases:
   - "WP-026 acceptance"
+cssclasses:
+  - aethrion-acceptance-criteria
 type: acceptance-criteria
 category: commissioning
 status: NOT_STARTED

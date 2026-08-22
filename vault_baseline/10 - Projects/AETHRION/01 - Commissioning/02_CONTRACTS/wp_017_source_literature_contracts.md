@@ -3,6 +3,8 @@ title: "WP-017 — Source Registry and Literature Contract Schemas"
 aliases:
   - "WP-017"
   - "WP-017 — Source Registry and Literature Contract Schemas"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

@@ -2,6 +2,8 @@
 title: "WP-110 — Research and Literature Acceptance Package — Acceptance Criteria"
 aliases:
   - "WP-110 acceptance"
+cssclasses:
+  - aethrion-acceptance-criteria
 type: acceptance-criteria
 category: commissioning
 status: NOT_STARTED

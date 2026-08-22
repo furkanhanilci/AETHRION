@@ -2,6 +2,8 @@
 title: "WP-120 — Production Cutover and Go-Live Decision — Test Procedures"
 aliases:
   - "WP-120 tests"
+cssclasses:
+  - aethrion-test-procedure
 type: test-procedure
 category: commissioning
 status: NOT_STARTED

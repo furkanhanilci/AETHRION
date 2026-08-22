@@ -10,6 +10,8 @@ created_at: "{{date}}"
 updated_at: "{{date}}"
 tags:
   - aethrion/source-note
+cssclasses:
+  - aethrion-source-note
 ---
 
 # {{title}}

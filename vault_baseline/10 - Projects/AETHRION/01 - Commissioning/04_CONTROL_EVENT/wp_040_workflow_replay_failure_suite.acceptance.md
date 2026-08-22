@@ -2,6 +2,8 @@
 title: "WP-040 — Workflow Replay, Versioning and Failure Test Suite — Acceptance Criteria"
 aliases:
   - "WP-040 acceptance"
+cssclasses:
+  - aethrion-acceptance-criteria
 type: acceptance-criteria
 category: commissioning
 status: NOT_STARTED

@@ -3,6 +3,8 @@ title: "AETHRION"
 aliases:
   - "README"
   - "Repository Index"
+cssclasses:
+  - aethrion-index
 type: index
 category: project
 summary: "A capable model's characteristic failure is not incompetence but plausibility: fluent, well-cited, confident output that is wrong, and that no amount of further model capability detects from the inside."

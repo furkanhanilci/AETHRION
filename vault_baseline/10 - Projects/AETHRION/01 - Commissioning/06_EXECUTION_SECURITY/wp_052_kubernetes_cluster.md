@@ -3,6 +3,8 @@ title: "WP-052 — Kubernetes Cluster and Node Pool Baseline"
 aliases:
   - "WP-052"
   - "WP-052 — Kubernetes Cluster and Node Pool Baseline"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

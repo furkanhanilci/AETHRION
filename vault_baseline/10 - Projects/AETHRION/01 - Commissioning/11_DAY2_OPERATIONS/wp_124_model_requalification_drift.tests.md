@@ -2,6 +2,8 @@
 title: "WP-124 — Model Requalification, Drift and Ejection Rhythm — Test Procedures"
 aliases:
   - "WP-124 tests"
+cssclasses:
+  - aethrion-test-procedure
 type: test-procedure
 category: commissioning
 status: NOT_STARTED

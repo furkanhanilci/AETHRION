@@ -2,6 +2,8 @@
 title: "WP-087 — Mechanical Verification Engine — Acceptance Criteria"
 aliases:
   - "WP-087 acceptance"
+cssclasses:
+  - aethrion-acceptance-criteria
 type: acceptance-criteria
 category: commissioning
 status: NOT_STARTED

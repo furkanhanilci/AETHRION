@@ -2,6 +2,8 @@
 title: "Screening Sources"
 aliases:
   - "screening-sources"
+cssclasses:
+  - aethrion-skill
 type: skill
 category: skill
 status: WORKING

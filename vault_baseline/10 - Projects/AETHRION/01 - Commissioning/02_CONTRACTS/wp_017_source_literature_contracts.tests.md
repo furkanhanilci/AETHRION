@@ -2,6 +2,8 @@
 title: "WP-017 — Source Registry and Literature Contract Schemas — Test Procedures"
 aliases:
   - "WP-017 tests"
+cssclasses:
+  - aethrion-test-procedure
 type: test-procedure
 category: commissioning
 status: NOT_STARTED

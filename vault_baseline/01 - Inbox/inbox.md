@@ -9,6 +9,8 @@ generated: false
 tags:
   - aethrion/index
   - aethrion/inbox
+cssclasses:
+  - aethrion-index
 ---
 
 # Inbox

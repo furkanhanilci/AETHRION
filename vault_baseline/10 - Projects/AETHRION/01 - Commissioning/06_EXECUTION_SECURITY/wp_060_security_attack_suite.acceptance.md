@@ -2,6 +2,8 @@
 title: "WP-060 — Agentic Security Attack Suite and Red-Team Acceptance — Acceptance Criteria"
 aliases:
   - "WP-060 acceptance"
+cssclasses:
+  - aethrion-acceptance-criteria
 type: acceptance-criteria
 category: commissioning
 status: NOT_STARTED

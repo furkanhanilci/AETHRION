@@ -2,6 +2,8 @@
 title: "ACC-09 — Budget Hard Stop"
 aliases:
   - "ACC-09"
+cssclasses:
+  - aethrion-acceptance-scenario
 type: acceptance-scenario
 category: commissioning
 summary: "This scenario verifies the target architecture's fail-safe behaviour and its evidence production in the Budget Hard Stop situation."

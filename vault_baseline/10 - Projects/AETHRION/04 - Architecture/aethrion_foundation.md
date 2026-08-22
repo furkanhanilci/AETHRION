@@ -1,5 +1,7 @@
 ---
 title: "Foundation Layer"
+cssclasses:
+  - aethrion-reference
 type: reference
 category: architecture
 status: TECH_COMPLETE

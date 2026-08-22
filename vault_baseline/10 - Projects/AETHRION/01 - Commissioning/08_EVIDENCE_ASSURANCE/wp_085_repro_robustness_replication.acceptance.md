@@ -2,6 +2,8 @@
 title: "WP-085 — Repeatability, Reproducibility, Robustness and Replication Pipeline — Acceptance Criteria"
 aliases:
   - "WP-085 acceptance"
+cssclasses:
+  - aethrion-acceptance-criteria
 type: acceptance-criteria
 category: commissioning
 status: NOT_STARTED

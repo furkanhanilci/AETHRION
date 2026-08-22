@@ -2,6 +2,8 @@
 title: "ACC-21 — Derived Graph Corruption and Rebuild"
 aliases:
   - "ACC-21"
+cssclasses:
+  - aethrion-acceptance-scenario
 type: acceptance-scenario
 category: commissioning
 summary: "This scenario verifies the target architecture's fail-safe behaviour and its evidence production in the Derived Graph Corruption and Rebuild situation."

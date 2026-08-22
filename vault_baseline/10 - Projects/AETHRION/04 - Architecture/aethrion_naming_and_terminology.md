@@ -1,5 +1,7 @@
 ---
 title: "Naming and Terminology"
+cssclasses:
+  - aethrion-reference
 type: reference
 category: architecture
 status: WORKING

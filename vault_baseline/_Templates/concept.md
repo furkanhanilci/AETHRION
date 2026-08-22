@@ -7,6 +7,8 @@ created_at: "{{date}}"
 updated_at: "{{date}}"
 tags:
   - aethrion/concept
+cssclasses:
+  - aethrion-concept
 ---
 
 # {{title}}

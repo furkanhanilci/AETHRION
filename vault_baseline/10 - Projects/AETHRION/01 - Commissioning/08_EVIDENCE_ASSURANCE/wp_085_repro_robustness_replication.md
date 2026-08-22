@@ -3,6 +3,8 @@ title: "WP-085 — Repeatability, Reproducibility, Robustness and Replication Pi
 aliases:
   - "WP-085"
   - "WP-085 — Repeatability, Reproducibility, Robustness and Replication Pipeline"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

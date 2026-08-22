@@ -2,6 +2,8 @@
 title: "WP-072 — LiteratureSetManifest Freeze and Human-Readable Archive — Test Procedures"
 aliases:
   - "WP-072 tests"
+cssclasses:
+  - aethrion-test-procedure
 type: test-procedure
 category: commissioning
 status: NOT_STARTED

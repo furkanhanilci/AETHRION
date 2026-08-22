@@ -3,6 +3,8 @@ title: "WP-047 — Role and **Skill** Registries, and the Task Compiler"
 aliases:
   - "WP-047"
   - "WP-047 — Role and **Skill** Registries, and the Task Compiler"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

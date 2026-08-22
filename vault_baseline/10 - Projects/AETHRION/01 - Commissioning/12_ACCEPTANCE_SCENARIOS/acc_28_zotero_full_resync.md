@@ -2,6 +2,8 @@
 title: "ACC-28 — Zotero Full Resync"
 aliases:
   - "ACC-28"
+cssclasses:
+  - aethrion-acceptance-scenario
 type: acceptance-scenario
 category: commissioning
 summary: "This scenario verifies the target architecture's fail-safe behaviour and its evidence production in the Zotero Full Resync situation."

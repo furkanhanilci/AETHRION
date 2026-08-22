@@ -9,6 +9,8 @@ generated: false
 tags:
   - aethrion/index
   - aethrion/architecture
+cssclasses:
+  - aethrion-index
 ---
 
 # Architecture Index

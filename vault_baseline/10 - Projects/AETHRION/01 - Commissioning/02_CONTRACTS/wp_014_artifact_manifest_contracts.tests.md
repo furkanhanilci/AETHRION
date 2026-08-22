@@ -2,6 +2,8 @@
 title: "WP-014 — Artifact, Dataset and Immutable Manifest Schemas — Test Procedures"
 aliases:
   - "WP-014 tests"
+cssclasses:
+  - aethrion-test-procedure
 type: test-procedure
 category: commissioning
 status: NOT_STARTED

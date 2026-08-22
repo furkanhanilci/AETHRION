@@ -2,6 +2,8 @@
 title: "WP-120 — Production Cutover and Go-Live Decision — Acceptance Criteria"
 aliases:
   - "WP-120 acceptance"
+cssclasses:
+  - aethrion-acceptance-criteria
 type: acceptance-criteria
 category: commissioning
 status: NOT_STARTED

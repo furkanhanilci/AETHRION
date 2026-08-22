@@ -2,6 +2,8 @@
 title: "WP-121 — Hypercare, Stabilisation and Programme Closure — Test Procedures"
 aliases:
   - "WP-121 tests"
+cssclasses:
+  - aethrion-test-procedure
 type: test-procedure
 category: commissioning
 status: NOT_STARTED

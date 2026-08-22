@@ -2,6 +2,8 @@
 title: "WP-081 — Protocol, Analysis, Baseline and Falsification Registry — Acceptance Criteria"
 aliases:
   - "WP-081 acceptance"
+cssclasses:
+  - aethrion-acceptance-criteria
 type: acceptance-criteria
 category: commissioning
 status: NOT_STARTED

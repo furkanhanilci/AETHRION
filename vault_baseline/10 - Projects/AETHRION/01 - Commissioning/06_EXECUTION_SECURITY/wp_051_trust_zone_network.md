@@ -3,6 +3,8 @@ title: "WP-051 — Four Trust Zones and Network Segmentation"
 aliases:
   - "WP-051"
   - "WP-051 — Four Trust Zones and Network Segmentation"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

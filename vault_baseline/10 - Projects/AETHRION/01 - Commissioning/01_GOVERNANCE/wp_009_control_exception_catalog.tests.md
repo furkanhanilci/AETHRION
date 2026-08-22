@@ -2,6 +2,8 @@
 title: "WP-009 — Control Catalogue, Exceptions and Non-Waivable Blockers — Test Procedures"
 aliases:
   - "WP-009 tests"
+cssclasses:
+  - aethrion-test-procedure
 type: test-procedure
 category: commissioning
 status: NOT_STARTED

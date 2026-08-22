@@ -3,6 +3,8 @@ title: "WP-010 — Architecture Decision and Rejected-Alternatives Baseline"
 aliases:
   - "WP-010"
   - "WP-010 — Architecture Decision and Rejected-Alternatives Baseline"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

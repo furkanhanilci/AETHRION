@@ -3,6 +3,8 @@ title: "WP-072 — LiteratureSetManifest Freeze and Human-Readable Archive"
 aliases:
   - "WP-072"
   - "WP-072 — LiteratureSetManifest Freeze and Human-Readable Archive"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

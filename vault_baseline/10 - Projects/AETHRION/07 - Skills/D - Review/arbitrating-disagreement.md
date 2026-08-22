@@ -2,6 +2,8 @@
 title: "Arbitrating Disagreement"
 aliases:
   - "arbitrating-disagreement"
+cssclasses:
+  - aethrion-skill
 type: skill
 category: skill
 status: WORKING

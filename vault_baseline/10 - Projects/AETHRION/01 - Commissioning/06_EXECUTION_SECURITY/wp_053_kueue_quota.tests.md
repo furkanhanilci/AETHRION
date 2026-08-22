@@ -2,6 +2,8 @@
 title: "WP-053 — Kueue Queue, Quota and Priority Policy — Test Procedures"
 aliases:
   - "WP-053 tests"
+cssclasses:
+  - aethrion-test-procedure
 type: test-procedure
 category: commissioning
 status: NOT_STARTED

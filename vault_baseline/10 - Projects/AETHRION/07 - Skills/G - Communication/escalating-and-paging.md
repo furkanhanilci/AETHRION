@@ -2,6 +2,8 @@
 title: "Escalating and Paging"
 aliases:
   - "escalating-and-paging"
+cssclasses:
+  - aethrion-skill
 type: skill
 category: skill
 status: WORKING

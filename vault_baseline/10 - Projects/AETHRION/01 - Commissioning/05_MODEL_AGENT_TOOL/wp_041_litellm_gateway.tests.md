@@ -2,6 +2,8 @@
 title: "WP-041 — LiteLLM Model Gateway Foundation — Test Procedures"
 aliases:
   - "WP-041 tests"
+cssclasses:
+  - aethrion-test-procedure
 type: test-procedure
 category: commissioning
 status: NOT_STARTED

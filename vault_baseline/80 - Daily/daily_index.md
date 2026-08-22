@@ -9,6 +9,8 @@ generated: false
 tags:
   - aethrion/index
   - aethrion/daily
+cssclasses:
+  - aethrion-index
 ---
 
 # Daily Notes

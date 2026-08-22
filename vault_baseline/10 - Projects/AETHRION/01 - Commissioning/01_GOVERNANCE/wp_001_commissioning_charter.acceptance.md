@@ -2,6 +2,8 @@
 title: "WP-001 — Commissioning Charter and Programme Authority — Acceptance Criteria"
 aliases:
   - "WP-001 acceptance"
+cssclasses:
+  - aethrion-acceptance-criteria
 type: acceptance-criteria
 category: commissioning
 status: NOT_STARTED

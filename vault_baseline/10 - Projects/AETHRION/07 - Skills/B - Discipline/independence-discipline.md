@@ -2,6 +2,8 @@
 title: "Independence Discipline"
 aliases:
   - "independence-discipline"
+cssclasses:
+  - aethrion-skill
 type: skill
 category: skill
 status: WORKING

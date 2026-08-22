@@ -2,6 +2,8 @@
 title: "WP-134 — Escalation and Paging — Test Procedures"
 aliases:
   - "WP-134 tests"
+cssclasses:
+  - aethrion-test-procedure
 type: test-procedure
 category: commissioning
 status: NOT_STARTED

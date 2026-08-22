@@ -2,6 +2,8 @@
 title: "ACC-37 — Evaluation Set Contamination"
 aliases:
   - "ACC-37"
+cssclasses:
+  - aethrion-acceptance-scenario
 type: acceptance-scenario
 category: commissioning
 summary: "This scenario verifies the target architecture's fail-safe behaviour and its evidence production in the Evaluation Set Contamination situation."

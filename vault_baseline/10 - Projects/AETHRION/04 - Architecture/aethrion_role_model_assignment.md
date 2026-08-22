@@ -1,5 +1,7 @@
 ---
 title: "AETHRION — Role → Model Assignment Decision"
+cssclasses:
+  - aethrion-reference
 type: reference
 category: architecture
 summary: "This decision record assigns every role and every gate to an actor class — human, model, or deterministic code — and binds reviewer count and effort to the assurance class."

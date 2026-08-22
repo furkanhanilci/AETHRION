@@ -2,6 +2,8 @@
 title: "WP-113 — Evidence, Reproduction and Publication Acceptance Package — Test Procedures"
 aliases:
   - "WP-113 tests"
+cssclasses:
+  - aethrion-test-procedure
 type: test-procedure
 category: commissioning
 status: NOT_STARTED

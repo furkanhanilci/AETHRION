@@ -1,5 +1,7 @@
 ---
 title: "AETHRION — Role Definitions and Authority Flows"
+cssclasses:
+  - aethrion-reference
 type: reference
 category: architecture
 summary: "Fourteen durable functions carry the laboratory's accountabilities, and each is defined here by its mandate, what it decides, what it may never do, what it produces, when it escalates, and which other roles it may be held with."

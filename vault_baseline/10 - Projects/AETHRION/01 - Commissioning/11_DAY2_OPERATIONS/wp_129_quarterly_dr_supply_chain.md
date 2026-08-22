@@ -3,6 +3,8 @@ title: "WP-129 — Quarterly DR, Supply-Chain and Audit Drill"
 aliases:
   - "WP-129"
   - "WP-129 — Quarterly DR, Supply-Chain and Audit Drill"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

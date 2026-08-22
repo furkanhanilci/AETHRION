@@ -2,6 +2,8 @@
 title: "WP-032 — ProjectLifecycle Workflow Skeleton — Test Procedures"
 aliases:
   - "WP-032 tests"
+cssclasses:
+  - aethrion-test-procedure
 type: test-procedure
 category: commissioning
 status: NOT_STARTED

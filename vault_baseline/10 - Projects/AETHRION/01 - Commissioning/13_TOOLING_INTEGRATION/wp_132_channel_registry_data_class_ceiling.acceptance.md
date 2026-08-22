@@ -2,6 +2,8 @@
 title: "WP-132 — Channel Registry and Data-Class Ceiling — Acceptance Criteria"
 aliases:
   - "WP-132 acceptance"
+cssclasses:
+  - aethrion-acceptance-criteria
 type: acceptance-criteria
 category: commissioning
 status: NOT_STARTED

@@ -2,6 +2,8 @@
 title: "WP-139 — Evidence Timestamping and Independent Seal — Test Procedures"
 aliases:
   - "WP-139 tests"
+cssclasses:
+  - aethrion-test-procedure
 type: test-procedure
 category: commissioning
 status: NOT_STARTED

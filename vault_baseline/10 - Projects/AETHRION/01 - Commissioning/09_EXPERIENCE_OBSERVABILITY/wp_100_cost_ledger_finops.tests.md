@@ -2,6 +2,8 @@
 title: "WP-100 — Cost Ledger, Budget Envelopes and FinOps — Test Procedures"
 aliases:
   - "WP-100 tests"
+cssclasses:
+  - aethrion-test-procedure
 type: test-procedure
 category: commissioning
 status: NOT_STARTED

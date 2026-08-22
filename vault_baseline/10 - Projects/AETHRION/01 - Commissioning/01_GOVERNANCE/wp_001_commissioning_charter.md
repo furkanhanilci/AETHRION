@@ -3,6 +3,8 @@ title: "WP-001 — Commissioning Charter and Programme Authority"
 aliases:
   - "WP-001"
   - "WP-001 — Commissioning Charter and Programme Authority"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

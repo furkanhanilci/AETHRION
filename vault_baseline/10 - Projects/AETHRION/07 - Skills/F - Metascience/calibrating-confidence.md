@@ -2,6 +2,8 @@
 title: "Calibrating Confidence"
 aliases:
   - "calibrating-confidence"
+cssclasses:
+  - aethrion-skill
 type: skill
 category: skill
 status: WORKING

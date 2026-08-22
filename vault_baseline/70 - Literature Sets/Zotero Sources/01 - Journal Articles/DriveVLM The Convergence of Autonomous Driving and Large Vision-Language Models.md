@@ -27,6 +27,8 @@ creators:
   - "Peng Jia"
   - "Xianpeng Lang"
   - "Hang Zhao"
+cssclasses:
+  - aethrion-source
 ---
 
 <h1>DriveVLM: The Convergence of Autonomous Driving and Large Vision-Language Models</h1>

@@ -2,6 +2,8 @@
 title: "WP-010 — Architecture Decision and Rejected-Alternatives Baseline — Test Procedures"
 aliases:
   - "WP-010 tests"
+cssclasses:
+  - aethrion-test-procedure
 type: test-procedure
 category: commissioning
 status: NOT_STARTED

@@ -3,6 +3,8 @@ title: "WP-134 — Escalation and Paging"
 aliases:
   - "WP-134"
   - "WP-134 — Escalation and Paging"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

@@ -3,6 +3,8 @@ title: "WP-045 — Policy Router and Minimum-Sufficient Model Package"
 aliases:
   - "WP-045"
   - "WP-045 — Policy Router and Minimum-Sufficient Model Package"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

@@ -1,5 +1,7 @@
 ---
 title: "Go-Live Checklist"
+cssclasses:
+  - aethrion-reference
 type: reference
 category: commissioning
 source: "planning/commissioning/00_PROGRAM/10_go_live_checklist.md"

@@ -3,6 +3,8 @@ title: "WP-024 — CI Foundation and Deterministic Quality Gates"
 aliases:
   - "WP-024"
   - "WP-024 — CI Foundation and Deterministic Quality Gates"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

@@ -2,6 +2,8 @@
 title: "Framing Research"
 aliases:
   - "framing-research"
+cssclasses:
+  - aethrion-skill
 type: skill
 category: skill
 status: WORKING

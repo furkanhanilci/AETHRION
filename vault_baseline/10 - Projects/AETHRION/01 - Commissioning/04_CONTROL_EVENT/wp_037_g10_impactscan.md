@@ -3,6 +3,8 @@ title: "WP-037 — G10 Temporal Schedules and Short ImpactScan Workflows"
 aliases:
   - "WP-037"
   - "WP-037 — G10 Temporal Schedules and Short ImpactScan Workflows"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

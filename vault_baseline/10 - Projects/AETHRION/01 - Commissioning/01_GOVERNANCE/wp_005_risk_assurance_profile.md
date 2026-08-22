@@ -3,6 +3,8 @@ title: "WP-005 — Research Risk and Assurance Profile"
 aliases:
   - "WP-005"
   - "WP-005 — Research Risk and Assurance Profile"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

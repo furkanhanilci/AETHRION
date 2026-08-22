@@ -1,5 +1,7 @@
 ---
 title: "Scripts"
+cssclasses:
+  - aethrion-index
 type: index
 category: implementation
 status: WORKING

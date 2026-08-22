@@ -2,6 +2,8 @@
 title: "WP-056 — OPA Policy Platform and Bundle Distribution — Test Procedures"
 aliases:
   - "WP-056 tests"
+cssclasses:
+  - aethrion-test-procedure
 type: test-procedure
 category: commissioning
 status: NOT_STARTED

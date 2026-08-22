@@ -2,6 +2,8 @@
 title: "WP-069 — SearchProtocol and LiteratureCampaign Orchestration — Acceptance Criteria"
 aliases:
   - "WP-069 acceptance"
+cssclasses:
+  - aethrion-acceptance-criteria
 type: acceptance-criteria
 category: commissioning
 status: NOT_STARTED

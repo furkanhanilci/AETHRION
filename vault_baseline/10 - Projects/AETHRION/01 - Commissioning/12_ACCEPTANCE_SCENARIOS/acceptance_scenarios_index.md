@@ -1,5 +1,7 @@
 ---
 title: "ACC-01 – ACC-51 System Acceptance Scenarios"
+cssclasses:
+  - aethrion-index
 type: index
 category: commissioning
 status: SPECIFIED

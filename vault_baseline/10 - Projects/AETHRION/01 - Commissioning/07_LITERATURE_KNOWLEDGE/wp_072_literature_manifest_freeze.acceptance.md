@@ -2,6 +2,8 @@
 title: "WP-072 — LiteratureSetManifest Freeze and Human-Readable Archive — Acceptance Criteria"
 aliases:
   - "WP-072 acceptance"
+cssclasses:
+  - aethrion-acceptance-criteria
 type: acceptance-criteria
 category: commissioning
 status: NOT_STARTED

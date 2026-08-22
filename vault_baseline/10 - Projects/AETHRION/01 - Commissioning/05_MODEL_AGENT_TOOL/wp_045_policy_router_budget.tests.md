@@ -2,6 +2,8 @@
 title: "WP-045 — Policy Router and Minimum-Sufficient Model Package — Test Procedures"
 aliases:
   - "WP-045 tests"
+cssclasses:
+  - aethrion-test-procedure
 type: test-procedure
 category: commissioning
 status: NOT_STARTED

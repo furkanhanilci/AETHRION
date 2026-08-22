@@ -2,6 +2,8 @@
 title: "Writing Protocols"
 aliases:
   - "writing-protocols"
+cssclasses:
+  - aethrion-skill
 type: skill
 category: skill
 status: WORKING

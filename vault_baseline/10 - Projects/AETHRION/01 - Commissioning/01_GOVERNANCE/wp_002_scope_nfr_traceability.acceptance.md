@@ -2,6 +2,8 @@
 title: "WP-002 — Scope, NFRs and Requirement Traceability — Acceptance Criteria"
 aliases:
   - "WP-002 acceptance"
+cssclasses:
+  - aethrion-acceptance-criteria
 type: acceptance-criteria
 category: commissioning
 status: NOT_STARTED

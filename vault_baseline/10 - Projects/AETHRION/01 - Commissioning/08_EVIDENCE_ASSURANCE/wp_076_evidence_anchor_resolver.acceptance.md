@@ -2,6 +2,8 @@
 title: "WP-076 — Evidence Span Anchoring and Re-anchoring — Acceptance Criteria"
 aliases:
   - "WP-076 acceptance"
+cssclasses:
+  - aethrion-acceptance-criteria
 type: acceptance-criteria
 category: commissioning
 status: NOT_STARTED

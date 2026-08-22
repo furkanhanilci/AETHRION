@@ -3,6 +3,8 @@ title: "WP-054 — gVisor Sandbox and Execution Cell Lifecycle"
 aliases:
   - "WP-054"
   - "WP-054 — gVisor Sandbox and Execution Cell Lifecycle"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

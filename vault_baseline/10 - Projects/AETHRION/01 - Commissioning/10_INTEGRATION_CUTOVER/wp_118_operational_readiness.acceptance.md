@@ -2,6 +2,8 @@
 title: "WP-118 — Operational Readiness, On-Call and Runbook Simulation — Acceptance Criteria"
 aliases:
   - "WP-118 acceptance"
+cssclasses:
+  - aethrion-acceptance-criteria
 type: acceptance-criteria
 category: commissioning
 status: NOT_STARTED

@@ -2,6 +2,8 @@
 title: "WP-115 — Full System Regression and Commissioning Dossier — Test Procedures"
 aliases:
   - "WP-115 tests"
+cssclasses:
+  - aethrion-test-procedure
 type: test-procedure
 category: commissioning
 status: NOT_STARTED

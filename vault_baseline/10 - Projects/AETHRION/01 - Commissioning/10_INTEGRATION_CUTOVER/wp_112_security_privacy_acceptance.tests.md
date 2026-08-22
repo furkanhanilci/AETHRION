@@ -2,6 +2,8 @@
 title: "WP-112 — Security and Privacy Acceptance Package — Test Procedures"
 aliases:
   - "WP-112 tests"
+cssclasses:
+  - aethrion-test-procedure
 type: test-procedure
 category: commissioning
 status: NOT_STARTED

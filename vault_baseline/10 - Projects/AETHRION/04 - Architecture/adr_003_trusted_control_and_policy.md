@@ -2,6 +2,8 @@
 title: "ADR-003 — Trusted Control, Untrusted Data, and Policy Enforcement"
 aliases:
   - "ADR-003"
+cssclasses:
+  - aethrion-decision-record
 type: decision-record
 category: architecture
 status: ACCEPTED

@@ -2,6 +2,8 @@
 title: "WP-076 — Evidence Span Anchoring and Re-anchoring — Test Procedures"
 aliases:
   - "WP-076 tests"
+cssclasses:
+  - aethrion-test-procedure
 type: test-procedure
 category: commissioning
 status: NOT_STARTED

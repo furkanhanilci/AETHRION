@@ -2,6 +2,8 @@
 title: "WP-056 — OPA Policy Platform and Bundle Distribution — Acceptance Criteria"
 aliases:
   - "WP-056 acceptance"
+cssclasses:
+  - aethrion-acceptance-criteria
 type: acceptance-criteria
 category: commissioning
 status: NOT_STARTED

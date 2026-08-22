@@ -2,6 +2,8 @@
 title: "WP-099 — WORM Audit Ledger and Independent Export — Test Procedures"
 aliases:
   - "WP-099 tests"
+cssclasses:
+  - aethrion-test-procedure
 type: test-procedure
 category: commissioning
 status: NOT_STARTED

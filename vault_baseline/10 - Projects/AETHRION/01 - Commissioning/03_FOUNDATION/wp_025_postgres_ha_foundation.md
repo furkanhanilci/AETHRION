@@ -3,6 +3,8 @@ title: "WP-025 — PostgreSQL HA and Registry Data Foundation"
 aliases:
   - "WP-025"
   - "WP-025 — PostgreSQL HA and Registry Data Foundation"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

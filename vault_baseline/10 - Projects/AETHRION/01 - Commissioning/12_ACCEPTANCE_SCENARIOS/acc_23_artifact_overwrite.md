@@ -2,6 +2,8 @@
 title: "ACC-23 — Artifact Overwrite Attempt"
 aliases:
   - "ACC-23"
+cssclasses:
+  - aethrion-acceptance-scenario
 type: acceptance-scenario
 category: commissioning
 summary: "This scenario verifies the target architecture's fail-safe behaviour and its evidence production in the Artifact Overwrite Attempt situation."

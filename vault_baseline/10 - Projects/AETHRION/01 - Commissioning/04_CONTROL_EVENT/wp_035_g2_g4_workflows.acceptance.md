@@ -2,6 +2,8 @@
 title: "WP-035 — G2 Protocol, G3 Literature and G4 Baseline Workflows — Acceptance Criteria"
 aliases:
   - "WP-035 acceptance"
+cssclasses:
+  - aethrion-acceptance-criteria
 type: acceptance-criteria
 category: commissioning
 status: NOT_STARTED

@@ -3,6 +3,8 @@ title: "WP-115 — Full System Regression and Commissioning Dossier"
 aliases:
   - "WP-115"
   - "WP-115 — Full System Regression and Commissioning Dossier"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

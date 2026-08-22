@@ -2,6 +2,8 @@
 title: "WP-016 — PolicyDecision, Control and Exception Schemas — Test Procedures"
 aliases:
   - "WP-016 tests"
+cssclasses:
+  - aethrion-test-procedure
 type: test-procedure
 category: commissioning
 status: NOT_STARTED

@@ -2,6 +2,8 @@
 title: "WP-125 — Literature, Zotero and Obsidian Curation Rhythm — Acceptance Criteria"
 aliases:
   - "WP-125 acceptance"
+cssclasses:
+  - aethrion-acceptance-criteria
 type: acceptance-criteria
 category: commissioning
 status: NOT_STARTED

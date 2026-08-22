@@ -2,6 +2,8 @@
 title: "WP-080 — Claim–Citation Entailment, Scope and Locator Audit — Test Procedures"
 aliases:
   - "WP-080 tests"
+cssclasses:
+  - aethrion-test-procedure
 type: test-procedure
 category: commissioning
 status: NOT_STARTED

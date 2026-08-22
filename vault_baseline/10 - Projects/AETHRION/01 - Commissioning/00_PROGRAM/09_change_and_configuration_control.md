@@ -1,5 +1,7 @@
 ---
 title: "Change and Configuration Control"
+cssclasses:
+  - aethrion-reference
 type: reference
 category: commissioning
 source: "planning/commissioning/00_PROGRAM/09_change_and_configuration_control.md"

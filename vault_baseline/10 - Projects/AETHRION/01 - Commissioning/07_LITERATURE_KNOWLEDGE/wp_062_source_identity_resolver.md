@@ -3,6 +3,8 @@ title: "WP-062 — Source Identity Resolution, Deduplication and Merge"
 aliases:
   - "WP-062"
   - "WP-062 — Source Identity Resolution, Deduplication and Merge"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

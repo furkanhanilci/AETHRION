@@ -2,6 +2,8 @@
 title: "WP-028 — NATS JetStream and Transactional Outbox Foundation — Test Procedures"
 aliases:
   - "WP-028 tests"
+cssclasses:
+  - aethrion-test-procedure
 type: test-procedure
 category: commissioning
 status: NOT_STARTED

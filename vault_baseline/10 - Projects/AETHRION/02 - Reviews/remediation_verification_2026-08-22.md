@@ -1,5 +1,7 @@
 ---
 title: "Remediation Verification — 2026-08-22"
+cssclasses:
+  - aethrion-review
 type: review
 category: review
 summary: "This report states what is true today, measured against a frozen audit that must not be edited to match the present."

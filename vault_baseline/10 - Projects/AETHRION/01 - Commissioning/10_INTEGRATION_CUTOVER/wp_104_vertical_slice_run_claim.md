@@ -3,6 +3,8 @@ title: "WP-104 — Vertical Slice 3 — Baseline through Run to Claim/Evidence"
 aliases:
   - "WP-104"
   - "WP-104 — Vertical Slice 3 — Baseline through Run to Claim/Evidence"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

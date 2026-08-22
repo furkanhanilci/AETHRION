@@ -2,6 +2,8 @@
 title: "WP-140 — Service Liveness Monitoring and Dead-Man's Switch — Acceptance Criteria"
 aliases:
   - "WP-140 acceptance"
+cssclasses:
+  - aethrion-acceptance-criteria
 type: acceptance-criteria
 category: commissioning
 status: NOT_STARTED

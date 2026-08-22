@@ -3,6 +3,8 @@ title: "WP-081 — Protocol, Analysis, Baseline and Falsification Registry"
 aliases:
   - "WP-081"
   - "WP-081 — Protocol, Analysis, Baseline and Falsification Registry"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

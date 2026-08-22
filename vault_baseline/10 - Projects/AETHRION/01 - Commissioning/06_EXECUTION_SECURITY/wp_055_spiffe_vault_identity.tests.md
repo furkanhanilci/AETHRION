@@ -2,6 +2,8 @@
 title: "WP-055 — SPIFFE/SPIRE Workload Identity and Vault — Test Procedures"
 aliases:
   - "WP-055 tests"
+cssclasses:
+  - aethrion-test-procedure
 type: test-procedure
 category: commissioning
 status: NOT_STARTED

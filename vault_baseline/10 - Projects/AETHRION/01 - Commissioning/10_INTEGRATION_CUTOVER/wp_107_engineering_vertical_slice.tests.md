@@ -2,6 +2,8 @@
 title: "WP-107 — Engineering Vertical Slice — Spec, Worktree, Signed Release — Test Procedures"
 aliases:
   - "WP-107 tests"
+cssclasses:
+  - aethrion-test-procedure
 type: test-procedure
 category: commissioning
 status: NOT_STARTED

@@ -1,5 +1,7 @@
 ---
 title: "05_MODEL_AGENT_TOOL — Model, agent and tool platform"
+cssclasses:
+  - aethrion-index
 type: index
 category: commissioning
 summary: "Model gateway, capability registry, qualification, routing, the agent runtime, the role and skill registries, harness adapters and the tool broker."

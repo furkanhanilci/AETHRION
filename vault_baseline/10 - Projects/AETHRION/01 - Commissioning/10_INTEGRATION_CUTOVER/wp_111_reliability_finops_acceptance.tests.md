@@ -2,6 +2,8 @@
 title: "WP-111 — Reliability, Event and FinOps Acceptance Package — Test Procedures"
 aliases:
   - "WP-111 tests"
+cssclasses:
+  - aethrion-test-procedure
 type: test-procedure
 category: commissioning
 status: NOT_STARTED

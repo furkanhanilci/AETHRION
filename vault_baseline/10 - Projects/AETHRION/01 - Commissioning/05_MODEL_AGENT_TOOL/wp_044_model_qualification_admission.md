@@ -3,6 +3,8 @@ title: "WP-044 — Model Qualification and Admission Pipeline"
 aliases:
   - "WP-044"
   - "WP-044 — Model Qualification and Admission Pipeline"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

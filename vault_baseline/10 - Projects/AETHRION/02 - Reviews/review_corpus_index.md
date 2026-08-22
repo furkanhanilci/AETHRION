@@ -1,5 +1,7 @@
 ---
 title: "Review records"
+cssclasses:
+  - aethrion-review
 type: review
 category: review
 summary: "These documents are evidence, and evidence that gets edited to stay current stops being evidence."

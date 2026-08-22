@@ -2,6 +2,8 @@
 title: "WP-084 — Clean-Room Reproduction Environment — Test Procedures"
 aliases:
   - "WP-084 tests"
+cssclasses:
+  - aethrion-test-procedure
 type: test-procedure
 category: commissioning
 status: NOT_STARTED

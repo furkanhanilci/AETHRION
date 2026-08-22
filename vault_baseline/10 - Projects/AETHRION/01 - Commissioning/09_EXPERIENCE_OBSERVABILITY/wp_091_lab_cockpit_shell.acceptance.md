@@ -2,6 +2,8 @@
 title: "WP-091 — Lab Cockpit Information Architecture and Application Shell — Acceptance Criteria"
 aliases:
   - "WP-091 acceptance"
+cssclasses:
+  - aethrion-acceptance-criteria
 type: acceptance-criteria
 category: commissioning
 status: NOT_STARTED

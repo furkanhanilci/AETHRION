@@ -2,6 +2,8 @@
 title: "WP-108 — Retraction, Drift and Supersession Vertical Slice — Test Procedures"
 aliases:
   - "WP-108 tests"
+cssclasses:
+  - aethrion-test-procedure
 type: test-procedure
 category: commissioning
 status: NOT_STARTED

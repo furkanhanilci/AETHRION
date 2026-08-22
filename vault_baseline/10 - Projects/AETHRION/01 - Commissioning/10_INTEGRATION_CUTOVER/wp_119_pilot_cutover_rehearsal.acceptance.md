@@ -2,6 +2,8 @@
 title: "WP-119 — Controlled Pilot and Cutover Rehearsal — Acceptance Criteria"
 aliases:
   - "WP-119 acceptance"
+cssclasses:
+  - aethrion-acceptance-criteria
 type: acceptance-criteria
 category: commissioning
 status: NOT_STARTED

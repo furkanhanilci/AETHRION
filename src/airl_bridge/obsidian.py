@@ -245,6 +245,8 @@ class ObsidianProjector:
             "  - aethrion/source",
             "  - aethrion/source-catalog",
             "type: generated-index",
+            "cssclasses:",
+            "  - aethrion-index",
             f'generated_at: {self._yaml_string(generated_at)}',
             "provenance: airl-bridge-api",
             "---",
@@ -282,6 +284,8 @@ class ObsidianProjector:
             "  - aethrion/source",
             "  - aethrion/duplicate-review",
             "type: generated-quality-report",
+            "cssclasses:",
+            "  - aethrion-index",
             f'generated_at: {self._yaml_string(generated_at)}',
             "provenance: airl-bridge-api",
             "---",
@@ -379,6 +383,8 @@ class ObsidianProjector:
         return f"""---
 airl_id: {self._yaml_string(source.airl_id)}
 type: source
+cssclasses:
+  - aethrion-source
 status: ingested
 source_category: {self._yaml_string(category)}
 zotero_item_key: {self._yaml_string(source.zotero_key)}

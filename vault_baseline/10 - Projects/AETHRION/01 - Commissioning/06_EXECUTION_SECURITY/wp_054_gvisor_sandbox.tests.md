@@ -2,6 +2,8 @@
 title: "WP-054 — gVisor Sandbox and Execution Cell Lifecycle — Test Procedures"
 aliases:
   - "WP-054 tests"
+cssclasses:
+  - aethrion-test-procedure
 type: test-procedure
 category: commissioning
 status: NOT_STARTED

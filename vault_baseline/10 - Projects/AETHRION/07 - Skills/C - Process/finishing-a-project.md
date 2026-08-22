@@ -2,6 +2,8 @@
 title: "Finishing a Project"
 aliases:
   - "finishing-a-project"
+cssclasses:
+  - aethrion-skill
 type: skill
 category: skill
 status: WORKING

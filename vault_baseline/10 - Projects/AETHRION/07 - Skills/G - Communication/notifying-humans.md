@@ -2,6 +2,8 @@
 title: "Notifying Humans"
 aliases:
   - "notifying-humans"
+cssclasses:
+  - aethrion-skill
 type: skill
 category: skill
 status: WORKING

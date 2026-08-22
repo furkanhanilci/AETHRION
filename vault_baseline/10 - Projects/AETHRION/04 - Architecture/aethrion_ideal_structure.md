@@ -1,5 +1,7 @@
 ---
 title: "AETHRION — Ideal Structure Proposal, Contributions and Architecture Review"
+cssclasses:
+  - aethrion-reference
 type: reference
 category: architecture
 summary: "This document reviews the target architecture against what a rigorous laboratory would need and proposes what is missing: seven durable roles, ten review mechanisms, a metascience plane that measures the laboratory's own error rate, the operational discipline worth taking from agent engineering prac"

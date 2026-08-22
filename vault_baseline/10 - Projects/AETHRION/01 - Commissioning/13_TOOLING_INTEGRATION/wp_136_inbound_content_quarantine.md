@@ -3,6 +3,8 @@ title: "WP-136 — Inbound Content Quarantine and Channel Allowlist"
 aliases:
   - "WP-136"
   - "WP-136 — Inbound Content Quarantine and Channel Allowlist"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

@@ -1,5 +1,7 @@
 ---
 title: "Measurements"
+cssclasses:
+  - aethrion-index
 type: index
 category: evidence
 source: "delivery/measurements/README.md"

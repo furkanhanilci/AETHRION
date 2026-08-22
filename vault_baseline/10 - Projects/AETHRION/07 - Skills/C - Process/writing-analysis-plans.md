@@ -2,6 +2,8 @@
 title: "Writing Analysis Plans"
 aliases:
   - "writing-analysis-plans"
+cssclasses:
+  - aethrion-skill
 type: skill
 category: skill
 status: WORKING

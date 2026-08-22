@@ -2,6 +2,8 @@
 title: "WP-122 — Service Health, SLO and Error-Budget Rhythm — Test Procedures"
 aliases:
   - "WP-122 tests"
+cssclasses:
+  - aethrion-test-procedure
 type: test-procedure
 category: commissioning
 status: NOT_STARTED

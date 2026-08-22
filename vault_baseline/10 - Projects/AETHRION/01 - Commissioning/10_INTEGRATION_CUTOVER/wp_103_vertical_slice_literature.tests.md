@@ -2,6 +2,8 @@
 title: "WP-103 — Vertical Slice 2 — Two-Way Literature and Set Freeze — Test Procedures"
 aliases:
   - "WP-103 tests"
+cssclasses:
+  - aethrion-test-procedure
 type: test-procedure
 category: commissioning
 status: NOT_STARTED

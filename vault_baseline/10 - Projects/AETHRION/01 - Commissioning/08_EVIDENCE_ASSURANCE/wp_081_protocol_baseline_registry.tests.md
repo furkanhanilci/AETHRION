@@ -2,6 +2,8 @@
 title: "WP-081 — Protocol, Analysis, Baseline and Falsification Registry — Test Procedures"
 aliases:
   - "WP-081 tests"
+cssclasses:
+  - aethrion-test-procedure
 type: test-procedure
 category: commissioning
 status: NOT_STARTED

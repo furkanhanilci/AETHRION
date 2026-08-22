@@ -1,5 +1,7 @@
 ---
 title: "06_EXECUTION_SECURITY — Execution and security"
+cssclasses:
+  - aethrion-index
 type: index
 category: commissioning
 summary: "Sandboxing, workload identity, policy enforcement, secrets, egress and untrusted-content handling."

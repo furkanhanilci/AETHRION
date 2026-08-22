@@ -2,6 +2,8 @@
 title: "ACC-51 — Upstream Change Invalidates a Derived Skill"
 aliases:
   - "ACC-51"
+cssclasses:
+  - aethrion-acceptance-scenario
 type: acceptance-scenario
 category: commissioning
 summary: "This scenario verifies the target architecture's fail-safe behaviour and its evidence production in the Upstream Change Invalidates a Derived Skill situation."

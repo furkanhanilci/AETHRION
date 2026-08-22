@@ -2,6 +2,8 @@
 title: "WP-069 — SearchProtocol and LiteratureCampaign Orchestration — Test Procedures"
 aliases:
   - "WP-069 tests"
+cssclasses:
+  - aethrion-test-procedure
 type: test-procedure
 category: commissioning
 status: NOT_STARTED

@@ -3,6 +3,8 @@ title: "Documentation"
 aliases:
   - "docs/README"
   - "Documentation Index"
+cssclasses:
+  - aethrion-index
 type: index
 category: project
 summary: "This corpus describes a system that is mostly designed and barely built, and the documents are organised so that distinction stays visible: architecture/ holds the target design, review/ holds frozen evidence about what was true on a date, STATUS.md is generated and holds what is true now, and figur"

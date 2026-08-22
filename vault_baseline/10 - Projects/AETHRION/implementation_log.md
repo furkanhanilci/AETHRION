@@ -8,6 +8,8 @@ tags:
   - aethrion/execution
   - aethrion/contracts
   - aethrion/foundation
+cssclasses:
+  - aethrion-execution-log
 ---
 
 # AETHRION — Implementation Log

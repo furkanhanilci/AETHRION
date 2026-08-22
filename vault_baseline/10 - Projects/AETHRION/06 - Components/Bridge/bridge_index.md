@@ -1,5 +1,7 @@
 ---
 title: "`airl_bridge` — the working vertical slice"
+cssclasses:
+  - aethrion-index
 type: index
 category: component
 status: WORKING

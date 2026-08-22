@@ -2,6 +2,8 @@
 title: "WP-097 — Langfuse Model/Agent Tracing and Prompt Governance — Test Procedures"
 aliases:
   - "WP-097 tests"
+cssclasses:
+  - aethrion-test-procedure
 type: test-procedure
 category: commissioning
 status: NOT_STARTED

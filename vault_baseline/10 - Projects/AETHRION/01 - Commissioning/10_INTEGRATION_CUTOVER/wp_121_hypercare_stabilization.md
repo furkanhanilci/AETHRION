@@ -3,6 +3,8 @@ title: "WP-121 — Hypercare, Stabilisation and Programme Closure"
 aliases:
   - "WP-121"
   - "WP-121 — Hypercare, Stabilisation and Programme Closure"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

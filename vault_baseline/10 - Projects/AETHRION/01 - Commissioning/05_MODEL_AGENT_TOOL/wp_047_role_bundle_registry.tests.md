@@ -2,6 +2,8 @@
 title: "WP-047 — Role and Skill Registries, and the Task Compiler — Test Procedures"
 aliases:
   - "WP-047 tests"
+cssclasses:
+  - aethrion-test-procedure
 type: test-procedure
 category: commissioning
 status: NOT_STARTED

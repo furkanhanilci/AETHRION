@@ -3,6 +3,8 @@ title: "WP-049 — Tool Registry and Tool Broker Core"
 aliases:
   - "WP-049"
   - "WP-049 — Tool Registry and Tool Broker Core"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

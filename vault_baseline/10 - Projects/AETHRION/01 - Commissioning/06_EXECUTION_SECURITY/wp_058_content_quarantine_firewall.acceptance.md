@@ -2,6 +2,8 @@
 title: "WP-058 — Untrusted Content Quarantine and Prompt-Injection Firewall — Acceptance Criteria"
 aliases:
   - "WP-058 acceptance"
+cssclasses:
+  - aethrion-acceptance-criteria
 type: acceptance-criteria
 category: commissioning
 status: NOT_STARTED

@@ -2,6 +2,8 @@
 title: "WP-079 — SourceTrustCard and Study Quality Assessment — Test Procedures"
 aliases:
   - "WP-079 tests"
+cssclasses:
+  - aethrion-test-procedure
 type: test-procedure
 category: commissioning
 status: NOT_STARTED

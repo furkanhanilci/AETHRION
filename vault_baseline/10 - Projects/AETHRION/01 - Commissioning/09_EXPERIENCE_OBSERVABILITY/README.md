@@ -1,5 +1,7 @@
 ---
 title: "09_EXPERIENCE_OBSERVABILITY — Experience and observability"
+cssclasses:
+  - aethrion-index
 type: index
 category: commissioning
 summary: "The cockpit, gate timeline, decision queue, literature workbench, telemetry, cost and audit surfaces."

@@ -4,6 +4,8 @@ aliases:
   - "AGENTS"
   - "AGENTS.md"
   - "Operating Manual"
+cssclasses:
+  - aethrion-index
 type: index
 category: project
 source: "AGENTS.md"

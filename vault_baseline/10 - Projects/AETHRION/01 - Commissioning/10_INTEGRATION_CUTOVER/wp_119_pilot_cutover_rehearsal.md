@@ -3,6 +3,8 @@ title: "WP-119 — Controlled Pilot and Cutover Rehearsal"
 aliases:
   - "WP-119"
   - "WP-119 — Controlled Pilot and Cutover Rehearsal"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

@@ -2,6 +2,8 @@
 title: "WP-136 — Inbound Content Quarantine and Channel Allowlist — Test Procedures"
 aliases:
   - "WP-136 tests"
+cssclasses:
+  - aethrion-test-procedure
 type: test-procedure
 category: commissioning
 status: NOT_STARTED

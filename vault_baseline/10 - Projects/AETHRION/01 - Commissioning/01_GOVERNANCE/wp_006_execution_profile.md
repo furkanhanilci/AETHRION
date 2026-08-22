@@ -3,6 +3,8 @@ title: "WP-006 — ExecutionProfile and Route Policy"
 aliases:
   - "WP-006"
   - "WP-006 — ExecutionProfile and Route Policy"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

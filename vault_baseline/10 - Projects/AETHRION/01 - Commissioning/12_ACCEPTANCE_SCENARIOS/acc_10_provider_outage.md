@@ -2,6 +2,8 @@
 title: "ACC-10 — Primary Model Provider Outage"
 aliases:
   - "ACC-10"
+cssclasses:
+  - aethrion-acceptance-scenario
 type: acceptance-scenario
 category: commissioning
 summary: "This scenario verifies the target architecture's fail-safe behaviour and its evidence production in the Primary Model Provider Outage situation."

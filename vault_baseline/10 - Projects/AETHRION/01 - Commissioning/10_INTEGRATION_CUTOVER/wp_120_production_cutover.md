@@ -3,6 +3,8 @@ title: "WP-120 — Production Cutover and Go-Live Decision"
 aliases:
   - "WP-120"
   - "WP-120 — Production Cutover and Go-Live Decision"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

@@ -2,6 +2,8 @@
 title: "WP-114 — Operations, DR and Restore Acceptance Package — Test Procedures"
 aliases:
   - "WP-114 tests"
+cssclasses:
+  - aethrion-test-procedure
 type: test-procedure
 category: commissioning
 status: NOT_STARTED

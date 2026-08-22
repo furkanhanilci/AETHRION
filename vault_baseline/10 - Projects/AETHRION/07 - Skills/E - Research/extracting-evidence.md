@@ -2,6 +2,8 @@
 title: "Extracting Evidence"
 aliases:
   - "extracting-evidence"
+cssclasses:
+  - aethrion-skill
 type: skill
 category: skill
 status: WORKING

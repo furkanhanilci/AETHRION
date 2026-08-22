@@ -2,6 +2,8 @@
 title: "Preregistration Discipline"
 aliases:
   - "preregistration-discipline"
+cssclasses:
+  - aethrion-skill
 type: skill
 category: skill
 status: WORKING

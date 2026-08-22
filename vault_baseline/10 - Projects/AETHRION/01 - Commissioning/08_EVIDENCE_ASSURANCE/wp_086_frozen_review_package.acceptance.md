@@ -2,6 +2,8 @@
 title: "WP-086 — Frozen and Blind Review Package Builder — Acceptance Criteria"
 aliases:
   - "WP-086 acceptance"
+cssclasses:
+  - aethrion-acceptance-criteria
 type: acceptance-criteria
 category: commissioning
 status: NOT_STARTED

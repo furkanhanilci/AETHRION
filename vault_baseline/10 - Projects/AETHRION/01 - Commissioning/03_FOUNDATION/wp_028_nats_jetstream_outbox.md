@@ -3,6 +3,8 @@ title: "WP-028 — NATS JetStream and Transactional Outbox Foundation"
 aliases:
   - "WP-028"
   - "WP-028 — NATS JetStream and Transactional Outbox Foundation"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

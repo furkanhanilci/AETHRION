@@ -2,6 +2,8 @@
 title: "WP-020 — Schema Registry, Compatibility and Contract SDK — Test Procedures"
 aliases:
   - "WP-020 tests"
+cssclasses:
+  - aethrion-test-procedure
 type: test-procedure
 category: commissioning
 status: NOT_STARTED

@@ -3,6 +3,8 @@ title: "WP-076 — Evidence Span Anchoring and Re-anchoring"
 aliases:
   - "WP-076"
   - "WP-076 — Evidence Span Anchoring and Re-anchoring"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

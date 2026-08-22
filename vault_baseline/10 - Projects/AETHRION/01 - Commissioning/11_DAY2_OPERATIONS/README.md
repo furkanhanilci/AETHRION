@@ -1,5 +1,7 @@
 ---
 title: "11_DAY2_OPERATIONS — Day-2 operations"
+cssclasses:
+  - aethrion-index
 type: index
 category: commissioning
 summary: "The recurring rhythms after go-live: service cadence, control effectiveness, requalification, calibration, FinOps, incident learning and drills."

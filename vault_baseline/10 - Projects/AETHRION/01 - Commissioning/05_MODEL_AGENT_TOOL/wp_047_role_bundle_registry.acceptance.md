@@ -2,6 +2,8 @@
 title: "WP-047 — Role and Skill Registries, and the Task Compiler — Acceptance Criteria"
 aliases:
   - "WP-047 acceptance"
+cssclasses:
+  - aethrion-acceptance-criteria
 type: acceptance-criteria
 category: commissioning
 status: NOT_STARTED

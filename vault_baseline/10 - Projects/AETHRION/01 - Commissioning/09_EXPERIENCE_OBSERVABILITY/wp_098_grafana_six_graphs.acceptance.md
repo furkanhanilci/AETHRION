@@ -2,6 +2,8 @@
 title: "WP-098 — Grafana and the Six Operational Graphs — Acceptance Criteria"
 aliases:
   - "WP-098 acceptance"
+cssclasses:
+  - aethrion-acceptance-criteria
 type: acceptance-criteria
 category: commissioning
 status: NOT_STARTED

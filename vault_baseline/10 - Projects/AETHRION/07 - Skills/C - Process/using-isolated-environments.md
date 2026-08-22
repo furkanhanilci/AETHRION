@@ -2,6 +2,8 @@
 title: "Using Isolated Environments"
 aliases:
   - "using-isolated-environments"
+cssclasses:
+  - aethrion-skill
 type: skill
 category: skill
 status: WORKING

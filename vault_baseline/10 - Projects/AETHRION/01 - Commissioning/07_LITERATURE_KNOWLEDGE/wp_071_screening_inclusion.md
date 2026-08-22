@@ -3,6 +3,8 @@ title: "WP-071 — Screening, Inclusion/Exclusion and Coverage"
 aliases:
   - "WP-071"
   - "WP-071 — Screening, Inclusion/Exclusion and Coverage"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

@@ -1,5 +1,7 @@
 ---
 title: "Specimen document"
+cssclasses:
+  - aethrion-index
 type: index
 category: evidence
 summary: "This exists to exercise the authoring pipeline on real data rather than on an invented example."

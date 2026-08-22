@@ -1,5 +1,7 @@
 ---
 title: "03_FOUNDATION — Platform foundation"
+cssclasses:
+  - aethrion-index
 type: index
 category: commissioning
 summary: "Databases, object storage, event transport, derived read models and CI — the substrate every later service assumes."

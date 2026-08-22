@@ -8,6 +8,8 @@ decision_date: "{{date}}"
 supersedes:
 tags:
   - aethrion/decision
+cssclasses:
+  - aethrion-decision
 ---
 
 # {{title}}

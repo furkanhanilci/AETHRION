@@ -3,6 +3,8 @@ title: "WP-033 — Gate Service and GateRecord Evaluation"
 aliases:
   - "WP-033"
   - "WP-033 — Gate Service and GateRecord Evaluation"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

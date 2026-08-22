@@ -2,6 +2,8 @@
 title: "WP-117 — Performance, Capacity and Load Commissioning — Acceptance Criteria"
 aliases:
   - "WP-117 acceptance"
+cssclasses:
+  - aethrion-acceptance-criteria
 type: acceptance-criteria
 category: commissioning
 status: NOT_STARTED

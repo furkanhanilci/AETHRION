@@ -2,6 +2,8 @@
 title: "WP-044 — Model Qualification and Admission Pipeline — Test Procedures"
 aliases:
   - "WP-044 tests"
+cssclasses:
+  - aethrion-test-procedure
 type: test-procedure
 category: commissioning
 status: NOT_STARTED

@@ -2,6 +2,8 @@
 title: "WP-084 — Clean-Room Reproduction Environment — Acceptance Criteria"
 aliases:
   - "WP-084 acceptance"
+cssclasses:
+  - aethrion-acceptance-criteria
 type: acceptance-criteria
 category: commissioning
 status: NOT_STARTED

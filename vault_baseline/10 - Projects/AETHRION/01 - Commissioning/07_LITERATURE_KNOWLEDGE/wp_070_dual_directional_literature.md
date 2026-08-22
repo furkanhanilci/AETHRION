@@ -3,6 +3,8 @@ title: "WP-070 — Human + Agent Two-Way Literature Discovery"
 aliases:
   - "WP-070"
   - "WP-070 — Human + Agent Two-Way Literature Discovery"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

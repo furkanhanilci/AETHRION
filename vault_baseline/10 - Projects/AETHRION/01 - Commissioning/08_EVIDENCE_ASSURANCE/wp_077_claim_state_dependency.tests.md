@@ -2,6 +2,8 @@
 title: "WP-077 — Claim State, Dependency and Assessment Engine — Test Procedures"
 aliases:
   - "WP-077 tests"
+cssclasses:
+  - aethrion-test-procedure
 type: test-procedure
 category: commissioning
 status: NOT_STARTED

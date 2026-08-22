@@ -2,6 +2,8 @@
 title: "WP-132 — Channel Registry and Data-Class Ceiling — Test Procedures"
 aliases:
   - "WP-132 tests"
+cssclasses:
+  - aethrion-test-procedure
 type: test-procedure
 category: commissioning
 status: NOT_STARTED

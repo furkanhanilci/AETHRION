@@ -2,6 +2,8 @@
 title: "WP-096 — OpenTelemetry End-to-End Correlation Spine — Test Procedures"
 aliases:
   - "WP-096 tests"
+cssclasses:
+  - aethrion-test-procedure
 type: test-procedure
 category: commissioning
 status: NOT_STARTED

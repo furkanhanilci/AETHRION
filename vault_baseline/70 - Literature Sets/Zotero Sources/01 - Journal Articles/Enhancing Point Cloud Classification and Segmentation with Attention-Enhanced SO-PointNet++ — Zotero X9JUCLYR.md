@@ -24,6 +24,8 @@ zotero_tags:
 creators:
   - "Gang Chen"
   - "Chengwei Gu"
+cssclasses:
+  - aethrion-source
 ---
 
 <h1>Enhancing Point Cloud Classification and Segmentation with Attention-Enhanced SO-PointNet++</h1>

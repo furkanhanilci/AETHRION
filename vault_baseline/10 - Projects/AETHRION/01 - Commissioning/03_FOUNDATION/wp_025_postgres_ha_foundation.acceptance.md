@@ -2,6 +2,8 @@
 title: "WP-025 — PostgreSQL HA and Registry Data Foundation — Acceptance Criteria"
 aliases:
   - "WP-025 acceptance"
+cssclasses:
+  - aethrion-acceptance-criteria
 type: acceptance-criteria
 category: commissioning
 status: NOT_STARTED

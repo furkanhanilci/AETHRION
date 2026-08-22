@@ -29,6 +29,8 @@ creators:
   - "Ke Li"
   - "Luc Van Gool"
   - "Dengxin Dai"
+cssclasses:
+  - aethrion-source
 ---
 
 <h1>End-to-End Optimization of LiDAR Beam Configuration for 3D Object Detection and Localization</h1>

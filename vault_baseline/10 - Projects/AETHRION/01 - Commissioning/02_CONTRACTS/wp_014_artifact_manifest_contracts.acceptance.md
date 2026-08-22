@@ -2,6 +2,8 @@
 title: "WP-014 — Artifact, Dataset and Immutable Manifest Schemas — Acceptance Criteria"
 aliases:
   - "WP-014 acceptance"
+cssclasses:
+  - aethrion-acceptance-criteria
 type: acceptance-criteria
 category: commissioning
 status: NOT_STARTED

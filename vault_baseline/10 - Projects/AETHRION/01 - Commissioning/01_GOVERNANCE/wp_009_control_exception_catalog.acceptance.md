@@ -2,6 +2,8 @@
 title: "WP-009 — Control Catalogue, Exceptions and Non-Waivable Blockers — Acceptance Criteria"
 aliases:
   - "WP-009 acceptance"
+cssclasses:
+  - aethrion-acceptance-criteria
 type: acceptance-criteria
 category: commissioning
 status: NOT_STARTED

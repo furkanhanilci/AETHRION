@@ -24,6 +24,8 @@ creators:
   - "Jeremy M. Wolfe"
   - "Tat-Jen Cham"
   - "Mengmi Zhang"
+cssclasses:
+  - aethrion-source
 ---
 
 <h1>Gazing at Rewards: Eye Movements as a Lens into Human and AI Decision-Making in Hybrid Visual Foraging</h1>

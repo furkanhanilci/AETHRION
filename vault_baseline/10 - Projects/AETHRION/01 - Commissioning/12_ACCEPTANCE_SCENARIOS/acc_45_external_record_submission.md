@@ -2,6 +2,8 @@
 title: "ACC-45 — Irreversible External Record Submission"
 aliases:
   - "ACC-45"
+cssclasses:
+  - aethrion-acceptance-scenario
 type: acceptance-scenario
 category: commissioning
 summary: "Minting a persistent identifier or submitting an external record cannot be undone."

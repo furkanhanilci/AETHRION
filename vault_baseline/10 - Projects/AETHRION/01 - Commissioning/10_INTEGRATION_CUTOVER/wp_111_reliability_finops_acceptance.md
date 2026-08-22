@@ -3,6 +3,8 @@ title: "WP-111 — Reliability, Event and FinOps Acceptance Package"
 aliases:
   - "WP-111"
   - "WP-111 — Reliability, Event and FinOps Acceptance Package"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

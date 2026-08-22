@@ -1,6 +1,8 @@
 ---
 title: "Graph Legend"
 type: index
+cssclasses:
+  - aethrion-index
 category: vault
 status: active
 summary: "What each colour in the graph view means, and why colour is never the only carrier of the distinction."
@@ -49,6 +51,7 @@ tag, so the same separation is available in search, in a query and in
 | <span style="display:inline-block;width:0.9em;height:0.9em;background:#44AA99;border-radius:2px"></span> `#44AA99` | Human synthesis | `aethrion/claim` | the second brain: the areas a human writes in, distinct from everything projected from the repository |
 | <span style="display:inline-block;width:0.9em;height:0.9em;background:#63666A;border-radius:2px"></span> `#63666A` | Daily note | `aethrion/daily` | navigation: entered by date rather than by link |
 | <span style="display:inline-block;width:0.9em;height:0.9em;background:#63666A;border-radius:2px"></span> `#63666A` | Template | `path:"_Templates"` | navigation: deliberately unlinked, and not content |
+| <span style="display:inline-block;width:0.9em;height:0.9em;background:#F0E442;border-radius:2px"></span> `#F0E442` | Attachment and data file | `path:".svg"` | external source: figures and data files, carried rather than authored |
 
 ## The group worth watching
 
@@ -64,12 +67,14 @@ Track the count on [[10 - Projects/AETHRION/authoring_progress|Authoring Progres
 
 The graph is one surface. `scripts/make_vault_theme.py` generates a CSS
 snippet — loaded natively from `.obsidian/snippets/`, no plugin — that
-carries the same eight colours to:
+carries the same 10 colours to:
 
 | Surface | What is coloured |
 |---|---|
 | File explorer | Each top-level area gets a left border in its colour, so the shape of the vault is legible before anything is opened |
 | File explorer | `.tests.md` and `.acceptance.md` are tinted, separating a package's three documents at a glance |
+| Note body | Every page declares `cssclasses: [aethrion-<type>]`, so its headings, internal links, table headers, quotes and rules carry the page's own colour |
+| Side panels | Backlinks, outgoing links, the tag pane, the outline and bookmarks take the colour of what they are — navigation, structure, vocabulary |
 | Tag pills | Every `aethrion/` namespace takes its group colour |
 | The `type` property | Shown on every generated page, coloured by kind |
 | Search results | Test and acceptance documents are distinguishable in a result list |

@@ -1,5 +1,7 @@
 ---
 title: "Full Framework Review Prompt"
+cssclasses:
+  - aethrion-review
 type: review
 category: review
 source: "docs/review/CLAUDE_FULL_FRAMEWORK_REVIEW_PROMPT.md"

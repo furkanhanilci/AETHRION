@@ -2,6 +2,8 @@
 title: "WP-067 — Zotero Two-Way Sync and Reconciliation — Acceptance Criteria"
 aliases:
   - "WP-067 acceptance"
+cssclasses:
+  - aethrion-acceptance-criteria
 type: acceptance-criteria
 category: commissioning
 status: NOT_STARTED

@@ -2,6 +2,8 @@
 title: "WP-131 — Notification Broker Foundation — Acceptance Criteria"
 aliases:
   - "WP-131 acceptance"
+cssclasses:
+  - aethrion-acceptance-criteria
 type: acceptance-criteria
 category: commissioning
 status: NOT_STARTED

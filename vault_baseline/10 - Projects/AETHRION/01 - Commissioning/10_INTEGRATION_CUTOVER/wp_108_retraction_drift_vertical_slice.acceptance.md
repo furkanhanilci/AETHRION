@@ -2,6 +2,8 @@
 title: "WP-108 — Retraction, Drift and Supersession Vertical Slice — Acceptance Criteria"
 aliases:
   - "WP-108 acceptance"
+cssclasses:
+  - aethrion-acceptance-criteria
 type: acceptance-criteria
 category: commissioning
 status: NOT_STARTED

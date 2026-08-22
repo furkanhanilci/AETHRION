@@ -2,6 +2,8 @@
 title: "WP-129 — Quarterly DR, Supply-Chain and Audit Drill — Acceptance Criteria"
 aliases:
   - "WP-129 acceptance"
+cssclasses:
+  - aethrion-acceptance-criteria
 type: acceptance-criteria
 category: commissioning
 status: NOT_STARTED

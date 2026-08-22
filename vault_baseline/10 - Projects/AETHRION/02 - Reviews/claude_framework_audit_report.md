@@ -1,5 +1,7 @@
 ---
 title: "AI Research Framework — Independent Audit Report"
+cssclasses:
+  - aethrion-review
 type: review
 category: review
 source: "docs/review/FRAMEWORK_REVIEW_2026-08-21_CLAUDE.md"

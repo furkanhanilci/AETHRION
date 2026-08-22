@@ -2,6 +2,8 @@
 title: "WP-091 — Lab Cockpit Information Architecture and Application Shell — Test Procedures"
 aliases:
   - "WP-091 tests"
+cssclasses:
+  - aethrion-test-procedure
 type: test-procedure
 category: commissioning
 status: NOT_STARTED

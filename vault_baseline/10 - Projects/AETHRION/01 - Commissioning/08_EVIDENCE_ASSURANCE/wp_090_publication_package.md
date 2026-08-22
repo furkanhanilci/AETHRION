@@ -3,6 +3,8 @@ title: "WP-090 — PublicationPackage, RO-Crate and Provenance Export"
 aliases:
   - "WP-090"
   - "WP-090 — PublicationPackage, RO-Crate and Provenance Export"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

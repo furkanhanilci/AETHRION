@@ -3,6 +3,8 @@ title: "WP-057 — Default-Deny Egress Proxy, DLP and Allowlist"
 aliases:
   - "WP-057"
   - "WP-057 — Default-Deny Egress Proxy, DLP and Allowlist"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

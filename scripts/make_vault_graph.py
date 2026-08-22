@@ -47,6 +47,7 @@ from pathlib import Path
 
 REPO = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO / "scripts"))
+import make_vault_theme as theme
 import vault_frontmatter
 
 # Okabe-Ito, matching scripts/figure_kit.py. The comment on each line is the
@@ -158,6 +159,16 @@ GROUPS = [
      'path:"_Templates"',
      MUTE,
      "navigation: deliberately unlinked, and not content"),
+
+    # A note takes its colour from a tag; an attachment has no frontmatter and so
+    # has no tag. The graph draws them anyway — nine figures, the logo, the seal
+    # file, the dependency matrix and the projection manifest — and every one of
+    # them was a grey dot among 670 coloured ones. `path:` is the only predicate
+    # that reaches a file with no metadata.
+    ("Attachment and data file",
+     'path:".svg" OR path:".png" OR path:".txt" OR path:".csv" OR path:".json"',
+     YELLOW,
+     "external source: figures and data files, carried rather than authored"),
 ]
 
 # Settings worth fixing alongside the colours. Everything else in graph.json is
@@ -207,6 +218,8 @@ def legend_page() -> str:
         "---",
         'title: "Graph Legend"',
         "type: index",
+        "cssclasses:",
+        "  - aethrion-index",
         "category: vault",
         "status: active",
         'summary: "What each colour in the graph view means, and why colour is '
@@ -262,12 +275,14 @@ def legend_page() -> str:
         "",
         "The graph is one surface. `scripts/make_vault_theme.py` generates a CSS",
         "snippet — loaded natively from `.obsidian/snippets/`, no plugin — that",
-        "carries the same eight colours to:",
+        f"carries the same {len(theme.TOKENS)} colours to:",
         "",
         "| Surface | What is coloured |",
         "|---|---|",
         "| File explorer | Each top-level area gets a left border in its colour, so the shape of the vault is legible before anything is opened |",
         "| File explorer | `.tests.md` and `.acceptance.md` are tinted, separating a package's three documents at a glance |",
+        "| Note body | Every page declares `cssclasses: [aethrion-<type>]`, so its headings, internal links, table headers, quotes and rules carry the page's own colour |",
+        "| Side panels | Backlinks, outgoing links, the tag pane, the outline and bookmarks take the colour of what they are — navigation, structure, vocabulary |",
         "| Tag pills | Every `aethrion/` namespace takes its group colour |",
         "| The `type` property | Shown on every generated page, coloured by kind |",
         "| Search results | Test and acceptance documents are distinguishable in a result list |",

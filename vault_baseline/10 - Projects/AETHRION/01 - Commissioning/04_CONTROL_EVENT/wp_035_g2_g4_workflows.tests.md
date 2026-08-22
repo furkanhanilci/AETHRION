@@ -2,6 +2,8 @@
 title: "WP-035 — G2 Protocol, G3 Literature and G4 Baseline Workflows — Test Procedures"
 aliases:
   - "WP-035 tests"
+cssclasses:
+  - aethrion-test-procedure
 type: test-procedure
 category: commissioning
 status: NOT_STARTED

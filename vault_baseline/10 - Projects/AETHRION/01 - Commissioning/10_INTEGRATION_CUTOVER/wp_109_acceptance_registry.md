@@ -3,6 +3,8 @@ title: "WP-109 — Forty Acceptance Scenario Registry and Harness"
 aliases:
   - "WP-109"
   - "WP-109 — Forty Acceptance Scenario Registry and Harness"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

@@ -2,6 +2,8 @@
 title: "WP-137 — G10 External Feed Connectors — Acceptance Criteria"
 aliases:
   - "WP-137 acceptance"
+cssclasses:
+  - aethrion-acceptance-criteria
 type: acceptance-criteria
 category: commissioning
 status: NOT_STARTED

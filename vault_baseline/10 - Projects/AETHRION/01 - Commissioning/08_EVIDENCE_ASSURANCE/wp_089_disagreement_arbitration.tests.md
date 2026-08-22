@@ -2,6 +2,8 @@
 title: "WP-089 — DisagreementCase and Evidence-Weighted Arbitration — Test Procedures"
 aliases:
   - "WP-089 tests"
+cssclasses:
+  - aethrion-test-procedure
 type: test-procedure
 category: commissioning
 status: NOT_STARTED

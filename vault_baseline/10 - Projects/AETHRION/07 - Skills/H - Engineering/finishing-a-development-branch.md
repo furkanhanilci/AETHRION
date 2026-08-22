@@ -2,6 +2,8 @@
 title: "Finishing a Development Branch"
 aliases:
   - "finishing-a-development-branch"
+cssclasses:
+  - aethrion-skill
 type: skill
 category: skill
 status: WORKING

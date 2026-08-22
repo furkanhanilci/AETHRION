@@ -2,6 +2,8 @@
 title: "WP-065 — Personal Zotero Seed Ingest Pipeline — Acceptance Criteria"
 aliases:
   - "WP-065 acceptance"
+cssclasses:
+  - aethrion-acceptance-criteria
 type: acceptance-criteria
 category: commissioning
 status: NOT_STARTED

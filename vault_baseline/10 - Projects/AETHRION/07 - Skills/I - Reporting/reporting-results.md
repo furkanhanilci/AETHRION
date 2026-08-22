@@ -2,6 +2,8 @@
 title: "Reporting Results"
 aliases:
   - "reporting-results"
+cssclasses:
+  - aethrion-skill
 type: skill
 category: skill
 status: WORKING

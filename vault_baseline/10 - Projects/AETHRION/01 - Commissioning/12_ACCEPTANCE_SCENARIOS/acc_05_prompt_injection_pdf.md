@@ -2,6 +2,8 @@
 title: "ACC-05 — Prompt-Injection PDF"
 aliases:
   - "ACC-05"
+cssclasses:
+  - aethrion-acceptance-scenario
 type: acceptance-scenario
 category: commissioning
 summary: "This scenario verifies the target architecture's fail-safe behaviour and its evidence production in the Prompt-Injection PDF situation."

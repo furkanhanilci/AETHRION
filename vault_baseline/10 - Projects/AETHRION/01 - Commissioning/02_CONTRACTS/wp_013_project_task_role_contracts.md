@@ -3,6 +3,8 @@ title: "WP-013 — Project, Task, Role and Skill Contract Schemas"
 aliases:
   - "WP-013"
   - "WP-013 — Project, Task, Role and Skill Contract Schemas"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

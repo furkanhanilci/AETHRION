@@ -26,6 +26,8 @@ creators:
   - "Marcelo A.C. Fernandes"
   - "Rafael B. Gomes"
   - "Luiz M.G. Goncalves"
+cssclasses:
+  - aethrion-source
 ---
 
 <h1>Efficient 3D objects recognition using multifoveated point clouds</h1>

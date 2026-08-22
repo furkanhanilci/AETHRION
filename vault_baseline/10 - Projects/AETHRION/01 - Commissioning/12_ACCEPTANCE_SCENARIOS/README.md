@@ -1,5 +1,7 @@
 ---
 title: "12_ACCEPTANCE_SCENARIOS — Acceptance scenarios"
+cssclasses:
+  - aethrion-index
 type: index
 category: commissioning
 summary: "The binding scenarios for production commissioning."

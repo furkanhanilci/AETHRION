@@ -3,6 +3,8 @@ title: "WP-064 — Zotero Library, Collection and Permission Model"
 aliases:
   - "WP-064"
   - "WP-064 — Zotero Library, Collection and Permission Model"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

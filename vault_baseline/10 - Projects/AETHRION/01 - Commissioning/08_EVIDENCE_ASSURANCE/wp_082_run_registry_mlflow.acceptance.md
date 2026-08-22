@@ -2,6 +2,8 @@
 title: "WP-082 — Run Registry and MLflow Lineage Integration — Acceptance Criteria"
 aliases:
   - "WP-082 acceptance"
+cssclasses:
+  - aethrion-acceptance-criteria
 type: acceptance-criteria
 category: commissioning
 status: NOT_STARTED

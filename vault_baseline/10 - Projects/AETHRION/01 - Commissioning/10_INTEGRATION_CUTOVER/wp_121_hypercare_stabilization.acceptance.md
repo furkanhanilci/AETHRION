@@ -2,6 +2,8 @@
 title: "WP-121 — Hypercare, Stabilisation and Programme Closure — Acceptance Criteria"
 aliases:
   - "WP-121 acceptance"
+cssclasses:
+  - aethrion-acceptance-criteria
 type: acceptance-criteria
 category: commissioning
 status: NOT_STARTED

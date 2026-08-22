@@ -3,6 +3,8 @@ title: "WP-041 — LiteLLM Model Gateway Foundation"
 aliases:
   - "WP-041"
   - "WP-041 — LiteLLM Model Gateway Foundation"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

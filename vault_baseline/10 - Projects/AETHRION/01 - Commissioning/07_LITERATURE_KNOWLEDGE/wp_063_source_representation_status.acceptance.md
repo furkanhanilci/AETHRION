@@ -2,6 +2,8 @@
 title: "WP-063 — Source Representation, Licence and Status Monitoring — Acceptance Criteria"
 aliases:
   - "WP-063 acceptance"
+cssclasses:
+  - aethrion-acceptance-criteria
 type: acceptance-criteria
 category: commissioning
 status: NOT_STARTED

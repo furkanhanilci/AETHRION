@@ -2,6 +2,8 @@
 title: "WP-134 — Escalation and Paging — Acceptance Criteria"
 aliases:
   - "WP-134 acceptance"
+cssclasses:
+  - aethrion-acceptance-criteria
 type: acceptance-criteria
 category: commissioning
 status: NOT_STARTED

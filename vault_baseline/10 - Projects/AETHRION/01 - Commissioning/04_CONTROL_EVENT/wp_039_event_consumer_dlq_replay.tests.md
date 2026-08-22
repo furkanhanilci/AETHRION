@@ -2,6 +2,8 @@
 title: "WP-039 — Event Consumer, DLQ and Safe Replay Framework — Test Procedures"
 aliases:
   - "WP-039 tests"
+cssclasses:
+  - aethrion-test-procedure
 type: test-procedure
 category: commissioning
 status: NOT_STARTED

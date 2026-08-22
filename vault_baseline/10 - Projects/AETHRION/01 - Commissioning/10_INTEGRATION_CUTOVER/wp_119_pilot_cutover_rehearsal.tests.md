@@ -2,6 +2,8 @@
 title: "WP-119 — Controlled Pilot and Cutover Rehearsal — Test Procedures"
 aliases:
   - "WP-119 tests"
+cssclasses:
+  - aethrion-test-procedure
 type: test-procedure
 category: commissioning
 status: NOT_STARTED

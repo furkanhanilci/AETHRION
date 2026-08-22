@@ -2,6 +2,8 @@
 title: "WP-012 — Canonical Ownership and Field-Level Authority Matrix — Acceptance Criteria"
 aliases:
   - "WP-012 acceptance"
+cssclasses:
+  - aethrion-acceptance-criteria
 type: acceptance-criteria
 category: commissioning
 status: NOT_STARTED

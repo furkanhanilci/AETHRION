@@ -2,6 +2,8 @@
 title: "WP-087 — Mechanical Verification Engine — Test Procedures"
 aliases:
   - "WP-087 tests"
+cssclasses:
+  - aethrion-test-procedure
 type: test-procedure
 category: commissioning
 status: NOT_STARTED

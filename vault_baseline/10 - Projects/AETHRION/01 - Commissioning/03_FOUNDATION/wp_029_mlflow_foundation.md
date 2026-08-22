@@ -3,6 +3,8 @@ title: "WP-029 — MLflow Experiment and Evaluation Tracking Foundation"
 aliases:
   - "WP-029"
   - "WP-029 — MLflow Experiment and Evaluation Tracking Foundation"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

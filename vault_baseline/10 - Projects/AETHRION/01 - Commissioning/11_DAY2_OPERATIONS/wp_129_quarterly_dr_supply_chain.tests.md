@@ -2,6 +2,8 @@
 title: "WP-129 — Quarterly DR, Supply-Chain and Audit Drill — Test Procedures"
 aliases:
   - "WP-129 tests"
+cssclasses:
+  - aethrion-test-procedure
 type: test-procedure
 category: commissioning
 status: NOT_STARTED

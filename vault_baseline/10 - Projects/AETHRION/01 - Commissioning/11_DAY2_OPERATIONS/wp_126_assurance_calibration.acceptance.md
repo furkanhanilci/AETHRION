@@ -2,6 +2,8 @@
 title: "WP-126 — Reviewer, Judge and Reproducer Calibration — Acceptance Criteria"
 aliases:
   - "WP-126 acceptance"
+cssclasses:
+  - aethrion-acceptance-criteria
 type: acceptance-criteria
 category: commissioning
 status: NOT_STARTED

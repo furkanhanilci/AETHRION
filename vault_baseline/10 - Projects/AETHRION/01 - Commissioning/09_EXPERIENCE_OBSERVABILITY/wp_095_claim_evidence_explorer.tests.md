@@ -2,6 +2,8 @@
 title: "WP-095 — Claim/Evidence Explorer and Provenance Graph — Test Procedures"
 aliases:
   - "WP-095 tests"
+cssclasses:
+  - aethrion-test-procedure
 type: test-procedure
 category: commissioning
 status: NOT_STARTED

@@ -2,6 +2,8 @@
 title: "WP-116 — Resilience, Chaos and Failure-Injection Commissioning — Acceptance Criteria"
 aliases:
   - "WP-116 acceptance"
+cssclasses:
+  - aethrion-acceptance-criteria
 type: acceptance-criteria
 category: commissioning
 status: NOT_STARTED

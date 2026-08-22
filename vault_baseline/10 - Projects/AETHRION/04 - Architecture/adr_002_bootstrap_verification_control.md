@@ -2,6 +2,8 @@
 title: "ADR-002 — Bootstrap Verification Control"
 aliases:
   - "ADR-002"
+cssclasses:
+  - aethrion-decision-record
 type: decision-record
 category: architecture
 status: ACCEPTED

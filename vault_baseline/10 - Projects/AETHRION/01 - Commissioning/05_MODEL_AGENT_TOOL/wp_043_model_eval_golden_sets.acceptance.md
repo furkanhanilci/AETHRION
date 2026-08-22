@@ -2,6 +2,8 @@
 title: "WP-043 — Role-Based Model and Skill Evaluation, and Golden Set Management — Acceptance Criteria"
 aliases:
   - "WP-043 acceptance"
+cssclasses:
+  - aethrion-acceptance-criteria
 type: acceptance-criteria
 category: commissioning
 status: NOT_STARTED

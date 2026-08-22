@@ -2,6 +2,8 @@
 title: "WP-020 — Schema Registry, Compatibility and Contract SDK — Acceptance Criteria"
 aliases:
   - "WP-020 acceptance"
+cssclasses:
+  - aethrion-acceptance-criteria
 type: acceptance-criteria
 category: commissioning
 status: NOT_STARTED

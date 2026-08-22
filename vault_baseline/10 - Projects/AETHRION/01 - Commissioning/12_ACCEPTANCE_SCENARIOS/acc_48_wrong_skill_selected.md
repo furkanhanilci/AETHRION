@@ -2,6 +2,8 @@
 title: "ACC-48 — Wrong or Competing Skill Selected"
 aliases:
   - "ACC-48"
+cssclasses:
+  - aethrion-acceptance-scenario
 type: acceptance-scenario
 category: commissioning
 summary: "This scenario verifies the target architecture's fail-safe behaviour and its evidence production in the Wrong or Competing Skill Selected situation."

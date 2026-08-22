@@ -2,6 +2,8 @@
 title: "WP-000 — Interim Evidence Policy and Attestation Bootstrap — Test Procedures"
 aliases:
   - "WP-000 tests"
+cssclasses:
+  - aethrion-test-procedure
 type: test-procedure
 category: commissioning
 status: TECH_COMPLETE

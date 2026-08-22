@@ -3,6 +3,8 @@ title: "WP-059 — Supply-Chain Admission, Sigstore and SLSA Policy"
 aliases:
   - "WP-059"
   - "WP-059 — Supply-Chain Admission, Sigstore and SLSA Policy"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

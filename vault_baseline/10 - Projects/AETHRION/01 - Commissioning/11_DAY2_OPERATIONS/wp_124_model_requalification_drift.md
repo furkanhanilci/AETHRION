@@ -3,6 +3,8 @@ title: "WP-124 — Model Requalification, Drift and Ejection Rhythm"
 aliases:
   - "WP-124"
   - "WP-124 — Model Requalification, Drift and Ejection Rhythm"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

@@ -3,6 +3,8 @@ title: "WP-100 — Cost Ledger, Budget Envelopes and FinOps"
 aliases:
   - "WP-100"
   - "WP-100 — Cost Ledger, Budget Envelopes and FinOps"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

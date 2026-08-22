@@ -3,6 +3,8 @@ title: "WP-123 — Control Effectiveness and Policy Regression Rhythm"
 aliases:
   - "WP-123"
   - "WP-123 — Control Effectiveness and Policy Regression Rhythm"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

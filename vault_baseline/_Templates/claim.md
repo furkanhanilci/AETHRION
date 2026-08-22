@@ -9,6 +9,8 @@ created_at: "{{date}}"
 updated_at: "{{date}}"
 tags:
   - aethrion/claim
+cssclasses:
+  - aethrion-claim
 ---
 
 # {{title}}

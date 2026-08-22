@@ -1,5 +1,7 @@
 ---
 title: "Findings Register"
+cssclasses:
+  - aethrion-review
 type: review
 category: review
 status: WORKING

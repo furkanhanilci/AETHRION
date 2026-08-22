@@ -2,6 +2,8 @@
 title: "WP-085 — Repeatability, Reproducibility, Robustness and Replication Pipeline — Test Procedures"
 aliases:
   - "WP-085 tests"
+cssclasses:
+  - aethrion-test-procedure
 type: test-procedure
 category: commissioning
 status: NOT_STARTED

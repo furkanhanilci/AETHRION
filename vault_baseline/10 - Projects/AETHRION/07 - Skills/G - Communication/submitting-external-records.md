@@ -2,6 +2,8 @@
 title: "Submitting External Records"
 aliases:
   - "submitting-external-records"
+cssclasses:
+  - aethrion-skill
 type: skill
 category: skill
 status: WORKING

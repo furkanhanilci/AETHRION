@@ -2,6 +2,8 @@
 title: "ACC-36 — Model Snapshot Drift"
 aliases:
   - "ACC-36"
+cssclasses:
+  - aethrion-acceptance-scenario
 type: acceptance-scenario
 category: commissioning
 summary: "This scenario verifies the target architecture's fail-safe behaviour and its evidence production in the Model Snapshot Drift situation."

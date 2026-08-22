@@ -3,6 +3,8 @@ title: "WP-003 — Role Catalogue and RACI Baseline"
 aliases:
   - "WP-003"
   - "WP-003 — Role Catalogue and RACI Baseline"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

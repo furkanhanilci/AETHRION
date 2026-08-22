@@ -18,6 +18,8 @@ zotero_tags:
   - "Reinforcement Learning for Visual Attention"
 creators:
   - "Robin Göransson"
+cssclasses:
+  - aethrion-source
 ---
 
 <h1>Deep Reinforcement Learning with Active Vision on Atari Environments</h1>

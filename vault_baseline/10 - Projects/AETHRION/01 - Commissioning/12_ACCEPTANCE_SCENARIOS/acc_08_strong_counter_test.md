@@ -2,6 +2,8 @@
 title: "ACC-08 — Strong Counter-Test"
 aliases:
   - "ACC-08"
+cssclasses:
+  - aethrion-acceptance-scenario
 type: acceptance-scenario
 category: commissioning
 summary: "This scenario verifies the target architecture's fail-safe behaviour and its evidence production in the Strong Counter-Test situation."

@@ -3,6 +3,8 @@ title: "WP-110 — Research and Literature Acceptance Package"
 aliases:
   - "WP-110"
   - "WP-110 — Research and Literature Acceptance Package"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

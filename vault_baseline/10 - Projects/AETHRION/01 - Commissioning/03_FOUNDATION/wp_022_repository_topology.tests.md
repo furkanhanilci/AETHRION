@@ -2,6 +2,8 @@
 title: "WP-022 — Repository Topology and Code Ownership — Test Procedures"
 aliases:
   - "WP-022 tests"
+cssclasses:
+  - aethrion-test-procedure
 type: test-procedure
 category: commissioning
 status: NOT_STARTED

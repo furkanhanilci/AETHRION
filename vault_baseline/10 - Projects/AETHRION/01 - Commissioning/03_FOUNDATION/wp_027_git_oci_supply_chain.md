@@ -3,6 +3,8 @@ title: "WP-027 — Git, OCI Registry and Build Provenance Foundation"
 aliases:
   - "WP-027"
   - "WP-027 — Git, OCI Registry and Build Provenance Foundation"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

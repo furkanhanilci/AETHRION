@@ -3,6 +3,8 @@ title: "WP-097 — Langfuse Model/Agent Tracing and Prompt Governance"
 aliases:
   - "WP-097"
   - "WP-097 — Langfuse Model/Agent Tracing and Prompt Governance"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

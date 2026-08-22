@@ -2,6 +2,8 @@
 title: "WP-140 — Service Liveness Monitoring and Dead-Man's Switch — Test Procedures"
 aliases:
   - "WP-140 tests"
+cssclasses:
+  - aethrion-test-procedure
 type: test-procedure
 category: commissioning
 status: NOT_STARTED

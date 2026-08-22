@@ -3,6 +3,8 @@ title: "WP-101 — Service Catalogue, SLOs and Alert/Runbook Binding"
 aliases:
   - "WP-101"
   - "WP-101 — Service Catalogue, SLOs and Alert/Runbook Binding"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

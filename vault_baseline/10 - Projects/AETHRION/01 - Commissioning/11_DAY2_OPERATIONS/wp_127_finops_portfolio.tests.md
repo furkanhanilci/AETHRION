@@ -2,6 +2,8 @@
 title: "WP-127 — FinOps, Capacity and Portfolio Review Rhythm — Test Procedures"
 aliases:
   - "WP-127 tests"
+cssclasses:
+  - aethrion-test-procedure
 type: test-procedure
 category: commissioning
 status: NOT_STARTED

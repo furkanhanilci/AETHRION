@@ -2,6 +2,8 @@
 title: "WP-046 — LangGraph Bounded Cognition Runtime — Acceptance Criteria"
 aliases:
   - "WP-046 acceptance"
+cssclasses:
+  - aethrion-acceptance-criteria
 type: acceptance-criteria
 category: commissioning
 status: NOT_STARTED

@@ -2,6 +2,8 @@
 title: "Investigating Integrity Concerns"
 aliases:
   - "investigating-integrity-concerns"
+cssclasses:
+  - aethrion-skill
 type: skill
 category: skill
 status: WORKING

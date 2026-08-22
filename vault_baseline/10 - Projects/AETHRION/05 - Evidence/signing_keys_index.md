@@ -1,5 +1,7 @@
 ---
 title: "Interim signing keys"
+cssclasses:
+  - aethrion-index
 type: index
 category: evidence
 status: WORKING

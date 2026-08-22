@@ -2,6 +2,8 @@
 title: "WP-131 — Notification Broker Foundation — Test Procedures"
 aliases:
   - "WP-131 tests"
+cssclasses:
+  - aethrion-test-procedure
 type: test-procedure
 category: commissioning
 status: NOT_STARTED

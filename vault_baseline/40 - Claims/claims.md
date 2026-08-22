@@ -9,6 +9,8 @@ generated: false
 tags:
   - aethrion/index
   - aethrion/claim
+cssclasses:
+  - aethrion-index
 ---
 
 # Claims and Evidence Links

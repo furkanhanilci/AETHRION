@@ -13,6 +13,8 @@ tags:
   - aethrion/status
   - aethrion/roadmap
   - silbo/subproject
+cssclasses:
+  - aethrion-project
 ---
 
 # AETHRION — Current Status and Roadmap

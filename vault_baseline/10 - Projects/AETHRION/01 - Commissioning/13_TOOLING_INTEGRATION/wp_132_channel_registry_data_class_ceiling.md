@@ -3,6 +3,8 @@ title: "WP-132 — Channel Registry and Data-Class Ceiling"
 aliases:
   - "WP-132"
   - "WP-132 — Channel Registry and Data-Class Ceiling"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

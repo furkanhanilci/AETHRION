@@ -3,6 +3,8 @@ title: "WP-126 — Reviewer, Judge and Reproducer Calibration"
 aliases:
   - "WP-126"
   - "WP-126 — Reviewer, Judge and Reproducer Calibration"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

@@ -2,6 +2,8 @@
 title: "AETHRION Skill Registry"
 aliases:
   - "skills_index"
+cssclasses:
+  - aethrion-skill
 type: skill
 category: skill
 status: SPECIFIED

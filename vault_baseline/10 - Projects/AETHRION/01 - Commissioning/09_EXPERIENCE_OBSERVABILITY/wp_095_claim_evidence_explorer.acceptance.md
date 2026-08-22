@@ -2,6 +2,8 @@
 title: "WP-095 — Claim/Evidence Explorer and Provenance Graph — Acceptance Criteria"
 aliases:
   - "WP-095 acceptance"
+cssclasses:
+  - aethrion-acceptance-criteria
 type: acceptance-criteria
 category: commissioning
 status: NOT_STARTED

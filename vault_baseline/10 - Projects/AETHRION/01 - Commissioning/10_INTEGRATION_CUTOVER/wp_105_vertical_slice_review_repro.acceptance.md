@@ -2,6 +2,8 @@
 title: "WP-105 — Vertical Slice 4 — Blind Review, Arbitration and Clean-Room — Acceptance Criteria"
 aliases:
   - "WP-105 acceptance"
+cssclasses:
+  - aethrion-acceptance-criteria
 type: acceptance-criteria
 category: commissioning
 status: NOT_STARTED

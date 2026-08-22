@@ -2,6 +2,8 @@
 title: "WP-057 — Default-Deny Egress Proxy, DLP and Allowlist — Acceptance Criteria"
 aliases:
   - "WP-057 acceptance"
+cssclasses:
+  - aethrion-acceptance-criteria
 type: acceptance-criteria
 category: commissioning
 status: NOT_STARTED

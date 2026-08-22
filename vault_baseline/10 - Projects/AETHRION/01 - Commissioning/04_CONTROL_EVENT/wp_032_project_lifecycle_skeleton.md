@@ -3,6 +3,8 @@ title: "WP-032 — ProjectLifecycle Workflow Skeleton"
 aliases:
   - "WP-032"
   - "WP-032 — ProjectLifecycle Workflow Skeleton"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

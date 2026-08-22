@@ -1,5 +1,7 @@
 ---
 title: "V2 Candidates"
+cssclasses:
+  - aethrion-reference
 type: reference
 category: architecture
 summary: "V1 is the sealed commissioning baseline: WP-000–140, ACC-01–51, completed when the go-live checklist's entry conditions hold."

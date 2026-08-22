@@ -2,6 +2,8 @@
 title: "WP-071 — Screening, Inclusion/Exclusion and Coverage — Acceptance Criteria"
 aliases:
   - "WP-071 acceptance"
+cssclasses:
+  - aethrion-acceptance-criteria
 type: acceptance-criteria
 category: commissioning
 status: NOT_STARTED

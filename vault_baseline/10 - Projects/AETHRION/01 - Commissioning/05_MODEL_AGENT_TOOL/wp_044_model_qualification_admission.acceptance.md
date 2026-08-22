@@ -2,6 +2,8 @@
 title: "WP-044 — Model Qualification and Admission Pipeline — Acceptance Criteria"
 aliases:
   - "WP-044 acceptance"
+cssclasses:
+  - aethrion-acceptance-criteria
 type: acceptance-criteria
 category: commissioning
 status: NOT_STARTED

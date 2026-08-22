@@ -2,6 +2,8 @@
 title: "WP-026 — Content-Addressed Object Store and WORM — Test Procedures"
 aliases:
   - "WP-026 tests"
+cssclasses:
+  - aethrion-test-procedure
 type: test-procedure
 category: commissioning
 status: NOT_STARTED

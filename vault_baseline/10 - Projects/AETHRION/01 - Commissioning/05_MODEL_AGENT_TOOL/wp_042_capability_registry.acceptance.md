@@ -2,6 +2,8 @@
 title: "WP-042 — Capability Registry and Profile Lifecycle — Acceptance Criteria"
 aliases:
   - "WP-042 acceptance"
+cssclasses:
+  - aethrion-acceptance-criteria
 type: acceptance-criteria
 category: commissioning
 status: NOT_STARTED

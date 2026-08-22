@@ -2,6 +2,8 @@
 title: "WP-019 — Run, Environment and Reproduction Schemas — Test Procedures"
 aliases:
   - "WP-019 tests"
+cssclasses:
+  - aethrion-test-procedure
 type: test-procedure
 category: commissioning
 status: NOT_STARTED

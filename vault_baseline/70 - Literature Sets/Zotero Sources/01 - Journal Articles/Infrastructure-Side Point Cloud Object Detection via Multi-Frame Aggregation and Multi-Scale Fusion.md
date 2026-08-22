@@ -27,6 +27,8 @@ creators:
   - "Juanjuan Li"
   - "Hao Liang"
   - "Jun Miao"
+cssclasses:
+  - aethrion-source
 ---
 
 <h1>Infrastructure-Side Point Cloud Object Detection via Multi-Frame Aggregation and Multi-Scale Fusion</h1>

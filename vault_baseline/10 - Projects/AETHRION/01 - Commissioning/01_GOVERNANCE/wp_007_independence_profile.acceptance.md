@@ -2,6 +2,8 @@
 title: "WP-007 — IndependenceProfile and Separation-of-Duties Policy — Acceptance Criteria"
 aliases:
   - "WP-007 acceptance"
+cssclasses:
+  - aethrion-acceptance-criteria
 type: acceptance-criteria
 category: commissioning
 status: NOT_STARTED

@@ -3,6 +3,8 @@ title: "WP-056 — OPA Policy Platform and Bundle Distribution"
 aliases:
   - "WP-056"
   - "WP-056 — OPA Policy Platform and Bundle Distribution"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

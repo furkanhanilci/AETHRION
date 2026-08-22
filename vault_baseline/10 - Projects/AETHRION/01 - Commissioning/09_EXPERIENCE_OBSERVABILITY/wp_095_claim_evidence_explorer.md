@@ -3,6 +3,8 @@ title: "WP-095 — Claim/Evidence Explorer and Provenance Graph"
 aliases:
   - "WP-095"
   - "WP-095 — Claim/Evidence Explorer and Provenance Graph"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

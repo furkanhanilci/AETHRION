@@ -3,6 +3,8 @@ title: "WP-026 — Content-Addressed Object Store and WORM"
 aliases:
   - "WP-026"
   - "WP-026 — Content-Addressed Object Store and WORM"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

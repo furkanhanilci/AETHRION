@@ -2,6 +2,8 @@
 title: "WP-062 — Source Identity Resolution, Deduplication and Merge — Acceptance Criteria"
 aliases:
   - "WP-062 acceptance"
+cssclasses:
+  - aethrion-acceptance-criteria
 type: acceptance-criteria
 category: commissioning
 status: NOT_STARTED

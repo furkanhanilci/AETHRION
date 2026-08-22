@@ -3,6 +3,8 @@ title: "WP-053 — Kueue Queue, Quota and Priority Policy"
 aliases:
   - "WP-053"
   - "WP-053 — Kueue Queue, Quota and Priority Policy"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

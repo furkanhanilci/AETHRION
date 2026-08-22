@@ -2,6 +2,8 @@
 title: "WP-133 — Outbound Notification and Periodic Digest — Acceptance Criteria"
 aliases:
   - "WP-133 acceptance"
+cssclasses:
+  - aethrion-acceptance-criteria
 type: acceptance-criteria
 category: commissioning
 status: NOT_STARTED

@@ -2,6 +2,8 @@
 title: "ACC-19 — Clean-Room Reproduction Pass"
 aliases:
   - "ACC-19"
+cssclasses:
+  - aethrion-acceptance-scenario
 type: acceptance-scenario
 category: commissioning
 summary: "This scenario verifies the target architecture's fail-safe behaviour and its evidence production in the Clean-Room Reproduction Pass situation."

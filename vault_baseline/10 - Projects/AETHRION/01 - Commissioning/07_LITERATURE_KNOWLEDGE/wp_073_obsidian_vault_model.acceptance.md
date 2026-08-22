@@ -2,6 +2,8 @@
 title: "WP-073 — Obsidian Vault, Human/Generated Zones and Templates — Acceptance Criteria"
 aliases:
   - "WP-073 acceptance"
+cssclasses:
+  - aethrion-acceptance-criteria
 type: acceptance-criteria
 category: commissioning
 status: NOT_STARTED

@@ -2,6 +2,8 @@
 title: "WP-031 — Temporal Platform, Namespaces and HA — Test Procedures"
 aliases:
   - "WP-031 tests"
+cssclasses:
+  - aethrion-test-procedure
 type: test-procedure
 category: commissioning
 status: NOT_STARTED

@@ -2,6 +2,8 @@
 title: "WP-022 — Repository Topology and Code Ownership — Acceptance Criteria"
 aliases:
   - "WP-022 acceptance"
+cssclasses:
+  - aethrion-acceptance-criteria
 type: acceptance-criteria
 category: commissioning
 status: NOT_STARTED

@@ -3,6 +3,8 @@ title: "WP-107 — Engineering Vertical Slice — Spec, Worktree, Signed Release
 aliases:
   - "WP-107"
   - "WP-107 — Engineering Vertical Slice — Spec, Worktree, Signed Release"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

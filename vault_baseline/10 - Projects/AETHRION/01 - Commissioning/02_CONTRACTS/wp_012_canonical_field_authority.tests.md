@@ -2,6 +2,8 @@
 title: "WP-012 — Canonical Ownership and Field-Level Authority Matrix — Test Procedures"
 aliases:
   - "WP-012 tests"
+cssclasses:
+  - aethrion-test-procedure
 type: test-procedure
 category: commissioning
 status: NOT_STARTED

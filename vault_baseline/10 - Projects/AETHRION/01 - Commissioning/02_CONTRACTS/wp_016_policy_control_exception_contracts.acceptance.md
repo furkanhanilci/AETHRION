@@ -2,6 +2,8 @@
 title: "WP-016 — PolicyDecision, Control and Exception Schemas — Acceptance Criteria"
 aliases:
   - "WP-016 acceptance"
+cssclasses:
+  - aethrion-acceptance-criteria
 type: acceptance-criteria
 category: commissioning
 status: NOT_STARTED

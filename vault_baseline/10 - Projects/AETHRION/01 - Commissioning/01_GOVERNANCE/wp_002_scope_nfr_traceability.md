@@ -3,6 +3,8 @@ title: "WP-002 — Scope, NFRs and Requirement Traceability"
 aliases:
   - "WP-002"
   - "WP-002 — Scope, NFRs and Requirement Traceability"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

@@ -472,6 +472,1069 @@
   font-weight: 600;
 }
 
+.metadata-property[data-property-key="type"] .metadata-input-longtext[value="daily-note" i],
+.metadata-property[data-property-key="type"]:has([value="daily-note" i]) .metadata-property-key {
+  color: var(--aethrion-index);
+  font-weight: 600;
+}
+
+.metadata-property[data-property-key="type"] .metadata-input-longtext[value="execution-log" i],
+.metadata-property[data-property-key="type"]:has([value="execution-log" i]) .metadata-property-key {
+  color: var(--aethrion-workspace);
+  font-weight: 600;
+}
+
+.metadata-property[data-property-key="type"] .metadata-input-longtext[value="handover" i],
+.metadata-property[data-property-key="type"]:has([value="handover" i]) .metadata-property-key {
+  color: var(--aethrion-workspace);
+  font-weight: 600;
+}
+
+/* ---- the note body, keyed by the page's own `cssclasses` ---- */
+
+/* A page declares `cssclasses: [aethrion-<type>]` in its frontmatter, so
+ * the body carries the same colour its row and its node already have.
+ * Structure still carries the meaning: these rules tint an accent, a
+ * border and a rule line, never the prose itself. */
+
+.aethrion-work-package .inline-title,
+.aethrion-work-package .markdown-preview-view h1,
+.aethrion-work-package .markdown-source-view.mod-cm6 .HyperMD-header-1 {
+  color: var(--aethrion-package);
+}
+
+.aethrion-work-package .markdown-preview-view h2,
+.aethrion-work-package .markdown-source-view.mod-cm6 .HyperMD-header-2 {
+  color: color-mix(in srgb, var(--aethrion-package) 78%, var(--text-normal));
+  border-bottom: 1px solid color-mix(in srgb, var(--aethrion-package) 35%, transparent);
+  padding-bottom: 2px;
+}
+
+.aethrion-work-package .markdown-preview-view h3,
+.aethrion-work-package .markdown-preview-view h4,
+.aethrion-work-package .markdown-preview-view h5,
+.aethrion-work-package .markdown-preview-view h6 {
+  color: color-mix(in srgb, var(--aethrion-package) 60%, var(--text-normal));
+}
+
+.aethrion-work-package .markdown-preview-view blockquote {
+  border-left: 3px solid color-mix(in srgb, var(--aethrion-package) 55%, transparent);
+}
+
+.aethrion-work-package .markdown-preview-view th {
+  border-bottom: 2px solid color-mix(in srgb, var(--aethrion-package) 45%, transparent);
+  color: color-mix(in srgb, var(--aethrion-package) 70%, var(--text-normal));
+}
+
+.aethrion-work-package .markdown-preview-view hr {
+  border-top: 1px solid color-mix(in srgb, var(--aethrion-package) 40%, transparent);
+}
+
+.aethrion-work-package .markdown-preview-view a.internal-link {
+  color: var(--aethrion-package);
+  text-decoration-color: color-mix(in srgb, var(--aethrion-package) 45%, transparent);
+}
+
+.aethrion-work-package .markdown-preview-view input[type=checkbox]:checked {
+  background-color: var(--aethrion-package);
+  border-color: var(--aethrion-package);
+}
+
+.aethrion-work-package .workspace-leaf-content[data-type='markdown'] {
+  border-top: 2px solid color-mix(in srgb, var(--aethrion-package) 55%, transparent);
+}
+
+.aethrion-test-procedure .inline-title,
+.aethrion-test-procedure .markdown-preview-view h1,
+.aethrion-test-procedure .markdown-source-view.mod-cm6 .HyperMD-header-1 {
+  color: var(--aethrion-tests);
+}
+
+.aethrion-test-procedure .markdown-preview-view h2,
+.aethrion-test-procedure .markdown-source-view.mod-cm6 .HyperMD-header-2 {
+  color: color-mix(in srgb, var(--aethrion-tests) 78%, var(--text-normal));
+  border-bottom: 1px solid color-mix(in srgb, var(--aethrion-tests) 35%, transparent);
+  padding-bottom: 2px;
+}
+
+.aethrion-test-procedure .markdown-preview-view h3,
+.aethrion-test-procedure .markdown-preview-view h4,
+.aethrion-test-procedure .markdown-preview-view h5,
+.aethrion-test-procedure .markdown-preview-view h6 {
+  color: color-mix(in srgb, var(--aethrion-tests) 60%, var(--text-normal));
+}
+
+.aethrion-test-procedure .markdown-preview-view blockquote {
+  border-left: 3px solid color-mix(in srgb, var(--aethrion-tests) 55%, transparent);
+}
+
+.aethrion-test-procedure .markdown-preview-view th {
+  border-bottom: 2px solid color-mix(in srgb, var(--aethrion-tests) 45%, transparent);
+  color: color-mix(in srgb, var(--aethrion-tests) 70%, var(--text-normal));
+}
+
+.aethrion-test-procedure .markdown-preview-view hr {
+  border-top: 1px solid color-mix(in srgb, var(--aethrion-tests) 40%, transparent);
+}
+
+.aethrion-test-procedure .markdown-preview-view a.internal-link {
+  color: var(--aethrion-tests);
+  text-decoration-color: color-mix(in srgb, var(--aethrion-tests) 45%, transparent);
+}
+
+.aethrion-test-procedure .markdown-preview-view input[type=checkbox]:checked {
+  background-color: var(--aethrion-tests);
+  border-color: var(--aethrion-tests);
+}
+
+.aethrion-test-procedure .workspace-leaf-content[data-type='markdown'] {
+  border-top: 2px solid color-mix(in srgb, var(--aethrion-tests) 55%, transparent);
+}
+
+.aethrion-acceptance-criteria .inline-title,
+.aethrion-acceptance-criteria .markdown-preview-view h1,
+.aethrion-acceptance-criteria .markdown-source-view.mod-cm6 .HyperMD-header-1 {
+  color: var(--aethrion-acceptance);
+}
+
+.aethrion-acceptance-criteria .markdown-preview-view h2,
+.aethrion-acceptance-criteria .markdown-source-view.mod-cm6 .HyperMD-header-2 {
+  color: color-mix(in srgb, var(--aethrion-acceptance) 78%, var(--text-normal));
+  border-bottom: 1px solid color-mix(in srgb, var(--aethrion-acceptance) 35%, transparent);
+  padding-bottom: 2px;
+}
+
+.aethrion-acceptance-criteria .markdown-preview-view h3,
+.aethrion-acceptance-criteria .markdown-preview-view h4,
+.aethrion-acceptance-criteria .markdown-preview-view h5,
+.aethrion-acceptance-criteria .markdown-preview-view h6 {
+  color: color-mix(in srgb, var(--aethrion-acceptance) 60%, var(--text-normal));
+}
+
+.aethrion-acceptance-criteria .markdown-preview-view blockquote {
+  border-left: 3px solid color-mix(in srgb, var(--aethrion-acceptance) 55%, transparent);
+}
+
+.aethrion-acceptance-criteria .markdown-preview-view th {
+  border-bottom: 2px solid color-mix(in srgb, var(--aethrion-acceptance) 45%, transparent);
+  color: color-mix(in srgb, var(--aethrion-acceptance) 70%, var(--text-normal));
+}
+
+.aethrion-acceptance-criteria .markdown-preview-view hr {
+  border-top: 1px solid color-mix(in srgb, var(--aethrion-acceptance) 40%, transparent);
+}
+
+.aethrion-acceptance-criteria .markdown-preview-view a.internal-link {
+  color: var(--aethrion-acceptance);
+  text-decoration-color: color-mix(in srgb, var(--aethrion-acceptance) 45%, transparent);
+}
+
+.aethrion-acceptance-criteria .markdown-preview-view input[type=checkbox]:checked {
+  background-color: var(--aethrion-acceptance);
+  border-color: var(--aethrion-acceptance);
+}
+
+.aethrion-acceptance-criteria .workspace-leaf-content[data-type='markdown'] {
+  border-top: 2px solid color-mix(in srgb, var(--aethrion-acceptance) 55%, transparent);
+}
+
+.aethrion-acceptance-scenario .inline-title,
+.aethrion-acceptance-scenario .markdown-preview-view h1,
+.aethrion-acceptance-scenario .markdown-source-view.mod-cm6 .HyperMD-header-1 {
+  color: var(--aethrion-scenario);
+}
+
+.aethrion-acceptance-scenario .markdown-preview-view h2,
+.aethrion-acceptance-scenario .markdown-source-view.mod-cm6 .HyperMD-header-2 {
+  color: color-mix(in srgb, var(--aethrion-scenario) 78%, var(--text-normal));
+  border-bottom: 1px solid color-mix(in srgb, var(--aethrion-scenario) 35%, transparent);
+  padding-bottom: 2px;
+}
+
+.aethrion-acceptance-scenario .markdown-preview-view h3,
+.aethrion-acceptance-scenario .markdown-preview-view h4,
+.aethrion-acceptance-scenario .markdown-preview-view h5,
+.aethrion-acceptance-scenario .markdown-preview-view h6 {
+  color: color-mix(in srgb, var(--aethrion-scenario) 60%, var(--text-normal));
+}
+
+.aethrion-acceptance-scenario .markdown-preview-view blockquote {
+  border-left: 3px solid color-mix(in srgb, var(--aethrion-scenario) 55%, transparent);
+}
+
+.aethrion-acceptance-scenario .markdown-preview-view th {
+  border-bottom: 2px solid color-mix(in srgb, var(--aethrion-scenario) 45%, transparent);
+  color: color-mix(in srgb, var(--aethrion-scenario) 70%, var(--text-normal));
+}
+
+.aethrion-acceptance-scenario .markdown-preview-view hr {
+  border-top: 1px solid color-mix(in srgb, var(--aethrion-scenario) 40%, transparent);
+}
+
+.aethrion-acceptance-scenario .markdown-preview-view a.internal-link {
+  color: var(--aethrion-scenario);
+  text-decoration-color: color-mix(in srgb, var(--aethrion-scenario) 45%, transparent);
+}
+
+.aethrion-acceptance-scenario .markdown-preview-view input[type=checkbox]:checked {
+  background-color: var(--aethrion-scenario);
+  border-color: var(--aethrion-scenario);
+}
+
+.aethrion-acceptance-scenario .workspace-leaf-content[data-type='markdown'] {
+  border-top: 2px solid color-mix(in srgb, var(--aethrion-scenario) 55%, transparent);
+}
+
+.aethrion-decision-record .inline-title,
+.aethrion-decision-record .markdown-preview-view h1,
+.aethrion-decision-record .markdown-source-view.mod-cm6 .HyperMD-header-1 {
+  color: var(--aethrion-architecture);
+}
+
+.aethrion-decision-record .markdown-preview-view h2,
+.aethrion-decision-record .markdown-source-view.mod-cm6 .HyperMD-header-2 {
+  color: color-mix(in srgb, var(--aethrion-architecture) 78%, var(--text-normal));
+  border-bottom: 1px solid color-mix(in srgb, var(--aethrion-architecture) 35%, transparent);
+  padding-bottom: 2px;
+}
+
+.aethrion-decision-record .markdown-preview-view h3,
+.aethrion-decision-record .markdown-preview-view h4,
+.aethrion-decision-record .markdown-preview-view h5,
+.aethrion-decision-record .markdown-preview-view h6 {
+  color: color-mix(in srgb, var(--aethrion-architecture) 60%, var(--text-normal));
+}
+
+.aethrion-decision-record .markdown-preview-view blockquote {
+  border-left: 3px solid color-mix(in srgb, var(--aethrion-architecture) 55%, transparent);
+}
+
+.aethrion-decision-record .markdown-preview-view th {
+  border-bottom: 2px solid color-mix(in srgb, var(--aethrion-architecture) 45%, transparent);
+  color: color-mix(in srgb, var(--aethrion-architecture) 70%, var(--text-normal));
+}
+
+.aethrion-decision-record .markdown-preview-view hr {
+  border-top: 1px solid color-mix(in srgb, var(--aethrion-architecture) 40%, transparent);
+}
+
+.aethrion-decision-record .markdown-preview-view a.internal-link {
+  color: var(--aethrion-architecture);
+  text-decoration-color: color-mix(in srgb, var(--aethrion-architecture) 45%, transparent);
+}
+
+.aethrion-decision-record .markdown-preview-view input[type=checkbox]:checked {
+  background-color: var(--aethrion-architecture);
+  border-color: var(--aethrion-architecture);
+}
+
+.aethrion-decision-record .workspace-leaf-content[data-type='markdown'] {
+  border-top: 2px solid color-mix(in srgb, var(--aethrion-architecture) 55%, transparent);
+}
+
+.aethrion-reference .inline-title,
+.aethrion-reference .markdown-preview-view h1,
+.aethrion-reference .markdown-source-view.mod-cm6 .HyperMD-header-1 {
+  color: var(--aethrion-architecture);
+}
+
+.aethrion-reference .markdown-preview-view h2,
+.aethrion-reference .markdown-source-view.mod-cm6 .HyperMD-header-2 {
+  color: color-mix(in srgb, var(--aethrion-architecture) 78%, var(--text-normal));
+  border-bottom: 1px solid color-mix(in srgb, var(--aethrion-architecture) 35%, transparent);
+  padding-bottom: 2px;
+}
+
+.aethrion-reference .markdown-preview-view h3,
+.aethrion-reference .markdown-preview-view h4,
+.aethrion-reference .markdown-preview-view h5,
+.aethrion-reference .markdown-preview-view h6 {
+  color: color-mix(in srgb, var(--aethrion-architecture) 60%, var(--text-normal));
+}
+
+.aethrion-reference .markdown-preview-view blockquote {
+  border-left: 3px solid color-mix(in srgb, var(--aethrion-architecture) 55%, transparent);
+}
+
+.aethrion-reference .markdown-preview-view th {
+  border-bottom: 2px solid color-mix(in srgb, var(--aethrion-architecture) 45%, transparent);
+  color: color-mix(in srgb, var(--aethrion-architecture) 70%, var(--text-normal));
+}
+
+.aethrion-reference .markdown-preview-view hr {
+  border-top: 1px solid color-mix(in srgb, var(--aethrion-architecture) 40%, transparent);
+}
+
+.aethrion-reference .markdown-preview-view a.internal-link {
+  color: var(--aethrion-architecture);
+  text-decoration-color: color-mix(in srgb, var(--aethrion-architecture) 45%, transparent);
+}
+
+.aethrion-reference .markdown-preview-view input[type=checkbox]:checked {
+  background-color: var(--aethrion-architecture);
+  border-color: var(--aethrion-architecture);
+}
+
+.aethrion-reference .workspace-leaf-content[data-type='markdown'] {
+  border-top: 2px solid color-mix(in srgb, var(--aethrion-architecture) 55%, transparent);
+}
+
+.aethrion-skill .inline-title,
+.aethrion-skill .markdown-preview-view h1,
+.aethrion-skill .markdown-source-view.mod-cm6 .HyperMD-header-1 {
+  color: var(--aethrion-acceptance);
+}
+
+.aethrion-skill .markdown-preview-view h2,
+.aethrion-skill .markdown-source-view.mod-cm6 .HyperMD-header-2 {
+  color: color-mix(in srgb, var(--aethrion-acceptance) 78%, var(--text-normal));
+  border-bottom: 1px solid color-mix(in srgb, var(--aethrion-acceptance) 35%, transparent);
+  padding-bottom: 2px;
+}
+
+.aethrion-skill .markdown-preview-view h3,
+.aethrion-skill .markdown-preview-view h4,
+.aethrion-skill .markdown-preview-view h5,
+.aethrion-skill .markdown-preview-view h6 {
+  color: color-mix(in srgb, var(--aethrion-acceptance) 60%, var(--text-normal));
+}
+
+.aethrion-skill .markdown-preview-view blockquote {
+  border-left: 3px solid color-mix(in srgb, var(--aethrion-acceptance) 55%, transparent);
+}
+
+.aethrion-skill .markdown-preview-view th {
+  border-bottom: 2px solid color-mix(in srgb, var(--aethrion-acceptance) 45%, transparent);
+  color: color-mix(in srgb, var(--aethrion-acceptance) 70%, var(--text-normal));
+}
+
+.aethrion-skill .markdown-preview-view hr {
+  border-top: 1px solid color-mix(in srgb, var(--aethrion-acceptance) 40%, transparent);
+}
+
+.aethrion-skill .markdown-preview-view a.internal-link {
+  color: var(--aethrion-acceptance);
+  text-decoration-color: color-mix(in srgb, var(--aethrion-acceptance) 45%, transparent);
+}
+
+.aethrion-skill .markdown-preview-view input[type=checkbox]:checked {
+  background-color: var(--aethrion-acceptance);
+  border-color: var(--aethrion-acceptance);
+}
+
+.aethrion-skill .workspace-leaf-content[data-type='markdown'] {
+  border-top: 2px solid color-mix(in srgb, var(--aethrion-acceptance) 55%, transparent);
+}
+
+.aethrion-review .inline-title,
+.aethrion-review .markdown-preview-view h1,
+.aethrion-review .markdown-source-view.mod-cm6 .HyperMD-header-1 {
+  color: var(--aethrion-scenario);
+}
+
+.aethrion-review .markdown-preview-view h2,
+.aethrion-review .markdown-source-view.mod-cm6 .HyperMD-header-2 {
+  color: color-mix(in srgb, var(--aethrion-scenario) 78%, var(--text-normal));
+  border-bottom: 1px solid color-mix(in srgb, var(--aethrion-scenario) 35%, transparent);
+  padding-bottom: 2px;
+}
+
+.aethrion-review .markdown-preview-view h3,
+.aethrion-review .markdown-preview-view h4,
+.aethrion-review .markdown-preview-view h5,
+.aethrion-review .markdown-preview-view h6 {
+  color: color-mix(in srgb, var(--aethrion-scenario) 60%, var(--text-normal));
+}
+
+.aethrion-review .markdown-preview-view blockquote {
+  border-left: 3px solid color-mix(in srgb, var(--aethrion-scenario) 55%, transparent);
+}
+
+.aethrion-review .markdown-preview-view th {
+  border-bottom: 2px solid color-mix(in srgb, var(--aethrion-scenario) 45%, transparent);
+  color: color-mix(in srgb, var(--aethrion-scenario) 70%, var(--text-normal));
+}
+
+.aethrion-review .markdown-preview-view hr {
+  border-top: 1px solid color-mix(in srgb, var(--aethrion-scenario) 40%, transparent);
+}
+
+.aethrion-review .markdown-preview-view a.internal-link {
+  color: var(--aethrion-scenario);
+  text-decoration-color: color-mix(in srgb, var(--aethrion-scenario) 45%, transparent);
+}
+
+.aethrion-review .markdown-preview-view input[type=checkbox]:checked {
+  background-color: var(--aethrion-scenario);
+  border-color: var(--aethrion-scenario);
+}
+
+.aethrion-review .workspace-leaf-content[data-type='markdown'] {
+  border-top: 2px solid color-mix(in srgb, var(--aethrion-scenario) 55%, transparent);
+}
+
+.aethrion-source .inline-title,
+.aethrion-source .markdown-preview-view h1,
+.aethrion-source .markdown-source-view.mod-cm6 .HyperMD-header-1 {
+  color: var(--aethrion-source);
+}
+
+.aethrion-source .markdown-preview-view h2,
+.aethrion-source .markdown-source-view.mod-cm6 .HyperMD-header-2 {
+  color: color-mix(in srgb, var(--aethrion-source) 78%, var(--text-normal));
+  border-bottom: 1px solid color-mix(in srgb, var(--aethrion-source) 35%, transparent);
+  padding-bottom: 2px;
+}
+
+.aethrion-source .markdown-preview-view h3,
+.aethrion-source .markdown-preview-view h4,
+.aethrion-source .markdown-preview-view h5,
+.aethrion-source .markdown-preview-view h6 {
+  color: color-mix(in srgb, var(--aethrion-source) 60%, var(--text-normal));
+}
+
+.aethrion-source .markdown-preview-view blockquote {
+  border-left: 3px solid color-mix(in srgb, var(--aethrion-source) 55%, transparent);
+}
+
+.aethrion-source .markdown-preview-view th {
+  border-bottom: 2px solid color-mix(in srgb, var(--aethrion-source) 45%, transparent);
+  color: color-mix(in srgb, var(--aethrion-source) 70%, var(--text-normal));
+}
+
+.aethrion-source .markdown-preview-view hr {
+  border-top: 1px solid color-mix(in srgb, var(--aethrion-source) 40%, transparent);
+}
+
+.aethrion-source .markdown-preview-view a.internal-link {
+  color: var(--aethrion-source);
+  text-decoration-color: color-mix(in srgb, var(--aethrion-source) 45%, transparent);
+}
+
+.aethrion-source .markdown-preview-view input[type=checkbox]:checked {
+  background-color: var(--aethrion-source);
+  border-color: var(--aethrion-source);
+}
+
+.aethrion-source .workspace-leaf-content[data-type='markdown'] {
+  border-top: 2px solid color-mix(in srgb, var(--aethrion-source) 55%, transparent);
+}
+
+.aethrion-index .inline-title,
+.aethrion-index .markdown-preview-view h1,
+.aethrion-index .markdown-source-view.mod-cm6 .HyperMD-header-1 {
+  color: var(--aethrion-index);
+}
+
+.aethrion-index .markdown-preview-view h2,
+.aethrion-index .markdown-source-view.mod-cm6 .HyperMD-header-2 {
+  color: color-mix(in srgb, var(--aethrion-index) 78%, var(--text-normal));
+  border-bottom: 1px solid color-mix(in srgb, var(--aethrion-index) 35%, transparent);
+  padding-bottom: 2px;
+}
+
+.aethrion-index .markdown-preview-view h3,
+.aethrion-index .markdown-preview-view h4,
+.aethrion-index .markdown-preview-view h5,
+.aethrion-index .markdown-preview-view h6 {
+  color: color-mix(in srgb, var(--aethrion-index) 60%, var(--text-normal));
+}
+
+.aethrion-index .markdown-preview-view blockquote {
+  border-left: 3px solid color-mix(in srgb, var(--aethrion-index) 55%, transparent);
+}
+
+.aethrion-index .markdown-preview-view th {
+  border-bottom: 2px solid color-mix(in srgb, var(--aethrion-index) 45%, transparent);
+  color: color-mix(in srgb, var(--aethrion-index) 70%, var(--text-normal));
+}
+
+.aethrion-index .markdown-preview-view hr {
+  border-top: 1px solid color-mix(in srgb, var(--aethrion-index) 40%, transparent);
+}
+
+.aethrion-index .markdown-preview-view a.internal-link {
+  color: var(--aethrion-index);
+  text-decoration-color: color-mix(in srgb, var(--aethrion-index) 45%, transparent);
+}
+
+.aethrion-index .markdown-preview-view input[type=checkbox]:checked {
+  background-color: var(--aethrion-index);
+  border-color: var(--aethrion-index);
+}
+
+.aethrion-index .workspace-leaf-content[data-type='markdown'] {
+  border-top: 2px solid color-mix(in srgb, var(--aethrion-index) 55%, transparent);
+}
+
+.aethrion-evidence .inline-title,
+.aethrion-evidence .markdown-preview-view h1,
+.aethrion-evidence .markdown-source-view.mod-cm6 .HyperMD-header-1 {
+  color: var(--aethrion-workspace);
+}
+
+.aethrion-evidence .markdown-preview-view h2,
+.aethrion-evidence .markdown-source-view.mod-cm6 .HyperMD-header-2 {
+  color: color-mix(in srgb, var(--aethrion-workspace) 78%, var(--text-normal));
+  border-bottom: 1px solid color-mix(in srgb, var(--aethrion-workspace) 35%, transparent);
+  padding-bottom: 2px;
+}
+
+.aethrion-evidence .markdown-preview-view h3,
+.aethrion-evidence .markdown-preview-view h4,
+.aethrion-evidence .markdown-preview-view h5,
+.aethrion-evidence .markdown-preview-view h6 {
+  color: color-mix(in srgb, var(--aethrion-workspace) 60%, var(--text-normal));
+}
+
+.aethrion-evidence .markdown-preview-view blockquote {
+  border-left: 3px solid color-mix(in srgb, var(--aethrion-workspace) 55%, transparent);
+}
+
+.aethrion-evidence .markdown-preview-view th {
+  border-bottom: 2px solid color-mix(in srgb, var(--aethrion-workspace) 45%, transparent);
+  color: color-mix(in srgb, var(--aethrion-workspace) 70%, var(--text-normal));
+}
+
+.aethrion-evidence .markdown-preview-view hr {
+  border-top: 1px solid color-mix(in srgb, var(--aethrion-workspace) 40%, transparent);
+}
+
+.aethrion-evidence .markdown-preview-view a.internal-link {
+  color: var(--aethrion-workspace);
+  text-decoration-color: color-mix(in srgb, var(--aethrion-workspace) 45%, transparent);
+}
+
+.aethrion-evidence .markdown-preview-view input[type=checkbox]:checked {
+  background-color: var(--aethrion-workspace);
+  border-color: var(--aethrion-workspace);
+}
+
+.aethrion-evidence .workspace-leaf-content[data-type='markdown'] {
+  border-top: 2px solid color-mix(in srgb, var(--aethrion-workspace) 55%, transparent);
+}
+
+.aethrion-claim .inline-title,
+.aethrion-claim .markdown-preview-view h1,
+.aethrion-claim .markdown-source-view.mod-cm6 .HyperMD-header-1 {
+  color: var(--aethrion-human);
+}
+
+.aethrion-claim .markdown-preview-view h2,
+.aethrion-claim .markdown-source-view.mod-cm6 .HyperMD-header-2 {
+  color: color-mix(in srgb, var(--aethrion-human) 78%, var(--text-normal));
+  border-bottom: 1px solid color-mix(in srgb, var(--aethrion-human) 35%, transparent);
+  padding-bottom: 2px;
+}
+
+.aethrion-claim .markdown-preview-view h3,
+.aethrion-claim .markdown-preview-view h4,
+.aethrion-claim .markdown-preview-view h5,
+.aethrion-claim .markdown-preview-view h6 {
+  color: color-mix(in srgb, var(--aethrion-human) 60%, var(--text-normal));
+}
+
+.aethrion-claim .markdown-preview-view blockquote {
+  border-left: 3px solid color-mix(in srgb, var(--aethrion-human) 55%, transparent);
+}
+
+.aethrion-claim .markdown-preview-view th {
+  border-bottom: 2px solid color-mix(in srgb, var(--aethrion-human) 45%, transparent);
+  color: color-mix(in srgb, var(--aethrion-human) 70%, var(--text-normal));
+}
+
+.aethrion-claim .markdown-preview-view hr {
+  border-top: 1px solid color-mix(in srgb, var(--aethrion-human) 40%, transparent);
+}
+
+.aethrion-claim .markdown-preview-view a.internal-link {
+  color: var(--aethrion-human);
+  text-decoration-color: color-mix(in srgb, var(--aethrion-human) 45%, transparent);
+}
+
+.aethrion-claim .markdown-preview-view input[type=checkbox]:checked {
+  background-color: var(--aethrion-human);
+  border-color: var(--aethrion-human);
+}
+
+.aethrion-claim .workspace-leaf-content[data-type='markdown'] {
+  border-top: 2px solid color-mix(in srgb, var(--aethrion-human) 55%, transparent);
+}
+
+.aethrion-concept .inline-title,
+.aethrion-concept .markdown-preview-view h1,
+.aethrion-concept .markdown-source-view.mod-cm6 .HyperMD-header-1 {
+  color: var(--aethrion-human);
+}
+
+.aethrion-concept .markdown-preview-view h2,
+.aethrion-concept .markdown-source-view.mod-cm6 .HyperMD-header-2 {
+  color: color-mix(in srgb, var(--aethrion-human) 78%, var(--text-normal));
+  border-bottom: 1px solid color-mix(in srgb, var(--aethrion-human) 35%, transparent);
+  padding-bottom: 2px;
+}
+
+.aethrion-concept .markdown-preview-view h3,
+.aethrion-concept .markdown-preview-view h4,
+.aethrion-concept .markdown-preview-view h5,
+.aethrion-concept .markdown-preview-view h6 {
+  color: color-mix(in srgb, var(--aethrion-human) 60%, var(--text-normal));
+}
+
+.aethrion-concept .markdown-preview-view blockquote {
+  border-left: 3px solid color-mix(in srgb, var(--aethrion-human) 55%, transparent);
+}
+
+.aethrion-concept .markdown-preview-view th {
+  border-bottom: 2px solid color-mix(in srgb, var(--aethrion-human) 45%, transparent);
+  color: color-mix(in srgb, var(--aethrion-human) 70%, var(--text-normal));
+}
+
+.aethrion-concept .markdown-preview-view hr {
+  border-top: 1px solid color-mix(in srgb, var(--aethrion-human) 40%, transparent);
+}
+
+.aethrion-concept .markdown-preview-view a.internal-link {
+  color: var(--aethrion-human);
+  text-decoration-color: color-mix(in srgb, var(--aethrion-human) 45%, transparent);
+}
+
+.aethrion-concept .markdown-preview-view input[type=checkbox]:checked {
+  background-color: var(--aethrion-human);
+  border-color: var(--aethrion-human);
+}
+
+.aethrion-concept .workspace-leaf-content[data-type='markdown'] {
+  border-top: 2px solid color-mix(in srgb, var(--aethrion-human) 55%, transparent);
+}
+
+.aethrion-decision .inline-title,
+.aethrion-decision .markdown-preview-view h1,
+.aethrion-decision .markdown-source-view.mod-cm6 .HyperMD-header-1 {
+  color: var(--aethrion-human);
+}
+
+.aethrion-decision .markdown-preview-view h2,
+.aethrion-decision .markdown-source-view.mod-cm6 .HyperMD-header-2 {
+  color: color-mix(in srgb, var(--aethrion-human) 78%, var(--text-normal));
+  border-bottom: 1px solid color-mix(in srgb, var(--aethrion-human) 35%, transparent);
+  padding-bottom: 2px;
+}
+
+.aethrion-decision .markdown-preview-view h3,
+.aethrion-decision .markdown-preview-view h4,
+.aethrion-decision .markdown-preview-view h5,
+.aethrion-decision .markdown-preview-view h6 {
+  color: color-mix(in srgb, var(--aethrion-human) 60%, var(--text-normal));
+}
+
+.aethrion-decision .markdown-preview-view blockquote {
+  border-left: 3px solid color-mix(in srgb, var(--aethrion-human) 55%, transparent);
+}
+
+.aethrion-decision .markdown-preview-view th {
+  border-bottom: 2px solid color-mix(in srgb, var(--aethrion-human) 45%, transparent);
+  color: color-mix(in srgb, var(--aethrion-human) 70%, var(--text-normal));
+}
+
+.aethrion-decision .markdown-preview-view hr {
+  border-top: 1px solid color-mix(in srgb, var(--aethrion-human) 40%, transparent);
+}
+
+.aethrion-decision .markdown-preview-view a.internal-link {
+  color: var(--aethrion-human);
+  text-decoration-color: color-mix(in srgb, var(--aethrion-human) 45%, transparent);
+}
+
+.aethrion-decision .markdown-preview-view input[type=checkbox]:checked {
+  background-color: var(--aethrion-human);
+  border-color: var(--aethrion-human);
+}
+
+.aethrion-decision .workspace-leaf-content[data-type='markdown'] {
+  border-top: 2px solid color-mix(in srgb, var(--aethrion-human) 55%, transparent);
+}
+
+.aethrion-run .inline-title,
+.aethrion-run .markdown-preview-view h1,
+.aethrion-run .markdown-source-view.mod-cm6 .HyperMD-header-1 {
+  color: var(--aethrion-human);
+}
+
+.aethrion-run .markdown-preview-view h2,
+.aethrion-run .markdown-source-view.mod-cm6 .HyperMD-header-2 {
+  color: color-mix(in srgb, var(--aethrion-human) 78%, var(--text-normal));
+  border-bottom: 1px solid color-mix(in srgb, var(--aethrion-human) 35%, transparent);
+  padding-bottom: 2px;
+}
+
+.aethrion-run .markdown-preview-view h3,
+.aethrion-run .markdown-preview-view h4,
+.aethrion-run .markdown-preview-view h5,
+.aethrion-run .markdown-preview-view h6 {
+  color: color-mix(in srgb, var(--aethrion-human) 60%, var(--text-normal));
+}
+
+.aethrion-run .markdown-preview-view blockquote {
+  border-left: 3px solid color-mix(in srgb, var(--aethrion-human) 55%, transparent);
+}
+
+.aethrion-run .markdown-preview-view th {
+  border-bottom: 2px solid color-mix(in srgb, var(--aethrion-human) 45%, transparent);
+  color: color-mix(in srgb, var(--aethrion-human) 70%, var(--text-normal));
+}
+
+.aethrion-run .markdown-preview-view hr {
+  border-top: 1px solid color-mix(in srgb, var(--aethrion-human) 40%, transparent);
+}
+
+.aethrion-run .markdown-preview-view a.internal-link {
+  color: var(--aethrion-human);
+  text-decoration-color: color-mix(in srgb, var(--aethrion-human) 45%, transparent);
+}
+
+.aethrion-run .markdown-preview-view input[type=checkbox]:checked {
+  background-color: var(--aethrion-human);
+  border-color: var(--aethrion-human);
+}
+
+.aethrion-run .workspace-leaf-content[data-type='markdown'] {
+  border-top: 2px solid color-mix(in srgb, var(--aethrion-human) 55%, transparent);
+}
+
+.aethrion-source-note .inline-title,
+.aethrion-source-note .markdown-preview-view h1,
+.aethrion-source-note .markdown-source-view.mod-cm6 .HyperMD-header-1 {
+  color: var(--aethrion-human);
+}
+
+.aethrion-source-note .markdown-preview-view h2,
+.aethrion-source-note .markdown-source-view.mod-cm6 .HyperMD-header-2 {
+  color: color-mix(in srgb, var(--aethrion-human) 78%, var(--text-normal));
+  border-bottom: 1px solid color-mix(in srgb, var(--aethrion-human) 35%, transparent);
+  padding-bottom: 2px;
+}
+
+.aethrion-source-note .markdown-preview-view h3,
+.aethrion-source-note .markdown-preview-view h4,
+.aethrion-source-note .markdown-preview-view h5,
+.aethrion-source-note .markdown-preview-view h6 {
+  color: color-mix(in srgb, var(--aethrion-human) 60%, var(--text-normal));
+}
+
+.aethrion-source-note .markdown-preview-view blockquote {
+  border-left: 3px solid color-mix(in srgb, var(--aethrion-human) 55%, transparent);
+}
+
+.aethrion-source-note .markdown-preview-view th {
+  border-bottom: 2px solid color-mix(in srgb, var(--aethrion-human) 45%, transparent);
+  color: color-mix(in srgb, var(--aethrion-human) 70%, var(--text-normal));
+}
+
+.aethrion-source-note .markdown-preview-view hr {
+  border-top: 1px solid color-mix(in srgb, var(--aethrion-human) 40%, transparent);
+}
+
+.aethrion-source-note .markdown-preview-view a.internal-link {
+  color: var(--aethrion-human);
+  text-decoration-color: color-mix(in srgb, var(--aethrion-human) 45%, transparent);
+}
+
+.aethrion-source-note .markdown-preview-view input[type=checkbox]:checked {
+  background-color: var(--aethrion-human);
+  border-color: var(--aethrion-human);
+}
+
+.aethrion-source-note .workspace-leaf-content[data-type='markdown'] {
+  border-top: 2px solid color-mix(in srgb, var(--aethrion-human) 55%, transparent);
+}
+
+.aethrion-literature-set .inline-title,
+.aethrion-literature-set .markdown-preview-view h1,
+.aethrion-literature-set .markdown-source-view.mod-cm6 .HyperMD-header-1 {
+  color: var(--aethrion-human);
+}
+
+.aethrion-literature-set .markdown-preview-view h2,
+.aethrion-literature-set .markdown-source-view.mod-cm6 .HyperMD-header-2 {
+  color: color-mix(in srgb, var(--aethrion-human) 78%, var(--text-normal));
+  border-bottom: 1px solid color-mix(in srgb, var(--aethrion-human) 35%, transparent);
+  padding-bottom: 2px;
+}
+
+.aethrion-literature-set .markdown-preview-view h3,
+.aethrion-literature-set .markdown-preview-view h4,
+.aethrion-literature-set .markdown-preview-view h5,
+.aethrion-literature-set .markdown-preview-view h6 {
+  color: color-mix(in srgb, var(--aethrion-human) 60%, var(--text-normal));
+}
+
+.aethrion-literature-set .markdown-preview-view blockquote {
+  border-left: 3px solid color-mix(in srgb, var(--aethrion-human) 55%, transparent);
+}
+
+.aethrion-literature-set .markdown-preview-view th {
+  border-bottom: 2px solid color-mix(in srgb, var(--aethrion-human) 45%, transparent);
+  color: color-mix(in srgb, var(--aethrion-human) 70%, var(--text-normal));
+}
+
+.aethrion-literature-set .markdown-preview-view hr {
+  border-top: 1px solid color-mix(in srgb, var(--aethrion-human) 40%, transparent);
+}
+
+.aethrion-literature-set .markdown-preview-view a.internal-link {
+  color: var(--aethrion-human);
+  text-decoration-color: color-mix(in srgb, var(--aethrion-human) 45%, transparent);
+}
+
+.aethrion-literature-set .markdown-preview-view input[type=checkbox]:checked {
+  background-color: var(--aethrion-human);
+  border-color: var(--aethrion-human);
+}
+
+.aethrion-literature-set .workspace-leaf-content[data-type='markdown'] {
+  border-top: 2px solid color-mix(in srgb, var(--aethrion-human) 55%, transparent);
+}
+
+.aethrion-project .inline-title,
+.aethrion-project .markdown-preview-view h1,
+.aethrion-project .markdown-source-view.mod-cm6 .HyperMD-header-1 {
+  color: var(--aethrion-workspace);
+}
+
+.aethrion-project .markdown-preview-view h2,
+.aethrion-project .markdown-source-view.mod-cm6 .HyperMD-header-2 {
+  color: color-mix(in srgb, var(--aethrion-workspace) 78%, var(--text-normal));
+  border-bottom: 1px solid color-mix(in srgb, var(--aethrion-workspace) 35%, transparent);
+  padding-bottom: 2px;
+}
+
+.aethrion-project .markdown-preview-view h3,
+.aethrion-project .markdown-preview-view h4,
+.aethrion-project .markdown-preview-view h5,
+.aethrion-project .markdown-preview-view h6 {
+  color: color-mix(in srgb, var(--aethrion-workspace) 60%, var(--text-normal));
+}
+
+.aethrion-project .markdown-preview-view blockquote {
+  border-left: 3px solid color-mix(in srgb, var(--aethrion-workspace) 55%, transparent);
+}
+
+.aethrion-project .markdown-preview-view th {
+  border-bottom: 2px solid color-mix(in srgb, var(--aethrion-workspace) 45%, transparent);
+  color: color-mix(in srgb, var(--aethrion-workspace) 70%, var(--text-normal));
+}
+
+.aethrion-project .markdown-preview-view hr {
+  border-top: 1px solid color-mix(in srgb, var(--aethrion-workspace) 40%, transparent);
+}
+
+.aethrion-project .markdown-preview-view a.internal-link {
+  color: var(--aethrion-workspace);
+  text-decoration-color: color-mix(in srgb, var(--aethrion-workspace) 45%, transparent);
+}
+
+.aethrion-project .markdown-preview-view input[type=checkbox]:checked {
+  background-color: var(--aethrion-workspace);
+  border-color: var(--aethrion-workspace);
+}
+
+.aethrion-project .workspace-leaf-content[data-type='markdown'] {
+  border-top: 2px solid color-mix(in srgb, var(--aethrion-workspace) 55%, transparent);
+}
+
+.aethrion-daily-note .inline-title,
+.aethrion-daily-note .markdown-preview-view h1,
+.aethrion-daily-note .markdown-source-view.mod-cm6 .HyperMD-header-1 {
+  color: var(--aethrion-index);
+}
+
+.aethrion-daily-note .markdown-preview-view h2,
+.aethrion-daily-note .markdown-source-view.mod-cm6 .HyperMD-header-2 {
+  color: color-mix(in srgb, var(--aethrion-index) 78%, var(--text-normal));
+  border-bottom: 1px solid color-mix(in srgb, var(--aethrion-index) 35%, transparent);
+  padding-bottom: 2px;
+}
+
+.aethrion-daily-note .markdown-preview-view h3,
+.aethrion-daily-note .markdown-preview-view h4,
+.aethrion-daily-note .markdown-preview-view h5,
+.aethrion-daily-note .markdown-preview-view h6 {
+  color: color-mix(in srgb, var(--aethrion-index) 60%, var(--text-normal));
+}
+
+.aethrion-daily-note .markdown-preview-view blockquote {
+  border-left: 3px solid color-mix(in srgb, var(--aethrion-index) 55%, transparent);
+}
+
+.aethrion-daily-note .markdown-preview-view th {
+  border-bottom: 2px solid color-mix(in srgb, var(--aethrion-index) 45%, transparent);
+  color: color-mix(in srgb, var(--aethrion-index) 70%, var(--text-normal));
+}
+
+.aethrion-daily-note .markdown-preview-view hr {
+  border-top: 1px solid color-mix(in srgb, var(--aethrion-index) 40%, transparent);
+}
+
+.aethrion-daily-note .markdown-preview-view a.internal-link {
+  color: var(--aethrion-index);
+  text-decoration-color: color-mix(in srgb, var(--aethrion-index) 45%, transparent);
+}
+
+.aethrion-daily-note .markdown-preview-view input[type=checkbox]:checked {
+  background-color: var(--aethrion-index);
+  border-color: var(--aethrion-index);
+}
+
+.aethrion-daily-note .workspace-leaf-content[data-type='markdown'] {
+  border-top: 2px solid color-mix(in srgb, var(--aethrion-index) 55%, transparent);
+}
+
+.aethrion-execution-log .inline-title,
+.aethrion-execution-log .markdown-preview-view h1,
+.aethrion-execution-log .markdown-source-view.mod-cm6 .HyperMD-header-1 {
+  color: var(--aethrion-workspace);
+}
+
+.aethrion-execution-log .markdown-preview-view h2,
+.aethrion-execution-log .markdown-source-view.mod-cm6 .HyperMD-header-2 {
+  color: color-mix(in srgb, var(--aethrion-workspace) 78%, var(--text-normal));
+  border-bottom: 1px solid color-mix(in srgb, var(--aethrion-workspace) 35%, transparent);
+  padding-bottom: 2px;
+}
+
+.aethrion-execution-log .markdown-preview-view h3,
+.aethrion-execution-log .markdown-preview-view h4,
+.aethrion-execution-log .markdown-preview-view h5,
+.aethrion-execution-log .markdown-preview-view h6 {
+  color: color-mix(in srgb, var(--aethrion-workspace) 60%, var(--text-normal));
+}
+
+.aethrion-execution-log .markdown-preview-view blockquote {
+  border-left: 3px solid color-mix(in srgb, var(--aethrion-workspace) 55%, transparent);
+}
+
+.aethrion-execution-log .markdown-preview-view th {
+  border-bottom: 2px solid color-mix(in srgb, var(--aethrion-workspace) 45%, transparent);
+  color: color-mix(in srgb, var(--aethrion-workspace) 70%, var(--text-normal));
+}
+
+.aethrion-execution-log .markdown-preview-view hr {
+  border-top: 1px solid color-mix(in srgb, var(--aethrion-workspace) 40%, transparent);
+}
+
+.aethrion-execution-log .markdown-preview-view a.internal-link {
+  color: var(--aethrion-workspace);
+  text-decoration-color: color-mix(in srgb, var(--aethrion-workspace) 45%, transparent);
+}
+
+.aethrion-execution-log .markdown-preview-view input[type=checkbox]:checked {
+  background-color: var(--aethrion-workspace);
+  border-color: var(--aethrion-workspace);
+}
+
+.aethrion-execution-log .workspace-leaf-content[data-type='markdown'] {
+  border-top: 2px solid color-mix(in srgb, var(--aethrion-workspace) 55%, transparent);
+}
+
+.aethrion-handover .inline-title,
+.aethrion-handover .markdown-preview-view h1,
+.aethrion-handover .markdown-source-view.mod-cm6 .HyperMD-header-1 {
+  color: var(--aethrion-workspace);
+}
+
+.aethrion-handover .markdown-preview-view h2,
+.aethrion-handover .markdown-source-view.mod-cm6 .HyperMD-header-2 {
+  color: color-mix(in srgb, var(--aethrion-workspace) 78%, var(--text-normal));
+  border-bottom: 1px solid color-mix(in srgb, var(--aethrion-workspace) 35%, transparent);
+  padding-bottom: 2px;
+}
+
+.aethrion-handover .markdown-preview-view h3,
+.aethrion-handover .markdown-preview-view h4,
+.aethrion-handover .markdown-preview-view h5,
+.aethrion-handover .markdown-preview-view h6 {
+  color: color-mix(in srgb, var(--aethrion-workspace) 60%, var(--text-normal));
+}
+
+.aethrion-handover .markdown-preview-view blockquote {
+  border-left: 3px solid color-mix(in srgb, var(--aethrion-workspace) 55%, transparent);
+}
+
+.aethrion-handover .markdown-preview-view th {
+  border-bottom: 2px solid color-mix(in srgb, var(--aethrion-workspace) 45%, transparent);
+  color: color-mix(in srgb, var(--aethrion-workspace) 70%, var(--text-normal));
+}
+
+.aethrion-handover .markdown-preview-view hr {
+  border-top: 1px solid color-mix(in srgb, var(--aethrion-workspace) 40%, transparent);
+}
+
+.aethrion-handover .markdown-preview-view a.internal-link {
+  color: var(--aethrion-workspace);
+  text-decoration-color: color-mix(in srgb, var(--aethrion-workspace) 45%, transparent);
+}
+
+.aethrion-handover .markdown-preview-view input[type=checkbox]:checked {
+  background-color: var(--aethrion-workspace);
+  border-color: var(--aethrion-workspace);
+}
+
+.aethrion-handover .workspace-leaf-content[data-type='markdown'] {
+  border-top: 2px solid color-mix(in srgb, var(--aethrion-workspace) 55%, transparent);
+}
+
+/* ---- side panels: backlinks, outgoing links, tags, outline, bookmarks ---- */
+
+/* These panes carry no per-page metadata, so they take the colour of what
+ * they are rather than what they point at: links are navigation, the
+ * outline is structure, the tag pane is vocabulary. */
+
+.backlink-pane .tree-item-self .tree-item-inner,
+.outgoing-link-pane .tree-item-self .tree-item-inner {
+  color: var(--aethrion-workspace);
+}
+
+.backlink-pane .search-result-file-title,
+.outgoing-link-pane .search-result-file-title {
+  border-left: 2px solid color-mix(in srgb, var(--aethrion-workspace) 55%, transparent);
+  padding-left: 5px;
+}
+
+.outgoing-link-pane .tree-item-self.is-unresolved .tree-item-inner {
+  color: var(--aethrion-pending);
+}
+
+.tag-container .tag-pane-tag,
+.tag-container .tree-item-self {
+  border-left: 2px solid color-mix(in srgb, var(--aethrion-index) 60%, transparent);
+  padding-left: 5px;
+}
+
+.tag-container .tag-pane-tag-count {
+  color: var(--aethrion-index);
+}
+
+.outline .tree-item-self .tree-item-inner {
+  color: color-mix(in srgb, var(--aethrion-architecture) 75%, var(--text-normal));
+}
+
+.bookmark-pane .tree-item-self .tree-item-inner {
+  color: var(--aethrion-human);
+}
+
+/* The properties pane lists every key in the vault; the ones this
+ * projection writes are the ones worth finding. */
+.all-properties .tree-item-self .tree-item-inner {
+  color: color-mix(in srgb, var(--aethrion-index) 80%, var(--text-normal));
+}
+
+/* An unresolved link in a note is a finding, not decoration. */
+.markdown-preview-view a.internal-link.is-unresolved {
+  color: var(--aethrion-pending);
+  text-decoration-style: dotted;
+}
+
 /* ---- the status property ---- */
 
 .metadata-property[data-property-key="status"] .metadata-property-key {

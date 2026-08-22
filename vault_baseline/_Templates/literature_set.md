@@ -10,6 +10,8 @@ excluded_source_ids: []
 manifest_hash:
 tags:
   - aethrion/literature-set
+cssclasses:
+  - aethrion-literature-set
 ---
 
 # {{title}}

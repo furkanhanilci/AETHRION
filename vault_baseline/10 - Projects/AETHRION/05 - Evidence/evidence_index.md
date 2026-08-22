@@ -9,6 +9,8 @@ generated: false
 tags:
   - aethrion/index
   - aethrion/evidence
+cssclasses:
+  - aethrion-index
 ---
 
 # Evidence Index

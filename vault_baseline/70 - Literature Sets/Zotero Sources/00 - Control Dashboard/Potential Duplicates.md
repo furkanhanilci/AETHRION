@@ -7,6 +7,8 @@ tags:
 type: generated-quality-report
 generated_at: "2026-08-22T19:32:38.075069+00:00"
 provenance: airl-bridge-api
+cssclasses:
+  - aethrion-index
 ---
 
 # Potential Duplicates

@@ -9,6 +9,8 @@ generated: false
 tags:
   - aethrion/index
   - aethrion/plan
+cssclasses:
+  - aethrion-index
 ---
 
 # Commissioning Authoring Progress

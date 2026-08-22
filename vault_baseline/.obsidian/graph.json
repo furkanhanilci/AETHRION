@@ -104,6 +104,13 @@
         "a": 1,
         "rgb": 6514282
       }
+    },
+    {
+      "query": "path:\".svg\" OR path:\".png\" OR path:\".txt\" OR path:\".csv\" OR path:\".json\"",
+      "color": {
+        "a": 1,
+        "rgb": 15787074
+      }
     }
   ],
   "showArrow": true,

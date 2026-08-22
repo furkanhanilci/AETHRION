@@ -2,6 +2,8 @@
 title: "WP-101 — Service Catalogue, SLOs and Alert/Runbook Binding — Acceptance Criteria"
 aliases:
   - "WP-101 acceptance"
+cssclasses:
+  - aethrion-acceptance-criteria
 type: acceptance-criteria
 category: commissioning
 status: NOT_STARTED

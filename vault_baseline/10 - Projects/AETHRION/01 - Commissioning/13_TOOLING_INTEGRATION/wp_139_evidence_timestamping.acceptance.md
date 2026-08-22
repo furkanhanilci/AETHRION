@@ -2,6 +2,8 @@
 title: "WP-139 — Evidence Timestamping and Independent Seal — Acceptance Criteria"
 aliases:
   - "WP-139 acceptance"
+cssclasses:
+  - aethrion-acceptance-criteria
 type: acceptance-criteria
 category: commissioning
 status: NOT_STARTED

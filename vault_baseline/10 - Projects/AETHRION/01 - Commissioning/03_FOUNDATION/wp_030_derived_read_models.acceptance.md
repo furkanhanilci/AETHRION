@@ -2,6 +2,8 @@
 title: "WP-030 — Neo4j, pgvector and OpenSearch Derived Read Models — Acceptance Criteria"
 aliases:
   - "WP-030 acceptance"
+cssclasses:
+  - aethrion-acceptance-criteria
 type: acceptance-criteria
 category: commissioning
 status: NOT_STARTED

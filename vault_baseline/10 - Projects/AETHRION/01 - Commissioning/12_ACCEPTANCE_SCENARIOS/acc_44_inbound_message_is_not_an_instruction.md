@@ -2,6 +2,8 @@
 title: "ACC-44 — Inbound Content Attempts to Act as an Instruction"
 aliases:
   - "ACC-44"
+cssclasses:
+  - aethrion-acceptance-scenario
 type: acceptance-scenario
 category: commissioning
 summary: "Untrusted human-readable content is data, whatever it says."

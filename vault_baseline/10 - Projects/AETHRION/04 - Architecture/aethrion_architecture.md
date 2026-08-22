@@ -1,5 +1,7 @@
 ---
 title: "AETHRION — Architecture Reference"
+cssclasses:
+  - aethrion-reference
 type: reference
 category: architecture
 summary: "AETHRION — Agentic Intelligence Research Layer is an evidence-centred research operating system: AI agents perform bounded research tasks, deterministic systems verify whatever can be verified mechanically, independent assurance challenges what survives, humans retain scientific decision authority,"

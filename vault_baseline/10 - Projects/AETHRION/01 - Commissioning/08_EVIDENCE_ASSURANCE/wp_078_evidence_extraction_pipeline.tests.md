@@ -2,6 +2,8 @@
 title: "WP-078 — Structured Evidence Extraction Pipeline — Test Procedures"
 aliases:
   - "WP-078 tests"
+cssclasses:
+  - aethrion-test-procedure
 type: test-procedure
 category: commissioning
 status: NOT_STARTED

@@ -3,6 +3,8 @@ title: "WP-078 — Structured Evidence Extraction Pipeline"
 aliases:
   - "WP-078"
   - "WP-078 — Structured Evidence Extraction Pipeline"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

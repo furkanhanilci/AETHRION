@@ -2,6 +2,8 @@
 title: "WP-006 — ExecutionProfile and Route Policy — Acceptance Criteria"
 aliases:
   - "WP-006 acceptance"
+cssclasses:
+  - aethrion-acceptance-criteria
 type: acceptance-criteria
 category: commissioning
 status: NOT_STARTED

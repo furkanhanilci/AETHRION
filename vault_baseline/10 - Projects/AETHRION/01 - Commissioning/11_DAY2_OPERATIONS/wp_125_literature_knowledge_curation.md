@@ -3,6 +3,8 @@ title: "WP-125 — Literature, Zotero and Obsidian Curation Rhythm"
 aliases:
   - "WP-125"
   - "WP-125 — Literature, Zotero and Obsidian Curation Rhythm"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

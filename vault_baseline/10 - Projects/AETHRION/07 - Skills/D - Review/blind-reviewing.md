@@ -2,6 +2,8 @@
 title: "Blind Reviewing"
 aliases:
   - "blind-reviewing"
+cssclasses:
+  - aethrion-skill
 type: skill
 category: skill
 status: WORKING

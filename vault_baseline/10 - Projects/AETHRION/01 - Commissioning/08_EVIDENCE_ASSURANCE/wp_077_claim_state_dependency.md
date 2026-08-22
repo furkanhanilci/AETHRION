@@ -3,6 +3,8 @@ title: "WP-077 — Claim State, Dependency and Assessment Engine"
 aliases:
   - "WP-077"
   - "WP-077 — Claim State, Dependency and Assessment Engine"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

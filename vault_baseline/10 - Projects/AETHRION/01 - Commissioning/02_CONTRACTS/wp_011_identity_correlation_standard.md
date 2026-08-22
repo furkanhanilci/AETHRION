@@ -3,6 +3,8 @@ title: "WP-011 — Identity and End-to-End Correlation Standard"
 aliases:
   - "WP-011"
   - "WP-011 — Identity and End-to-End Correlation Standard"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

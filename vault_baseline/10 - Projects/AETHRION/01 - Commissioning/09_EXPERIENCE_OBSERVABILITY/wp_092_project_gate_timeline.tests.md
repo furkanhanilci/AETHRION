@@ -2,6 +2,8 @@
 title: "WP-092 — Project Workspace and G0–G10 Gate Timeline — Test Procedures"
 aliases:
   - "WP-092 tests"
+cssclasses:
+  - aethrion-test-procedure
 type: test-procedure
 category: commissioning
 status: NOT_STARTED

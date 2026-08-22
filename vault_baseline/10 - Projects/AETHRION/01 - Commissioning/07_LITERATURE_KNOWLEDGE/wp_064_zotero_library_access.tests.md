@@ -2,6 +2,8 @@
 title: "WP-064 — Zotero Library, Collection and Permission Model — Test Procedures"
 aliases:
   - "WP-064 tests"
+cssclasses:
+  - aethrion-test-procedure
 type: test-procedure
 category: commissioning
 status: NOT_STARTED

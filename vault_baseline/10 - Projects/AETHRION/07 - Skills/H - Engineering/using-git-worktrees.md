@@ -2,6 +2,8 @@
 title: "Using Git Worktrees"
 aliases:
   - "using-git-worktrees"
+cssclasses:
+  - aethrion-skill
 type: skill
 category: skill
 status: WORKING

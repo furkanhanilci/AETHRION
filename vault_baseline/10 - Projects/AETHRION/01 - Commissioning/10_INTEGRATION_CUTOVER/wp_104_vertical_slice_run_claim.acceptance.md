@@ -2,6 +2,8 @@
 title: "WP-104 — Vertical Slice 3 — Baseline through Run to Claim/Evidence — Acceptance Criteria"
 aliases:
   - "WP-104 acceptance"
+cssclasses:
+  - aethrion-acceptance-criteria
 type: acceptance-criteria
 category: commissioning
 status: NOT_STARTED

@@ -2,6 +2,8 @@
 title: "ACC-22 — Obsidian Human Edit Preservation"
 aliases:
   - "ACC-22"
+cssclasses:
+  - aethrion-acceptance-scenario
 type: acceptance-scenario
 category: commissioning
 summary: "This scenario verifies the target architecture's fail-safe behaviour and its evidence production in the Obsidian Human Edit Preservation situation."

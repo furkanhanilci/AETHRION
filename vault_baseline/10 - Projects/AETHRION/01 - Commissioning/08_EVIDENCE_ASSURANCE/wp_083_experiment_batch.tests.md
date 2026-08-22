@@ -2,6 +2,8 @@
 title: "WP-083 — ExperimentBatch and Staged Execution — Test Procedures"
 aliases:
   - "WP-083 tests"
+cssclasses:
+  - aethrion-test-procedure
 type: test-procedure
 category: commissioning
 status: NOT_STARTED

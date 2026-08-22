@@ -2,6 +2,8 @@
 title: "WP-098 — Grafana and the Six Operational Graphs — Test Procedures"
 aliases:
   - "WP-098 tests"
+cssclasses:
+  - aethrion-test-procedure
 type: test-procedure
 category: commissioning
 status: NOT_STARTED

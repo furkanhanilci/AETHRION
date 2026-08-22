@@ -19,6 +19,8 @@ zotero_tags:
 creators:
   - "Robin Göransson"
   - "Volker Krueger"
+cssclasses:
+  - aethrion-source
 ---
 
 <h1>Learning Actions and Control of Focus of Attention with a Log-Polar-like Sensor</h1>

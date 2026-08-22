@@ -2,6 +2,8 @@
 title: "WP-103 — Vertical Slice 2 — Two-Way Literature and Set Freeze — Acceptance Criteria"
 aliases:
   - "WP-103 acceptance"
+cssclasses:
+  - aethrion-acceptance-criteria
 type: acceptance-criteria
 category: commissioning
 status: NOT_STARTED

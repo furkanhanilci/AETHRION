@@ -1,5 +1,7 @@
 ---
 title: "Architecture Scope → Work Package Coverage Matrix"
+cssclasses:
+  - aethrion-reference
 type: reference
 category: commissioning
 source: "planning/commissioning/00_PROGRAM/11_scope_coverage_matrix.md"

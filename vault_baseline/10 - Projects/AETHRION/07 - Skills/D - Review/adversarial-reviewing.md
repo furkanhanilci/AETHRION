@@ -2,6 +2,8 @@
 title: "Adversarial Reviewing"
 aliases:
   - "adversarial-reviewing"
+cssclasses:
+  - aethrion-skill
 type: skill
 category: skill
 status: WORKING

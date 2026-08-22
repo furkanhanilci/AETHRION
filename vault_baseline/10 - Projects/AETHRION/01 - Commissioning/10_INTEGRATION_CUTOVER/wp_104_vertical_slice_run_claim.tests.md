@@ -2,6 +2,8 @@
 title: "WP-104 — Vertical Slice 3 — Baseline through Run to Claim/Evidence — Test Procedures"
 aliases:
   - "WP-104 tests"
+cssclasses:
+  - aethrion-test-procedure
 type: test-procedure
 category: commissioning
 status: NOT_STARTED

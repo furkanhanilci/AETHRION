@@ -2,6 +2,8 @@
 title: "WP-100 — Cost Ledger, Budget Envelopes and FinOps — Acceptance Criteria"
 aliases:
   - "WP-100 acceptance"
+cssclasses:
+  - aethrion-acceptance-criteria
 type: acceptance-criteria
 category: commissioning
 status: NOT_STARTED

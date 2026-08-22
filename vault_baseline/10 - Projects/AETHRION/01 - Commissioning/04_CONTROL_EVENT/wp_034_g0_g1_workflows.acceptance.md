@@ -2,6 +2,8 @@
 title: "WP-034 — G0 Intake and G1 Charter Workflows — Acceptance Criteria"
 aliases:
   - "WP-034 acceptance"
+cssclasses:
+  - aethrion-acceptance-criteria
 type: acceptance-criteria
 category: commissioning
 status: NOT_STARTED

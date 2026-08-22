@@ -3,6 +3,8 @@ title: "WP-084 — Clean-Room Reproduction Environment"
 aliases:
   - "WP-084"
   - "WP-084 — Clean-Room Reproduction Environment"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

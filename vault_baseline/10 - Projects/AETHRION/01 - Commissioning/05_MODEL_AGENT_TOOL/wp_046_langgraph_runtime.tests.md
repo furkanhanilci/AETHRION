@@ -2,6 +2,8 @@
 title: "WP-046 — LangGraph Bounded Cognition Runtime — Test Procedures"
 aliases:
   - "WP-046 tests"
+cssclasses:
+  - aethrion-test-procedure
 type: test-procedure
 category: commissioning
 status: NOT_STARTED

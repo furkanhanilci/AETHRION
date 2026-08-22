@@ -3,6 +3,8 @@ title: "WP-055 — SPIFFE/SPIRE Workload Identity and Vault"
 aliases:
   - "WP-055"
   - "WP-055 — SPIFFE/SPIRE Workload Identity and Vault"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

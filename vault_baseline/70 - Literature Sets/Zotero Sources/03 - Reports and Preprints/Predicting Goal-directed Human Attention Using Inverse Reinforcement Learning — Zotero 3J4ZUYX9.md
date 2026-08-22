@@ -25,6 +25,8 @@ creators:
   - "Gregory Zelinsky"
   - "Dimitris Samaras"
   - "Minh Hoai"
+cssclasses:
+  - aethrion-source
 ---
 
 <h1>Predicting Goal-directed Human Attention Using Inverse Reinforcement Learning</h1>

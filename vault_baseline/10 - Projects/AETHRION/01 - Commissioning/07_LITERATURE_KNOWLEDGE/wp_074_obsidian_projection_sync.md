@@ -3,6 +3,8 @@ title: "WP-074 — Obsidian Projection, Link Integrity and Knowledge Write-Back"
 aliases:
   - "WP-074"
   - "WP-074 — Obsidian Projection, Link Integrity and Knowledge Write-Back"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

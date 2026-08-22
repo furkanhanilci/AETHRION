@@ -2,6 +2,8 @@
 title: "ACC-16 — Egress Exfiltration Attempt"
 aliases:
   - "ACC-16"
+cssclasses:
+  - aethrion-acceptance-scenario
 type: acceptance-scenario
 category: commissioning
 summary: "This scenario verifies the target architecture's fail-safe behaviour and its evidence production in the Egress Exfiltration Attempt situation."

@@ -3,6 +3,8 @@ title: "WP-036 — G5 Execute through G9 Publish Workflows"
 aliases:
   - "WP-036"
   - "WP-036 — G5 Execute through G9 Publish Workflows"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

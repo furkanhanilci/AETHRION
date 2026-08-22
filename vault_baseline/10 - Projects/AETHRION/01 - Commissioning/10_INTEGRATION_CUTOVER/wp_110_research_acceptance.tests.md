@@ -2,6 +2,8 @@
 title: "WP-110 — Research and Literature Acceptance Package — Test Procedures"
 aliases:
   - "WP-110 tests"
+cssclasses:
+  - aethrion-test-procedure
 type: test-procedure
 category: commissioning
 status: NOT_STARTED

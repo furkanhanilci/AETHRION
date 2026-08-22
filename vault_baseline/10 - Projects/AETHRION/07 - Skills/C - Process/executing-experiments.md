@@ -2,6 +2,8 @@
 title: "Executing Experiments"
 aliases:
   - "executing-experiments"
+cssclasses:
+  - aethrion-skill
 type: skill
 category: skill
 status: WORKING

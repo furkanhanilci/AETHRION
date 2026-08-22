@@ -3,6 +3,8 @@ title: "WP-128 — Incident, Postmortem and Learning Closure"
 aliases:
   - "WP-128"
   - "WP-128 — Incident, Postmortem and Learning Closure"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

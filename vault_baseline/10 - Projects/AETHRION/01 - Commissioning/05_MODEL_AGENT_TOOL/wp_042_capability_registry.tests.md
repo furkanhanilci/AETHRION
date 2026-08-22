@@ -2,6 +2,8 @@
 title: "WP-042 — Capability Registry and Profile Lifecycle — Test Procedures"
 aliases:
   - "WP-042 tests"
+cssclasses:
+  - aethrion-test-procedure
 type: test-procedure
 category: commissioning
 status: NOT_STARTED

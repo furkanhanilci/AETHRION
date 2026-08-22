@@ -2,6 +2,8 @@
 title: "Injecting Controls"
 aliases:
   - "injecting-controls"
+cssclasses:
+  - aethrion-skill
 type: skill
 category: skill
 status: WORKING

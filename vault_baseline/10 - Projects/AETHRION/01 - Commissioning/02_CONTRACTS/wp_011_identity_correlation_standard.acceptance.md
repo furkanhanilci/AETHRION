@@ -2,6 +2,8 @@
 title: "WP-011 — Identity and End-to-End Correlation Standard — Acceptance Criteria"
 aliases:
   - "WP-011 acceptance"
+cssclasses:
+  - aethrion-acceptance-criteria
 type: acceptance-criteria
 category: commissioning
 status: NOT_STARTED

@@ -2,6 +2,8 @@
 title: "WP-052 — Kubernetes Cluster and Node Pool Baseline — Test Procedures"
 aliases:
   - "WP-052 tests"
+cssclasses:
+  - aethrion-test-procedure
 type: test-procedure
 category: commissioning
 status: NOT_STARTED

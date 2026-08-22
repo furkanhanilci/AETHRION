@@ -2,6 +2,8 @@
 title: "WP-007 — IndependenceProfile and Separation-of-Duties Policy — Test Procedures"
 aliases:
   - "WP-007 tests"
+cssclasses:
+  - aethrion-test-procedure
 type: test-procedure
 category: commissioning
 status: NOT_STARTED

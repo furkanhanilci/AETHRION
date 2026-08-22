@@ -1,5 +1,7 @@
 ---
 title: "04_CONTROL_EVENT — Control and event planes"
+cssclasses:
+  - aethrion-index
 type: index
 category: commissioning
 summary: "Temporal as the process authority and NATS as event transport."

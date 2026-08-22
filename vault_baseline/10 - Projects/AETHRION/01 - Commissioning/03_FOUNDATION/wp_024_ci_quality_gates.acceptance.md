@@ -2,6 +2,8 @@
 title: "WP-024 — CI Foundation and Deterministic Quality Gates — Acceptance Criteria"
 aliases:
   - "WP-024 acceptance"
+cssclasses:
+  - aethrion-acceptance-criteria
 type: acceptance-criteria
 category: commissioning
 status: NOT_STARTED

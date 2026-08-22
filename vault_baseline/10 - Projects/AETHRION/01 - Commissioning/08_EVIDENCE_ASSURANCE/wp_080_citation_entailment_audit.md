@@ -3,6 +3,8 @@ title: "WP-080 — Claim–Citation Entailment, Scope and Locator Audit"
 aliases:
   - "WP-080"
   - "WP-080 — Claim–Citation Entailment, Scope and Locator Audit"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

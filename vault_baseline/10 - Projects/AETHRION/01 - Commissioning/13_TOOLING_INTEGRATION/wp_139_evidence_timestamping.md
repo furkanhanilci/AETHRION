@@ -3,6 +3,8 @@ title: "WP-139 — Evidence Timestamping and Independent Seal"
 aliases:
   - "WP-139"
   - "WP-139 — Evidence Timestamping and Independent Seal"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

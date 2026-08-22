@@ -2,6 +2,8 @@
 title: "WP-040 — Workflow Replay, Versioning and Failure Test Suite — Test Procedures"
 aliases:
   - "WP-040 tests"
+cssclasses:
+  - aethrion-test-procedure
 type: test-procedure
 category: commissioning
 status: NOT_STARTED

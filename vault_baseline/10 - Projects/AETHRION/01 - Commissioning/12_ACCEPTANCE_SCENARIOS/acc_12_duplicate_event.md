@@ -2,6 +2,8 @@
 title: "ACC-12 — Duplicate Event Delivery"
 aliases:
   - "ACC-12"
+cssclasses:
+  - aethrion-acceptance-scenario
 type: acceptance-scenario
 category: commissioning
 summary: "This scenario verifies the target architecture's fail-safe behaviour and its evidence production in the Duplicate Event Delivery situation."

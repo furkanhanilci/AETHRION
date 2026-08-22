@@ -2,6 +2,8 @@
 title: "ACC-46 — Task Runs With No Skill Loaded"
 aliases:
   - "ACC-46"
+cssclasses:
+  - aethrion-acceptance-scenario
 type: acceptance-scenario
 category: commissioning
 summary: "This scenario verifies the target architecture's fail-safe behaviour and its evidence production in the Task Runs With No Skill Loaded situation."

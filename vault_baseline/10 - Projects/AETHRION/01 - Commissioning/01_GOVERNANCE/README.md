@@ -1,5 +1,7 @@
 ---
 title: "01_GOVERNANCE — Governance and policy"
+cssclasses:
+  - aethrion-index
 type: index
 category: commissioning
 summary: "Who decides, under what authority, with which assurance class — and the bootstrap package that makes acceptance possible at all."

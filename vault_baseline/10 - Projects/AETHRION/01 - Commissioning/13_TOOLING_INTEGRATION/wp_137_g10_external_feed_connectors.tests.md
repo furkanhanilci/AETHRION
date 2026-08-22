@@ -2,6 +2,8 @@
 title: "WP-137 — G10 External Feed Connectors — Test Procedures"
 aliases:
   - "WP-137 tests"
+cssclasses:
+  - aethrion-test-procedure
 type: test-procedure
 category: commissioning
 status: NOT_STARTED

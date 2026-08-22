@@ -2,6 +2,8 @@
 title: "WP-058 — Untrusted Content Quarantine and Prompt-Injection Firewall — Test Procedures"
 aliases:
   - "WP-058 tests"
+cssclasses:
+  - aethrion-test-procedure
 type: test-procedure
 category: commissioning
 status: NOT_STARTED

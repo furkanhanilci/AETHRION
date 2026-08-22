@@ -9,6 +9,8 @@ generated: false
 tags:
   - aethrion/architecture
   - aethrion/project
+cssclasses:
+  - aethrion-reference
 ---
 
 # AETHRION — Repository and Obsidian Map

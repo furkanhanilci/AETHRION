@@ -3,6 +3,8 @@ title: "WP-034 — G0 Intake and G1 Charter Workflows"
 aliases:
   - "WP-034"
   - "WP-034 — G0 Intake and G1 Charter Workflows"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

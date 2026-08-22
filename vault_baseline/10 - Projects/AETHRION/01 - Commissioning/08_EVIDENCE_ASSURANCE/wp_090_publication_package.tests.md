@@ -2,6 +2,8 @@
 title: "WP-090 — PublicationPackage, RO-Crate and Provenance Export — Test Procedures"
 aliases:
   - "WP-090 tests"
+cssclasses:
+  - aethrion-test-procedure
 type: test-procedure
 category: commissioning
 status: NOT_STARTED

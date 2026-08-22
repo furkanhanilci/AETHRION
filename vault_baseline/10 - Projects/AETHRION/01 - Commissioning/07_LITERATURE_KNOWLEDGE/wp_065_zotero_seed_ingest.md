@@ -3,6 +3,8 @@ title: "WP-065 — Personal Zotero Seed Ingest Pipeline"
 aliases:
   - "WP-065"
   - "WP-065 — Personal Zotero Seed Ingest Pipeline"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

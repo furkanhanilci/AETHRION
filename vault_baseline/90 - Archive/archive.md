@@ -9,6 +9,8 @@ generated: false
 tags:
   - aethrion/index
   - aethrion/archive
+cssclasses:
+  - aethrion-index
 ---
 
 # Archive

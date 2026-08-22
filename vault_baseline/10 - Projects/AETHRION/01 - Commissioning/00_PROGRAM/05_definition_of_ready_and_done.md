@@ -1,5 +1,7 @@
 ---
 title: "Definition of Ready and Definition of Done"
+cssclasses:
+  - aethrion-reference
 type: reference
 category: commissioning
 source: "planning/commissioning/00_PROGRAM/05_definition_of_ready_and_done.md"

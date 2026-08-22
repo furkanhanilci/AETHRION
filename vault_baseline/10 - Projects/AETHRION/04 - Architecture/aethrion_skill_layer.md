@@ -1,5 +1,7 @@
 ---
 title: "AETHRION Skill Layer — Full `obra/superpowers` Integration Report"
+cssclasses:
+  - aethrion-reference
 type: reference
 category: architecture
 summary: "A RoleContract says who an agent is; nothing said how it works, and that gap was filled by the prompt — an unversioned, untested, unauditable layer."

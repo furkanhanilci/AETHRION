@@ -2,6 +2,8 @@
 title: "WP-097 — Langfuse Model/Agent Tracing and Prompt Governance — Acceptance Criteria"
 aliases:
   - "WP-097 acceptance"
+cssclasses:
+  - aethrion-acceptance-criteria
 type: acceptance-criteria
 category: commissioning
 status: NOT_STARTED

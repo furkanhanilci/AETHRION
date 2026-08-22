@@ -8,6 +8,8 @@ content_valid_through_commit: 802738c
 tags:
   - aethrion/handover
   - aethrion/execution
+cssclasses:
+  - aethrion-handover
 ---
 
 # Session Handover — 2026-08-22

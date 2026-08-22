@@ -2,6 +2,8 @@
 title: "WP-008 — G0–G10 Gate and Assurance Policy — Test Procedures"
 aliases:
   - "WP-008 tests"
+cssclasses:
+  - aethrion-test-procedure
 type: test-procedure
 category: commissioning
 status: NOT_STARTED

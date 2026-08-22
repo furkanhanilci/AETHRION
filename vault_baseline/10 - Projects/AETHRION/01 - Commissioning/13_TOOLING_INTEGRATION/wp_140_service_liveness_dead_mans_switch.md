@@ -3,6 +3,8 @@ title: "WP-140 — Service Liveness Monitoring and Dead-Man's Switch"
 aliases:
   - "WP-140"
   - "WP-140 — Service Liveness Monitoring and Dead-Man's Switch"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

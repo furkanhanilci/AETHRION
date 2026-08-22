@@ -2,6 +2,8 @@
 title: "WP-039 — Event Consumer, DLQ and Safe Replay Framework — Acceptance Criteria"
 aliases:
   - "WP-039 acceptance"
+cssclasses:
+  - aethrion-acceptance-criteria
 type: acceptance-criteria
 category: commissioning
 status: NOT_STARTED

@@ -1,5 +1,7 @@
 ---
 title: "Delivery — Evidence Packages"
+cssclasses:
+  - aethrion-index
 type: index
 category: evidence
 source: "delivery/README.md"

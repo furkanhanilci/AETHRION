@@ -2,6 +2,8 @@
 title: "WP-015 — Event Envelope, Subject and Schema Taxonomy — Acceptance Criteria"
 aliases:
   - "WP-015 acceptance"
+cssclasses:
+  - aethrion-acceptance-criteria
 type: acceptance-criteria
 category: commissioning
 status: NOT_STARTED

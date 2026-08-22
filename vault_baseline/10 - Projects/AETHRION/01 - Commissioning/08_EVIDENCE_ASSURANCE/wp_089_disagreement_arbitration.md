@@ -3,6 +3,8 @@ title: "WP-089 — DisagreementCase and Evidence-Weighted Arbitration"
 aliases:
   - "WP-089"
   - "WP-089 — DisagreementCase and Evidence-Weighted Arbitration"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

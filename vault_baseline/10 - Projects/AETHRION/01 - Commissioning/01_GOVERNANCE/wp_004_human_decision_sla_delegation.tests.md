@@ -2,6 +2,8 @@
 title: "WP-004 — Human Decision, SLA, Delegation and Escalation Policy — Test Procedures"
 aliases:
   - "WP-004 tests"
+cssclasses:
+  - aethrion-test-procedure
 type: test-procedure
 category: commissioning
 status: NOT_STARTED

@@ -3,6 +3,8 @@ title: "WP-009 — Control Catalogue, Exceptions and Non-Waivable Blockers"
 aliases:
   - "WP-009"
   - "WP-009 — Control Catalogue, Exceptions and Non-Waivable Blockers"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

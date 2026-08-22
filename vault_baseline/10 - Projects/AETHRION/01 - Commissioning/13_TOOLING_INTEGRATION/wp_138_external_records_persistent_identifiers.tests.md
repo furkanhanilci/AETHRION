@@ -2,6 +2,8 @@
 title: "WP-138 — External Records and Persistent Identifiers — Test Procedures"
 aliases:
   - "WP-138 tests"
+cssclasses:
+  - aethrion-test-procedure
 type: test-procedure
 category: commissioning
 status: NOT_STARTED

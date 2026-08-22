@@ -1,5 +1,7 @@
 ---
 title: "Document Standard"
+cssclasses:
+  - aethrion-reference
 type: reference
 category: architecture
 summary: "Every document here states what it is, what it covers, and how far it is from being true, before it says anything else."

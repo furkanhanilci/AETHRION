@@ -2,6 +2,8 @@
 title: "Building Review Packets"
 aliases:
   - "building-review-packets"
+cssclasses:
+  - aethrion-skill
 type: skill
 category: skill
 status: WORKING

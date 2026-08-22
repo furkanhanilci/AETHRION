@@ -1,5 +1,7 @@
 ---
 title: "Programme Risk Register and Treatment Rules"
+cssclasses:
+  - aethrion-reference
 type: reference
 category: commissioning
 source: "planning/commissioning/00_PROGRAM/07_programme_risk_register.md"

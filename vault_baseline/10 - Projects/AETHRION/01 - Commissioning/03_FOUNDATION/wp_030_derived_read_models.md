@@ -3,6 +3,8 @@ title: "WP-030 — Neo4j, pgvector and OpenSearch Derived Read Models"
 aliases:
   - "WP-030"
   - "WP-030 — Neo4j, pgvector and OpenSearch Derived Read Models"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

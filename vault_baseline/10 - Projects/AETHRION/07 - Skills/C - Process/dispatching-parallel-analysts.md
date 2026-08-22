@@ -2,6 +2,8 @@
 title: "Dispatching Parallel Analysts"
 aliases:
   - "dispatching-parallel-analysts"
+cssclasses:
+  - aethrion-skill
 type: skill
 category: skill
 status: WORKING

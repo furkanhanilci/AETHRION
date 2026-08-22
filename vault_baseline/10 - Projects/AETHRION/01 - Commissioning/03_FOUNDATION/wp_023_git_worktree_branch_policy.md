@@ -3,6 +3,8 @@ title: "WP-023 — Git, Worktree and Protected-Path Policy"
 aliases:
   - "WP-023"
   - "WP-023 — Git, Worktree and Protected-Path Policy"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

@@ -2,6 +2,8 @@
 title: "WP-043 — Role-Based Model and Skill Evaluation, and Golden Set Management — Test Procedures"
 aliases:
   - "WP-043 tests"
+cssclasses:
+  - aethrion-test-procedure
 type: test-procedure
 category: commissioning
 status: NOT_STARTED

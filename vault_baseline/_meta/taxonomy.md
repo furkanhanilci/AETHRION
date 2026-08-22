@@ -1,6 +1,8 @@
 ---
 title: "Tag Taxonomy"
 type: index
+cssclasses:
+  - aethrion-index
 category: vault
 status: active
 summary: "The controlled tag vocabulary. A tag outside this list fragments one idea into two nodes no query can join."

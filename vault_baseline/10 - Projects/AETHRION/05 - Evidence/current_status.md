@@ -1,5 +1,7 @@
 ---
 title: "Current Status"
+cssclasses:
+  - aethrion-reference
 type: reference
 category: evidence
 summary: "Every line below is the last line printed by a command that was just run."

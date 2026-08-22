@@ -9,6 +9,8 @@ generated: false
 tags:
   - aethrion/index
   - aethrion/source-note
+cssclasses:
+  - aethrion-index
 ---
 
 # Human Source Notes

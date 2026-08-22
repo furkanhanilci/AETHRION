@@ -2,6 +2,8 @@
 title: "WP-034 — G0 Intake and G1 Charter Workflows — Test Procedures"
 aliases:
   - "WP-034 tests"
+cssclasses:
+  - aethrion-test-procedure
 type: test-procedure
 category: commissioning
 status: NOT_STARTED

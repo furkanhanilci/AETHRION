@@ -3,6 +3,8 @@ title: "WP-020 — Schema Registry, Compatibility and Contract SDK"
 aliases:
   - "WP-020"
   - "WP-020 — Schema Registry, Compatibility and Contract SDK"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

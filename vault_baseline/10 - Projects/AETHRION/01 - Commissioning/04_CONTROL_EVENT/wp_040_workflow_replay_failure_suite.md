@@ -3,6 +3,8 @@ title: "WP-040 — Workflow Replay, Versioning and Failure Test Suite"
 aliases:
   - "WP-040"
   - "WP-040 — Workflow Replay, Versioning and Failure Test Suite"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

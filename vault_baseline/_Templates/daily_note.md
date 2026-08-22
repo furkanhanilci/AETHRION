@@ -3,6 +3,8 @@ type: daily-note
 date: "{{date}}"
 tags:
   - aethrion/daily
+cssclasses:
+  - aethrion-daily-note
 ---
 
 # {{date}}

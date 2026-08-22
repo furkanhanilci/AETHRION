@@ -2,6 +2,8 @@
 title: "WP-118 — Operational Readiness, On-Call and Runbook Simulation — Test Procedures"
 aliases:
   - "WP-118 tests"
+cssclasses:
+  - aethrion-test-procedure
 type: test-procedure
 category: commissioning
 status: NOT_STARTED

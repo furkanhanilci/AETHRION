@@ -3,6 +3,8 @@ title: "WP-098 — Grafana and the Six Operational Graphs"
 aliases:
   - "WP-098"
   - "WP-098 — Grafana and the Six Operational Graphs"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

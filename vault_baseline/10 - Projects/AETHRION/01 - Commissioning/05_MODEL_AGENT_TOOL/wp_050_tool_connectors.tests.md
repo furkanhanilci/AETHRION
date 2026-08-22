@@ -2,6 +2,8 @@
 title: "WP-050 — Initial Tool Connector Package — Test Procedures"
 aliases:
   - "WP-050 tests"
+cssclasses:
+  - aethrion-test-procedure
 type: test-procedure
 category: commissioning
 status: NOT_STARTED

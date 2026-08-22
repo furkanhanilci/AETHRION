@@ -2,6 +2,8 @@
 title: "WP-093 — Human Decision Queue and Evidence-Delta UI — Test Procedures"
 aliases:
   - "WP-093 tests"
+cssclasses:
+  - aethrion-test-procedure
 type: test-procedure
 category: commissioning
 status: NOT_STARTED

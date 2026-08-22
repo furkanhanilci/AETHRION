@@ -3,6 +3,8 @@ title: "WP-122 — Service Health, SLO and Error-Budget Rhythm"
 aliases:
   - "WP-122"
   - "WP-122 — Service Health, SLO and Error-Budget Rhythm"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

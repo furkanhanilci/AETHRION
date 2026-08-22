@@ -2,6 +2,8 @@
 title: "ACC-07 — Reviewer Order Bias"
 aliases:
   - "ACC-07"
+cssclasses:
+  - aethrion-acceptance-scenario
 type: acceptance-scenario
 category: commissioning
 summary: "This scenario verifies the target architecture's fail-safe behaviour and its evidence production in the Reviewer Order Bias situation."

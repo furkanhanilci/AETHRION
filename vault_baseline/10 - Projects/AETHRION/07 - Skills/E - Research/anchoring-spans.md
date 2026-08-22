@@ -2,6 +2,8 @@
 title: "Anchoring Spans"
 aliases:
   - "anchoring-spans"
+cssclasses:
+  - aethrion-skill
 type: skill
 category: skill
 status: WORKING

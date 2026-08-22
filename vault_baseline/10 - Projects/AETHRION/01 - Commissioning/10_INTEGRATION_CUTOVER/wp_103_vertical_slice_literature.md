@@ -3,6 +3,8 @@ title: "WP-103 — Vertical Slice 2 — Two-Way Literature and Set Freeze"
 aliases:
   - "WP-103"
   - "WP-103 — Vertical Slice 2 — Two-Way Literature and Set Freeze"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

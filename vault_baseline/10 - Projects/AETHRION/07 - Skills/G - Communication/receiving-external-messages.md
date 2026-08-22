@@ -2,6 +2,8 @@
 title: "Receiving External Messages"
 aliases:
   - "receiving-external-messages"
+cssclasses:
+  - aethrion-skill
 type: skill
 category: skill
 status: WORKING

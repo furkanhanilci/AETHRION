@@ -2,6 +2,8 @@
 title: "WP-077 — Claim State, Dependency and Assessment Engine — Acceptance Criteria"
 aliases:
   - "WP-077 acceptance"
+cssclasses:
+  - aethrion-acceptance-criteria
 type: acceptance-criteria
 category: commissioning
 status: NOT_STARTED

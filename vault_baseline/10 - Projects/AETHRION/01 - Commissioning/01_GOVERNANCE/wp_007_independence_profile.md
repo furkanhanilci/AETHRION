@@ -3,6 +3,8 @@ title: "WP-007 — IndependenceProfile and Separation-of-Duties Policy"
 aliases:
   - "WP-007"
   - "WP-007 — IndependenceProfile and Separation-of-Duties Policy"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

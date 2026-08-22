@@ -20,6 +20,8 @@ creators:
   - "Shuqing Zeng"
   - "Jordan Chipka"
   - "Yasen Hu"
+cssclasses:
+  - aethrion-source
 ---
 
 <h1>A Reinforcement Learning Attention Agent for Lidar-based 3D Object Detector</h1>

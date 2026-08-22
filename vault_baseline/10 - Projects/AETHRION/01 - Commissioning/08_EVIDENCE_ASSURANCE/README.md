@@ -1,5 +1,7 @@
 ---
 title: "08_EVIDENCE_ASSURANCE — Evidence and assurance"
+cssclasses:
+  - aethrion-index
 type: index
 category: commissioning
 summary: "The claim and evidence ledger, extraction, entailment, run registry, clean rooms, review orchestration, reproduction and the publication package."

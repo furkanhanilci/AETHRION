@@ -1,5 +1,7 @@
 ---
 title: "Complete Work Package Catalogue"
+cssclasses:
+  - aethrion-reference
 type: reference
 category: commissioning
 source: "planning/commissioning/00_PROGRAM/03_package_catalogue.md"

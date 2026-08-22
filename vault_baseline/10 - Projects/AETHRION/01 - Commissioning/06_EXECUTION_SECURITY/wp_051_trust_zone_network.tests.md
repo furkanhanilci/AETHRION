@@ -2,6 +2,8 @@
 title: "WP-051 — Four Trust Zones and Network Segmentation — Test Procedures"
 aliases:
   - "WP-051 tests"
+cssclasses:
+  - aethrion-test-procedure
 type: test-procedure
 category: commissioning
 status: NOT_STARTED

@@ -2,6 +2,8 @@
 title: "Writing Skills"
 aliases:
   - "writing-skills"
+cssclasses:
+  - aethrion-skill
 type: skill
 category: skill
 status: WORKING

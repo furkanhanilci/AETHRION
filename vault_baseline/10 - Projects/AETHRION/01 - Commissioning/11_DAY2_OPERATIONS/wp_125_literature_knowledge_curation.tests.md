@@ -2,6 +2,8 @@
 title: "WP-125 — Literature, Zotero and Obsidian Curation Rhythm — Test Procedures"
 aliases:
   - "WP-125 tests"
+cssclasses:
+  - aethrion-test-procedure
 type: test-procedure
 category: commissioning
 status: NOT_STARTED

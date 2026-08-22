@@ -1,5 +1,7 @@
 ---
 title: "AETHRION — External Standards Register"
+cssclasses:
+  - aethrion-reference
 type: reference
 category: architecture
 summary: "Every format this laboratory invents is a format it must also specify, validate, document and maintain, so this register records what AETHRION adopts instead of inventing, and what it defers with reasons."

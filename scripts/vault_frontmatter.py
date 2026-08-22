@@ -190,6 +190,7 @@ def derive(*, vault_rel: str, source: str, text: str, generator: str) -> str:
         tags.append(f"aethrion/authoring/{'authored' if authored else 'pending'}")
         lines = ["---", f"title: {_yaml(title)}", "aliases:",
                  f"  - {_yaml(f'{pid} {kind}')}",
+                 f"cssclasses:", f"  - aethrion-{page_type}",
                  f"type: {page_type}", "category: commissioning",
                  f"status: {state}",
                  f"source: {_yaml(source)}", "generated: false",
@@ -276,7 +277,13 @@ def derive(*, vault_rel: str, source: str, text: str, generator: str) -> str:
     if aliases:
         lines.append("aliases:")
         lines += [f"  - {_yaml(a)}" for a in dict.fromkeys(a for a in aliases if a)]
-    lines += [f"type: {page_type}", f"category: {category}"]
+    # `cssclasses` is Obsidian's own hook for styling a note's body. Without it a
+    # page's colour stopped at the file explorer and the graph: open the note and
+    # its headings, links, tables and quotes were the same default as every other
+    # page. The class carries the type, so the snippet colours the body from the
+    # same mapping the explorer and the graph already use.
+    lines += ["cssclasses:", f"  - aethrion-{page_type}",
+              f"type: {page_type}", f"category: {category}"]
     if status:
         lines.append(f"status: {status}")
     summary = _summary(text)
@@ -367,6 +374,8 @@ def taxonomy_page() -> str:
         "---",
         'title: "Tag Taxonomy"',
         "type: index",
+        "cssclasses:",
+        "  - aethrion-index",
         "category: vault",
         "status: active",
         'summary: "The controlled tag vocabulary. A tag outside this list '

@@ -9,6 +9,8 @@ generated: false
 tags:
   - aethrion/index
   - aethrion/concept
+cssclasses:
+  - aethrion-index
 ---
 
 # Concepts

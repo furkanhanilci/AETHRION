@@ -2,6 +2,8 @@
 title: "WP-024 — CI Foundation and Deterministic Quality Gates — Test Procedures"
 aliases:
   - "WP-024 tests"
+cssclasses:
+  - aethrion-test-procedure
 type: test-procedure
 category: commissioning
 status: NOT_STARTED

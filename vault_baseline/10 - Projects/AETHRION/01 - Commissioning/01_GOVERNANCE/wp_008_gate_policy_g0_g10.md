@@ -3,6 +3,8 @@ title: "WP-008 — G0–G10 Gate and Assurance Policy"
 aliases:
   - "WP-008"
   - "WP-008 — G0–G10 Gate and Assurance Policy"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

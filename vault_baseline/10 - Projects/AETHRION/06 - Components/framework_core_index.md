@@ -1,5 +1,7 @@
 ---
 title: "`airl_framework` — the shared contract core"
+cssclasses:
+  - aethrion-index
 type: index
 category: component
 status: TECH_COMPLETE

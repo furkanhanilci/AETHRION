@@ -3,6 +3,8 @@ title: "WP-000 — Interim Evidence Policy and Attestation Bootstrap"
 aliases:
   - "WP-000"
   - "WP-000 — Interim Evidence Policy and Attestation Bootstrap"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: TECH_COMPLETE

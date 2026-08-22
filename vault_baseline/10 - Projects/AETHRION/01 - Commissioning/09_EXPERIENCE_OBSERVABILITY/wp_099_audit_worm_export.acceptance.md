@@ -2,6 +2,8 @@
 title: "WP-099 — WORM Audit Ledger and Independent Export — Acceptance Criteria"
 aliases:
   - "WP-099 acceptance"
+cssclasses:
+  - aethrion-acceptance-criteria
 type: acceptance-criteria
 category: commissioning
 status: NOT_STARTED

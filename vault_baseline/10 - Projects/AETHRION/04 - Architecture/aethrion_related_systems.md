@@ -1,5 +1,7 @@
 ---
 title: "AETHRION — Related Systems and Positioning"
+cssclasses:
+  - aethrion-reference
 type: reference
 category: architecture
 status: SPECIFIED

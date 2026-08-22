@@ -2,6 +2,8 @@
 title: "WP-049 — Tool Registry and Tool Broker Core — Test Procedures"
 aliases:
   - "WP-049 tests"
+cssclasses:
+  - aethrion-test-procedure
 type: test-procedure
 category: commissioning
 status: NOT_STARTED

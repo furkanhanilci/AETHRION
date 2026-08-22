@@ -2,6 +2,8 @@
 title: "ACC-24 — Policy Bundle Rollback"
 aliases:
   - "ACC-24"
+cssclasses:
+  - aethrion-acceptance-scenario
 type: acceptance-scenario
 category: commissioning
 summary: "This scenario verifies the target architecture's fail-safe behaviour and its evidence production in the Policy Bundle Rollback situation."

@@ -3,6 +3,8 @@ title: "WP-092 — Project Workspace and G0–G10 Gate Timeline"
 aliases:
   - "WP-092"
   - "WP-092 — Project Workspace and G0–G10 Gate Timeline"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

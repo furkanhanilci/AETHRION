@@ -9,6 +9,8 @@ generated: false
 tags:
   - aethrion/index
   - aethrion/decision
+cssclasses:
+  - aethrion-index
 ---
 
 # Decisions

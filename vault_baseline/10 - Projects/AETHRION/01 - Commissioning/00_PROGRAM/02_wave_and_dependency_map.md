@@ -1,5 +1,7 @@
 ---
 title: "Wave and Dependency Map"
+cssclasses:
+  - aethrion-reference
 type: reference
 category: commissioning
 source: "planning/commissioning/00_PROGRAM/02_wave_and_dependency_map.md"

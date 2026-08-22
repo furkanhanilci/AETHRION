@@ -3,6 +3,8 @@ title: "WP-075 — Canonical Claim/Evidence Ledger Service"
 aliases:
   - "WP-075"
   - "WP-075 — Canonical Claim/Evidence Ledger Service"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

@@ -2,6 +2,8 @@
 title: "WP-068 — Zotero Annotation → EvidenceCandidate Pipeline — Acceptance Criteria"
 aliases:
   - "WP-068 acceptance"
+cssclasses:
+  - aethrion-acceptance-criteria
 type: acceptance-criteria
 category: commissioning
 status: NOT_STARTED

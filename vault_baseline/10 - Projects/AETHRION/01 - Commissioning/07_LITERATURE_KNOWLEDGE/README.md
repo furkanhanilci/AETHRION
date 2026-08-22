@@ -1,5 +1,7 @@
 ---
 title: "07_LITERATURE_KNOWLEDGE — Literature and knowledge"
+cssclasses:
+  - aethrion-index
 type: index
 category: commissioning
 summary: "Source identity, representation, search, screening, deduplication, trust and the knowledge graph."

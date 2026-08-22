@@ -3,6 +3,8 @@ title: "WP-099 — WORM Audit Ledger and Independent Export"
 aliases:
   - "WP-099"
   - "WP-099 — WORM Audit Ledger and Independent Export"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

@@ -3,6 +3,8 @@ title: "WP-046 — LangGraph Bounded Cognition Runtime"
 aliases:
   - "WP-046"
   - "WP-046 — LangGraph Bounded Cognition Runtime"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

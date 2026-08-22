@@ -3,6 +3,8 @@ title: "WP-050 — Initial Tool Connector Package"
 aliases:
   - "WP-050"
   - "WP-050 — Initial Tool Connector Package"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

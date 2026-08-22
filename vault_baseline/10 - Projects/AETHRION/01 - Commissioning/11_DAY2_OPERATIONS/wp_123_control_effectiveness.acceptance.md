@@ -2,6 +2,8 @@
 title: "WP-123 — Control Effectiveness and Policy Regression Rhythm — Acceptance Criteria"
 aliases:
   - "WP-123 acceptance"
+cssclasses:
+  - aethrion-acceptance-criteria
 type: acceptance-criteria
 category: commissioning
 status: NOT_STARTED

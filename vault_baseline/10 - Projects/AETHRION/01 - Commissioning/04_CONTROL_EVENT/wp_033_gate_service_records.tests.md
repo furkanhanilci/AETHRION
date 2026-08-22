@@ -2,6 +2,8 @@
 title: "WP-033 — Gate Service and GateRecord Evaluation — Test Procedures"
 aliases:
   - "WP-033 tests"
+cssclasses:
+  - aethrion-test-procedure
 type: test-procedure
 category: commissioning
 status: NOT_STARTED

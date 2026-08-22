@@ -3,6 +3,8 @@ title: "WP-058 — Untrusted Content Quarantine and Prompt-Injection Firewall"
 aliases:
   - "WP-058"
   - "WP-058 — Untrusted Content Quarantine and Prompt-Injection Firewall"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

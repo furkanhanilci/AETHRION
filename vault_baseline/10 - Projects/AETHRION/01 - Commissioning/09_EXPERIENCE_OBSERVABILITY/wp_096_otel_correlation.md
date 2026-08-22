@@ -3,6 +3,8 @@ title: "WP-096 — OpenTelemetry End-to-End Correlation Spine"
 aliases:
   - "WP-096"
   - "WP-096 — OpenTelemetry End-to-End Correlation Spine"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

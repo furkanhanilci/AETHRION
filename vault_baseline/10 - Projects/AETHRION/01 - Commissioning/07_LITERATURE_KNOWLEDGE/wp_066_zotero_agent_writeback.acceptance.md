@@ -2,6 +2,8 @@
 title: "WP-066 — Agent Candidate and Used-Source Write-Back — Acceptance Criteria"
 aliases:
   - "WP-066 acceptance"
+cssclasses:
+  - aethrion-acceptance-criteria
 type: acceptance-criteria
 category: commissioning
 status: NOT_STARTED

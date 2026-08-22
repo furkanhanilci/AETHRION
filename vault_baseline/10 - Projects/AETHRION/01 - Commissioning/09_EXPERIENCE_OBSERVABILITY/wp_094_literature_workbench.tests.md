@@ -2,6 +2,8 @@
 title: "WP-094 — Literature Workbench and Reconciliation UI — Test Procedures"
 aliases:
   - "WP-094 tests"
+cssclasses:
+  - aethrion-test-procedure
 type: test-procedure
 category: commissioning
 status: NOT_STARTED

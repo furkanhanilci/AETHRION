@@ -2,6 +2,8 @@
 title: "WP-015 — Event Envelope, Subject and Schema Taxonomy — Test Procedures"
 aliases:
   - "WP-015 tests"
+cssclasses:
+  - aethrion-test-procedure
 type: test-procedure
 category: commissioning
 status: NOT_STARTED

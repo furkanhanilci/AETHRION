@@ -3,6 +3,8 @@ title: "WP-019 — Run, Environment and Reproduction Schemas"
 aliases:
   - "WP-019"
   - "WP-019 — Run, Environment and Reproduction Schemas"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

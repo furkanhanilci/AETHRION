@@ -37,6 +37,8 @@ creators:
   - "Linjie Zhou"
   - "Cheng Wang"
   - "Xingjun Wang"
+cssclasses:
+  - aethrion-source
 ---
 
 <h1>Integrated adaptive coherent LiDAR for 4D bionic vision</h1>

@@ -2,6 +2,8 @@
 title: "WP-028 — NATS JetStream and Transactional Outbox Foundation — Acceptance Criteria"
 aliases:
   - "WP-028 acceptance"
+cssclasses:
+  - aethrion-acceptance-criteria
 type: acceptance-criteria
 category: commissioning
 status: NOT_STARTED

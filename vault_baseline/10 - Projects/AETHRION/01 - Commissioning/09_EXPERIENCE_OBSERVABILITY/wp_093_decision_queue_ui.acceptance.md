@@ -2,6 +2,8 @@
 title: "WP-093 — Human Decision Queue and Evidence-Delta UI — Acceptance Criteria"
 aliases:
   - "WP-093 acceptance"
+cssclasses:
+  - aethrion-acceptance-criteria
 type: acceptance-criteria
 category: commissioning
 status: NOT_STARTED

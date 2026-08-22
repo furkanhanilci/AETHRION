@@ -2,6 +2,8 @@
 title: "WP-136 — Inbound Content Quarantine and Channel Allowlist — Acceptance Criteria"
 aliases:
   - "WP-136 acceptance"
+cssclasses:
+  - aethrion-acceptance-criteria
 type: acceptance-criteria
 category: commissioning
 status: NOT_STARTED

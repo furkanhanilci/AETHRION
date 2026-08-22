@@ -2,6 +2,8 @@
 title: "WP-041 — LiteLLM Model Gateway Foundation — Acceptance Criteria"
 aliases:
   - "WP-041 acceptance"
+cssclasses:
+  - aethrion-acceptance-criteria
 type: acceptance-criteria
 category: commissioning
 status: NOT_STARTED

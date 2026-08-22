@@ -1,5 +1,7 @@
 ---
 title: "Capacity and Estimation Model"
+cssclasses:
+  - aethrion-reference
 type: reference
 category: commissioning
 source: "planning/commissioning/00_PROGRAM/08_capacity_and_estimation.md"

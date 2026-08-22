@@ -2,6 +2,8 @@
 title: "WP-116 — Resilience, Chaos and Failure-Injection Commissioning — Test Procedures"
 aliases:
   - "WP-116 tests"
+cssclasses:
+  - aethrion-test-procedure
 type: test-procedure
 category: commissioning
 status: NOT_STARTED

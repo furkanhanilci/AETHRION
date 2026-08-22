@@ -1,5 +1,7 @@
 ---
 title: "Local Knowledge Architecture — V0"
+cssclasses:
+  - aethrion-reference
 type: reference
 category: architecture
 status: WORKING

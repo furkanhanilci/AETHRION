@@ -3,6 +3,8 @@ title: "WP-079 — SourceTrustCard and Study Quality Assessment"
 aliases:
   - "WP-079"
   - "WP-079 — SourceTrustCard and Study Quality Assessment"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

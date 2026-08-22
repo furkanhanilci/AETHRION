@@ -2,6 +2,8 @@
 title: "Measuring Agreement"
 aliases:
   - "measuring-agreement"
+cssclasses:
+  - aethrion-skill
 type: skill
 category: skill
 status: WORKING

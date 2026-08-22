@@ -26,6 +26,8 @@ creators:
   - "Dawei Yin"
   - "Yiming Yang"
   - "Jiaxin Mao"
+cssclasses:
+  - aethrion-source
 ---
 
 <h1>Improving Retrieval-Augmented Generation through Multi-Agent Reinforcement Learning</h1>

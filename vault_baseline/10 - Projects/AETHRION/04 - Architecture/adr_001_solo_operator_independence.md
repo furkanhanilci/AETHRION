@@ -2,6 +2,8 @@
 title: "ADR-001 — Solo-Operator Independence Model"
 aliases:
   - "ADR-001"
+cssclasses:
+  - aethrion-decision-record
 type: decision-record
 category: architecture
 status: ACCEPTED

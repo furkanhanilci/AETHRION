@@ -1,5 +1,7 @@
 ---
 title: "Branding Assets"
+cssclasses:
+  - aethrion-reference
 type: reference
 category: architecture
 status: WORKING

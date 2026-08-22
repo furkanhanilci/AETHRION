@@ -2,6 +2,8 @@
 title: "WP-138 — External Records and Persistent Identifiers — Acceptance Criteria"
 aliases:
   - "WP-138 acceptance"
+cssclasses:
+  - aethrion-acceptance-criteria
 type: acceptance-criteria
 category: commissioning
 status: NOT_STARTED

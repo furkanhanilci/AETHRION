@@ -2,6 +2,8 @@
 title: "Curating Zotero"
 aliases:
   - "curating-zotero"
+cssclasses:
+  - aethrion-skill
 type: skill
 category: skill
 status: WORKING

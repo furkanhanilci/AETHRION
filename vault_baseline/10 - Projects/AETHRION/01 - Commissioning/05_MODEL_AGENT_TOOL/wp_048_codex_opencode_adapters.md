@@ -3,6 +3,8 @@ title: "WP-048 — Harness Runtime Adapters: Claude Code, Codex, OpenCode, Herme
 aliases:
   - "WP-048"
   - "WP-048 — Harness Runtime Adapters: Claude Code, Codex, OpenCode, Hermes and Direct Worker"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

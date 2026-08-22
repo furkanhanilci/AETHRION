@@ -3,6 +3,8 @@ title: "WP-105 — Vertical Slice 4 — Blind Review, Arbitration and Clean-Room
 aliases:
   - "WP-105"
   - "WP-105 — Vertical Slice 4 — Blind Review, Arbitration and Clean-Room"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

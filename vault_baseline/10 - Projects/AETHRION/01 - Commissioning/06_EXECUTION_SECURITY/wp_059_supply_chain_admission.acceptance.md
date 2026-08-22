@@ -2,6 +2,8 @@
 title: "WP-059 — Supply-Chain Admission, Sigstore and SLSA Policy — Acceptance Criteria"
 aliases:
   - "WP-059 acceptance"
+cssclasses:
+  - aethrion-acceptance-criteria
 type: acceptance-criteria
 category: commissioning
 status: NOT_STARTED

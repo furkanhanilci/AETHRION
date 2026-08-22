@@ -3,6 +3,8 @@ title: "WP-117 — Performance, Capacity and Load Commissioning"
 aliases:
   - "WP-117"
   - "WP-117 — Performance, Capacity and Load Commissioning"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

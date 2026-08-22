@@ -3,6 +3,8 @@ title: "WP-083 — ExperimentBatch and Staged Execution"
 aliases:
   - "WP-083"
   - "WP-083 — ExperimentBatch and Staged Execution"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

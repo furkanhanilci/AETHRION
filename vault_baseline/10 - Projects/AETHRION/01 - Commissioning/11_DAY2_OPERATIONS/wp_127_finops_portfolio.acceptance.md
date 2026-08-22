@@ -2,6 +2,8 @@
 title: "WP-127 — FinOps, Capacity and Portfolio Review Rhythm — Acceptance Criteria"
 aliases:
   - "WP-127 acceptance"
+cssclasses:
+  - aethrion-acceptance-criteria
 type: acceptance-criteria
 category: commissioning
 status: NOT_STARTED

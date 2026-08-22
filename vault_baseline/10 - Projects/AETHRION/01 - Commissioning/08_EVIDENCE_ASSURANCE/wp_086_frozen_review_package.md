@@ -3,6 +3,8 @@ title: "WP-086 — Frozen and Blind Review Package Builder"
 aliases:
   - "WP-086"
   - "WP-086 — Frozen and Blind Review Package Builder"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

@@ -2,6 +2,8 @@
 title: "ACC-40 — Complete Project Audit Export"
 aliases:
   - "ACC-40"
+cssclasses:
+  - aethrion-acceptance-scenario
 type: acceptance-scenario
 category: commissioning
 summary: "This scenario verifies the target architecture's fail-safe behaviour and its evidence production in the Complete Project Audit Export situation."

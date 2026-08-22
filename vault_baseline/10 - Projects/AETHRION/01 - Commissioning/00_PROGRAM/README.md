@@ -1,5 +1,7 @@
 ---
 title: "00_PROGRAM — Programme documents"
+cssclasses:
+  - aethrion-index
 type: index
 category: commissioning
 summary: "How the programme is run: the plan's own rules, the target state, the wave map, the catalogue, definitions of ready and done, the evidence strategy, risk, capacity, change control, the go-live checklist and scope coverage."

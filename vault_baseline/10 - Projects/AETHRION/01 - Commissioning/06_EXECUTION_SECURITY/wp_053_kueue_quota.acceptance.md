@@ -2,6 +2,8 @@
 title: "WP-053 — Kueue Queue, Quota and Priority Policy — Acceptance Criteria"
 aliases:
   - "WP-053 acceptance"
+cssclasses:
+  - aethrion-acceptance-criteria
 type: acceptance-criteria
 category: commissioning
 status: NOT_STARTED

@@ -2,6 +2,8 @@
 title: "WP-096 — OpenTelemetry End-to-End Correlation Spine — Acceptance Criteria"
 aliases:
   - "WP-096 acceptance"
+cssclasses:
+  - aethrion-acceptance-criteria
 type: acceptance-criteria
 category: commissioning
 status: NOT_STARTED

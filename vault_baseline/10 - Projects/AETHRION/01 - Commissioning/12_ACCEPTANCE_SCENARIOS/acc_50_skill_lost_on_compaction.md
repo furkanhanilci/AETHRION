@@ -2,6 +2,8 @@
 title: "ACC-50 — Procedure Lost to Context Compaction or Restart"
 aliases:
   - "ACC-50"
+cssclasses:
+  - aethrion-acceptance-scenario
 type: acceptance-scenario
 category: commissioning
 summary: "This scenario verifies the target architecture's fail-safe behaviour and its evidence production in the Procedure Lost to Context Compaction or Restart situation."

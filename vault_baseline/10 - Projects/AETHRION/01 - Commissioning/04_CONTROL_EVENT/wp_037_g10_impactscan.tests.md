@@ -2,6 +2,8 @@
 title: "WP-037 — G10 Temporal Schedules and Short ImpactScan Workflows — Test Procedures"
 aliases:
   - "WP-037 tests"
+cssclasses:
+  - aethrion-test-procedure
 type: test-procedure
 category: commissioning
 status: NOT_STARTED

@@ -1,5 +1,7 @@
 ---
 title: "Architecture"
+cssclasses:
+  - aethrion-reference
 type: reference
 category: architecture
 summary: "Three kinds of document live here and confusing them is the main way this repository gets overestimated: a reference describes what was decided, a decision record fixes something and names who decided it, and a proposal argues for something nobody has agreed to yet."

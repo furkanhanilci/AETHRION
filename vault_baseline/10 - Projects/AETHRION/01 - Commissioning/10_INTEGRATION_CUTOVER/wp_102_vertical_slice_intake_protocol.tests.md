@@ -2,6 +2,8 @@
 title: "WP-102 — Vertical Slice 1 — Intake through Protocol Freeze — Test Procedures"
 aliases:
   - "WP-102 tests"
+cssclasses:
+  - aethrion-test-procedure
 type: test-procedure
 category: commissioning
 status: NOT_STARTED

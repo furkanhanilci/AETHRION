@@ -2,6 +2,8 @@
 title: "WP-036 — G5 Execute through G9 Publish Workflows — Acceptance Criteria"
 aliases:
   - "WP-036 acceptance"
+cssclasses:
+  - aethrion-acceptance-criteria
 type: acceptance-criteria
 category: commissioning
 status: NOT_STARTED

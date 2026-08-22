@@ -2,6 +2,8 @@
 title: "Executing Plans"
 aliases:
   - "executing-plans"
+cssclasses:
+  - aethrion-skill
 type: skill
 category: skill
 status: WORKING

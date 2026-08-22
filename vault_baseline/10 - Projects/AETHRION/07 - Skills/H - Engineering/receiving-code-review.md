@@ -2,6 +2,8 @@
 title: "Code Review Reception"
 aliases:
   - "receiving-code-review"
+cssclasses:
+  - aethrion-skill
 type: skill
 category: skill
 status: WORKING

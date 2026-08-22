@@ -2,6 +2,8 @@
 title: "ACC-27 — Regional / Management Plane DR"
 aliases:
   - "ACC-27"
+cssclasses:
+  - aethrion-acceptance-scenario
 type: acceptance-scenario
 category: commissioning
 summary: "This scenario verifies the target architecture's fail-safe behaviour and its evidence production in the Regional / Management Plane DR situation."

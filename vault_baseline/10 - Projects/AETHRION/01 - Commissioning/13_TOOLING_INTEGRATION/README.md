@@ -1,5 +1,7 @@
 ---
 title: "13_TOOLING_INTEGRATION — Tooling and external integration"
+cssclasses:
+  - aethrion-index
 type: index
 category: commissioning
 summary: "Notification, escalation, decision routing, inbound quarantine, external feeds, persistent identifiers, timestamping and liveness."

@@ -3,6 +3,8 @@ title: "WP-118 — Operational Readiness, On-Call and Runbook Simulation"
 aliases:
   - "WP-118"
   - "WP-118 — Operational Readiness, On-Call and Runbook Simulation"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

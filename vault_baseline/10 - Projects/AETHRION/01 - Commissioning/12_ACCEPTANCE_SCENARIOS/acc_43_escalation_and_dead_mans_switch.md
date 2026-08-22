@@ -2,6 +2,8 @@
 title: "ACC-43 — Escalation Timeout and Dead-Man's Switch"
 aliases:
   - "ACC-43"
+cssclasses:
+  - aethrion-acceptance-scenario
 type: acceptance-scenario
 category: commissioning
 summary: "The most dangerous failure in a human-in-the-loop system is a timeout quietly becoming an approval."

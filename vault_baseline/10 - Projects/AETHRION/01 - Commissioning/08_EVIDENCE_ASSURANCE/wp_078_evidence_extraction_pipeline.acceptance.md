@@ -2,6 +2,8 @@
 title: "WP-078 — Structured Evidence Extraction Pipeline — Acceptance Criteria"
 aliases:
   - "WP-078 acceptance"
+cssclasses:
+  - aethrion-acceptance-criteria
 type: acceptance-criteria
 category: commissioning
 status: NOT_STARTED

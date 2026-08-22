@@ -2,6 +2,8 @@
 title: "WP-092 — Project Workspace and G0–G10 Gate Timeline — Acceptance Criteria"
 aliases:
   - "WP-092 acceptance"
+cssclasses:
+  - aethrion-acceptance-criteria
 type: acceptance-criteria
 category: commissioning
 status: NOT_STARTED

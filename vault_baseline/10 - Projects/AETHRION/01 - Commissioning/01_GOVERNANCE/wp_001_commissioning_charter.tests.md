@@ -2,6 +2,8 @@
 title: "WP-001 — Commissioning Charter and Programme Authority — Test Procedures"
 aliases:
   - "WP-001 tests"
+cssclasses:
+  - aethrion-test-procedure
 type: test-procedure
 category: commissioning
 status: NOT_STARTED

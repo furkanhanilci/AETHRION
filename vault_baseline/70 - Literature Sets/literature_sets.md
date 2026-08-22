@@ -9,6 +9,8 @@ generated: false
 tags:
   - aethrion/index
   - aethrion/literature-set
+cssclasses:
+  - aethrion-index
 ---
 
 # Literature Sets

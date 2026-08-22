@@ -3,6 +3,8 @@ title: "WP-108 — Retraction, Drift and Supersession Vertical Slice"
 aliases:
   - "WP-108"
   - "WP-108 — Retraction, Drift and Supersession Vertical Slice"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

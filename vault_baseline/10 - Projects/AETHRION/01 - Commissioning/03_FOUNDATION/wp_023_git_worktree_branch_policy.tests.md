@@ -2,6 +2,8 @@
 title: "WP-023 — Git, Worktree and Protected-Path Policy — Test Procedures"
 aliases:
   - "WP-023 tests"
+cssclasses:
+  - aethrion-test-procedure
 type: test-procedure
 category: commissioning
 status: NOT_STARTED

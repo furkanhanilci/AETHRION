@@ -2,6 +2,8 @@
 title: "WP-050 — Initial Tool Connector Package — Acceptance Criteria"
 aliases:
   - "WP-050 acceptance"
+cssclasses:
+  - aethrion-acceptance-criteria
 type: acceptance-criteria
 category: commissioning
 status: NOT_STARTED

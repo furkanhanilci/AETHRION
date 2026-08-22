@@ -3,6 +3,8 @@ title: "Claude Code Operating Notes"
 aliases:
   - "CLAUDE"
   - "CLAUDE.md"
+cssclasses:
+  - aethrion-index
 type: index
 category: project
 source: "CLAUDE.md"

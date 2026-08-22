@@ -3,6 +3,8 @@ title: "WP-022 — Repository Topology and Code Ownership"
 aliases:
   - "WP-022"
   - "WP-022 — Repository Topology and Code Ownership"
+cssclasses:
+  - aethrion-work-package
 type: work-package
 category: commissioning
 status: NOT_STARTED

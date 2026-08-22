@@ -2,6 +2,8 @@
 title: "WP-025 — PostgreSQL HA and Registry Data Foundation — Test Procedures"
 aliases:
   - "WP-025 tests"
+cssclasses:
+  - aethrion-test-procedure
 type: test-procedure
 category: commissioning
 status: NOT_STARTED

@@ -2,6 +2,8 @@
 title: "WP-038 — Human Update, Cancellation and Compensation Semantics — Acceptance Criteria"
 aliases:
   - "WP-038 acceptance"
+cssclasses:
+  - aethrion-acceptance-criteria
 type: acceptance-criteria
 category: commissioning
 status: NOT_STARTED

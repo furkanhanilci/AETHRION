@@ -2,6 +2,8 @@
 title: "WP-080 — Claim–Citation Entailment, Scope and Locator Audit — Acceptance Criteria"
 aliases:
   - "WP-080 acceptance"
+cssclasses:
+  - aethrion-acceptance-criteria
 type: acceptance-criteria
 category: commissioning
 status: NOT_STARTED

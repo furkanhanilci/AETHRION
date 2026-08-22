@@ -2,6 +2,8 @@
 title: "ACC-18 — D3 Data to a Public Provider"
 aliases:
   - "ACC-18"
+cssclasses:
+  - aethrion-acceptance-scenario
 type: acceptance-scenario
 category: commissioning
 summary: "This scenario verifies the target architecture's fail-safe behaviour and its evidence production in the D3 Data to a Public Provider situation."

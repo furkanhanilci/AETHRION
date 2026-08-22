@@ -2,6 +2,8 @@
 title: "WP-070 — Human + Agent Two-Way Literature Discovery — Acceptance Criteria"
 aliases:
   - "WP-070 acceptance"
+cssclasses:
+  - aethrion-acceptance-criteria
 type: acceptance-criteria
 category: commissioning
 status: NOT_STARTED
