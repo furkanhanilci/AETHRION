@@ -81,7 +81,15 @@ post-go-live packages, and stale ranges.
 in the implementation log. Re-sealing to silence a failing check is the one
 prohibited use of the seal.
 
-**The current baseline is v1.0.3.** v1.0.2 carried the project's name change to
+**Not every idea is a plan change.** This plan is V1, and its scope is frozen at
+the sealed baseline. An idea that *corrects* the plan — a wrong number, a false
+claim, a broken reference — is a recorded change and follows the procedure above.
+An idea that *adds* to it belongs in
+[`docs/V2_CANDIDATES.md`](../../../docs/V2_CANDIDATES.md), which sits outside the
+seal on purpose: a V2 candidate inside the V1 baseline would move the finish line
+while appearing to be part of it.
+
+**The current baseline is v1.0.4.** v1.0.2 carried the project's name change to
 AETHRION across 29 files; v1.0.3 corrected three programme documents that claimed
 the evidence manifest is recorded in a public transparency log — it is not — and
 that still called finding C2 an open decision after ADR-001 decided it. It is the worked example of the rule above: the change

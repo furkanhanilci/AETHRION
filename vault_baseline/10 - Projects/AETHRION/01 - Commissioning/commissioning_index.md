@@ -60,7 +60,27 @@ zero open critical findings.
 | Markdown files under this tree | 220 |
 | Files covered by the hash seal | 221 (220 Markdown + 1 CSV) |
 
-> **Commissioning baseline v1.0.3 — 2026-08-22.** This is the baseline the
+> ### What V1 is
+>
+> **V1 is this plan.** Its scope is the sealed baseline below — WP-000–140 and
+> ACC-01–51, exactly the 221 files the seal covers and nothing else. Its
+> completion criterion is already written and mechanical:
+> [`00_PROGRAM/10_go_live_checklist.md`](00_PROGRAM/10_go_live_checklist.md) —
+> WP-001–119 `COMMISSIONED`, every `PRE_GO_LIVE` scenario passing on **one**
+> release candidate, zero open critical findings, and a signed go-live
+> `DecisionRecord`. V1 is finished when those conditions hold, and not before.
+>
+> **V2 is everything proposed after the freeze.** "Should we add this too?" and
+> "let's do that differently" are V2 questions by definition, and they have a
+> home outside the seal:
+> [`docs/V2_CANDIDATES.md`](../../docs/V2_CANDIDATES.md). Correcting a defect in
+> the plan is *not* V2 — that is a recorded change to V1, which is what the two
+> baseline bumps below are.
+>
+> The distinction is the whole point of a baseline: **a correction keeps the
+> finish line where it is; an addition moves it.**
+
+> **Commissioning baseline v1.0.4 — 2026-08-22.** This is the baseline the
 > programme will actually be commissioned against. Everything after this point
 > is a **recorded change**: edit the canonical file, regenerate the seal
 > deliberately, and record the change in the implementation log. Improvements
@@ -92,6 +112,15 @@ zero open critical findings.
 > identifier, dependency, acceptance phase or scenario changed. Found by a
 > stale-claim checker that had to be widened first, because the old one was a
 > list of literals and could not see either defect.
+
+> **v1.0.4 names the baseline as V1 and gives V2 a home.** The plan already
+> defined its own completion — `10_go_live_checklist.md` has said since v1.0
+> exactly which conditions must hold — but nothing called that "V1", and the
+> change-control document told readers to run `git diff v1.0.1..v1.0.3` when no
+> such tags existed. Both are fixed: the baselines are tagged in git, the scope
+> and completion criterion are stated in one place, and additions now go to
+> `docs/V2_CANDIDATES.md` outside the seal. Two paragraphs of text; no
+> requirement, identifier, dependency, acceptance phase or scenario changed.
 
 Verify the seal from the repository root:
 

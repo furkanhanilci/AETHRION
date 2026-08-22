@@ -30,7 +30,7 @@
 <rect x="40.0" y="406.0" width="298.0" height="66.0" rx="4" fill="#faeade" stroke="#D55E00" stroke-width="1.6"/>
 <text x="189.0" y="421.4" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="17" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="middle">Sealed</text>
 <text x="189.0" y="444.4" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">221 planning files, byte-identical to</text>
-<text x="189.0" y="463.4" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">baseline v1.0.3</text>
+<text x="189.0" y="463.4" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">baseline v1.0.4</text>
 <rect x="40.0" y="480.0" width="298.0" height="66.0" rx="4" fill="#def2ed" stroke="#009E73" stroke-width="1.6"/>
 <text x="189.0" y="495.4" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="17" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="middle">Signed</text>
 <text x="189.0" y="518.4" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">evidence manifests, Ed25519,</text>

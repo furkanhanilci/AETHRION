@@ -255,7 +255,7 @@ Whatever work you are doing, these hold:
 ## Next steps
 
 Items 4 and 5 of the previous list are **done as specification** in commissioning
-baseline v1.0.3 — `TaskContract` skill binding is written into WP-013, the
+baseline v1.0.4 — `TaskContract` skill binding is written into WP-013, the
 registry and compiler into WP-047, harness adapters into WP-048, behaviour
 evaluation into WP-043, and ACC-46 – ACC-51 cover the failure modes. What remains
 is execution:

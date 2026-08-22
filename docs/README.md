@@ -55,6 +55,17 @@ Everything here records what was true on a date and is **never edited to match
 the present** — `DOCUMENT_STANDARD.md` §3 rule 4. Live status lives in
 `STATUS.md`, which is generated.
 
+## 3.4 `V2_CANDIDATES.md` — what is deliberately not V1
+
+V1 is the sealed commissioning plan; its completion criterion is the go-live
+checklist. Anything proposed after that freeze is V2, and this register is where
+it waits. It sits outside the hash seal on purpose: a V2 candidate filed inside
+the V1 baseline would move the finish line while appearing to be part of it.
+
+Six entries today, five of them technical renames that were refused during the
+AETHRION migration because they break import paths, a schema field or a signed
+attestation. The sixth is a mirror-completeness gap.
+
 ## 3.5 `branding.md` and `assets/` — what the project is called
 
 `branding.md` fixes one thing: the project is **AETHRION**, its descriptor is
