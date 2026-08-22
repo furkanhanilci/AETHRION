@@ -21,7 +21,7 @@ or model — resumes without re-reading the corpus.
 
 | Handover | Ends at commit | Next action |
 |---|---|---|
-| [[10 - Projects/AI Research Framework/03 - Implementation/session_handover_2026-08-22|Session Handover — 2026-08-22]] | `10395af` | Decide the role → model assignment |
+| [[10 - Projects/AI Research Framework/03 - Implementation/session_handover_2026-08-22|Session Handover — 2026-08-22]] | `cf57f1f` | Decide the role → model assignment |
 
 ## Step history
 

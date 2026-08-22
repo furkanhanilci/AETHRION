@@ -4,7 +4,7 @@ type: handover
 status: active
 owner: otonom
 created_at: "2026-08-22"
-session_end_commit: 10395af
+session_end_commit: cf57f1f
 tags:
   - ai-framework/handover
   - ai-framework/execution
@@ -28,7 +28,7 @@ tags:
 |---|---|
 | Repository | `/home/otonom/Desktop/FH/AI_RESEARCH_FRAMEWORK` |
 | Branch | `main`, working tree **clean** |
-| HEAD = origin/main | **`10395af`** — 0 ahead / 0 behind |
+| HEAD = origin/main | **`cf57f1f`** — 0 ahead / 0 behind |
 | Remote | `github.com/furkanhanilci/AI-Research-Framework` (private) — **the only authorised remote** |
 | Last two steps | Step 004 (full English revision), Step 005 (file-by-file review) |
 | Bridge service | `active` · sync timer `active` |
@@ -37,10 +37,15 @@ tags:
 ### The last three commits
 
 ```text
+cf57f1f  Add a session handover note so the next session resumes without re-reading
 10395af  File-by-file review: document every module, make two evidence checks real
 622aeb8  Rewrite the entire corpus in English, expanded
 8415342  Restructure repository root, add skill layer and tooling packages
 ```
+
+> The Zotero projection files carry a `generated_at` timestamp, so the 30-minute
+> sync timer produces routine churn under `70 - Literature Sets/Zotero Sources`.
+> A diff limited to those files after a timer run is expected, not a change.
 
 ---
 
@@ -55,7 +60,7 @@ cd /home/otonom/Desktop/FH/AI_RESEARCH_FRAMEWORK
 V="/home/otonom/Documents/Obsidian Vault/10 - Projects/AI Research Framework"
 
 git status --short                                   # expect: empty
-git log --oneline -1                                 # expect: 10395af (or later)
+git log --oneline -1                                 # expect: cf57f1f (or later)
 
 uv run pytest                                        # expect: 20 passed
 (cd planning/commissioning && sha256sum -c 00_PROGRAM/SHA256SUMS.txt | grep -c ': OK$')
