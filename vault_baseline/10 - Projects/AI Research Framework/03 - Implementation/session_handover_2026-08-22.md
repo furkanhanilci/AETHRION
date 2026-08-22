@@ -4,7 +4,7 @@ type: handover
 status: active
 owner: otonom
 created_at: "2026-08-22"
-content_valid_through_commit: d68fbbb
+content_valid_through_commit: pending-step-014
 tags:
   - ai-framework/handover
   - ai-framework/execution
@@ -28,12 +28,12 @@ tags:
 |---|---|
 | Repository | `/home/otonom/Desktop/FH/AI_RESEARCH_FRAMEWORK` |
 | Branch | `main`, working tree **clean** |
-| Content valid through | **`d68fbbb`** — this note describes the tree at that commit. It does **not** track HEAD, because a field naming HEAD stales itself the moment it is committed |
+| Content valid through | **`pending`** — this note describes the tree at that commit. It does **not** track HEAD, because a field naming HEAD stales itself the moment it is committed |
 | Remote | `github.com/furkanhanilci/AI-Research-Framework` (private) — **the only authorised remote** |
 | Last steps | 004 English revision · 005 file-by-file review · 006 skill families + WP-000 · **007 commissioning baseline v1.0** |
 | Bridge service | `active` · sync timer `active` |
 | Sources in registry | 33 |
-| Skills | **49** — 11 engineering · 28 scientific-research · 10 shared |
+| Skills | **51** — 11 engineering · 30 scientific-research · 10 shared |
 | Plan | **commissioning baseline v1.0.1** — 141 WP documents, 51 scenarios, 207 sealed files |
 
 ### The last three commits
@@ -67,7 +67,7 @@ git status --short                                   # expect: empty
 git log --oneline -1                                 # expect: aec0686 (or later)
 
 uv run pytest                                        # expect: 20 passed
-python3 scripts/validate_skills.py                   # expect: 49 skills conform
+python3 scripts/validate_skills.py                   # expect: 51 skills conform
 python3 scripts/make_figures.py --check              # expect: 0 drift, 0 overflow
 python3 scripts/validate_commissioning_plan.py       # expect: plan semantics OK
 python3 scripts/check_doc_consistency.py             # expect: documents agree
@@ -117,6 +117,20 @@ reasoning than the version it replaced.
 - **ADR-001** (solo-operator independence — *blocks every acceptance*) and
   **ADR-002** (bootstrap verification control) written; **neither decided**.
 - `NOTICE` added for licensing and vendored attribution.
+
+### Step 014 — the adoption matrix applied
+
+- **G10 monitoring implemented** — Crossref/Retraction Watch sweep with a
+  **positive control that must fire**; 18 of 33 sources carry no DOI and are
+  invisible to it, which the report states.
+- Adoption **taxonomy**: DEPENDENCY · ADAPTER · STANDARD · BENCHMARK · PATTERN ·
+  OPTIONAL BACKEND · REJECTED. **A benchmark can never become a gate.**
+- Adopted: Inspect AI · GROBID+Pub2TEI · Cedar · CaMeL · OSF Registries · Run
+  RO-Crate · SEPIO+LinkML · Croissant 1.1 · SWHID · MLflow+OTel · object-lock.
+  Ten WPs carry an **Adopted component** section.
+- **ADR-003** — trusted control / untrusted data; Cedar; anomaly ⇒ deny.
+- Two skills: **`reporting-results`**, **`producing-figures`** → 51 skills.
+- Fourth figure: what is built here versus what is adopted.
 
 ### Step 013 — mature components, and the first measurement
 

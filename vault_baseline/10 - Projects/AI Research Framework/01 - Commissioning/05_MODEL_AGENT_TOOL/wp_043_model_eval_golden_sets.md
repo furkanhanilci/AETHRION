@@ -15,6 +15,14 @@
 | Related acceptance scenarios | ACC-07, ACC-37, ACC-48, ACC-49 |
 | Current status | `NOT_STARTED` |
 
+## Adopted component
+
+> **Inspect AI** — encode behaviours as tasks and scorers, do not build an evaluation engine
+
+Inspect's `Dataset → Solver → Scorer` model, sandboxing, limits, retry/resume and transcripts are what skill-behaviour testing needs, and it can drive real agent harnesses as evaluation subjects. The contribution of this package is the behaviours and their pass criteria, not the runner.
+
+Rationale and adoption type: `docs/architecture/AIRL_OS_COMPONENT_REUSE.md`.
+
 ## Purpose and expected outcome
 
 Contamination-protected, versioned evaluation sets and measurement rubrics are built for the planner, scout, extractor, coder, reviewer and arbiter roles.

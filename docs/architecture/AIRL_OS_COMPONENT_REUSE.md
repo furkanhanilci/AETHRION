@@ -3,126 +3,330 @@
 | Field | Value |
 |---|---|
 | Document type | Architecture reference — component adoption register |
-| Scope | Existing, maintained implementations that make a gate **stronger** than a hand-rolled equivalent |
-| Sibling documents | `AIRL_OS_EXTERNAL_STANDARDS.md` (formats) · `AIRL_OS_RELATED_SYSTEMS.md` (systems) |
-| Status | §2 is **implemented and measured**; §3 is adopted and unbuilt; §4 is under evaluation |
+| Scope | Existing implementations, standards, patterns and benchmarks this project builds on rather than reinvents |
+| Sibling documents | `AIRL_OS_EXTERNAL_STANDARDS.md` (formats) · `AIRL_OS_RELATED_SYSTEMS.md` (systems) · `ADR-003` (security architecture) |
+| Status | §3 is **implemented and measured**; §4–§9 are decided and unbuilt; §10 is rejected or deferred with reasons |
 | Date | 2026-08-22 |
 
-**In one paragraph.** `AIRL_OS_EXTERNAL_STANDARDS.md` records which *formats* this
-project adopts instead of inventing. This document records which *running
-implementations* it should build on, and the reason is not to reduce scope — it
-is that a gate backed by an implementation the scholarly community maintains and
-tests is **stronger** than the same gate backed by something written here for the
-first time. A citation check that queries Crossref is better than one that
-queries a local heuristic, not cheaper.
+**In one paragraph.** The purpose of adopting an existing implementation is
+**not** to reduce scope — it is that a gate backed by something a community
+maintains and tests is **stronger** than the same gate backed by code written
+here for the first time. This register names, for each control, the component it
+should stand on and *how* that component is taken: as a dependency, behind an
+adapter, as a format, as a benchmark that measures us, as a pattern we implement
+ourselves, or as a deployment choice. The governing principle is that AIRL-OS
+should not invent its own parser, screening engine, policy language, sandbox,
+experiment tracker or scholarly identifier — its contribution is the control
+layer that decides **which evidence, having passed which gate, permits which
+claim to be accepted.**
 
 ---
 
-## 1. The selection rule
+## 1. The adoption taxonomy
+
+"Reuse" is not one thing, and treating it as one produces bad decisions —
+importing a dependency where a pattern was needed, or reimplementing a pattern
+as if it were a library.
+
+| Type | Meaning | Obligation it creates |
+|---|---|---|
+| **DEPENDENCY** | Runtime component, called directly | Version pinning, upgrade path, failure semantics |
+| **ADAPTER** | External component behind an AIRL contract | The contract must survive replacing it |
+| **STANDARD** | A format or model implemented as specified | Conformance testing |
+| **BENCHMARK** | Not part of the system; it **measures** the system | Agreeing to publish the score |
+| **PATTERN** | An architectural idea implemented here, no code taken | Attribution, and honesty about divergence |
+| **OPTIONAL BACKEND** | A deployment choice behind a capability interface | The interface, not the backend, is the contract |
+| **REJECTED** | Examined and deliberately not taken | Recording why |
+
+---
+
+## 2. The selection rule
 
 A component is adopted when it makes a control **more likely to catch what the
 control exists to catch**:
 
 1. **Maintained by people closer to the problem** — Crossref knows about DOIs;
    this project never will.
-2. **Already tested against reality** — a validated implementation of a
-   statistical forensic test has survived cases nobody here would have imagined.
-3. **Failure is legible** — when it is wrong, that is visible and attributable,
-   rather than buried in bespoke code.
-4. **Adoption does not import authority** — the component supplies a signal; what
-   AIRL-OS *does* with the signal stays an AIRL-OS decision.
+2. **Already tested against reality** — a validated implementation has survived
+   cases nobody here would imagine.
+3. **Failure is legible** — when it is wrong, that is visible and attributable.
+4. **Adoption supplies a signal, never authority** — Crossref decides whether a
+   record exists; it does not decide whether a package is accepted.
 
-Rule 4 is why this register is separate from the gate policy. Crossref decides
-whether a record exists. It does not decide whether a package is accepted.
+Rule 4 is why this register is separate from gate policy, and why a BENCHMARK
+can never become a gate.
 
 ---
 
-## 2. Implemented — reference verification
+## 3. Implemented and measured
+
+### 3.1 Reference verification · **DEPENDENCY** · CoE Audit check 1
 
 | | |
 |---|---|
-| Component | **Crossref** · **OpenAlex** · **arXiv** APIs |
+| Components | **Crossref** · **OpenAlex** · **arXiv** APIs |
 | Where | `scripts/verify_references.py` |
-| Gate | G3 literature freeze · G9 publication conformance |
-| Implements | CoE Audit check 1 (`AIRL_OS_EXTERNAL_STANDARDS.md` §4.3) |
+| Gate | G3 freeze · G9 publication conformance |
 
-### The first measurement this project has produced
+| Authorities | Corroborated | Rate |
+|---|---:|---:|
+| Crossref + OpenAlex | 25 / 33 | 75.8 % |
+| **+ arXiv** | **27 / 33** | **81.8 %** |
 
-Run against the **33 real sources** in the canonical registry:
+The first run scored 75.8 %, and the instructive part was *why*: every unresolved
+entry was a **DOI-less preprint**, which a DOI-registration authority
+structurally cannot see. **The measurement did not find bad sources; it found an
+inadequate check.**
 
-| Authorities | Corroborated | Unresolved | Rate |
-|---|---:|---:|---:|
-| Crossref + OpenAlex | 25 / 33 | 8 | **75.8 %** |
-| **+ arXiv** | **27 / 33** | 6 | **81.8 %** |
+> **What the number is not.** It measures whether records *exist* in public
+> authorities, not whether a claim is supported by them. An unresolved DOI-less
+> item means *unindexed*, not *fabricated*. The CoE Audit benchmark measured
+> hallucinated references in **generated** bibliographies; this registry is
+> human-curated, so the numbers are **not comparable**.
 
-**Adding one authority moved the rate six points**, and the reason is the useful
-part: every unresolved entry was a **DOI-less preprint**, which a
-DOI-registration authority structurally cannot see. The first run did not reveal
-bad sources; it revealed an inadequate check. That is what the measurement was
-for.
+### 3.2 Source monitoring · **DEPENDENCY** · the first slice of G10
 
-The remaining 6 unresolved entries are **3 distinct titles**, each appearing 2–3
-times — which independently corroborates the duplicate-detection dashboard the
-bridge already produces.
-
-> **What this number is not.** It measures whether records *exist* in public
-> bibliographic authorities. It says nothing about whether a claim is supported
-> by them, and an unresolved DOI-less item means *unindexed*, not *fabricated*.
-> The published CoE Audit benchmark measured hallucinated references in
-> **generated** bibliographies; this registry is human-curated, so the numbers
-> are not comparable and must never be presented as if they were.
-
-The registry is opened **read-only**. Verification observes; it never writes back
-a "corrected" title and never removes a source it could not resolve.
-
----
-
-## 3. Adopted, not yet built
-
-| Capability | Component | Why it is stronger than building it here |
-|---|---|---|
-| **Evidence attestation** — the real WP-000 target | **`sigstore-python`** + the OpenSSF **`model-signing`** library | Keyless OIDC identity and a Rekor inclusion proof, which the current local-key interim profile explicitly lacks. This is the named upgrade path out of `airl-interim-v0.1` |
-| **Statistical forensics** at G6-0 | **`statcheck`** (Python port of Nuijten's R package) · **`grim`** · **`pysprite`** | These tests have subtle edge cases — scale granularity, rounding, integer constraints. A fresh implementation would reproduce known bugs the published ones already fixed |
-| **Screening at G3** | **ASReview** — active-learning screening, published in *Nature Machine Intelligence* | Pairs directly with the SAFE stopping rule already adopted; a hand-rolled screener would have neither the model nor the stopping evidence |
-| **Run provenance** at G5/G7 | **`ro-crate-py`** with the Workflow Run Crate profile | Machine-actionable, engine-independent, re-execution aware, and mapped to W3C PROV — none of which a bespoke run manifest would be |
-| **Agreement and calibration** in the metascience plane | **`krippendorff`** · `statsmodels` (Fleiss κ) · `scikit-learn` (Brier) | Standard estimators with known behaviour on missing data and small samples |
-| **Claim publication** | **`nanopub-py`** | Publishes a claim as a FAIR nanopublication — assertion, provenance and publication info — which is the shape `ClaimVersion` already has |
-| **Literature retrieval** at G3 | **PaperQA2** | A far more mature retrieval and evidence-gathering subsystem than this project will build. AIRL-OS's contribution is how retrieval binds to provenance and claim scope, not the retrieval itself |
-
----
-
-## 4. Under evaluation
-
-| Area | Note |
+| | |
 |---|---|
-| Untrusted-content boundary (ACC-44, WP-136) | Guard libraries exist for prompt-injection screening; none has been evaluated here, and adopting one before evaluating it would contradict §1 rule 2 |
-| Preregistration registries | An external, timestamped registry would strengthen G2b beyond a local hash. Not yet assessed |
-| Retraction monitoring at G10 | Crossref carries retraction data; the ingest path is not designed |
+| Component | **Crossref**, which now carries Retraction Watch data and exposes `update-to` / `updated-by` |
+| Where | `scripts/monitor_sources.py` |
+| Gate | G10 |
+
+| Measure | Value |
+|---|---:|
+| Sources swept | **15** of 33 |
+| Sources invisible — no DOI | **18** |
+| Material signals | 0 |
+| **Positive control** | **FIRED** |
+
+**A clean report proves nothing unless the check can fire**, so every run
+includes a DOI known to be retracted and the script **exits non-zero if the
+control stays silent**. This is the metascience plane's control-injection
+principle applied to the smallest possible check, and it is the difference
+between "no retractions" and "no detector".
+
+The sweep also surfaced its own boundary: **18 of 33 sources carry no DOI and are
+invisible to it.** A clean report over a DOI-less registry would be a false
+reassurance, and the report says so.
+
+> **Claim impact analysis is not implemented.** Nothing maps a retracted source
+> to dependent claims, because no Claim Ledger exists. G10's loop is opened, not
+> closed.
 
 ---
 
-## 5. What this changes about the plan
+## 4. Evaluation and assurance
 
-Nothing is deleted. Several packages become **thinner and stronger at the same
-time**: their job stops being *implement this capability* and becomes *integrate
-this component under our contract, and verify it behaves*. That integration work
-is real, and the verification of it is the part AIRL-OS actually contributes.
+| Component | Type | Where | Why it is stronger than building it |
+|---|---|---|---|
+| **Inspect AI** (UK AI Security Institute) | **DEPENDENCY** | WP-043 behaviour evaluation · WP-048 harness adapters · ACC-46–51 | Its `Dataset → Solver → Scorer` model, sandboxing, limits, retry/resume and transcripts are exactly what skill-behaviour testing needs — and it can drive **real agent harnesses** (Claude Code, Codex CLI, Gemini CLI) as evaluation subjects. Writing an eval runner here would reproduce a worse version of a framework built for frontier safety testing |
+| **AgentDojo** | **BENCHMARK** | Prompt-injection assurance, WP-136 | A published attack/defence suite. AIRL-OS's untrusted-content boundary should be measured against someone else's attacks, not its own |
+| **CoE Audit** | **BENCHMARK** | G6-0 · G9 | Adopted in `AIRL_OS_EXTERNAL_STANDARDS.md` §4.3; check 1 implemented |
+| **PaperBench** | **PATTERN + BENCHMARK** | G7a / G7b | Its three-container separation — the agent builds in one, reproduction runs fresh in a second, grading happens in a third — is the working demonstration of the producer / reproducer / reviewer split this architecture asserts. The pattern is taken; the runtime is not embedded |
+| **ResearchClawBench** | **BENCHMARK** | End-to-end metascience | 40 real research tasks across 10 domains with expert rubrics. It enables the experiment that would make this project's central claim testable — see §11 |
+
+**WP-043 changes character:** from *build an evaluation engine* to **encode AIRL
+behaviours as Inspect tasks and scorers**. The engine is not the contribution;
+the behaviours and their pass criteria are.
+
+---
+
+## 5. Document representation and literature
+
+| Component | Type | Where | Why |
+|---|---|---|---|
+| **GROBID** | **DEPENDENCY** | `SourceRepresentation` | Scholarly PDF → TEI XML, developed over years against real publisher output. A first-attempt PDF parser makes `EvidenceSpan` unreliable at its foundation |
+| **Pub2TEI** | **DEPENDENCY** | Structured publisher ingestion | Normalises Elsevier, Springer, Wiley, JATS/NLM XML into the *same* TEI representation, so a span means the same thing regardless of where the source came from |
+| **PaperQA2** | **ADAPTER** | G3 retrieval | Far more mature retrieval than this project will build. The contribution is how retrieval binds to provenance and claim scope |
+| **ASReview** | **ADAPTER** | G3 screening | Active-learning screening published in *Nature Machine Intelligence*, pairing directly with the SAFE stopping rule already adopted |
+
+### 5.1 What canonical representation buys `EvidenceSpan`
+
+```
+Publisher XML ──► Pub2TEI ─┐
+PDF only ──────► GROBID ───┼──► canonical TEI ──► SourceRepresentation ──► EvidenceSpan
+LaTeX source ──► LaTeXML ──┘
+```
+
+A span stops being *"page 4, paragraph 3"* and becomes addressable:
+
+```yaml
+EvidenceSpan:
+  source_digest:          sha256:...
+  representation_digest:  sha256:...
+  parser:                 grobid
+  parser_version:         0.8.x
+  tei_xpath:              //body/div[2]/p[3]/s[4]
+  exact_text:             "..."
+  text_digest:            sha256:...
+```
+
+Because the original bytes are kept, a later parser produces
+`representation-v2` **without invalidating claims anchored to v1** — the claim
+stays bound to the representation that actually supported it.
+
+---
+
+## 6. Policy, security and execution
+
+| Component | Type | Where | Why |
+|---|---|---|---|
+| **Cedar** | **DEPENDENCY** (first candidate) | Tool Broker · Execution Broker | Its `principal · action · resource · context` model already matches `TaskContract`, `forbid` overrides `permit`, and it has a formal semantics and schema validation. See `ADR-003` |
+| **OPA / Rego** | **OPTIONAL BACKEND** | same | The general-purpose alternative, kept as the fallback in a recorded bake-off |
+| **CaMeL** | **PATTERN** | WP-136 | Control flow comes from *trusted* intent; untrusted content may supply values but can never create actions or expand permissions. Reported 67–77 % of AgentDojo tasks solved with provable security depending on paper version |
+| **Inspect sandboxes · gVisor · E2B** | **OPTIONAL BACKEND** | Execution Broker | AIRL-OS should own the `ExecutionBackend` interface and the **risk-profile → backend** routing, not the isolation technology |
+
+**WP-136 changes character:** from *prompt-injection detection* to **trusted
+control / untrusted data architecture**. A detector is defence in depth; it is
+not a security boundary.
+
+---
+
+## 7. Provenance, identity and storage
+
+| Component | Type | Where | Why |
+|---|---|---|---|
+| **Workflow Run RO-Crate** (Process / Workflow / Provenance profiles) | **STANDARD** | G5 `ExperimentRun` · G7 | Machine-actionable, engine-independent, re-execution aware, mapped to W3C PROV. **Priority raised: adopt before the first slice**, so the run format is never forked |
+| **Croissant 1.1** (MLCommons) | **STANDARD** | Dataset records | Adds machine-actionable provenance via PROV-O and structured usage conditions via ODRL/DUO — which connects directly to policy: a dataset's `usagePolicy` becomes a Cedar input |
+| **SWHID — ISO/IEC 18670** | **STANDARD** | G7 · G9 software identity | An intrinsic identifier computed from content, verifiable without a registry. Works for private code too, because computing it does not require archiving |
+| **S3 Object Lock semantics** | **OPTIONAL BACKEND** | WP-026 | Compliance-mode WORM that no account, including root, can delete within retention |
+| **lakeFS** | **OPTIONAL BACKEND** | Working datasets | Git-like branching over object storage for *mutable* research data — a different problem from accepted-evidence immutability, and worth keeping separate |
+| **MLflow + OpenTelemetry** | **DEPENDENCY** | Observability | Traces, token usage, cost and tool calls over OTLP. **Operational observability only** — never the scientific truth store |
+
+**WP-026 changes character:** from *build a content-addressed WORM store* to
+**integrate and verify an existing object-lock implementation** behind an
+`ImmutableObjectStore` contract.
+
+> **The line that must not blur.** MLflow answers *what did the system do*.
+> Workflow Run RO-Crate plus a signed `EvidenceManifest` answers *what may be
+> believed*. Operational telemetry is not provenance.
+
+---
+
+## 8. Attestation
+
+| Component | Type | Status |
+|---|---|---|
+| **`sigstore-python`** | **DEPENDENCY** | The named upgrade out of `airl-interim-v0.1`: keyless OIDC identity and a Rekor inclusion proof, neither of which the local-key interim profile has |
+| **OpenSSF `model-signing`** | **DEPENDENCY** | Signs local open-weight model files — the R3 requirement in `AIRL_OS_ROLE_MODEL_ASSIGNMENT.md` |
+| **OpenTimestamps** | **DEPENDENCY** | WP-139, replacing WP-000's interim anchor |
+
+Today one operator controls the repository, the signing key, the manifest
+generator and the clock. That makes the current profile **tamper-evident but not
+externally witnessed**, and the Sigstore/Rekor path is what closes it.
+
+---
+
+## 9. Claim and evidence model
+
+| Component | Type | Where | Why |
+|---|---|---|---|
+| **SEPIO** | **STANDARD** (as an AIRL profile) | `ClaimVersion` · `EvidenceSpan` · review links | Domain-agnostic core model for **assertions, evidence and provenance**, designed to be specialised through profiles. Its shape is the shape AIRL-OS already has, and its relation types include *challenges* as well as *supports* — which is what adversarial review needs |
+| **LinkML** | **DEPENDENCY** | `SchemaRegistry`, WP-020 | One model generating JSON Schema, Pydantic, JSON-LD, SHACL and SQL DDL. This attacks a real debt: contracts currently risk being defined three times in three shapes, which is how the bridge and the contract core came to disagree about digests |
+| **`nanopub-py`** | **ADAPTER** | Public claim export | A published claim as a FAIR nanopublication — **an export representation, not the operational ledger** |
+| **`krippendorff`** · statsmodels · scikit-learn | **DEPENDENCY** | Metascience plane | Standard estimators with known small-sample and missing-data behaviour |
+| **statcheck · `grim` · `pysprite`** | **DEPENDENCY** | G6-0 forensics | Validated implementations of tests whose edge cases — scale granularity, rounding, integer constraints — are exactly where a fresh implementation goes wrong |
+
+**SEPIO + LinkML is promoted from the deferred queue.** The reason is that
+`SchemaRegistry` is currently a dictionary with no validation, and generating the
+contract surface from one model is a better answer than writing that registry by
+hand.
+
+---
+
+## 10. External witnesses
+
+| Component | Type | Where | Why |
+|---|---|---|---|
+| **OSF Registries** | **DEPENDENCY** | G2 · G2b preregistration | A local hash proves a plan existed; it does not prove *when*, to anyone who does not trust the operator. A timestamped external registration does |
+
+| Assurance class | OSF registration |
+|---|---|
+| R1 exploratory | optional |
+| R1 confirmatory | recommended |
+| R2 confirmatory | **required** |
+| R3 | **required**, plus an external verifier |
+
+> OSF is a **witness, not an authority**: it attests that a plan existed on a
+> date. Whether the protocol is scientifically acceptable stays an AIRL-OS
+> decision. Integrate against the **Registries** workflow specifically — OSF
+> Projects is being sunset through 2026–27 while Registries continues.
+
+---
+
+## 11. The experiment this makes possible
+
+ResearchClawBench holds the same model, tools, budget and task fixed and varies
+only the governance layer:
+
+```
+CONTROL     same model · same task · same tools · same budget · ungoverned agent
+TREATMENT   same model · same task · same tools · same budget · AIRL-governed agent
+```
+
+Measured on both: ResearchClaw score · protocol mismatch · evidence mismatch ·
+reference verification · reproduction success · CoE score · unsupported claims ·
+human interventions · cost · runtime.
+
+> **This is the paper worth writing**, and it is not "we built a better agent":
+> *does research governance improve autonomous research integrity, and at what
+> cost?* The agent is the constant; the governance is the variable. Current
+> reported ResearchClawBench performance is low across the board — the strongest
+> autonomous agent averages around 21 — so the honest expectation is that
+> governance costs runtime and may not raise the score, while changing what can
+> be believed about the output. **Both outcomes are publishable; only one is
+> flattering.**
+
+---
+
+## 12. Deferred and rejected
+
+| Component | Type | Reason |
+|---|---|---|
+| **AiiDA** | OPTIONAL BACKEND, deferred | Strong for HPC/computational workflows; no such workload exists here yet |
+| **ReproZip** | deferred | A forensic-capture fallback for legacy runs that were never containerised |
+| **GRADE · RoB 2 · ROBINS-I** | deferred | Domain-dependent appraisal instruments; premature before a domain is chosen |
+| **IDEA / repliCATS** | deferred | Refines G6-3 disagreement once that gate is implemented |
+| Prompt-injection *detector* libraries | **REJECTED as a boundary** | A detector is defence in depth. The boundary is CaMeL-style control/data separation — see §6 and `ADR-003` |
+
+---
+
+## 13. What this changes about the plan
+
+Nothing is deleted. Several packages become **thinner and stronger at once** —
+their job stops being *implement this capability* and becomes *integrate this
+component under our contract, and verify it behaves*. **The verification is the
+part AIRL-OS actually contributes.**
 
 | Package | Was | Becomes |
 |---|---|---|
-| WP-000 | build attestation | integrate `sigstore-python`, keep the interim profile as the fallback |
-| WP-068-class screening | build a screener | integrate ASReview, own the stopping-rule evidence |
-| WP-080 citation entailment | build reference checking | **done for the reference half**; the entailment half remains |
-| WP-082 run registry | design a run record | emit Workflow Run Crate |
-| WP-093-class metascience | implement estimators | use standard ones, own the calibration set |
+| WP-000 | build attestation | integrate `sigstore-python`; keep the interim profile as fallback |
+| WP-020 | hand-write the schema registry | generate the contract surface from one **LinkML** model |
+| WP-026 | build a WORM store | integrate and verify an object-lock backend |
+| WP-043 | build an evaluation engine | encode behaviours as **Inspect** tasks and scorers |
+| WP-048 | write per-harness adapters | drive real harnesses through Inspect's agent bridge |
+| WP-049/050 | write a policy evaluator | **Cedar** policies, with a recorded OPA bake-off |
+| WP-061-class | build a PDF parser | **GROBID + Pub2TEI** into canonical TEI |
+| WP-068-class | build a screener | **ASReview**, owning the stopping-rule evidence |
+| WP-075 | design a claim model | an **AIRL-SEPIO profile** in LinkML |
+| WP-080 | build reference checking | **done for the reference half**; entailment remains |
+| WP-082 | design a run record | emit **Workflow Run RO-Crate** |
+| WP-136 | detect prompt injection | **CaMeL-style** trusted control / untrusted data |
+| G10 packages | design monitoring | **done for the retraction sweep**; claim impact remains |
 
 ---
 
-## 6. Sources
+## 14. Sources
 
-- Crossref API · OpenAlex — <https://github.com/J535D165/pyalex> · arXiv API
+- Inspect AI — <https://github.com/UKGovernmentBEIS/inspect_ai> · <https://inspect.aisi.org.uk/>
+- CaMeL, *Defeating Prompt Injections by Design* — <https://arxiv.org/abs/2503.18813> · AgentDojo — <https://github.com/ethz-spylab/agentdojo>
+- Cedar — <https://docs.cedarpolicy.com/> · OPA — <https://www.openpolicyagent.org/docs>
+- GROBID — <https://github.com/kermitt2/grobid> · Pub2TEI — <https://github.com/kermitt2/Pub2TEI>
+- PaperQA2 — <https://github.com/Future-House/paper-qa> · ASReview — <https://github.com/asreview/asreview>
+- Workflow Run RO-Crate — <https://www.researchobject.org/workflow-run-crate/> · Croissant 1.1 — <https://mlcommons.org/2026/02/croissant-1-1-standard/>
+- SWHID ISO/IEC 18670 — <https://www.iso.org/standard/89985.html> · Software Heritage — <https://www.swhid.org/>
+- SEPIO (LinkML) — <https://github.com/sepio-framework/sepio-linkml> · LinkML — <https://linkml.io/linkml/>
 - `sigstore-python` — <https://github.com/sigstore/sigstore-python> · `model-signing` — <https://github.com/sigstore/model-transparency>
-- statcheck (Python) — <https://github.com/hplisiecki/statcheck_python> · `grim` — <https://pypi.org/project/grim/> · `pysprite` — <https://github.com/QuentinAndre/pysprite>
-- ASReview — <https://github.com/asreview/asreview> · *Nature Machine Intelligence* — <https://www.nature.com/articles/s42256-020-00287-7>
-- `ro-crate-py` — <https://github.com/ResearchObject/ro-crate-py> · `nanopub-py` — <https://github.com/fair-workflows/nanopub>
-- `krippendorff` — <https://pypi.org/project/krippendorff/> · PaperQA2 — <https://github.com/Future-House/paper-qa>
+- OSF Registries API — <https://developer.osf.io/> · lakeFS — <https://docs.lakefs.io/> · MLflow tracing — <https://mlflow.org/docs/latest/genai/tracing/opentelemetry/>
+- PaperBench — <https://github.com/openai/preparedness/blob/main/project/paperbench/README.md> · ResearchClawBench — <https://github.com/InternScience/ResearchClawBench>
+- statcheck (Python) — <https://github.com/hplisiecki/statcheck_python> · `grim` — <https://pypi.org/project/grim/> · `pysprite` — <https://github.com/QuentinAndre/pysprite> · `krippendorff` — <https://pypi.org/project/krippendorff/>

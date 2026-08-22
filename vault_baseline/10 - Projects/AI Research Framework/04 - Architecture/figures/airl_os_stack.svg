@@ -1,0 +1,128 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1055" width="100%" role="img">
+<defs>
+  <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+    <path d="M 0 1 L 9 5 L 0 9 z" fill="context-stroke"/>
+  </marker>
+  <marker id="arrowsm" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5.5" markerHeight="5.5" orient="auto-start-reverse">
+    <path d="M 0 1.5 L 9 5 L 0 8.5 z" fill="context-stroke"/>
+  </marker>
+  <pattern id="hatch" width="7" height="7" patternTransform="rotate(45)" patternUnits="userSpaceOnUse">
+    <line x1="0" y1="0" x2="0" y2="7" stroke="#C8C8C8" stroke-width="2.2"/>
+  </pattern>
+</defs>
+<rect width="1200" height="1055" fill="#FFFFFF"/>
+<text x="24.0" y="48.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="30" font-weight="700" font-style="normal" fill="#1A1A1A" text-anchor="start">What AIRL-OS builds, and what it stands on</text>
+<text x="24.0" y="80.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="18" font-weight="400" font-style="normal" fill="#63666A" text-anchor="start">Almost every layer here is a component someone else maintains and tests. What this project owns is the control layer: which evidence,</text>
+<text x="24.0" y="104.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="18" font-weight="400" font-style="normal" fill="#63666A" text-anchor="start">having passed which gate, permits which claim to be accepted.</text>
+<text x="24.0" y="130.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="18" font-weight="500" font-style="normal" fill="#1A1A1A" text-anchor="start">Adoption type is drawn, not captioned, because &#x27;reuse&#x27; is not one thing — a dependency, a standard, a pattern and a benchmark create</text>
+<text x="24.0" y="154.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="18" font-weight="500" font-style="normal" fill="#1A1A1A" text-anchor="start">entirely different obligations.</text>
+<rect x="24.0" y="175.0" width="24.0" height="17.0" rx="3" fill="#f2cfb2" stroke="#D55E00" stroke-width="1.5"/>
+<text x="56.0" y="188.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#1A1A1A" text-anchor="start">AIRL-owned</text>
+<rect x="172.7" y="175.0" width="24.0" height="17.0" rx="3" fill="#b2d5e8" stroke="#0072B2" stroke-width="1.5"/>
+<text x="204.7" y="188.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#1A1A1A" text-anchor="start">dependency</text>
+<rect x="320.5" y="175.0" width="24.0" height="17.0" rx="3" fill="#b2e2d5" stroke="#009E73" stroke-width="1.5"/>
+<text x="352.5" y="188.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#1A1A1A" text-anchor="start">standard</text>
+<rect x="442.6" y="175.0" width="24.0" height="17.0" rx="3" fill="#f0d7e5" stroke="#CC79A7" stroke-width="1.5"/>
+<text x="474.6" y="188.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#1A1A1A" text-anchor="start">pattern</text>
+<rect x="551.9" y="175.0" width="24.0" height="17.0" rx="3" fill="#f8e2b2" stroke="#E69F00" stroke-width="1.5"/>
+<text x="583.9" y="188.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#1A1A1A" text-anchor="start">benchmark</text>
+<rect x="691.4" y="175.0" width="24.0" height="17.0" rx="3" fill="#FFFFFF" stroke="#1A1A1A" stroke-width="2.0"/>
+<text x="723.4" y="188.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="start">implemented here</text>
+<rect x="888.5" y="175.0" width="24.0" height="17.0" rx="3" fill="#FFFFFF" stroke="#63666A" stroke-width="1.3" stroke-dasharray="5 4"/>
+<text x="920.5" y="188.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#1A1A1A" text-anchor="start">not built</text>
+<rect x="24.0" y="222.0" width="208.0" height="46.0" rx="4" fill="#f5f5f5" stroke="#C8C8C8" stroke-width="1.2"/>
+<text x="36.0" y="251.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="17" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="start">Human authority</text>
+<rect x="246.0" y="222.0" width="249.6" height="46.0" rx="4" fill="#f8e5d6" stroke="#D55E00" stroke-width="2.2"/>
+<text x="370.8" y="238.1" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="middle">Decision Owner signs G8 ·</text>
+<text x="370.8" y="258.1" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="middle">G9</text>
+<rect x="24.0" y="277.0" width="208.0" height="46.0" rx="4" fill="#f5f5f5" stroke="#C8C8C8" stroke-width="1.2"/>
+<text x="36.0" y="297.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="17" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="start">AIRL control layer —</text>
+<text x="36.0" y="317.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="17" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="start">G0 to G10</text>
+<rect x="246.0" y="277.0" width="548.2" height="46.0" rx="4" fill="#fcf4ed" stroke="#63666A" stroke-width="1.2" stroke-dasharray="5 4"/>
+<text x="520.1" y="303.1" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">Gate semantics · evidence admissibility · independence · claim lifecycle</text>
+<rect x="24.0" y="332.0" width="208.0" height="46.0" rx="4" fill="#f5f5f5" stroke="#C8C8C8" stroke-width="1.2"/>
+<text x="36.0" y="361.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="17" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="start">Research</text>
+<rect x="246.0" y="332.0" width="118.0" height="46.0" rx="4" fill="#edf5fa" stroke="#63666A" stroke-width="1.2" stroke-dasharray="5 4"/>
+<text x="305.0" y="358.1" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">PaperQA2</text>
+<rect x="372.0" y="332.0" width="118.0" height="46.0" rx="4" fill="#edf5fa" stroke="#63666A" stroke-width="1.2" stroke-dasharray="5 4"/>
+<text x="431.0" y="358.1" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">ASReview</text>
+<rect x="498.0" y="332.0" width="118.0" height="46.0" rx="4" fill="#edf5fa" stroke="#63666A" stroke-width="1.2" stroke-dasharray="5 4"/>
+<text x="557.0" y="358.1" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">GROBID</text>
+<rect x="624.0" y="332.0" width="118.0" height="46.0" rx="4" fill="#edf5fa" stroke="#63666A" stroke-width="1.2" stroke-dasharray="5 4"/>
+<text x="683.0" y="358.1" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">Pub2TEI</text>
+<rect x="750.0" y="332.0" width="227.7" height="46.0" rx="4" fill="#d6e8f3" stroke="#0072B2" stroke-width="2.2"/>
+<text x="863.8" y="348.1" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="middle">Crossref · OpenAlex ·</text>
+<text x="863.8" y="368.1" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="middle">arXiv</text>
+<rect x="24.0" y="387.0" width="208.0" height="46.0" rx="4" fill="#f5f5f5" stroke="#C8C8C8" stroke-width="1.2"/>
+<text x="36.0" y="416.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="17" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="start">Execution</text>
+<rect x="246.0" y="387.0" width="119.6" height="46.0" rx="4" fill="#edf5fa" stroke="#63666A" stroke-width="1.2" stroke-dasharray="5 4"/>
+<text x="305.8" y="413.1" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">Cedar policy</text>
+<rect x="373.6" y="387.0" width="118.0" height="46.0" rx="4" fill="#fcf4ed" stroke="#63666A" stroke-width="1.2" stroke-dasharray="5 4"/>
+<text x="432.6" y="413.1" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">Tool Broker</text>
+<rect x="499.6" y="387.0" width="157.2" height="46.0" rx="4" fill="#edf5fa" stroke="#63666A" stroke-width="1.2" stroke-dasharray="5 4"/>
+<text x="578.2" y="413.1" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">sandbox backend</text>
+<rect x="664.7" y="387.0" width="205.7" height="46.0" rx="4" fill="#fbf6f9" stroke="#63666A" stroke-width="1.2" stroke-dasharray="5 4"/>
+<text x="767.6" y="413.1" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">CaMeL control/data split</text>
+<rect x="24.0" y="442.0" width="208.0" height="46.0" rx="4" fill="#f5f5f5" stroke="#C8C8C8" stroke-width="1.2"/>
+<text x="36.0" y="471.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="17" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="start">Assurance</text>
+<rect x="246.0" y="442.0" width="118.0" height="46.0" rx="4" fill="#edf5fa" stroke="#63666A" stroke-width="1.2" stroke-dasharray="5 4"/>
+<text x="305.0" y="468.1" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">Inspect AI</text>
+<rect x="372.0" y="442.0" width="118.0" height="46.0" rx="4" fill="#fdf8ed" stroke="#63666A" stroke-width="1.2" stroke-dasharray="5 4"/>
+<text x="431.0" y="468.1" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">AgentDojo</text>
+<rect x="498.0" y="442.0" width="118.0" height="46.0" rx="4" fill="#fdf8ed" stroke="#63666A" stroke-width="1.2" stroke-dasharray="5 4"/>
+<text x="557.0" y="468.1" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">CoE Audit</text>
+<rect x="624.0" y="442.0" width="227.7" height="46.0" rx="4" fill="#edf5fa" stroke="#63666A" stroke-width="1.2" stroke-dasharray="5 4"/>
+<text x="737.8" y="468.1" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">statcheck · GRIM · SPRITE</text>
+<rect x="859.7" y="442.0" width="174.6" height="46.0" rx="4" fill="#fbf6f9" stroke="#63666A" stroke-width="1.2" stroke-dasharray="5 4"/>
+<text x="946.9" y="468.1" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">PaperBench pattern</text>
+<rect x="24.0" y="497.0" width="208.0" height="46.0" rx="4" fill="#f5f5f5" stroke="#C8C8C8" stroke-width="1.2"/>
+<text x="36.0" y="526.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="17" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="start">Evidence core</text>
+<rect x="246.0" y="497.0" width="253.3" height="46.0" rx="4" fill="#edf8f5" stroke="#63666A" stroke-width="1.2" stroke-dasharray="5 4"/>
+<text x="372.6" y="523.1" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">AIRL-SEPIO profile via LinkML</text>
+<rect x="507.3" y="497.0" width="219.4" height="46.0" rx="4" fill="#fcf4ed" stroke="#63666A" stroke-width="1.2" stroke-dasharray="5 4"/>
+<text x="617.0" y="523.1" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">Claim · Evidence · Review</text>
+<rect x="24.0" y="552.0" width="208.0" height="46.0" rx="4" fill="#f5f5f5" stroke="#C8C8C8" stroke-width="1.2"/>
+<text x="36.0" y="581.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="17" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="start">Provenance</text>
+<rect x="246.0" y="552.0" width="205.6" height="46.0" rx="4" fill="#edf8f5" stroke="#63666A" stroke-width="1.2" stroke-dasharray="5 4"/>
+<text x="348.8" y="578.1" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">Workflow Run RO-Crate</text>
+<rect x="459.6" y="552.0" width="125.1" height="46.0" rx="4" fill="#edf8f5" stroke="#63666A" stroke-width="1.2" stroke-dasharray="5 4"/>
+<text x="522.2" y="578.1" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">Croissant 1.1</text>
+<rect x="592.7" y="552.0" width="198.4" height="46.0" rx="4" fill="#edf8f5" stroke="#63666A" stroke-width="1.2" stroke-dasharray="5 4"/>
+<text x="691.9" y="578.1" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">SWHID ISO/IEC 18670</text>
+<rect x="799.1" y="552.0" width="207.5" height="46.0" rx="4" fill="#edf5fa" stroke="#63666A" stroke-width="1.2" stroke-dasharray="5 4"/>
+<text x="902.8" y="578.1" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">MLflow · OpenTelemetry</text>
+<rect x="24.0" y="607.0" width="208.0" height="46.0" rx="4" fill="#f5f5f5" stroke="#C8C8C8" stroke-width="1.2"/>
+<text x="36.0" y="636.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="17" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="start">Attestation</text>
+<rect x="246.0" y="607.0" width="132.4" height="46.0" rx="4" fill="#d6efe9" stroke="#009E73" stroke-width="2.2"/>
+<text x="312.2" y="623.1" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="middle">in-toto ·</text>
+<text x="312.2" y="643.1" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="middle">DSSE</text>
+<rect x="386.4" y="607.0" width="146.1" height="46.0" rx="4" fill="#edf5fa" stroke="#63666A" stroke-width="1.2" stroke-dasharray="5 4"/>
+<text x="459.5" y="633.1" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">Sigstore · Rekor</text>
+<rect x="540.6" y="607.0" width="158.0" height="46.0" rx="4" fill="#edf5fa" stroke="#63666A" stroke-width="1.2" stroke-dasharray="5 4"/>
+<text x="619.6" y="633.1" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">OpenTimestamps</text>
+<rect x="24.0" y="662.0" width="208.0" height="46.0" rx="4" fill="#f5f5f5" stroke="#C8C8C8" stroke-width="1.2"/>
+<text x="36.0" y="691.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="17" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="start">Storage</text>
+<rect x="246.0" y="662.0" width="165.3" height="46.0" rx="4" fill="#edf5fa" stroke="#63666A" stroke-width="1.2" stroke-dasharray="5 4"/>
+<text x="328.7" y="688.1" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">object-lock WORM</text>
+<rect x="419.3" y="662.0" width="177.3" height="46.0" rx="4" fill="#edf5fa" stroke="#63666A" stroke-width="1.2" stroke-dasharray="5 4"/>
+<text x="508.0" y="688.1" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">lakeFS working data</text>
+<rect x="24.0" y="717.0" width="208.0" height="46.0" rx="4" fill="#f5f5f5" stroke="#C8C8C8" stroke-width="1.2"/>
+<text x="36.0" y="746.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="17" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="start">External witness</text>
+<rect x="246.0" y="717.0" width="139.7" height="46.0" rx="4" fill="#edf5fa" stroke="#63666A" stroke-width="1.2" stroke-dasharray="5 4"/>
+<text x="315.9" y="733.1" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">OSF</text>
+<text x="315.9" y="753.1" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">Registries</text>
+<rect x="393.7" y="717.0" width="118.0" height="46.0" rx="4" fill="#edf8f5" stroke="#63666A" stroke-width="1.2" stroke-dasharray="5 4"/>
+<text x="452.7" y="743.1" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">DOI</text>
+<rect x="519.7" y="717.0" width="193.8" height="46.0" rx="4" fill="#edf5fa" stroke="#63666A" stroke-width="1.2" stroke-dasharray="5 4"/>
+<text x="616.6" y="743.1" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">nanopublication export</text>
+<rect x="24.0" y="772.0" width="208.0" height="46.0" rx="4" fill="#f5f5f5" stroke="#C8C8C8" stroke-width="1.2"/>
+<text x="36.0" y="801.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="17" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="start">Monitoring</text>
+<rect x="246.0" y="772.0" width="221.2" height="46.0" rx="4" fill="#d6e8f3" stroke="#0072B2" stroke-width="2.2"/>
+<text x="356.6" y="788.1" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="middle">Crossref Retraction</text>
+<text x="356.6" y="808.1" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="middle">Watch</text>
+<path d="M 1174 795.0 L 1178 795.0 L 1178 300.0 L 1174 300.0" fill="none" stroke="#CC79A7" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="6 4" marker-end="url(#arrowsm)"/>
+<path d="M 24 843 L 1176 843" fill="none" stroke="#C8C8C8" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="24.0" y="873.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="18" font-weight="700" font-style="normal" fill="#D55E00" text-anchor="start">Status</text>
+<text x="94.0" y="873.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="17" font-weight="400" font-style="normal" fill="#1A1A1A" text-anchor="start">Three cells are implemented: bibliographic corroboration, retraction monitoring, and the in-toto/DSSE envelope in its interim profile.</text>
+<text x="94.0" y="896.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="17" font-weight="400" font-style="normal" fill="#1A1A1A" text-anchor="start">Everything else is a decision, not a component that runs. The control layer this project owns is the least built part of the stack.</text>
+</svg>

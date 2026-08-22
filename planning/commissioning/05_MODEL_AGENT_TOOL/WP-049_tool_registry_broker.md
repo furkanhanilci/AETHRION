@@ -15,6 +15,14 @@
 | Related acceptance scenarios | ACC-05, ACC-12, ACC-35 |
 | Current status | `NOT_STARTED` |
 
+## Adopted component
+
+> **Cedar** policy engine — first candidate; **OPA** the recorded alternative
+
+`principal · action · resource · context` already matches `TaskContract`, `forbid` overrides `permit`, and the language has a formal semantics and schema validation. **Any policy-evaluation anomaly fails closed.** A bake-off over the same 50 policies is recorded before the choice is fixed. See `docs/architecture/ADR-003`.
+
+Rationale and adoption type: `docs/architecture/AIRL_OS_COMPONENT_REUSE.md`.
+
 ## Purpose and expected outcome
 
 Every T0–T5 tool call passes through a chain of signed tool schema, purpose, actor, scope, data class, idempotency, policy, credential lease and audit. Agents produce intent; the broker performs the effect.

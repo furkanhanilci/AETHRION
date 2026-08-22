@@ -15,6 +15,14 @@
 | Related acceptance scenarios | ACC-47, ACC-49, ACC-50, plus those assigned during the relevant vertical slice |
 | Current status | `NOT_STARTED` |
 
+## Adopted component
+
+> **Inspect AI agent bridge** — drive real harnesses rather than writing one adapter per harness
+
+Inspect can run Claude Code, Codex CLI and Gemini CLI as evaluation subjects inside a sandbox. ACC-47 (bootstrap missing), ACC-49 (ignored under pressure) and ACC-50 (lost to compaction) are Inspect tasks.
+
+Rationale and adoption type: `docs/architecture/AIRL_OS_COMPONENT_REUSE.md`.
+
 ## Purpose and expected outcome
 
 Different agent runtimes become interchangeable adapters that all satisfy the same `TaskContract`, isolation, tool, result, audit and cancellation contract.

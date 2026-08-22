@@ -15,6 +15,14 @@
 | Related acceptance scenarios | ACC-04, ACC-08, ACC-30, ACC-31 |
 | Current status | `NOT_STARTED` |
 
+## Adopted component
+
+> **AIRL-SEPIO profile** expressed in **LinkML**; **nanopub** as export only
+
+SEPIO models assertions, evidence and provenance domain-agnostically and carries *challenges* as well as *supports*, which adversarial review needs. Nanopublication is the public export representation, not the operational ledger.
+
+Rationale and adoption type: `docs/architecture/AIRL_OS_COMPONENT_REUSE.md`.
+
 ## Purpose and expected outcome
 
 Claim, evidence span, dependency, assessment, review link, decision and supersession records are held in an immutable, versioned canonical ledger. This is the system's memory of what it believes and why.

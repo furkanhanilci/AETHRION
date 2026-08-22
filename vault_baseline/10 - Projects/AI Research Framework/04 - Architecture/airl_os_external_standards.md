@@ -225,6 +225,26 @@ not work — and it is evidence this repository did not produce.
 
 ---
 
+## 4.4 Promoted out of the deferred queue — 2026-08-22
+
+A broader sweep moved four entries up, and one of them changes a package's shape
+rather than adding to it:
+
+| Standard | Now | Because |
+|---|---|---|
+| **SEPIO**, expressed in **LinkML** | **Adopted** as the claim/evidence model | SEPIO carries assertions, evidence, provenance *and challenges* domain-agnostically; LinkML generates JSON Schema, Pydantic, JSON-LD, SHACL and SQL from one model. `SchemaRegistry` is currently a dictionary with no validation — generating the contract surface is a better answer than hand-writing it, and it attacks the digest-format disagreement at its root |
+| **Croissant 1.1** (MLCommons) | **Adopted** for dataset records | Adds machine-actionable provenance via PROV-O and structured usage conditions via ODRL/DUO, which connect a dataset's licence directly to policy evaluation |
+| **SWHID — ISO/IEC 18670** | **Adopted** for software identity at G7/G9 | An intrinsic identifier computed from content and verifiable without a registry, so private code is identifiable without being archived |
+| **OSF Registries** | **Adopted** as the G2/G2b external witness | A local hash proves a plan existed; it does not prove *when* to anyone who does not trust the operator. Required at R2 confirmatory and above. Integrate against **Registries**, which continues, not Projects, which is being sunset |
+
+Nanopublication stays adopted but **as an export representation only** — the
+operational ledger is the SEPIO profile.
+
+Component-level adoption, including type and priority, is in
+[`AIRL_OS_COMPONENT_REUSE.md`](AIRL_OS_COMPONENT_REUSE.md).
+
+---
+
 ## 5. Deferred queue — with the reason, not just the name
 
 Each entry is real and each is currently **out of scope**, because adopting all

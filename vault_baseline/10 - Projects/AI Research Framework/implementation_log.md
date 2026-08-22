@@ -19,6 +19,143 @@ the last entry, the cockpit and the relevant WP files are read again.
 
 ---
 
+## Step 014 — The adoption matrix applied, and a second measurement
+
+**Time:** 2026-08-22
+**Scope:** component adoption taxonomy and matrix · G10 monitoring implemented ·
+plan updated to adopt · ADR-003 · two reporting skills · fourth figure
+
+### The principle this step settles
+
+> **AIRL-OS should not invent its own parser, screening engine, policy language,
+> sandbox, experiment tracker or scholarly identifier.** Its contribution is the
+> layer above them: which evidence, having passed which gate, permits which claim
+> to be accepted.
+
+And the framing correction that came with it: **the point is not to shrink the
+surface, it is to strengthen it.** A gate backed by a component its community
+maintains and tests is stronger than the same gate backed by first-attempt code.
+
+### Implemented: G10 monitoring, with a control that must fire
+
+`scripts/monitor_sources.py` sweeps the registry against Crossref, which now
+carries Retraction Watch data and exposes it as `update-to` / `updated-by`.
+
+| Measure | Value |
+|---|---:|
+| Sources swept | **15** of 33 |
+| **Invisible — no DOI** | **18** |
+| Material signals | 0 |
+| **Positive control** | **FIRED** |
+
+**A clean report proves nothing unless the check can fire**, so every run
+includes a known-retracted DOI and the script **exits non-zero if that control
+stays silent**. This is the metascience plane's control-injection principle
+applied at the smallest possible scale — the difference between "no retractions"
+and "no detector".
+
+And like the reference check before it, the measurement exposed its own
+boundary: **18 of 33 sources carry no DOI and are invisible to the sweep.** A
+clean report over a DOI-less registry would be a false reassurance, and the
+report says so on its face.
+
+Claim impact analysis is **not** implemented — nothing maps a retracted source to
+dependent claims, because no Claim Ledger exists. G10's loop is opened, not
+closed.
+
+### The adoption taxonomy
+
+"Reuse" was being used for six different things, which produces bad decisions —
+importing a dependency where a pattern was needed, or reimplementing a pattern as
+if it were a library. The register now types every entry:
+
+`DEPENDENCY` · `ADAPTER` · `STANDARD` · `BENCHMARK` · `PATTERN` ·
+`OPTIONAL BACKEND` · `REJECTED`
+
+**A BENCHMARK can never become a gate.** That distinction is the reason the
+taxonomy exists.
+
+### What was adopted, and what it changes
+
+| Component | Type | Changes |
+|---|---|---|
+| **Inspect AI** | DEPENDENCY | WP-043 stops being *build an evaluation engine* and becomes *encode behaviours as tasks and scorers*; WP-048 drives real harnesses through its agent bridge |
+| **GROBID + Pub2TEI** | DEPENDENCY | One canonical TEI representation, so an `EvidenceSpan` addresses `tei_xpath` with a `representation_digest` — and a later parser produces v2 **without invalidating claims anchored to v1** |
+| **Cedar** | DEPENDENCY | WP-049 integrates a policy engine with a formal semantics instead of writing conditionals; OPA is the recorded alternative behind a bake-off |
+| **CaMeL** | PATTERN | WP-136 stops being *injection detection* and becomes *trusted control / untrusted data* |
+| **OSF Registries** | DEPENDENCY | G2/G2b gains an external timestamped witness; required at R2 confirmatory and above |
+| **Workflow Run RO-Crate** | STANDARD | Priority raised: adopt **before** the first slice, so the run format is never forked |
+| **SEPIO + LinkML** | STANDARD | Promoted out of the deferred queue. Generates the contract surface from one model — which attacks the digest-format disagreement at its root |
+| **Croissant 1.1 · SWHID ISO/IEC 18670** | STANDARD | Dataset records and software identity |
+| **MLflow + OpenTelemetry** | DEPENDENCY | Observability — **never the scientific truth store** |
+| **Object-lock WORM · lakeFS** | OPTIONAL BACKEND | WP-026 becomes *integrate and verify*, not *build* |
+| **PaperBench** | PATTERN + BENCHMARK | Its three-container separation is the working demonstration of producer / reproducer / reviewer |
+| **ResearchClawBench** | BENCHMARK | Makes the central claim testable — see below |
+| Detector libraries as a boundary | **REJECTED** | A detector is defence in depth; the boundary is structural |
+
+Ten work packages now carry an **Adopted component** section stating what they
+stand on and what that changes.
+
+### ADR-003 — trusted control, untrusted data, policy
+
+Decided: control flow comes only from trusted intent; untrusted content may
+supply values but can never create actions or expand permissions; policy is
+evaluated by Cedar; **any policy-evaluation anomaly denies**. The CaMeL result is
+recorded as **67–77 % of AgentDojo tasks under provable security depending on
+paper version** — the discrepancy kept rather than rounded to the flattering
+figure.
+
+Measured against **someone else's** attack suite, deliberately: a system
+evaluated only against attacks it imagined is measuring its imagination.
+
+### Two skills: reporting and figures
+
+- **`reporting-results`** — iron law: *no sentence that does not resolve to a
+  claim, and no claim stated more broadly than its evidence*. Binds the EQUATOR
+  guideline family to study type, and records that a guideline is a completeness
+  standard, not a quality one.
+- **`producing-figures`** — a figure is a claim in visual form. Semantic model
+  before layout, archetype from structure rather than habit, exact-text
+  allowlist, colour never the only channel, final-size measured, and: **a figure
+  of a designed system states that it is designed.**
+
+51 skills.
+
+### The experiment this makes possible
+
+ResearchClawBench holds model, tools, budget and task fixed and varies only the
+governance layer. That is the paper worth writing — *does research governance
+improve autonomous research integrity, and at what cost?* — and the honest
+expectation is that governance costs runtime and may not raise the score.
+**Both outcomes are publishable; only one is flattering.**
+
+### Evidence
+
+- `monitor_sources.py` → 15 swept, 0 material, **control fired**; report recorded
+- `verify_references.py` → 27/33 corroborated
+- 25/25 tests · 51/51 skills · plan semantics OK · documents consistent
+- **4/4 figures**, 0 overflow · seal 207/207 · mirror drift 0
+
+A checker bug was fixed along the way: `check_figures.py` measured XML-escaped
+text, counting `&#x27;` as six characters and reporting an overflow that did not
+exist. It now unescapes before measuring.
+
+### Limits
+
+- Every adoption in the matrix except the three Crossref-family checks is a
+  **decision, not a component that runs**.
+- The control layer this project owns is the least built part of the stack, and
+  the fourth figure says so.
+- No end-to-end run. No CoE Audit score beyond check 1. BVC-01 still staged.
+
+### Next step
+
+Activate BVC-01, sign WP-000's acceptance, then the first end-to-end slice —
+built on adopted components from the start rather than retrofitted onto
+first-attempt code.
+
+---
+
 ## Step 013 — Building on mature components, and the first measurement
 
 **Time:** 2026-08-22

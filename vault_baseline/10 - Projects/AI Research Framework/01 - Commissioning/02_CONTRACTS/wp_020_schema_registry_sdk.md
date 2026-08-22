@@ -15,6 +15,14 @@
 | Related acceptance scenarios | Assigned during the relevant vertical slice and commissioning |
 | Current status | `NOT_STARTED` |
 
+## Adopted component
+
+> **LinkML** — the contract surface is generated from one model rather than hand-written
+
+Generate JSON Schema, Pydantic, JSON-LD, SHACL and SQL DDL from a single LinkML model. This package's failure mode is contracts defined three times in three shapes, which is how the bridge and the contract core came to disagree about digest format.
+
+Rationale and adoption type: `docs/architecture/AIRL_OS_COMPONENT_REUSE.md`.
+
 ## Purpose and expected outcome
 
 All canonical contracts are published in a single versioned registry; producer/consumer compatibility and the shared identity and validation SDKs are enforced by CI rather than by review discipline.

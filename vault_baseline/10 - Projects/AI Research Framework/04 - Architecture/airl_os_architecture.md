@@ -8,7 +8,7 @@
 |---|---|
 | Document type | Architecture reference — the single explanatory entry point |
 | Audience | A human or a model arriving with no prior context |
-| Sibling documents | `AIRL_OS_ROLES.md` (role definitions and authority flows) · `AIRL_OS_IDEAL_STRUCTURE.md` (proposed additions) · `AIRL_OS_SKILL_LAYER.md` (how agents work) · `AIRL_OS_ROLE_MODEL_ASSIGNMENT.md` (who executes what) · `AIRL_OS_EXTERNAL_STANDARDS.md` (what is adopted rather than invented) |
+| Sibling documents | `AIRL_OS_COMPONENT_REUSE.md` (what is adopted) · `AIRL_OS_ROLES.md` (role definitions and authority flows) · `AIRL_OS_IDEAL_STRUCTURE.md` (proposed additions) · `AIRL_OS_SKILL_LAYER.md` (how agents work) · `AIRL_OS_ROLE_MODEL_ASSIGNMENT.md` (who executes what) · `AIRL_OS_EXTERNAL_STANDARDS.md` (what is adopted rather than invented) |
 | Date | 2026-08-22 |
 | Status | Describes the **target architecture** and, in §10, exactly how much of it exists |
 
@@ -789,6 +789,26 @@ flowchart LR
 | **H5** | No CI | Open — highest-leverage implementable step |
 
 ---
+
+## 10.2 What this system builds, and what it stands on
+
+![The target stack, with adoption type and build status](figures/airl_os_stack.svg)
+
+*Figure 4 — Adoption type is a visual channel rather than a caption: a
+dependency, a standard, a pattern and a benchmark create different obligations.
+Solid borders mark what is implemented.*
+
+> **AIRL-OS should not invent its own PDF parser, screening engine, policy
+> language, sandbox, experiment tracker or scholarly identifier.** A gate backed
+> by a component its community maintains and tests is **stronger** than the same
+> gate backed by code written here for the first time — the point of adoption is
+> strength, not economy.
+
+The register — every component, its adoption type, its priority and what it
+changes about a work package — is
+[`AIRL_OS_COMPONENT_REUSE.md`](AIRL_OS_COMPONENT_REUSE.md). Security
+architecture and policy evaluation are decided in
+[`ADR-003`](ADR-003_trusted_control_and_policy.md).
 
 ## 11. Where everything lives
 

@@ -15,6 +15,14 @@
 | Related acceptance scenarios | ACC-30 |
 | Current status | `NOT_STARTED` |
 
+## Adopted component
+
+> **Reference verification is implemented** — Crossref · OpenAlex · arXiv
+
+`scripts/verify_references.py` resolves the registry against three authorities; the measured corroboration rate is recorded in `delivery/measurements/`. What remains in this package is the **entailment** half: does the cited passage support the claim?
+
+Rationale and adoption type: `docs/architecture/AIRL_OS_COMPONENT_REUSE.md`.
+
 ## Purpose and expected outcome
 
 For every material sentence, a structured audit verifies whether the linked evidence span actually supports the assertion, whether the scope is appropriate, and whether a contradiction exists.

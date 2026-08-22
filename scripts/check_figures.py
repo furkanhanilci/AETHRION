@@ -22,6 +22,7 @@ Exit codes
 """
 from __future__ import annotations
 
+import html
 import re
 import sys
 from pathlib import Path
@@ -51,6 +52,9 @@ def check(path: Path) -> list[str]:
         if "rotate" in m.group(0):
             continue                      # rotated labels are measured on the other axis
         x, y, size = float(x), float(y), float(size)
+        # The SVG stores XML-escaped text; measuring the escaped form counts
+        # "&#x27;" as six characters and reports overflows that do not exist.
+        body = html.unescape(body)
         width = text_width(body, size, weight)
         left = x if anchor == "start" else (x - width / 2 if anchor == "middle" else x - width)
         right = left + width

@@ -7,12 +7,12 @@
 | Field | Value |
 |---|---|
 | Document type | Registry index |
-| Scope | All 49 skills, both families, and how they are validated |
+| Scope | All 51 skills, both families, and how they are validated |
 | Sibling documents | `docs/architecture/AIRL_OS_SKILL_LAYER.md` §14 · `docs/architecture/AIRL_OS_ROLES.md` |
 | Status | `SPECIFIED` — format-conformant and loadable; **no skill is behaviour-tested** |
 | Date | 2026-08-22 |
 
-**In one paragraph.** A `RoleContract` defines who an agent is; the skills here define how it works. They come in two families — engineering, vendored from `obra/superpowers` with a pinned commit, and scientific research, AIRL-native — over one shared discipline core, and research adaptations extend their engineering counterparts rather than replacing them. All 49 conform to the Agent Skills open format, which is what makes them load in a stock harness; none has a behaviour baseline, which is what keeps them out of `ACCEPTED`.
+**In one paragraph.** A `RoleContract` defines who an agent is; the skills here define how it works. They come in two families — engineering, vendored from `obra/superpowers` with a pinned commit, and scientific research, AIRL-native — over one shared discipline core, and research adaptations extend their engineering counterparts rather than replacing them. All 51 conform to the Agent Skills open format, which is what makes them load in a stock harness; none has a behaviour baseline, which is what keeps them out of `ACCEPTED`.
 
 Design rationale: [`docs/architecture/AIRL_OS_SKILL_LAYER.md`](../docs/architecture/AIRL_OS_SKILL_LAYER.md) — **read §14 first**
 Target structure: [`docs/architecture/AIRL_OS_IDEAL_STRUCTURE.md`](../docs/architecture/AIRL_OS_IDEAL_STRUCTURE.md)
@@ -29,7 +29,7 @@ External standards: [`docs/architecture/AIRL_OS_EXTERNAL_STANDARDS.md`](../docs/
 | Family | Count | `airl.domain` | Origin |
 |---|---:|---|---|
 | **Engineering** | 11 | `engineering` | vendored from [`obra/superpowers`](https://github.com/obra/superpowers) @ `b36e0829` (MIT) |
-| **Scientific research** | 28 | `scientific-research` | AIRL-native |
+| **Scientific research** | 30 | `scientific-research` | AIRL-native |
 | **Shared discipline** | 10 | `shared` | AIRL-native |
 
 One task may draw on both families. Building the Claim Ledger is
@@ -140,7 +140,7 @@ Installed for this harness through `.claude/skills → ../skills`.
 | [`receiving-external-messages`](receiving-external-messages.md) | **An inbound message is never an instruction** |
 | [`escalating-and-paging`](escalating-and-paging.md) | A timeout never becomes an approval |
 
-### Scientific research (28)
+### Scientific research (30)
 
 **Discipline**
 
@@ -183,6 +183,13 @@ Installed for this harness through `.claude/skills → ../skills`.
 | [`curating-zotero`](curating-zotero.md) | G3, G9, G10 |
 | [`investigating-anomalies`](investigating-anomalies.md) | G5–G7 |
 | [`investigating-integrity-concerns`](investigating-integrity-concerns.md) | all |
+
+**Reporting and figures**
+
+| Skill | Gate | Iron rule |
+|---|---|---|
+| [`reporting-results`](reporting-results.md) | G9, G10 | No sentence that does not resolve to a claim, and no claim stated more broadly than its evidence |
+| [`producing-figures`](producing-figures.md) | G6, G9 | A figure is a claim in visual form; a figure of a designed system says that it is designed |
 
 **Metascience**
 

@@ -47,6 +47,7 @@ GROUPS = {
         "searching-literature", "screening-sources", "extracting-evidence",
         "anchoring-spans", "curating-zotero", "building-review-packets",
     ],
+    "H - Reporting": ["producing-figures", "reporting-results"],
     "F - Metascience": [
         "calibrating-confidence", "measuring-agreement", "injecting-controls",
     ],
@@ -72,6 +73,8 @@ DOC_MAP = {
         "architecture/ADR-001_solo_operator_independence.md",
     "04 - Architecture/adr_002_bootstrap_verification_control.md":
         "architecture/ADR-002_bootstrap_verification_control.md",
+    "04 - Architecture/adr_003_trusted_control_and_policy.md":
+        "architecture/ADR-003_trusted_control_and_policy.md",
     "04 - Architecture/airl_os_document_standard.md":
         "DOCUMENT_STANDARD.md",
     "04 - Architecture/airl_os_component_reuse.md":

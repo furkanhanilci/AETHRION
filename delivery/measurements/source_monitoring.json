@@ -1,0 +1,16 @@
+{
+  "check": "g10/source-monitoring",
+  "generated_at": "2026-08-22T14:14:23.909666+00:00",
+  "authority": "crossref",
+  "sources_total": 33,
+  "sources_with_doi": 15,
+  "sources_without_doi": 18,
+  "material_signals": 0,
+  "informational_signals": 0,
+  "positive_control": {
+    "doi": "10.1016/S0140-6736(20)31180-6",
+    "fired": true
+  },
+  "claim_impact_analysis": "not implemented \u2014 no Claim Ledger exists",
+  "signals": []
+}

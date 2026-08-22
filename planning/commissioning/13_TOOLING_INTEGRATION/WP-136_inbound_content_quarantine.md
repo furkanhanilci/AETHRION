@@ -16,6 +16,14 @@
 | Related skill | `receiving-external-messages` |
 | Current status | `NOT_STARTED` |
 
+## Adopted component
+
+> **CaMeL pattern** — trusted control / untrusted data, not a detector
+
+Control flow is derived from trusted intent; untrusted content may supply values but can never create actions or expand permissions. A detector is defence in depth, never the boundary. **AgentDojo** measures the result. See `docs/architecture/ADR-003`.
+
+Rationale and adoption type: `docs/architecture/AIRL_OS_COMPONENT_REUSE.md`.
+
 ## Purpose and expected outcome
 
 Every inbound message, email, webhook and external document is treated as

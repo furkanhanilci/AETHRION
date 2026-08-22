@@ -15,6 +15,14 @@
 | Related acceptance scenarios | ACC-39 |
 | Current status | `NOT_STARTED` |
 
+## Adopted component
+
+> **Workflow Run RO-Crate** for provenance · **MLflow + OpenTelemetry** for telemetry
+
+The run record is emitted as a Process/Workflow/Provenance Run Crate — machine-actionable, engine-independent, PROV-O mapped. MLflow answers *what did the system do*; the crate plus a signed `EvidenceManifest` answers *what may be believed*. **Operational telemetry is never the scientific truth store.**
+
+Rationale and adoption type: `docs/architecture/AIRL_OS_COMPONENT_REUSE.md`.
+
 ## Purpose and expected outcome
 
 A run is not admitted until the protocol, literature set, dataset, code, environment, prompt, model, seed, budget and execution attestation are complete; MLflow is only the tracking view.
