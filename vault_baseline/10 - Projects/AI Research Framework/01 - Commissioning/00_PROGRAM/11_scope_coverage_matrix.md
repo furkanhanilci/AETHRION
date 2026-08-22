@@ -54,7 +54,7 @@ acceptance column is a capability nobody will ever be asked to demonstrate.
 | Cost and FinOps | WP-100 | WP-111/127, ACC-09/29 |
 | Service SLO and runbooks | WP-101 | WP-118/122 |
 | Vertical integration | WP-102–108 | WP-109–115 |
-| The forty acceptance scenarios | WP-109–114, `12_ACCEPTANCE_SCENARIOS/` | WP-115 |
+| The forty-six acceptance scenarios | WP-109–114, `12_ACCEPTANCE_SCENARIOS/` | WP-115 |
 | Chaos / capacity / operational readiness | WP-116–118 | WP-119–120 |
 | Pilot / cutover / hypercare | WP-119–121 | Production |
 | Continuous assurance and operations | WP-122–130 | Day-2 control evidence |

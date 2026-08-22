@@ -1,4 +1,4 @@
-# WP-048 — Codex, OpenCode and Direct Worker Adapters
+# WP-048 — Harness Runtime Adapters: Claude Code, Codex, OpenCode, Hermes and Direct Worker
 
 ## Package card
 
@@ -12,7 +12,7 @@
 | Hard dependencies | WP-023, WP-027, WP-046, WP-047 |
 | Related gates | G5,Engineering |
 | Related controls | CTL-SEC-03, CTL-SEC-04 |
-| Related acceptance scenarios | Assigned during the relevant vertical slice and commissioning |
+| Related acceptance scenarios | ACC-42, ACC-44, ACC-45, plus those assigned during the relevant vertical slice |
 | Current status | `NOT_STARTED` |
 
 ## Purpose and expected outcome
@@ -43,6 +43,13 @@ Different agent runtimes become interchangeable adapters that all satisfy the sa
 | WP-048-T04 | Implement the direct/local queue worker adapter | Implementation owner | Commit / configuration / record reference |
 | WP-048-T05 | Bind worktree, sandbox and tool credentials | Implementation owner | Commit / configuration / record reference |
 | WP-048-T06 | Add structured results, tracing, cancellation and failure normalisation | Implementation owner | Commit / configuration / record reference |
+| WP-048-T20 | Add the **Claude Code** and **Hermes Agent** adapters alongside Codex, OpenCode and the direct worker | Implementation owner | One task executed end to end on each |
+| WP-048-T21 | Implement **skill discovery and loading** per harness, at the location each expects | Implementation owner | Loaded-skill listing per harness |
+| WP-048-T22 | Implement **automatic session bootstrap**: the router skill is present on the first turn without being asked for | Implementation owner | First-turn transcript per harness |
+| WP-048-T23 | Map **tools** per harness and reconcile names with the `ToolBundle` | Implementation owner | Mapping table + negative test for an unmapped tool |
+| WP-048-T24 | Implement **compaction and restart recovery** so the loaded procedure is not silently lost | Implementation owner | Recovery transcript per harness |
+| WP-048-T25 | Return a **structured result** and an audit trace, including cancellation | Implementation owner | Result schema conformance per harness |
+| WP-048-T26 | Run the **harness acceptance suite** — the same task, the same expected skill set, every harness | Implementation owner | Cross-harness matrix |
 
 ## Mandatory deliverables
 
@@ -53,6 +60,23 @@ Different agent runtimes become interchangeable adapters that all satisfy the sa
 - `Conformance report`
 - An updated runbook or operations note, plus the service/contract ownership record
 - A signed `EvidenceManifest`
+
+### Minimum adapter contract
+
+Every harness adapter implements the same surface, or it is not an adapter:
+
+| Capability | Why it is mandatory |
+|---|---|
+| skill discovery · loading · **automatic bootstrap** | A skill that does not load governs nothing |
+| tool mapping · context injection | The `ToolBundle` must mean the same thing everywhere |
+| session and **compaction recovery** | Governance must survive the context window |
+| structured result · cancellation · audit trace | A run that cannot be audited is not evidence |
+
+> **Format compatibility is not behavioural compatibility.** Conformance to the
+> Agent Skills format makes the registry *loadable* by Claude Code, Codex,
+> OpenCode, Cursor, Copilot, Gemini CLI and Hermes Agent. Whether each harness
+> actually loads the right skill at the right moment is what the acceptance
+> suite in this package establishes, and it is **not** established today.
 
 ## Test and verification plan
 

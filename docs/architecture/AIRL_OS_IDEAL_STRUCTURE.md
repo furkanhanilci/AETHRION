@@ -224,6 +224,14 @@ into the same dead end for the tenth time.
 
 ## A8. Role catalogue — summary
 
+> **A role is a function, not a person.** The fourteen entries below are durable
+> *functions*; they do not require fourteen people. Each is bound through a
+> `RoleBinding` carrying `must_be_independent_from`, `can_combine_with` and
+> `cannot_combine_with`, so a small operation can hold several roles legally and
+> the constraint engine states which combinations destroy independence. This is
+> the shape of the answer to **C2**, not the answer itself — which combinations
+> are acceptable remains a human decision.
+
 | Role | Status | Type | Can block |
 |---|---|---|---|
 | Project Decision Owner | existing | **human** | G8, G9 |
@@ -332,6 +340,28 @@ the **distribution** of the result. A direct defence against p-hacking.
 
 ---
 
+### B3.1 The universe must be frozen before the results exist
+
+Multiverse analysis without a pre-committed universe is a p-hacking engine with
+better vocabulary: run a thousand defensible analyses, report the pleasing one,
+and every individual step remains defensible.
+
+```yaml
+AnalysisUniverseManifest:
+  hash: "sha256:..."            # locked at G2b, before any result exists
+  dimensions:
+    - {name: outlier_rule,    options: [none, 3sd, iqr]}
+    - {name: covariate_set,   options: [minimal, full]}
+    - {name: estimator,       options: [ols, robust]}
+  enumeration: exhaustive        # or an explicitly declared, seeded sample
+  reporting: "the FULL distribution, not a selected member"
+  primary_specification: <one member, named in advance>
+```
+
+Two rules make it work: **the universe is enumerated before results exist**, and
+**the whole distribution is reported** — the primary specification is named in
+advance and reported alongside the spread, never chosen from it afterwards.
+
 ## B4. ACM artifact badge levels — a terminology correction
 
 **The problem:** your document mentions the triple `repeatability,
@@ -436,6 +466,36 @@ They run in the E1 layer (mechanical), **before** expensive model review.
 GRIM.**
 
 ---
+
+### B7.1 Applicability is part of the check
+
+statcheck, GRIM, GRIMMER, SPRITE and Benford are **conditionally valid
+instruments**, not universal verifiers. GRIM is meaningful only for a mean
+reported from a known-size sample on a discrete scale; Benford's law is a false
+positive factory when applied to data that has no reason to follow it. A check
+run outside its applicability conditions does not produce a weak signal — it
+produces a wrong one.
+
+```yaml
+ForensicCheckRegistry:
+  - check: GRIM
+    applicability:
+      discrete_scale: true
+      mean_reported: true
+      sample_size_known: true
+    verdict: PASS | FAIL | NOT_APPLICABLE      # NOT_APPLICABLE is a first-class result
+```
+
+**And a failing check opens a flag, not an accusation:**
+
+```
+ForensicFlag  →  triage  →  IntegrityCase
+```
+
+An anomaly is not fabrication. Wiring `GRIM failed` directly to an integrity
+case means the laboratory manufactures accusations at the rate of its own false
+positive rate — and for a system whose central claim is that it distinguishes
+signal from plausibility, that failure would be self-refuting.
 
 ## B8. Pre-mortem (before G4)
 
@@ -589,10 +649,32 @@ And that is precisely the definition of your own `PR-12 — False Rigor` risk.
    outcome data for a dimension, display `UNCALIBRATED` instead of a number.
    **False precision is forbidden.**
 
-**And the combination rule:** do not multiply, do not average. These dimensions are
-not independent and they measure different things. My proposal: **the weakest-link
-rule** — `claim_strength = min(dimensions)`, with the binding dimension named
-explicitly. A claim is only as strong as its weakest evidential dimension.
+**And the combination rule:** do not multiply, do not average. These dimensions
+are not independent and they measure different things.
+
+**Revised, 2026-08-22 — the vector is canonical; the scalar is not published.**
+The weakest-link idea survives, because it is the anti-false-rigor choice: a
+claim is only as strong as its weakest evidential dimension. What does not
+survive is emitting that as a *number*, because `0.72` invites reading as a
+probability that nothing in the system computes.
+
+```yaml
+claim_assurance:                 # canonical, always the vector
+  identity:        calibrated
+  entailment:      calibrated
+  method_validity: qualified
+  independence:    weak
+  reproducibility: strong
+  scope_fit:       strong
+  currency:        current
+binding_constraint: independence   # the weakest dimension, named
+```
+
+`binding_constraint` preserves the ordering that `min()` gave — two claims can
+still be compared by their weakest dimension — without asserting a magnitude the
+dimensions cannot support. **`claim_strength` is not a published field.** Where a
+dimension lacks outcome data it reads `UNCALIBRATED`, and a claim whose binding
+constraint is `weak` says so in words rather than hiding inside an average.
 
 ---
 
@@ -656,8 +738,15 @@ approving.
 
 **The mechanism:**
 
+> **Architecture states that a quota exists; policy holds the number.** The
+> figure below is an initial `HumanAttentionPolicy` value, not an architectural
+> constant — it is expected to change with evidence, and a number frozen into an
+> architecture document is a number nobody dares revise. The invariant is *there
+> is a hard quota and it is enforced*; `5` is this policy version's value.
+
 ```yaml
-HumanAttentionBudget:
+HumanAttentionPolicy:
+  policy_version: "attention@1.0.0"
   max_g8_decisions_per_week: 5          # A HARD QUOTA, not an SLA
   min_evidence_view_seconds: <computed from the packet>
   mandatory_disagreement_exposure: true  # open disagreement cannot be hidden

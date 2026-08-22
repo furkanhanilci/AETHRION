@@ -76,6 +76,8 @@ DOC_MAP = {
         "architecture/FOUNDATION.md",
     "02 - Reviews/claude_framework_audit_report.md":
         "review/FRAMEWORK_REVIEW_2026-08-21_CLAUDE.md",
+    "02 - Reviews/remediation_verification_2026-08-22.md":
+        "review/2026-08-22_remediation_verification.md",
     "02 - Reviews/claude_full_framework_review_prompt.md":
         "review/CLAUDE_FULL_FRAMEWORK_REVIEW_PROMPT.md",
     "04 - Architecture/airl_os_ideal_structure.md":

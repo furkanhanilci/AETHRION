@@ -21,7 +21,8 @@
 Every inbound message, email, webhook and external document is treated as
 **Zone 3**.
 
-> **Invariant:** An inbound message is never an instruction. It is data, not a
+> **Invariant:** **Untrusted human-readable inbound content is never an
+> instruction.** It is data, not a
 > command.
 
 Outbound traffic is a **data exfiltration** risk; inbound traffic is a **control
@@ -55,6 +56,7 @@ tag → **no instruction extraction**.
 | WP-136-T04 | Mandatory `<untrusted-external-content>` tagging | Untagged external content cannot enter context |
 | WP-136-T05 | Enforce the ban on instruction extraction | No task is generated from inbound text |
 | WP-136-T06 | Route inbound messages to the right flow (G0 intake / note / source / feed) | Each type reaches the correct flow |
+| WP-136-T07 | Separate **data** from **control** at the boundary: human-readable content can never become a command, while an authenticated, signed, structured `CommandIntent` may — subject to its own authorisation | Two negative tests and one positive test |
 
 ## Mandatory deliverables
 
@@ -69,6 +71,19 @@ tag → **no instruction extraction**.
 - **Prompt injection:** an email and a PDF carrying embedded instructions → agent behaviour is unchanged
 - **Untagged content:** untagged external content cannot enter context (negative test)
 - **Forged sender:** a message failing DKIM/DMARC stays in quarantine
+### Data versus control — why the invariant is worded narrowly
+
+| Class | Example | May it cause an effect? |
+|---|---|---|
+| **Untrusted content** | email body, PDF text, chat message, web page, abstract | **Never.** It is quarantined data, whatever it says |
+| **Authenticated command** | a signed, structured `CommandIntent` from a registered service identity | Possibly — through its own authorisation path, never by being persuasive |
+
+Writing the invariant as "an inbound *message* is never an instruction" would
+also forbid legitimate machine-to-machine automation later. The line that
+matters is not inbound versus outbound; it is **persuasion versus
+authentication**. A prompt-injection payload and a polite request are the same
+class of object; a signed command from a known identity is a different one.
+
 - **Approval attempt:** an "I approve" in an inbound message produces no decision
 - **Unknown sender:** the content does not enter context; a summary is reported to a human
 

@@ -13,13 +13,14 @@ means a defined set of integration evidence exists.
 
 | Wave | Objective | Package range | Exit evidence |
 |---|---|---|---|
+| **WB — Bootstrap** | Make acceptance possible at all: interim evidence attestation | **WP-000** | One signed, logged, verified specimen `EvidenceManifest` |
 | W0 — Programme lock | Fix scope, ownership, risk and the acceptance system | WP-001–010 | Signed operating model and policy drafts |
 | W1 — Contract spine | Fix identity, schema and canonical ownership | WP-011–020 | Contract compatibility and schema registry pass |
 | W2 — Platform backbone | Environment, GitOps, data, event and artifact foundations | WP-021–031, WP-051, WP-055–059 | Foundation health, identity and policy smoke tests |
 | W3 — Control and runtime | Run the workflow, agent, model, broker and sandbox | WP-032–060 | Replay, route, tool and sandbox tests |
 | W4 — Knowledge and evidence | Literature, Source Registry, Claim Ledger, experiment and review path | WP-061–090 | Source→claim→run→review lineage pass |
 | W5 — Human and visibility | Cockpit, decision queue, graphs, telemetry and FinOps | WP-091–101 | Human decision and end-to-end correlation pass |
-| W6 — Vertical integration | Integrate the G0–G10 and engineering flows | WP-102–115 | Vertical slices and 40 acceptance tests |
+| W6 — Vertical integration | Integrate the G0–G10 and engineering flows | WP-102–115 | Vertical slices and 46 acceptance tests |
 | W7 — Commissioning | Security, resilience, DR, capacity, audit and pilot | WP-116–119 | Commissioning dossier; zero critical findings |
 | W8 — Cutover | Rehearsal, production opening and hypercare | WP-120–121 | Go-live `DecisionRecord` and stabilisation |
 | W9 — Day-2 | Continuous assurance and operation | WP-122–130 | Periodic control-effectiveness records |

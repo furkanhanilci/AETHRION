@@ -1,4 +1,4 @@
-# WP-043 — Role-Based Model Evaluation and Golden Set Management
+# WP-043 — Role-Based Model and **Skill** Evaluation, and Golden Set Management
 
 ## Package card
 
@@ -43,6 +43,28 @@ Contamination-protected, versioned evaluation sets and measurement rubrics are b
 | WP-043-T04 | Calibrate the deterministic graders and the human rubrics | Implementation owner | Commit / configuration / record reference |
 | WP-043-T05 | Add validated-precision, incremental-finding, cost, triage and latency metrics | Implementation owner | Commit / configuration / record reference |
 | WP-043-T06 | Write the evaluation manifest and its release process | Implementation owner | Commit / configuration / record reference |
+| WP-043-T20 | Build the **skill behaviour baseline (RED) harness**: run the scenario *without* the skill and capture the failure verbatim | Implementation owner | Baseline transcripts per skill |
+| WP-043-T21 | Capture **rationalizations verbatim** and replace every anticipated rationalization table with observed ones | Implementation owner | Diff of anticipated → observed tables |
+| WP-043-T22 | Write **pressure scenarios**: time pressure, authority pressure, sunk cost, partial success, "just this once" | Implementation owner | Pressure transcripts + verdicts |
+| WP-043-T23 | Test **trigger resolution**: right skill, wrong skill, no skill, two competing skills | Implementation owner | Trigger confusion matrix |
+| WP-043-T24 | Test **skill survival**: context compaction, session restart, long-run drift | Implementation owner | Recovery transcripts |
+| WP-043-T25 | Run **cross-model and cross-harness** compliance for every non-waivable skill | Implementation owner | Compliance matrix per model × harness |
+
+### What "skill evaluation" means here
+
+Format conformance is checked by `scripts/validate_skills.py` and is **not**
+evaluation. This package answers the questions that script explicitly does not:
+
+| Question | Failure it catches |
+|---|---|
+| Does the agent load the skill in the situation the trigger describes? | The skill exists and is never reached |
+| Does loading it change behaviour? | Decorative procedure |
+| Does it hold under pressure? | Compliance that evaporates when it costs something |
+| What does the agent say while evading it? | The rationalization table, which is the only defence a non-waivable rule has |
+| Does the procedure survive compaction and restart? | Silent loss of governance mid-run |
+
+**A skill without an observed baseline is not `ACCEPTED`**, regardless of how
+well written it is.
 
 ## Mandatory deliverables
 
@@ -51,6 +73,10 @@ Contamination-protected, versioned evaluation sets and measurement rubrics are b
 - `Grader/rubric bundle`
 - `Contamination controls`
 - `Eval scorecard`
+- `Skill behaviour baseline harness` and the per-skill RED transcripts
+- `Observed rationalization tables` replacing the anticipated ones
+- `Pressure`, `trigger` and `survival` scenario suites
+- `Cross-model × cross-harness compliance matrix`
 - An updated runbook or operations note, plus the service/contract ownership record
 - A signed `EvidenceManifest`
 

@@ -15,10 +15,10 @@ implementation**; the table below separates the two.
 | Zotero → Obsidian projection | ✅ Working, read-only at the Zotero boundary | `src/airl_bridge/obsidian.py` |
 | Hermes MCP access | ✅ Working, five read-only tools | `src/airl_bridge/mcp_server.py` |
 | Shared contract core | ⚠️ `TECH_COMPLETE` — no production consumer | `src/airl_framework/` |
-| Skill registry (49 skills, two families) | ✅ Format-conformant and loadable · 📐 behaviour **not yet tested** | `skills/` |
+| Skill registry (49 skills, two families) | ✅ Format-conformant · ⚠️ wired for Claude Code only · 📐 behaviour **not yet tested** | `skills/` |
 | Obsidian information architecture | ✅ V0 ready | `vault_baseline/` |
 | Target architecture and skill layer | 📐 Designed, awaiting decision | `docs/architecture/` |
-| Full commissioning programme | ⬜ Planned, not started | `planning/commissioning/` |
+| Commissioning programme — **baseline v1.0** | ⬜ Planned, not started; 141 packages, 46 scenarios | `planning/commissioning/` |
 | Interim evidence policy (WP-000) | 📐 Written — unblocks the storage half of C1 | `planning/commissioning/01_GOVERNANCE/` |
 
 ## Layout
@@ -27,7 +27,7 @@ implementation**; the table below separates the two.
 src/          Bridge component and the shared contract core
 tests/        Test suite
 skills/       49 skills — HOW agents work; engineering + scientific + shared
-planning/     WP-000, WP-001..140, ACC-01..40 (hash-sealed canonical plan)
+planning/     WP-000, WP-001..140, ACC-01..46 (hash-sealed canonical plan, baseline v1.0)
 docs/         Architecture, review and operations documents
 schemas/      Shared contract schemas
 delivery/     Per-package evidence packages
@@ -41,7 +41,7 @@ vault_baseline/  Versioned copy of the Obsidian vault
 | Question | Document |
 |---|---|
 | **What is this system?** — explained and diagrammed | [`docs/architecture/AIRL_OS_ARCHITECTURE.md`](docs/architecture/AIRL_OS_ARCHITECTURE.md) |
-| What actually exists today? | [`docs/review/`](docs/review/) — evidence-based independent audit |
+| What actually exists today? | [`docs/review/2026-08-22_remediation_verification.md`](docs/review/2026-08-22_remediation_verification.md) — current state against the frozen audit |
 | **What** should be added to the target architecture? | [`docs/architecture/AIRL_OS_IDEAL_STRUCTURE.md`](docs/architecture/AIRL_OS_IDEAL_STRUCTURE.md) |
 | **How** should agents work? | [`docs/architecture/AIRL_OS_SKILL_LAYER.md`](docs/architecture/AIRL_OS_SKILL_LAYER.md) · [`skills/README.md`](skills/README.md) |
 | **Who** performs each role — human, model or code? | [`docs/architecture/AIRL_OS_ROLE_MODEL_ASSIGNMENT.md`](docs/architecture/AIRL_OS_ROLE_MODEL_ASSIGNMENT.md) |
@@ -149,14 +149,18 @@ flowchart TD
     IPA["In-Principle Acceptance<br/>accepted on method, not on outcome"]
     G3["G3 Literature<br/>LiteratureSetManifest"]
     G4["G4 Baseline<br/>BaselineBundle · FalsificationPlan"]
-    G5["G5 Execute<br/>ExperimentRun · NO MODEL IN THE LOOP"]
+    G5["G5 Execute<br/>ExperimentRun · no agentic<br/>methodological discretion"]
     G6["G6 Assurance<br/>mechanical, blind, adversarial, disagreement"]
     G7A["G7a Reproduction<br/>same manifest, same seed · deterministic"]
     G7B["G7b Replication<br/>different implementation · distribution test"]
     G8["G8 Decision<br/>DecisionRecord · HUMAN ONLY"]
     G9["G9 Publish<br/>PublicationPackage"]
     G10["G10 Monitor<br/>retraction · citation · CVE · conflict"]
-    G0 --> G1 --> G2 --> G2B --> IPA --> G3 --> G4 --> G5 --> G6
+    G0 --> G1 --> G2 --> MODE{"research_mode?"}
+    MODE -->|exploratory| G3
+    MODE -->|replication| RC["Locked replication contract"] --> G3
+    MODE -->|confirmatory| G2B --> IPA --> G3
+    G3 --> G4 --> G5 --> G6
     G6 --> G7A --> G7B --> G8 --> G9 --> G10
     G10 -.->|"material signal"| G2
     G6 -.->|"three failed explanations"| G2
@@ -186,6 +190,19 @@ flowchart TD
 commitment made *before* the result exists, publication bias survives every
 other control — the protocol is frozen, the result comes back negative, and the
 human simply declines to publish.
+
+It is **conditional, not universal**: required for `confirmatory` work, a locked
+replication contract for `replication`, and not required for `exploratory` work —
+which in exchange may never label its claims confirmatory. Forcing Registered
+Report ceremony onto exploration would only teach people to mislabel confirmatory
+work as exploratory. The classification is fail-closed: absent or ambiguous, it
+resolves to `confirmatory`.
+
+**"No model at G5"** means no *agentic methodological discretion* during a frozen
+execution. The subject of the experiment may itself be a model — a frozen model
+under test, a preregistered inference pipeline. What is forbidden is an agent
+changing a threshold or a stopping point mid-run because the result looks wrong.
+The model may be the instrument; it may not be the methodologist.
 
 **Inside G6**, the heaviest gate:
 
@@ -282,10 +299,16 @@ flowchart TD
 | Reviewer sees the diff, not the reasoning | Reviewer sees the packet, not the trace | Information asymmetry is what makes review independent |
 | Verification before "done" | Verification before "claimed" | Memory is not evidence |
 
-Skills conform to the [Agent Skills open standard](https://agentskills.io), so
-the same directory loads unmodified in Claude Code, Codex, OpenCode, Cursor,
-Copilot, Gemini CLI and Hermes Agent. **A skill that does not load governs
-nothing**, so conformance is checked mechanically by `scripts/validate_skills.py`.
+Skills conform to the [Agent Skills open standard](https://agentskills.io),
+which Claude Code, Codex, OpenCode, Cursor, Copilot, Gemini CLI and Hermes Agent
+all implement — so the registry is **format-compatible** with each of them.
+**A skill that does not load governs nothing**, so conformance is checked
+mechanically by `scripts/validate_skills.py`.
+
+> Format compatibility is not behavioural compatibility. Whether a harness loads
+> the right skill at the right moment, and keeps it across context compaction, is
+> what ACC-42, ACC-44 and ACC-45 establish under WP-048 — and that is **not**
+> established today. Only the Claude Code path is wired, via `.claude/skills`.
 
 ## 6. How evidence is signed
 
@@ -307,9 +330,14 @@ flowchart TD
     style G fill:#fee2e2,stroke:#b91c1c,color:#000
 ```
 
-**Immutability is delegated, not deferred.** This resolves the *storage* half of
-C1 only — finding **C2**, who may act as an independent verifier in a one-person
-operation, is a decision no standard can make. See
+**Immutability is delegated, not deferred.** Rekor is a tamper-evident
+transparency record **for signed metadata**, not an artifact store — WP-026 is
+deferred behind it, not cancelled. And this resolves the *storage* half of C1
+only: finding **C2**, who may act as an independent verifier in a one-person
+operation, is a decision no standard makes. What the architecture now supplies is
+its *shape* — independence expressed as `RoleBinding` separation constraints
+rather than headcount, so one person holding several roles can be modelled
+honestly. See
 [`AIRL_OS_EXTERNAL_STANDARDS.md`](docs/architecture/AIRL_OS_EXTERNAL_STANDARDS.md).
 
 ## 7. Target versus reality
@@ -323,7 +351,7 @@ flowchart LR
         D["Temporal · LangGraph · NATS<br/>Tool Broker · Execution Broker<br/>Claim/Evidence Ledger · Run Registry<br/>Model Gateway · G0-G10 engine<br/>Review pipeline · Metascience plane"]
     end
     subgraph WRITTEN["WRITTEN - untested"]
-        S["49 skills · role-to-model assignment<br/>140 work packages · 40 scenarios"]
+        S["49 skills · role-to-model assignment<br/>141 work packages · 46 scenarios"]
     end
     WORKING -->|"the distance is much larger<br/>than the documentation implies"| DESIGNED
     style WORKING fill:#dcfce7,stroke:#15803d,color:#000
@@ -457,11 +485,11 @@ verify in a one-person operation — remains open, and no standard resolves it.
 ## Verification
 
 ```
-20/20 tests pass · plan seal 196/196 OK · service and timer active
+20/20 tests pass · plan seal 202/202 OK · service and timer active
 MCP smoke: 5 read-only tools, exits 1 when the Bridge is down
 Acceptance: 11 structural checks pass, data-independent
 Skills: 49/49 conform to the Agent Skills format and the AIRL metadata contract
-Mirror drift: 0 (197 plan files, 58 skill/doc files)
+Mirror drift: 0 (203 plan files, 59 skill/doc files)
 Obsidian baseline and vault identical
 ```
 

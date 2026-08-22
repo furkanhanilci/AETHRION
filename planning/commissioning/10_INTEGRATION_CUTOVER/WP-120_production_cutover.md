@@ -69,7 +69,7 @@ On the strength of the signed commissioning dossier and the rehearsal, the chang
 ## Acceptance criteria
 
 - [ ] The Commissioning Dossier is READY.
-- [ ] 40/40 PASS with open critical findings = 0.
+- [ ] 46/46 PASS with open critical findings = 0.
 - [ ] Every production digest is signed and pinned.
 - [ ] The go-live decision is taken by named executives, SRE and Safety.
 - [ ] All mandatory tests passed **on the same target revision**.

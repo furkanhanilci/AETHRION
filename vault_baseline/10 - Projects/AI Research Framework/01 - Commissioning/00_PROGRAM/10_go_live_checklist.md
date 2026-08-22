@@ -3,7 +3,7 @@
 ## Mandatory entry conditions
 
 - [ ] WP-001–119 `COMMISSIONED` in their respective states.
-- [ ] ACC-01–ACC-40 PASS on the same release candidate.
+- [ ] ACC-01–ACC-46 PASS on the same release candidate.
 - [ ] Open critical findings = 0.
 - [ ] Open high findings = 0, or a time-boxed, non-waivable residual risk
       accepted by the Commissioning Board.

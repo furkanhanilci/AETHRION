@@ -1,6 +1,6 @@
-# ACC-01 – ACC-40 System Acceptance Scenarios
+# ACC-01 – ACC-46 System Acceptance Scenarios
 
-This directory holds the forty binding scenarios for production commissioning.
+This directory holds the forty-six binding scenarios for production commissioning.
 Every scenario runs on the **same release candidate**, with an independent
 witness, and produces a signed evidence manifest.
 
@@ -50,18 +50,34 @@ correctly declined to act.
 | [ACC-38 — Critical Reviewer Unavailable](ACC-38_reviewer_unavailable.md) | Assurance/Operations | High | Assurance Lead | WP-045, WP-088, WP-105, WP-113, WP-126 |
 | [ACC-39 — Negative Research Result](ACC-39_negative_result.md) | Research/Portfolio | Medium | Scientific Owner | WP-081, WP-082, WP-083, WP-104, WP-113 |
 | [ACC-40 — Complete Project Audit Export](ACC-40_audit_export.md) | Audit/Operations | Critical | Internal Audit Lead | WP-099, WP-106, WP-109, WP-112, WP-114 |
+| [ACC-41 — Task Runs With No Skill Loaded](ACC-41_skill_not_loaded.md) | Agent/Skill Governance | Critical | Assurance Lead | WP-013, WP-046, WP-047, WP-048 |
+| [ACC-42 — Harness Starts Without the Skill Bootstrap](ACC-42_skill_bootstrap_missing.md) | Agent/Skill Governance | Critical | Model Platform Lead | WP-047, WP-048 |
+| [ACC-43 — Wrong or Competing Skill Selected](ACC-43_wrong_skill_selected.md) | Agent/Skill Governance | High | Eval Office | WP-043, WP-047 |
+| [ACC-44 — Non-Waivable Skill Ignored Under Pressure](ACC-44_skill_ignored_under_pressure.md) | Agent/Skill Governance | Critical | Red Team Lead | WP-043, WP-046, WP-088 |
+| [ACC-45 — Procedure Lost to Context Compaction or Restart](ACC-45_skill_lost_on_compaction.md) | Agent/Skill Governance | High | Control Plane Lead | WP-046, WP-048 |
+| [ACC-46 — Upstream Change Invalidates a Derived Skill](ACC-46_upstream_skill_drift.md) | Agent/Skill Governance | High | Knowledge Steward | WP-013, WP-047 |
 
 ## Commissioning rule
 
 - A Critical scenario can never be counted as PASS through a SKIP or a waiver.
-- All forty scenarios run against the same RC digest and bundle baseline.
+- All forty-six scenarios run against the same RC digest and bundle baseline.
 - When a new RC is produced, at minimum the affected scenarios plus the platform baseline regression are rerun.
-- Final go-live condition: **`40/40 PASS`**, zero open Critical findings, and a verified Commissioning Dossier.
+- Final go-live condition: **`46/46 PASS`**, zero open Critical findings, and a verified Commissioning Dossier.
 
 ## Severity distribution
 
 | Severity | Count |
 |---|---:|
-| Critical | 26 |
-| High | 12 |
+| Critical | 29 |
+| High | 15 |
 | Medium | 2 |
+
+## Added in commissioning baseline v1.0 — skill governance
+
+ACC-41 – ACC-46 close a gap the baseline could not ship without: before them,
+**no scenario tested the skill layer at all**. A registry that loads nowhere, a
+procedure that is silently dropped at compaction, or a non-waivable rule that
+evaporates under deadline pressure would all have passed commissioning unnoticed.
+
+Four of the six pass by demonstrating a **refusal**, which is the intended
+proportion: the skill layer's value is measured by what it prevents.

@@ -90,6 +90,19 @@ a proxy for the measurement, and it should be retired once the measurement exist
 
 ## 2. Model pool
 
+> **Layering, 2026-08-22.** The table below is a **dated snapshot, not
+> architecture.** Prices, context windows and introductory discounts decay in
+> months; the policy they serve does not. Three layers, kept apart:
+>
+> | Layer | Contains | Changes |
+> |---|---|---|
+> | **Architecture / ADR** | R1 → one qualified reviewer · R2 → different provider family · R3 → reproducibility-qualified local model | rarely, by decision |
+> | **Capability Registry** (WP-042) | provider, model id, price, context, qualification status | continuously |
+> | **Model Profile Snapshot** | `effective_from`, `effective_until`, evaluation digest | per qualification run |
+>
+> When WP-042 exists, this section becomes a pointer to it and the numbers below
+> are deleted rather than maintained in two places.
+
 Prices are per 1M tokens (input / output).
 
 | Tier | Model | Price | Context | Why this one |
@@ -133,6 +146,12 @@ so at least two provider families exist. Plus 48 GB VRAM for the local tier.
 
 ### 3.1 Durable functions
 
+> **Role is a function, not a person.** Every row below is bound through a
+> `RoleBinding` with explicit `must_be_independent_from` / `can_combine_with` /
+> `cannot_combine_with` constraints. One person may hold several of these roles
+> legally; independence is a property of the *separation constraints*, never of
+> the headcount. See `AIRL_OS_ARCHITECTURE.md` §6.1 and WP-013.
+
 | Role | Actor | Model | Note |
 |---|---|---|---|
 | Project Decision Owner | 👤 | — | **Never a model.** Signs G8/G9 |
@@ -173,9 +192,14 @@ so at least two provider families exist. Plus 48 GB VRAM for the local tier.
 
 ### 3.3 Three invariants
 
-1. **There is no model at G5** (unless the model is the subject of the
-   experiment). This is the cleanest layer of the laboratory — protect it.
-2. **There is no model at G7a.** It either reproduces or it does not.
+1. **No agentic methodological discretion during a frozen G5 execution.** The
+   subject of an experiment may itself be a model — a frozen model under test, a
+   preregistered inference pipeline, an RL policy. What is forbidden is a
+   research agent changing a threshold, metric, stopping point or sample mid-run
+   because the result looks wrong. The model may be the instrument; it may not
+   be the methodologist. This is the cleanest layer of the laboratory — protect it.
+2. **The same at G7a**, more strictly: it runs the frozen manifest and reports
+   what happened. It reproduces or it does not.
 3. **At G8 a model produces only a recommendation.** This is already
    non-waivable ✅
 
@@ -250,8 +274,10 @@ scenarios, 3 reviewers):
 | **Total (Anthropic side)** | | | **~$30** |
 
 Prompt caching and batching roughly halve that figure. **The real cost is not the
-models — it is human decision capacity.** The attention budget (five G8 decisions
-per week) is the actual bottleneck, and no amount of model spend relieves it.
+models — it is human decision capacity.** The attention budget — five G8
+decisions per week under `attention@1.0.0`, a policy value rather than an
+architectural constant — is the actual bottleneck, and no amount of model spend
+relieves it.
 
 ---
 

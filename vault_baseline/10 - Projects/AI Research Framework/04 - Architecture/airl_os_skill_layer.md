@@ -947,10 +947,17 @@ AIRL-OS does two different jobs, and only one of them is research.
 | **Building AIRL-OS** — Temporal workflows, the Tool Broker, the Source Registry, the Claim Ledger, harness adapters | agents working in this repository, today | **engineering**: TDD, systematic debugging, worktrees, code review |
 | **Doing research through AIRL-OS** — protocol, evidence, claim, review, publication | agents working inside a runtime that does not exist yet | **scientific**: preregistration, evidence anchoring, blind review |
 
-The evidence that the replacement reading was wrong is visible in the repository:
-**all 12 engineering skills are absent from `skills/`**, while AIRL-OS is itself
-being built by agents. The laboratory wrote down how to conduct research and
-threw away how to build the laboratory.
+The evidence that the replacement reading was wrong was visible in the
+repository at the time this correction was written: **all 12 engineering skills
+were absent from `skills/`**, while AIRL-OS was itself being built by agents. The
+laboratory had written down how to conduct research and thrown away how to build
+the laboratory.
+
+> **State after implementation.** 11 upstream engineering skills are vendored
+> verbatim; 3 upstream procedures (`using-superpowers`, `writing-skills`,
+> `verification-before-completion`) are represented by AIRL router/shared
+> adaptations; the registry holds **49 conformant skills**. The paragraphs below
+> describe the situation this decision responded to, not the situation today.
 
 ### 14.2 The principle
 
@@ -999,12 +1006,14 @@ harness AIRL-OS targets, including the one in use today.
 **Consequence for WP-048:** per-harness bootstrap adapters are largely
 unnecessary. Conformance to the format *is* the bootstrap.
 
-But all 38 current skills are **non-conformant**. The spec permits exactly six
-top-level frontmatter fields — `name`, `description`, `license`,
-`compatibility`, `metadata`, `allowed-tools` — and every other key belongs under
-`metadata` as a string map. The current files declare `version`, `gates`,
-`roles`, `assurance_classes`, `emits`, `mechanical_checks`, `non_waivable`,
-`requires_skills`, `data_class_ceiling` and `tool_effect` at the top level.
+At the time of this decision all 38 skills were **non-conformant**. The spec
+permits exactly six top-level frontmatter fields — `name`, `description`,
+`license`, `compatibility`, `metadata`, `allowed-tools` — and every other key
+belongs under `metadata` as a string map. The files then declared `version`,
+`gates`, `roles`, `assurance_classes`, `emits`, `mechanical_checks`,
+`non_waivable`, `requires_skills`, `data_class_ceiling` and `tool_effect` at the
+top level. **All 49 skills now conform**, and `scripts/validate_skills.py`
+keeps them that way.
 
 The required shape:
 
@@ -1039,13 +1048,14 @@ re-examined?
 
 ### 14.6 What follows from this decision
 
-| # | Work | Cost |
+| # | Work | State |
 |---|---|---|
-| 1 | Migrate all 38 skills to spec-conformant frontmatter; add `skills-ref validate` to CI | small, mechanical |
-| 2 | Add the engineering family — installed from upstream with a pinned commit, **not** re-authored as AIRL prose | small |
-| 3 | `using-airl-os` becomes the router: it selects the family from `execution_path` + `research_mode` | small |
-| 4 | Skill-family binding into `TaskContract` | waits for WP-047 |
-| 5 | Reflect the skill layer into the sealed commissioning plan (WP-043/047/048 carry **zero** mentions of skills today; so do all 40 acceptance scenarios) | requires a recorded plan change and a re-seal |
+| 1 | Migrate all skills to spec-conformant frontmatter; enforce it mechanically | ✅ **done** — 49/49, `scripts/validate_skills.py` |
+| 2 | Add the engineering family — installed from upstream with a pinned commit, **not** re-authored as AIRL prose | ✅ **done** — 11 vendored @ `b36e0829` |
+| 3 | `using-airl-os` becomes the router: family first, then `research_mode` × `execution_path` | ✅ **done** |
+| 4 | Skill binding into `TaskContract` | 📐 **specified** in WP-013; not built |
+| 5 | Reflect the skill layer into the sealed commissioning plan | ✅ **bound in baseline v1.0** — WP-013/043/047/048 and ACC-41–46; re-sealed at 202 files |
+| 6 | Behaviour-test the skills — RED baselines, pressure, triggers, compaction | ❌ **not started**; WP-043 owns it |
 
 ---
 

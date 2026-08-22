@@ -89,9 +89,18 @@ Installed for this harness through `.claude/skills → ../skills`.
 | [`receiving-code-review`](receiving-code-review.md) | A review verdict arrived | `receiving-review` |
 | [`finishing-a-development-branch`](finishing-a-development-branch.md) | A branch is closing | `finishing-a-project` |
 
-> Upstream's `using-superpowers` and `writing-skills` are **not** vendored: the
-> shared `using-airl-os` is the single router, and `writing-skills` is the AIRL
-> adaptation covering both families.
+> **Why 11 and not 14.** Upstream ships 14 skills. Three are represented by AIRL
+> adaptations rather than vendored verbatim, because each governs both families
+> and must speak AIRL's vocabulary:
+>
+> | Upstream skill | Represented by | Why not vendored |
+> |---|---|---|
+> | `using-superpowers` | `using-airl-os` | One router, or the agent gets two conflicting entry points |
+> | `writing-skills` | `writing-skills` (shared) | Must carry the AIRL metadata contract and baseline rules |
+> | `verification-before-completion` | `verification-before-completion` (shared) | Must resolve to `EvidenceSpan` / `ExperimentRun`, not to a passing test |
+>
+> `14 upstream − 3 adaptations = 11 vendored verbatim.` Each adaptation records
+> its ancestry in `airl.derived_from`, so upstream changes remain traceable.
 >
 > These directories carry upstream's supporting material — `implementer-prompt.md`,
 > `task-reviewer-prompt.md`, the `scripts/` helpers, `root-cause-tracing.md`,

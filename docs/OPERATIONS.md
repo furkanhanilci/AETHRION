@@ -156,8 +156,8 @@ python scripts/mirror_plan.py  "$V/01 - Commissioning" --check
 python scripts/mirror_vault.py "$V" --check
 ```
 
-Expected: `20 passed` · `196` OK · five MCP tools · 11 acceptance checks ·
-`49 skills` conform · `0 drift entries` twice.
+Expected: `20 passed` · `202` OK · five MCP tools · 11 acceptance checks ·
+`49 skills` conform · `0 drift entries` twice (203 plan files, 59 skill/doc files).
 
 ⚠️ **These all run by hand.** There is no CI (finding **H5**), so nothing
 guarantees they were run before a change was committed. Automating this list is

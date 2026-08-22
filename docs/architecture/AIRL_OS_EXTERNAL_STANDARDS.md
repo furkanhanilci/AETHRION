@@ -38,7 +38,7 @@ Failing (2) is not a rejection: it moves the item to §5, dated and reasoned.
 |---|---|
 | Replaces | An AIRL-specific skill schema and per-harness bootstrap adapters |
 | Integration point | `skills/**/SKILL.md`; `scripts/validate_skills.py`; WP-048 |
-| Closes | "38 skills exist, none of them loads" |
+| Closed | The pre-baseline state in which 38 skills existed and none of them loaded |
 | Status | **Done** — 49/49 skills conform, checked mechanically |
 
 The format was opened by Anthropic in December 2025 and is implemented by Claude
@@ -52,6 +52,12 @@ Six top-level fields are permitted (`name`, `description`, `license`,
 `metadata` behind an `airl.` prefix. Progressive disclosure — name+description at
 startup, body on activation, `references/` on demand — is also the token-budget
 discipline the skill layer asked for.
+
+> **Format compatibility is not behavioural compatibility.** Conformance makes
+> the registry *loadable* by those harnesses; whether each one loads the right
+> skill at the right moment, and keeps it across compaction, is what WP-048's
+> acceptance suite establishes (ACC-42, ACC-44, ACC-45). Today only the Claude
+> Code path is wired, and no behavioural test has been run on it.
 
 **Consequence for provenance:** `airl.derived_from` + `airl.upstream_commit` make
 the upstream relationship a machine-readable fact, so "upstream changed — what
@@ -74,7 +80,7 @@ and requires no trusted third party of ours.
 |---|---|---|
 | Signed claim envelope | **in-toto attestation (ITE-6)** — `subject` / `predicateType` / `predicate`, wrapped in a **DSSE** envelope | The exact shape of `EvidenceManifest`: what artefact, what claim about it, signed as one unit |
 | Signing identity | **Sigstore** — keyless, OIDC-bound short-lived certificates | No long-lived key for a one-person operation to manage or leak |
-| **Immutable store** | **Rekor transparency log** | **Append-only, publicly verifiable inclusion proofs — without building WP-026** |
+| **Tamper-evident record** | **Rekor transparency log** | **Append-only, publicly verifiable inclusion proofs for signed metadata — without building WP-026** |
 | Time anchor | **OpenTimestamps** (already WP-139) | Bitcoin-anchored, hash-only, no third party |
 | Model weight integrity | **`sigstore/model-transparency` + OpenSSF Model Signing (OMS)** | The GGUF hash-and-signature that R3 requires |
 
@@ -96,6 +102,13 @@ EvidenceManifest  ==  in-toto Statement
 **Immutability is delegated, not deferred.** When WP-026 (content-addressed WORM
 store) lands, the manifests migrate into it and the log entry remains as an
 independent witness — which is strictly better than either alone.
+
+> **Precision matters here.** Rekor is a transparency log **for signed
+> metadata**, not an artifact store. It holds the attestation and its inclusion
+> proof; the artifacts, the Sigstore bundle, the certificate chain and the
+> verification material still need durable storage. Calling it "the immutable
+> store" would overstate what it does and quietly cancel a package that is still
+> needed. **WP-000 defers WP-026; it does not replace it.**
 
 ### 3.2 What this does *not* settle
 
@@ -121,6 +134,13 @@ is hashed and signed, and the signature is what the frozen manifest points at.
 | Closes | G3 freezes a set but reports nothing about *how* it was assembled |
 | Status | **Adopted as the G3/G10 reporting contract**; fields to be added to the manifest |
 
+> **A reporting standard is not a methodology standard.** PRISMA says *report
+> what you did, completely*. It never says *what you did was sound*. This is
+> adoption criterion 4 in §1 — a standard describes a format; it never decides
+> what AIRL-OS accepts — and it applies with particular force here, because
+> "PRISMA-compliant" reads to a casual reader like a quality claim. It is a
+> completeness claim.
+
 - **PRISMA 2020** — the reporting baseline; notably it already requires declaring
   the **use of automation tools during screening**, which is exactly what AIRL-OS
   does and currently records nowhere.
@@ -141,6 +161,21 @@ screening starts, and the record shows the rule, not a judgement call.
 
 `screening-sources` gains a mechanical check: *the stopping rule was declared
 before screening began, and the recorded stop matches it.*
+
+**But no single rule is universal.** Not every literature task is an
+active-learning screen, and forcing SAFE onto an exhaustive review or a scoping
+search is ceremony. The strategy is selected and recorded, not assumed:
+
+```yaml
+screening_strategy:
+  mode: exhaustive | fixed_budget | confidence_based | active_learning_safe
+  declared_at: <G2b, before screening>
+  stopping_rule: <the rule for the selected mode>
+  rule_hash: "sha256:..."
+```
+
+What is non-negotiable is not SAFE; it is that **the stopping rule exists, is
+declared before screening starts, and is checkable afterwards.**
 
 ---
 

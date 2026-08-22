@@ -1,5 +1,16 @@
 # AI Research Framework — Independent Audit Report
 
+> [!warning] Frozen snapshot — do not update
+> This audit describes the repository **as it stood on 2026-08-21**. Its counts
+> (130 work packages, 186 files) and its findings are correct **as of that date**
+> and are deliberately left unchanged: an audit that is edited to match the
+> present is no longer evidence of anything.
+>
+> Current state, and what has since been remediated, lives in
+> [`2026-08-22_remediation_verification.md`](2026-08-22_remediation_verification.md).
+> This banner is the single, recorded exception to the no-edit rule.
+
+
 | Field | Value |
 |---|---|
 | Report date | 2026-08-21 |

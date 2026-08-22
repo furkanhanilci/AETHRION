@@ -19,6 +19,122 @@ the last entry, the cockpit and the relevant WP files are read again.
 
 ---
 
+## Step 007 — Commissioning baseline v1.0: drift closed, architecture sharpened, plan bound
+
+**Time:** 2026-08-22
+**Scope:** external review response — documentation drift, eight architectural
+corrections, and the first binding of the skill layer into the sealed plan
+
+### Why this step exists
+
+An external review checked the state after Step 006 and raised eleven verifiable
+claims. **All eleven were true**, and several were drift introduced by Step 006
+itself — a document asserting a state that no longer existed, which is precisely
+the failure this framework is built to catch. Two were structural.
+
+### Structural corrections
+
+**WP-000 carried a hidden downstream dependency.** Its card said
+`Hard dependencies: none` while task T04 anchored timestamps through WP-139 — the
+bootstrap package reproducing the deadlock shape it exists to break. WP-000 now
+owns an interim time anchor outright; **WP-139 later assumes ownership**, and the
+dependency direction is fixed as WP-139 → WP-000.
+
+**Bootstrap ordering was contradictory.** The commissioning README still named
+WP-001 as the first executable point. The plan now starts in two explicit steps:
+`WB Bootstrap (WP-000) → W0 Programme lock (WP-001…)`. WP-001 remains the first
+*normal* package; it simply cannot be accepted before WP-000 exists.
+
+### Drift closed
+
+- `SKILL_LAYER.md` §14 rewritten into before/after form — it described the
+  pre-Step-006 state in the present tense.
+- `skills/README.md`: the vendoring arithmetic was wrong. Three upstream skills,
+  not two, are represented by AIRL adaptations
+  (`using-superpowers`, `writing-skills`, `verification-before-completion`):
+  **14 − 3 = 11 vendored verbatim**.
+- Commissioning inventory: 140 WP / 194 md / 195 sealed → **141 WP documents /
+  201 md / 202 sealed**, and 40 → **46** scenarios propagated through the go-live
+  checklist, the cutover packages, the scope matrix and the wave map.
+- **The audit is now frozen.** It carried 2026-08-21 counts alongside later
+  remediation notes. A single recorded banner marks it immutable, and current
+  state moved to `docs/review/2026-08-22_remediation_verification.md`. An audit
+  edited to match the present is no longer evidence.
+
+### Architectural corrections
+
+| Correction | Why it matters |
+|---|---|
+| **In-principle acceptance is conditional**, routed on `research_mode` | Forcing Registered Report ceremony onto exploratory work teaches people to mislabel confirmatory work as exploratory — the opposite of the intent |
+| **Role is a function, not a person** — `RoleBinding` with `must_be_independent_from` / `can_combine_with` / `cannot_combine_with` | Gives **C2** a shape: independence as separation constraints, not headcount. One person can hold several roles honestly |
+| **"No model at G5"** → **no agentic methodological discretion** | The subject of an experiment may itself be a model; what is forbidden is an agent changing a threshold mid-run because the result looks wrong |
+| **Forensic checks carry applicability**; `NOT_APPLICABLE` is a first-class verdict, and a failure opens `ForensicFlag → triage → IntegrityCase` | GRIM and Benford are conditionally valid. Wiring a failed check straight to an integrity case manufactures accusations at the rate of the lab's own false positive rate |
+| **`AnalysisUniverseManifest`** frozen at G2b, full distribution reported | Multiverse analysis without a pre-committed universe is a p-hacking engine with better vocabulary |
+| **`claim_strength` is no longer published**; the vector plus `binding_constraint` is canonical | `0.72` invites reading as a probability nothing computes. The weakest-link ordering survives; the false precision does not |
+| **Quota vs. policy split** — architecture says a quota exists, `attention@1.0.0` holds the number | A number frozen into an architecture document is a number nobody dares revise |
+| **Provider catalogue is a dated snapshot**, headed for the WP-042 Capability Registry | Prices decay in months; the R1/R2/R3 policy does not |
+| **Untrusted content ≠ authenticated command** (WP-136) | "An inbound message is never an instruction" would also forbid legitimate machine-to-machine automation. The line is persuasion versus authentication |
+| **Logical planes ≠ deployment units** | Seven planes do not imply seven services |
+| **Rekor is a transparency record for signed metadata**, not an artifact store | The looser wording quietly cancelled WP-026, which is still needed |
+
+### The skill layer entered the plan
+
+Before this step the word `skill` appeared **zero** times in WP-043, WP-047,
+WP-048 and in all 40 acceptance scenarios.
+
+- **WP-013** — `TaskContract` gains `skills_required` / `skills_selected` /
+  `skills_loaded`, `skill_bundle_hash`, `skill_selection_reason`, the
+  classification fields, and `RoleBinding`. A divergence between the three skill
+  lists is a **finding**, which is how "the agent ignored the procedure" stops
+  being deniable.
+- **WP-043** — skill behaviour evaluation: RED baselines, verbatim
+  rationalization capture, pressure scenarios, trigger confusion matrix,
+  compaction survival, cross-model × cross-harness compliance.
+- **WP-047** — Skill Registry, trigger resolution, version and dependency
+  resolution, `skill_bundle_hash`, two-family policy, upstream provenance impact.
+  **The agent does not choose its own skills.**
+- **WP-048** — rewritten as Harness Runtime Adapters (Claude Code, Codex,
+  OpenCode, **Hermes**, direct worker) with a minimum adapter contract.
+- **ACC-41 – ACC-46** — six new scenarios: no skill loaded · bootstrap missing ·
+  wrong skill selected · non-waivable skill ignored under pressure · procedure
+  lost to compaction · upstream change invalidates a derived skill. Four pass by
+  demonstrating a refusal.
+
+### One claim walked back
+
+The README said the registry "loads unmodified" in seven harnesses. Format
+compatibility is documented; **loading was verified in none of them.** Only the
+Claude Code path is wired. The wording is now format-compatible versus
+behaviourally-verified, and the behavioural claim belongs to ACC-42/44/45.
+
+### Evidence
+
+- `uv run pytest` → **20 passed**
+- `python3 scripts/validate_skills.py` → **49 skills conform**
+- Plan seal regenerated → **202/202 OK** (201 Markdown + 1 CSV)
+- Mirror drift → **0** on both (203 plan files, 59 skill/doc files)
+- `mcp_smoke.py`, `acceptance_v0.py` → pass
+
+### Limits and open points
+
+- This is **baseline v1.0** — the first version the programme will be
+  commissioned against. Everything after it is a recorded change.
+- **Nothing here was executed.** WP-000 has issued no manifest; ACC-41–46 have
+  never run; no skill has a behaviour baseline; WP-013/043/047/048 are
+  specification, not code.
+- **C2 remains open.** It now has a form, not an answer.
+- H1–H5 and the M-series are untouched. The Bridge is still the only working
+  vertical slice.
+
+### Next step
+
+Stop specifying and start executing, in this order: **issue one signed specimen
+`EvidenceManifest` under WP-000** — the only step that converts this design into
+evidence — then **stand up CI**, which now has five checks waiting and closes
+**H5**. Behaviour-testing `writing-skills` follows immediately after.
+
+---
+
 ## Step 006 — Two skill families, an open format, and an adopted evidence standard
 
 **Time:** 2026-08-22

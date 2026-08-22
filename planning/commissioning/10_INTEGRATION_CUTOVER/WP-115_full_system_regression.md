@@ -17,7 +17,7 @@
 
 ## Purpose and expected outcome
 
-The forty scenarios plus the contract, replay, attack, restore and capacity evidence are consolidated for one release candidate into a single signed Commissioning Dossier.
+The forty-six scenarios plus the contract, replay, attack, restore and capacity evidence are consolidated for one release candidate into a single signed Commissioning Dossier.
 
 ## Out of scope
 
@@ -67,7 +67,7 @@ The forty scenarios plus the contract, replay, attack, restore and capacity evid
 
 ## Acceptance criteria
 
-- [ ] 40/40 PASS.
+- [ ] 46/46 PASS.
 - [ ] Open critical findings = 0.
 - [ ] Required high findings = 0, or an explicitly permitted residual risk.
 - [ ] The dossier is independently verified and signed.

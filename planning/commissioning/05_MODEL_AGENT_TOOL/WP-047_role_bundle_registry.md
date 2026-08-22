@@ -1,4 +1,4 @@
-# WP-047 — Role Bundle Registry and Agent Contract Compiler
+# WP-047 — Role and **Skill** Registries, and the Task Compiler
 
 ## Package card
 
@@ -12,7 +12,7 @@
 | Hard dependencies | WP-003, WP-007, WP-013, WP-020, WP-042, WP-045, WP-046 |
 | Related gates | G1–G7 |
 | Related controls | CTL-GOV-02, CTL-MOD-01 |
-| Related acceptance scenarios | Assigned during the relevant vertical slice and commissioning |
+| Related acceptance scenarios | ACC-41, ACC-42, ACC-43, ACC-46, plus those assigned during the relevant vertical slice |
 | Current status | `NOT_STARTED` |
 
 ## Purpose and expected outcome
@@ -43,15 +43,45 @@ A role's mandate, prompt/policy, input/output schema, allowed tools, context and
 | WP-047-T04 | Bind the context budget and frozen-package policy | Implementation owner | Commit / configuration / record reference |
 | WP-047-T05 | Add bundle signature, admission and evaluation references | Implementation owner | Commit / configuration / record reference |
 | WP-047-T06 | Establish deprecation and migration management | Implementation owner | Commit / configuration / record reference |
+| WP-047-T07 | Build the **Skill Registry**: discovery, the Agent Skills format contract, and `scripts/validate_skills.py` as an admission gate | Implementation owner | Registry + rejected non-conformant specimen |
+| WP-047-T08 | Implement **trigger resolution** — classification fields → `skills_required` — with a recorded `skill_selection_reason` | Implementation owner | Resolver + trigger test matrix |
+| WP-047-T09 | Implement **version and dependency resolution** across `airl.requires_skills`, including conflict refusal | Implementation owner | Resolver + a refused conflicting bundle |
+| WP-047-T10 | Compute and record `skill_bundle_hash`; bind it into `TaskContract` and the evidence chain | Implementation owner | Hash reproduced from a stored bundle |
+| WP-047-T11 | Enforce the **two-family policy**: engineering, scientific-research and shared, selected from `work_domain` — never chosen freely by the agent | Implementation owner | Policy tests both ways |
+| WP-047-T12 | Track **upstream provenance**: `airl.derived_from` + `airl.upstream_commit`, and flag derived skills when upstream moves | Implementation owner | Impact report for a simulated upstream change |
 
 ## Mandatory deliverables
 
 - `Role Bundle Registry`
-- `Bundle compiler`
+- **`Skill Registry`** with format admission, version and dependency resolution
+- **`Task Compiler`** producing `RoleBundle` + `SkillBundle` + `ToolBundle` + `ContextBundle`
+- **`skill_bundle_hash` computation** bound into `TaskContract`
+- **Upstream provenance impact report**
 - `Core role bundles`
 - `Bundle conformance tests`
 - An updated runbook or operations note, plus the service/contract ownership record
 - A signed `EvidenceManifest`
+
+### The compiler this package must produce
+
+```
+RoleContract  +  TaskContract  +  classification fields
+        │
+        ▼
+   Task Compiler ── skill policy ──► skill_selection_reason
+        │
+        ├─► RoleBundle      who
+        ├─► SkillBundle     how          → skill_bundle_hash
+        ├─► ToolBundle      with what
+        └─► ContextBundle   knowing what
+        │
+        ▼
+   runtime (WP-046 / WP-048)
+```
+
+**The agent does not choose its own skills.** Selection is derived by policy
+from the classification fields and recorded with its reason; an agent that
+loads a different set than the one compiled produces a divergence finding.
 
 ## Test and verification plan
 

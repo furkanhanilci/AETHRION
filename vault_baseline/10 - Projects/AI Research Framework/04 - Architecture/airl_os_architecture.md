@@ -178,6 +178,13 @@ flowchart TD
 Cross-cutting through all of them: **policy, security, identity, model routing,
 assurance**.
 
+> **These are logical planes, not deployment units.** Seven planes do not imply
+> seven services, seven databases or seven clusters. The Metascience plane may
+> begin as a handful of scheduled queries over the evidence store; the Cognition
+> plane may be a library inside a worker. The planes fix *ownership and
+> direction of authority* — what may decide what — and deployment topology is
+> chosen separately, per component, against real operational need.
+
 ### 4.1 Two separations that carry the design
 
 **Temporal is the process authority. LangGraph is not.**
@@ -241,7 +248,11 @@ flowchart TD
     G9["<b>G9 Publish</b><br/>PublicationPackage<br/><i>scope conformance is mechanical</i>"]
     G10["<b>G10 Monitor</b><br/>retraction · citation · CVE · conflict<br/><i>a living review</i>"]
 
-    G0 --> G1 --> G2 --> G2B --> IPA --> G3 --> G4 --> G5 --> G6
+    G0 --> G1 --> G2 --> MODE{"research_mode?"}
+    MODE -->|exploratory| G3
+    MODE -->|replication| RC["Locked replication contract"] --> G3
+    MODE -->|confirmatory| G2B --> IPA --> G3
+    G3 --> G4 --> G5 --> G6
     G6 --> G7A --> G7B --> G8 --> G9 --> G10
     G10 -.->|"material signal"| G2
     G6 -.->|"three failed explanations → ProtocolChallenge"| G2
@@ -269,6 +280,21 @@ flowchart TD
 | **G8** Decision | `DecisionRecord` | A model deciding what the laboratory believes |
 | **G9** Publish | `PublicationPackage` | A sentence claiming more than its evidence supports |
 | **G10** Monitor | supersession records | Treating a published claim as permanently true |
+
+> **G2b and in-principle acceptance are conditional, not universal.** Forcing
+> Registered Report ceremony onto exploratory work produces bureaucracy without
+> epistemic gain, and pushes people to mislabel confirmatory work as exploratory
+> to escape it — the opposite of the intent. The router sits immediately after
+> G2:
+>
+> | `research_mode` | Analysis plan | In-principle acceptance |
+> |---|---|---|
+> | `exploratory` | recommended | **not required** — but the claim may never be labelled confirmatory |
+> | `replication` | required | a locked replication contract, naming the target claim and the agreement criterion |
+> | `confirmatory` | **required and locked** | **required** |
+>
+> The classification itself is fail-closed: absent or ambiguous, it resolves to
+> `confirmatory`, which is the heaviest path.
 
 ### 5.2 In-principle acceptance — why it is in the flow
 
@@ -338,10 +364,46 @@ flowchart LR
     style HUMAN fill:#fee2e2,stroke:#b91c1c,color:#000
 ```
 
+### 6.1 A role is a function, not a person
+
+The role catalogue names fourteen durable functions. It does **not** require
+fourteen people, and reading it that way is what makes the organisation look
+impossible in a small operation.
+
+```yaml
+RoleBinding:
+  role_id: statistical_methods_owner
+  role_type: governance_function
+  actor:
+    human: <identity>          # any of these may be empty
+    model_profile: <profile>
+    mechanical: <service>
+  separation:
+    must_be_independent_from: [experiment_analyst]
+    can_combine_with:         [scientific_owner]
+    cannot_combine_with:      [final_independent_verifier]
+```
+
+Independence is then expressed as **separation constraints**, not headcount: one
+person may legally hold several roles, and the constraint engine states exactly
+which combinations destroy independence and which do not.
+
+> This does not resolve finding **C2** — who may act as the final independent
+> verifier when there is one person — but it gives that decision a form. The
+> question stops being "where do I find 73 owners?" and becomes "which
+> combinations am I willing to declare independent, and which must remain
+> mechanical or external?"
+
 **Three invariants that are not negotiable:**
 
-1. **No model at G5** — unless the model *is* the subject of the experiment.
-2. **No model at G7a** — it reproduces or it does not.
+1. **No agentic methodological discretion during a frozen G5 execution.** The
+   subject of an experiment may perfectly well *be* a model — a frozen model
+   under test, a preregistered inference pipeline, an RL policy. What is
+   forbidden is a research agent changing a threshold, a metric, a stopping
+   point or a sample mid-run because the result looks wrong. The model may be
+   the instrument; it may not be the methodologist.
+2. **The same at G7a**, and more strictly: reproduction runs the frozen manifest
+   and reports what happened. It reproduces or it does not.
 3. **At G8 a model produces a recommendation, never a decision.**
 
 Effort and reviewer count are bound to the assurance class:
@@ -422,6 +484,13 @@ implement. A skill that does not load governs nothing, so conformance is checked
 mechanically by `scripts/validate_skills.py`, and provenance
 (`airl.derived_from`, `airl.upstream_commit`) is checked with it.
 
+> **Format compatibility is not behavioural compatibility.** Conformance makes
+> the registry *loadable* by those harnesses. Whether a given harness loads the
+> right skill at the right moment — and keeps it across compaction — is
+> established by the acceptance suite in WP-048 (ACC-42, ACC-44, ACC-45), and it
+> is **not** established today. Only the Claude Code path is wired
+> (`.claude/skills`), and even there no behavioural test has been run.
+
 ### 7.3 Independence is measured, not assumed
 
 ```mermaid
@@ -466,6 +535,12 @@ flowchart TD
     style E fill:#dcfce7,stroke:#15803d,color:#000
     style G fill:#fee2e2,stroke:#b91c1c,color:#000
 ```
+
+> **Rekor is a tamper-evident transparency record for signed metadata — not an
+> artifact store.** It holds the attestation and its inclusion proof. The
+> artifacts themselves, the Sigstore bundle, the certificate chain and the
+> verification material still need durable storage, which is what WP-026
+> eventually provides. **WP-000 defers WP-026; it does not cancel it.**
 
 The same machinery signs model weights: `sigstore/model-transparency` and the
 OpenSSF Model Signing spec give the R3 requirement — a hashed, signed local
@@ -577,7 +652,7 @@ flowchart LR
         D["Temporal · LangGraph · NATS<br/>Tool Broker · Execution Broker<br/>Claim/Evidence Ledger · Run Registry<br/>Model Gateway · G0–G10 engine<br/>Review pipeline · Metascience plane"]
     end
     subgraph WRITTEN["WRITTEN — untested"]
-        S["49 skills · role→model assignment<br/>140 work packages · 40 scenarios"]
+        S["49 skills · role→model assignment<br/>141 work packages · 46 scenarios"]
     end
     WORKING -->|"the distance is<br/><b>much larger</b> than the<br/>documentation implies"| DESIGNED
     style WORKING fill:#dcfce7,stroke:#15803d,color:#000

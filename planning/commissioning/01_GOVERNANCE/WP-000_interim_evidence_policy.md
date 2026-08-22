@@ -9,7 +9,7 @@
 | Initial effort class | **S** — small — one owner, one review cycle |
 | Accountable owner | Project Decision Owner |
 | Independent verifier | Assurance Lead |
-| Hard dependencies | — **none; this package exists precisely because it can have none** |
+| Hard dependencies | — **none, and none is permitted.** A bootstrap package that depends on a downstream package reproduces the deadlock it exists to break |
 | Related gates | Program (applies to every gate's evidence requirement) |
 | Related controls | CTL-GOV-01, CTL-EPI-01 |
 | Related acceptance scenarios | ACC-06 |
@@ -43,8 +43,19 @@ own.
 
 The `EvidenceManifest` is expressed as an **in-toto Statement (ITE-6)**, wrapped
 in a **DSSE** envelope, signed through **Sigstore** with a short-lived
-OIDC-bound certificate, and recorded in the **Rekor** transparency log. The log
-entry hash is anchored through **OpenTimestamps** (WP-139).
+OIDC-bound certificate, and recorded in the **Rekor** transparency log.
+
+> **Rekor is a tamper-evident transparency record for signed metadata — not an
+> artifact store.** It holds the attestation and its inclusion proof; the
+> artifacts, the Sigstore bundle, the certificate chain and the verification
+> material still need durable storage. **WP-026 is not cancelled by this
+> package**; it is deferred behind it.
+
+**Timestamping is owned here, temporarily.** This package implements its own
+minimal external time anchor so that it depends on nothing. **WP-139** later
+assumes permanent ownership of timestamping, and this package's implementation
+is retired into it — the direction of the dependency is WP-139 → WP-000, never
+the reverse.
 
 ```
 subject:       [{name: <artifact>, digest: {sha256: <hex>}}]
@@ -80,13 +91,14 @@ Rationale for adopting rather than inventing is recorded in
 | WP-000-T01 | Fix the `EvidenceManifest` predicate schema and its versioning rule | Implementation owner | Schema file + version record |
 | WP-000-T02 | Implement manifest generation, DSSE signing and log submission | Implementation owner | Script + a signed specimen manifest |
 | WP-000-T03 | Implement verification: signature, inclusion proof, digest match | Implementation owner | Verification run over the specimen |
-| WP-000-T04 | Anchor the log entry hash via WP-139 and record the anchor reference | Implementation owner | Anchor receipt |
+| WP-000-T04 | Implement the **interim** external time anchor here — no dependency on WP-139 — and record the anchor reference | Implementation owner | Anchor receipt |
 | WP-000-T05 | Write the interim independence and verifier arrangement, with its expiry | Project Decision Owner | Signed policy record |
 | WP-000-T06 | Write the WP-026 migration and retirement procedure for this policy | Implementation owner | Migration note |
 
 ## Mandatory deliverables
 
 - `Interim Evidence Policy` — a signed governance record with an explicit expiry
+- The interim timestamping implementation, owned by this package
 - `EvidenceManifest` predicate schema, versioned
 - Generation, signing and verification tooling
 - One end-to-end specimen manifest, signed, logged, anchored and verified
@@ -110,6 +122,7 @@ Rationale for adopting rather than inventing is recorded in
 - [ ] A tampered manifest is rejected by the verification path.
 - [ ] The programme's first packages can reach `ACCEPTED` **without** WP-026.
 - [ ] The policy carries an explicit expiry and a named retirement package.
+- [ ] The package depends on **no** downstream package, and its timestamping runs without WP-139.
 - [ ] The C2 independence question is **restated as still open** in the policy text, not silently absorbed.
 - [ ] All mandatory tests passed **on the same target revision**.
 - [ ] No open Critical or High findings; no non-waivable blocker remains.
@@ -148,4 +161,9 @@ acceptance and their manifests migrate into WP-026 by reference.
 
 On acceptance, every package in the programme gains a usable acceptance path.
 WP-026 consumes this package's manifests by reference and does not re-issue them;
-WP-075 links claims to them; WP-139 supplies the time anchor.
+WP-075 links claims to them; **WP-139 takes over timestamping from this package
+and retires the interim implementation.**
+
+This package is the **bootstrap phase**. WP-001 remains the first *normal*
+commissioning package: no technology installation begins before WP-001 is
+accepted, and WP-001 cannot be accepted before this package exists.

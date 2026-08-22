@@ -4,7 +4,7 @@ type: handover
 status: active
 owner: otonom
 created_at: "2026-08-22"
-session_end_commit: 1c1e4c5
+session_end_commit: pending-step-007
 tags:
   - ai-framework/handover
   - ai-framework/execution
@@ -28,12 +28,13 @@ tags:
 |---|---|
 | Repository | `/home/otonom/Desktop/FH/AI_RESEARCH_FRAMEWORK` |
 | Branch | `main`, working tree **clean** |
-| HEAD = origin/main | **`1c1e4c5`** — 0 ahead / 0 behind |
+| HEAD = origin/main | Step 007 in the working tree until committed |
 | Remote | `github.com/furkanhanilci/AI-Research-Framework` (private) — **the only authorised remote** |
-| Last three steps | Step 004 (English revision), Step 005 (file-by-file review), **Step 006 (skill families, open format, WP-000)** |
+| Last steps | 004 English revision · 005 file-by-file review · 006 skill families + WP-000 · **007 commissioning baseline v1.0** |
 | Bridge service | `active` · sync timer `active` |
 | Sources in registry | 33 |
 | Skills | **49** — 11 engineering · 28 scientific-research · 10 shared |
+| Plan | **commissioning baseline v1.0** — 141 WP documents, 46 scenarios, 202 sealed files |
 
 ### The last three commits
 
@@ -66,7 +67,7 @@ git log --oneline -1                                 # expect: 1c1e4c5 (or later
 uv run pytest                                        # expect: 20 passed
 python3 scripts/validate_skills.py                   # expect: 49 skills conform
 (cd planning/commissioning && sha256sum -c 00_PROGRAM/SHA256SUMS.txt | grep -c ': OK$')
-                                                     # expect: 196
+                                                     # expect: 202
 uv run python scripts/mcp_smoke.py     >/dev/null && echo "smoke OK"
 uv run python scripts/acceptance_v0.py >/dev/null && echo "acceptance OK"
 python3 scripts/mirror_plan.py  "$V/01 - Commissioning" --check | tail -1
@@ -75,8 +76,8 @@ python3 scripts/mirror_vault.py "$V" --check | tail -1
 systemctl --user is-active airl-bridge.service airl-bridge-sync.timer
 ```
 
-Expected end state: `20 passed`, `49 skills conform`, `196`, `smoke OK`,
-`acceptance OK`, `0 drift entries` twice (197 plan files, 58 skill/doc files),
+Expected end state: `20 passed`, `49 skills conform`, `202`, `smoke OK`,
+`acceptance OK`, `0 drift entries` twice (203 plan files, 59 skill/doc files),
 `active active`.
 
 ---
@@ -98,6 +99,21 @@ reasoning than the version it replaced.
   the code
 - **two mirror generators added**: `scripts/mirror_plan.py` and
   `scripts/mirror_vault.py`, both with a `--check` drift mode
+
+### Step 007 — commissioning baseline v1.0
+
+- **This is the baseline the programme will be commissioned against.** Everything
+  after it is a recorded change: edit, re-seal deliberately, log it.
+- Plan start order fixed: `WB Bootstrap (WP-000) → W0 (WP-001…)`. WP-000's hidden
+  dependency on WP-139 removed — it owns an interim time anchor; WP-139 takes over later.
+- **Skill layer entered the plan**: WP-013 (TaskContract skill binding +
+  `RoleBinding`), WP-043 (behaviour evaluation), WP-047 (Skill Registry + Task
+  Compiler), WP-048 (harness adapters incl. Hermes), **ACC-41–46**.
+- Eight architectural corrections — conditional IPA, role ≠ person, "no agentic
+  methodological discretion" at G5/G7a, forensic applicability, frozen analysis
+  universe, no published `claim_strength`, quota-vs-policy, data-vs-control.
+- **The audit is frozen**; current state lives in
+  `docs/review/2026-08-22_remediation_verification.md`.
 
 ### Step 006 — two skill families, an open format, an adopted evidence standard
 
@@ -140,7 +156,7 @@ reasoning than the version it replaced.
 |---|---|---|
 | **C1** | **Half resolved.** WP-000 is now *written* — the manifest is an in-toto attestation signed through Sigstore and logged in Rekor, so immutability no longer waits for WP-026. But **nothing has been issued, signed or logged yet**, and the independence half stays open under C2. |
 | **C2** | No written decision on scope or on what "independent verifier" means for one person | 73 owners / 114 verifiers assumed; R3 is permanently `BLOCKED`. **No standard resolves this** — it is a decision |
-| **Skills** | None of the 49 is behaviour-tested; the skill layer is still absent from the sealed plan (WP-043/047/048 and all 40 ACC scenarios mention skills **zero** times) | Format conformance is not behaviour; a skill nobody tested is a document |
+| **Skills** | The layer is now **in** the plan (WP-013/043/047/048, ACC-41–46) but **none of the 49 has a behaviour baseline**, and only the Claude Code path is wired | Format conformance is not behaviour; a skill nobody tested is a document |
 | **H1** | Zotero ingest still capped at 100 records, no pagination, no `since=` | Above 100 sources the sync goes **silently partial** and still records `SUCCEEDED` |
 | **H2** | No deletion reconciliation, no tombstones | A source deleted in Zotero lives on forever as a ghost |
 | **H3** | No behavioural test of the read-only boundary | The strongest security claim is verified only by reading the code |
@@ -154,6 +170,15 @@ either session. Nothing is `ACCEPTED`.
 ---
 
 ## 5. The next steps, in order
+
+### Step 0 — execute before specifying further 🔴
+
+Baseline v1.0 is a large amount of *specification*. The next two moves are the
+only ones that turn it into evidence, and they come before any further design:
+
+1. **Issue one signed specimen `EvidenceManifest` under WP-000** — sign it, log
+   it, anchor it, verify it, and verify that a tampered copy fails.
+2. **Stand up CI** — five checks are waiting; it closes **H5**.
 
 ### Step A — the blocking decision (yours, not mine) 🔴
 

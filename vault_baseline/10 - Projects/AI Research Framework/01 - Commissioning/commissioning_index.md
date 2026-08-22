@@ -52,11 +52,19 @@ zero open critical findings.
 
 | Item | Count |
 |---|---:|
+| Bootstrap package | **1** (WP-000) — precedes the programme, depends on nothing |
 | Work packages | **140** (WP-001 – WP-140) |
-| Acceptance scenarios | **40** (ACC-01 – ACC-40) |
+| Work package documents in total | **141** |
+| Acceptance scenarios | **46** (ACC-01 – ACC-46) |
 | Programme documents | 12 |
-| Markdown files under this tree | 194 |
-| Files covered by the hash seal | 195 (194 Markdown + 1 CSV) |
+| Markdown files under this tree | 201 |
+| Files covered by the hash seal | 202 (201 Markdown + 1 CSV) |
+
+> **Commissioning baseline v1.0 — 2026-08-22.** This is the first baseline the
+> programme will actually be commissioned against. Everything after this point
+> is a **recorded change**: edit the canonical file, regenerate the seal
+> deliberately, and record the change in the implementation log. Improvements
+> are expected to arrive *while running*, not before starting.
 
 Verify the seal from the repository root:
 
@@ -83,7 +91,7 @@ recorded change — never as a routine step to silence a failing check.
 | `09_EXPERIENCE_OBSERVABILITY/` | WP-091–101: cockpit, decision UI, telemetry and FinOps |
 | `10_INTEGRATION_CUTOVER/` | WP-102–121: vertical slices, commissioning and production cutover |
 | `11_DAY2_OPERATIONS/` | WP-122–130: continuous operation and assurance |
-| `12_ACCEPTANCE_SCENARIOS/` | ACC-01–ACC-40: Given/When/Then system acceptance scenarios |
+| `12_ACCEPTANCE_SCENARIOS/` | ACC-01–ACC-46: Given/When/Then system acceptance scenarios, including ACC-41–46 skill governance |
 | `13_TOOLING_INTEGRATION/` | WP-131–140: notification, communication, external records, evidence sealing and liveness |
 
 ## 5. Package status model
@@ -133,9 +141,25 @@ through the capacity model in `00_PROGRAM/08_capacity_and_estimation.md`.
 
 ## 8. Starting command
 
-The first executable point of the programme is `WP-001 Commissioning Charter`.
-No technology installation begins before WP-001 is accepted; otherwise
-environment, security and team choices advance without a scope authority.
+The programme starts in two steps, and the order is not negotiable:
+
+```
+BOOTSTRAP PHASE
+  WP-000  Interim Evidence Policy and Attestation Bootstrap
+          depends on nothing · makes acceptance possible at all
+        ↓
+PROGRAMME START
+  WP-001  Commissioning Charter and Programme Authority
+          the first normal commissioning package
+        ↓
+  WP-002 ...
+```
+
+**WP-000 is the bootstrap package; WP-001 remains the first normal commissioning
+package.** No technology installation begins before WP-001 is accepted;
+otherwise environment, security and team choices advance without a scope
+authority. And WP-001 cannot be accepted before WP-000 exists, because until
+then no package can produce acceptable evidence at all.
 
 > **Known blocker — half resolved.** Every package's Definition of Done requires
 > a signed `EvidenceManifest` written to an immutable store — but the immutable

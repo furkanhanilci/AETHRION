@@ -8,7 +8,7 @@ zotero_version: 0
 doi: ""
 source_url: "http://arxiv.org/abs/2410.08554"
 content_hash: "sha256:d2ef1a615eee85dcf1961a4b9aa88be1b6fb4e6a84d2d4303b22cc9cd17f52e6"
-generated_at: "2026-08-22T11:17:38.072227+00:00"
+generated_at: "2026-08-22T11:48:38.067059+00:00"
 provenance: airl-bridge-api
 zotero_tags:
   - "Foveated Attention and Visual Mechanisms"

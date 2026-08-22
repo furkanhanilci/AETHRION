@@ -1,4 +1,4 @@
-# WP-013 — Project, Task and Role Contract Schemas
+# WP-013 — Project, Task, Role and Skill Contract Schemas
 
 ## Package card
 
@@ -11,6 +11,7 @@
 | Independent verifier | Governance Lead |
 | Hard dependencies | WP-003, WP-004, WP-005, WP-006, WP-007, WP-011 |
 | Related gates | G0–G6 |
+| Related acceptance scenarios (added v1.0) | ACC-41, ACC-43, ACC-46 |
 | Related controls | CTL-GOV-01, CTL-DAT-02 |
 | Related acceptance scenarios | Assigned during the relevant vertical slice and commissioning |
 | Current status | `NOT_STARTED` |
@@ -42,6 +43,57 @@ Project intent, role, risk, data, tooling, budget, acceptance and independence f
 | WP-013-T03 | Add the `RoleContract` mandate, tool, data, risk and prohibited-action fields | Implementation owner | Commit / configuration / record reference |
 | WP-013-T04 | Define the `AgentResult` format including gaps and assumptions | Implementation owner | Commit / configuration / record reference |
 | WP-013-T05 | Write the backward-compatibility and contract versioning rules | Implementation owner | Commit / configuration / record reference |
+| WP-013-T06 | Add the **skill binding fields** to `TaskContract` (see below) and make `skill_bundle_hash` part of the evidence chain | Implementation owner | Schema + a task record carrying a resolved bundle |
+| WP-013-T07 | Add the **classification fields** `work_domain`, `research_mode` and `execution_path`, with fail-closed defaults | Implementation owner | Schema + decision-table tests |
+| WP-013-T08 | Define `RoleBinding` so that a **role is a function, not a person**: separation and combination constraints instead of headcount | Implementation owner | Schema + a binding that legally combines two roles and one that cannot |
+
+### Skill binding — the fields this package must add
+
+A `RoleContract` says *who*; a skill says *how*. Without these fields the skill
+layer cannot become a runtime obligation, and "which procedure produced this
+claim?" stays unanswerable after the fact.
+
+```yaml
+TaskContract:
+  work_domain:    engineering | scientific-research | mixed
+  research_mode:  exploratory | replication | confirmatory   # fail-closed: confirmatory
+  execution_path: spike | bounded | architectural            # fail-closed: architectural
+
+  skills_required:        ["airl:preregistration-discipline"]   # policy-derived, not chosen
+  skills_selected:        ["airl:preregistration-discipline@1.0.0"]
+  skills_loaded:          ["airl:preregistration-discipline@1.0.0"]
+  skill_versions:         {...}
+  skill_bundle_hash:      "sha256:..."
+  skill_selection_reason: "research_mode=confirmatory -> rule R-07"
+  skill_policy_version:   "skill-policy@1.2.0"
+```
+
+`skills_required` is produced by policy from the classification fields;
+`skills_selected` is what the compiler resolved; `skills_loaded` is what the
+runtime actually loaded. **A divergence between the three is a finding, not a
+detail** — it is the mechanism by which "the agent ignored the procedure"
+becomes visible rather than deniable.
+
+### `RoleBinding` — role is a function, not a person
+
+```yaml
+RoleBinding:
+  role_id: statistical_methods_owner
+  role_type: governance_function
+  actor:
+    human: <identity>            # optional
+    model_profile: <profile>     # optional
+    mechanical: <service>        # optional
+  separation:
+    must_be_independent_from: [experiment_analyst]
+    can_combine_with:         [scientific_owner]
+    cannot_combine_with:      [final_independent_verifier]
+```
+
+This does **not** resolve finding C2 — who may verify in a small organisation
+remains a decision. It gives that decision a form: independence expressed as
+**separation constraints** rather than as headcount, so a one-person operation
+can be modelled honestly instead of being declared impossible.
 
 ## Mandatory deliverables
 
