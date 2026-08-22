@@ -168,8 +168,9 @@ def main() -> None:
     y += bh + 26
     c.para(L, y,
            "Independence stops being a question of how many people exist and becomes one of which combinations remain "
-           "admissible. Open decision — finding C2: which combinations count as independent in a one-person operation "
-           "is not yet decided, so this figure is the shape of that answer rather than the answer.",
+           "admissible. ADR-001 settles what that means for a solo operator: R1 proceeds solo, R2 proceeds and is "
+           "declared partial in the record, and R3 is BLOCKED outright rather than waived. The constraint is now "
+           "enforced instead of argued about — and BLOCKED means a class of work this repository cannot accept alone.",
            tw, size=17, fill=INK, lh=23, max_lines=4)
 
     out = Path(__file__).resolve().parent.parent / "docs" / "figures" / "airl_os_roles.svg"

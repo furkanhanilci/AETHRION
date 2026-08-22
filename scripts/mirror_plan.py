@@ -68,6 +68,9 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("target", type=Path)
     parser.add_argument("--check", action="store_true")
+    parser.add_argument("--force", action="store_true",
+                        help="replace the target even if it holds files this mirror "
+                             "does not generate; this deletes them")
     args = parser.parse_args()
 
     generated = build()
@@ -94,6 +97,33 @@ def main() -> int:
         return 1 if drift else 0
 
     if target.exists():
+        # This script replaces the target wholesale, so a mistyped path is a
+        # data-loss event rather than a failed run. Refuse any directory that
+        # holds files this mirror did not generate: an existing mirror is a
+        # subset of `generated`, anything else is somebody's data.
+        strays = sorted(
+            p.relative_to(target).as_posix()
+            for p in target.rglob("*")
+            if p.is_file() and p.relative_to(target).as_posix() not in generated
+        )
+        if strays and not args.force:
+            print(f"refusing to replace {target}", file=sys.stderr)
+            print(
+                f"  it holds {len(strays)} file(s) this mirror does not generate, "
+                "so it is not a plan mirror:",
+                file=sys.stderr,
+            )
+            for rel in strays[:5]:
+                print(f"    {rel}", file=sys.stderr)
+            if len(strays) > 5:
+                print(f"    ... and {len(strays) - 5} more", file=sys.stderr)
+            print(
+                "  the plan mirror lives at "
+                "'<vault>/10 - Projects/AI Research Framework/01 - Commissioning'; "
+                "pass --force only if you mean to delete the files listed above.",
+                file=sys.stderr,
+            )
+            return 2
         shutil.rmtree(target)
     for rel, payload in generated.items():
         path = target / rel

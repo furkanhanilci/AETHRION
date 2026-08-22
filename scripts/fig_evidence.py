@@ -144,20 +144,21 @@ def main() -> None:
     by = ay + sh + 52
     bw = (W - 2 * L - 24) / 2
     for i, (tag, title, body) in enumerate((
-            ("C1", "Evidence bootstrap",
-             "Storage half addressed on paper by WP-000. No manifest has been issued, signed or logged."),
-            ("C2", "Independent verification",
-             "Who may verify in a one-person operation is undecided; no standard answers it."))):
+            ("C1", "Evidence bootstrap — CLOSED",
+             "WP-000 executed. A manifest is issued, signed and verified, and a tampered copy is rejected."),
+            ("C2", "Independent verification — CLOSED",
+             "ADR-001 decides it: R1 solo, R2 declared partial, R3 BLOCKED rather than waived."))):
         x = L + i * (bw + 24)
-        c.rect(x, by, bw, 92, fill=tint(VERM, 0.08), stroke=VERM, sw=1.6)
-        c.text(x + 16, by + 30, tag, size=21, weight="700", anchor="start", fill=VERM)
+        c.rect(x, by, bw, 92, fill=tint(GREEN, 0.08), stroke=GREEN, sw=1.6)
+        c.text(x + 16, by + 30, tag, size=21, weight="700", anchor="start", fill=GREEN)
         c.para(x + 16 + 38, by + 30, title, bw - 70, size=18, weight="600", fill=INK,
                max_lines=1)
         c.para(x + 16, by + 58, body, bw - 32, size=16, fill=INK, max_lines=2, lh=21)
     c.para(L, by + 118,
-           "Until both are resolved no work package can reach ACCEPTED — which is why nine of the ten links above are "
-           "drawn hollow.",
-           W - 2 * L, size=16, fill=INK, weight="500")
+           "Both blockers are closed, and nine of the ten links above are still drawn hollow. Closing a blocker "
+           "removes a reason the chain could not be built; it does not build it. WP-000 is TECH_COMPLETE, and no "
+           "package in this repository is ACCEPTED.",
+           W - 2 * L, size=16, fill=INK, weight="500", lh=21, max_lines=3)
 
     out = Path(__file__).resolve().parent.parent / "docs" / "figures" / "airl_os_evidence_chain.svg"
     out.write_text(c.render(), encoding="utf-8")

@@ -21,7 +21,17 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "scripts"))
 
-MODULES = ("fig_lifecycle", "fig_roles", "fig_evidence", "fig_stack", "fig_reporting")
+MODULES = (
+    "fig_lifecycle",
+    "fig_roles",
+    "fig_evidence",
+    "fig_stack",
+    "fig_reporting",
+    "fig_waves",
+    "fig_trust",
+    "fig_verification",
+    "fig_topology",
+)
 MIN_FONT_UNITS = 16          # ≈ 6.8 pt when the figure is set 180 mm wide
 
 

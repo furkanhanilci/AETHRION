@@ -277,11 +277,11 @@ flowchart TD
     FIND -.->|"correct and resubmit"| MECH
     REC -.->|"measured, never gated, by the Metascience Lead"| MET["Calibration · gate yield · claim survival"]
 
-    style MECH fill:#dcfce7,stroke:#15803d,color:#000
-    style MODEL fill:#dbeafe,stroke:#1d4ed8,color:#000
-    style HUMAN fill:#fee2e2,stroke:#b91c1c,color:#000
-    style FIND fill:#fee2e2,stroke:#b91c1c,color:#000
-    style MET fill:#fef3c7,stroke:#b45309,color:#000
+    style MECH fill:#E0F3EC,stroke:#009E73,color:#000
+    style MODEL fill:#DDEAF4,stroke:#0072B2,color:#000
+    style HUMAN fill:#F7E2D6,stroke:#D55E00,color:#000
+    style FIND fill:#F7E2D6,stroke:#D55E00,color:#000
+    style MET fill:#FBEFD6,stroke:#E69F00,color:#000
 ```
 
 **Findings flow upward; waivers do not flow downward.** A mechanical failure

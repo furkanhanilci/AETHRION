@@ -146,7 +146,9 @@ def build() -> dict[str, bytes]:
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("target", type=Path)
+    parser.add_argument("target", type=Path,
+                        help="the project root inside the vault, i.e. "
+                             "'<vault>/10 - Projects/AI Research Framework' — not the vault root")
     parser.add_argument("--check", action="store_true")
     args = parser.parse_args()
 

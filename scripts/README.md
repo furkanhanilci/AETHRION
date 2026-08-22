@@ -33,8 +33,9 @@ defect rather than a shortcut.
 
 | Script | Generates | Drift check |
 |---|---|---|
-| `make_figures.py` | the five figures, then runs containment | `--check` |
-| `fig_lifecycle.py` · `fig_roles.py` · `fig_evidence.py` · `fig_stack.py` · `fig_reporting.py` | one figure each | via `make_figures.py` |
+| `make_figures.py` | all nine figures, then runs containment | `--check` |
+| `fig_lifecycle.py` · `fig_roles.py` · `fig_evidence.py` · `fig_stack.py` · `fig_reporting.py` | one figure each — lifecycle, roles, evidence chain, stack, reporting | via `make_figures.py` |
+| `fig_waves.py` · `fig_trust.py` · `fig_verification.py` · `fig_topology.py` | one figure each — commissioning waves, ADR-003 trust boundary, the verification bundle, repository/vault topology | via `make_figures.py` |
 | `figure_kit.py` | *(library)* SVG primitives with real text metrics; **fails the build** rather than clipping text | — |
 | `make_plan_indexes.py` | a README for each of the 14 commissioning workstreams | `--check` |
 | `mirror_plan.py` · `mirror_vault.py` | the generated areas of the Obsidian vault | `--check` |

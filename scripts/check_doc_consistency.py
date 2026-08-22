@@ -81,7 +81,8 @@ RULES: list[tuple[str, str, str, str]] = [
     ("skills/README.md", r"\| Scope \| All (\d+) skills", "skills", "skills"),
     ("docs/figures/README.md", r"There are (\w+) of them rather than one", "figures", "figures"),
 ]
-WORDS = {"one": 1, "two": 2, "three": 3, "four": 4, "five": 5, "six": 6}
+WORDS = {"one": 1, "two": 2, "three": 3, "four": 4, "five": 5, "six": 6,
+         "seven": 7, "eight": 8, "nine": 9, "ten": 10, "eleven": 11, "twelve": 12}
 
 
 def check_counts(truth: dict[str, int]) -> list[str]:

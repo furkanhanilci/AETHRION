@@ -160,7 +160,7 @@ the same commands without `--check`.
 Everything that currently produces real evidence, in one place:
 
 ```bash
-uv run pytest                                              # 20 tests
+uv run pytest                                              # 25 tests
 (cd planning/commissioning && sha256sum -c 00_PROGRAM/SHA256SUMS.txt)
 uv run python scripts/mcp_smoke.py
 uv run python scripts/acceptance_v0.py
