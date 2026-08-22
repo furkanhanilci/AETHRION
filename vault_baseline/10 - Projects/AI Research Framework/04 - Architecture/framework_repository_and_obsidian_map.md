@@ -62,7 +62,7 @@ sha256sum -c planning/commissioning/00_PROGRAM/SHA256SUMS.txt
 ├── 04 - Architecture/                       architecture and maps (generated)
 ├── 05 - Evidence/                           test, hash and acceptance evidence
 ├── 06 - Components/                         component status
-├── 07 - Skills/                             38 skills in seven groups (generated)
+├── 07 - Skills/                             52 skills in seven groups (generated)
 ├── implementation_log.md                    the step-by-step log
 └── ai_research_framework_current_status_and_roadmap.md
 ```

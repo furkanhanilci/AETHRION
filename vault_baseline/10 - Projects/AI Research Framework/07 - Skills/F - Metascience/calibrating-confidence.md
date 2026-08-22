@@ -9,6 +9,7 @@ metadata:
   airl.version: "1.0.0"
   airl.domain: "scientific-research"
   airl.origin: "airl-native"
+  airl.adopted_components: "scikit-learn (Brier) · statsmodels"
   airl.gates: "G6,G8,G10"
   airl.roles: "Metascience Lead,Statistical Methods Owner"
   airl.assurance_classes: "R1,R2,R3"
@@ -17,6 +18,14 @@ metadata:
 ---
 
 # Calibrating Confidence
+
+## Adopted components
+
+> **scikit-learn (Brier) · statsmodels**
+
+Standard estimators with known small-sample behaviour. The vector plus its `binding_constraint` is canonical; **no scalar claim strength is published**.
+
+Adoption type and authority boundary: `docs/architecture/AIRL_OS_COMPONENT_REUSE.md`.
 
 ## Core principle
 

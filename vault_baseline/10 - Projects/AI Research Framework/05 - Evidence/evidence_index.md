@@ -12,10 +12,21 @@ Test, acceptance, hash, artifact, review and operational evidence.
 |---|---|---|
 | [[10 - Projects/AI Research Framework/05 - Evidence/2026-08-22_framework_audit_evidence\|Framework Audit Evidence]] | 2026-08-22 | Tests, hashes, plan integrity, service status |
 
+## Measurements produced by the repository about itself
+
+| Measurement | Result | Where |
+|---|---|---|
+| Reference verification — CoE Audit check 1 | **27/33 corroborated (81.8 %)** | `delivery/measurements/reference_verification.json` |
+| Source monitoring — first slice of G10 | 15 of 33 swept, 0 material signals, **positive control fired** | `delivery/measurements/source_monitoring.json` |
+| WP-000 attestation | signature, digests and anchor verify; both tamper paths rejected | `delivery/WP-000/` |
+
+> A clean monitoring report proves nothing unless the check can fire, which is
+> why every run carries a known-retracted control and fails if it stays silent.
+
 ## Sub-areas
 
 - `tests/` — unit, contract and integration output
-- `acceptance/` — ACC-01–ACC-40 results
+- `acceptance/` — ACC-01–ACC-51 results (none has ever been run)
 - `artifacts/` — manifest, digest and provenance records
 - `reviews/` — independent review reports
 - `operations/` — service, deployment and readiness evidence

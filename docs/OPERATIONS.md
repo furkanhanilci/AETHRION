@@ -8,7 +8,10 @@
 | Status | `WORKING` — describes components that run today |
 | Date | 2026-08-22 |
 
-**In one paragraph.** Everything in this runbook concerns the one vertical slice that actually runs: the Zotero bridge, its canonical registry, the Obsidian projection and the read-only MCP surface. It covers day-to-day operation, the six-command verification bundle, mirror integrity, and the three things that break together after a path change. Every check here is manual — there is no CI, which is finding H5.
+**In one paragraph.** Everything in this runbook concerns the one vertical slice that actually runs: the Zotero bridge, its canonical registry, the Obsidian projection and the read-only MCP surface. It covers day-to-day operation, the verification bundle, mirror integrity, and the three things that break together after a path change. The first six checks are also defined as a push-triggered control, **BVC-01**,
+which is written but **not yet active**; the rest stay manual because they need a
+live Bridge, a local Zotero library or the operator's vault. Finding **H5** —
+the absence of the WP-024 CI platform — remains open either way.
 
 ## Daily status check
 
@@ -161,10 +164,12 @@ uv run pytest                                              # 20 tests
 (cd planning/commissioning && sha256sum -c 00_PROGRAM/SHA256SUMS.txt)
 uv run python scripts/mcp_smoke.py
 uv run python scripts/acceptance_v0.py
-python3 scripts/validate_skills.py                         # 49 skills, format + metadata
+python3 scripts/validate_skills.py                         # 52 skills, format + metadata
 python3 scripts/make_figures.py --check                    # generators match, and text fits its box
 python3 scripts/validate_commissioning_plan.py             # plan references, phases and DAG
 python3 scripts/check_doc_consistency.py                   # declared counts vs reality
+python3 scripts/check_stale_claims.py                      # prose the repository has outgrown
+uv run python scripts/write_status.py                      # regenerate docs/STATUS.md
 uv run python scripts/evidence_manifest.py verify \
     --manifest delivery/WP-000/evidence.dsse.json --tamper-demo
 python scripts/mirror_plan.py  "$V/01 - Commissioning" --check
@@ -172,7 +177,7 @@ python scripts/mirror_vault.py "$V" --check
 ```
 
 Expected: `25 passed` · `207` OK · five MCP tools · 11 acceptance checks ·
-`49 skills` conform · `3 figures, 0 drift, 0 overflow` · `plan semantics OK` ·
+`52 skills` conform · `3 figures, 0 drift, 0 overflow` · `plan semantics OK` ·
 `0 drift entries`
 twice (208 plan files, 67 skill/doc/figure files).
 

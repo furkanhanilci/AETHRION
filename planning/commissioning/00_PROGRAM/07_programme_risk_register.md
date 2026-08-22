@@ -29,6 +29,25 @@
 | **PR-20** | **Periodic work fails silently** | Neither PR-13 nor SLO alerting covers a job that stops without erroring | SRE Lead |
 | **PR-21** | **Scope does not fit the organisation** | The programme assumes dozens of role-holders and a separate assurance pool | Executive Sponsor |
 
+## Status of the audit findings, 2026-08-22
+
+| Finding | Then | Now |
+|---|---|---|
+| **C1** evidence bootstrap | Critical — nothing could be accepted | **Storage half addressed.** WP-000 written and its tooling implemented; a specimen manifest verifies and both tamper paths are rejected. **No manifest has been accepted** |
+| **C2** independent verification | Critical — R3 permanently blocked | **Decided** in ADR-001: R1 solo · R2 solo under a declared partial-independence profile · **R3 `BLOCKED`** without an external verifier |
+| **H5** no CI | Open | **Partly.** BVC-01 is decided and written (`deploy/bvc-01-verify.yml`) but **not active** — activation needs a workflow-scoped token. H5 itself stays open: it is the absence of the WP-024 platform |
+| **H1** ingest capped at 100 | Open | Open. **Fix M9 first**, or pagination turns a masked truncation into active data loss |
+| **H2 · H3 · H4** | Open | Open |
+
+## New risks recorded by this baseline
+
+| Risk | Why it is a risk |
+|---|---|
+| **Adoption without verification** | Ten packages now stand on external components. A component adopted and never verified is a dependency with the *appearance* of assurance |
+| **Benchmark drift into gate** | A `BENCHMARK` measures the laboratory; if one ever becomes a pass condition, the laboratory starts optimising against its own scorer |
+| **Specification outpacing execution** | 141 package documents, 51 scenarios, 52 skills — and one working vertical slice. This is the standing risk, and it is not decreasing |
+| **Interim attestation mistaken for witnessed** | `airl-interim-v0.1` is tamper-evident, **not externally witnessed**: one operator holds the repository, the key, the generator and the clock |
+
 ## Scoring
 
 Programme risks are tracked with impact and likelihood on a 1–5 scale. However,

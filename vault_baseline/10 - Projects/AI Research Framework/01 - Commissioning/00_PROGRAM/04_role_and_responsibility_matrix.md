@@ -53,6 +53,32 @@ Every work package assigns at least:
 | Publication / release | Project Decision Owner | Provenance / Citation / Safety | Not delegable |
 | Production cutover | Executive Sponsor + SRE/Safety | Commissioning Board | Not delegable |
 
+## Role is a function, not a person
+
+Every function below is bound through a `RoleBinding` carrying
+`must_be_independent_from`, `can_combine_with` and `cannot_combine_with`. One
+operator may legally hold several of them; **independence is a property of the
+separation constraints, never of the headcount.**
+
+```yaml
+RoleBinding:
+  role_id: statistical_methods_owner
+  role_type: governance_function
+  actor: {human: ..., model_profile: ..., mechanical: ...}   # any may be empty
+  separation:
+    must_be_independent_from: [experiment_analyst]
+    can_combine_with:         [scientific_owner]
+    cannot_combine_with:      [final_independent_verifier]
+```
+
+The binding is specified in **WP-013** and enforced by the compiler in
+**WP-047**. Full definitions — mandate, decision rights, what each role may never
+do, escalation and the combination matrix — are in
+`docs/architecture/AIRL_OS_ROLES.md`.
+
+**The two rows that bite in a one-person operation:** the Assurance Lead and the
+Metascience Lead cannot be the producer. ADR-001 decides what follows.
+
 ## Combining roles in a small team
 
 The same person may wear several hats, provided the required independence

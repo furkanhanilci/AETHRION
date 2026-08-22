@@ -4,7 +4,7 @@ type: handover
 status: active
 owner: otonom
 created_at: "2026-08-22"
-content_valid_through_commit: 361af26
+content_valid_through_commit: pending-step-016
 tags:
   - ai-framework/handover
   - ai-framework/execution
@@ -28,12 +28,13 @@ tags:
 |---|---|
 | Repository | `/home/otonom/Desktop/FH/AI_RESEARCH_FRAMEWORK` |
 | Branch | `main`, working tree **clean** |
-| Content valid through | **`361af26`** — this note describes the tree at that commit. It does **not** track HEAD, because a field naming HEAD stales itself the moment it is committed |
+| Content valid through | **`pending`** — this note describes the tree at that commit. It does **not** track HEAD, because a field naming HEAD stales itself the moment it is committed |
 | Remote | `github.com/furkanhanilci/AI-Research-Framework` (private) — **the only authorised remote** |
 | Last steps | 004 English revision · 005 file-by-file review · 006 skill families + WP-000 · **007 commissioning baseline v1.0** |
 | Bridge service | `active` · sync timer `active` |
 | Sources in registry | 33 |
 | Skills | **52** — 11 engineering · 31 scientific-research · 10 shared |
+| Live status | `docs/STATUS.md`, **generated** by `scripts/write_status.py` |
 | Plan | **commissioning baseline v1.0.1** — 141 WP documents, 51 scenarios, 207 sealed files |
 
 ### The last three commits
@@ -117,6 +118,17 @@ reasoning than the version it replaced.
 - **ADR-001** (solo-operator independence — *blocks every acceptance*) and
   **ADR-002** (bootstrap verification control) written; **neither decided**.
 - `NOTICE` added for licensing and vendored attribution.
+
+### Step 016 — corpus-wide audit
+
+- Scanned every document for statements the repo had outgrown: **66 hits, half
+  legitimate history**. `check_stale_claims.py` now exempts frozen records,
+  past-tense sentences and dated ledger rows. **477 scanned · 0 stale.**
+- Five untouched programme documents brought current; every vault index rebuilt;
+  reporting skills moved from the colliding `H` group to `I`.
+- **`docs/STATUS.md` is generated** — dated reports are frozen evidence, live
+  status is derived. Building it exposed three faults in itself.
+- Ten skills now declare `airl.adopted_components`.
 
 ### Step 015 — document production
 

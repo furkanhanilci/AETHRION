@@ -5,6 +5,7 @@ metadata:
   airl.version: "1.0.0"
   airl.domain: "scientific-research"
   airl.origin: "airl-native"
+  airl.adopted_components: "ASReview · the SAFE stopping rule"
   airl.gates: "G3"
   airl.roles: "Evidence Lead"
   airl.assurance_classes: "R1,R2,R3"
@@ -14,6 +15,14 @@ metadata:
 ---
 
 # Screening Sources
+
+## Adopted components
+
+> **ASReview · the SAFE stopping rule**
+
+Active-learning screening with a **preregistered stopping rule**, declared before screening starts and checkable afterwards.
+
+Adoption type and authority boundary: `docs/architecture/AIRL_OS_COMPONENT_REUSE.md`.
 
 ## Core principle
 

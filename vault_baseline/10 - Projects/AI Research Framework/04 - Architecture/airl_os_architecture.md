@@ -757,7 +757,7 @@ flowchart LR
         D["Temporal · LangGraph · NATS<br/>Tool Broker · Execution Broker<br/>Claim/Evidence Ledger · Run Registry<br/>Model Gateway · G0–G10 engine<br/>Review pipeline · Metascience plane"]
     end
     subgraph WRITTEN["WRITTEN — untested"]
-        S["49 skills · role→model assignment<br/>141 work packages · 46 scenarios"]
+        S["52 skills · role→model assignment<br/>141 package documents · 51 scenarios"]
     end
     WORKING -->|"the distance is<br/><b>much larger</b> than the<br/>documentation implies"| DESIGNED
     style WORKING fill:#dcfce7,stroke:#15803d,color:#000
@@ -770,7 +770,7 @@ flowchart LR
 | Zotero Bridge · Source Registry · Obsidian projection · Hermes MCP | **Working V0** |
 | Plan seal, mirror generators, skill validator | **Working** |
 | Shared contract core | Prototype — **zero production consumers**, hash format conflicts with the bridge |
-| Skill registry — 49 skills | Format-conformant and loadable; **behaviour untested** |
+| Skill registry — 52 skills | Format-conformant and loadable; **behaviour untested** |
 | G0–G10 contracts, roles, gates | Designed |
 | Temporal · LangGraph · NATS · brokers · ledgers · Model Gateway | Planned |
 | Metascience plane · role→model assignment | Proposal |

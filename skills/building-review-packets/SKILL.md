@@ -5,6 +5,7 @@ metadata:
   airl.version: "1.0.0"
   airl.domain: "scientific-research"
   airl.origin: "airl-native"
+  airl.adopted_components: "PaperBench three-container pattern"
   airl.gates: "G6,G7"
   airl.roles: "Assurance Lead,Platform"
   airl.assurance_classes: "R1,R2,R3"
@@ -14,6 +15,14 @@ metadata:
 ---
 
 # Building Review Packets
+
+## Adopted components
+
+> **PaperBench three-container pattern**
+
+The producer builds in one container, reproduction runs fresh in a second, grading happens in a third. The producer's environment never travels to the reproducer.
+
+Adoption type and authority boundary: `docs/architecture/AIRL_OS_COMPONENT_REUSE.md`.
 
 ## Iron law
 

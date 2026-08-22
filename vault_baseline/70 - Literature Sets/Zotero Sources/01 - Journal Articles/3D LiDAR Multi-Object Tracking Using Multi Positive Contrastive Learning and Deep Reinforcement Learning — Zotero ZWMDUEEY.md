@@ -8,7 +8,7 @@ zotero_version: 0
 doi: "10.1109/access.2024.3521334"
 source_url: ""
 content_hash: "sha256:94c2b2cc4a3cc14b6e1be11cb1d4024c5ea8e574d62af0d2006c04e7b4caa973"
-generated_at: "2026-08-22T14:22:38.069174+00:00"
+generated_at: "2026-08-22T14:53:38.056169+00:00"
 provenance: airl-bridge-api
 zotero_tags:
   - "3D LiDAR"

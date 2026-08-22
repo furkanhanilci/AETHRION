@@ -80,6 +80,33 @@ None of the following can be passed by policy exception:
 - A restore rehearsal fails its RPO/RTO or integrity queries.
 - An open critical security, assurance or data finding exists.
 
+## Verifying the plan
+
+The seal proves the sealed files did not change. It says **nothing** about
+whether they agree with each other, and baseline v1.0.1 was created because three
+defects survived a seal that could not see them.
+
+```bash
+(cd planning/commissioning && sha256sum -c 00_PROGRAM/SHA256SUMS.txt)  # bytes
+python3 scripts/validate_commissioning_plan.py                          # semantics
+python3 scripts/check_doc_consistency.py                                # declared counts
+```
+
+**All three must pass.** The semantic validator checks identifier existence,
+bidirectional WP↔ACC consistency, dependency acyclicity, acceptance-phase
+validity, **go-live feasibility**, stale ranges and catalogue parity.
+
+## Adopted components
+
+Ten packages carry an **Adopted component** section naming what they stand on —
+Inspect AI, GROBID/Pub2TEI, Cedar, the CaMeL pattern, OSF Registries, Workflow
+Run RO-Crate, SEPIO/LinkML, object-lock storage, the Quarto authoring stack.
+
+Their job is therefore *integrate this component under our contract and verify it
+behaves*, not *implement this capability*. **The verification is the part this
+programme contributes**, and it is not a smaller job than building would have
+been. See `docs/architecture/AIRL_OS_COMPONENT_REUSE.md`.
+
 ## Updating the plan
 
 The plan is a living implementation artifact. A package identifier is never

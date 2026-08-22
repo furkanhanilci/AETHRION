@@ -5,6 +5,7 @@ metadata:
   airl.version: "1.0.0"
   airl.domain: "scientific-research"
   airl.origin: "airl-native"
+  airl.adopted_components: "krippendorff · statsmodels (Fleiss κ)"
   airl.gates: "G6,G7"
   airl.roles: "Metascience Lead,Assurance Lead"
   airl.assurance_classes: "R1,R2,R3"
@@ -14,6 +15,14 @@ metadata:
 ---
 
 # Measuring Agreement
+
+## Adopted components
+
+> **krippendorff · statsmodels (Fleiss κ)**
+
+Standard estimators. The different-family rule is a **proxy** for measured pairwise error correlation and is retired once the measurement exists.
+
+Adoption type and authority boundary: `docs/architecture/AIRL_OS_COMPONENT_REUSE.md`.
 
 ## Core principle
 

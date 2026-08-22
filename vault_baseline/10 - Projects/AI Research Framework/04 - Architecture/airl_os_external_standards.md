@@ -44,8 +44,8 @@ Failing (2) is not a rejection: it moves the item to §5, dated and reasoned.
 |---|---|
 | Replaces | An AIRL-specific skill schema and per-harness bootstrap adapters |
 | Integration point | `skills/**/SKILL.md`; `scripts/validate_skills.py`; WP-048 |
-| Closed | The pre-baseline state in which 38 skills existed and none of them loaded |
-| Status | **Done** — 49/49 skills conform, checked mechanically |
+| Closed | The pre-baseline state in which the skills existed and none of them loaded |
+| Status | **Done** — 52/52 skills conform, checked mechanically |
 
 The format was opened by Anthropic in December 2025 and is implemented by Claude
 Code, Codex, OpenCode, Cursor, Copilot, Gemini CLI **and Hermes Agent** — every

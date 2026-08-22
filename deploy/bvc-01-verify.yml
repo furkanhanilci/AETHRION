@@ -56,6 +56,12 @@ jobs:
       - name: Document consistency
         run: uv run python scripts/check_doc_consistency.py
 
+      - name: Stale present-tense claims
+        run: uv run python scripts/check_stale_claims.py
+
+      - name: Reporting register is auditable
+        run: uv run python scripts/check_reporting_registry.py
+
       - name: Commissioning plan seal
         working-directory: planning/commissioning
         run: sha256sum -c 00_PROGRAM/SHA256SUMS.txt

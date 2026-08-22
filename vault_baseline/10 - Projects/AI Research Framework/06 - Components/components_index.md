@@ -9,7 +9,15 @@ mean it has been built.**
 |---|---|---|
 | **Bridge** (Zotero → SQLite → Obsidian → MCP) | ✅ **WORKING** | [[10 - Projects/AI Research Framework/06 - Components/Bridge/bridge_component_status\|Bridge Component Status]] |
 | Contract core (`airl_framework`) | ⚠️ `TECH_COMPLETE` — no production consumer | — |
-| Skill Registry | 📐 designed, not yet tested | [[skills_index]] |
+| Skill Registry (52 skills) | ✅ format-conformant and checked · 📐 **behaviour untested** | [[skills_index]] |
+| Reference verification (CoE check 1) | ✅ **WORKING and measured** — 27/33 corroborated | `scripts/verify_references.py` |
+| Source monitoring (first slice of G10) | ✅ **WORKING** — positive control fires | `scripts/monitor_sources.py` |
+| Evidence attestation (WP-000 interim) | ✅ **WORKING** — `airl-interim-v0.1`, no transparency log | `scripts/evidence_manifest.py` |
+| Plan semantics validator | ✅ **WORKING** | `scripts/validate_commissioning_plan.py` |
+| Document + registry checkers | ✅ **WORKING** | `scripts/check_document.py`, `check_reporting_registry.py` |
+| Figure generators (5) | ✅ **WORKING** — generated and containment-checked | `scripts/fig_*.py` |
+| BVC-01 verification on push | 📐 written, **not active** | `deploy/bvc-01-verify.yml` |
+| Authoring toolchain (Quarto etc.) | ⬜ **not installed** — bake-off unrun | — |
 | Temporal / Gate Service | ⬜ not built | — |
 | NATS / Outbox | ⬜ not built | — |
 | Source Registry (PostgreSQL) | ⬜ not built (SQLite V0 exists) | — |

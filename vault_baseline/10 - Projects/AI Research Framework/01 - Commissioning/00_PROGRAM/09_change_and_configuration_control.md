@@ -64,6 +64,23 @@ revision it was accepted against.
 > acceptance onward — which is also the point at which the plan stops being a
 > draft.
 
+## Plan integrity — three checks, not one
+
+The seal is necessary and **not sufficient**. Baseline v1.0.1 exists because
+three defects survived it while every file was byte-identical to its sealed
+state: colliding acceptance identifiers, a go-live requirement that depended on
+post-go-live packages, and stale ranges.
+
+| Check | Proves | Cannot see |
+|---|---|---|
+| `sha256sum -c` | sealed files did not change | whether they agree with each other |
+| `validate_commissioning_plan.py` | references resolve both ways · the DAG is acyclic · phases are valid · go-live is feasible | whether the plan is a *good* plan |
+| `check_doc_consistency.py` | declared counts match reality · no decision record contradicts its own status | anything outside the declared numbers |
+
+**A plan change is complete only when all three pass** and the change is recorded
+in the implementation log. Re-sealing to silence a failing check is the one
+prohibited use of the seal.
+
 ## Plan integrity
 
 The canonical plan is sealed:

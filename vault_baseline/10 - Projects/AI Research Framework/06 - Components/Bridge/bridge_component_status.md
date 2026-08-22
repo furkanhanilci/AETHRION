@@ -12,6 +12,17 @@ Hermes read-only flow.
 - The initial contract foundation sits under `src/airl_framework/`.
 - Test evidence and implementation history are kept in [[implementation_log]].
 
+## Checks that now run against it
+
+| Check | Result |
+|---|---|
+| Reference verification against Crossref · OpenAlex · arXiv | **27/33 corroborated (81.8 %)** |
+| Retraction sweep against Crossref | 15 of 33 swept, 0 material signals, control fired |
+| MCP boundary | five read-only tools; exits 1 when the Bridge is down |
+
+**18 of 33 sources carry no DOI** and are invisible to the retraction sweep — a
+clean report over them would be false reassurance.
+
 ## Known limitation
 
 Ingest is hard-capped at 100 records: there is no pagination and no incremental

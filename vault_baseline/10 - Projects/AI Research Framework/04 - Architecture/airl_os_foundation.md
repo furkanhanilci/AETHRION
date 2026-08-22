@@ -57,7 +57,7 @@ exists is not a foundation — it is a parallel universe. Binding it means routi
 `SourceRecord.airl_id` through `Identity` and reconciling the hash format, with a
 migration and a reversal path.
 
-**2. There is no CI (finding H5).** Without it, `CODEOWNERS` enforces nothing,
+**2. BVC-01 (`deploy/bvc-01-verify.yml`) defines a push-triggered run of the automatable checks, but it is **staged, not active** — activation needs a workflow-scoped token, and it does not close finding H5, which is the absence of the WP-024 platform.** Without it, `CODEOWNERS` enforces nothing,
 `dependency-rules.txt` is prose, the schema registry is unchecked, and every
 "the tests pass" statement rests on a manual claim. This is why the audit ranks
 the CI foundation as the highest-leverage implementable step: **one workflow file

@@ -5,6 +5,7 @@ metadata:
   airl.version: "1.0.0"
   airl.domain: "scientific-research"
   airl.origin: "airl-native"
+  airl.adopted_components: "GROBID · Pub2TEI"
   airl.gates: "G3,G6"
   airl.roles: "Evidence Extractor"
   airl.assurance_classes: "R1,R2,R3"
@@ -14,6 +15,14 @@ metadata:
 ---
 
 # Extracting Evidence
+
+## Adopted components
+
+> **GROBID · Pub2TEI**
+
+Scholarly PDFs and publisher XML become one canonical TEI representation, so a span addresses `tei_xpath` under a `representation_digest` rather than a page number.
+
+Adoption type and authority boundary: `docs/architecture/AIRL_OS_COMPONENT_REUSE.md`.
 
 ## Core principle
 

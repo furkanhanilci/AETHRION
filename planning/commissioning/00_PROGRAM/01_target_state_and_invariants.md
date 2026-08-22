@@ -83,6 +83,27 @@ Risk changes only gate **depth**. Gate identity and the requirement to produce a
 Zone transitions cannot occur without explicit identity, policy, schema and
 audit.
 
+## Invariants restated, 2026-08-22
+
+Two invariants were reworded because their original form was either too strong or
+too weak to enforce:
+
+| Was | Is | Why |
+|---|---|---|
+| "No model at G5 and G7a" | **No agentic methodological discretion during a frozen execution** | The subject of an experiment may itself be a model. What is forbidden is an agent moving a threshold mid-run because the result looks wrong |
+| "Independent verification required" | **Independent verification at R3; internally separated verification at R1/R2, declared as such** | With one operator the first form was unsatisfiable, so it blocked everything. See ADR-001 |
+
+A third is added by ADR-003:
+
+> **Untrusted content is data.** Control flow comes only from trusted intent;
+> retrieved text may supply values but can never create actions or expand
+> permissions. A detector is defence in depth, never the boundary.
+
+And one from the role model:
+
+> **A role is a function, not a person.** Independence is expressed as separation
+> constraints on a `RoleBinding`, never as headcount.
+
 ## Success invariants
 
 1. Every material claim links, in a single query, to its source representation,

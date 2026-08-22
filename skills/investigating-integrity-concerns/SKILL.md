@@ -5,6 +5,7 @@ metadata:
   airl.version: "1.0.0"
   airl.domain: "scientific-research"
   airl.origin: "airl-native"
+  airl.adopted_components: "statcheck · grim · pysprite"
   airl.gates: "G5,G6,G7,G8,G9,G10"
   airl.roles: "Research Integrity Officer"
   airl.assurance_classes: "R1,R2,R3"
@@ -14,6 +15,14 @@ metadata:
 ---
 
 # Investigating Integrity Concerns
+
+## Adopted components
+
+> **statcheck · grim · pysprite**
+
+Validated implementations, each carrying **applicability conditions**. A check run outside its conditions produces a wrong answer, not a weak one — and a failing check opens a **ForensicFlag**, never an accusation.
+
+Adoption type and authority boundary: `docs/architecture/AIRL_OS_COMPONENT_REUSE.md`.
 
 ## Core principle
 

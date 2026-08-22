@@ -5,6 +5,7 @@ metadata:
   airl.version: "1.0.0"
   airl.domain: "scientific-research"
   airl.origin: "airl-native"
+  airl.adopted_components: "PaperQA2 · Crossref · OpenAlex · arXiv"
   airl.gates: "G3"
   airl.roles: "Evidence Lead,Search Strategist"
   airl.assurance_classes: "R1,R2,R3"
@@ -13,6 +14,14 @@ metadata:
 ---
 
 # Searching Literature
+
+## Adopted components
+
+> **PaperQA2 · Crossref · OpenAlex · arXiv**
+
+Retrieval is adopted rather than rebuilt. The contribution here is how a retrieved item binds to provenance and claim scope, not the search itself.
+
+Adoption type and authority boundary: `docs/architecture/AIRL_OS_COMPONENT_REUSE.md`.
 
 ## Core principle
 

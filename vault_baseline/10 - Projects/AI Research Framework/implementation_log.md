@@ -19,6 +19,107 @@ the last entry, the cockpit and the relevant WP files are read again.
 
 ---
 
+## Step 016 — A full pass over every folder, and drift made mechanically visible
+
+**Time:** 2026-08-22
+**Scope:** corpus-wide staleness audit · five stale programme documents · every
+vault index · a generated status page · ten skills bound to their components
+
+### The audit, done mechanically rather than by eye
+
+A scan for statements the repository had outgrown found **66 stale phrases in 24
+files**. The important part was the classification: roughly half were
+**legitimate history** — implementation log entries, the frozen audit, dated
+ledger rows — and editing those to match the present is exactly what
+`DOCUMENT_STANDARD.md` §3 rules 3 and 4 forbid.
+
+So the fix was not a find-and-replace. `scripts/check_stale_claims.py` now
+separates the two:
+
+| Exempt | Why |
+|---|---|
+| implementation log · frozen audit · frozen verification reports | they record a moment |
+| a sentence in the past tense | *"at the time, all 38 skills were non-conformant"* is history |
+| a dated ledger row | `\| 2026-08-22 \| Step 003 — 38 skills written \|` is a record |
+
+**477 documents scanned, 8 historical records exempt, 0 stale claims.** A checker
+that could not tell those apart would push a maintainer toward the forbidden edit.
+
+### Five programme documents nobody had touched
+
+`00_how_to_use_this_plan` · `01_target_state_and_invariants` ·
+`04_role_and_responsibility_matrix` · `07_programme_risk_register` ·
+`09_change_and_configuration_control` had not moved since the English rewrite,
+and every decision since had passed them by. They now carry:
+
+- the **three-check** plan verification — seal, semantics, declared counts — and
+  the rule that re-sealing to silence a failing check is the seal's one
+  prohibited use
+- the **restated invariants**: no agentic methodological discretion; internally
+  separated verification at R1/R2; untrusted content is data; **role is a
+  function, not a person**
+- the audit findings' **current status**, and four new risks this baseline
+  itself creates — chief among them **adoption without verification**, since ten
+  packages now stand on external components
+
+### A status page that cannot drift
+
+Dated verification reports are evidence and are now **frozen with a forward
+pointer**. Live status moved to `docs/STATUS.md`, **generated** by
+`scripts/write_status.py` running the bundle: every line is the last line of a
+command that was just run.
+
+Building it exposed three faults in itself, which is the argument for generating
+it at all:
+
+| Fault | Fix |
+|---|---|
+| pytest's final line is a documentation URL | select the summary by content, not position |
+| `-q` suppresses the summary when stdout is not a terminal | drop the flag |
+| the recorded line carried an elapsed time, so `--check` could **never** pass | strip the duration — a check that cannot pass is worse than none |
+
+It also immediately caught a broken seal and two stale count patterns that the
+manual pass had missed.
+
+### Every vault index brought current
+
+`architecture_index` gained the eight documents and three ADRs written since it
+was last touched; `evidence_index` gained the measurements; `components_index`
+now distinguishes the six things that actually run from the ones that do not;
+`bridge_component_status` carries the checks that now run against it; the
+repository map, the cockpit and the roadmap were corrected.
+
+Two skill groups both sorted under **H**; reporting moved to **I**.
+
+### Ten skills bound to what they stand on
+
+`curating-zotero` · `searching-literature` · `screening-sources` ·
+`extracting-evidence` · `anchoring-spans` · `calibrating-confidence` ·
+`measuring-agreement` · `investigating-integrity-concerns` ·
+`monitoring-external-feeds` · `building-review-packets` each declare
+`airl.adopted_components` and carry the authority boundary in the body.
+
+### Evidence
+
+- `check_stale_claims.py` → **0** · `check_doc_consistency.py` → agree
+- `write_status.py --check` → matches, **twice in a row**
+- 25/25 tests · 52/52 skills · plan semantics OK · seal 207/207
+- 5/5 figures, 0 overflow · mirror drift 0 (208 plan · 76 skill/doc/figure)
+
+### Limits
+
+- This step corrected **descriptions**, not capability. Nothing new runs.
+- The exemption list is narrow by design and will need extending as more dated
+  records accumulate; a wrong exemption hides real drift.
+- Everything the previous steps could not do remains undone: no end-to-end run,
+  no rendered document, no behaviour-tested skill, no accepted package.
+
+### Next step
+
+Unchanged: activate BVC-01, accept WP-000, run the authoring bake-off in Docker.
+
+---
+
 ## Step 015 — Document production: a conductor, twelve reference modules, and two checkers
 
 **Time:** 2026-08-22

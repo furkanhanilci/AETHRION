@@ -5,6 +5,7 @@ metadata:
   airl.version: "1.0.0"
   airl.domain: "scientific-research"
   airl.origin: "airl-native"
+  airl.adopted_components: "GROBID · Pub2TEI canonical TEI"
   airl.gates: "G3,G6,G10"
   airl.roles: "Evidence Extractor,Knowledge Steward"
   airl.assurance_classes: "R1,R2,R3"
@@ -13,6 +14,14 @@ metadata:
 ---
 
 # Anchoring Spans
+
+## Adopted components
+
+> **GROBID · Pub2TEI canonical TEI**
+
+Because the original bytes are kept, a later parser produces `representation-v2` **without invalidating claims anchored to v1**.
+
+Adoption type and authority boundary: `docs/architecture/AIRL_OS_COMPONENT_REUSE.md`.
 
 ## Core principle
 

@@ -39,7 +39,7 @@ implied.
 | Skill registry (52 skills, two families) | ✅ Format-conformant · ⚠️ wired for Claude Code only · 📐 behaviour **not yet tested** | `skills/` |
 | Obsidian information architecture | ✅ V0 ready | `vault_baseline/` |
 | Target architecture and skill layer | 📐 Designed, awaiting decision | `docs/architecture/` |
-| Commissioning programme — **baseline v1.0.1** | ⬜ Planned, not started; 141 packages, 51 scenarios | `planning/commissioning/` |
+| Commissioning programme — **baseline v1.0.1** | ⬜ Planned, not started; 141 package documents, 51 scenarios | `planning/commissioning/` |
 | Interim evidence policy (WP-000) | ✅ `TECH_COMPLETE` — tooling implemented, specimen issued and verified | `scripts/evidence_manifest.py` · `delivery/WP-000/` |
 | Verification on push (BVC-01) | 📐 Decided and written, **not yet active** — needs a workflow-scoped token | `deploy/bvc-01-verify.yml` |
 | Document production (authoring + figures + reporting) | 📐 Skill and reference modules written; resolution checks run · **no renderer installed** | `skills/authoring-research-documents/` |
@@ -593,7 +593,7 @@ flowchart LR
         D["Temporal · LangGraph · NATS<br/>Tool Broker · Execution Broker<br/>Claim/Evidence Ledger · Run Registry<br/>Model Gateway · G0-G10 engine<br/>Review pipeline · Metascience plane"]
     end
     subgraph WRITTEN["WRITTEN - untested"]
-        S["49 skills · role-to-model assignment<br/>141 work packages · 46 scenarios"]
+        S["52 skills · role-to-model assignment<br/>141 package documents · 51 scenarios"]
     end
     WORKING -->|"the distance is much larger<br/>than the documentation implies"| DESIGNED
     style WORKING fill:#dcfce7,stroke:#15803d,color:#000
@@ -697,6 +697,8 @@ python3 scripts/validate_skills.py     # Agent Skills format + AIRL metadata con
 python3 scripts/make_figures.py --check # figures match generators, text fits its box
 python3 scripts/validate_commissioning_plan.py  # the plan is internally consistent
 python3 scripts/check_doc_consistency.py        # documents agree with the repository
+python3 scripts/check_stale_claims.py          # no prose the repository has outgrown
+uv run python scripts/write_status.py          # regenerate docs/STATUS.md
 uv run python scripts/evidence_manifest.py verify \
     --manifest delivery/WP-000/evidence.dsse.json --tamper-demo
 uv run python scripts/verify_references.py   # needs network; not part of BVC-01
@@ -706,7 +708,7 @@ python3 scripts/check_reporting_registry.py  # adopted components remain auditab
 (cd planning/commissioning && sha256sum -c 00_PROGRAM/SHA256SUMS.txt)
 ```
 
-All eight run by hand today. The first six are **written** as a push-triggered
+They run by hand today. The first six are **written** as a push-triggered
 control — [`BVC-01`](deploy/bvc-01-verify.yml), a temporary measure under
 [`ADR-002`](docs/architecture/ADR-002_bootstrap_verification_control.md) with a
 named expiry and WP-024 as its retirement package — but it is **staged, not

@@ -9,6 +9,7 @@ metadata:
   airl.version: "1.0.0"
   airl.domain: "scientific-research"
   airl.origin: "airl-native"
+  airl.adopted_components: "Crossref (Retraction Watch data)"
   airl.gates: "G10"
   airl.roles: "Knowledge Monitoring Lead,Knowledge Steward"
   airl.assurance_classes: "R1,R2,R3"
@@ -19,6 +20,14 @@ metadata:
 ---
 
 # Monitoring External Feeds
+
+## Adopted components
+
+> **Crossref (Retraction Watch data)**
+
+**Implemented** in `scripts/monitor_sources.py`. Every run carries a known-retracted positive control and **fails if the control stays silent**.
+
+Adoption type and authority boundary: `docs/architecture/AIRL_OS_COMPONENT_REUSE.md`.
 
 ## Core principle
 

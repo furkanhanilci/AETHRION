@@ -954,7 +954,7 @@ the laboratory.
 > **State after implementation.** 11 upstream engineering skills are vendored
 > verbatim; 3 upstream procedures (`using-superpowers`, `writing-skills`,
 > `verification-before-completion`) are represented by AIRL router/shared
-> adaptations; the registry holds **49 conformant skills**. The paragraphs below
+> adaptations; the registry holds **52 conformant skills**. The paragraphs below
 > describe the situation this decision responded to, not the situation today.
 
 ### 14.2 The principle
@@ -1010,7 +1010,7 @@ permits exactly six top-level frontmatter fields — `name`, `description`,
 belongs under `metadata` as a string map. The files then declared `version`,
 `gates`, `roles`, `assurance_classes`, `emits`, `mechanical_checks`,
 `non_waivable`, `requires_skills`, `data_class_ceiling` and `tool_effect` at the
-top level. **All 49 skills now conform**, and `scripts/validate_skills.py`
+top level. **All 52 skills now conform**, and `scripts/validate_skills.py`
 keeps them that way.
 
 The required shape:
@@ -1058,7 +1058,7 @@ disclosure the Agent Skills format is built for.
 
 | # | Work | State |
 |---|---|---|
-| 1 | Migrate all skills to spec-conformant frontmatter; enforce it mechanically | ✅ **done** — 49/49, `scripts/validate_skills.py` |
+| 1 | Migrate all skills to spec-conformant frontmatter; enforce it mechanically | ✅ **done** — 52/52, `scripts/validate_skills.py` |
 | 2 | Add the engineering family — installed from upstream with a pinned commit, **not** re-authored as AIRL prose | ✅ **done** — 11 vendored @ `b36e0829` |
 | 3 | `using-airl-os` becomes the router: family first, then `research_mode` × `execution_path` | ✅ **done** |
 | 4 | Skill binding into `TaskContract` | 📐 **specified** in WP-013; not built |

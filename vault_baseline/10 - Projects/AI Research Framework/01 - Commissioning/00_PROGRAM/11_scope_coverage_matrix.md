@@ -76,7 +76,7 @@ area that is unnamed is an accident.
 | Confidence calibration | Confidence numbers appear in contracts with no measurement basis | Metascience plane |
 | Control injection (positive and negative) | The lab's own false-positive and false-negative rates are unknown | Metascience plane |
 | Attention-budget telemetry | Human decision capacity is the binding constraint and is untracked | Alongside WP-004 / WP-091 |
-| Skill bundle governance | The 38 skills change agent behaviour and are not under configuration control | Alongside WP-047 |
+| Skill bundle governance | The the skill registry change agent behaviour and are not under configuration control | Alongside WP-047 |
 
 ## Completeness rule
 

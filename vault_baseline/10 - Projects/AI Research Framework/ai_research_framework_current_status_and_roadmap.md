@@ -103,7 +103,7 @@ programme is `ACCEPTED` or `COMMISSIONED`.** No package is currently `ACCEPTED`.
 ```
 
 This area defines the target architecture, work packages WP-001–WP-140 and
-acceptance scenarios ACC-01–ACC-40. It is hash-sealed:
+acceptance scenarios ACC-01–ACC-51. It is hash-sealed:
 
 ```bash
 sha256sum -c planning/commissioning/00_PROGRAM/SHA256SUMS.txt
@@ -465,7 +465,7 @@ the six candidate papers is READY.**
 | `07_LITERATURE_KNOWLEDGE` | A working local V0 exists | PostgreSQL registry, resolver, annotations, manifest freeze, write-back |
 | `08_EVIDENCE_ASSURANCE` | The SILBO evidence protocol is partly strong | Claim Ledger, MLflow, clean-room reproduction, review/publish packages |
 | `09_EXPERIENCE_OBSERVABILITY` | Obsidian and local dashboards exist | Cockpit, telemetry, Langfuse, Grafana, cost ledger, SLOs |
-| `10_INTEGRATION_CUTOVER` | Local V0 acceptance exists | WP-102–121 and ACC-01–ACC-40 commissioning |
+| `10_INTEGRATION_CUTOVER` | Local V0 acceptance exists | WP-102–121 and ACC-01–ACC-51 commissioning |
 | `11_DAY2_OPERATIONS` | A timer/runbook V0 exists | DR, incident handling, requalification, continuous assurance |
 | `13_TOOLING_INTEGRATION` | Designed (WP-131–140) | Notification Broker, channel ceilings, external records, evidence sealing, liveness |
 
@@ -551,7 +551,7 @@ no direct production data migration will be performed.
 1. WP-102–108 vertical slices.
 2. WP-109–118 acceptance registry, security, DR, performance and operational
    readiness.
-3. Running ACC-01–ACC-40 on the same target.
+3. Running ACC-01–ACC-51 on the same target.
 4. At least two restore drills.
 5. Zero open critical findings.
 6. A pilot cutover rehearsal.

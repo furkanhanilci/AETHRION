@@ -5,6 +5,7 @@ metadata:
   airl.version: "1.0.0"
   airl.domain: "scientific-research"
   airl.origin: "airl-native"
+  airl.adopted_components: "Zotero · Better BibTeX"
   airl.gates: "G3,G9,G10"
   airl.roles: "Evidence Lead,Source Ingester,Evidence Linker"
   airl.assurance_classes: "R1,R2,R3"
@@ -15,6 +16,14 @@ metadata:
 ---
 
 # Curating Zotero
+
+## Adopted components
+
+> **Zotero · Better BibTeX**
+
+Zotero stays the human bibliographic workspace; Better BibTeX projects a version-control-friendly bibliography. **Neither is canonical identity** — that stays with the AIRL Source Registry.
+
+Adoption type and authority boundary: `docs/architecture/AIRL_OS_COMPONENT_REUSE.md`.
 
 ## Core principle
 
