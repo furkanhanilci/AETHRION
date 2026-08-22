@@ -15,16 +15,16 @@
 
 | Package | Title | Hard dependencies | Status | Adopted component |
 |---|---|---|---|:--:|
-| [WP-031](WP-031_temporal_platform.md) | Temporal Platform, Namespaces and HA | WP-021, WP-025, WP-026, WP-027, WP-028 | `NOT_STARTED` |  |
-| [WP-032](WP-032_project_lifecycle_skeleton.md) | ProjectLifecycle Workflow Skeleton | WP-008, WP-013, WP-015, WP-020, WP-031 | `NOT_STARTED` |  |
-| [WP-033](WP-033_gate_service_records.md) | Gate Service and GateRecord Evaluation | WP-008, WP-016, WP-018, WP-032 | `NOT_STARTED` |  |
-| [WP-034](WP-034_g0_g1_workflows.md) | G0 Intake and G1 Charter Workflows | WP-004, WP-005, WP-006, WP-013, WP-032, WP-033 | `NOT_STARTED` |  |
-| [WP-035](WP-035_g2_g4_workflows.md) | G2 Protocol, G3 Literature and G4 Baseline Workflows | WP-008, WP-013, WP-017, WP-019, WP-032, WP-033, WP-034 | `NOT_STARTED` |  |
-| [WP-036](WP-036_g5_g9_workflows.md) | G5 Execute through G9 Publish Workflows | WP-004, WP-007, WP-008, WP-019, WP-032, WP-033, WP-035 | `NOT_STARTED` |  |
-| [WP-037](WP-037_g10_impactscan.md) | G10 Temporal Schedules and Short ImpactScan Workflows | WP-008, WP-015, WP-017, WP-018, WP-031, WP-032 | `NOT_STARTED` |  |
-| [WP-038](WP-038_human_updates_compensation.md) | Human Update, Cancellation and Compensation Semantics | WP-004, WP-013, WP-016, WP-032, WP-033 | `NOT_STARTED` |  |
-| [WP-039](WP-039_event_consumer_dlq_replay.md) | Event Consumer, DLQ and Safe Replay Framework | WP-015, WP-020, WP-028, WP-032 | `NOT_STARTED` |  |
-| [WP-040](WP-040_workflow_replay_failure_suite.md) | Workflow Replay, Versioning and Failure Test Suite | WP-024, WP-031, WP-032, WP-033, WP-034, WP-035, WP-036, W… | `NOT_STARTED` |  |
+| [WP-031](wp_031_temporal_platform.md) | Temporal Platform, Namespaces and HA | WP-021, WP-025, WP-026, WP-027, WP-028 | `NOT_STARTED` |  |
+| [WP-032](wp_032_project_lifecycle_skeleton.md) | ProjectLifecycle Workflow Skeleton | WP-008, WP-013, WP-015, WP-020, WP-031 | `NOT_STARTED` |  |
+| [WP-033](wp_033_gate_service_records.md) | Gate Service and GateRecord Evaluation | WP-008, WP-016, WP-018, WP-032 | `NOT_STARTED` |  |
+| [WP-034](wp_034_g0_g1_workflows.md) | G0 Intake and G1 Charter Workflows | WP-004, WP-005, WP-006, WP-013, WP-032, WP-033 | `NOT_STARTED` |  |
+| [WP-035](wp_035_g2_g4_workflows.md) | G2 Protocol, G3 Literature and G4 Baseline Workflows | WP-008, WP-013, WP-017, WP-019, WP-032, WP-033, WP-034 | `NOT_STARTED` |  |
+| [WP-036](wp_036_g5_g9_workflows.md) | G5 Execute through G9 Publish Workflows | WP-004, WP-007, WP-008, WP-019, WP-032, WP-033, WP-035 | `NOT_STARTED` |  |
+| [WP-037](wp_037_g10_impactscan.md) | G10 Temporal Schedules and Short ImpactScan Workflows | WP-008, WP-015, WP-017, WP-018, WP-031, WP-032 | `NOT_STARTED` |  |
+| [WP-038](wp_038_human_updates_compensation.md) | Human Update, Cancellation and Compensation Semantics | WP-004, WP-013, WP-016, WP-032, WP-033 | `NOT_STARTED` |  |
+| [WP-039](wp_039_event_consumer_dlq_replay.md) | Event Consumer, DLQ and Safe Replay Framework | WP-015, WP-020, WP-028, WP-032 | `NOT_STARTED` |  |
+| [WP-040](wp_040_workflow_replay_failure_suite.md) | Workflow Replay, Versioning and Failure Test Suite | WP-024, WP-031, WP-032, WP-033, WP-034, WP-035, WP-036, W… | `NOT_STARTED` |  |
 
 A ✅ marks a package that stands on an adopted external component rather than building the capability here — see `docs/architecture/AETHRION_COMPONENT_REUSE.md`.
 

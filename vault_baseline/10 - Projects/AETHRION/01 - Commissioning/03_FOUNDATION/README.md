@@ -15,16 +15,16 @@
 
 | Package | Title | Hard dependencies | Status | Adopted component |
 |---|---|---|---|:--:|
-| [WP-021](WP-021_environment_account_network_baseline.md) | Development, Staging and Production Environment Baseline | WP-001, WP-006, WP-010, WP-020 | `NOT_STARTED` |  |
-| [WP-022](WP-022_repository_topology.md) | Repository Topology and Code Ownership | WP-010, WP-020 | `NOT_STARTED` |  |
-| [WP-023](WP-023_git_worktree_branch_policy.md) | Git, Worktree and Protected-Path Policy | WP-022 | `NOT_STARTED` |  |
-| [WP-024](WP-024_ci_quality_gates.md) | CI Foundation and Deterministic Quality Gates | WP-020, WP-022, WP-023 | `NOT_STARTED` |  |
-| [WP-025](WP-025_postgres_ha_foundation.md) | PostgreSQL HA and Registry Data Foundation | WP-021, WP-020 | `NOT_STARTED` |  |
-| [WP-026](WP-026_object_store_worm.md) | Content-Addressed Object Store and WORM | WP-021, WP-014 | `NOT_STARTED` | ✅ |
-| [WP-027](WP-027_git_oci_supply_chain.md) | Git, OCI Registry and Build Provenance Foundation | WP-021, WP-022, WP-024, WP-026 | `NOT_STARTED` |  |
-| [WP-028](WP-028_nats_jetstream_outbox.md) | NATS JetStream and Transactional Outbox Foundation | WP-015, WP-021, WP-025 | `NOT_STARTED` |  |
-| [WP-029](WP-029_mlflow_foundation.md) | MLflow Experiment and Evaluation Tracking Foundation | WP-021, WP-025, WP-026 | `NOT_STARTED` |  |
-| [WP-030](WP-030_derived_read_models.md) | Neo4j, pgvector and OpenSearch Derived Read Models | WP-012, WP-017, WP-018, WP-025, WP-026, WP-028 | `NOT_STARTED` |  |
+| [WP-021](wp_021_environment_account_network_baseline.md) | Development, Staging and Production Environment Baseline | WP-001, WP-006, WP-010, WP-020 | `NOT_STARTED` |  |
+| [WP-022](wp_022_repository_topology.md) | Repository Topology and Code Ownership | WP-010, WP-020 | `NOT_STARTED` |  |
+| [WP-023](wp_023_git_worktree_branch_policy.md) | Git, Worktree and Protected-Path Policy | WP-022 | `NOT_STARTED` |  |
+| [WP-024](wp_024_ci_quality_gates.md) | CI Foundation and Deterministic Quality Gates | WP-020, WP-022, WP-023 | `NOT_STARTED` |  |
+| [WP-025](wp_025_postgres_ha_foundation.md) | PostgreSQL HA and Registry Data Foundation | WP-021, WP-020 | `NOT_STARTED` |  |
+| [WP-026](wp_026_object_store_worm.md) | Content-Addressed Object Store and WORM | WP-021, WP-014 | `NOT_STARTED` | ✅ |
+| [WP-027](wp_027_git_oci_supply_chain.md) | Git, OCI Registry and Build Provenance Foundation | WP-021, WP-022, WP-024, WP-026 | `NOT_STARTED` |  |
+| [WP-028](wp_028_nats_jetstream_outbox.md) | NATS JetStream and Transactional Outbox Foundation | WP-015, WP-021, WP-025 | `NOT_STARTED` |  |
+| [WP-029](wp_029_mlflow_foundation.md) | MLflow Experiment and Evaluation Tracking Foundation | WP-021, WP-025, WP-026 | `NOT_STARTED` |  |
+| [WP-030](wp_030_derived_read_models.md) | Neo4j, pgvector and OpenSearch Derived Read Models | WP-012, WP-017, WP-018, WP-025, WP-026, WP-028 | `NOT_STARTED` |  |
 
 A ✅ marks a package that stands on an adopted external component rather than building the capability here — see `docs/architecture/AETHRION_COMPONENT_REUSE.md`.
 

@@ -15,17 +15,17 @@
 
 | Package | Title | Hard dependencies | Status | Adopted component |
 |---|---|---|---|:--:|
-| [WP-091](WP-091_lab_cockpit_shell.md) | Lab Cockpit Information Architecture and Application Shell | WP-002, WP-012, WP-013, WP-020, WP-025, WP-030, WP-032, W… | `NOT_STARTED` |  |
-| [WP-092](WP-092_project_gate_timeline.md) | Project Workspace and G0–G10 Gate Timeline | WP-008, WP-032, WP-033, WP-034, WP-035, WP-036, WP-037, W… | `NOT_STARTED` |  |
-| [WP-093](WP-093_decision_queue_ui.md) | Human Decision Queue and Evidence-Delta UI | WP-004, WP-018, WP-038, WP-075, WP-077, WP-089, WP-091 | `NOT_STARTED` |  |
-| [WP-094](WP-094_literature_workbench.md) | Literature Workbench and Reconciliation UI | WP-061, WP-062, WP-063, WP-064, WP-065, WP-066, WP-067, W… | `NOT_STARTED` |  |
-| [WP-095](WP-095_claim_evidence_explorer.md) | Claim/Evidence Explorer and Provenance Graph | WP-030, WP-075, WP-076, WP-077, WP-078, WP-079, WP-080, W… | `NOT_STARTED` |  |
-| [WP-096](WP-096_otel_correlation.md) | OpenTelemetry End-to-End Correlation Spine | WP-011, WP-015, WP-020, WP-021, WP-025, WP-028, WP-031, W… | `NOT_STARTED` |  |
-| [WP-097](WP-097_langfuse_llm_trace.md) | Langfuse Model/Agent Tracing and Prompt Governance | WP-006, WP-013, WP-020, WP-025, WP-026, WP-041, WP-046, W… | `NOT_STARTED` |  |
-| [WP-098](WP-098_grafana_six_graphs.md) | Grafana and the Six Operational Graphs | WP-030, WP-096, WP-097 | `NOT_STARTED` |  |
-| [WP-099](WP-099_audit_worm_export.md) | WORM Audit Ledger and Independent Export | WP-011, WP-015, WP-016, WP-025, WP-026, WP-028, WP-049, W… | `NOT_STARTED` |  |
-| [WP-100](WP-100_cost_ledger_finops.md) | Cost Ledger, Budget Envelopes and FinOps | WP-011, WP-013, WP-015, WP-016, WP-025, WP-028, WP-041, W… | `NOT_STARTED` |  |
-| [WP-101](WP-101_service_slo_alerting.md) | Service Catalogue, SLOs and Alert/Runbook Binding | WP-002, WP-022, WP-025, WP-026, WP-028, WP-031, WP-041, W… | `NOT_STARTED` |  |
+| [WP-091](wp_091_lab_cockpit_shell.md) | Lab Cockpit Information Architecture and Application Shell | WP-002, WP-012, WP-013, WP-020, WP-025, WP-030, WP-032, W… | `NOT_STARTED` |  |
+| [WP-092](wp_092_project_gate_timeline.md) | Project Workspace and G0–G10 Gate Timeline | WP-008, WP-032, WP-033, WP-034, WP-035, WP-036, WP-037, W… | `NOT_STARTED` |  |
+| [WP-093](wp_093_decision_queue_ui.md) | Human Decision Queue and Evidence-Delta UI | WP-004, WP-018, WP-038, WP-075, WP-077, WP-089, WP-091 | `NOT_STARTED` |  |
+| [WP-094](wp_094_literature_workbench.md) | Literature Workbench and Reconciliation UI | WP-061, WP-062, WP-063, WP-064, WP-065, WP-066, WP-067, W… | `NOT_STARTED` |  |
+| [WP-095](wp_095_claim_evidence_explorer.md) | Claim/Evidence Explorer and Provenance Graph | WP-030, WP-075, WP-076, WP-077, WP-078, WP-079, WP-080, W… | `NOT_STARTED` |  |
+| [WP-096](wp_096_otel_correlation.md) | OpenTelemetry End-to-End Correlation Spine | WP-011, WP-015, WP-020, WP-021, WP-025, WP-028, WP-031, W… | `NOT_STARTED` |  |
+| [WP-097](wp_097_langfuse_llm_trace.md) | Langfuse Model/Agent Tracing and Prompt Governance | WP-006, WP-013, WP-020, WP-025, WP-026, WP-041, WP-046, W… | `NOT_STARTED` |  |
+| [WP-098](wp_098_grafana_six_graphs.md) | Grafana and the Six Operational Graphs | WP-030, WP-096, WP-097 | `NOT_STARTED` |  |
+| [WP-099](wp_099_audit_worm_export.md) | WORM Audit Ledger and Independent Export | WP-011, WP-015, WP-016, WP-025, WP-026, WP-028, WP-049, W… | `NOT_STARTED` |  |
+| [WP-100](wp_100_cost_ledger_finops.md) | Cost Ledger, Budget Envelopes and FinOps | WP-011, WP-013, WP-015, WP-016, WP-025, WP-028, WP-041, W… | `NOT_STARTED` |  |
+| [WP-101](wp_101_service_slo_alerting.md) | Service Catalogue, SLOs and Alert/Runbook Binding | WP-002, WP-022, WP-025, WP-026, WP-028, WP-031, WP-041, W… | `NOT_STARTED` |  |
 
 A ✅ marks a package that stands on an adopted external component rather than building the capability here — see `docs/architecture/AETHRION_COMPONENT_REUSE.md`.
 

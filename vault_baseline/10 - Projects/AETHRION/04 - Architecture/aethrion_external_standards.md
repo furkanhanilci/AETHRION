@@ -241,7 +241,7 @@ Nanopublication stays adopted but **as an export representation only** — the
 operational ledger is the SEPIO profile.
 
 Component-level adoption, including type and priority, is in
-[`AETHRION_COMPONENT_REUSE.md`](AETHRION_COMPONENT_REUSE.md).
+[`AETHRION_COMPONENT_REUSE.md`](aethrion_component_reuse.md).
 
 ---
 

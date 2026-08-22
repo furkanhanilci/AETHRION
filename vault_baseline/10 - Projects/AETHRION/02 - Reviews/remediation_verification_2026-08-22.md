@@ -10,7 +10,7 @@
 > verification report edited to match the present stops being a verification of
 > anything — `docs/DOCUMENT_STANDARD.md` §3 rule 4.
 >
-> Live status is generated: [`docs/STATUS.md`](../STATUS.md).
+> Live status is generated: [`docs/STATUS.md`](../05 - Evidence/current_status.md).
 
 
 **In one paragraph.** This report states what is true today, measured against a frozen audit that must not be edited to match the present. Two audit findings were genuinely closed, one had its storage half addressed on paper, and the rest remain open. New surface has been added since the audit — a skill registry, an interim evidence policy, six acceptance scenarios — and none of it is executed, which is stated here precisely so the additions do not read as progress against the audit's central finding.
@@ -18,7 +18,7 @@
 | Field | Value |
 |---|---|
 | Document type | Verification report against a frozen audit |
-| Audit under verification | [`FRAMEWORK_REVIEW_2026-08-21_CLAUDE.md`](FRAMEWORK_REVIEW_2026-08-21_CLAUDE.md) — frozen, not edited |
+| Audit under verification | [`FRAMEWORK_REVIEW_2026-08-21_CLAUDE.md`](claude_framework_audit_report.md) — frozen, not edited |
 | Repository state | commissioning baseline **v1.0** |
 | Method | Every claim below was re-checked against the working tree, not against memory |
 

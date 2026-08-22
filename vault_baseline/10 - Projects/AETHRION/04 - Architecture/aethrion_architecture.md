@@ -239,7 +239,7 @@ from Temporal. A consumer may miss an event; it may never *decide* anything.
 
 ### 4.2 The separation that cuts across every plane
 
-The planes answer *where* a thing runs. [ADR-003](ADR-003_trusted_control_and_policy.md)
+The planes answer *where* a thing runs. [ADR-003](adr_003_trusted_control_and_policy.md)
 answers a question no plane diagram can: **whose words are allowed to change what
 the system does.**
 
@@ -418,7 +418,7 @@ step** (mechanical, model or human). The full tables live in
 
 *Figure 3 — Authority tiers, actor composition per role, and the constraint
 resolution that lets one operator hold several roles. Full definitions, including
-what each role may never do, are in [`AETHRION_ROLES.md`](AETHRION_ROLES.md).*
+what each role may never do, are in [`AETHRION_ROLES.md`](aethrion_roles.md).*
 
 ```mermaid
 flowchart TD
@@ -852,12 +852,12 @@ unknown, it does not remove work.
 | # | Blocker | State |
 |---|---|---|
 | **C1** | Evidence bootstrap deadlock | **Closed.** WP-000 executed; issuance and verification run, tamper is rejected |
-| **C2** | What "independent verifier" means for a one-person organisation | **Closed by [ADR-001](ADR-001_solo_operator_independence.md).** R1 solo, R2 declared-partial, R3 `BLOCKED` — enforced, not argued |
+| **C2** | What "independent verifier" means for a one-person organisation | **Closed by [ADR-001](adr_001_solo_operator_independence.md).** R1 solo, R2 declared-partial, R3 `BLOCKED` — enforced, not argued |
 | **H1** | Zotero ingest capped at 100 records, no pagination | Open — **fix M9 first**, or pagination turns a masked truncation into active data loss |
 | **H2** | No deletion reconciliation, no tombstones | Open |
 | **H3** | Read-only boundary has no behavioural test | Open |
 | **H4** | Contract core has no consumers | Open |
-| **H5** | No continuous integration | **Staged, not active** — the workflow exists at `deploy/bvc-01-verify.yml` and has never run; see [ADR-002](ADR-002_bootstrap_verification_control.md) |
+| **H5** | No continuous integration | **Staged, not active** — the workflow exists at `deploy/bvc-01-verify.yml` and has never run; see [ADR-002](adr_002_bootstrap_verification_control.md) |
 
 The two closures do not change the shape of the distance. What changed is that
 the remaining blockers are now all **implementation**, and none of them is
@@ -881,9 +881,9 @@ Solid borders mark what is implemented.*
 
 The register — every component, its adoption type, its priority and what it
 changes about a work package — is
-[`AETHRION_COMPONENT_REUSE.md`](AETHRION_COMPONENT_REUSE.md). Security
+[`AETHRION_COMPONENT_REUSE.md`](aethrion_component_reuse.md). Security
 architecture and policy evaluation are decided in
-[`ADR-003`](ADR-003_trusted_control_and_policy.md).
+[`ADR-003`](adr_003_trusted_control_and_policy.md).
 
 ## 11. Where everything lives
 
@@ -955,7 +955,7 @@ The limit is stated plainly in the figure. All of this is internal consistency,
 and every one of its guarantees would still hold for a corpus describing a system
 that does not work. External truth enters through two doors only: reference
 verification against Crossref, OpenAlex and arXiv, and the benchmarks named in
-[`AETHRION_COMPONENT_REUSE.md`](AETHRION_COMPONENT_REUSE.md) — none of which has
+[`AETHRION_COMPONENT_REUSE.md`](aethrion_component_reuse.md) — none of which has
 been run.
 
 ---

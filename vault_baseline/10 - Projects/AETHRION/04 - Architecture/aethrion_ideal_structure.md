@@ -24,18 +24,18 @@
 
 > **Adoption note, 2026-08-22.** Several proposals below now have an adopted
 > external standard behind them rather than a format to invent — see
-> [`AETHRION_EXTERNAL_STANDARDS.md`](AETHRION_EXTERNAL_STANDARDS.md): G3 reporting
+> [`AETHRION_EXTERNAL_STANDARDS.md`](aethrion_external_standards.md): G3 reporting
 > (PRISMA 2020 / PRISMA-S / PRISMA-LSR and a preregistered screening stopping
 > rule) and evidence attestation (in-toto + Sigstore + Rekor, which resolves the
 > storage half of C1 as **WP-000**) are decided; the claim model
 > (nanopublication / micropublication / SEPIO), run provenance (Workflow Run
 > RO-Crate), evidence appraisal (GRADE, RoB 2, ROBINS-I) and the G8 assurance
 > case (CAE / GSN) are queued with reasons. A narrative, diagrammed overview of
-> the whole system is in [`AETHRION_ARCHITECTURE.md`](AETHRION_ARCHITECTURE.md).
+> the whole system is in [`AETHRION_ARCHITECTURE.md`](aethrion_architecture.md).
 
 ## 0. What this document does
 
-> *`AIRL-OS-Architecture.md` is a **historical name**: the v1.0 document this one was derived from, which no longer exists under that filename. Current project identity: **AETHRION**; the current architecture reference is [`AETHRION_ARCHITECTURE.md`](AETHRION_ARCHITECTURE.md). See [`../branding.md`](../branding.md).*
+> *`AIRL-OS-Architecture.md` is a **historical name**: the v1.0 document this one was derived from, which no longer exists under that filename. Current project identity: **AETHRION**; the current architecture reference is [`AETHRION_ARCHITECTURE.md`](aethrion_architecture.md). See [`../branding.md`](aethrion_naming_and_terminology.md).*
 
 The existing `AIRL-OS-Architecture.md` is **a strong architecture**. The division
 of authority is right, the Temporal/LangGraph separation is right, the Tool

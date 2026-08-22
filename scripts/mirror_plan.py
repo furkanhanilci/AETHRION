@@ -45,7 +45,11 @@ def rewrite_links(text: str) -> str:
         prefix, kind, num, tail = match.groups()
         return f"{prefix}{kind.lower()}_{num}_{tail}"
 
-    return re.sub(r"(\]\([^)]*?/)(WP|ACC)-(\d+)_([^)]+\.md\))", repl, text)
+    # The directory prefix is optional: a link to a sibling package is written
+    # ``](WP-001_x.md)`` with no slash in it, and requiring one left every
+    # same-directory link in the generated indexes pointing at a name the mirror
+    # had already renamed.
+    return re.sub(r"(\]\((?:[^)]*?/)?)(WP|ACC)-(\d+)_([^)]+\.md\))", repl, text)
 
 
 def build() -> dict[str, bytes]:

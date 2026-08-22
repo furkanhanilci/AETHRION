@@ -15,17 +15,17 @@
 
 | Package | Title | Hard dependencies | Status | Adopted component |
 |---|---|---|---|:--:|
-| [WP-000](WP-000_interim_evidence_policy.md) | Interim Evidence Policy and Attestation Bootstrap | — none, and none is permitted. A bootstrap package that d… | `TECH_COMPLETE` |  |
-| [WP-001](WP-001_commissioning_charter.md) | Commissioning Charter and Programme Authority | — | `NOT_STARTED` |  |
-| [WP-002](WP-002_scope_nfr_traceability.md) | Scope, NFRs and Requirement Traceability | WP-001 | `NOT_STARTED` |  |
-| [WP-003](WP-003_role_catalog_raci.md) | Role Catalogue and RACI Baseline | WP-001, WP-002 | `NOT_STARTED` |  |
-| [WP-004](WP-004_human_decision_sla_delegation.md) | Human Decision, SLA, Delegation and Escalation Policy | WP-003 | `NOT_STARTED` |  |
-| [WP-005](WP-005_risk_assurance_profile.md) | Research Risk and Assurance Profile | WP-001, WP-002 | `NOT_STARTED` |  |
-| [WP-006](WP-006_execution_profile.md) | ExecutionProfile and Route Policy | WP-002 | `NOT_STARTED` |  |
-| [WP-007](WP-007_independence_profile.md) | IndependenceProfile and Separation-of-Duties Policy | WP-003, WP-005 | `NOT_STARTED` |  |
-| [WP-008](WP-008_gate_policy_g0_g10.md) | G0–G10 Gate and Assurance Policy | WP-004, WP-005, WP-007 | `NOT_STARTED` |  |
-| [WP-009](WP-009_control_exception_catalog.md) | Control Catalogue, Exceptions and Non-Waivable Blockers | WP-005, WP-006, WP-007, WP-008 | `NOT_STARTED` |  |
-| [WP-010](WP-010_adr_baseline.md) | Architecture Decision and Rejected-Alternatives Baseline | WP-002, WP-005, WP-006, WP-007, WP-008, WP-009 | `NOT_STARTED` |  |
+| [WP-000](wp_000_interim_evidence_policy.md) | Interim Evidence Policy and Attestation Bootstrap | — none, and none is permitted. A bootstrap package that d… | `TECH_COMPLETE` |  |
+| [WP-001](wp_001_commissioning_charter.md) | Commissioning Charter and Programme Authority | — | `NOT_STARTED` |  |
+| [WP-002](wp_002_scope_nfr_traceability.md) | Scope, NFRs and Requirement Traceability | WP-001 | `NOT_STARTED` |  |
+| [WP-003](wp_003_role_catalog_raci.md) | Role Catalogue and RACI Baseline | WP-001, WP-002 | `NOT_STARTED` |  |
+| [WP-004](wp_004_human_decision_sla_delegation.md) | Human Decision, SLA, Delegation and Escalation Policy | WP-003 | `NOT_STARTED` |  |
+| [WP-005](wp_005_risk_assurance_profile.md) | Research Risk and Assurance Profile | WP-001, WP-002 | `NOT_STARTED` |  |
+| [WP-006](wp_006_execution_profile.md) | ExecutionProfile and Route Policy | WP-002 | `NOT_STARTED` |  |
+| [WP-007](wp_007_independence_profile.md) | IndependenceProfile and Separation-of-Duties Policy | WP-003, WP-005 | `NOT_STARTED` |  |
+| [WP-008](wp_008_gate_policy_g0_g10.md) | G0–G10 Gate and Assurance Policy | WP-004, WP-005, WP-007 | `NOT_STARTED` |  |
+| [WP-009](wp_009_control_exception_catalog.md) | Control Catalogue, Exceptions and Non-Waivable Blockers | WP-005, WP-006, WP-007, WP-008 | `NOT_STARTED` |  |
+| [WP-010](wp_010_adr_baseline.md) | Architecture Decision and Rejected-Alternatives Baseline | WP-002, WP-005, WP-006, WP-007, WP-008, WP-009 | `NOT_STARTED` |  |
 
 A ✅ marks a package that stands on an adopted external component rather than building the capability here — see `docs/architecture/AETHRION_COMPONENT_REUSE.md`.
 

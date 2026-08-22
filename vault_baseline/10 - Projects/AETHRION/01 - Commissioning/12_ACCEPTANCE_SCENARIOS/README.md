@@ -15,57 +15,57 @@
 
 | Scenario | Title | Severity | Phase |
 |---|---|---|---|
-| [ACC-01](ACC-01_human_seed_literature.md) | Human Seed Literature | Critical | PRE_GO_LIVE |
-| [ACC-02](ACC-02_agent_used_source_writeback.md) | Agent-Used Source Write-Back | Critical | PRE_GO_LIVE |
-| [ACC-03](ACC-03_duplicate_collision.md) | Duplicate and Metadata Collision | High | PRE_GO_LIVE |
-| [ACC-04](ACC-04_retraction_impact.md) | Retraction Impact | Critical | PRE_GO_LIVE |
-| [ACC-05](ACC-05_prompt_injection_pdf.md) | Prompt-Injection PDF | Critical | PRE_GO_LIVE |
-| [ACC-06](ACC-06_plan_self_approval.md) | Planner Self-Approval Attempt | Critical | PRE_GO_LIVE |
-| [ACC-07](ACC-07_reviewer_order_bias.md) | Reviewer Order Bias | High | PRE_GO_LIVE — initial qualification |
-| [ACC-08](ACC-08_strong_counter_test.md) | Strong Counter-Test | Critical | PRE_GO_LIVE |
-| [ACC-09](ACC-09_budget_hard_stop.md) | Budget Hard Stop | Critical | PRE_GO_LIVE |
-| [ACC-10](ACC-10_provider_outage.md) | Primary Model Provider Outage | High | PRE_GO_LIVE |
-| [ACC-11](ACC-11_no_eligible_fallback.md) | No Eligible Fallback | Critical | PRE_GO_LIVE |
-| [ACC-12](ACC-12_duplicate_event.md) | Duplicate Event Delivery | Critical | PRE_GO_LIVE |
-| [ACC-13](ACC-13_temporal_worker_crash.md) | Temporal Worker Crash | Critical | PRE_GO_LIVE |
-| [ACC-14](ACC-14_workflow_code_deploy.md) | Workflow Code Deployment and Replay | Critical | PRE_GO_LIVE |
-| [ACC-15](ACC-15_sandbox_escape.md) | Sandbox Escape Attempt | Critical | PRE_GO_LIVE |
-| [ACC-16](ACC-16_egress_exfiltration.md) | Egress Exfiltration Attempt | Critical | PRE_GO_LIVE |
-| [ACC-17](ACC-17_unsigned_image.md) | Unsigned or Mutable Image | Critical | PRE_GO_LIVE |
-| [ACC-18](ACC-18_d3_public_route.md) | D3 Data to a Public Provider | Critical | PRE_GO_LIVE |
-| [ACC-19](ACC-19_clean_room_pass.md) | Clean-Room Reproduction Pass | High | PRE_GO_LIVE |
-| [ACC-20](ACC-20_clean_room_fail.md) | Clean-Room Reproduction Failure | Critical | PRE_GO_LIVE |
-| [ACC-21](ACC-21_graph_corruption.md) | Derived Graph Corruption and Rebuild | High | PRE_GO_LIVE |
-| [ACC-22](ACC-22_obsidian_human_edit.md) | Obsidian Human Edit Preservation | High | PRE_GO_LIVE |
-| [ACC-23](ACC-23_artifact_overwrite.md) | Artifact Overwrite Attempt | Critical | PRE_GO_LIVE |
-| [ACC-24](ACC-24_policy_bundle_rollback.md) | Policy Bundle Rollback | High | PRE_GO_LIVE |
-| [ACC-25](ACC-25_human_approval_forgery.md) | Human Approval Forgery | Critical | PRE_GO_LIVE |
-| [ACC-26](ACC-26_approval_expiry.md) | Approval, Delegation and Exception Expiry | Critical | PRE_GO_LIVE |
-| [ACC-27](ACC-27_regional_dr.md) | Regional / Management Plane DR | Critical | PRE_GO_LIVE — initial qualification |
-| [ACC-28](ACC-28_zotero_full_resync.md) | Zotero Full Resync | High | PRE_GO_LIVE |
-| [ACC-29](ACC-29_invoice_variance.md) | Provider Invoice Variance | Medium | PRE_GO_LIVE — initial qualification |
-| [ACC-30](ACC-30_publication_completeness.md) | Publication Completeness | Critical | PRE_GO_LIVE |
-| [ACC-31](ACC-31_superseded_publication.md) | Superseded Publication | High | PRE_GO_LIVE |
-| [ACC-32](ACC-32_secret_in_trace.md) | Secret in Prompt or Trace | Critical | PRE_GO_LIVE |
-| [ACC-33](ACC-33_kueue_preemption.md) | Kueue Preemption | High | PRE_GO_LIVE |
-| [ACC-34](ACC-34_dlq_repair.md) | DLQ Repair and Corrected Replay | High | PRE_GO_LIVE |
-| [ACC-35](ACC-35_tool_partial_failure.md) | Tool Partial Failure | Critical | PRE_GO_LIVE |
-| [ACC-36](ACC-36_model_snapshot_drift.md) | Model Snapshot Drift | Critical | PRE_GO_LIVE — initial qualification |
-| [ACC-37](ACC-37_eval_contamination.md) | Evaluation Set Contamination | Critical | PRE_GO_LIVE — initial qualification |
-| [ACC-38](ACC-38_reviewer_unavailable.md) | Critical Reviewer Unavailable | High | PRE_GO_LIVE — initial qualification |
-| [ACC-39](ACC-39_negative_result.md) | Negative Research Result | Medium | PRE_GO_LIVE |
-| [ACC-40](ACC-40_audit_export.md) | Complete Project Audit Export | Critical | PRE_GO_LIVE |
-| [ACC-41](ACC-41_notification_data_class_ceiling.md) | Outbound Notification Exceeds the Channel Data-Class Ceiling | Critical | PRE_GO_LIVE |
-| [ACC-42](ACC-42_notification_broker_outage.md) | Notification Broker Unavailable During an Escalating Condition | High | PRE_GO_LIVE |
-| [ACC-43](ACC-43_escalation_and_dead_mans_switch.md) | Escalation Timeout and Dead-Man's Switch | Critical | PRE_GO_LIVE |
-| [ACC-44](ACC-44_inbound_message_is_not_an_instruction.md) | Inbound Content Attempts to Act as an Instruction | Critical | PRE_GO_LIVE |
-| [ACC-45](ACC-45_external_record_submission.md) | Irreversible External Record Submission | Critical | PRE_GO_LIVE |
-| [ACC-46](ACC-46_skill_not_loaded.md) | Task Runs With No Skill Loaded | Critical | PRE_GO_LIVE |
-| [ACC-47](ACC-47_skill_bootstrap_missing.md) | Harness Starts Without the Skill Bootstrap | Critical | PRE_GO_LIVE |
-| [ACC-48](ACC-48_wrong_skill_selected.md) | Wrong or Competing Skill Selected | High | PRE_GO_LIVE |
-| [ACC-49](ACC-49_skill_ignored_under_pressure.md) | Non-Waivable Skill Ignored Under Pressure | Critical | PRE_GO_LIVE |
-| [ACC-50](ACC-50_skill_lost_on_compaction.md) | Procedure Lost to Context Compaction or Restart | High | PRE_GO_LIVE |
-| [ACC-51](ACC-51_upstream_skill_drift.md) | Upstream Change Invalidates a Derived Skill | High | PRE_GO_LIVE |
+| [ACC-01](acc_01_human_seed_literature.md) | Human Seed Literature | Critical | PRE_GO_LIVE |
+| [ACC-02](acc_02_agent_used_source_writeback.md) | Agent-Used Source Write-Back | Critical | PRE_GO_LIVE |
+| [ACC-03](acc_03_duplicate_collision.md) | Duplicate and Metadata Collision | High | PRE_GO_LIVE |
+| [ACC-04](acc_04_retraction_impact.md) | Retraction Impact | Critical | PRE_GO_LIVE |
+| [ACC-05](acc_05_prompt_injection_pdf.md) | Prompt-Injection PDF | Critical | PRE_GO_LIVE |
+| [ACC-06](acc_06_plan_self_approval.md) | Planner Self-Approval Attempt | Critical | PRE_GO_LIVE |
+| [ACC-07](acc_07_reviewer_order_bias.md) | Reviewer Order Bias | High | PRE_GO_LIVE — initial qualification |
+| [ACC-08](acc_08_strong_counter_test.md) | Strong Counter-Test | Critical | PRE_GO_LIVE |
+| [ACC-09](acc_09_budget_hard_stop.md) | Budget Hard Stop | Critical | PRE_GO_LIVE |
+| [ACC-10](acc_10_provider_outage.md) | Primary Model Provider Outage | High | PRE_GO_LIVE |
+| [ACC-11](acc_11_no_eligible_fallback.md) | No Eligible Fallback | Critical | PRE_GO_LIVE |
+| [ACC-12](acc_12_duplicate_event.md) | Duplicate Event Delivery | Critical | PRE_GO_LIVE |
+| [ACC-13](acc_13_temporal_worker_crash.md) | Temporal Worker Crash | Critical | PRE_GO_LIVE |
+| [ACC-14](acc_14_workflow_code_deploy.md) | Workflow Code Deployment and Replay | Critical | PRE_GO_LIVE |
+| [ACC-15](acc_15_sandbox_escape.md) | Sandbox Escape Attempt | Critical | PRE_GO_LIVE |
+| [ACC-16](acc_16_egress_exfiltration.md) | Egress Exfiltration Attempt | Critical | PRE_GO_LIVE |
+| [ACC-17](acc_17_unsigned_image.md) | Unsigned or Mutable Image | Critical | PRE_GO_LIVE |
+| [ACC-18](acc_18_d3_public_route.md) | D3 Data to a Public Provider | Critical | PRE_GO_LIVE |
+| [ACC-19](acc_19_clean_room_pass.md) | Clean-Room Reproduction Pass | High | PRE_GO_LIVE |
+| [ACC-20](acc_20_clean_room_fail.md) | Clean-Room Reproduction Failure | Critical | PRE_GO_LIVE |
+| [ACC-21](acc_21_graph_corruption.md) | Derived Graph Corruption and Rebuild | High | PRE_GO_LIVE |
+| [ACC-22](acc_22_obsidian_human_edit.md) | Obsidian Human Edit Preservation | High | PRE_GO_LIVE |
+| [ACC-23](acc_23_artifact_overwrite.md) | Artifact Overwrite Attempt | Critical | PRE_GO_LIVE |
+| [ACC-24](acc_24_policy_bundle_rollback.md) | Policy Bundle Rollback | High | PRE_GO_LIVE |
+| [ACC-25](acc_25_human_approval_forgery.md) | Human Approval Forgery | Critical | PRE_GO_LIVE |
+| [ACC-26](acc_26_approval_expiry.md) | Approval, Delegation and Exception Expiry | Critical | PRE_GO_LIVE |
+| [ACC-27](acc_27_regional_dr.md) | Regional / Management Plane DR | Critical | PRE_GO_LIVE — initial qualification |
+| [ACC-28](acc_28_zotero_full_resync.md) | Zotero Full Resync | High | PRE_GO_LIVE |
+| [ACC-29](acc_29_invoice_variance.md) | Provider Invoice Variance | Medium | PRE_GO_LIVE — initial qualification |
+| [ACC-30](acc_30_publication_completeness.md) | Publication Completeness | Critical | PRE_GO_LIVE |
+| [ACC-31](acc_31_superseded_publication.md) | Superseded Publication | High | PRE_GO_LIVE |
+| [ACC-32](acc_32_secret_in_trace.md) | Secret in Prompt or Trace | Critical | PRE_GO_LIVE |
+| [ACC-33](acc_33_kueue_preemption.md) | Kueue Preemption | High | PRE_GO_LIVE |
+| [ACC-34](acc_34_dlq_repair.md) | DLQ Repair and Corrected Replay | High | PRE_GO_LIVE |
+| [ACC-35](acc_35_tool_partial_failure.md) | Tool Partial Failure | Critical | PRE_GO_LIVE |
+| [ACC-36](acc_36_model_snapshot_drift.md) | Model Snapshot Drift | Critical | PRE_GO_LIVE — initial qualification |
+| [ACC-37](acc_37_eval_contamination.md) | Evaluation Set Contamination | Critical | PRE_GO_LIVE — initial qualification |
+| [ACC-38](acc_38_reviewer_unavailable.md) | Critical Reviewer Unavailable | High | PRE_GO_LIVE — initial qualification |
+| [ACC-39](acc_39_negative_result.md) | Negative Research Result | Medium | PRE_GO_LIVE |
+| [ACC-40](acc_40_audit_export.md) | Complete Project Audit Export | Critical | PRE_GO_LIVE |
+| [ACC-41](acc_41_notification_data_class_ceiling.md) | Outbound Notification Exceeds the Channel Data-Class Ceiling | Critical | PRE_GO_LIVE |
+| [ACC-42](acc_42_notification_broker_outage.md) | Notification Broker Unavailable During an Escalating Condition | High | PRE_GO_LIVE |
+| [ACC-43](acc_43_escalation_and_dead_mans_switch.md) | Escalation Timeout and Dead-Man's Switch | Critical | PRE_GO_LIVE |
+| [ACC-44](acc_44_inbound_message_is_not_an_instruction.md) | Inbound Content Attempts to Act as an Instruction | Critical | PRE_GO_LIVE |
+| [ACC-45](acc_45_external_record_submission.md) | Irreversible External Record Submission | Critical | PRE_GO_LIVE |
+| [ACC-46](acc_46_skill_not_loaded.md) | Task Runs With No Skill Loaded | Critical | PRE_GO_LIVE |
+| [ACC-47](acc_47_skill_bootstrap_missing.md) | Harness Starts Without the Skill Bootstrap | Critical | PRE_GO_LIVE |
+| [ACC-48](acc_48_wrong_skill_selected.md) | Wrong or Competing Skill Selected | High | PRE_GO_LIVE |
+| [ACC-49](acc_49_skill_ignored_under_pressure.md) | Non-Waivable Skill Ignored Under Pressure | Critical | PRE_GO_LIVE |
+| [ACC-50](acc_50_skill_lost_on_compaction.md) | Procedure Lost to Context Compaction or Restart | High | PRE_GO_LIVE |
+| [ACC-51](acc_51_upstream_skill_drift.md) | Upstream Change Invalidates a Derived Skill | High | PRE_GO_LIVE |
 
 `PRE_GO_LIVE` scenarios must pass before cutover. `DAY2_CONTINUOUS` scenarios are armed at cutover and exercised afterwards.
 

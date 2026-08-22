@@ -15,16 +15,16 @@
 
 | Package | Title | Hard dependencies | Status | Adopted component |
 |---|---|---|---|:--:|
-| [WP-041](WP-041_litellm_gateway.md) | LiteLLM Model Gateway Foundation | WP-006, WP-011, WP-013, WP-016, WP-020, WP-021, WP-025 | `NOT_STARTED` |  |
-| [WP-042](WP-042_capability_registry.md) | Capability Registry and Profile Lifecycle | WP-005, WP-006, WP-007, WP-011, WP-013, WP-016, WP-020, W… | `NOT_STARTED` |  |
-| [WP-043](WP-043_model_eval_golden_sets.md) | Role-Based Model and **Skill** Evaluation, and Golden Set Management | WP-007, WP-014, WP-018, WP-019, WP-020, WP-029, WP-042 | `NOT_STARTED` | ✅ |
-| [WP-044](WP-044_model_qualification_admission.md) | Model Qualification and Admission Pipeline | WP-041, WP-042, WP-043 | `NOT_STARTED` |  |
-| [WP-045](WP-045_policy_router_budget.md) | Policy Router and Minimum-Sufficient Model Package | WP-005, WP-006, WP-007, WP-013, WP-016, WP-041, WP-042, W… | `NOT_STARTED` |  |
-| [WP-046](WP-046_langgraph_runtime.md) | LangGraph Bounded Cognition Runtime | WP-013, WP-020, WP-031, WP-032, WP-041, WP-045 | `NOT_STARTED` |  |
-| [WP-047](WP-047_role_bundle_registry.md) | Role and **Skill** Registries, and the Task Compiler | WP-003, WP-007, WP-013, WP-020, WP-042, WP-045, WP-046 | `NOT_STARTED` |  |
-| [WP-048](WP-048_codex_opencode_adapters.md) | Harness Runtime Adapters: Claude Code, Codex, OpenCode, Hermes and Direct Worker | WP-023, WP-027, WP-046, WP-047 | `NOT_STARTED` | ✅ |
-| [WP-049](WP-049_tool_registry_broker.md) | Tool Registry and Tool Broker Core | WP-006, WP-011, WP-013, WP-015, WP-016, WP-020, WP-025, W… | `NOT_STARTED` | ✅ |
-| [WP-050](WP-050_tool_connectors.md) | Initial Tool Connector Package | WP-049 | `NOT_STARTED` |  |
+| [WP-041](wp_041_litellm_gateway.md) | LiteLLM Model Gateway Foundation | WP-006, WP-011, WP-013, WP-016, WP-020, WP-021, WP-025 | `NOT_STARTED` |  |
+| [WP-042](wp_042_capability_registry.md) | Capability Registry and Profile Lifecycle | WP-005, WP-006, WP-007, WP-011, WP-013, WP-016, WP-020, W… | `NOT_STARTED` |  |
+| [WP-043](wp_043_model_eval_golden_sets.md) | Role-Based Model and **Skill** Evaluation, and Golden Set Management | WP-007, WP-014, WP-018, WP-019, WP-020, WP-029, WP-042 | `NOT_STARTED` | ✅ |
+| [WP-044](wp_044_model_qualification_admission.md) | Model Qualification and Admission Pipeline | WP-041, WP-042, WP-043 | `NOT_STARTED` |  |
+| [WP-045](wp_045_policy_router_budget.md) | Policy Router and Minimum-Sufficient Model Package | WP-005, WP-006, WP-007, WP-013, WP-016, WP-041, WP-042, W… | `NOT_STARTED` |  |
+| [WP-046](wp_046_langgraph_runtime.md) | LangGraph Bounded Cognition Runtime | WP-013, WP-020, WP-031, WP-032, WP-041, WP-045 | `NOT_STARTED` |  |
+| [WP-047](wp_047_role_bundle_registry.md) | Role and **Skill** Registries, and the Task Compiler | WP-003, WP-007, WP-013, WP-020, WP-042, WP-045, WP-046 | `NOT_STARTED` |  |
+| [WP-048](wp_048_codex_opencode_adapters.md) | Harness Runtime Adapters: Claude Code, Codex, OpenCode, Hermes and Direct Worker | WP-023, WP-027, WP-046, WP-047 | `NOT_STARTED` | ✅ |
+| [WP-049](wp_049_tool_registry_broker.md) | Tool Registry and Tool Broker Core | WP-006, WP-011, WP-013, WP-015, WP-016, WP-020, WP-025, W… | `NOT_STARTED` | ✅ |
+| [WP-050](wp_050_tool_connectors.md) | Initial Tool Connector Package | WP-049 | `NOT_STARTED` |  |
 
 A ✅ marks a package that stands on an adopted external component rather than building the capability here — see `docs/architecture/AETHRION_COMPONENT_REUSE.md`.
 

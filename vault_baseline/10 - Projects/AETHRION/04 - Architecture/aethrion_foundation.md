@@ -14,7 +14,7 @@
 
 **In one paragraph.** The foundation is what every later service binds to: one identity and correlation standard, one artifact manifest, one event envelope, one schema registry, and the platform services beneath them. Today the contract core exists in `src/airl_framework` with **no production consumer** and a digest format that contradicts the bridge's — a contract with no consumer is a parallel universe, and closing that gap matters more than adding another contract.
 
-> System-wide context and diagrams: [`AETHRION_ARCHITECTURE.md`](AETHRION_ARCHITECTURE.md).
+> System-wide context and diagrams: [`AETHRION_ARCHITECTURE.md`](aethrion_architecture.md).
 
 > **Status:** this document replaces a one-line stub that read
 > `# Foundation repository skeleton`. That stub was one of the empty
@@ -85,7 +85,7 @@ infrastructure and no trusted third party).
 
 - [`ARCHITECTURE_V0.md`](../ARCHITECTURE_V0.md) — the architecture of the working
   vertical slice
-- [`AETHRION_IDEAL_STRUCTURE.md`](AETHRION_IDEAL_STRUCTURE.md) — what the target
+- [`AETHRION_IDEAL_STRUCTURE.md`](aethrion_ideal_structure.md) — what the target
   architecture is missing
 - [`../review/`](../review/) — the evidence behind every finding cited above
 - `planning/commissioning/03_FOUNDATION/` — WP-021 to WP-030 in detail

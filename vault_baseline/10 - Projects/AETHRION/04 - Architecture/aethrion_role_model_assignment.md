@@ -18,7 +18,7 @@
 
 ## 0. First: a finding that breaks the architecture
 
-> *`AIRL-OS-Architecture.md` is a **historical name**: the v1.0 document this one was derived from, which no longer exists under that filename. Current project identity: **AETHRION**; the current architecture reference is [`AETHRION_ARCHITECTURE.md`](AETHRION_ARCHITECTURE.md). See [`../branding.md`](../branding.md).*
+> *`AIRL-OS-Architecture.md` is a **historical name**: the v1.0 document this one was derived from, which no longer exists under that filename. Current project identity: **AETHRION**; the current architecture reference is [`AETHRION_ARCHITECTURE.md`](aethrion_architecture.md). See [`../branding.md`](aethrion_naming_and_terminology.md).*
 
 `AIRL-OS-Architecture.md` carries fields of this shape:
 

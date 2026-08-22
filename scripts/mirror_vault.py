@@ -10,16 +10,25 @@ The Obsidian project tree under
 
 Everything else in that tree is human-authored and is never touched here.
 
+Links between mirrored documents are translated into vault-relative form, so a
+link that resolves in the repository also resolves in the vault. Links that
+point *out* of the mirrored subset — a skill's prompt templates, its agent
+definitions, ``docs/ARCHITECTURE_V0.md`` — are left exactly as written and do
+not resolve in Obsidian. That is deliberate: the mirror carries a subset, and a
+link this script does not understand is safer visibly broken than silently
+repointed at the wrong note. Eleven such links exist today.
+
 Usage:
     python scripts/mirror_vault.py <vault-project-dir> [--check]
 """
 from __future__ import annotations
 
 import argparse
+import os
 import re
 import shutil
 import sys
-from pathlib import Path
+from pathlib import Path, PurePosixPath
 
 REPO = Path(__file__).resolve().parent.parent
 SKILLS = REPO / "skills"
@@ -119,8 +128,40 @@ BANNER = (
 )
 
 
+def _relink(text: str, src: str, rel: str, src_to_vault: dict[str, str]) -> str:
+    """Rewrite links between mirrored documents into vault-relative form.
+
+    A link is rewritten only when its target is itself mirrored. Anything else
+    is left exactly as written, because a link this function does not
+    understand is safer visibly broken than silently repointed.
+    """
+    src_dir = PurePosixPath(src).parent
+    out_dir = PurePosixPath(rel).parent
+
+    def repl(match: re.Match[str]) -> str:
+        target, frag = match.group(1), match.group(2) or ""
+        if target.startswith(("http://", "https://", "mailto:", "#")):
+            return match.group(0)
+        try:
+            resolved = str(PurePosixPath(os.path.normpath(str(src_dir / target))))
+        except ValueError:
+            return match.group(0)
+        vault = src_to_vault.get(resolved)
+        if vault is None:
+            return match.group(0)
+        return f"]({os.path.relpath(vault, str(out_dir))}{frag})"
+
+    return re.sub(r"\]\(([^)#\s]+\.md)(#[^)]*)?\)", repl, text)
+
+
 def build() -> dict[str, bytes]:
     out: dict[str, bytes] = {}
+
+    # Repository path -> vault path, so links between mirrored documents survive
+    # the rename the mirror performs. Without this a link that resolves in the
+    # repository lands on nothing in the vault, which is how the corpus grew a
+    # set of broken links that only existed in the projection.
+    src_to_vault = {src: rel for rel, src in DOC_MAP.items()}
 
     for rel, src in DOC_MAP.items():
         text = (DOCS / src).read_text(encoding="utf-8")
@@ -128,6 +169,7 @@ def build() -> dict[str, bytes]:
         # repository-relative image paths are rewritten to vault-relative ones.
         text = text.replace("](../figures/", "](figures/").replace("](figures/README.md)",
                                                                    "](aethrion_figure_specification.md)")
+        text = _relink(text, src, rel, src_to_vault)
         out[rel] = (BANNER.format(source=f"docs/{src}") + text).encode("utf-8")
 
     for group, names in GROUPS.items():
@@ -144,8 +186,21 @@ def build() -> dict[str, bytes]:
     # so the landing page needs a copy that lives inside the vault.
     out["_assets/aethrion-logo.png"] = (DOCS / "assets" / "branding" / "aethrion-logo.png").read_bytes()
 
+    # Skill notes live under their group folder in the vault, so a link to
+    # ``name/SKILL.md`` has to carry the group or it lands nowhere.
+    group_of = {name: group for group, names in GROUPS.items() for name in names}
     text = (SKILLS / "README.md").read_text(encoding="utf-8")
-    text = re.sub(r"\]\((?!http)([a-z0-9-]+)/SKILL\.md\)", r"](\1.md)", text)
+
+    def _skill_link(match: re.Match[str]) -> str:
+        name = match.group(1)
+        group = group_of.get(name)
+        return f"]({group}/{name}.md)" if group else match.group(0)
+
+    text = re.sub(r"\]\((?!http)([a-z0-9-]+)/SKILL\.md\)", _skill_link, text)
+    # skills/README.md reaches the architecture corpus as ``../docs/...``; the
+    # same mapping used for the mirrored documents applies here.
+    for src, vault in src_to_vault.items():
+        text = text.replace(f"](../docs/{src})", f"]({os.path.relpath(vault, '07 - Skills')})")
     out["07 - Skills/skills_index.md"] = (
         BANNER.format(source="skills/README.md") + text
     ).encode("utf-8")

@@ -9,8 +9,8 @@
 > 2026-08-21**, and it is deliberately not rebranded: it cites file paths,
 > counts and command output as they existed on that date, and rewriting its
 > names would make the record disagree with the evidence it reports. Read it as
-> history. For the current naming rules see [`../branding.md`](../branding.md);
-> for the current state see [`../STATUS.md`](../STATUS.md).
+> history. For the current naming rules see [`../branding.md`](../04 - Architecture/aethrion_naming_and_terminology.md);
+> for the current state see [`../STATUS.md`](../05 - Evidence/current_status.md).
 
 > [!warning] Frozen snapshot — do not update
 > This audit describes the repository **as it stood on 2026-08-21**. Its counts
@@ -19,7 +19,7 @@
 > present is no longer evidence of anything.
 >
 > Current state, and what has since been remediated, lives in
-> [`2026-08-22_remediation_verification.md`](2026-08-22_remediation_verification.md).
+> [`2026-08-22_remediation_verification.md`](remediation_verification_2026-08-22.md).
 > This banner is the single, recorded exception to the no-edit rule.
 
 

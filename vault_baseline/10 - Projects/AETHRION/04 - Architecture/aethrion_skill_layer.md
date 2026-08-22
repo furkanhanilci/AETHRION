@@ -8,7 +8,7 @@
 |---|---|
 | Document type | Architectural contribution — operational layer design |
 | Source | `github.com/obra/superpowers` (14 skills, all read) |
-| Target | `AIRL-OS-Architecture.md` v1.0 — *historical name; current identity **AETHRION**, current reference [`AETHRION_ARCHITECTURE.md`](AETHRION_ARCHITECTURE.md)* |
+| Target | `AIRL-OS-Architecture.md` v1.0 — *historical name; current identity **AETHRION**, current reference [`AETHRION_ARCHITECTURE.md`](aethrion_architecture.md)* |
 | Sibling documents | `AETHRION_ARCHITECTURE.md` (system overview + diagrams) · `AETHRION_IDEAL_STRUCTURE.md` (roles, review mechanisms, metascience) · `AETHRION_EXTERNAL_STANDARDS.md` (what is adopted) |
 | Date | 2026-08-22 |
 | Status | Proposal — awaiting a human decision, **except Section 14, which is decided** |
