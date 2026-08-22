@@ -37,6 +37,7 @@ system.
 
 | What you are looking for | Where |
 |---|---|
+| **Resuming after a break — where did I stop?** | [[10 - Projects/AI Research Framework/03 - Implementation/session_handover_2026-08-22\|Session Handover]] |
 | What is happening now, what comes next | [[10 - Projects/AI Research Framework/00_navigation_and_execution_cockpit\|Cockpit]] |
 | The real state of the system, evidence-based | [[10 - Projects/AI Research Framework/02 - Reviews/claude_framework_audit_report\|Audit Report]] |
 | The target architecture — what should be added | [[10 - Projects/AI Research Framework/04 - Architecture/airl_os_ideal_structure\|Ideal Structure]] |

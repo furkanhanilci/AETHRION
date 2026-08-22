@@ -8,7 +8,7 @@ zotero_version: 0
 doi: "10.1109/3dv53792.2021.00050"
 source_url: ""
 content_hash: "sha256:3f5f7ad70240e98eea7cd2bacb7a75f8749df49b9ca318083d9e8bbf155bfed9"
-generated_at: "2026-08-21T23:55:38.063997+00:00"
+generated_at: "2026-08-22T00:26:38.086686+00:00"
 provenance: airl-bridge-api
 zotero_tags:
   []

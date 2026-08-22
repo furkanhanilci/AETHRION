@@ -16,6 +16,12 @@ tags:
 
 # AI Research Framework — Navigation and Execution Cockpit
 
+> [!tip] Resuming after a break? Start here
+> [[10 - Projects/AI Research Framework/03 - Implementation/session_handover_2026-08-22|Session Handover — 2026-08-22]] — where the last session stopped, what is verified, what is
+> explicitly **not** done, the exact next steps, and the gotchas that are easy to
+> forget (fix M9 before H1; never edit a generated area; re-seal after any plan
+> change).
+
 > [!important] The rule for every step
 > Before any material step, read in order: this cockpit, the
 > [[10 - Projects/AI Research Framework/ai_research_framework_current_status_and_roadmap|Current Status and Roadmap]],
