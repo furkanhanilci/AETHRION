@@ -25,7 +25,7 @@ Invariant
 
 Audit findings
     Implements the first of the four CoE Audit checks adopted in
-    `docs/architecture/AIRL_OS_EXTERNAL_STANDARDS.md` §4.3. The other three —
+    `docs/architecture/AETHRION_EXTERNAL_STANDARDS.md` §4.3. The other three —
     score verification, specification violation, method-code alignment — need
     artifacts this system does not yet produce.
 
@@ -50,7 +50,7 @@ import httpx
 
 ROOT = Path(__file__).resolve().parent.parent
 DB = ROOT / "data" / "airl_bridge.sqlite3"
-UA = "AIRL-OS reference verification (+https://github.com/furkanhanilci/AI-Research-Framework)"
+UA = "AETHRION reference verification (+https://github.com/furkanhanilci/AETHRION)"
 CROSSREF = "https://api.crossref.org/works"
 OPENALEX = "https://api.openalex.org/works"
 ARXIV = "https://export.arxiv.org/api/query"

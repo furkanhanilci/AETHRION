@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Dependency-free SVG primitives with real text metrics, for the AIRL-OS figures.
+"""Dependency-free SVG primitives with real text metrics, for the AETHRION figures.
 
 Responsibility
     Provide the smallest drawing layer that can *guarantee* text fits the box it

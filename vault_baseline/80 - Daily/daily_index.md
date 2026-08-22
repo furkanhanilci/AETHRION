@@ -10,5 +10,5 @@ path:"80 - Daily" ["type":"daily-note"]
 
 A daily note is **not a decision record**. Decisions go into `50 - Decisions`,
 implementation steps into
-[[10 - Projects/AI Research Framework/implementation_log|Implementation Log]].
+[[10 - Projects/AETHRION/implementation_log|Implementation Log]].
 The notes here are temporary working memory.

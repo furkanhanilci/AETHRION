@@ -22,7 +22,7 @@ metadata:
 
 Active-learning screening with a **preregistered stopping rule**, declared before screening starts and checkable afterwards.
 
-Adoption type and authority boundary: `docs/architecture/AIRL_OS_COMPONENT_REUSE.md`.
+Adoption type and authority boundary: `docs/architecture/AETHRION_COMPONENT_REUSE.md`.
 
 ## Core principle
 

@@ -23,7 +23,7 @@ metadata:
 
 Zotero stays the human bibliographic workspace; Better BibTeX projects a version-control-friendly bibliography. **Neither is canonical identity** — that stays with the AIRL Source Registry.
 
-Adoption type and authority boundary: `docs/architecture/AIRL_OS_COMPONENT_REUSE.md`.
+Adoption type and authority boundary: `docs/architecture/AETHRION_COMPONENT_REUSE.md`.
 
 ## Core principle
 

@@ -22,7 +22,7 @@ metadata:
 
 Validated implementations, each carrying **applicability conditions**. A check run outside its conditions produces a wrong answer, not a weak one — and a failing check opens a **ForensicFlag**, never an accusation.
 
-Adoption type and authority boundary: `docs/architecture/AIRL_OS_COMPONENT_REUSE.md`.
+Adoption type and authority boundary: `docs/architecture/AETHRION_COMPONENT_REUSE.md`.
 
 ## Core principle
 

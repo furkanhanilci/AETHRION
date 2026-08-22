@@ -9,7 +9,7 @@ generated_source:
 created_at: "{{date}}"
 updated_at: "{{date}}"
 tags:
-  - ai-framework/source-note
+  - aethrion/source-note
 ---
 
 # {{title}}

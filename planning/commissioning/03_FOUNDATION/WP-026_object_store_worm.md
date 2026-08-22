@@ -19,9 +19,9 @@
 
 > **Object-lock / WORM backend** — integrate and verify, do not build
 
-The requirement is compliance-mode retention that no account, including root, can delete. AIRL-OS owns the `ImmutableObjectStore` contract and the verification that the backend actually refuses deletion; it does not own the storage engine. `lakeFS`-style versioning covers *working* data, which is a different problem.
+The requirement is compliance-mode retention that no account, including root, can delete. AETHRION owns the `ImmutableObjectStore` contract and the verification that the backend actually refuses deletion; it does not own the storage engine. `lakeFS`-style versioning covers *working* data, which is a different problem.
 
-Rationale and adoption type: `docs/architecture/AIRL_OS_COMPONENT_REUSE.md`.
+Rationale and adoption type: `docs/architecture/AETHRION_COMPONENT_REUSE.md`.
 
 ## Purpose and expected outcome
 

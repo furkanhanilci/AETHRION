@@ -14,7 +14,7 @@
 > over it.
 
 This document is a comprehensive review instruction. The review applies to the
-**whole** AI Research Framework — planned and existing — not only to the
+**whole** AETHRION — planned and existing — not only to the
 Bridge/API layer.
 
 ## How to use it
@@ -22,7 +22,7 @@ Bridge/API layer.
 Start the reviewing model at the framework root:
 
 ```text
-/home/otonom/Desktop/FH/AI_RESEARCH_FRAMEWORK
+/home/otonom/Desktop/FH/AETHRION
 ```
 
 Give the prompt below as a single block. The reviewer performs **review only**:
@@ -39,7 +39,7 @@ evidence and reproducibility, and Obsidian knowledge architecture.
 
 Your task is to produce a complete, evidence-based gap analysis between the target
 architecture described in the plans under
-`/home/otonom/Desktop/FH/AI_RESEARCH_FRAMEWORK` and the implementation that
+`/home/otonom/Desktop/FH/AETHRION` and the implementation that
 actually exists. Do not reduce the review to the Bridge component
 (`src/airl_bridge/`) or the Bridge service. **The Bridge is one part of the
 system, not the system.**
@@ -166,10 +166,10 @@ Verify:
 
 Review both the vault baseline inside the repository and the real vault:
 
-- `/home/otonom/Desktop/FH/AI_RESEARCH_FRAMEWORK/vault_baseline/`
+- `/home/otonom/Desktop/FH/AETHRION/vault_baseline/`
 - `/home/otonom/Documents/Obsidian Vault/`
 
-In the AI Research Framework project area, check:
+In the AETHRION project area, check:
 
 - the navigation / execution cockpit
 - the implementation log
@@ -200,7 +200,7 @@ Read-only, check:
 
 The authoritative framework remote is:
 
-`https://github.com/furkanhanilci/AI-Research-Framework.git`
+`https://github.com/furkanhanilci/AETHRION.git`
 
 **Do not push to any remote during this review.**
 

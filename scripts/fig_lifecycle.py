@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Figure 1 — the AIRL-OS research lifecycle, G0 to G10.
+"""Figure 1 — the AETHRION research lifecycle, G0 to G10.
 
 Five-second message
     Every gate resolves in the same order — the mechanical check runs first and
@@ -18,8 +18,8 @@ Layout contract
     will not fit fails the build.
 
 Sources
-    docs/architecture/AIRL_OS_ARCHITECTURE.md §5, §6
-    docs/architecture/AIRL_OS_ROLE_MODEL_ASSIGNMENT.md §3.2
+    docs/architecture/AETHRION_ARCHITECTURE.md §5, §6
+    docs/architecture/AETHRION_ROLE_MODEL_ASSIGNMENT.md §3.2
 """
 from __future__ import annotations
 
@@ -89,7 +89,7 @@ def main() -> None:
     c = Canvas(W, H)
     text_w = W - 2 * L
 
-    c.text(L, 48, "The AIRL-OS research lifecycle", size=30, weight="700", anchor="start")
+    c.text(L, 48, "The AETHRION research lifecycle", size=30, weight="700", anchor="start")
     y = c.para(L, 80,
                "Eleven gates. At each of them the same resolution order holds: the mechanical check runs first and "
                "cannot be overridden by a model, a model may then produce but never decide, and a human holds "
@@ -194,9 +194,9 @@ def main() -> None:
            "feeds G3; every other cell above is a design commitment, and no work package has reached ACCEPTED.",
            W - L - (L + 70), size=17, fill=INK, lh=23)
 
-    out = Path(__file__).resolve().parent.parent / "docs" / "figures" / "airl_os_lifecycle.svg"
+    out = Path(__file__).resolve().parent.parent / "docs" / "figures" / "aethrion_lifecycle.svg"
     out.write_text(c.render(), encoding="utf-8")
-    print(f"wrote docs/figures/airl_os_lifecycle.svg  ({W}×{H})")
+    print(f"wrote docs/figures/aethrion_lifecycle.svg  ({W}×{H})")
 
 
 if __name__ == "__main__":

@@ -2,7 +2,7 @@
 type: daily-note
 date: "{{date}}"
 tags:
-  - ai-framework/daily
+  - aethrion/daily
 ---
 
 # {{date}}

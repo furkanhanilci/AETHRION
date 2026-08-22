@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-"""Mechanically validate the AIRL-OS skill registry.
+"""Mechanically validate the AETHRION skill registry.
 
 Responsibility
     Check every ``skills/*/SKILL.md`` against two rule sets at once:
     the Agent Skills open format (agentskills.io) and the AIRL metadata
-    contract laid out in ``docs/architecture/AIRL_OS_SKILL_LAYER.md`` §14.
+    contract laid out in ``docs/architecture/AETHRION_SKILL_LAYER.md`` §14.
 
 Invariant
     A skill that does not load in a stock harness governs nothing. Conformance

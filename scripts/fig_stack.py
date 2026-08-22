@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-"""Figure 4 — the target stack: what AIRL-OS builds, and what it stands on.
+"""Figure 4 — the target stack: what AETHRION builds, and what it stands on.
 
 Five-second message
     Almost every layer of this system is a mature component someone else
-    maintains; what AIRL-OS owns is the control layer that decides which
+    maintains; what AETHRION owns is the control layer that decides which
     evidence, having passed which gate, permits which claim to be accepted.
 
 Archetype
@@ -18,7 +18,7 @@ Encoding
     Position  = layer
 
 Sources
-    docs/architecture/AIRL_OS_COMPONENT_REUSE.md — every component and its type
+    docs/architecture/AETHRION_COMPONENT_REUSE.md — every component and its type
     docs/architecture/ADR-003 — the security row
 """
 from __future__ import annotations
@@ -58,7 +58,7 @@ LAYERS = [
                           ("nanopublication export", DEP, False)]),
     ("Monitoring", [("Crossref Retraction Watch", DEP, True)]),
 ]
-LEGEND = [(OWNED, "AIRL-owned"), (DEP, "dependency"), (STD, "standard"),
+LEGEND = [(OWNED, "AETHRION-owned"), (DEP, "dependency"), (STD, "standard"),
           (PAT, "pattern"), (BEN, "benchmark")]
 
 LABEL_W, ROW_GAP, PAD_X = 208, 9, 10
@@ -72,7 +72,7 @@ def main() -> None:
     H = 300 + len(rows) * (CHIP_H + ROW_GAP) + 150
     c = Canvas(W, H)
 
-    c.text(L, 48, "What AIRL-OS builds, and what it stands on", size=30,
+    c.text(L, 48, "What AETHRION builds, and what it stands on", size=30,
            weight="700", anchor="start")
     y = c.para(L, 80,
                "Almost every layer here is a component someone else maintains and tests. What this project owns is "
@@ -139,9 +139,9 @@ def main() -> None:
            "layer this project owns is the least built part of the stack.",
            W - L - (L + 70), size=17, fill=INK, lh=23)
 
-    out = Path(__file__).resolve().parent.parent / "docs" / "figures" / "airl_os_stack.svg"
+    out = Path(__file__).resolve().parent.parent / "docs" / "figures" / "aethrion_stack.svg"
     out.write_text(c.render(), encoding="utf-8")
-    print(f"wrote docs/figures/airl_os_stack.svg  ({W}×{H})")
+    print(f"wrote docs/figures/aethrion_stack.svg  ({W}×{H})")
 
 
 if __name__ == "__main__":

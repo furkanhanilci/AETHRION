@@ -22,7 +22,7 @@ metadata:
 
 The producer builds in one container, reproduction runs fresh in a second, grading happens in a third. The producer's environment never travels to the reproducer.
 
-Adoption type and authority boundary: `docs/architecture/AIRL_OS_COMPONENT_REUSE.md`.
+Adoption type and authority boundary: `docs/architecture/AETHRION_COMPONENT_REUSE.md`.
 
 ## Iron law
 

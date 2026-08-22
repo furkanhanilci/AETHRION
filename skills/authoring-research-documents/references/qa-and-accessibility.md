@@ -22,7 +22,7 @@ and never mixed within one table or figure.
 
 Validated implementations do this: **statcheck**, **grim**, **pysprite**. They
 carry applicability conditions, and a check run outside its conditions produces a
-wrong answer, not a weak one — see `AIRL_OS_IDEAL_STRUCTURE.md` B7.1.
+wrong answer, not a weak one — see `AETHRION_IDEAL_STRUCTURE.md` B7.1.
 
 > **A forensic flag is a flag.** It opens triage, never an accusation.
 

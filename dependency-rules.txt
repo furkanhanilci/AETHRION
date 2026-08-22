@@ -1,4 +1,4 @@
-# AI Research Framework — module dependency rules
+# AETHRION — module dependency rules
 #
 # Enforced direction: outer layers may import inner layers, never the reverse.
 # NOT YET MACHINE-ENFORCED. See docs/review/ finding C3.

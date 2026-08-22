@@ -9,7 +9,7 @@ included_source_ids: []
 excluded_source_ids: []
 manifest_hash:
 tags:
-  - ai-framework/literature-set
+  - aethrion/literature-set
 ---
 
 # {{title}}

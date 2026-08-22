@@ -127,9 +127,9 @@ def main() -> None:
            "inside W4's territory without being any of its packages.",
            W - L - (L + 70), size=17, fill=INK, lh=23)
 
-    out = ROOT / "docs" / "figures" / "airl_os_waves.svg"
+    out = ROOT / "docs" / "figures" / "aethrion_waves.svg"
     out.write_text(c.render(), encoding="utf-8")
-    print(f"wrote docs/figures/airl_os_waves.svg  ({W}×{H})")
+    print(f"wrote docs/figures/aethrion_waves.svg  ({W}×{H})")
 
 
 if __name__ == "__main__":

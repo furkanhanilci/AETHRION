@@ -4,7 +4,7 @@
 |---|---|
 | Document type | Index — the architecture corpus, and what kind of document each one is |
 | Scope | Target design, decision records and positioning |
-| Sibling documents | `../README.md` · `../DOCUMENT_STANDARD.md` |
+| Sibling documents | `../README.md` · `../DOCUMENT_STANDARD.md` · `../branding.md` (naming: AETHRION, and where `AIRL` is kept on purpose) |
 | Status | Index |
 | Date | 2026-08-22 |
 
@@ -16,26 +16,26 @@ labelled, and the labels are load-bearing.
 
 | Document | Kind | Answers |
 |---|---|---|
-| `AIRL_OS_ARCHITECTURE.md` | reference | What is this system? The diagrammed entry point |
-| `AIRL_OS_ROLES.md` | reference | The fourteen durable functions, what each may never do, and why role ≠ person |
+| `AETHRION_ARCHITECTURE.md` | reference | What is this system? The diagrammed entry point |
+| `AETHRION_ROLES.md` | reference | The fourteen durable functions, what each may never do, and why role ≠ person |
 | `FOUNDATION.md` | reference | The contract and platform substrate |
-| `AIRL_OS_ROLE_MODEL_ASSIGNMENT.md` | decision record | Which actor class executes each gate; effort and reviewer quota per assurance class |
-| `AIRL_OS_EXTERNAL_STANDARDS.md` | decision record | Which formats are adopted rather than invented |
-| `AIRL_OS_COMPONENT_REUSE.md` | decision record | Which running implementation each control stands on, and under which adoption type |
+| `AETHRION_ROLE_MODEL_ASSIGNMENT.md` | decision record | Which actor class executes each gate; effort and reviewer quota per assurance class |
+| `AETHRION_EXTERNAL_STANDARDS.md` | decision record | Which formats are adopted rather than invented |
+| `AETHRION_COMPONENT_REUSE.md` | decision record | Which running implementation each control stands on, and under which adoption type |
 | `ADR-001_solo_operator_independence.md` | **accepted decision** | What independence means with one operator: R1 solo · R2 declared-partial · **R3 blocked** |
 | `ADR-002_bootstrap_verification_control.md` | **accepted decision** | BVC-01, a temporary verification control with an expiry — written, **not active** |
 | `ADR-003_trusted_control_and_policy.md` | **accepted decision** | Untrusted content is data; Cedar evaluates policy; any anomaly denies |
-| `AIRL_OS_IDEAL_STRUCTURE.md` | **proposal** | What should be added: roles, review mechanisms, the metascience plane |
-| `AIRL_OS_SKILL_LAYER.md` | proposal + decision | How agents work. **§14 is decided**; §§2–13 record the analysis it overruled |
-| `AIRL_OS_RELATED_SYSTEMS.md` | positioning | How this compares to Science One, PaperQA2, AI Scientist, Robin — including where they are ahead |
+| `AETHRION_IDEAL_STRUCTURE.md` | **proposal** | What should be added: roles, review mechanisms, the metascience plane |
+| `AETHRION_SKILL_LAYER.md` | proposal + decision | How agents work. **§14 is decided**; §§2–13 record the analysis it overruled |
+| `AETHRION_RELATED_SYSTEMS.md` | positioning | How this compares to Science One, PaperQA2, AI Scientist, Robin — including where they are ahead |
 
 ## Reading order
 
-1. `AIRL_OS_ARCHITECTURE.md` — the whole system, with §10 stating how much exists
-2. `AIRL_OS_ROLES.md` — who is accountable
-3. `AIRL_OS_COMPONENT_REUSE.md` — what is built here versus adopted
+1. `AETHRION_ARCHITECTURE.md` — the whole system, with §10 stating how much exists
+2. `AETHRION_ROLES.md` — who is accountable
+3. `AETHRION_COMPONENT_REUSE.md` — what is built here versus adopted
 4. The three ADRs — the decisions currently in force
-5. `AIRL_OS_IDEAL_STRUCTURE.md` — only after the above, because it is a proposal
+5. `AETHRION_IDEAL_STRUCTURE.md` — only after the above, because it is a proposal
 
 ## What none of these establish
 

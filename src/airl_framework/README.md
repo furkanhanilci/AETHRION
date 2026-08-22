@@ -35,4 +35,4 @@ contract a real consumer, which is what would have surfaced this immediately.
 
 The planned direction is to generate the contract surface from a single
 **LinkML** model rather than hand-writing it — see
-`docs/architecture/AIRL_OS_COMPONENT_REUSE.md` §9.
+`docs/architecture/AETHRION_COMPONENT_REUSE.md` §9.

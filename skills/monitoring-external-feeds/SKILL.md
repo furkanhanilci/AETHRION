@@ -23,7 +23,7 @@ metadata:
 
 **Implemented** in `scripts/monitor_sources.py`. Every run carries a known-retracted positive control and **fails if the control stays silent**.
 
-Adoption type and authority boundary: `docs/architecture/AIRL_OS_COMPONENT_REUSE.md`.
+Adoption type and authority boundary: `docs/architecture/AETHRION_COMPONENT_REUSE.md`.
 
 ## Core principle
 

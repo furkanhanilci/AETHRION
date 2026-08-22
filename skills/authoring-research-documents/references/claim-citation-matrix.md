@@ -53,5 +53,5 @@ placeholder checks over a document source.
 
 Whether a cited passage **entails** the claim is not decided here. Entailment
 checkers are instruments with their own error rates, not oracles — see
-`AIRL_OS_EXTERNAL_STANDARDS.md` §5.1. The matrix proves a citation *resolves*;
+`AETHRION_EXTERNAL_STANDARDS.md` §5.1. The matrix proves a citation *resolves*;
 a human or a measured checker decides whether it *supports*.

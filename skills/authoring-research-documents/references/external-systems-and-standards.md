@@ -20,7 +20,7 @@ overrides a higher one:
 
 `DEPENDENCY` · `ADAPTER` · `STANDARD` · `BENCHMARK` · `PATTERN` ·
 `OPTIONAL_BACKEND` · `REJECTED` — defined in
-`docs/architecture/AIRL_OS_COMPONENT_REUSE.md` §1.
+`docs/architecture/AETHRION_COMPONENT_REUSE.md` §1.
 
 **Every record carries an `authority_boundary`.** A component that cannot be
 given one does not enter a gate.

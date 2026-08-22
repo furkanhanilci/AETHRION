@@ -11,7 +11,7 @@ Archetype
     say what it cannot see is a misleading instrument.
 
 Sources
-    docs/STATUS.md (generated), scripts/README.md, docs/architecture/AIRL_OS_VERIFICATION.md
+    docs/STATUS.md (generated), scripts/README.md, docs/architecture/AETHRION_ARCHITECTURE.md §11.1
 """
 from __future__ import annotations
 
@@ -114,9 +114,9 @@ def main() -> None:
            "adoption matrix, none of which has been run.",
            W - L - (L + 118), size=17, fill=INK, lh=23)
 
-    out = ROOT / "docs" / "figures" / "airl_os_verification.svg"
+    out = ROOT / "docs" / "figures" / "aethrion_verification.svg"
     out.write_text(c.render(), encoding="utf-8")
-    print(f"wrote docs/figures/airl_os_verification.svg  ({W}×{H})")
+    print(f"wrote docs/figures/aethrion_verification.svg  ({W}×{H})")
 
 
 if __name__ == "__main__":

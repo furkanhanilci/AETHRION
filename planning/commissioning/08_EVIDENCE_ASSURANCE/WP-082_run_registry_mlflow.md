@@ -21,7 +21,7 @@
 
 The run record is emitted as a Process/Workflow/Provenance Run Crate — machine-actionable, engine-independent, PROV-O mapped. MLflow answers *what did the system do*; the crate plus a signed `EvidenceManifest` answers *what may be believed*. **Operational telemetry is never the scientific truth store.**
 
-Rationale and adoption type: `docs/architecture/AIRL_OS_COMPONENT_REUSE.md`.
+Rationale and adoption type: `docs/architecture/AETHRION_COMPONENT_REUSE.md`.
 
 ## Purpose and expected outcome
 

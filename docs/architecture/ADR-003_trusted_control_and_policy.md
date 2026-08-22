@@ -4,7 +4,7 @@
 |---|---|
 | Document type | Architecture decision record |
 | Scope | How untrusted content is prevented from acquiring authority, and what evaluates policy |
-| Sibling documents | `AIRL_OS_COMPONENT_REUSE.md` §6 · WP-049 · WP-136 · ACC-44 |
+| Sibling documents | `AETHRION_COMPONENT_REUSE.md` §6 · WP-049 · WP-136 · ACC-44 |
 | Status | **ACCEPTED — 2026-08-22.** Architecture decided; neither component is built |
 | Date | 2026-08-22 |
 
@@ -53,7 +53,7 @@ Paper · PDF · email · web page · abstract ──► UNTRUSTED DATA
 ```
 
 **A detector remains useful as defence in depth.** It is never the boundary, and
-`AIRL_OS_COMPONENT_REUSE.md` §12 records detector libraries as *rejected as a
+`AETHRION_COMPONENT_REUSE.md` §12 records detector libraries as *rejected as a
 boundary* for exactly this reason.
 
 **This applies today.** The working bridge already hands abstract text to a
@@ -84,7 +84,7 @@ layer. This is the same fail-closed principle the assurance classes already use.
 ### 3.2 What Cedar does not decide
 
 Cedar decides whether an **action is permitted**. It does not decide whether a
-claim is **accepted**. Gate semantics stay in AIRL-OS, and a policy engine must
+claim is **accepted**. Gate semantics stay in AETHRION, and a policy engine must
 never become an acceptance authority.
 
 ## 4. How this is measured
@@ -95,7 +95,7 @@ never become an acceptance authority.
 | Hostile scenarios | **AgentDojo** | Supplies attacks written by someone else |
 | Security architecture | **CaMeL pattern** | What is being tested |
 | Enforcement | **Cedar** | What refuses |
-| Acceptance | **AIRL-OS** | What the refusal means for a gate |
+| Acceptance | **AETHRION** | What the refusal means for a gate |
 
 Measuring the boundary against **someone else's** attack suite is the point.
 A system evaluated only against attacks it imagined is measuring its imagination.

@@ -11,7 +11,7 @@ dedicated integration window) · **L** large (split if it cannot be reviewed in 
 > `05_definition_of_ready_and_done.md` for what `ACCEPTED` requires and why the
 > bootstrap package **WP-000** must come first. WP-000 is now written; the
 > attestation standards it adopts are recorded in
-> `docs/architecture/AIRL_OS_EXTERNAL_STANDARDS.md` §3.
+> `docs/architecture/AETHRION_EXTERNAL_STANDARDS.md` §3.
 
 ## 01_GOVERNANCE — Governance and Policy
 

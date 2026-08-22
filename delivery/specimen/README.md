@@ -17,11 +17,11 @@ to prevent overclaiming.
 
 | File | Is |
 |---|---|
-| `airl-measurement-report.qmd` | The document source, in Quarto Markdown |
+| `aethrion-measurement-report.qmd` | The document source, in Quarto Markdown |
 | `references.bib` | Three verified references, each cited in the text |
 
 ```bash
-uv run python scripts/check_document.py delivery/specimen/airl-measurement-report.qmd
+uv run python scripts/check_document.py delivery/specimen/aethrion-measurement-report.qmd
 ```
 
 That checks placeholders, citation resolution and cross-reference resolution. It

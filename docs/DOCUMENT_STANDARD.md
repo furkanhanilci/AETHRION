@@ -42,7 +42,7 @@ compressed. A reader who stops there should not be misled about anything.
 ### 1.3 Numbered sections
 
 Top-level sections are numbered. Cross-references cite the number
-(`AIRL_OS_ARCHITECTURE.md §6.1`) rather than a heading title, because titles
+(`AETHRION_ARCHITECTURE.md §6.1`) rather than a heading title, because titles
 change and numbers survive the change or fail loudly.
 
 ### 1.4 Closing pointer table
@@ -181,8 +181,8 @@ drift**, so it is extended deliberately and recorded when it is.
 
 | Question | File |
 |---|---|
-| What is this system? | `docs/architecture/AIRL_OS_ARCHITECTURE.md` |
-| Who is accountable for what? | `docs/architecture/AIRL_OS_ROLES.md` |
-| What is adopted rather than invented? | `docs/architecture/AIRL_OS_EXTERNAL_STANDARDS.md` |
+| What is this system? | `docs/architecture/AETHRION_ARCHITECTURE.md` |
+| Who is accountable for what? | `docs/architecture/AETHRION_ROLES.md` |
+| What is adopted rather than invented? | `docs/architecture/AETHRION_EXTERNAL_STANDARDS.md` |
 | How are figures produced? | `docs/figures/README.md` |
 | What is actually built? | `docs/review/2026-08-22_remediation_verification.md` |

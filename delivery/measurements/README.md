@@ -13,8 +13,8 @@ Reproduce:
 uv run python scripts/verify_references.py --report delivery/measurements/reference_verification.json
 ```
 
-> These are measurements of the **registry**, not of generated research. AIRL-OS
+> These are measurements of the **registry**, not of generated research. AETHRION
 > has produced no research artifacts, so it has no score on the other three CoE
 > Audit checks. Presenting the number above as comparable to a
 > hallucinated-reference rate measured on generated bibliographies would be a
-> category error — see `docs/architecture/AIRL_OS_COMPONENT_REUSE.md` §2.
+> category error — see `docs/architecture/AETHRION_COMPONENT_REUSE.md` §2.

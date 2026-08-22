@@ -13,8 +13,8 @@ Archetype
     the misreading this figure exists to prevent.
 
 Sources
-    docs/architecture/AIRL_OS_ROLES.md §2, §3, §5
-    docs/architecture/AIRL_OS_ROLE_MODEL_ASSIGNMENT.md §3.1
+    docs/architecture/AETHRION_ROLES.md §2, §3, §5
+    docs/architecture/AETHRION_ROLE_MODEL_ASSIGNMENT.md §3.1
 """
 from __future__ import annotations
 
@@ -173,9 +173,9 @@ def main() -> None:
            "enforced instead of argued about — and BLOCKED means a class of work this repository cannot accept alone.",
            tw, size=17, fill=INK, lh=23, max_lines=4)
 
-    out = Path(__file__).resolve().parent.parent / "docs" / "figures" / "airl_os_roles.svg"
+    out = Path(__file__).resolve().parent.parent / "docs" / "figures" / "aethrion_roles.svg"
     out.write_text(c.render(), encoding="utf-8")
-    print(f"wrote docs/figures/airl_os_roles.svg  ({W}×{H})")
+    print(f"wrote docs/figures/aethrion_roles.svg  ({W}×{H})")
 
 
 if __name__ == "__main__":

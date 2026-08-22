@@ -13,7 +13,7 @@ Invariant
     reporting pipeline gets wrong first, so it is the one checked here.
 
 Audit findings
-    Supports the adoption rules in `AIRL_OS_COMPONENT_REUSE.md` §2 and the
+    Supports the adoption rules in `AETHRION_COMPONENT_REUSE.md` §2 and the
     registry contract in the reporting skill's
     `references/external-systems-and-standards.md`.
 

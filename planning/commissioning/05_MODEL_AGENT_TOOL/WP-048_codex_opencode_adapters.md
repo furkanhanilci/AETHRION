@@ -21,7 +21,7 @@
 
 Inspect can run Claude Code, Codex CLI and Gemini CLI as evaluation subjects inside a sandbox. ACC-47 (bootstrap missing), ACC-49 (ignored under pressure) and ACC-50 (lost to compaction) are Inspect tasks.
 
-Rationale and adoption type: `docs/architecture/AIRL_OS_COMPONENT_REUSE.md`.
+Rationale and adoption type: `docs/architecture/AETHRION_COMPONENT_REUSE.md`.
 
 ## Purpose and expected outcome
 

@@ -1,4 +1,4 @@
-"""AIRL Bridge — the working vertical slice of the AI Research Framework.
+"""AIRL Bridge — the working vertical slice of AETHRION.
 
     Zotero Local API (read-only)
         → SQLite canonical source registry

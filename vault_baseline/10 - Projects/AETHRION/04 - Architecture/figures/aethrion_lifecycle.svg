@@ -1,0 +1,231 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1494" width="100%" role="img">
+<defs>
+  <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+    <path d="M 0 1 L 9 5 L 0 9 z" fill="context-stroke"/>
+  </marker>
+  <marker id="arrowsm" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5.5" markerHeight="5.5" orient="auto-start-reverse">
+    <path d="M 0 1.5 L 9 5 L 0 8.5 z" fill="context-stroke"/>
+  </marker>
+  <pattern id="hatch" width="7" height="7" patternTransform="rotate(45)" patternUnits="userSpaceOnUse">
+    <line x1="0" y1="0" x2="0" y2="7" stroke="#C8C8C8" stroke-width="2.2"/>
+  </pattern>
+</defs>
+<rect width="1200" height="1494" fill="#FFFFFF"/>
+<text x="24.0" y="48.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="30" font-weight="700" font-style="normal" fill="#1A1A1A" text-anchor="start">The AETHRION research lifecycle</text>
+<text x="24.0" y="80.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="18" font-weight="400" font-style="normal" fill="#63666A" text-anchor="start">Eleven gates. At each of them the same resolution order holds: the mechanical check runs first and cannot be overridden by a model, a</text>
+<text x="24.0" y="104.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="18" font-weight="400" font-style="normal" fill="#63666A" text-anchor="start">model may then produce but never decide, and a human holds authority only where the gate carries it.</text>
+<text x="24.0" y="130.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="18" font-weight="500" font-style="normal" fill="#1A1A1A" text-anchor="start">Reading down the figure is time. Reading across is who may act. The hatched cells are not gaps in the design — they are the design: G5</text>
+<text x="24.0" y="154.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="18" font-weight="500" font-style="normal" fill="#1A1A1A" text-anchor="start">and G7a admit no model at all.</text>
+<rect x="24.0" y="175.0" width="26.0" height="17.0" rx="3" fill="#a6ddce" stroke="#009E73" stroke-width="1.5"/>
+<text x="58.0" y="188.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#1A1A1A" text-anchor="start">mechanical check</text>
+<rect x="219.0" y="175.0" width="26.0" height="17.0" rx="3" fill="#a6cee4" stroke="#0072B2" stroke-width="1.5"/>
+<text x="253.0" y="188.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#1A1A1A" text-anchor="start">model production</text>
+<rect x="409.4" y="175.0" width="26.0" height="17.0" rx="3" fill="#f0c7a6" stroke="#D55E00" stroke-width="1.5"/>
+<text x="443.4" y="188.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#1A1A1A" text-anchor="start">human authority</text>
+<rect x="591.5" y="175.0" width="26.0" height="17.0" rx="3" fill="#f6dda6" stroke="#E69F00" stroke-width="1.5"/>
+<text x="625.5" y="188.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#1A1A1A" text-anchor="start">frozen artifact</text>
+<rect x="755.4" y="175.0" width="26.0" height="17.0" rx="4" fill="url(#hatch)" stroke="#63666A" stroke-width="1.3" stroke-dasharray="4 3"/>
+<text x="789.4" y="188.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#1A1A1A" text-anchor="start">no model admitted</text>
+<path d="M 954.9300800000001 184 L 980.9300800000001 184" fill="none" stroke="#CC79A7" stroke-width="2.0" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrowsm)"/>
+<text x="988.9" y="188.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#1A1A1A" text-anchor="start">revision path</text>
+<text x="155.0" y="232.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="600" font-style="normal" fill="#63666A" text-anchor="middle">Gate</text>
+<text x="367.5" y="232.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="14.5" font-weight="600" font-style="normal" fill="#009E73" text-anchor="middle">Mechanical — runs first, unwaivable</text>
+<text x="632.5" y="232.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="15" font-weight="600" font-style="normal" fill="#0072B2" text-anchor="middle">Model — produces, never decides</text>
+<text x="862.5" y="232.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="600" font-style="normal" fill="#D55E00" text-anchor="middle">Human — authority</text>
+<text x="1072.5" y="232.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="600" font-style="normal" fill="#E69F00" text-anchor="middle">Frozen output</text>
+<path d="M 80 242 L 1176 242" fill="none" stroke="#C8C8C8" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="80.0" y="254.0" width="150.0" height="72.0" rx="4" fill="#f5f5f5" stroke="#C8C8C8" stroke-width="1.2"/>
+<text x="96.0" y="284.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="21" font-weight="700" font-style="normal" fill="#1A1A1A" text-anchor="start">G0</text>
+<text x="96.0" y="304.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="start">Intake</text>
+<rect x="240.0" y="254.0" width="255.0" height="72.0" rx="4" fill="#def2ed" stroke="#009E73" stroke-width="1.5"/>
+<text x="367.5" y="282.3" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="18" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="middle">duplicate search</text>
+<text x="367.5" y="306.3" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">embedding + graph index</text>
+<rect x="505.0" y="254.0" width="255.0" height="72.0" rx="4" fill="#deedf5" stroke="#0072B2" stroke-width="1.5"/>
+<text x="632.5" y="293.8" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="18" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="middle">triage</text>
+<rect x="770.0" y="254.0" width="185.0" height="72.0" rx="4" fill="#faeade" stroke="#D55E00" stroke-width="1.5"/>
+<text x="862.5" y="293.8" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="18" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="middle">greenlight</text>
+<rect x="965.0" y="254.0" width="215.0" height="72.0" rx="4" fill="#fcf3de" stroke="#E69F00" stroke-width="1.5"/>
+<text x="1072.5" y="293.8" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="18" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="middle">IntakeRecord</text>
+<rect x="80.0" y="333.0" width="150.0" height="72.0" rx="4" fill="#f5f5f5" stroke="#C8C8C8" stroke-width="1.2"/>
+<text x="96.0" y="363.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="21" font-weight="700" font-style="normal" fill="#1A1A1A" text-anchor="start">G1</text>
+<text x="96.0" y="383.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="start">Charter</text>
+<rect x="240.0" y="333.0" width="255.0" height="72.0" rx="4" fill="#def2ed" stroke="#009E73" stroke-width="1.5"/>
+<text x="367.5" y="350.3" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="18" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="middle">RiskProfile →</text>
+<text x="367.5" y="372.3" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="18" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="middle">AssuranceClass</text>
+<text x="367.5" y="396.3" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">a policy engine, not a model</text>
+<rect x="505.0" y="333.0" width="255.0" height="72.0" rx="4" fill="#deedf5" stroke="#0072B2" stroke-width="1.5"/>
+<text x="632.5" y="361.3" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="18" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="middle">charter draft</text>
+<text x="632.5" y="385.3" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">risk vector proposal</text>
+<rect x="770.0" y="333.0" width="185.0" height="72.0" rx="4" fill="#faeade" stroke="#D55E00" stroke-width="1.5"/>
+<text x="862.5" y="361.8" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="18" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="middle">writes the</text>
+<text x="862.5" y="383.8" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="18" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="middle">decision question</text>
+<rect x="965.0" y="333.0" width="215.0" height="72.0" rx="4" fill="#fcf3de" stroke="#E69F00" stroke-width="1.5"/>
+<text x="1072.5" y="361.3" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="18" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="middle">ProjectCharter</text>
+<text x="1072.5" y="385.3" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">ControlPlan</text>
+<rect x="80.0" y="412.0" width="150.0" height="72.0" rx="4" fill="#f5f5f5" stroke="#C8C8C8" stroke-width="1.2"/>
+<text x="96.0" y="442.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="21" font-weight="700" font-style="normal" fill="#1A1A1A" text-anchor="start">G2</text>
+<text x="96.0" y="462.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="start">Protocol</text>
+<rect x="240.0" y="412.0" width="255.0" height="72.0" rx="4" fill="#def2ed" stroke="#009E73" stroke-width="1.5"/>
+<text x="367.5" y="440.3" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="18" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="middle">template completeness</text>
+<text x="367.5" y="464.3" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">placeholder sweep</text>
+<rect x="505.0" y="412.0" width="255.0" height="72.0" rx="4" fill="#deedf5" stroke="#0072B2" stroke-width="1.5"/>
+<text x="632.5" y="440.3" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="18" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="middle">protocol draft</text>
+<text x="632.5" y="464.3" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">pre-mortem · Stage-1 review</text>
+<rect x="770.0" y="412.0" width="185.0" height="72.0" rx="4" fill="#faeade" stroke="#D55E00" stroke-width="1.5"/>
+<text x="862.5" y="429.8" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="18" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="middle">Scientific +</text>
+<text x="862.5" y="451.8" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="18" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="middle">Statistical Owner</text>
+<text x="862.5" y="473.8" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="18" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="middle">sign</text>
+<rect x="965.0" y="412.0" width="215.0" height="72.0" rx="4" fill="#fcf3de" stroke="#E69F00" stroke-width="1.5"/>
+<text x="1072.5" y="451.8" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="18" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="middle">ProtocolManifest</text>
+<rect x="80.0" y="491.0" width="1096.0" height="82.0" rx="4" fill="#faf3f7" stroke="#CC79A7" stroke-width="1.4" stroke-dasharray="5 4"/>
+<text x="96.0" y="517.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="18" font-weight="600" font-style="normal" fill="#CC79A7" text-anchor="start">research_mode?</text>
+<text x="96.0" y="541.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="start">fail-closed: absent or ambiguous resolves to</text>
+<text x="96.0" y="563.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="start">confirmatory</text>
+<text x="465.0" y="517.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="17" font-weight="600" font-style="normal" fill="#CC79A7" text-anchor="start">exploratory</text>
+<text x="465.0" y="539.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="start">skips G2b; may never claim</text>
+<text x="465.0" y="561.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="start">confirmatory</text>
+<text x="711.0" y="517.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="17" font-weight="600" font-style="normal" fill="#CC79A7" text-anchor="start">replication</text>
+<text x="711.0" y="539.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="start">locked replication contract</text>
+<text x="957.0" y="517.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="17" font-weight="600" font-style="normal" fill="#CC79A7" text-anchor="start">confirmatory</text>
+<text x="957.0" y="539.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="start">G2b + in-principle acceptance</text>
+<rect x="80.0" y="580.0" width="150.0" height="72.0" rx="4" fill="#f5f5f5" stroke="#C8C8C8" stroke-width="1.2"/>
+<text x="96.0" y="610.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="21" font-weight="700" font-style="normal" fill="#1A1A1A" text-anchor="start">G2b</text>
+<text x="96.0" y="630.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="start">Analysis plan</text>
+<text x="96.0" y="646.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#CC79A7" text-anchor="start">confirmatory</text>
+<text x="96.0" y="668.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#CC79A7" text-anchor="start">only</text>
+<text x="367.5" y="622.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="19" font-weight="400" font-style="normal" fill="#C8C8C8" text-anchor="middle">—</text>
+<rect x="505.0" y="580.0" width="255.0" height="72.0" rx="4" fill="#deedf5" stroke="#0072B2" stroke-width="1.5"/>
+<text x="632.5" y="608.3" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="18" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="middle">plan draft</text>
+<text x="632.5" y="632.3" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">power analysis</text>
+<rect x="770.0" y="580.0" width="185.0" height="72.0" rx="4" fill="#faeade" stroke="#D55E00" stroke-width="1.5"/>
+<text x="862.5" y="597.8" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="18" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="middle">Statistical</text>
+<text x="862.5" y="619.8" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="18" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="middle">Methods Owner</text>
+<text x="862.5" y="641.8" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="18" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="middle">locks</text>
+<rect x="965.0" y="580.0" width="215.0" height="72.0" rx="4" fill="#fcf3de" stroke="#E69F00" stroke-width="1.5"/>
+<text x="1072.5" y="608.3" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="18" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="middle">AnalysisPlanManifest</text>
+<text x="1072.5" y="632.3" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">InPrincipleAcceptance</text>
+<rect x="80.0" y="659.0" width="150.0" height="72.0" rx="4" fill="#f5f5f5" stroke="#C8C8C8" stroke-width="1.2"/>
+<text x="96.0" y="689.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="21" font-weight="700" font-style="normal" fill="#1A1A1A" text-anchor="start">G3</text>
+<text x="96.0" y="709.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="start">Literature</text>
+<rect x="240.0" y="659.0" width="255.0" height="72.0" rx="4" fill="#def2ed" stroke="#009E73" stroke-width="1.5"/>
+<text x="367.5" y="687.3" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="18" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="middle">GROBID · DOI · dedup</text>
+<text x="367.5" y="711.3" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">hashing · PRISMA-S report</text>
+<rect x="505.0" y="659.0" width="255.0" height="72.0" rx="4" fill="#deedf5" stroke="#0072B2" stroke-width="1.5"/>
+<text x="632.5" y="687.3" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="18" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="middle">query plan · screening</text>
+<text x="632.5" y="711.3" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">declared stopping rule</text>
+<rect x="770.0" y="659.0" width="185.0" height="72.0" rx="4" fill="#faeade" stroke="#D55E00" stroke-width="1.5"/>
+<text x="862.5" y="687.8" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="18" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="middle">Evidence Lead</text>
+<text x="862.5" y="709.8" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="18" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="middle">freezes</text>
+<rect x="965.0" y="659.0" width="215.0" height="72.0" rx="4" fill="#fcf3de" stroke="#E69F00" stroke-width="1.5"/>
+<text x="1072.5" y="698.8" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="18" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="middle">LiteratureSetManifest</text>
+<rect x="80.0" y="738.0" width="150.0" height="72.0" rx="4" fill="#f5f5f5" stroke="#C8C8C8" stroke-width="1.2"/>
+<text x="96.0" y="768.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="21" font-weight="700" font-style="normal" fill="#1A1A1A" text-anchor="start">G4</text>
+<text x="96.0" y="788.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="start">Baseline</text>
+<rect x="240.0" y="738.0" width="255.0" height="72.0" rx="4" fill="#def2ed" stroke="#009E73" stroke-width="1.5"/>
+<text x="367.5" y="777.8" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="18" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="middle">the baseline run</text>
+<rect x="505.0" y="738.0" width="255.0" height="72.0" rx="4" fill="#deedf5" stroke="#0072B2" stroke-width="1.5"/>
+<text x="632.5" y="766.3" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="18" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="middle">compute plan</text>
+<text x="632.5" y="790.3" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">red-team pre-mortem</text>
+<rect x="770.0" y="738.0" width="185.0" height="72.0" rx="4" fill="#faeade" stroke="#D55E00" stroke-width="1.5"/>
+<text x="862.5" y="777.8" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="18" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="middle">budget approval</text>
+<rect x="965.0" y="738.0" width="215.0" height="72.0" rx="4" fill="#fcf3de" stroke="#E69F00" stroke-width="1.5"/>
+<text x="1072.5" y="766.3" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="18" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="middle">BaselineBundle</text>
+<text x="1072.5" y="790.3" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">FalsificationPlan</text>
+<rect x="80.0" y="817.0" width="150.0" height="72.0" rx="4" fill="#f5f5f5" stroke="#C8C8C8" stroke-width="1.2"/>
+<text x="96.0" y="847.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="21" font-weight="700" font-style="normal" fill="#1A1A1A" text-anchor="start">G5</text>
+<text x="96.0" y="867.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="start">Execute</text>
+<rect x="240.0" y="817.0" width="255.0" height="72.0" rx="4" fill="#def2ed" stroke="#009E73" stroke-width="1.5"/>
+<text x="367.5" y="856.8" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="18" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="middle">the experiment itself</text>
+<rect x="505.0" y="817.0" width="255.0" height="72.0" rx="4" fill="url(#hatch)" stroke="#63666A" stroke-width="1.3" stroke-dasharray="4 3"/>
+<text x="632.5" y="844.9" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="17" font-weight="600" font-style="normal" fill="#63666A" text-anchor="middle">no model in the loop</text>
+<text x="632.5" y="867.9" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">unless it is the subject</text>
+<text x="862.5" y="859.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="19" font-weight="400" font-style="normal" fill="#C8C8C8" text-anchor="middle">—</text>
+<rect x="965.0" y="817.0" width="215.0" height="72.0" rx="4" fill="#fcf3de" stroke="#E69F00" stroke-width="1.5"/>
+<text x="1072.5" y="856.8" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="18" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="middle">ExperimentRun</text>
+<rect x="80.0" y="896.0" width="150.0" height="72.0" rx="4" fill="#f5f5f5" stroke="#C8C8C8" stroke-width="1.2"/>
+<text x="96.0" y="926.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="21" font-weight="700" font-style="normal" fill="#1A1A1A" text-anchor="start">G6</text>
+<text x="96.0" y="946.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="start">Assurance</text>
+<rect x="240.0" y="896.0" width="255.0" height="72.0" rx="4" fill="#def2ed" stroke="#009E73" stroke-width="1.5"/>
+<text x="367.5" y="913.3" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="18" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="middle">statcheck · GRIM ·</text>
+<text x="367.5" y="935.3" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="18" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="middle">GRIMMER</text>
+<text x="367.5" y="959.3" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">entailment · hashes</text>
+<rect x="505.0" y="896.0" width="255.0" height="72.0" rx="4" fill="#deedf5" stroke="#0072B2" stroke-width="1.5"/>
+<text x="632.5" y="924.3" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="18" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="middle">blind + adversarial review</text>
+<text x="632.5" y="948.3" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">different provider family</text>
+<text x="862.5" y="938.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="19" font-weight="400" font-style="normal" fill="#C8C8C8" text-anchor="middle">—</text>
+<rect x="965.0" y="896.0" width="215.0" height="72.0" rx="4" fill="#fcf3de" stroke="#E69F00" stroke-width="1.5"/>
+<text x="1072.5" y="924.3" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="18" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="middle">ReviewRecord</text>
+<text x="1072.5" y="948.3" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">ProducerResponse</text>
+<rect x="80.0" y="975.0" width="150.0" height="72.0" rx="4" fill="#f5f5f5" stroke="#C8C8C8" stroke-width="1.2"/>
+<text x="96.0" y="1005.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="21" font-weight="700" font-style="normal" fill="#1A1A1A" text-anchor="start">G7a</text>
+<text x="96.0" y="1025.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="start">Reproduction</text>
+<rect x="240.0" y="975.0" width="255.0" height="72.0" rx="4" fill="#def2ed" stroke="#009E73" stroke-width="1.5"/>
+<text x="367.5" y="992.3" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="18" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="middle">same manifest, same</text>
+<text x="367.5" y="1014.3" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="18" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="middle">seed</text>
+<text x="367.5" y="1038.3" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">deterministic</text>
+<rect x="505.0" y="975.0" width="255.0" height="72.0" rx="4" fill="url(#hatch)" stroke="#63666A" stroke-width="1.3" stroke-dasharray="4 3"/>
+<text x="632.5" y="1002.9" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="17" font-weight="600" font-style="normal" fill="#63666A" text-anchor="middle">no model in the loop</text>
+<text x="632.5" y="1025.9" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">it reproduces or it does not</text>
+<text x="862.5" y="1017.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="19" font-weight="400" font-style="normal" fill="#C8C8C8" text-anchor="middle">—</text>
+<rect x="965.0" y="975.0" width="215.0" height="72.0" rx="4" fill="#fcf3de" stroke="#E69F00" stroke-width="1.5"/>
+<text x="1072.5" y="1014.8" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="18" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="middle">reproduction result</text>
+<rect x="80.0" y="1054.0" width="150.0" height="72.0" rx="4" fill="#f5f5f5" stroke="#C8C8C8" stroke-width="1.2"/>
+<text x="96.0" y="1084.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="21" font-weight="700" font-style="normal" fill="#1A1A1A" text-anchor="start">G7b</text>
+<text x="96.0" y="1104.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="start">Replication</text>
+<rect x="240.0" y="1054.0" width="255.0" height="72.0" rx="4" fill="#def2ed" stroke="#009E73" stroke-width="1.5"/>
+<text x="367.5" y="1093.8" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="18" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="middle">distribution test</text>
+<text x="632.5" y="1096.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="19" font-weight="400" font-style="normal" fill="#C8C8C8" text-anchor="middle">—</text>
+<rect x="770.0" y="1054.0" width="185.0" height="72.0" rx="4" fill="#faeade" stroke="#D55E00" stroke-width="1.5"/>
+<text x="862.5" y="1082.8" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="18" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="middle">RSE assigns the</text>
+<text x="862.5" y="1104.8" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="18" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="middle">badge</text>
+<rect x="965.0" y="1054.0" width="215.0" height="72.0" rx="4" fill="#fcf3de" stroke="#E69F00" stroke-width="1.5"/>
+<text x="1072.5" y="1093.8" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="18" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="middle">replication verdict</text>
+<rect x="80.0" y="1133.0" width="150.0" height="72.0" rx="4" fill="#f5f5f5" stroke="#C8C8C8" stroke-width="1.2"/>
+<text x="96.0" y="1163.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="21" font-weight="700" font-style="normal" fill="#1A1A1A" text-anchor="start">G8</text>
+<text x="96.0" y="1183.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="start">Decision</text>
+<rect x="240.0" y="1133.0" width="255.0" height="72.0" rx="4" fill="#def2ed" stroke="#009E73" stroke-width="1.5"/>
+<text x="367.5" y="1172.8" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="18" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="middle">package completeness</text>
+<rect x="505.0" y="1133.0" width="255.0" height="72.0" rx="4" fill="#deedf5" stroke="#0072B2" stroke-width="1.5"/>
+<text x="632.5" y="1172.8" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="18" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="middle">recommendation only</text>
+<rect x="770.0" y="1133.0" width="185.0" height="72.0" rx="4" fill="#faeade" stroke="#D55E00" stroke-width="2.6"/>
+<text x="862.5" y="1152.1" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="19" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="middle">DECIDES</text>
+<text x="862.5" y="1177.1" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">human only, under</text>
+<text x="862.5" y="1196.1" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">quota</text>
+<rect x="965.0" y="1133.0" width="215.0" height="72.0" rx="4" fill="#fcf3de" stroke="#E69F00" stroke-width="1.5"/>
+<text x="1072.5" y="1172.8" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="18" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="middle">DecisionRecord</text>
+<rect x="80.0" y="1212.0" width="150.0" height="72.0" rx="4" fill="#f5f5f5" stroke="#C8C8C8" stroke-width="1.2"/>
+<text x="96.0" y="1242.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="21" font-weight="700" font-style="normal" fill="#1A1A1A" text-anchor="start">G9</text>
+<text x="96.0" y="1262.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="start">Publish</text>
+<rect x="240.0" y="1212.0" width="255.0" height="72.0" rx="4" fill="#def2ed" stroke="#009E73" stroke-width="1.5"/>
+<text x="367.5" y="1240.3" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="18" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="middle">scope conformance</text>
+<text x="367.5" y="1264.3" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">RO-Crate · hashes</text>
+<rect x="505.0" y="1212.0" width="255.0" height="72.0" rx="4" fill="#deedf5" stroke="#0072B2" stroke-width="1.5"/>
+<text x="632.5" y="1251.8" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="18" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="middle">text draft</text>
+<rect x="770.0" y="1212.0" width="185.0" height="72.0" rx="4" fill="#faeade" stroke="#D55E00" stroke-width="1.5"/>
+<text x="862.5" y="1240.8" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="18" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="middle">Decision Owner +</text>
+<text x="862.5" y="1262.8" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="18" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="middle">Editor</text>
+<rect x="965.0" y="1212.0" width="215.0" height="72.0" rx="4" fill="#fcf3de" stroke="#E69F00" stroke-width="1.5"/>
+<text x="1072.5" y="1251.8" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="18" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="middle">PublicationPackage</text>
+<rect x="80.0" y="1291.0" width="150.0" height="72.0" rx="4" fill="#f5f5f5" stroke="#C8C8C8" stroke-width="1.2"/>
+<text x="96.0" y="1321.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="21" font-weight="700" font-style="normal" fill="#1A1A1A" text-anchor="start">G10</text>
+<text x="96.0" y="1341.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="start">Monitor</text>
+<rect x="240.0" y="1291.0" width="255.0" height="72.0" rx="4" fill="#def2ed" stroke="#009E73" stroke-width="1.5"/>
+<text x="367.5" y="1308.3" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="18" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="middle">Crossref · Retraction</text>
+<text x="367.5" y="1330.3" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="18" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="middle">Watch</text>
+<text x="367.5" y="1354.3" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">CVE feeds</text>
+<rect x="505.0" y="1291.0" width="255.0" height="72.0" rx="4" fill="#deedf5" stroke="#0072B2" stroke-width="1.5"/>
+<text x="632.5" y="1330.8" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="18" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="middle">signal triage</text>
+<rect x="770.0" y="1291.0" width="185.0" height="72.0" rx="4" fill="#faeade" stroke="#D55E00" stroke-width="1.5"/>
+<text x="862.5" y="1319.8" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="18" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="middle">decides on a</text>
+<text x="862.5" y="1341.8" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="18" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="middle">material signal</text>
+<rect x="965.0" y="1291.0" width="215.0" height="72.0" rx="4" fill="#fcf3de" stroke="#E69F00" stroke-width="1.5"/>
+<text x="1072.5" y="1330.8" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="18" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="middle">supersession records</text>
+<path d="M 80 1327.0 L 64 1327.0 L 64 448.0 L 80 448.0" fill="none" stroke="#CC79A7" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="6 4" marker-end="url(#arrowsm)"/>
+<text x="57.0" y="887.5" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" fill="#CC79A7" text-anchor="middle" transform="rotate(-90 57.0 887.5)">a material signal reopens the protocol</text>
+<path d="M 80 932.0 L 40 932.0 L 40 448.0 L 80 448.0" fill="none" stroke="#CC79A7" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="6 4" marker-end="url(#arrowsm)"/>
+<text x="33.0" y="690.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" fill="#CC79A7" text-anchor="middle" transform="rotate(-90 33.0 690.0)">ProtocolChallenge</text>
+<path d="M 24 1386 L 1176 1386" fill="none" stroke="#C8C8C8" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="24.0" y="1416.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="18" font-weight="700" font-style="normal" fill="#D55E00" text-anchor="start">Status</text>
+<text x="94.0" y="1416.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="17" font-weight="400" font-style="normal" fill="#1A1A1A" text-anchor="start">None of this lifecycle is implemented. The only working component today is the literature bridge that feeds G3; every other cell above is a</text>
+<text x="94.0" y="1439.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="17" font-weight="400" font-style="normal" fill="#1A1A1A" text-anchor="start">design commitment, and no work package has reached ACCEPTED.</text>
+</svg>

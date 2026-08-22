@@ -59,7 +59,7 @@
 | WP-000 | Written, **not executed** |
 | ACC-41–46 | Written; like all 46, never run |
 | WP-013 / 043 / 047 / 048 skill scope | Specified, not built |
-| `AIRL_OS_ARCHITECTURE.md`, `AIRL_OS_EXTERNAL_STANDARDS.md` | Documentation |
+| `AETHRION_ARCHITECTURE.md`, `AETHRION_EXTERNAL_STANDARDS.md` | Documentation |
 
 **The audit's central sentence still holds:** *"a very well written plan and a
 small but genuinely working vertical slice; the distance between them is far

@@ -3,7 +3,7 @@
 | Field | Value |
 |---|---|
 | Document type | Component reference |
-| Scope | The one part of AIRL-OS that exists as running software |
+| Scope | The one part of AETHRION that exists as running software |
 | Sibling documents | `../../docs/ARCHITECTURE_V0.md` · `../../docs/OPERATIONS.md` |
 | Status | `WORKING` — verified locally, never independently accepted |
 | Date | 2026-08-22 |

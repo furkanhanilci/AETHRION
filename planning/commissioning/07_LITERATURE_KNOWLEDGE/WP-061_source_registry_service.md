@@ -21,7 +21,7 @@
 
 PDFs go through GROBID, publisher XML through Pub2TEI, into the same TEI. An `EvidenceSpan` then addresses `tei_xpath` with a `representation_digest`, and a later parser produces `representation-v2` without invalidating claims anchored to v1.
 
-Rationale and adoption type: `docs/architecture/AIRL_OS_COMPONENT_REUSE.md`.
+Rationale and adoption type: `docs/architecture/AETHRION_COMPONENT_REUSE.md`.
 
 ## Purpose and expected outcome
 

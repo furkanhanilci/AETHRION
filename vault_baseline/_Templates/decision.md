@@ -7,7 +7,7 @@ owner:
 decision_date: "{{date}}"
 supersedes:
 tags:
-  - ai-framework/decision
+  - aethrion/decision
 ---
 
 # {{title}}

@@ -4,13 +4,13 @@
 |---|---|
 | Document type | Architecture reference — the implemented slice |
 | Scope | The Literature Bridge V0 as built; nothing designed or planned |
-| Sibling documents | `architecture/AIRL_OS_ARCHITECTURE.md` §9 · `OPERATIONS.md` |
+| Sibling documents | `architecture/AETHRION_ARCHITECTURE.md` §9 · `OPERATIONS.md` |
 | Status | `WORKING` — verified locally, never independently accepted |
 | Date | 2026-08-22 |
 
-**In one paragraph.** This describes the only part of AIRL-OS that exists as running software: Zotero's local API is read read-only, sources are given stable AIRL identity in a canonical SQLite registry, that registry is projected into Obsidian under a manifest that owns its own deletions, and an MCP server exposes exactly five read-only tools. Its design decisions — no write path, identity boundary, manifest-owned deletion, bounded blast radius — are what the rest of the architecture generalises.
+**In one paragraph.** This describes the only part of AETHRION that exists as running software: Zotero's local API is read read-only, sources are given stable AIRL identity in a canonical SQLite registry, that registry is projected into Obsidian under a manifest that owns its own deletions, and an MCP server exposes exactly five read-only tools. Its design decisions — no write path, identity boundary, manifest-owned deletion, bounded blast radius — are what the rest of the architecture generalises.
 
-> System-wide context and diagrams: [`AIRL_OS_ARCHITECTURE.md`](architecture/AIRL_OS_ARCHITECTURE.md).
+> System-wide context and diagrams: [`AETHRION_ARCHITECTURE.md`](architecture/AETHRION_ARCHITECTURE.md).
 
 ## Purpose
 
@@ -38,12 +38,12 @@ AIRL Bridge API @ 127.0.0.1:8765
 
 ```text
 00 - Home/
-  ai_research_framework_home.md
+  aethrion_home.md
 01 - Inbox/
 10 - Projects/
-  AI Research Framework/
+  AETHRION/
     00_navigation_and_execution_cockpit.md
-    ai_research_framework_current_status_and_roadmap.md
+    aethrion_current_status_and_roadmap.md
     01 - Commissioning/  02 - Reviews/  03 - Implementation/
     04 - Architecture/   05 - Evidence/ 06 - Components/  07 - Skills/
 20 - Source Notes/                 # human synthesis

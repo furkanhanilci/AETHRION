@@ -11,7 +11,7 @@ Archetype
     a second place to be wrong in, and this figure exists to say it does not.
 
 Sources
-    scripts/mirror_vault.py, docs/architecture/AIRL_OS_ARCHITECTURE.md,
+    scripts/mirror_vault.py, docs/architecture/AETHRION_ARCHITECTURE.md,
     scripts/verify_references.py, scripts/monitor_sources.py
 """
 from __future__ import annotations
@@ -50,7 +50,7 @@ def main() -> None:
            col_w - 32, size=16, lh=21, max_lines=2)
     authored = [("Hand-authored", "architecture, decision records, planning corpus, skills", INK),
                 ("Generated, committed", "STATUS.md, workstream indexes, figures — never hand-edited", PURPLE),
-                ("Sealed", "221 planning files, byte-identical to baseline v1.0.1", VERM),
+                ("Sealed", "221 planning files, byte-identical to baseline v1.0.2", VERM),
                 ("Signed", "evidence manifests, Ed25519, interim profile", GREEN)]
     for i, (h, b, col) in enumerate(authored):
         c.cell(L + 16, top + 96 + i * 74, col_w - 32, 66, h, b, accent=col,
@@ -119,9 +119,9 @@ def main() -> None:
            "it overwrites, so the failure mode of editing the vault is losing that edit, not corrupting the source.",
            W - L - (L + 80), size=17, fill=INK, lh=23)
 
-    out = ROOT / "docs" / "figures" / "airl_os_topology.svg"
+    out = ROOT / "docs" / "figures" / "aethrion_topology.svg"
     out.write_text(c.render(), encoding="utf-8")
-    print(f"wrote docs/figures/airl_os_topology.svg  ({W}×{H})")
+    print(f"wrote docs/figures/aethrion_topology.svg  ({W}×{H})")
 
 
 if __name__ == "__main__":

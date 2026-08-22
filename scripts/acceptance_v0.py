@@ -80,7 +80,7 @@ def main() -> int:
     settings = Settings.from_env()
     generated = settings.obsidian_vault / settings.obsidian_generated_dir
     dashboard = generated / "00 - Control Dashboard"
-    home = settings.obsidian_vault / "00 - Home/ai_research_framework_home.md"
+    home = settings.obsidian_vault / "00 - Home/aethrion_home.md"
     literature_index = (
         settings.obsidian_vault / "70 - Literature Sets/literature_sets.md"
     )

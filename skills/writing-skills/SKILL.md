@@ -1,6 +1,6 @@
 ---
 name: writing-skills
-description: "Use when authoring, editing or reviewing any AIRL-OS skill, or when a rule keeps being bypassed by agents"
+description: "Use when authoring, editing or reviewing any AETHRION skill, or when a rule keeps being bypassed by agents"
 metadata:
   airl.version: "1.0.0"
   airl.domain: "shared"

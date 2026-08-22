@@ -21,7 +21,7 @@ metadata:
 
 Because the original bytes are kept, a later parser produces `representation-v2` **without invalidating claims anchored to v1**.
 
-Adoption type and authority boundary: `docs/architecture/AIRL_OS_COMPONENT_REUSE.md`.
+Adoption type and authority boundary: `docs/architecture/AETHRION_COMPONENT_REUSE.md`.
 
 ## Core principle
 

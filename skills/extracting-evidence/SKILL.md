@@ -22,7 +22,7 @@ metadata:
 
 Scholarly PDFs and publisher XML become one canonical TEI representation, so a span addresses `tei_xpath` under a `representation_digest` rather than a page number.
 
-Adoption type and authority boundary: `docs/architecture/AIRL_OS_COMPONENT_REUSE.md`.
+Adoption type and authority boundary: `docs/architecture/AETHRION_COMPONENT_REUSE.md`.
 
 ## Core principle
 

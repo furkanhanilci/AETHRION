@@ -19,8 +19,8 @@ Encoding
     printing and colour-vision deficiency.
 
 Sources
-    docs/architecture/AIRL_OS_ARCHITECTURE.md §3, §8, §10
-    docs/architecture/AIRL_OS_EXTERNAL_STANDARDS.md §3
+    docs/architecture/AETHRION_ARCHITECTURE.md §3, §8, §10
+    docs/architecture/AETHRION_EXTERNAL_STANDARDS.md §3
     planning/commissioning/01_GOVERNANCE/WP-000_interim_evidence_policy.md
 """
 from __future__ import annotations
@@ -160,9 +160,9 @@ def main() -> None:
            "package in this repository is ACCEPTED.",
            W - 2 * L, size=16, fill=INK, weight="500", lh=21, max_lines=3)
 
-    out = Path(__file__).resolve().parent.parent / "docs" / "figures" / "airl_os_evidence_chain.svg"
+    out = Path(__file__).resolve().parent.parent / "docs" / "figures" / "aethrion_evidence_chain.svg"
     out.write_text(c.render(), encoding="utf-8")
-    print(f"wrote docs/figures/airl_os_evidence_chain.svg  ({W}×{H})")
+    print(f"wrote docs/figures/aethrion_evidence_chain.svg  ({W}×{H})")
 
 
 if __name__ == "__main__":

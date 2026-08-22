@@ -4,7 +4,7 @@
 |---|---|
 | Document type | Operations runbook |
 | Scope | Running, verifying and recovering the working components; not the target architecture |
-| Sibling documents | `ARCHITECTURE_V0.md` (what the running slice is) · `architecture/AIRL_OS_ARCHITECTURE.md` (what it will become) |
+| Sibling documents | `ARCHITECTURE_V0.md` (what the running slice is) · `architecture/AETHRION_ARCHITECTURE.md` (what it will become) |
 | Status | `WORKING` — describes components that run today |
 | Date | 2026-08-22 |
 
@@ -39,7 +39,7 @@ only the `70 - Literature Sets/Zotero Sources` branch.
 
 ```bash
 hermes mcp test airl_bridge
-cd /home/otonom/Desktop/FH/AI_RESEARCH_FRAMEWORK
+cd /home/otonom/Desktop/FH/AETHRION
 uv run python scripts/mcp_smoke.py            # exit 0 = pass, 1 = fail
 uv run python scripts/mcp_smoke.py --query attention
 ```
@@ -143,7 +143,7 @@ The plan mirror, the skills mirror and the architecture/review mirrors in the
 vault are **generated**. Verify they have not drifted:
 
 ```bash
-V="/home/otonom/Documents/Obsidian Vault/10 - Projects/AI Research Framework"
+V="/home/otonom/Documents/Obsidian Vault/10 - Projects/AETHRION"
 python scripts/mirror_plan.py  "$V/01 - Commissioning" --check
 python scripts/mirror_vault.py "$V" --check
 ```

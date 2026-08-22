@@ -6,7 +6,7 @@ aliases: []
 created_at: "{{date}}"
 updated_at: "{{date}}"
 tags:
-  - ai-framework/concept
+  - aethrion/concept
 ---
 
 # {{title}}

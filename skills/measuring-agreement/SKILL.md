@@ -22,7 +22,7 @@ metadata:
 
 Standard estimators. The different-family rule is a **proxy** for measured pairwise error correlation and is retired once the measurement exists.
 
-Adoption type and authority boundary: `docs/architecture/AIRL_OS_COMPONENT_REUSE.md`.
+Adoption type and authority boundary: `docs/architecture/AETHRION_COMPONENT_REUSE.md`.
 
 ## Core principle
 

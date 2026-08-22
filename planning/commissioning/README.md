@@ -1,8 +1,8 @@
-# AIRL-OS Commissioning Programme
+# AETHRION Commissioning Programme
 
 **Version:** 1.1
 **Status:** Implementation and commissioning plan
-**Purpose:** Bring the AIRL-OS target architecture into service through work
+**Purpose:** Bring the AETHRION target architecture into service through work
 packages small enough to be assigned independently and closed with objective
 evidence.
 
@@ -60,19 +60,28 @@ zero open critical findings.
 | Markdown files under this tree | 220 |
 | Files covered by the hash seal | 221 (220 Markdown + 1 CSV) |
 
-> **Commissioning baseline v1.0.1 — 2026-08-22.** This is the baseline the
+> **Commissioning baseline v1.0.2 — 2026-08-22.** This is the baseline the
 > programme will actually be commissioned against. Everything after this point
 > is a **recorded change**: edit the canonical file, regenerate the seal
 > deliberately, and record the change in the implementation log. Improvements
 > are expected to arrive *while running*, not before starting.
 >
-> **v1.0.1 corrects three semantic defects that the hash seal could not see** —
+> **v1.0.1 corrected three semantic defects that the hash seal could not see** —
 > acceptance identifiers colliding with the numbers the tooling packages already
 > referenced, a go-live requirement that depended on Day-2 packages scheduled
 > after go-live, and stale ranges left behind when the scenario count changed.
 > The seal proves files did not change; it says nothing about whether they agree
 > with each other. `scripts/validate_commissioning_plan.py` now checks that, and
 > **both checks must pass** before the plan is considered valid.
+>
+> **v1.0.2 carries the project's current name.** 29 files changed: the product
+> is AETHRION rather than AIRL-OS, and ten architecture documents moved to
+> filenames that say so. No requirement, identifier, dependency, acceptance
+> phase or scenario was touched — `git diff v1.0.1..v1.0.2 -- planning/` is
+> naming only. The seal was regenerated deliberately as part of this recorded
+> change, which is the one sanctioned reason to regenerate it; re-sealing to
+> silence a failing check remains prohibited. Both the seal and
+> `validate_commissioning_plan.py` pass on the new baseline.
 
 Verify the seal from the repository root:
 
@@ -203,7 +212,7 @@ then no package can produce acceptable evidence at all.
 > now closes the storage half: the manifest is issued as a signed in-toto
 > attestation recorded in a public transparency log and anchored in time, so
 > immutability is delegated rather than deferred. The rationale is in
-> `docs/architecture/AIRL_OS_EXTERNAL_STANDARDS.md` §3.
+> `docs/architecture/AETHRION_EXTERNAL_STANDARDS.md` §3.
 >
 > The other half — finding **C2**, who may act as an independent verifier in a
 > one-person operation — is **still open** and is a decision, not code. See the

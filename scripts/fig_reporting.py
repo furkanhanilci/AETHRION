@@ -132,9 +132,9 @@ def main() -> None:
            "bake-off is specified and unexecuted.",
            W - L - (L + 70), size=17, fill=INK, lh=23)
 
-    out = Path(__file__).resolve().parent.parent / "docs" / "figures" / "airl_os_reporting.svg"
+    out = Path(__file__).resolve().parent.parent / "docs" / "figures" / "aethrion_reporting.svg"
     out.write_text(c.render(), encoding="utf-8")
-    print(f"wrote docs/figures/airl_os_reporting.svg  ({W}×{H})")
+    print(f"wrote docs/figures/aethrion_reporting.svg  ({W}×{H})")
 
 
 if __name__ == "__main__":

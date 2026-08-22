@@ -1,4 +1,4 @@
-"""Shared AI Research Framework contracts — the first foundation slice.
+"""Shared AETHRION contracts — the first foundation slice.
 
 Exposes the canonical contract surface: :class:`Identity`,
 :class:`ArtifactManifest`, :class:`EventEnvelope` and :class:`SchemaRegistry`.

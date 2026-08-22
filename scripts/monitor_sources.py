@@ -53,7 +53,7 @@ import httpx
 ROOT = Path(__file__).resolve().parent.parent
 DB = ROOT / "data" / "airl_bridge.sqlite3"
 CROSSREF = "https://api.crossref.org/works"
-UA = "AIRL-OS source monitoring (+https://github.com/furkanhanilci/AI-Research-Framework)"
+UA = "AETHRION source monitoring (+https://github.com/furkanhanilci/AETHRION)"
 
 # A retracted paper used as a positive control. If the check cannot see this,
 # it cannot see anything, and a clean report would be meaningless.

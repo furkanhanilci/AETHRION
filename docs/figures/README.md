@@ -4,7 +4,7 @@
 |---|---|
 | Document type | Convention — figure inventory and design specification |
 | Scope | The nine generated figures, their design system and their guarantees |
-| Sibling documents | `../DOCUMENT_STANDARD.md` · `../architecture/AIRL_OS_ARCHITECTURE.md` · `../../skills/scientific-figures/SKILL.md` |
+| Sibling documents | `../DOCUMENT_STANDARD.md` · `../architecture/AETHRION_ARCHITECTURE.md` · `../../skills/scientific-figures/SKILL.md` |
 | Status | `WORKING` — figures are generated and mechanically checked |
 | Date | 2026-08-22 |
 
@@ -61,15 +61,15 @@ carries a **mechanism** that prose carries badly:
 
 | | Figure | Mechanism it carries | Prose alternative |
 |---|---|---|---|
-| 1 | `airl_os_lifecycle.svg` | Eleven gates × three actor classes, and the cells where no model is admitted | A table that hides the pattern |
-| 2 | `airl_os_roles.svg` | Authority tiers, and constraint resolution replacing headcount | A list that reads as an org chart |
-| 3 | `airl_os_evidence_chain.svg` | The chain, plus how much of it exists | A status table nobody cross-reads |
-| 4 | `airl_os_stack.svg` | What is built here versus what is adopted, with the obligation each adoption type creates | A register nobody reads end to end |
-| 5 | `airl_os_reporting.svg` | That formatting is downstream, and that no tool in the pipeline decides | A procedure list, which hides the authority question |
-| 6 | `airl_os_waves.svg` | 141 packages in dependency order, against the one that has produced anything | A wave table that reads as progress |
-| 7 | `airl_os_trust.svg` | Where an injected instruction stops, and on whose authority | A policy paragraph that never names the attack |
-| 8 | `airl_os_verification.svg` | What each check proves *and* what it cannot see | A green dashboard, which is the failure mode |
-| 9 | `airl_os_topology.svg` | Direction on every edge between repository, vault and the outside world | A prose claim that the mirror is one-way |
+| 1 | `aethrion_lifecycle.svg` | Eleven gates × three actor classes, and the cells where no model is admitted | A table that hides the pattern |
+| 2 | `aethrion_roles.svg` | Authority tiers, and constraint resolution replacing headcount | A list that reads as an org chart |
+| 3 | `aethrion_evidence_chain.svg` | The chain, plus how much of it exists | A status table nobody cross-reads |
+| 4 | `aethrion_stack.svg` | What is built here versus what is adopted, with the obligation each adoption type creates | A register nobody reads end to end |
+| 5 | `aethrion_reporting.svg` | That formatting is downstream, and that no tool in the pipeline decides | A procedure list, which hides the authority question |
+| 6 | `aethrion_waves.svg` | 141 packages in dependency order, against the one that has produced anything | A wave table that reads as progress |
+| 7 | `aethrion_trust.svg` | Where an injected instruction stops, and on whose authority | A policy paragraph that never names the attack |
+| 8 | `aethrion_verification.svg` | What each check proves *and* what it cannot see | A green dashboard, which is the failure mode |
+| 9 | `aethrion_topology.svg` | Direction on every edge between repository, vault and the outside world | A prose claim that the mirror is one-way |
 
 Figures 6–9 were added after the ADRs, the adoption matrix and the reporting
 subsystem landed. Their absence was itself a defect: the corpus had grown four
@@ -195,8 +195,8 @@ and Obsidian, keeps text selectable and editable, and needs no rasteriser in the
 toolchain. For a submission requiring PDF or high-DPI PNG:
 
 ```bash
-rsvg-convert -f pdf -o lifecycle.pdf docs/figures/airl_os_lifecycle.svg
-rsvg-convert -f png -d 600 -p 600 -o lifecycle.png docs/figures/airl_os_lifecycle.svg
+rsvg-convert -f pdf -o lifecycle.pdf docs/figures/aethrion_lifecycle.svg
+rsvg-convert -f png -d 600 -p 600 -o lifecycle.png docs/figures/aethrion_lifecycle.svg
 ```
 
 Neither `librsvg` nor `cairosvg` is a project dependency; adding one to render a

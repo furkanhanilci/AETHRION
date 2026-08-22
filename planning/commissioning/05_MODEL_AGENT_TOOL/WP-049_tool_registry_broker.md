@@ -21,7 +21,7 @@
 
 `principal · action · resource · context` already matches `TaskContract`, `forbid` overrides `permit`, and the language has a formal semantics and schema validation. **Any policy-evaluation anomaly fails closed.** A bake-off over the same 50 policies is recorded before the choice is fixed. See `docs/architecture/ADR-003`.
 
-Rationale and adoption type: `docs/architecture/AIRL_OS_COMPONENT_REUSE.md`.
+Rationale and adoption type: `docs/architecture/AETHRION_COMPONENT_REUSE.md`.
 
 ## Purpose and expected outcome
 

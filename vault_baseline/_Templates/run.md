@@ -10,7 +10,7 @@ artifact_refs: []
 started_at:
 completed_at:
 tags:
-  - ai-framework/run
+  - aethrion/run
 ---
 
 # {{title}}

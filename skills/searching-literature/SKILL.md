@@ -21,7 +21,7 @@ metadata:
 
 Retrieval is adopted rather than rebuilt. The contribution here is how a retrieved item binds to provenance and claim scope, not the search itself.
 
-Adoption type and authority boundary: `docs/architecture/AIRL_OS_COMPONENT_REUSE.md`.
+Adoption type and authority boundary: `docs/architecture/AETHRION_COMPONENT_REUSE.md`.
 
 ## Core principle
 

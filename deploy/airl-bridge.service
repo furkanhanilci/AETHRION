@@ -4,8 +4,8 @@ After=default.target
 
 [Service]
 Type=simple
-WorkingDirectory=/home/otonom/Desktop/FH/AI_RESEARCH_FRAMEWORK
-ExecStart=/home/otonom/Desktop/FH/AI_RESEARCH_FRAMEWORK/.venv/bin/airl-bridge serve
+WorkingDirectory=/home/otonom/Desktop/FH/AETHRION
+ExecStart=/home/otonom/Desktop/FH/AETHRION/.venv/bin/airl-bridge serve
 Restart=on-failure
 RestartSec=5
 Environment=PYTHONUNBUFFERED=1
@@ -15,7 +15,7 @@ NoNewPrivileges=true
 PrivateTmp=true
 ProtectSystem=strict
 ProtectHome=read-only
-ReadWritePaths=/home/otonom/Desktop/FH/AI_RESEARCH_FRAMEWORK/data
+ReadWritePaths=/home/otonom/Desktop/FH/AETHRION/data
 ReadWritePaths="/home/otonom/Documents/Obsidian Vault/70 - Literature Sets/Zotero Sources"
 RestrictSUIDSGID=true
 LockPersonality=true

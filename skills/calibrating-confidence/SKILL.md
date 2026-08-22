@@ -21,7 +21,7 @@ metadata:
 
 Standard estimators with known small-sample behaviour. The vector plus its `binding_constraint` is canonical; **no scalar claim strength is published**.
 
-Adoption type and authority boundary: `docs/architecture/AIRL_OS_COMPONENT_REUSE.md`.
+Adoption type and authority boundary: `docs/architecture/AETHRION_COMPONENT_REUSE.md`.
 
 ## Core principle
 

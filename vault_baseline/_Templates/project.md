@@ -6,7 +6,7 @@ owner:
 created_at: "{{date}}"
 updated_at: "{{date}}"
 tags:
-  - ai-framework/project
+  - aethrion/project
 ---
 
 # {{title}}

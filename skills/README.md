@@ -1,24 +1,24 @@
-# AIRL-OS Skill Registry
+# AETHRION Skill Registry
 
 | Field | Value |
 |---|---|
 | Document type | Registry index |
 | Scope | All 52 skills, both families, and how they are validated |
-| Sibling documents | `docs/architecture/AIRL_OS_SKILL_LAYER.md` §14 · `docs/architecture/AIRL_OS_ROLES.md` |
+| Sibling documents | `docs/architecture/AETHRION_SKILL_LAYER.md` §14 · `docs/architecture/AETHRION_ROLES.md` |
 | Status | `SPECIFIED` — format-conformant and loadable; **no skill is behaviour-tested** |
 | Date | 2026-08-22 |
 
 **In one paragraph.** A `RoleContract` defines who an agent is; the skills here define how it works. They come in two families — engineering, vendored from `obra/superpowers` with a pinned commit, and scientific research, AIRL-native — over one shared discipline core, and research adaptations extend their engineering counterparts rather than replacing them. All 52 conform to the Agent Skills open format, which is what makes them load in a stock harness; none has a behaviour baseline, which is what keeps them out of `ACCEPTED`.
 
-Design rationale: [`docs/architecture/AIRL_OS_SKILL_LAYER.md`](../docs/architecture/AIRL_OS_SKILL_LAYER.md) — **read §14 first**
-Target structure: [`docs/architecture/AIRL_OS_IDEAL_STRUCTURE.md`](../docs/architecture/AIRL_OS_IDEAL_STRUCTURE.md)
-Role assignment: [`docs/architecture/AIRL_OS_ROLE_MODEL_ASSIGNMENT.md`](../docs/architecture/AIRL_OS_ROLE_MODEL_ASSIGNMENT.md)
-External standards: [`docs/architecture/AIRL_OS_EXTERNAL_STANDARDS.md`](../docs/architecture/AIRL_OS_EXTERNAL_STANDARDS.md)
+Design rationale: [`docs/architecture/AETHRION_SKILL_LAYER.md`](../docs/architecture/AETHRION_SKILL_LAYER.md) — **read §14 first**
+Target structure: [`docs/architecture/AETHRION_IDEAL_STRUCTURE.md`](../docs/architecture/AETHRION_IDEAL_STRUCTURE.md)
+Role assignment: [`docs/architecture/AETHRION_ROLE_MODEL_ASSIGNMENT.md`](../docs/architecture/AETHRION_ROLE_MODEL_ASSIGNMENT.md)
+External standards: [`docs/architecture/AETHRION_EXTERNAL_STANDARDS.md`](../docs/architecture/AETHRION_EXTERNAL_STANDARDS.md)
 
 ## Two families, one shared core
 
-> **Engineering skills govern how AIRL-OS software is built. Scientific skills
-> govern how research is conducted through AIRL-OS. Shared discipline skills
+> **Engineering skills govern how AETHRION software is built. Scientific skills
+> govern how research is conducted through AETHRION. Shared discipline skills
 > govern both. Research adaptations extend, rather than replace, their
 > engineering counterparts.**
 
@@ -32,7 +32,7 @@ One task may draw on both families. Building the Claim Ledger is
 `test-driven-development` work that also carries `evidence-before-claim` and
 `independence-discipline` obligations.
 
-Entry point for both: [`using-airl-os`](using-airl-os/SKILL.md).
+Entry point for both: [`using-aethrion`](using-aethrion/SKILL.md).
 
 ## Format — the Agent Skills open standard
 
@@ -108,7 +108,7 @@ Installed for this harness through `.claude/skills → ../skills`.
 >
 > | Upstream skill | Represented by | Why not vendored |
 > |---|---|---|
-> | `using-superpowers` | `using-airl-os` | One router, or the agent gets two conflicting entry points |
+> | `using-superpowers` | `using-aethrion` | One router, or the agent gets two conflicting entry points |
 > | `writing-skills` | `writing-skills` (shared) | Must carry the AIRL metadata contract and baseline rules |
 > | `verification-before-completion` | `verification-before-completion` (shared) | Must resolve to `EvidenceSpan` / `ExperimentRun`, not to a passing test |
 >
@@ -125,7 +125,7 @@ Installed for this harness through `.claude/skills → ../skills`.
 
 | Skill | Iron law / rule |
 |---|---|
-| [`using-airl-os`](using-airl-os/SKILL.md) | Router — classify the family and the two axes before starting |
+| [`using-aethrion`](using-aethrion/SKILL.md) | Router — classify the family and the two axes before starting |
 | [`writing-skills`](writing-skills/SKILL.md) | No skill without a failing baseline test first |
 | [`verification-before-completion`](verification-before-completion/SKILL.md) | No completion claim without fresh verification evidence |
 | [`independence-discipline`](independence-discipline/SKILL.md) | A producer may not summon its own verifier or helper |
@@ -251,7 +251,7 @@ Whatever work you are doing, these hold:
 ## Next steps
 
 Items 4 and 5 of the previous list are **done as specification** in commissioning
-baseline v1.0.1 — `TaskContract` skill binding is written into WP-013, the
+baseline v1.0.2 — `TaskContract` skill binding is written into WP-013, the
 registry and compiler into WP-047, harness adapters into WP-048, behaviour
 evaluation into WP-043, and ACC-46 – ACC-51 cover the failure modes. What remains
 is execution:

@@ -118,7 +118,7 @@ def build(directory: Path) -> str:
         out.append("")
         out.append("A ✅ marks a package that stands on an adopted external component rather "
                    "than building the capability here — see "
-                   "`docs/architecture/AIRL_OS_COMPONENT_REUSE.md`.")
+                   "`docs/architecture/AETHRION_COMPONENT_REUSE.md`.")
         out.append("")
 
     if scenarios:

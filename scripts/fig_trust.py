@@ -114,9 +114,9 @@ def main() -> None:
            "The separation is testable — that is the point of choosing a benchmark for it — but it has not been tested.",
            W - L - (L + 118), size=17, fill=INK, lh=23)
 
-    out = ROOT / "docs" / "figures" / "airl_os_trust.svg"
+    out = ROOT / "docs" / "figures" / "aethrion_trust.svg"
     out.write_text(c.render(), encoding="utf-8")
-    print(f"wrote docs/figures/airl_os_trust.svg  ({W}×{H})")
+    print(f"wrote docs/figures/aethrion_trust.svg  ({W}×{H})")
 
 
 if __name__ == "__main__":

@@ -1,7 +1,7 @@
 [project]
 name = "airl-bridge-api"
 version = "0.1.0"
-description = "AIRL Bridge — a local, read-only Zotero to canonical registry and Obsidian projection, with a five-tool read-only MCP surface"
+description = "AETHRION literature bridge — a local, read-only Zotero to canonical registry and Obsidian projection, with a five-tool read-only MCP surface"
 readme = "README.md"
 requires-python = ">=3.10"
 license = { text = "Proprietary" }

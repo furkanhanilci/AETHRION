@@ -21,7 +21,7 @@
 
 `scripts/verify_references.py` resolves the registry against three authorities; the measured corroboration rate is recorded in `delivery/measurements/`. What remains in this package is the **entailment** half: does the cited passage support the claim?
 
-Rationale and adoption type: `docs/architecture/AIRL_OS_COMPONENT_REUSE.md`.
+Rationale and adoption type: `docs/architecture/AETHRION_COMPONENT_REUSE.md`.
 
 ## Purpose and expected outcome
 

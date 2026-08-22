@@ -1,5 +1,13 @@
 # AI Research Framework — Independent Audit Report
 
+> **Historical name; current project identity: AETHRION — Agentic Intelligence
+> Research Layer.** This report is a **frozen record of what was true on
+> 2026-08-21**, and it is deliberately not rebranded: it cites file paths,
+> counts and command output as they existed on that date, and rewriting its
+> names would make the record disagree with the evidence it reports. Read it as
+> history. For the current naming rules see [`../branding.md`](../branding.md);
+> for the current state see [`../STATUS.md`](../STATUS.md).
+
 > [!warning] Frozen snapshot — do not update
 > This audit describes the repository **as it stood on 2026-08-21**. Its counts
 > (130 work packages, 186 files) and its findings are correct **as of that date**
@@ -160,7 +168,7 @@ Do not underestimate these; several are rarely done correctly at this scale:
    in topological order (forward dependencies: 0), the CSV matches the file set
    exactly, 1011 internal links resolve, and 184 file hashes verify. That is
    serious work.
-10. **Honest status semantics.** `ai_research_framework_current_status_and_roadmap.md`
+10. **Honest status semantics.** `aethrion_current_status_and_roadmap.md`
     §2 explicitly distinguishes `V0 READY ≠ ACCEPTED`. That document is not a
     marketing summary. Keep it that way.
 

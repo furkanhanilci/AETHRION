@@ -21,7 +21,7 @@
 
 Generate JSON Schema, Pydantic, JSON-LD, SHACL and SQL DDL from a single LinkML model. This package's failure mode is contracts defined three times in three shapes, which is how the bridge and the contract core came to disagree about digest format.
 
-Rationale and adoption type: `docs/architecture/AIRL_OS_COMPONENT_REUSE.md`.
+Rationale and adoption type: `docs/architecture/AETHRION_COMPONENT_REUSE.md`.
 
 ## Purpose and expected outcome
 

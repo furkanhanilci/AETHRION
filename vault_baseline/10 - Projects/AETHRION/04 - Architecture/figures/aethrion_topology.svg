@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1000" width="100%" role="img">
+<defs>
+  <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+    <path d="M 0 1 L 9 5 L 0 9 z" fill="context-stroke"/>
+  </marker>
+  <marker id="arrowsm" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5.5" markerHeight="5.5" orient="auto-start-reverse">
+    <path d="M 0 1.5 L 9 5 L 0 8.5 z" fill="context-stroke"/>
+  </marker>
+  <pattern id="hatch" width="7" height="7" patternTransform="rotate(45)" patternUnits="userSpaceOnUse">
+    <line x1="0" y1="0" x2="0" y2="7" stroke="#C8C8C8" stroke-width="2.2"/>
+  </pattern>
+</defs>
+<rect width="1200" height="1000" fill="#FFFFFF"/>
+<text x="24.0" y="48.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="30" font-weight="700" font-style="normal" fill="#1A1A1A" text-anchor="start">Where things live, and which way they move</text>
+<text x="24.0" y="80.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="18" font-weight="400" font-style="normal" fill="#63666A" text-anchor="start">Three surfaces, and only one of them is authoritative. Everything is written in the Git repository. The Obsidian vault is produced from it and is</text>
+<text x="24.0" y="104.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="18" font-weight="400" font-style="normal" fill="#63666A" text-anchor="start">never edited back. External bibliographic services are read at verification time and their answers are recorded, never assumed. Every arrow</text>
+<text x="24.0" y="128.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="18" font-weight="400" font-style="normal" fill="#63666A" text-anchor="start">below points one way, and that is the design, not a simplification of it.</text>
+<rect x="24.0" y="162.0" width="330.0" height="396.0" rx="4" fill="#f0f7fa" stroke="#0072B2" stroke-width="2.2"/>
+<text x="40.0" y="192.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="21" font-weight="700" font-style="normal" fill="#0072B2" text-anchor="start">Git repository</text>
+<text x="40.0" y="214.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="start">The single source of truth. Authored by</text>
+<text x="40.0" y="235.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="start">humans and agents; reviewed as a diff.</text>
+<rect x="40.0" y="258.0" width="298.0" height="66.0" rx="4" fill="#e1e1e1" stroke="#1A1A1A" stroke-width="1.6"/>
+<text x="189.0" y="273.4" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="17" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="middle">Hand-authored</text>
+<text x="189.0" y="296.4" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">architecture, decision records,</text>
+<text x="189.0" y="315.4" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">planning corpus, skills</text>
+<rect x="40.0" y="332.0" width="298.0" height="66.0" rx="4" fill="#f8eef4" stroke="#CC79A7" stroke-width="1.6"/>
+<text x="189.0" y="347.4" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="17" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="middle">Generated, committed</text>
+<text x="189.0" y="370.4" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">STATUS.md, workstream indexes,</text>
+<text x="189.0" y="389.4" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">figures — never hand-edited</text>
+<rect x="40.0" y="406.0" width="298.0" height="66.0" rx="4" fill="#faeade" stroke="#D55E00" stroke-width="1.6"/>
+<text x="189.0" y="421.4" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="17" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="middle">Sealed</text>
+<text x="189.0" y="444.4" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">221 planning files, byte-identical to</text>
+<text x="189.0" y="463.4" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">baseline v1.0.2</text>
+<rect x="40.0" y="480.0" width="298.0" height="66.0" rx="4" fill="#def2ed" stroke="#009E73" stroke-width="1.6"/>
+<text x="189.0" y="495.4" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="17" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="middle">Signed</text>
+<text x="189.0" y="518.4" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">evidence manifests, Ed25519,</text>
+<text x="189.0" y="537.4" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">interim profile</text>
+<text x="398.0" y="192.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="21" font-weight="700" font-style="normal" fill="#63666A" text-anchor="start">Transforms</text>
+<text x="398.0" y="214.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="start">Deterministic, re-runnable, and each one</text>
+<text x="398.0" y="235.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="start">has a --check mode that fails on drift.</text>
+<rect x="398.0" y="258.0" width="300.0" height="66.0" rx="4" fill="#ebebec" stroke="#63666A" stroke-width="1.6" stroke-dasharray="5 3"/>
+<text x="548.0" y="273.4" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="17" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="middle">make_figures.py</text>
+<text x="548.0" y="296.4" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">regenerates all figures, then</text>
+<text x="548.0" y="315.4" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">re-measures them independently</text>
+<path d="M 360 291 L 392 291" fill="none" stroke="#C8C8C8" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrowsm)"/>
+<rect x="398.0" y="332.0" width="300.0" height="66.0" rx="4" fill="#ebebec" stroke="#63666A" stroke-width="1.6" stroke-dasharray="5 3"/>
+<text x="548.0" y="347.4" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="17" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="middle">write_status.py</text>
+<text x="548.0" y="370.4" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">re-derives the status page from the</text>
+<text x="548.0" y="389.4" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">bundle it just ran</text>
+<path d="M 360 365 L 392 365" fill="none" stroke="#C8C8C8" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrowsm)"/>
+<rect x="398.0" y="406.0" width="300.0" height="66.0" rx="4" fill="#ebebec" stroke="#63666A" stroke-width="1.6" stroke-dasharray="5 3"/>
+<text x="548.0" y="421.4" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="17" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="middle">make_plan_indexes.py</text>
+<text x="548.0" y="444.4" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">rebuilds every workstream index</text>
+<text x="548.0" y="463.4" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">from its directory</text>
+<path d="M 360 439 L 392 439" fill="none" stroke="#C8C8C8" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrowsm)"/>
+<rect x="398.0" y="480.0" width="300.0" height="66.0" rx="4" fill="#ebebec" stroke="#63666A" stroke-width="1.6" stroke-dasharray="5 3"/>
+<text x="548.0" y="495.4" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="17" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="middle">mirror_vault.py</text>
+<text x="548.0" y="518.4" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">projects documents and figures into</text>
+<text x="548.0" y="537.4" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">the vault layout</text>
+<path d="M 360 513 L 392 513" fill="none" stroke="#C8C8C8" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrowsm)"/>
+<rect x="742.0" y="162.0" width="434.0" height="396.0" rx="4" fill="#f0f9f7" stroke="#009E73" stroke-width="2.2" stroke-dasharray="6 4"/>
+<text x="758.0" y="192.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="21" font-weight="700" font-style="normal" fill="#009E73" text-anchor="start">Obsidian vault</text>
+<text x="758.0" y="214.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="start">A reading surface. Regenerated wholesale; anything</text>
+<text x="758.0" y="235.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="start">typed here is lost on the next mirror.</text>
+<rect x="758.0" y="258.0" width="402.0" height="66.0" rx="4" fill="#def2ed" stroke="#009E73" stroke-width="1.6"/>
+<text x="959.0" y="282.9" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="17" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="middle">01–03</text>
+<text x="959.0" y="305.9" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">Overview, decisions, implementation notes</text>
+<path d="M 704 291 L 752 291" fill="none" stroke="#009E73" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrowsm)"/>
+<rect x="758.0" y="332.0" width="402.0" height="66.0" rx="4" fill="#def2ed" stroke="#009E73" stroke-width="1.6"/>
+<text x="959.0" y="356.9" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="17" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="middle">04</text>
+<text x="959.0" y="379.9" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">Architecture, with the figures copied alongside</text>
+<path d="M 704 365 L 752 365" fill="none" stroke="#009E73" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrowsm)"/>
+<rect x="758.0" y="406.0" width="402.0" height="66.0" rx="4" fill="#def2ed" stroke="#009E73" stroke-width="1.6"/>
+<text x="959.0" y="430.9" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="17" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="middle">05</text>
+<text x="959.0" y="453.9" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">Evidence, including the mirrored status page</text>
+<path d="M 704 439 L 752 439" fill="none" stroke="#009E73" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrowsm)"/>
+<rect x="758.0" y="480.0" width="402.0" height="66.0" rx="4" fill="#def2ed" stroke="#009E73" stroke-width="1.6"/>
+<text x="959.0" y="504.9" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="17" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="middle">06–09</text>
+<text x="959.0" y="527.9" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">Planning corpus, reporting, reference material</text>
+<path d="M 704 513 L 752 513" fill="none" stroke="#009E73" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrowsm)"/>
+<rect x="758.0" y="518.0" width="402.0" height="28.0" rx="4" fill="#faece0" stroke="#D55E00" stroke-width="1.4"/>
+<text x="959.0" y="537.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="17" font-weight="700" font-style="normal" fill="#D55E00" text-anchor="middle">no path leads back</text>
+<rect x="24.0" y="592.0" width="1152.0" height="148.0" rx="4" fill="#fefaf2" stroke="#E69F00" stroke-width="2.0" stroke-dasharray="6 4"/>
+<text x="40.0" y="622.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="21" font-weight="700" font-style="normal" fill="#E69F00" text-anchor="start">Outside world — read-only, and recorded when read</text>
+<rect x="40.0" y="650.0" width="269.5" height="74.0" rx="4" fill="#fcf3de" stroke="#E69F00" stroke-width="1.6"/>
+<text x="174.8" y="669.4" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="17" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="middle">Crossref</text>
+<text x="174.8" y="692.4" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">primary DOI resolution; title</text>
+<text x="174.8" y="711.4" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">match at 0.82</text>
+<rect x="323.5" y="650.0" width="269.5" height="74.0" rx="4" fill="#fcf3de" stroke="#E69F00" stroke-width="1.6"/>
+<text x="458.2" y="678.9" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="17" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="middle">OpenAlex</text>
+<text x="458.2" y="701.9" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">fallback when Crossref is silent</text>
+<rect x="607.0" y="650.0" width="269.5" height="74.0" rx="4" fill="#fcf3de" stroke="#E69F00" stroke-width="1.6"/>
+<text x="741.8" y="669.4" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="17" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="middle">arXiv</text>
+<text x="741.8" y="692.4" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">preprints and identifiers Crossref</text>
+<text x="741.8" y="711.4" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">does not hold</text>
+<rect x="890.5" y="650.0" width="269.5" height="74.0" rx="4" fill="#faeade" stroke="#D55E00" stroke-width="1.6"/>
+<text x="1025.2" y="669.4" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="17" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="middle">Positive control</text>
+<text x="1025.2" y="692.4" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">a known-live DOI; if it goes quiet,</text>
+<text x="1025.2" y="711.4" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">the sweep fails loudly</text>
+<path d="M 600.0 592 L 600.0 564" fill="none" stroke="#E69F00" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="5 4" marker-end="url(#arrowsm)"/>
+<path d="M 24 766 L 1176 766" fill="none" stroke="#C8C8C8" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="24.0" y="796.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="18" font-weight="700" font-style="normal" fill="#D55E00" text-anchor="start">Reality</text>
+<text x="104.0" y="796.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="17" font-weight="400" font-style="normal" fill="#1A1A1A" text-anchor="start">Of 33 registered references, 27 verify against these services and 18 carry no DOI at all, which is why the sweep reports coverage rather</text>
+<text x="104.0" y="819.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="17" font-weight="400" font-style="normal" fill="#1A1A1A" text-anchor="start">than a pass. The mirror is one-way by construction, not by convention: it overwrites, so the failure mode of editing the vault is losing that</text>
+<text x="104.0" y="842.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="17" font-weight="400" font-style="normal" fill="#1A1A1A" text-anchor="start">edit, not corrupting the source.</text>
+</svg>

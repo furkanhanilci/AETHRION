@@ -2,7 +2,7 @@
 """Generate the whole Obsidian project mirror from canonical repository content.
 
 The Obsidian project tree under
-``<vault>/10 - Projects/AI Research Framework/`` contains three generated areas:
+``<vault>/10 - Projects/AETHRION/`` contains three generated areas:
 
 * ``01 - Commissioning/`` — the plan (delegated to ``mirror_plan.py``)
 * ``02 - Reviews/`` and ``04 - Architecture/`` — the ``docs/`` documents
@@ -27,7 +27,7 @@ DOCS = REPO / "docs"
 
 # Canonical skill name → Obsidian group folder.
 GROUPS = {
-    "A - Meta": ["using-airl-os", "writing-skills"],
+    "A - Meta": ["using-aethrion", "writing-skills"],
     "B - Discipline": [
         "preregistration-discipline", "verification-before-completion",
         "evidence-before-claim", "scope-discipline", "independence-discipline",
@@ -59,7 +59,7 @@ GROUPS = {
         "monitoring-external-feeds",
     ],
     # Vendored from obra/superpowers — engineering discipline for building
-    # AIRL-OS itself. Mirrored read-only like every other generated area.
+    # AETHRION itself. Mirrored read-only like every other generated area.
     "H - Engineering": [
         "test-driven-development", "brainstorming", "writing-plans",
         "executing-plans", "subagent-driven-development",
@@ -78,21 +78,21 @@ DOC_MAP = {
         "architecture/ADR-003_trusted_control_and_policy.md",
     "05 - Evidence/current_status.md":
         "STATUS.md",
-    "04 - Architecture/airl_os_document_standard.md":
+    "04 - Architecture/aethrion_document_standard.md":
         "DOCUMENT_STANDARD.md",
-    "04 - Architecture/airl_os_component_reuse.md":
-        "architecture/AIRL_OS_COMPONENT_REUSE.md",
-    "04 - Architecture/airl_os_related_systems.md":
-        "architecture/AIRL_OS_RELATED_SYSTEMS.md",
-    "04 - Architecture/airl_os_roles.md":
-        "architecture/AIRL_OS_ROLES.md",
-    "04 - Architecture/airl_os_figure_specification.md":
+    "04 - Architecture/aethrion_component_reuse.md":
+        "architecture/AETHRION_COMPONENT_REUSE.md",
+    "04 - Architecture/aethrion_related_systems.md":
+        "architecture/AETHRION_RELATED_SYSTEMS.md",
+    "04 - Architecture/aethrion_roles.md":
+        "architecture/AETHRION_ROLES.md",
+    "04 - Architecture/aethrion_figure_specification.md":
         "figures/README.md",
-    "04 - Architecture/airl_os_architecture.md":
-        "architecture/AIRL_OS_ARCHITECTURE.md",
-    "04 - Architecture/airl_os_external_standards.md":
-        "architecture/AIRL_OS_EXTERNAL_STANDARDS.md",
-    "04 - Architecture/airl_os_foundation.md":
+    "04 - Architecture/aethrion_architecture.md":
+        "architecture/AETHRION_ARCHITECTURE.md",
+    "04 - Architecture/aethrion_external_standards.md":
+        "architecture/AETHRION_EXTERNAL_STANDARDS.md",
+    "04 - Architecture/aethrion_foundation.md":
         "architecture/FOUNDATION.md",
     "02 - Reviews/claude_framework_audit_report.md":
         "review/FRAMEWORK_REVIEW_2026-08-21_CLAUDE.md",
@@ -100,12 +100,16 @@ DOC_MAP = {
         "review/2026-08-22_remediation_verification.md",
     "02 - Reviews/claude_full_framework_review_prompt.md":
         "review/CLAUDE_FULL_FRAMEWORK_REVIEW_PROMPT.md",
-    "04 - Architecture/airl_os_ideal_structure.md":
-        "architecture/AIRL_OS_IDEAL_STRUCTURE.md",
-    "04 - Architecture/airl_os_skill_layer.md":
-        "architecture/AIRL_OS_SKILL_LAYER.md",
-    "04 - Architecture/airl_os_role_model_assignment.md":
-        "architecture/AIRL_OS_ROLE_MODEL_ASSIGNMENT.md",
+    "04 - Architecture/aethrion_ideal_structure.md":
+        "architecture/AETHRION_IDEAL_STRUCTURE.md",
+    "04 - Architecture/aethrion_skill_layer.md":
+        "architecture/AETHRION_SKILL_LAYER.md",
+    "04 - Architecture/aethrion_role_model_assignment.md":
+        "architecture/AETHRION_ROLE_MODEL_ASSIGNMENT.md",
+    "04 - Architecture/aethrion_naming_and_terminology.md":
+        "branding.md",
+    "04 - Architecture/aethrion_branding_assets.md":
+        "assets/branding/README.md",
 }
 
 BANNER = (
@@ -123,7 +127,7 @@ def build() -> dict[str, bytes]:
         # Figures live beside the architecture notes in the vault, so the
         # repository-relative image paths are rewritten to vault-relative ones.
         text = text.replace("](../figures/", "](figures/").replace("](figures/README.md)",
-                                                                   "](airl_os_figure_specification.md)")
+                                                                   "](aethrion_figure_specification.md)")
         out[rel] = (BANNER.format(source=f"docs/{src}") + text).encode("utf-8")
 
     for group, names in GROUPS.items():
@@ -134,6 +138,11 @@ def build() -> dict[str, bytes]:
 
     for svg in sorted((DOCS / "figures").glob("*.svg")):
         out[f"04 - Architecture/figures/{svg.name}"] = svg.read_bytes()
+
+    # The logo is a projection of docs/assets/branding/aethrion-logo.png, kept
+    # byte-identical. Obsidian resolves ``![[aethrion-logo.png]]`` by filename,
+    # so the landing page needs a copy that lives inside the vault.
+    out["_assets/aethrion-logo.png"] = (DOCS / "assets" / "branding" / "aethrion-logo.png").read_bytes()
 
     text = (SKILLS / "README.md").read_text(encoding="utf-8")
     text = re.sub(r"\]\((?!http)([a-z0-9-]+)/SKILL\.md\)", r"](\1.md)", text)
@@ -148,7 +157,7 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("target", type=Path,
                         help="the project root inside the vault, i.e. "
-                             "'<vault>/10 - Projects/AI Research Framework' — not the vault root")
+                             "'<vault>/10 - Projects/AETHRION' — not the vault root")
     parser.add_argument("--check", action="store_true")
     args = parser.parse_args()
 

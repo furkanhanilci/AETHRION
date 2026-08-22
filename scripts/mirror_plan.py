@@ -2,7 +2,7 @@
 """Generate the Obsidian reading mirror of the canonical commissioning plan.
 
 The canonical plan lives in ``planning/commissioning/``. The Obsidian tree under
-``<vault>/10 - Projects/AI Research Framework/01 - Commissioning/`` is a
+``<vault>/10 - Projects/AETHRION/01 - Commissioning/`` is a
 **generated** reading copy: content changes go into the canonical file first and
 propagate from here. Editing the mirror directly creates a divergence the plan
 seal cannot detect, because the seal does not cover the mirror.
@@ -119,7 +119,7 @@ def main() -> int:
                 print(f"    ... and {len(strays) - 5} more", file=sys.stderr)
             print(
                 "  the plan mirror lives at "
-                "'<vault>/10 - Projects/AI Research Framework/01 - Commissioning'; "
+                "'<vault>/10 - Projects/AETHRION/01 - Commissioning'; "
                 "pass --force only if you mean to delete the files listed above.",
                 file=sys.stderr,
             )

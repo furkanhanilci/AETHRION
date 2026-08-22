@@ -21,7 +21,7 @@
 
 SEPIO models assertions, evidence and provenance domain-agnostically and carries *challenges* as well as *supports*, which adversarial review needs. Nanopublication is the public export representation, not the operational ledger.
 
-Rationale and adoption type: `docs/architecture/AIRL_OS_COMPONENT_REUSE.md`.
+Rationale and adoption type: `docs/architecture/AETHRION_COMPONENT_REUSE.md`.
 
 ## Purpose and expected outcome
 

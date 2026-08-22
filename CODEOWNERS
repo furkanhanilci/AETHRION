@@ -1,6 +1,6 @@
-# AI Research Framework — code ownership
+# AETHRION — code ownership
 #
-# Roles are defined in docs/architecture/AIRL_OS_ROLE_MODEL_ASSIGNMENT.md
+# Roles are defined in docs/architecture/AETHRION_ROLE_MODEL_ASSIGNMENT.md
 # Until an independent verifier exists, @furkanhanilci owns every path.
 # This file is a REAL constraint, not a placeholder: a path with no owner
 # has no accountable reviewer and cannot reach ACCEPTED.

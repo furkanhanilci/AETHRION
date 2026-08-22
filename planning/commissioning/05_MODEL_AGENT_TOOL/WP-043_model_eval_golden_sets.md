@@ -21,7 +21,7 @@
 
 Inspect's `Dataset → Solver → Scorer` model, sandboxing, limits, retry/resume and transcripts are what skill-behaviour testing needs, and it can drive real agent harnesses as evaluation subjects. The contribution of this package is the behaviours and their pass criteria, not the runner.
 
-Rationale and adoption type: `docs/architecture/AIRL_OS_COMPONENT_REUSE.md`.
+Rationale and adoption type: `docs/architecture/AETHRION_COMPONENT_REUSE.md`.
 
 ## Purpose and expected outcome
 

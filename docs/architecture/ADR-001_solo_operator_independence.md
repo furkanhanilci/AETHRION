@@ -4,7 +4,7 @@
 |---|---|
 | Document type | Architecture decision record |
 | Scope | What "independent verification" means when the laboratory has one operator |
-| Sibling documents | `AIRL_OS_ROLES.md` §5 · `AIRL_OS_ARCHITECTURE.md` §6.1 · WP-007 · WP-000 |
+| Sibling documents | `AETHRION_ROLES.md` §5 · `AETHRION_ARCHITECTURE.md` §6.1 · WP-007 · WP-000 |
 | Status | **ACCEPTED — 2026-08-22.** The recommendation in §4 is the decision |
 | Date | 2026-08-22 |
 
@@ -142,7 +142,7 @@ Once taken, this record must be reflected in:
 | **WP-007** IndependenceProfile | The solo-operation policy becomes part of the profile definition |
 | **WP-000** | Names who verifies the bootstrap manifest under the chosen model |
 | **WP-013** `RoleBinding` | `can_combine_with` / `cannot_combine_with` encode the chosen model |
-| `AIRL_OS_ROLES.md` §5 | The combination matrix stops being a reference and becomes binding |
+| `AETHRION_ROLES.md` §5 | The combination matrix stops being a reference and becomes binding |
 | Plan seal | Regenerated deliberately, as a recorded change |
 
 ---

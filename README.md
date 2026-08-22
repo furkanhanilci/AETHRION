@@ -1,14 +1,27 @@
-# AI Research Framework
+<p align="center">
+  <img src="docs/assets/branding/aethrion-logo.png" alt="AETHRION" width="150">
+</p>
 
-An evidence-centred, auditable operating system for research (AIRL-OS).
+<h1 align="center">AETHRION</h1>
 
-Its central thesis: **agents produce, machines verify, humans decide** — and
-those three roles are kept structurally separate.
+<p align="center"><strong>Agentic Intelligence Research Layer</strong></p>
+
+---
+
+AETHRION — Agentic Intelligence Research Layer — is an evidence-centred,
+auditable research system. Its central thesis: **agents produce, machines
+verify, humans decide** — and those three roles are kept structurally separate.
+
+`AIRL` is the abbreviation of the descriptor, and it survives inside the system
+as a technical term: the G0–G10 control layer is the *Agentic Intelligence
+Research Layer*, and the skill metadata namespace, the source-registry field and
+the bridge service all carry the `airl` prefix. It is not the product name.
+[`docs/branding.md`](docs/branding.md) records which is which.
 
 **In one paragraph.** A capable model's characteristic failure is not
 incompetence but plausibility: fluent, well-cited, confident output that is
 wrong, and that no amount of further model capability detects from the inside.
-AIRL-OS answers that by treating model output as a hypothesis which must survive
+AETHRION answers that by treating model output as a hypothesis which must survive
 mechanical verification, independent review and a human decision before it
 becomes a claim — with every claim traceable back to an exact source span and
 forward to a signed attestation. This repository holds the target architecture
@@ -19,11 +32,11 @@ slice that actually runs today.
 published *Science One / ScientistOne* around the same principle —
 **Chain-of-Evidence** — and, unlike this repository, measured it on 75 generated
 papers. What differs here is scope: Science One asks whether an autonomous system
-can produce verifiable papers; AIRL-OS asks under what governance a claim may be
+can produce verifiable papers; AETHRION asks under what governance a claim may be
 believed at all, including its own. That is a broader question, harder to
 demonstrate, and today **answered only on paper**. The comparison, and where
 those systems are simply ahead, is in
-[`AIRL_OS_RELATED_SYSTEMS.md`](docs/architecture/AIRL_OS_RELATED_SYSTEMS.md).
+[`AETHRION_RELATED_SYSTEMS.md`](docs/architecture/AETHRION_RELATED_SYSTEMS.md).
 
 **A plan is not evidence of implementation**; the table below separates the two,
 and every document here is written under [`docs/DOCUMENT_STANDARD.md`](docs/DOCUMENT_STANDARD.md),
@@ -39,7 +52,7 @@ implied.
 | Skill registry (52 skills, two families) | ✅ Format-conformant · ⚠️ wired for Claude Code only · 📐 behaviour **not yet tested** | `skills/` |
 | Obsidian information architecture | ✅ V0 ready | `vault_baseline/` |
 | Target architecture and skill layer | 📐 Designed, awaiting decision | `docs/architecture/` |
-| Commissioning programme — **baseline v1.0.1** | ⬜ Planned, not started; 141 package documents, 51 scenarios | `planning/commissioning/` |
+| Commissioning programme — **baseline v1.0.2** | ⬜ Planned, not started; 141 package documents, 51 scenarios | `planning/commissioning/` |
 | Interim evidence policy (WP-000) | ✅ `TECH_COMPLETE` — tooling implemented, specimen issued and verified | `scripts/evidence_manifest.py` · `delivery/WP-000/` |
 | Verification on push (BVC-01) | 📐 Decided and written, **not yet active** — needs a workflow-scoped token | `deploy/bvc-01-verify.yml` |
 | Document production (authoring + figures + reporting) | 📐 Skill and reference modules written; resolution checks run · **no renderer installed** | `skills/authoring-research-documents/` |
@@ -52,8 +65,9 @@ implied.
 src/          Bridge component and the shared contract core
 tests/        Test suite
 skills/       52 skills — HOW agents work; engineering + scientific + shared
-planning/     WP-000, WP-001..140, ACC-01..51 (hash-sealed canonical plan, baseline v1.0.1)
-docs/         Architecture, review and operations documents
+planning/     WP-000, WP-001..140, ACC-01..51 (hash-sealed canonical plan, baseline v1.0.2)
+docs/         Architecture, review, branding and operations documents
+docs/assets/  Branding assets — the logo, and the rules that keep it canonical
 schemas/      Shared contract schemas
 delivery/     Per-package evidence packages — signed manifests and anchors
 deploy/       systemd unit files
@@ -64,7 +78,7 @@ vault_baseline/  Versioned copy of the Obsidian vault
 
 Three surfaces exist, and only one of them is authoritative:
 
-![Repository, vault and the outside world, with direction on every edge](docs/figures/airl_os_topology.svg)
+![Repository, vault and the outside world, with direction on every edge](docs/figures/aethrion_topology.svg)
 
 *Figure 9 — Everything is authored in the repository. The Obsidian vault is
 produced from it and never edited back; the mirror overwrites, so the failure
@@ -76,18 +90,18 @@ are recorded, never assumed. Generated by `scripts/fig_topology.py`.*
 
 | Question | Document |
 |---|---|
-| **What is this system?** — explained and diagrammed | [`docs/architecture/AIRL_OS_ARCHITECTURE.md`](docs/architecture/AIRL_OS_ARCHITECTURE.md) |
+| **What is this system?** — explained and diagrammed | [`docs/architecture/AETHRION_ARCHITECTURE.md`](docs/architecture/AETHRION_ARCHITECTURE.md) |
 | What actually exists today? | [`docs/review/2026-08-22_remediation_verification.md`](docs/review/2026-08-22_remediation_verification.md) — current state against the frozen audit |
-| **What** should be added to the target architecture? | [`docs/architecture/AIRL_OS_IDEAL_STRUCTURE.md`](docs/architecture/AIRL_OS_IDEAL_STRUCTURE.md) |
-| **How** should agents work? | [`docs/architecture/AIRL_OS_SKILL_LAYER.md`](docs/architecture/AIRL_OS_SKILL_LAYER.md) · [`skills/README.md`](skills/README.md) |
-| **Who** performs each role — human, model or code? | [Roles](#6-roles--who-is-accountable-for-what) below · [`AIRL_OS_ROLES.md`](docs/architecture/AIRL_OS_ROLES.md) — definitions and authority flows · [`AIRL_OS_ROLE_MODEL_ASSIGNMENT.md`](docs/architecture/AIRL_OS_ROLE_MODEL_ASSIGNMENT.md) — which model |
+| **What** should be added to the target architecture? | [`docs/architecture/AETHRION_IDEAL_STRUCTURE.md`](docs/architecture/AETHRION_IDEAL_STRUCTURE.md) |
+| **How** should agents work? | [`docs/architecture/AETHRION_SKILL_LAYER.md`](docs/architecture/AETHRION_SKILL_LAYER.md) · [`skills/README.md`](skills/README.md) |
+| **Who** performs each role — human, model or code? | [Roles](#6-roles--who-is-accountable-for-what) below · [`AETHRION_ROLES.md`](docs/architecture/AETHRION_ROLES.md) — definitions and authority flows · [`AETHRION_ROLE_MODEL_ASSIGNMENT.md`](docs/architecture/AETHRION_ROLE_MODEL_ASSIGNMENT.md) — which model |
 | How are the figures produced? | [`docs/figures/README.md`](docs/figures/README.md) — inventory and design specification |
 | How are these documents written? | [`docs/DOCUMENT_STANDARD.md`](docs/DOCUMENT_STANDARD.md) — structure, status vocabulary, honesty rules |
 | What has been decided, and why? | [`ADR-001`](docs/architecture/ADR-001_solo_operator_independence.md) independence · [`ADR-002`](docs/architecture/ADR-002_bootstrap_verification_control.md) verification control · [`ADR-003`](docs/architecture/ADR-003_trusted_control_and_policy.md) trusted control and policy |
 | Licensing and attribution | [`NOTICE`](NOTICE) |
-| What is **adopted** rather than invented? | [`docs/architecture/AIRL_OS_EXTERNAL_STANDARDS.md`](docs/architecture/AIRL_OS_EXTERNAL_STANDARDS.md) |
-| How does this compare to Science One, PaperQA2, AI Scientist? | [`docs/architecture/AIRL_OS_RELATED_SYSTEMS.md`](docs/architecture/AIRL_OS_RELATED_SYSTEMS.md) |
-| Which mature components does it build on? | [`docs/architecture/AIRL_OS_COMPONENT_REUSE.md`](docs/architecture/AIRL_OS_COMPONENT_REUSE.md) |
+| What is **adopted** rather than invented? | [`docs/architecture/AETHRION_EXTERNAL_STANDARDS.md`](docs/architecture/AETHRION_EXTERNAL_STANDARDS.md) |
+| How does this compare to Science One, PaperQA2, AI Scientist? | [`docs/architecture/AETHRION_RELATED_SYSTEMS.md`](docs/architecture/AETHRION_RELATED_SYSTEMS.md) |
+| Which mature components does it build on? | [`docs/architecture/AETHRION_COMPONENT_REUSE.md`](docs/architecture/AETHRION_COMPONENT_REUSE.md) |
 | **What has actually been measured?** | [`delivery/measurements/`](delivery/measurements/) — one real result so far |
 | Architecture of the working vertical slice | [`docs/ARCHITECTURE_V0.md`](docs/ARCHITECTURE_V0.md) |
 | Day-to-day operation | [`docs/OPERATIONS.md`](docs/OPERATIONS.md) |
@@ -97,7 +111,7 @@ are recorded, never assumed. Generated by `scripts/fig_topology.py`.*
 
 # Architecture
 
-Full reference with every diagram: [`docs/architecture/AIRL_OS_ARCHITECTURE.md`](docs/architecture/AIRL_OS_ARCHITECTURE.md).
+Full reference with every diagram: [`docs/architecture/AETHRION_ARCHITECTURE.md`](docs/architecture/AETHRION_ARCHITECTURE.md).
 What follows is the shape of the system in one page.
 
 ## 1. Why this is not an assistant
@@ -111,7 +125,7 @@ flowchart LR
     style A fill:#FBEFD6,stroke:#E69F00,color:#000
 ```
 
-AIRL-OS starts from the opposite assumption: **a fluent, confident, well-cited,
+AETHRION starts from the opposite assumption: **a fluent, confident, well-cited,
 entirely wrong result is the normal failure mode of a capable model**, and no
 amount of model capability detects it from the inside. So model output is a
 *hypothesis* that must survive mechanical verification, independent review and a
@@ -156,7 +170,7 @@ flowchart TD
 Nothing becomes knowledge by being asserted. It becomes knowledge by surviving a
 chain in which **every link is addressable**:
 
-![The evidence chain, with implemented and unimplemented links marked](docs/figures/airl_os_evidence_chain.svg)
+![The evidence chain, with implemented and unimplemented links marked](docs/figures/aethrion_evidence_chain.svg)
 
 *Figure 2 — The chain, its revision loop, and the attestation that makes a link
 admissible. Solid nodes are implemented and verified locally; hollow dashed nodes
@@ -192,7 +206,7 @@ so that the arrow above can be drawn years later.
 The spine of the system. Each gate has a frozen output that does not change
 without a recorded supersession.
 
-![The AIRL-OS research lifecycle: eleven gates by three actor classes](docs/figures/airl_os_lifecycle.svg)
+![The AETHRION research lifecycle: eleven gates by three actor classes](docs/figures/aethrion_lifecycle.svg)
 
 *Figure 1 — Reading down is time; reading across is who may act. At every gate
 the mechanical check runs first and cannot be overridden, a model may produce but
@@ -324,7 +338,7 @@ The planes above answer *where* a thing runs. ADR-003 answers a different
 question that no plane diagram can: *whose words are allowed to change what the
 system does.*
 
-![The trust boundary: an injected instruction followed to the point where it is denied](docs/figures/airl_os_trust.svg)
+![The trust boundary: an injected instruction followed to the point where it is denied](docs/figures/aethrion_trust.svg)
 
 *Figure 7 — The control plane holds the goal and every privilege. The data plane
 holds everything an outsider can write, including whatever a PDF hides in
@@ -372,10 +386,10 @@ follow**. Skills close that gap.
 
 ```mermaid
 flowchart TD
-    R["using-airl-os<br/>router: classify first"]
+    R["using-aethrion<br/>router: classify first"]
     R --> Q{"What kind of task?"}
-    Q -->|"building AIRL-OS"| ENG["ENGINEERING · 11<br/>vendored from obra/superpowers<br/>test-driven-development<br/>systematic-debugging · writing-plans<br/>worktrees · code review · subagents"]
-    Q -->|"doing research"| SCI["SCIENTIFIC · 28<br/>AIRL-native<br/>preregistration-discipline<br/>searching-literature · extracting-evidence<br/>blind and adversarial review · metascience"]
+    Q -->|"building AETHRION"| ENG["ENGINEERING · 11<br/>vendored from obra/superpowers<br/>test-driven-development<br/>systematic-debugging · writing-plans<br/>worktrees · code review · subagents"]
+    Q -->|"doing research"| SCI["SCIENTIFIC · 28<br/>AETHRION-native<br/>preregistration-discipline<br/>searching-literature · extracting-evidence<br/>blind and adversarial review · metascience"]
     Q -->|"always"| SH["SHARED · 10<br/>verification-before-completion<br/>independence-discipline<br/>evidence-before-claim · scope-discipline"]
     ENG --> TC["TaskContract<br/>skills_loaded plus skill_bundle_hash"]
     SCI --> TC
@@ -387,7 +401,7 @@ flowchart TD
 ```
 
 > **Research adaptations extend their engineering counterparts; they never
-> replace them.** AIRL-OS is simultaneously a laboratory and a software platform,
+> replace them.** AETHRION is simultaneously a laboratory and a software platform,
 > and it needs both disciplines at once.
 
 | Software engineering | Scientific research | The shared rule |
@@ -414,13 +428,13 @@ mechanically by `scripts/validate_skills.py`.
 Fourteen **durable functions**. Not fourteen people: a role is a function, and
 one person may legally hold several of them.
 
-![Role authority tiers and separation constraints](docs/figures/airl_os_roles.svg)
+![Role authority tiers and separation constraints](docs/figures/aethrion_roles.svg)
 
 *Figure 3 — Authority tiers with the actor composition of each role (**X**
 mechanical, **M** model, **H** human), and the constraint resolution that decides
 whether one operator may hold two roles at once. Full definitions — mandate,
 what each role decides, and what it may never do — are in
-[`docs/architecture/AIRL_OS_ROLES.md`](docs/architecture/AIRL_OS_ROLES.md).*
+[`docs/architecture/AETHRION_ROLES.md`](docs/architecture/AETHRION_ROLES.md).*
 
 ```mermaid
 flowchart TD
@@ -580,7 +594,7 @@ A document is a **projection of verified state**, not a generative act. The
 pipeline runs evidence → claims → structure → prose → figures → QA → render, and
 a renderer exiting zero decides nothing.
 
-![The document production pipeline and where authority sits](docs/figures/airl_os_reporting.svg)
+![The document production pipeline and where authority sits](docs/figures/aethrion_reporting.svg)
 
 *Figure 5 — Formatting is downstream: stages 0–2 finish before a renderer is
 chosen. The four packaging objects are distinct, and only the first exists here.
@@ -592,15 +606,15 @@ decides. Written up in [`authoring-research-documents`](skills/authoring-researc
 Almost every layer of the target system is a component someone else maintains
 and tests. What this project owns is the control layer.
 
-![The target stack, with adoption type and build status marked](docs/figures/airl_os_stack.svg)
+![The target stack, with adoption type and build status marked](docs/figures/aethrion_stack.svg)
 
 *Figure 4 — Adoption type is drawn rather than captioned, because "reuse" is not
 one thing: a dependency, a standard, a pattern and a benchmark create entirely
 different obligations. Solid borders mark the three cells that are implemented;
 everything dashed is a decision, not a running component. Details and rationale
-in [`AIRL_OS_COMPONENT_REUSE.md`](docs/architecture/AIRL_OS_COMPONENT_REUSE.md).*
+in [`AETHRION_COMPONENT_REUSE.md`](docs/architecture/AETHRION_COMPONENT_REUSE.md).*
 
-> **AIRL-OS should not invent its own PDF parser, screening engine, policy
+> **AETHRION should not invent its own PDF parser, screening engine, policy
 > language, sandbox, experiment tracker or scholarly identifier.** Its
 > contribution is the layer above them: which evidence, having passed which
 > gate, permits which claim to be accepted.
@@ -633,7 +647,7 @@ operation, is a decision no standard makes. What the architecture now supplies i
 its *shape* — independence expressed as `RoleBinding` separation constraints
 rather than headcount, so one person holding several roles can be modelled
 honestly. See
-[`AIRL_OS_EXTERNAL_STANDARDS.md`](docs/architecture/AIRL_OS_EXTERNAL_STANDARDS.md).
+[`AETHRION_EXTERNAL_STANDARDS.md`](docs/architecture/AETHRION_EXTERNAL_STANDARDS.md).
 
 ## 10. Target versus reality
 
@@ -658,7 +672,7 @@ flowchart LR
     style DESIGNED fill:#FBEFD6,stroke:#E69F00,color:#000
 ```
 
-![The commissioning programme: eleven waves, and the single package that has produced anything](docs/figures/airl_os_waves.svg)
+![The commissioning programme: eleven waves, and the single package that has produced anything](docs/figures/aethrion_waves.svg)
 
 *Figure 6 — Waves are dependency order, not dates: the plan has none. Package
 counts are counted from the plan directory when the figure is generated, so this
@@ -711,7 +725,7 @@ codebase contains no Zotero write operation.
 ### Install
 
 ```bash
-cd /home/otonom/Desktop/FH/AI_RESEARCH_FRAMEWORK
+cd /home/otonom/Desktop/FH/AETHRION
 uv sync --extra dev
 cp .env.example .env      # then fill in your own paths
 ```
@@ -779,7 +793,7 @@ uv run python scripts/evidence_manifest.py verify \
     --manifest delivery/WP-000/evidence.dsse.json --tamper-demo
 uv run python scripts/verify_references.py   # needs network; not part of BVC-01
 uv run python scripts/monitor_sources.py     # G10 sweep; fails if its control stays silent
-uv run python scripts/check_document.py delivery/specimen/airl-measurement-report.qmd
+uv run python scripts/check_document.py delivery/specimen/aethrion-measurement-report.qmd
 python3 scripts/check_reporting_registry.py  # adopted components remain auditable
 (cd planning/commissioning && sha256sum -c 00_PROGRAM/SHA256SUMS.txt)
 ```
@@ -852,7 +866,7 @@ the laboratory does not claim independence it does not have.
 
 ## Verification
 
-![What each check proves, and what it cannot see](docs/figures/airl_os_verification.svg)
+![What each check proves, and what it cannot see](docs/figures/aethrion_verification.svg)
 
 *Figure 8 — One command runs all ten. Each row states the claim the check earns
 and, beside it, the claim it does not — because a bundle that reports only green
