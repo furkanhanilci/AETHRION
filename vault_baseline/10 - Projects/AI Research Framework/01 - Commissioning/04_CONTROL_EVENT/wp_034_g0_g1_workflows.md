@@ -21,7 +21,6 @@ A request becomes an executable project carrying an owner, purpose, scope, accep
 
 ## Out of scope
 
-
 - The internal implementation of any dependent package
 - Production cutover and final operational approval
 

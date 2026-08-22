@@ -10,14 +10,15 @@
 | Accountable owner | Eval Office |
 | Independent witness / verifier | Independent Human Calibrator |
 | Related packages | `WP-043`, `WP-088`, `WP-126` |
-| Production acceptance | A Critical scenario can never be counted as PASS through a SKIP or a waiver |
+| Production acceptance | A High scenario may be waived only by a time-bound residual risk accepted by the Commissioning Board |
 
 ## Purpose
 
 This scenario verifies the target architecture's fail-safe behaviour and its
-evidence production in the **Reviewer Order Bias** situation. The test runs on the same
-release candidate, policy bundle, schema bundle and environment manifest as
-every other scenario in the same acceptance round.
+evidence production in the **Reviewer Order Bias** situation.
+
+The test runs on the same release candidate, policy bundle, schema bundle and
+environment manifest as every other scenario in the same acceptance round.
 
 ## Given / When / Then
 

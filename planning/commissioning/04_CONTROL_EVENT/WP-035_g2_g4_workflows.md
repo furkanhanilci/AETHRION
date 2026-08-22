@@ -21,7 +21,6 @@ Method, literature set, baseline, falsification plan, stop rules and the decisio
 
 ## Out of scope
 
-
 - The internal implementation of any dependent package
 - Production cutover and final operational approval
 

@@ -21,7 +21,6 @@ A frozen claim/run package passes independent, blind and where required cross-fa
 
 ## Out of scope
 
-
 - The internal implementation of any dependent package
 - Production cutover and final operational approval
 

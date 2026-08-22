@@ -21,7 +21,6 @@ A service deterministically evaluates gate artifact, policy, review, budget and 
 
 ## Out of scope
 
-
 - The internal implementation of any dependent package
 - Production cutover and final operational approval
 

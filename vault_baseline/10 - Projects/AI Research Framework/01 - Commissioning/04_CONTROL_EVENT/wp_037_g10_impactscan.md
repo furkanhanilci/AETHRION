@@ -21,7 +21,6 @@ Retraction, source correction, model/data/policy drift and incident signals laun
 
 ## Out of scope
 
-
 - The internal implementation of any dependent package
 - Production cutover and final operational approval
 

@@ -21,7 +21,6 @@ A source's status, study design, sample, measurement, bias, analysis, external v
 
 ## Out of scope
 
-
 - The internal implementation of any dependent package
 - Production cutover and final operational approval
 

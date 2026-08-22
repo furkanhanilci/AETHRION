@@ -21,7 +21,6 @@ Temporal is deployed production-ready as the durable workflow platform, with env
 
 ## Out of scope
 
-
 - The internal implementation of any dependent package
 - Production cutover and final operational approval
 

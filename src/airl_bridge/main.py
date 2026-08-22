@@ -1,3 +1,23 @@
+"""The FastAPI application: the Bridge's HTTP surface.
+
+Seven ``GET`` endpoints (health, readiness, sources, search, detail, categories,
+duplicates) and three ``POST`` endpoints (ingest, project, sync).
+
+⚠️ **The mutating endpoints are unauthenticated (finding M1).** There is no
+token, no CSRF protection and no ``TrustedHostMiddleware``. Binding to loopback
+narrows but does not close this: a page in the browser can issue a preflight-free
+``POST /v1/sync`` whose side effect still runs, and without ``Host`` validation a
+DNS-rebinding attacker is treated as same-origin and can read the entire registry
+over ``GET /v1/sources``.
+
+The two low-cost fixes are a trusted-host middleware and an ``X-AIRL-Token``
+header on the mutating endpoints — a custom header alone forces a preflight and
+closes CSRF.
+
+⚠️ **``HealthResponse.zotero_write_enabled`` is a constant**, not a measured
+control (finding **H3**). It should either be removed or bound to a computed
+value; as it stands it invites the reader to trust it.
+"""
 from __future__ import annotations
 
 from contextlib import asynccontextmanager

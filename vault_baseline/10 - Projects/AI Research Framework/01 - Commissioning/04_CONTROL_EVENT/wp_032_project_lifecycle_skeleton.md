@@ -21,7 +21,6 @@ The project lifecycle, gate states, pause/resume, versioned transitions and chil
 
 ## Out of scope
 
-
 - The internal implementation of any dependent package
 - Production cutover and final operational approval
 

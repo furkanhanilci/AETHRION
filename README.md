@@ -31,7 +31,7 @@ docs/         Architecture, review and operations documents
 schemas/      Shared contract schemas
 delivery/     Per-package evidence packages
 deploy/       systemd unit files
-scripts/      Acceptance and smoke scripts
+scripts/      Acceptance, smoke and Obsidian mirror-generation scripts
 vault_baseline/  Versioned copy of the Obsidian vault
 ```
 
@@ -113,13 +113,17 @@ branch and are regenerated from the canonical registry. Human synthesis stays in
 > sources, synchronisation silently becomes partial. See finding **H1** in the
 > audit report.
 
-### Test
+### Verify
 
 ```bash
-uv run pytest
-uv run python scripts/mcp_smoke.py
-uv run python scripts/acceptance_v0.py
+uv run pytest                          # 20 tests
+uv run python scripts/mcp_smoke.py     # asserts the five-tool boundary; exits 1 on failure
+uv run python scripts/acceptance_v0.py # data-independent structural acceptance
+(cd planning/commissioning && sha256sum -c 00_PROGRAM/SHA256SUMS.txt)
 ```
+
+All four run by hand. **There is no CI** — see finding **H5**, and
+[`docs/OPERATIONS.md`](docs/OPERATIONS.md) for the full verification bundle.
 
 ## Hermes MCP access
 
@@ -142,6 +146,12 @@ report.
 ## Verification
 
 ```
-20/20 tests pass · plan seal 195/195 · service and timer active
-MCP smoke test returns 5 read-only tools · Obsidian baseline and vault identical
+20/20 tests pass · plan seal 195/195 OK · service and timer active
+MCP smoke: 5 read-only tools, exits 1 when the Bridge is down
+Acceptance: 11 structural checks pass, data-independent
+Mirror drift: 0 (196 plan files, 44 skill/doc files)
+Obsidian baseline and vault identical
 ```
+
+Every check above is reproducible from a clean checkout with the Bridge running.
+None of them runs automatically.

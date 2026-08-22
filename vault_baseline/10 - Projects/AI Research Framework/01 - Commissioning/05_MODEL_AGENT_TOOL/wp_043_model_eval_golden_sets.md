@@ -21,7 +21,6 @@ Contamination-protected, versioned evaluation sets and measurement rubrics are b
 
 ## Out of scope
 
-
 - The internal implementation of any dependent package
 - Production cutover and final operational approval
 

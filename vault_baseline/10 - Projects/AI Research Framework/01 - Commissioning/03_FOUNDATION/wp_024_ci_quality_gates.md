@@ -21,7 +21,6 @@ Format, lint, type, unit, integration, schema, policy, security and build checks
 
 ## Out of scope
 
-
 - The internal implementation of any dependent package
 - Production cutover and final operational approval
 

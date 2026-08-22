@@ -1,3 +1,17 @@
+"""Tests for the projection — the most safety-critical code in the repository.
+
+Two assertions matter more than the rest:
+
+* **A human note in the generated folder survives a projection run.** Only files
+  listed in the projection manifest are deleted. This is the primary defence
+  against losing user work, and it is the reason the projection may run
+  unattended every 30 minutes.
+* **External content is escaped.** A ``<script>`` tag in a Zotero abstract must
+  not reach the vault unescaped.
+
+Not covered: the dry-run and populated-directory refusal that finding **M7**
+asks for — they do not exist yet.
+"""
 from airl_bridge.obsidian import ObsidianProjector
 from airl_bridge.zotero import normalize_item
 

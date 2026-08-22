@@ -21,7 +21,6 @@ Web, Crossref, Zotero, Git, object store, MLflow and the controlled notification
 
 ## Out of scope
 
-
 - The internal implementation of any dependent package
 - Production cutover and final operational approval
 

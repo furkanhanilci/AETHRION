@@ -21,7 +21,6 @@ The materiality, uncertainty, exposure and safety/ethics/regulation dimensions p
 
 ## Out of scope
 
-
 - The internal implementation of any dependent package
 - Production cutover and final operational approval
 

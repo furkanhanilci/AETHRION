@@ -21,7 +21,6 @@ All canonical contracts are published in a single versioned registry; producer/c
 
 ## Out of scope
 
-
 - The internal implementation of any dependent package
 - Production cutover and final operational approval
 

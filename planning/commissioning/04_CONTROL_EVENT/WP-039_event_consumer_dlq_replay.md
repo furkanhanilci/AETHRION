@@ -21,7 +21,6 @@ Every consumer implements idempotency, canonical-commit-before-ACK, poison-event
 
 ## Out of scope
 
-
 - The internal implementation of any dependent package
 - Production cutover and final operational approval
 

@@ -21,7 +21,6 @@ Seed sources the researcher selects in their personal Zotero are pulled into the
 
 ## Out of scope
 
-
 - The internal implementation of any dependent package
 - Production cutover and final operational approval
 

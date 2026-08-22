@@ -1,3 +1,20 @@
+"""Source categorisation and duplicate detection.
+
+Two responsibilities, deliberately kept small:
+
+* **Category mapping.** Zotero ``itemType`` → the numbered folder used by the
+  Obsidian projection. The names are English and stable; changing one renames a
+  folder in the user's vault on the next projection.
+* **Duplicate grouping.** Sources are grouped by a normalised title key
+  (NFKC-folded, punctuation collapsed). The result is **reported, never acted
+  on** — no merge, no deletion, no rewrite. Deciding that two records are the
+  same work is a curation decision with a human owner (WP-062), not a string
+  comparison.
+
+Normalising by title alone is a weak signal: it can group two distinct works
+that share a title, and it misses duplicates whose titles differ. That is
+acceptable precisely because the output is a review queue rather than an action.
+"""
 from __future__ import annotations
 
 import re

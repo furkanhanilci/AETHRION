@@ -21,7 +21,6 @@ Zone 0 governance, Zone 1 control plane, Zone 2 execution and Zone 3 untrusted c
 
 ## Out of scope
 
-
 - The internal implementation of any dependent package
 - Production cutover and final operational approval
 

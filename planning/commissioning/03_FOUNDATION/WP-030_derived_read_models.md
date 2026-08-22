@@ -21,7 +21,6 @@ The provenance graph, semantic retrieval and full-text indexes become read model
 
 ## Out of scope
 
-
 - The internal implementation of any dependent package
 - Production cutover and final operational approval
 

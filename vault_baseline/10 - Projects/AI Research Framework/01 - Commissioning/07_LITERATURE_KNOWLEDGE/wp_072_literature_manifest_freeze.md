@@ -21,7 +21,6 @@ Included and excluded sources, representation hashes, queries, screening decisio
 
 ## Out of scope
 
-
 - The internal implementation of any dependent package
 - Production cutover and final operational approval
 

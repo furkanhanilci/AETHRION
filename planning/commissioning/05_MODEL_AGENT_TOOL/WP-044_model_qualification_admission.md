@@ -21,7 +21,6 @@ A new or changed model profile is admitted to a role only on evidence from shado
 
 ## Out of scope
 
-
 - The internal implementation of any dependent package
 - Production cutover and final operational approval
 

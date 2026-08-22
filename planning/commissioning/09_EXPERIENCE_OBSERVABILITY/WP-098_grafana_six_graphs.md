@@ -21,7 +21,6 @@ Correlated dashboards and alerts are built for the execution, workflow, experime
 
 ## Out of scope
 
-
 - The internal implementation of any dependent package
 - Production cutover and final operational approval
 

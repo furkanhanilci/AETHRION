@@ -21,7 +21,6 @@ For each model-snapshot × runtime-adapter combination, the admitted roles, data
 
 ## Out of scope
 
-
 - The internal implementation of any dependent package
 - Production cutover and final operational approval
 

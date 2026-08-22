@@ -21,7 +21,6 @@ The budget, provider, event, worker, workflow deployment, preemption, DLQ, parti
 
 ## Out of scope
 
-
 - The internal implementation of any dependent package
 - Production cutover and final operational approval
 

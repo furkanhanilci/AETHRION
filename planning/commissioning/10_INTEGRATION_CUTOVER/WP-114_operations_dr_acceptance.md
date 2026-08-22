@@ -21,7 +21,6 @@ Regional and control-plane loss, registry, object, event, graph and Zotero resto
 
 ## Out of scope
 
-
 - The internal implementation of any dependent package
 - Production cutover and final operational approval
 

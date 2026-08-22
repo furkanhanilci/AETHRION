@@ -1,3 +1,25 @@
+"""The Zotero Local API client — the read-only boundary of the system.
+
+**Invariant: this module performs no write.** There is no API key, no ``post``,
+``put``, ``patch`` or ``delete`` call, and no code path that mutates a Zotero
+record. That is the framework's strongest security claim.
+
+⚠️ **It is not proven by a test.** The ``zotero_write_enabled`` field reported by
+``/health`` is a hard-coded constant, so the three artifacts that appear to
+verify this claim are testing ``False is False`` (audit finding **H3**). The
+real check would be a ``MockTransport`` that raises on any method other than
+``GET``, driven through the whole ``sync`` flow, plus a static check in CI.
+
+⚠️ **Coverage limit (finding H1).** ``fetch_top_items`` issues a single
+``GET /items/top`` call capped at 100 records. There is no ``start`` pagination,
+no reading of the ``Total-Results`` header and no ``since=`` incremental
+parameter. Beyond 100 sources the sync becomes **silently partial** — the run is
+still recorded as ``SUCCEEDED``.
+
+The ``airl_id`` is derived from the Zotero binding, not the title, so the
+identity survives a title edit. It is a 64-bit truncated hash with no collision
+handling (finding **L2**).
+"""
 from __future__ import annotations
 
 import hashlib

@@ -21,7 +21,6 @@ Human decisions are processed through an authenticated Temporal Update, and canc
 
 ## Out of scope
 
-
 - The internal implementation of any dependent package
 - Production cutover and final operational approval
 

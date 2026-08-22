@@ -72,10 +72,14 @@ personal library is read).
 2. **Organisational impossibility** (C2) — the plan assumes 73 distinct owners
    and 114 distinct verifier roles; the actual organisation is one person. The
    "verifier independent of the producer" condition cannot be met **by definition**.
-3. **Evidence theatre risk** (H3, M2, M3) — all three artifacts currently
-   presented as "read-only evidence" are in fact testing a hard-coded `False`; the
-   "smoke test" exits 0 even on failure; the "acceptance" script depends on the
-   word "LiDAR" appearing in the user's personal library.
+3. **Evidence theatre risk** (H3, M2, M3) — all three artifacts presented as
+   "read-only evidence" were in fact testing a hard-coded `False`; the "smoke
+   test" exited 0 even on failure; the "acceptance" script depended on the word
+   "LiDAR" appearing in the user's personal library.
+   ✅ **M2 and M3 are now closed** (2026-08-22): the smoke check asserts and exits
+   non-zero, and acceptance is data-independent. **H3 remains open** — the
+   read-only claim is now honestly labelled as unproven rather than falsely
+   asserted, which is an improvement but not a proof.
 
 ### The real vertical slice that can be run safely today
 
@@ -261,9 +265,12 @@ import-linter/`tach` configuration **enforced in CI** in place of
 `dependency-rules.txt`.
 
 > ✅ **PARTIALLY REMEDIATED (2026-08-22):** `CODEOWNERS` and `dependency-rules.txt`
-> now carry real, parseable content. The empty directories were removed rather
-> than filled, and WP-022 remains un-started. **CI enforcement is still missing**,
-> so the deliverable is still not verifiable mechanically.
+> now carry real, parseable content, and `docs/architecture/FOUNDATION.md` — one
+> of the one-line stubs cited above — is now a real document naming what exists,
+> what does not, and the three gaps that block the foundation layer. The empty
+> directories were removed rather than filled, and WP-022 remains un-started.
+> **CI enforcement is still missing**, so the deliverable is still not verifiable
+> mechanically.
 
 ---
 
@@ -450,7 +457,11 @@ verification step. Even with the bridge entirely down, the script prints JSON an
 **Recommendation:** Add `assert not status.isError`, `assert not search.isError`
 and `assert sorted(t.name for t in tools.tools) == [the five names]`. Five lines.
 
-> **Status: OPEN.**
+> ✅ **REMEDIATED (2026-08-22).** The script now asserts the **exact** five-tool
+> set, both call results and a non-empty response, and exits non-zero on any
+> failure. Verified behaviourally: with the Bridge stopped it exits `1`; with the
+> Bridge running it exits `0`. Adding a sixth tool now fails the check until
+> `EXPECTED_TOOLS` is deliberately updated.
 
 ---
 
@@ -471,7 +482,15 @@ run in CI.
 runs in CI against a fixed fixture; (b) a live-environment smoke check that reads
 its search query from `.env` and treats an empty result as `SKIPPED`, not `FAIL`.
 
-> **Status: OPEN.**
+> ✅ **REMEDIATED (2026-08-22).** Exactly that split. Eleven data-independent
+> structural checks (registry ↔ manifest ↔ category counts must agree, every
+> projected file must exist, vault landmarks present) plus an optional live search
+> reading `AIRL_ACCEPTANCE_QUERY`, where an empty result is `SKIPPED` rather than
+> `FAIL`. The tautological `zotero_write_enabled` assertion was **removed**, and
+> the script now reports what it does *not* prove under `not_proven_here`.
+>
+> Removing that assertion was itself part of the fix: an assertion that cannot
+> fail is worse than none, because it manufactures the appearance of evidence.
 
 ---
 
@@ -638,7 +657,9 @@ mentioned in the documentation actually exist; run it in CI. Stop writing test
 counts into documents by hand.
 
 > ✅ **REMEDIATED (2026-08-22):** all documents were rewritten from the current
-> structure. **The `check_docs.py` guard is still missing**, so the drift can recur.
+> structure, and the two systemd unit descriptions that still read "SILBO" were
+> corrected and re-installed so the running units match the repository.
+> **The `check_docs.py` guard is still missing**, so the drift can recur.
 
 ---
 

@@ -21,7 +21,6 @@ After go-live, intensive observation, fast incident and reconciliation handling,
 
 ## Out of scope
 
-
 - The internal implementation of any dependent package
 - Production cutover and final operational approval
 

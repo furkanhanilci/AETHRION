@@ -1,3 +1,12 @@
+"""Tests for the canonical V0 registry.
+
+The important assertion is idempotency: re-ingesting the same Zotero item must
+produce ``unchanged``, never a duplicate row. That property is what makes the
+30-minute timer safe to run unattended.
+
+Not covered: deletion and tombstoning (they do not exist — finding **H2**), and
+connection lifetime (finding **M8**).
+"""
 from airl_bridge.database import Database
 from airl_bridge.zotero import normalize_item
 

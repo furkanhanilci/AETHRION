@@ -21,7 +21,6 @@ Every T0–T5 tool call passes through a chain of signed tool schema, purpose, a
 
 ## Out of scope
 
-
 - The internal implementation of any dependent package
 - Production cutover and final operational approval
 

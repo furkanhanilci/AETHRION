@@ -21,7 +21,6 @@ Experiment and verification runs are fully manifested with dataset, code, enviro
 
 ## Out of scope
 
-
 - The internal implementation of any dependent package
 - Production cutover and final operational approval
 

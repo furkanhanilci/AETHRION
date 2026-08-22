@@ -21,7 +21,6 @@ Human and agent changes proceed on separate branches and worktrees, within a per
 
 ## Out of scope
 
-
 - The internal implementation of any dependent package
 - Production cutover and final operational approval
 

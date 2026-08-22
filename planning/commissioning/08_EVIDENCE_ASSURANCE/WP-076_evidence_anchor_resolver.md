@@ -21,7 +21,6 @@ Evidence is resolved against PDFs, HTML and dataset documentation through a trip
 
 ## Out of scope
 
-
 - The internal implementation of any dependent package
 - Production cutover and final operational approval
 

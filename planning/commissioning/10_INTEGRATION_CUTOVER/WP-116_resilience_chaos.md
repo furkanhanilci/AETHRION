@@ -21,7 +21,6 @@ Fail-closed behaviour, recovery, alerting and data integrity are verified under 
 
 ## Out of scope
 
-
 - The internal implementation of any dependent package
 - Production cutover and final operational approval
 

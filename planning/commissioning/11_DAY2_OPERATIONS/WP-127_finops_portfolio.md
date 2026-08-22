@@ -21,7 +21,6 @@ Monthly invoice reconciliation, forecasting, quality-adjusted cost versus outcom
 
 ## Out of scope
 
-
 - The internal implementation of any dependent package
 - Production cutover and final operational approval
 

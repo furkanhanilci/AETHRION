@@ -21,7 +21,6 @@ Role, data, tool, model, environment, gate, exception and budget decisions are d
 
 ## Out of scope
 
-
 - The internal implementation of any dependent package
 - Production cutover and final operational approval
 

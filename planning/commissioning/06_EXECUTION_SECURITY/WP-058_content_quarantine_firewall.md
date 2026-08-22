@@ -21,7 +21,6 @@ Web, PDF, repository and tool output passes through quarantine, malware/MIME/lic
 
 ## Out of scope
 
-
 - The internal implementation of any dependent package
 - Production cutover and final operational approval
 

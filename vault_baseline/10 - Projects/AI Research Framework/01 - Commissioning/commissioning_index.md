@@ -48,7 +48,26 @@ zero open critical findings.
 - Platform Assurance cuts horizontally across every layer, validating the system
   itself through policy, workflow, broker, restore and golden-path tests.
 
-## 3. Directory structure
+## 3. Inventory
+
+| Item | Count |
+|---|---:|
+| Work packages | **140** (WP-001 – WP-140) |
+| Acceptance scenarios | **40** (ACC-01 – ACC-40) |
+| Programme documents | 12 |
+| Markdown files under this tree | 194 |
+| Files covered by the hash seal | 195 (194 Markdown + 1 CSV) |
+
+Verify the seal from the repository root:
+
+```bash
+sha256sum -c planning/commissioning/00_PROGRAM/SHA256SUMS.txt
+```
+
+Every entry must report `OK`. The seal is regenerated deliberately, as part of a
+recorded change — never as a routine step to silence a failing check.
+
+## 4. Directory structure
 
 | Path | Contents |
 |---|---|
@@ -67,7 +86,7 @@ zero open critical findings.
 | `12_ACCEPTANCE_SCENARIOS/` | ACC-01–ACC-40: Given/When/Then system acceptance scenarios |
 | `13_TOOLING_INTEGRATION/` | WP-131–140: notification, communication, external records, evidence sealing and liveness |
 
-## 4. Package status model
+## 5. Package status model
 
 ```text
 BACKLOG → READY → IN_PROGRESS → TECH_COMPLETE → EVIDENCE_REVIEW
@@ -87,7 +106,7 @@ A "done" declaration by an agent or an implementer can only mean
 `TECH_COMPLETE`. The `ACCEPTED` decision belongs to the independent verifier
 named in the package.
 
-## 5. Effort codes
+## 6. Effort codes
 
 | Code | Initial estimate | Use |
 |---|---:|---|
@@ -98,21 +117,21 @@ named in the package.
 
 No package should default to larger than L. A package that comes out above L in
 refinement is split. An estimate is not a calendar commitment; it becomes a date
-through the capacity model in `00_PROGRAM/08_CAPACITY_AND_ESTIMATION.md`.
+through the capacity model in `00_PROGRAM/08_capacity_and_estimation.md`.
 
-## 6. Order of work
+## 7. Order of work
 
-1. Read the scope in `00_PROGRAM/01_TARGET_STATE_AND_INVARIANTS.md`.
-2. Select the current wave from `00_PROGRAM/02_WAVE_AND_DEPENDENCY_MAP.md`.
+1. Read the scope in `00_PROGRAM/01_target_state_and_invariants.md`.
+2. Select the current wave from `00_PROGRAM/02_wave_and_dependency_map.md`.
 3. Take a package whose dependencies are closed from
-   `00_PROGRAM/03_PACKAGE_CATALOGUE.md`.
+   `00_PROGRAM/03_package_catalogue.md`.
 4. Run the DoR check in the package file and assign a named owner.
 5. Make only the change within the package's scope.
 6. Run the tests, produce the evidence manifest, and send it to independent
    verification.
 7. Bind the accepted package to integration and acceptance scenarios.
 
-## 7. Starting command
+## 8. Starting command
 
 The first executable point of the programme is `WP-001 Commissioning Charter`.
 No technology installation begins before WP-001 is accepted; otherwise

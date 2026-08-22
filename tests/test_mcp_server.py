@@ -1,3 +1,13 @@
+"""Tests for the five read-only MCP tools.
+
+They verify the request/response shaping and the minimum query length. They do
+**not** verify the claim made in the README and the operations guide — that
+Hermes sees exactly five tools and no more — because that restriction lives in
+the Hermes configuration, outside this repository.
+
+The related smoke script (``scripts/mcp_smoke.py``) does assert the tool list, so
+that claim has evidence; it simply is not evidence produced by this file.
+"""
 from __future__ import annotations
 
 from typing import Any
@@ -9,7 +19,7 @@ from airl_bridge import mcp_server
 
 SOURCE: dict[str, Any] = {
     "airl_id": "zotero-users-0-ABC123",
-    "title": "Test Makalesi",
+    "title": "Test Article",
     "creators": [{"firstName": "Ada", "lastName": "Lovelace"}],
     "publication_date": "2026",
     "doi": "10.1234/test",
@@ -37,7 +47,7 @@ def test_search_sources_returns_compact_records(monkeypatch: pytest.MonkeyPatch)
     assert result == [
         {
             "airl_id": "zotero-users-0-ABC123",
-            "title": "Test Makalesi",
+            "title": "Test Article",
             "authors": ["Ada Lovelace"],
             "publication_date": "2026",
             "doi": "10.1234/test",

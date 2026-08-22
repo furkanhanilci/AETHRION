@@ -21,7 +21,6 @@ The forty scenarios plus the contract, replay, attack, restore and capacity evid
 
 ## Out of scope
 
-
 - The internal implementation of any dependent package
 - Production cutover and final operational approval
 

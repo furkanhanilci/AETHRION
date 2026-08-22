@@ -21,7 +21,6 @@ DOI, PMID, arXiv, ISBN, URL, title/author/year and file-hash signals resolve to 
 
 ## Out of scope
 
-
 - The internal implementation of any dependent package
 - Production cutover and final operational approval
 

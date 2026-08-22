@@ -21,7 +21,6 @@ Project intent, role, risk, data, tooling, budget, acceptance and independence f
 
 ## Out of scope
 
-
 - The internal implementation of any dependent package
 - Production cutover and final operational approval
 

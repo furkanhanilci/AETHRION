@@ -21,7 +21,6 @@ ACC-01 to ACC-40 become runnable — automatically or with a witnessed manual st
 
 ## Out of scope
 
-
 - The internal implementation of any dependent package
 - Production cutover and final operational approval
 

@@ -21,7 +21,6 @@ Accounts and subscriptions, regions, VPC and network layout, DNS, encryption, ad
 
 ## Out of scope
 
-
 - The internal implementation of any dependent package
 - Production cutover and final operational approval
 

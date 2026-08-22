@@ -21,7 +21,6 @@ A role's mandate, prompt/policy, input/output schema, allowed tools, context and
 
 ## Out of scope
 
-
 - The internal implementation of any dependent package
 - Production cutover and final operational approval
 

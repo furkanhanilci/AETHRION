@@ -1,3 +1,21 @@
+"""The Hermes MCP server: five read-only tools over the Bridge API.
+
+Exposed: ``bridge_status``, ``search_sources``, ``get_source``,
+``list_categories`` and ``list_possible_duplicates``. **No sync, write, delete or
+Zotero mutation tool is exposed**, and MCP prompt and resource capabilities are
+disabled on the Hermes side.
+
+This process holds no credential of its own: it talks to the local Bridge over
+HTTP, so the Bridge's boundaries apply transitively.
+
+⚠️ **Untrusted content crosses here.** ``get_source`` returns the Zotero abstract
+as raw text. An abstract originating in a malicious PDF can carry injected
+instructions — this is scenario **ACC-05** reaching the MCP surface. The blast
+radius is small while every tool is read-only, and it grows the moment Hermes has
+a tool that writes. The cheap mitigation is to wrap external content in an
+explicit boundary marker such as ``<untrusted-source-content>``; it is not
+implemented yet.
+"""
 from __future__ import annotations
 
 import os

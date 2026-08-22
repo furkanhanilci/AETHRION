@@ -21,7 +21,6 @@ Prompt injection, tool misuse, secret exfiltration, memory poisoning, sandbox es
 
 ## Out of scope
 
-
 - The internal implementation of any dependent package
 - Production cutover and final operational approval
 

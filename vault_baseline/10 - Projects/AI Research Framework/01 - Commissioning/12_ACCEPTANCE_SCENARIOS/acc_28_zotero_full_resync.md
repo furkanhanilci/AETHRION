@@ -10,14 +10,15 @@
 | Accountable owner | Knowledge Platform Lead |
 | Independent witness / verifier | Knowledge Curator / SRE |
 | Related packages | `WP-067`, `WP-103`, `WP-114` |
-| Production acceptance | A Critical scenario can never be counted as PASS through a SKIP or a waiver |
+| Production acceptance | A High scenario may be waived only by a time-bound residual risk accepted by the Commissioning Board |
 
 ## Purpose
 
 This scenario verifies the target architecture's fail-safe behaviour and its
-evidence production in the **Zotero Full Resync** situation. The test runs on the same
-release candidate, policy bundle, schema bundle and environment manifest as
-every other scenario in the same acceptance round.
+evidence production in the **Zotero Full Resync** situation.
+
+The test runs on the same release candidate, policy bundle, schema bundle and
+environment manifest as every other scenario in the same acceptance round.
 
 ## Given / When / Then
 

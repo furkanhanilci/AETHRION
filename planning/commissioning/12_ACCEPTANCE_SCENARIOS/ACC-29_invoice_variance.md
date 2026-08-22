@@ -10,14 +10,15 @@
 | Accountable owner | FinOps Lead |
 | Independent witness / verifier | Internal Audit |
 | Related packages | `WP-100`, `WP-111`, `WP-127` |
-| Production acceptance | A Critical scenario can never be counted as PASS through a SKIP or a waiver |
+| Production acceptance | A Medium scenario may be deferred with a named owner and an expiry date |
 
 ## Purpose
 
 This scenario verifies the target architecture's fail-safe behaviour and its
-evidence production in the **Provider Invoice Variance** situation. The test runs on the same
-release candidate, policy bundle, schema bundle and environment manifest as
-every other scenario in the same acceptance round.
+evidence production in the **Provider Invoice Variance** situation.
+
+The test runs on the same release candidate, policy bundle, schema bundle and
+environment manifest as every other scenario in the same acceptance round.
 
 ## Given / When / Then
 

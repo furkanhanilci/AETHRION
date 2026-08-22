@@ -21,7 +21,6 @@ Human Zotero seeds and agent discovery results merge in the Source Registry, scr
 
 ## Out of scope
 
-
 - The internal implementation of any dependent package
 - Production cutover and final operational approval
 

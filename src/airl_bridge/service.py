@@ -1,3 +1,17 @@
+"""The orchestration layer: ingest, project, and the sync that combines them.
+
+Known limitations, both recorded in the audit:
+
+* **No transaction boundary (finding M6).** ``sync()`` commits the ingest before
+  the projection runs. If the projection then fails, the registry has advanced
+  while the vault has not, and nothing records that divergence — ``finish_sync``
+  stores only the ingest counters.
+* **Silent truncation (finding M9).** ``project_obsidian`` reads at most 10,000
+  sources. Above that the projection would not see some sources and
+  ``_remove_stale`` would then delete their files as stale. The 100-record ingest
+  cap (finding **H1**) masks this today; **fix M9 before fixing H1**, or the H1
+  fix opens an active data-loss path.
+"""
 from __future__ import annotations
 
 from .database import Database

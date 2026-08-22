@@ -1,3 +1,14 @@
+"""Tests for the shared contract core.
+
+They cover both directions — acceptance of well-formed identity, artifact, event
+and schema objects, and rejection of lowercase identifiers, malformed digests,
+schema redefinition and a missing major version.
+
+⚠️ These tests pass while the contract itself has **no production consumer**
+(finding **H4**). That is exactly the failure mode the plan's Definition of Done
+names: "the tests pass but there is no requirement". Green here does not mean the
+contract is doing any work.
+"""
 import unittest
 
 from airl_framework.contracts import ArtifactManifest, EventEnvelope, Identity, SchemaRegistry

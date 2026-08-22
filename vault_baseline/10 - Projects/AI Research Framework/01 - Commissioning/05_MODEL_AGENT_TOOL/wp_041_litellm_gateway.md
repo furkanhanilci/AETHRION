@@ -21,7 +21,6 @@ Every model call passes through a provider-independent gateway that applies iden
 
 ## Out of scope
 
-
 - The internal implementation of any dependent package
 - Production cutover and final operational approval
 

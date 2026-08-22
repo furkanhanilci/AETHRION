@@ -1,3 +1,15 @@
+"""Pydantic models for the Bridge API surface.
+
+These are **transport models**, not canonical contracts. The canonical contract
+core lives in :mod:`airl_framework.contracts`; today the two are not bound to
+each other (audit finding **H4**), and their ``content_hash`` formats disagree:
+this module produces ``"sha256:<hex>"`` while the contract core expects a bare
+64-character digest.
+
+Do not add business rules here. A model that starts validating semantics is a
+contract in disguise, and it belongs in the contract core where it can be
+versioned and enforced.
+"""
 from __future__ import annotations
 
 from datetime import datetime

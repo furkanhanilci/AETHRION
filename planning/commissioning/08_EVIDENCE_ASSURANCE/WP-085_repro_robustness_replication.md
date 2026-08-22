@@ -21,7 +21,6 @@ The four verification types run under separate protocols, tolerances, independen
 
 ## Out of scope
 
-
 - The internal implementation of any dependent package
 - Production cutover and final operational approval
 

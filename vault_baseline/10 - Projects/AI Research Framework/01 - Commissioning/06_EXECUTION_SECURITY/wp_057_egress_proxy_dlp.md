@@ -21,7 +21,6 @@ All outbound traffic from execution and services passes through a domain/IP/meth
 
 ## Out of scope
 
-
 - The internal implementation of any dependent package
 - Production cutover and final operational approval
 

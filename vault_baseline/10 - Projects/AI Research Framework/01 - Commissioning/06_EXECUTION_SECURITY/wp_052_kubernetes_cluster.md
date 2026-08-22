@@ -21,7 +21,6 @@ Management, service, standard execution, secure/D3+ and untrusted compute node p
 
 ## Out of scope
 
-
 - The internal implementation of any dependent package
 - Production cutover and final operational approval
 

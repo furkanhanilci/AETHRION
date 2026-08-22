@@ -21,7 +21,6 @@ A realistic R1 project and a realistic R3 project travel from G0 to G2 with a co
 
 ## Out of scope
 
-
 - The internal implementation of any dependent package
 - Production cutover and final operational approval
 

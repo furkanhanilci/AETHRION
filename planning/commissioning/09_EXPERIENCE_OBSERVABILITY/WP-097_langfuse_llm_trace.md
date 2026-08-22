@@ -21,7 +21,6 @@ Prompt, template, model, tool, token, latency, cost and evaluation signals from 
 
 ## Out of scope
 
-
 - The internal implementation of any dependent package
 - Production cutover and final operational approval
 

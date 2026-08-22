@@ -21,7 +21,6 @@ A low-risk but realistic pilot and a full end-to-end cutover/abort/rollback rehe
 
 ## Out of scope
 
-
 - The internal implementation of any dependent package
 - Production cutover and final operational approval
 

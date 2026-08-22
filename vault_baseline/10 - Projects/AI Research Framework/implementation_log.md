@@ -19,6 +19,84 @@ the last entry, the cockpit and the relevant WP files are read again.
 
 ---
 
+## Step 005 — File-by-file review of the whole repository
+
+**Time:** 2026-08-22
+**Scope:** every directory and every tracked file
+**Status:** `DOCUMENTATION_COMPLETE` + two audit findings actually closed
+
+### What was done
+
+A file-by-file pass over the repository. Three kinds of change:
+
+**1. Documentation added where there was none.** Every module in `src/`, every
+file in `tests/` and both entry scripts now carry a module docstring that states
+what the module is responsible for, which invariant it upholds, and **which audit
+findings apply to it**. Previously not a single source file had one. The point is
+that an agent loading `obsidian.py` should learn, from the file itself, that this
+is the code that deletes files in the user's vault and why manifest-owned
+deletion is the reason no human note has been lost.
+
+**2. Two evidence-theatre findings closed with real fixes.**
+
+| Finding | Before | After |
+|---|---|---|
+| **M2** `mcp_smoke.py` | Reported `isError` without checking it; no `assert`, no `raise`, no `sys.exit`. Exited 0 with the Bridge completely down. | Asserts the **exact** five-tool set, both call results and a non-empty response. **Verified: exits 1 with the Bridge stopped, 0 with it running.** |
+| **M3** `acceptance_v0.py` | Failed unless the user's personal library contained a paper matching the hard-coded term "LiDAR". Also asserted `zotero_write_enabled is False` — a tautology against a constant. | Split into 11 data-independent structural checks plus an optional live search reading `AIRL_ACCEPTANCE_QUERY`. An empty result is `SKIPPED`, not `FAIL`. The tautological check was **removed**, and the script now reports what it does *not* prove. |
+
+Removing the `zotero_write_enabled` assertion matters more than it looks: an
+assertion that cannot fail is worse than no assertion, because it manufactures
+the appearance of evidence. The read-only claim is now honestly labelled as
+verified by reading the code, not by testing it (finding **H3** stays open).
+
+**3. Stale content corrected.**
+
+- `docs/architecture/FOUNDATION.md` was a one-line stub — one of the empty
+  "deliverables" behind finding **C3**. It is now a real document: what the
+  foundation layer is, what exists, and the three gaps that block it.
+- The systemd unit descriptions still said "SILBO" (a leftover of finding
+  **M10**). Fixed in `deploy/` and re-installed so the running units match.
+- `planning/commissioning/README.md` pointed at four programme documents by
+  their **pre-rename uppercase names** — four broken references. Fixed, and an
+  explicit inventory table added (140 WPs, 40 ACCs, 194 Markdown files, 195
+  sealed).
+- Every ACC file claimed "A Critical scenario can never be waived" regardless of
+  its own severity. Now severity-aware: 26 Critical, 12 High, 2 Medium, each with
+  the rule that actually applies to it.
+- A stray blank line under "Out of scope" in 129 generated WP files.
+
+### Evidence
+
+```
+uv run pytest                                  20 passed
+plan seal                                      195/195 OK
+uv run python scripts/mcp_smoke.py             PASS (exit 0; exit 1 when Bridge stopped)
+uv run python scripts/acceptance_v0.py         PASS (exit 0; 11 structural checks)
+mirror_plan.py --check                         196 files, 0 drift
+mirror_vault.py --check                        44 files, 0 drift
+plan links                                     1021, 0 broken
+doc links                                      63, 0 broken
+vault wikilinks                                148, 0 broken
+Turkish characters in tracked files            0
+vault == vault_baseline                        identical
+```
+
+### Limits
+
+- **Still no CI (finding H5).** Every check above runs by hand. Nothing prevents
+  a commit that never ran them.
+- **H3 remains open.** The read-only boundary needs a `MockTransport` behavioural
+  test plus a static check; this step made the claim *honest*, not *proven*.
+- C1, C2, H1, H2, H4 and the remaining M-series are untouched.
+- No gate, contract semantic or work-package status changed.
+
+### Next step
+
+Unchanged: **settle the role → model assignment**, then rename
+`model_snapshot` → `capability_fingerprint`, then stand up CI.
+
+---
+
 ## Step 004 — Full English revision of the corpus
 
 **Time:** 2026-08-22

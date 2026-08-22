@@ -1,3 +1,25 @@
+"""The shared contract core — identity, artifacts, events and schema registry.
+
+This is the first foundation slice of WP-011/014/015/020: the surface that later
+services (claims, runs, reviews, decisions) are meant to bind to, so that they
+mint compatible identities instead of divergent ones.
+
+⚠️ **It has no production consumer (audit finding H4).** Nothing in
+``src/airl_bridge`` imports this module. Worse, the two already contradict each
+other: ``ArtifactManifest`` requires a bare 64-character digest while the bridge
+produces ``"sha256:<hex>"``. The contract is violated by the only data that
+exists.
+
+⚠️ **``SchemaRegistry`` is an in-process ``dict``.** It records versions and
+refuses redefinition, but it accepts any mapping as a "schema" and validates
+nothing against JSON Schema. WP-020's expected outcome was "enforced by CI";
+there is no CI (finding **H5**), so nothing is enforced.
+
+The rule this module exists to encode: **a contract with no consumer is dead
+code — bind it or delete it.** Binding it means routing
+``SourceRecord.airl_id`` generation through :class:`Identity` and reconciling the
+hash format, with a migration and a reversal path.
+"""
 from __future__ import annotations
 
 import hashlib

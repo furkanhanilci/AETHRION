@@ -21,7 +21,6 @@ Each gate's invariant purpose, entry and exit artifacts, hard blockers, risk-bas
 
 ## Out of scope
 
-
 - The internal implementation of any dependent package
 - Production cutover and final operational approval
 

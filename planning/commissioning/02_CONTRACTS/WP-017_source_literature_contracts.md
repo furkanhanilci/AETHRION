@@ -21,7 +21,6 @@ Source identity, representation, trust, search, screening, set manifest, Zotero 
 
 ## Out of scope
 
-
 - The internal implementation of any dependent package
 - Production cutover and final operational approval
 

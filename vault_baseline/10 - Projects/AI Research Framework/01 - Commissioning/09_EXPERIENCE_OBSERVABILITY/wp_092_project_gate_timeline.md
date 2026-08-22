@@ -21,7 +21,6 @@ Every project gains a working surface that explains its current gate, frozen ver
 
 ## Out of scope
 
-
 - The internal implementation of any dependent package
 - Production cutover and final operational approval
 

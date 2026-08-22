@@ -10,14 +10,15 @@
 | Accountable owner | Scientific Owner |
 | Independent witness / verifier | Methodologist / Project Decision Owner |
 | Related packages | `WP-081`, `WP-082`, `WP-083`, `WP-104`, `WP-113` |
-| Production acceptance | A Critical scenario can never be counted as PASS through a SKIP or a waiver |
+| Production acceptance | A Medium scenario may be deferred with a named owner and an expiry date |
 
 ## Purpose
 
 This scenario verifies the target architecture's fail-safe behaviour and its
-evidence production in the **Negative Research Result** situation. The test runs on the same
-release candidate, policy bundle, schema bundle and environment manifest as
-every other scenario in the same acceptance round.
+evidence production in the **Negative Research Result** situation.
+
+The test runs on the same release candidate, policy bundle, schema bundle and
+environment manifest as every other scenario in the same acceptance round.
 
 ## Given / When / Then
 

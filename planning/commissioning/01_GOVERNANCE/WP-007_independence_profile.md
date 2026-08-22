@@ -21,7 +21,6 @@ The separation of producer, reviewer and reproducer becomes auditable across sev
 
 ## Out of scope
 
-
 - The internal implementation of any dependent package
 - Production cutover and final operational approval
 

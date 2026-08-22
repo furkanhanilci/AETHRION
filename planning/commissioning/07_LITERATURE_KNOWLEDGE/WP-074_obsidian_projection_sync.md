@@ -21,7 +21,6 @@ Source, claim, run and decision changes update only the generated zones; human s
 
 ## Out of scope
 
-
 - The internal implementation of any dependent package
 - Production cutover and final operational approval
 

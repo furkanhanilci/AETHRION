@@ -21,7 +21,6 @@ A staged run executes from the frozen protocol, literature set and baseline; the
 
 ## Out of scope
 
-
 - The internal implementation of any dependent package
 - Production cutover and final operational approval
 

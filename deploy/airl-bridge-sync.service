@@ -1,5 +1,5 @@
 [Unit]
-Description=Synchronize Zotero sources into the SILBO Obsidian literature tree
+Description=Synchronize Zotero sources into the AIRL Obsidian literature tree
 Requires=airl-bridge.service
 After=airl-bridge.service
 

@@ -21,7 +21,6 @@ Approved claims, limitations, source sets, protocols, runs, code/data/environmen
 
 ## Out of scope
 
-
 - The internal implementation of any dependent package
 - Production cutover and final operational approval
 

@@ -21,7 +21,6 @@ Where the same data appears on more than one surface, the system-of-record, the 
 
 ## Out of scope
 
-
 - The internal implementation of any dependent package
 - Production cutover and final operational approval
 

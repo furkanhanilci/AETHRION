@@ -21,7 +21,6 @@ Reviewer precision, disagreement, order/identity/verbosity bias, false positives
 
 ## Out of scope
 
-
 - The internal implementation of any dependent package
 - Production cutover and final operational approval
 

@@ -15,9 +15,10 @@
 ## Purpose
 
 This scenario verifies the target architecture's fail-safe behaviour and its
-evidence production in the **Human Seed Literature** situation. The test runs on the same
-release candidate, policy bundle, schema bundle and environment manifest as
-every other scenario in the same acceptance round.
+evidence production in the **Human Seed Literature** situation.
+
+The test runs on the same release candidate, policy bundle, schema bundle and
+environment manifest as every other scenario in the same acceptance round.
 
 ## Given / When / Then
 

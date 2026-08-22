@@ -10,14 +10,15 @@
 | Accountable owner | Reproducibility Lead |
 | Independent witness / verifier | Assurance Lead / Statistician |
 | Related packages | `WP-084`, `WP-085`, `WP-105`, `WP-113` |
-| Production acceptance | A Critical scenario can never be counted as PASS through a SKIP or a waiver |
+| Production acceptance | A High scenario may be waived only by a time-bound residual risk accepted by the Commissioning Board |
 
 ## Purpose
 
 This scenario verifies the target architecture's fail-safe behaviour and its
-evidence production in the **Clean-Room Reproduction Pass** situation. The test runs on the same
-release candidate, policy bundle, schema bundle and environment manifest as
-every other scenario in the same acceptance round.
+evidence production in the **Clean-Room Reproduction Pass** situation.
+
+The test runs on the same release candidate, policy bundle, schema bundle and
+environment manifest as every other scenario in the same acceptance round.
 
 ## Given / When / Then
 

@@ -1,3 +1,13 @@
+"""Tests for source identity and normalisation.
+
+The key property: ``airl_id`` derives from the Zotero binding, not from the
+title, so editing a title does not mint a new identity. Everything downstream —
+projection file names, duplicate reporting, future claim lineage — depends on
+that stability.
+
+Not covered: the read-only boundary itself (finding **H3**) and pagination
+behaviour (finding **H1**), because neither has an implementation to test.
+"""
 import asyncio
 
 import httpx

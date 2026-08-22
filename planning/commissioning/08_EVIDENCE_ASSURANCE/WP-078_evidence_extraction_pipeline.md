@@ -21,7 +21,6 @@ Sources that have cleared quarantine are decomposed by a read-only extractor int
 
 ## Out of scope
 
-
 - The internal implementation of any dependent package
 - Production cutover and final operational approval
 

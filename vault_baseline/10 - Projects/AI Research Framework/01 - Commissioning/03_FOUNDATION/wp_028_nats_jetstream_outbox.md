@@ -21,7 +21,6 @@ The at-least-once event backbone is established with an outbox that places the p
 
 ## Out of scope
 
-
 - The internal implementation of any dependent package
 - Production cutover and final operational approval
 

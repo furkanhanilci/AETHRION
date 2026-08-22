@@ -21,7 +21,6 @@ Security, data, reliability, cost and epistemic incidents are run through a cont
 
 ## Out of scope
 
-
 - The internal implementation of any dependent package
 - Production cutover and final operational approval
 

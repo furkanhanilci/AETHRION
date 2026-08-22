@@ -1,3 +1,9 @@
+"""Shared fixtures: an isolated Settings object and a canonical Zotero item.
+
+Every test runs against a temporary vault and a temporary database, so no test
+can touch the user's real Obsidian vault or the real registry. That isolation is
+a safety property, not a convenience: this codebase deletes files.
+"""
 from pathlib import Path
 
 import pytest

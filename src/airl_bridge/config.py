@@ -1,3 +1,20 @@
+"""Configuration loading and the two boundaries it enforces.
+
+Settings come from the environment, seeded from ``.env`` at the project root.
+Two of the checks in this module are **security boundaries**, not conveniences:
+
+1. ``api_host`` must be a loopback address. The service refuses to start
+   otherwise. This is a fail-closed default: the V0 Bridge has no
+   authentication (audit finding **M1**), so binding it to a routable interface
+   would expose the whole literature registry unauthenticated.
+2. ``AIRL_OBSIDIAN_GENERATED_DIR`` must be a *relative* path containing no
+   ``..`` segment. The projection deletes every file registered in its own
+   manifest (see :mod:`airl_bridge.obsidian`); a path that escaped the vault
+   would make that deletion escape with it.
+
+Neither check has a negative test today (finding **L4**). They hold because the
+code says so, not because anything proves it.
+"""
 from __future__ import annotations
 
 import os

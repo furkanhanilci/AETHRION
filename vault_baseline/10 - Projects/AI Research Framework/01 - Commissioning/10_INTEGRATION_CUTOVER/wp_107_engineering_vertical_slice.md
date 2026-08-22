@@ -21,7 +21,6 @@ One standard and one critical code change pass through specification, reality ch
 
 ## Out of scope
 
-
 - The internal implementation of any dependent package
 - Production cutover and final operational approval
 

@@ -21,7 +21,6 @@ Every service's owner, tier, dependencies, data class, SLIs/SLOs, error budget, 
 
 ## Out of scope
 
-
 - The internal implementation of any dependent package
 - Production cutover and final operational approval
 

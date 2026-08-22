@@ -1,3 +1,29 @@
+"""The Obsidian projection: canonical registry → generated Markdown.
+
+This module owns the most dangerous operation in the codebase — it **deletes
+files inside the user's vault** — so its safety properties matter more than its
+features:
+
+* **Manifest-owned deletion.** Only files listed in
+  ``.airl-projection-manifest.json`` are removed. A human note sitting in the
+  same folder survives, and there is a real test for that
+  (``tests/test_obsidian.py``). This is the primary defence against data loss.
+* **Atomic writes.** ``mkstemp`` + ``fsync`` + ``os.replace`` — a partially
+  written Markdown file cannot appear.
+* **Path containment.** Every target path is resolved and checked to lie inside
+  the vault before anything is written or removed.
+* **Escaping.** Titles and abstracts pass through ``html.escape``; YAML string
+  values are emitted via ``json.dumps``.
+
+Known limitations:
+
+* **No dry-run, and no refusal to adopt a populated directory (finding M7).** If
+  ``AIRL_OBSIDIAN_GENERATED_DIR`` ever pointed at a human folder, the first run
+  would generate there and write a manifest, and the second run would delete
+  what that manifest lists. A path projected once is irreversibly taken under
+  management.
+* Generated notes carry no ``schema_version``, so they cannot be migrated later.
+"""
 from __future__ import annotations
 
 import html

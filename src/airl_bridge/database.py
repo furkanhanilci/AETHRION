@@ -1,3 +1,29 @@
+"""The canonical V0 source registry, backed by SQLite in WAL mode.
+
+This is the system-of-record for source identity in V0. It will be replaced by
+the PostgreSQL Source Registry (WP-061) once that exists; until then, every
+claim about "canonical" state in this repository means *this file*.
+
+Design properties worth preserving:
+
+* **Idempotent upsert.** Insert/update/unchanged is decided by comparing
+  ``content_hash``, with a UNIQUE constraint on
+  ``(zotero_library_type, zotero_library_id, zotero_key)``.
+* **Run history.** ``sync_runs`` records every ingest attempt with its counters,
+  so a failed run is visible rather than silent.
+
+Known limitations:
+
+* **No deletion or tombstone path (finding H2).** Nothing in this module deletes
+  a source or marks it withdrawn, and the Zotero ``/deleted`` endpoint is never
+  read. A source removed in Zotero therefore lives on here — and in Obsidian —
+  indefinitely.
+* **Connections are never closed (finding M8).** ``with self.connect()`` is a
+  *transaction* context manager in ``sqlite3``; it does not close the
+  connection. Every request leaks one until garbage collection.
+* **``schema_meta.schema_version`` is written and never read.** There is no
+  migration mechanism.
+"""
 from __future__ import annotations
 
 import json

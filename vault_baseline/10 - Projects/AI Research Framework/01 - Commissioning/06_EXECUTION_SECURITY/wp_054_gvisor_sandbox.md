@@ -21,7 +21,6 @@ Every autonomous code execution runs in an ephemeral cell — resolve → alloca
 
 ## Out of scope
 
-
 - The internal implementation of any dependent package
 - Production cutover and final operational approval
 

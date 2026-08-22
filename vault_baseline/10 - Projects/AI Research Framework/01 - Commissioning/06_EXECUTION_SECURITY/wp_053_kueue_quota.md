@@ -21,7 +21,6 @@ Research scouting, experiments, review, reproduction, incident and critical assu
 
 ## Out of scope
 
-
 - The internal implementation of any dependent package
 - Production cutover and final operational approval
 

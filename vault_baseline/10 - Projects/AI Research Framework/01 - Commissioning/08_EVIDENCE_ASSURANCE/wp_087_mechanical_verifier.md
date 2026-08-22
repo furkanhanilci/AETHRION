@@ -21,7 +21,6 @@ Schema, hash, test, policy, manifest, signature, locator, lineage and report-to-
 
 ## Out of scope
 
-
 - The internal implementation of any dependent package
 - Production cutover and final operational approval
 

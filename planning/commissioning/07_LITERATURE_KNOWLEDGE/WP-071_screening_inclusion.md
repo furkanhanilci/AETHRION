@@ -21,7 +21,6 @@ Title/abstract and full-text screening reaches a freezable set through reason-co
 
 ## Out of scope
 
-
 - The internal implementation of any dependent package
 - Production cutover and final operational approval
 

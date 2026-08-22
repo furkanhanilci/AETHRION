@@ -21,7 +21,6 @@ An encrypted, replicated, point-in-time-restorable PostgreSQL foundation is esta
 
 ## Out of scope
 
-
 - The internal implementation of any dependent package
 - Production cutover and final operational approval
 

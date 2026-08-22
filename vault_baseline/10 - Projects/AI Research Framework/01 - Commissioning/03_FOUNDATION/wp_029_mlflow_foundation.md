@@ -21,7 +21,6 @@ Experiment, evaluation, metric and artifact references are tracked under data-cl
 
 ## Out of scope
 
-
 - The internal implementation of any dependent package
 - Production cutover and final operational approval
 

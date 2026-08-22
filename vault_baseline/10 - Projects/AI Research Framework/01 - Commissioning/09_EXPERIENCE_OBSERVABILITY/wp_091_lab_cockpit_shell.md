@@ -21,7 +21,6 @@ A human gains a secure cockpit that shows portfolio, project, gate, task, eviden
 
 ## Out of scope
 
-
 - The internal implementation of any dependent package
 - Production cutover and final operational approval
 

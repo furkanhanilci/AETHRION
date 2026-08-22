@@ -21,7 +21,6 @@ Project, workflow, gate, task, actor, source, representation, claim, evidence, r
 
 ## Out of scope
 
-
 - The internal implementation of any dependent package
 - Production cutover and final operational approval
 

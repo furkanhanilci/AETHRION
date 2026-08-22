@@ -21,7 +21,6 @@ A user can inspect a claim's version, certainty and conditions, evidence spans, 
 
 ## Out of scope
 
-
 - The internal implementation of any dependent package
 - Production cutover and final operational approval
 

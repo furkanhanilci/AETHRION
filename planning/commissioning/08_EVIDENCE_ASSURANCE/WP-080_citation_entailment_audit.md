@@ -21,7 +21,6 @@ For every material sentence, a structured audit verifies whether the linked evid
 
 ## Out of scope
 
-
 - The internal implementation of any dependent package
 - Production cutover and final operational approval
 

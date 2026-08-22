@@ -21,7 +21,6 @@ PDF, HTML, preprint, dataset documentation and correction/retraction representat
 
 ## Out of scope
 
-
 - The internal implementation of any dependent package
 - Production cutover and final operational approval
 

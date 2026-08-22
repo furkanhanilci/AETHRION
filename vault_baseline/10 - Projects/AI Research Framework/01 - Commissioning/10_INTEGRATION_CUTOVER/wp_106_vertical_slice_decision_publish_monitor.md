@@ -21,7 +21,6 @@ A human G8 decision is taken with residual risk and dissent visible, a signed G9
 
 ## Out of scope
 
-
 - The internal implementation of any dependent package
 - Production cutover and final operational approval
 

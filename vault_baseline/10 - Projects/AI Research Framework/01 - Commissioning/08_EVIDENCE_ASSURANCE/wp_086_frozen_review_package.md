@@ -21,7 +21,6 @@ A reviewer receives only the immutable target, the specification or protocol, th
 
 ## Out of scope
 
-
 - The internal implementation of any dependent package
 - Production cutover and final operational approval
 

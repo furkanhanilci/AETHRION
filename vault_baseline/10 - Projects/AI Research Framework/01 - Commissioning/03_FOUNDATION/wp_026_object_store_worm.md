@@ -21,7 +21,6 @@ PDF, dataset, artifact, evidence and publication bytes are stored immutably unde
 
 ## Out of scope
 
-
 - The internal implementation of any dependent package
 - Production cutover and final operational approval
 

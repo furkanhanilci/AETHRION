@@ -21,7 +21,6 @@ Sync conflicts, candidate aging, screening backlog, broken links, source status,
 
 ## Out of scope
 
-
 - The internal implementation of any dependent package
 - Production cutover and final operational approval
 

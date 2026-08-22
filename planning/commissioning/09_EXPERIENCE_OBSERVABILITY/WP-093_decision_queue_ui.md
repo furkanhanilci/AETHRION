@@ -21,7 +21,6 @@ The decision owner sees the options, what evidence changed, dissent, residual ri
 
 ## Out of scope
 
-
 - The internal implementation of any dependent package
 - Production cutover and final operational approval
 

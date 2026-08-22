@@ -21,7 +21,6 @@ On the strength of the signed commissioning dossier and the rehearsal, the chang
 
 ## Out of scope
 
-
 - The internal implementation of any dependent package
 - Production cutover and final operational approval
 

@@ -21,7 +21,6 @@ Source retractions and corrections, model snapshot revocations, dataset and poli
 
 ## Out of scope
 
-
 - The internal implementation of any dependent package
 - Production cutover and final operational approval
 

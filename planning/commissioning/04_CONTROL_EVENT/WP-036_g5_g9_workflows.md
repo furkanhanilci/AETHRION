@@ -21,7 +21,6 @@ Execution, claim freeze, blind review, reproduction, human decision and publicat
 
 ## Out of scope
 
-
 - The internal implementation of any dependent package
 - Production cutover and final operational approval
 

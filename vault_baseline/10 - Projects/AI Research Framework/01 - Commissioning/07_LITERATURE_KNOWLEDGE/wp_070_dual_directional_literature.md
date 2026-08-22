@@ -21,7 +21,6 @@ Human seeds are expanded by agents and agent candidates are filtered by human se
 
 ## Out of scope
 
-
 - The internal implementation of any dependent package
 - Production cutover and final operational approval
 

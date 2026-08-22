@@ -21,7 +21,6 @@ Claim, evidence span, dependency, assessment, review link, decision and superses
 
 ## Out of scope
 
-
 - The internal implementation of any dependent package
 - Production cutover and final operational approval
 

@@ -21,7 +21,6 @@ Daily and weekly service health, SLO, dependency, capacity, alert quality and er
 
 ## Out of scope
 
-
 - The internal implementation of any dependent package
 - Production cutover and final operational approval
 

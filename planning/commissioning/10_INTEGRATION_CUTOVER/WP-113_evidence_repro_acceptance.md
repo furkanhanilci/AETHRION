@@ -21,7 +21,6 @@ Clean-room pass and fail, graph rebuild, human note preservation, artifact overw
 
 ## Out of scope
 
-
 - The internal implementation of any dependent package
 - Production cutover and final operational approval
 

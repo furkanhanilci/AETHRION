@@ -1,3 +1,20 @@
+"""Tests for the FastAPI surface.
+
+⚠️ **Coverage limit (audit finding L4).** Only ``GET`` endpoints are exercised
+here. None of the three ``POST`` endpoints is tested, and neither are the
+defensive paths: the ``ZoteroUnavailable`` → 503 handler, the ``ProjectionError``
+→ 422 handler, the loopback refusal in ``Settings.from_env``, the path-traversal
+refusal, or ``library_type`` validation.
+
+In other words **every defensive mechanism in the service is currently
+untested**, which directly contradicts the plan's Definition of Done ("security,
+data and policy negative tests have passed").
+
+⚠️ ``test_health_reports_readonly_boundary`` asserts
+``zotero_write_enabled is False`` against a **hard-coded constant** — it proves
+nothing (finding **H3**). The real test is a ``MockTransport`` that raises on any
+non-``GET`` method, driven through the whole sync flow.
+"""
 import asyncio
 
 import httpx

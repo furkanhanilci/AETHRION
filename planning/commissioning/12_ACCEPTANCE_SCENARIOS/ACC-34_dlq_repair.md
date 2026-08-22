@@ -10,14 +10,15 @@
 | Accountable owner | Event Platform Lead |
 | Independent witness / verifier | SRE / Schema Owner |
 | Related packages | `WP-028`, `WP-039`, `WP-111` |
-| Production acceptance | A Critical scenario can never be counted as PASS through a SKIP or a waiver |
+| Production acceptance | A High scenario may be waived only by a time-bound residual risk accepted by the Commissioning Board |
 
 ## Purpose
 
 This scenario verifies the target architecture's fail-safe behaviour and its
-evidence production in the **DLQ Repair and Corrected Replay** situation. The test runs on the same
-release candidate, policy bundle, schema bundle and environment manifest as
-every other scenario in the same acceptance round.
+evidence production in the **DLQ Repair and Corrected Replay** situation.
+
+The test runs on the same release candidate, policy bundle, schema bundle and
+environment manifest as every other scenario in the same acceptance round.
 
 ## Given / When / Then
 

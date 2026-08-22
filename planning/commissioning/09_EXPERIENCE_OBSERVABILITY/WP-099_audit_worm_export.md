@@ -21,7 +21,6 @@ Policy, identity, model, tool, workflow, source, claim, artifact, cost and human
 
 ## Out of scope
 
-
 - The internal implementation of any dependent package
 - Production cutover and final operational approval
 

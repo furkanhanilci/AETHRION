@@ -21,7 +21,6 @@ The personal Zotero library becomes a read-only seed surface, AIRL group librari
 
 ## Out of scope
 
-
 - The internal implementation of any dependent package
 - Production cutover and final operational approval
 

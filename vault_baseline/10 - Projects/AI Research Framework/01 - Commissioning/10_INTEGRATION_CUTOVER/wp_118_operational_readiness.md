@@ -21,7 +21,6 @@ The service owner, on-call, escalation, incident command, break-glass, backup/re
 
 ## Out of scope
 
-
 - The internal implementation of any dependent package
 - Production cutover and final operational approval
 

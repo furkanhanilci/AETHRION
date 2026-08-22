@@ -21,7 +21,6 @@ Quarterly restore, workflow replay, signature and revocation, audit export and d
 
 ## Out of scope
 
-
 - The internal implementation of any dependent package
 - Production cutover and final operational approval
 

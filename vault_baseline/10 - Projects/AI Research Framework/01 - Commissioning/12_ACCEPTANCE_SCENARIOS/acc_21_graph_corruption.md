@@ -10,14 +10,15 @@
 | Accountable owner | Knowledge Data Lead |
 | Independent witness / verifier | Data Platform Lead / Assurance |
 | Related packages | `WP-030`, `WP-074`, `WP-113`, `WP-114` |
-| Production acceptance | A Critical scenario can never be counted as PASS through a SKIP or a waiver |
+| Production acceptance | A High scenario may be waived only by a time-bound residual risk accepted by the Commissioning Board |
 
 ## Purpose
 
 This scenario verifies the target architecture's fail-safe behaviour and its
-evidence production in the **Derived Graph Corruption and Rebuild** situation. The test runs on the same
-release candidate, policy bundle, schema bundle and environment manifest as
-every other scenario in the same acceptance round.
+evidence production in the **Derived Graph Corruption and Rebuild** situation.
+
+The test runs on the same release candidate, policy bundle, schema bundle and
+environment manifest as every other scenario in the same acceptance round.
 
 ## Given / When / Then
 

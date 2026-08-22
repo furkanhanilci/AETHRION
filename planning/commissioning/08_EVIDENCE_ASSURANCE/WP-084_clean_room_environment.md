@@ -21,7 +21,6 @@ The reproducer runs in a clean environment built from the frozen manifest, isola
 
 ## Out of scope
 
-
 - The internal implementation of any dependent package
 - Production cutover and final operational approval
 

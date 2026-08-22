@@ -21,7 +21,6 @@ The canonical PostgreSQL service for bibliographic identity, representations, tr
 
 ## Out of scope
 
-
 - The internal implementation of any dependent package
 - Production cutover and final operational approval
 

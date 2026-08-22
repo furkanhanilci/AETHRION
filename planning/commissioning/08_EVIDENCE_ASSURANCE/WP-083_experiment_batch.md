@@ -21,7 +21,6 @@ Experiments proceed smoke → baseline → small sweep → full run inside a con
 
 ## Out of scope
 
-
 - The internal implementation of any dependent package
 - Production cutover and final operational approval
 

@@ -21,7 +21,6 @@ Kubernetes and tool/runtime deployments accept only digest-pinned, signed artifa
 
 ## Out of scope
 
-
 - The internal implementation of any dependent package
 - Production cutover and final operational approval
 

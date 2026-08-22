@@ -21,7 +21,6 @@ A run is not admitted until the protocol, literature set, dataset, code, environ
 
 ## Out of scope
 
-
 - The internal implementation of any dependent package
 - Production cutover and final operational approval
 

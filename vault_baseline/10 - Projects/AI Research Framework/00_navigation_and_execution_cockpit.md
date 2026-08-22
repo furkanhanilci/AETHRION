@@ -39,13 +39,13 @@ tags:
 
 | Field | Current value |
 |---|---|
-| Last material step | **Step 004 — Full English revision of the corpus** |
-| Status | `DOCUMENTATION_COMPLETE / DESIGN_PROPOSED` |
+| Last material step | **Step 005 — File-by-file review of the whole repository** |
+| Status | `DOCUMENTATION_COMPLETE / DESIGN_PROPOSED` — findings **M2** and **M3** closed with real fixes |
 | SILBO evidence commit | `b14b0b34a115e7cc088008d0a29cf1769f912169` (a separate line of work) |
 | **The exact next step** | **Rename `model_snapshot` → `capability_fingerprint`.** Current Claude models have no date-suffixed identity; Invariant 4 cannot be satisfied with a hosted model. Detail: Role → Model Assignment, Section 0. |
 | Pending decisions | (1) R3 → local open-weight requirement, (2) a non-Anthropic reviewer provider, (3) accepting in-principle acceptance, (4) the group library's data-class ceiling |
 | Hard boundaries | No inference without a dry-run/readiness commit; no push to the SILBO remote; no training runs |
-| Last Obsidian sync | 2026-08-22 — Step 004; the whole corpus rewritten in English, mirror generators added |
+| Last Obsidian sync | 2026-08-22 — Step 005; module docstrings across `src/` and `tests/`, evidence scripts made real, stale references fixed |
 
 ## Project area map
 

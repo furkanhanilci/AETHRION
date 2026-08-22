@@ -21,7 +21,6 @@ Every decision type in the Human Decision Queue receives an SLA, an evidence sum
 
 ## Out of scope
 
-
 - The internal implementation of any dependent package
 - Production cutover and final operational approval
 

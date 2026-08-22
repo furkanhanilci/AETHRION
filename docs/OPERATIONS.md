@@ -27,15 +27,23 @@ only the `70 - Literature Sets/Zotero Sources` branch.
 ```bash
 hermes mcp test airl_bridge
 cd /home/otonom/Desktop/FH/AI_RESEARCH_FRAMEWORK
-.venv/bin/python scripts/mcp_smoke.py
+uv run python scripts/mcp_smoke.py            # exit 0 = pass, 1 = fail
+uv run python scripts/mcp_smoke.py --query attention
 ```
 
-The `tools.include` list in the Hermes configuration must contain exactly five
-tools. `prompts` and `resources` must remain disabled.
+The smoke check asserts three things and **exits non-zero on any failure**: that
+the server exposes exactly the five expected read-only tools and no others, that
+neither `bridge_status` nor a search returns an error, and that the search
+returns at least one content block. Verified behaviour: with the Bridge stopped
+it exits `1`; with the Bridge running it exits `0`.
 
-> ⚠️ `mcp_smoke.py` currently reports `isError` without asserting on it, so it
-> exits 0 even when every call fails. Read its output; do not treat exit status
-> as a pass. See finding **M2**.
+Adding a sixth tool is a boundary change and will fail this check until
+`EXPECTED_TOOLS` in the script is deliberately updated. That is the intent.
+
+> **Scope limit.** This verifies what *this* MCP server exposes. The
+> `tools.include` restriction on the Hermes side lives in the Hermes
+> configuration, outside this repository, and must be checked there: it must list
+> exactly five tools, with `prompts` and `resources` disabled.
 
 ## Logs
 
@@ -93,6 +101,64 @@ data/projection-backups/
 7. Add the Hermes MCP server and apply the five-tool allowlist
 8. Enable the synchronisation timer
 9. Run `scripts/acceptance_v0.py` and the test suite
+
+## Acceptance check
+
+```bash
+uv run python scripts/acceptance_v0.py                          # structural only
+AIRL_ACCEPTANCE_QUERY="attention" uv run python scripts/acceptance_v0.py
+```
+
+The structural checks are **data-independent**: registry, manifest and category
+counts must agree with each other, every file the projection manifest claims must
+exist on disk, and the vault landmarks must be present. They hold for whatever
+sources happen to exist, so the result is reproducible on any machine.
+
+The live search smoke is optional and reads its query from
+`AIRL_ACCEPTANCE_QUERY`. An empty result is reported `SKIPPED`, never `FAIL` — an
+empty library is not a defect in the Bridge.
+
+> **What it does not prove.** That no write reaches Zotero. That claim still rests
+> on reading the code (finding **H3**); proving it needs a `MockTransport` that
+> raises on any non-`GET` method, driven through the whole sync flow, plus a
+> static check in CI. The script says so in its own output under
+> `not_proven_here`.
+
+## Obsidian mirror integrity
+
+The plan mirror, the skills mirror and the architecture/review mirrors in the
+vault are **generated**. Verify they have not drifted:
+
+```bash
+V="/home/otonom/Documents/Obsidian Vault/10 - Projects/AI Research Framework"
+python scripts/mirror_plan.py  "$V/01 - Commissioning" --check
+python scripts/mirror_vault.py "$V" --check
+```
+
+Both must report `0 drift entries`. To regenerate after a canonical change, run
+the same commands without `--check`.
+
+> Edits made directly in a generated area are lost on the next regeneration, and
+> the plan seal does not cover the mirror — so drift there is invisible unless you
+> run this check.
+
+## The verification bundle
+
+Everything that currently produces real evidence, in one place:
+
+```bash
+uv run pytest                                              # 20 tests
+(cd planning/commissioning && sha256sum -c 00_PROGRAM/SHA256SUMS.txt)
+uv run python scripts/mcp_smoke.py
+uv run python scripts/acceptance_v0.py
+python scripts/mirror_plan.py  "$V/01 - Commissioning" --check
+python scripts/mirror_vault.py "$V" --check
+```
+
+⚠️ **These all run by hand.** There is no CI (finding **H5**), so nothing
+guarantees they were run before a change was committed. Automating this list is
+the single highest-leverage step available — one workflow file closes four
+findings.
 
 ## After a path change
 

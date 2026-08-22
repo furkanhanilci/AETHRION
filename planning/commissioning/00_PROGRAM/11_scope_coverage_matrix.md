@@ -2,7 +2,7 @@
 
 This matrix is the fast audit for one question: **"has any component or
 governance area been left out of the plan?"** Detailed dependencies live in
-`03_PACKAGE_CATALOGUE.md` and `package_dependency_matrix.csv`.
+`03_package_catalogue.md` and `package_dependency_matrix.csv`.
 
 Read a row as: *primary packages build the capability; integration/acceptance
 packages prove it works in context.* A row with a primary package but no

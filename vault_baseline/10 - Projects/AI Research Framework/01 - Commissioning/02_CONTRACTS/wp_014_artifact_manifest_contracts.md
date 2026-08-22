@@ -21,7 +21,6 @@ Code, data, environment, document and publication artifacts are defined as immut
 
 ## Out of scope
 
-
 - The internal implementation of any dependent package
 - Production cutover and final operational approval
 

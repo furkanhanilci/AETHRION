@@ -21,7 +21,6 @@ The chain from source commit to a digest-pinned OCI image is established, coveri
 
 ## Out of scope
 
-
 - The internal implementation of any dependent package
 - Production cutover and final operational approval
 

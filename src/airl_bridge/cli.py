@@ -1,3 +1,16 @@
+"""The ``airl-bridge`` command-line entry point.
+
+Subcommands: ``doctor`` (environment and Zotero reachability), ``serve`` (run the
+API), ``sync`` (ingest plus projection without starting the server), ``ingest``
+and ``project``.
+
+``sync`` exists so the systemd timer does not have to depend on the HTTP surface
+— but the installed timer currently calls ``POST /v1/sync`` anyway, so the
+service must be running for periodic sync to work.
+
+⚠️ The ``--limit`` choices are bounded at 100, mirroring the Zotero client cap
+(finding **H1**). When pagination lands, this bound must be removed with it.
+"""
 from __future__ import annotations
 
 import argparse

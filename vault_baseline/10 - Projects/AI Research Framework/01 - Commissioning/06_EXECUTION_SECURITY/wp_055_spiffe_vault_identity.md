@@ -21,7 +21,6 @@ Human, service, worker and sandbox actors use attested identity and short-lived,
 
 ## Out of scope
 
-
 - The internal implementation of any dependent package
 - Production cutover and final operational approval
 

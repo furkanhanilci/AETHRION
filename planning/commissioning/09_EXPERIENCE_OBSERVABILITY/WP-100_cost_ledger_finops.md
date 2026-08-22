@@ -21,7 +21,6 @@ Model, compute, retrieval, storage, verification and human triage costs are attr
 
 ## Out of scope
 
-
 - The internal implementation of any dependent package
 - Production cutover and final operational approval
 
