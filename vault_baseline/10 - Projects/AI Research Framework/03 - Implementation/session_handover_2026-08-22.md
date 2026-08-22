@@ -4,7 +4,7 @@ type: handover
 status: active
 owner: otonom
 created_at: "2026-08-22"
-session_end_commit: pending-step-006
+session_end_commit: 1c1e4c5
 tags:
   - ai-framework/handover
   - ai-framework/execution
@@ -28,7 +28,7 @@ tags:
 |---|---|
 | Repository | `/home/otonom/Desktop/FH/AI_RESEARCH_FRAMEWORK` |
 | Branch | `main`, working tree **clean** |
-| HEAD = origin/main | Step 006 changes are **in the working tree, not yet committed** |
+| HEAD = origin/main | **`1c1e4c5`** — 0 ahead / 0 behind |
 | Remote | `github.com/furkanhanilci/AI-Research-Framework` (private) — **the only authorised remote** |
 | Last three steps | Step 004 (English revision), Step 005 (file-by-file review), **Step 006 (skill families, open format, WP-000)** |
 | Bridge service | `active` · sync timer `active` |
@@ -38,10 +38,10 @@ tags:
 ### The last three commits
 
 ```text
+1c1e4c5  Keep both skill families, adopt the open format, write WP-000
+e5673be  Correct the commit references in the session handover
 cf57f1f  Add a session handover note so the next session resumes without re-reading
 10395af  File-by-file review: document every module, make two evidence checks real
-622aeb8  Rewrite the entire corpus in English, expanded
-8415342  Restructure repository root, add skill layer and tooling packages
 ```
 
 > The Zotero projection files carry a `generated_at` timestamp, so the 30-minute
@@ -61,7 +61,7 @@ cd /home/otonom/Desktop/FH/AI_RESEARCH_FRAMEWORK
 V="/home/otonom/Documents/Obsidian Vault/10 - Projects/AI Research Framework"
 
 git status --short                                   # expect: empty
-git log --oneline -1                                 # expect: cf57f1f (or later)
+git log --oneline -1                                 # expect: 1c1e4c5 (or later)
 
 uv run pytest                                        # expect: 20 passed
 python3 scripts/validate_skills.py                   # expect: 49 skills conform
