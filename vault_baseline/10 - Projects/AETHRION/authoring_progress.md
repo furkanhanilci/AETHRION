@@ -4,7 +4,7 @@ airl_id: AETHRION-AUTHORING-PROGRESS
 type: index
 category: vault
 status: active
-summary: "Which package documents are authored and which still say so. Every package is three documents; this page tracks the two that carry judgement."
+summary: "Which package documents are authored. All 141 packages now carry a test procedure and an acceptance criteria document; this page is how that stays true."
 generated: false
 tags:
   - aethrion/index
@@ -17,14 +17,31 @@ tags:
 > Every work package is three documents — the card, its **test procedures** and
 > its **acceptance criteria**. The card's derived sections are generated and are
 > always current. The two companions carry judgement, so they are authored one
-> package at a time, and an unauthored one says `*Not yet authored.*` rather than
-> pretending otherwise.
+> package at a time.
+
+## Where this stands
+
+| | |
+|---|---:|
+| Work packages | **141** |
+| Test procedure documents authored | **141** |
+| Acceptance criteria documents authored | **141** |
+| Awaiting authorship | **0** |
+
+Reached at baseline **v1.1.0**. The counts above are stated here and derived by
+`scripts/check_doc_consistency.py`, so a document and the repository cannot
+disagree about them.
 
 ## Still to author
 
 ```query
 tag:#aethrion/authoring/pending
 ```
+
+**This query should return nothing.** If it returns a page, a companion was added
+or reset and needs writing — which is exactly what it is for. The
+[[10 - Projects/AETHRION/graph_legend|graph]] colours those pages in the
+`unauthored` colour, so a new one is visible before anyone runs a query.
 
 ## Authored
 
@@ -34,7 +51,7 @@ tag:#aethrion/authoring/authored
 
 ## By workstream
 
-| Workstream | Packages |
+| Workstream | Query |
 |---|---|
 | Governance | `tag:#aethrion/workstream/01-governance` |
 | Contracts | `tag:#aethrion/workstream/02-contracts` |
@@ -55,12 +72,21 @@ tag:#aethrion/authoring/authored
 |---|---|
 | Every test procedure | `tag:#aethrion/test-procedure` |
 | Every acceptance criteria document | `tag:#aethrion/acceptance-criteria` |
-| Packages on the critical path, by wave | `tag:#aethrion/wave/w1` |
+| Packages in the contract-spine wave | `tag:#aethrion/wave/w1` |
 | Large-effort packages | `tag:#aethrion/effort/l` |
 | Packages touching G5 | `tag:#aethrion/gate/g5` |
 
 The full vocabulary is in [[_meta/taxonomy|Tag Taxonomy]]. A tag outside it is a
 lint finding — `scripts/check_vault.py` runs in the verification bundle.
+
+## What being written does not mean
+
+Every package now states how it would be tested and what would count as
+acceptance. **None has been executed.** `docs/STATUS.md` reports the position
+without softening it: no package is `ACCEPTED`, no acceptance scenario has been
+run, and no research question has travelled G0 to G10.
+
+Authoring made the programme executable. It did not execute it.
 
 ## Rule of use
 
