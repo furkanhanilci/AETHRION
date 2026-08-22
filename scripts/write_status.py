@@ -38,6 +38,7 @@ CHECKS = [
     ("Workstream indexes", [sys.executable, "scripts/make_plan_indexes.py", "--check"], "drift"),
     ("Declared counts", [sys.executable, "scripts/check_doc_consistency.py"], "agree"),
     ("Stale claims", [sys.executable, "scripts/check_stale_claims.py"], "contradicts the rules above"),
+    ("Ready queue", [sys.executable, "scripts/ready_queue.py", "--check"], "ready queue"),
     ("Figures", [sys.executable, "scripts/make_figures.py", "--check"], "drift"),
     ("Figure containment", [sys.executable, "scripts/check_figures.py"], "overflow"),
     ("Reporting register", [sys.executable, "scripts/check_reporting_registry.py"], "auditable"),
@@ -51,7 +52,7 @@ def run(command: list[str]) -> tuple[bool, str]:
     # Prefer a line that summarises; pytest's final line is a documentation URL.
     for line in reversed(lines):
         if re.search(r"\b(passed|failed|conform|OK|drift|overflow|auditable|agree|"
-                     r"outgrown|inconsisten|stale|contradicts)\b", line) and not line.startswith("--"):
+                     r"outgrown|inconsisten|stale|contradicts|ready queue)\b", line) and not line.startswith("--"):
             # Strip the elapsed time: a status page that records a duration can
             # never satisfy its own --check, which makes the check worthless.
             return result.returncode == 0, re.sub(r"\s+in \d+\.\d+s\b", "", line)

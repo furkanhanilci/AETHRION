@@ -13,7 +13,7 @@
 | Related gates | G4,G5 |
 | Related controls | CTL-CST-01, CTL-DAT-01 |
 | Related acceptance scenarios | ACC-09, ACC-33, ACC-39 |
-| Current status | `NOT_STARTED` |
+| Status at baseline | `NOT_STARTED` |
 
 ## Purpose and expected outcome
 

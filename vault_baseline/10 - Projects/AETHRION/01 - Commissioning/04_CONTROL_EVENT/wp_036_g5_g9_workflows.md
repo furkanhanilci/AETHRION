@@ -13,7 +13,7 @@
 | Related gates | G5–G9 |
 | Related controls | CTL-GOV-02, CTL-EPI-01, CTL-EPI-03 |
 | Related acceptance scenarios | ACC-08, ACC-19, ACC-20, ACC-30 |
-| Current status | `NOT_STARTED` |
+| Status at baseline | `NOT_STARTED` |
 
 ## Purpose and expected outcome
 

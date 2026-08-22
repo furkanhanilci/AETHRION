@@ -13,7 +13,7 @@
 | Related gates | Platform |
 | Related controls | CTL-OPS-01, CTL-OBS-01 |
 | Related acceptance scenarios | ACC-12, ACC-34 |
-| Current status | `NOT_STARTED` |
+| Status at baseline | `NOT_STARTED` |
 
 ## Purpose and expected outcome
 

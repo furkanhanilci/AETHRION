@@ -13,7 +13,7 @@
 | Related gates | G3,G5,G9,Engineering |
 | Related controls | CTL-OPS-01, CTL-SEC-01, CTL-SEC-03 |
 | Related acceptance scenarios | ACC-05, ACC-12, ACC-35 |
-| Current status | `NOT_STARTED` |
+| Status at baseline | `NOT_STARTED` |
 
 ## Adopted component
 

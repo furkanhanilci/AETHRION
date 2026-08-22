@@ -13,7 +13,7 @@
 | Related gates | G0–G10,Platform |
 | Related controls | CTL-GOV-03 |
 | Related acceptance scenarios | ACC-24, ACC-26 |
-| Current status | `NOT_STARTED` |
+| Status at baseline | `NOT_STARTED` |
 
 ## Purpose and expected outcome
 

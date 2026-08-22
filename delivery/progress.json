@@ -1,0 +1,587 @@
+{
+  "_comment": [
+    "Authoritative execution state for the V1 commissioning programme.",
+    "Kept OUTSIDE the plan seal on purpose: the seal proves the specification did",
+    "not change, and progress is not the specification. Recording a day's work",
+    "must not invalidate the integrity proof of the plan it was work against.",
+    "The 'Status at baseline' field in each WP document is the value frozen at",
+    "v1.0.5 and is historical; this file is what is true now.",
+    "Regenerate the ready queue with: python3 scripts/ready_queue.py"
+  ],
+  "baseline": "v1.0.5",
+  "states": [
+    "NOT_STARTED",
+    "IN_PROGRESS",
+    "TECH_COMPLETE",
+    "ACCEPTED",
+    "INTEGRATED",
+    "BLOCKED"
+  ],
+  "packages": {
+    "WP-000": {
+      "state": "TECH_COMPLETE",
+      "note": "tooling implemented, specimen issued and verified; acceptance awaits the verifier arrangement in ADR-001"
+    },
+    "WP-001": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-002": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-003": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-004": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-005": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-006": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-007": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-008": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-009": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-010": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-011": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-012": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-013": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-014": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-015": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-016": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-017": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-018": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-019": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-020": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-021": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-022": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-023": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-024": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-025": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-026": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-027": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-028": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-029": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-030": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-031": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-032": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-033": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-034": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-035": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-036": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-037": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-038": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-039": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-040": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-041": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-042": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-043": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-044": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-045": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-046": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-047": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-048": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-049": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-050": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-051": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-052": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-053": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-054": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-055": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-056": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-057": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-058": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-059": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-060": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-061": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-062": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-063": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-064": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-065": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-066": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-067": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-068": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-069": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-070": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-071": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-072": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-073": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-074": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-075": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-076": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-077": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-078": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-079": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-080": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-081": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-082": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-083": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-084": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-085": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-086": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-087": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-088": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-089": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-090": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-091": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-092": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-093": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-094": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-095": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-096": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-097": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-098": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-099": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-100": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-101": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-102": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-103": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-104": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-105": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-106": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-107": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-108": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-109": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-110": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-111": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-112": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-113": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-114": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-115": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-116": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-117": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-118": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-119": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-120": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-121": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-122": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-123": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-124": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-125": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-126": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-127": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-128": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-129": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-130": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-131": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-132": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-133": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-134": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-135": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-136": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-137": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-138": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-139": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-140": {
+      "state": "NOT_STARTED",
+      "note": ""
+    }
+  },
+  "scenarios": {}
+}

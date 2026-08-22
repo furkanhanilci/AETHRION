@@ -14,7 +14,7 @@
 | Related controls | CTL-GOV-03, CTL-OBS-01 |
 | Related acceptance scenarios | ACC-26, ACC-43 |
 | Related skill | `escalating-and-paging` |
-| Current status | `NOT_STARTED` |
+| Status at baseline | `NOT_STARTED` |
 
 ## Purpose and expected outcome
 

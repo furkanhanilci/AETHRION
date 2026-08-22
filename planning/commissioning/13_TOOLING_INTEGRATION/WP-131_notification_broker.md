@@ -14,7 +14,7 @@
 | Related controls | CTL-SEC-04, CTL-DAT-02 |
 | Related acceptance scenarios | ACC-41, ACC-42 |
 | Related skill | `notifying-humans` |
-| Current status | `NOT_STARTED` |
+| Status at baseline | `NOT_STARTED` |
 
 ## Purpose and expected outcome
 

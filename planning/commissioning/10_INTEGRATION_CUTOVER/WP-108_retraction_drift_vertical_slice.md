@@ -13,7 +13,7 @@
 | Related gates | G10 |
 | Related controls | CTL-LIT-02, CTL-MOD-02 |
 | Related acceptance scenarios | ACC-04, ACC-31, ACC-36 |
-| Current status | `NOT_STARTED` |
+| Status at baseline | `NOT_STARTED` |
 
 ## Purpose and expected outcome
 

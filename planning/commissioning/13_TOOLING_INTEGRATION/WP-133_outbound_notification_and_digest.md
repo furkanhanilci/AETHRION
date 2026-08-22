@@ -14,7 +14,7 @@
 | Related controls | CTL-OBS-01 |
 | Related acceptance scenarios | ACC-41 |
 | Related skill | `notifying-humans`, `publishing-digests` |
-| Current status | `NOT_STARTED` |
+| Status at baseline | `NOT_STARTED` |
 
 ## Purpose and expected outcome
 

@@ -13,7 +13,7 @@
 | Related gates | G10,Day-2 |
 | Related controls | CTL-OPS-03, CTL-MOD-02, CTL-LIT-02 |
 | Related acceptance scenarios | Assigned during the relevant vertical slice and commissioning |
-| Current status | `NOT_STARTED` |
+| Status at baseline | `NOT_STARTED` |
 
 ## Purpose and expected outcome
 

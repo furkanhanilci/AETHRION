@@ -13,7 +13,7 @@
 | Related gates | G4,G5 |
 | Related controls | CTL-DAT-01, CTL-CST-01 |
 | Related acceptance scenarios | ACC-39 |
-| Current status | `NOT_STARTED` |
+| Status at baseline | `NOT_STARTED` |
 
 ## Adopted component
 

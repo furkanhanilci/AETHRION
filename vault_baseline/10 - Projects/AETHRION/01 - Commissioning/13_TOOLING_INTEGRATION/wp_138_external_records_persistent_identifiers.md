@@ -14,7 +14,7 @@
 | Related controls | CTL-EPI-01 |
 | Related acceptance scenarios | ACC-30, ACC-45 |
 | Related skill | `submitting-external-records` |
-| Current status | `NOT_STARTED` |
+| Status at baseline | `NOT_STARTED` |
 
 ## Purpose and expected outcome
 

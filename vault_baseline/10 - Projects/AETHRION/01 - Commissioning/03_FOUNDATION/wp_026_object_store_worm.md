@@ -13,7 +13,7 @@
 | Related gates | G3–G10 |
 | Related controls | CTL-DAT-03, CTL-SUP-01 |
 | Related acceptance scenarios | ACC-23, ACC-27 |
-| Current status | `NOT_STARTED` |
+| Status at baseline | `NOT_STARTED` |
 
 ## Adopted component
 

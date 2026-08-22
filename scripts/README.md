@@ -33,6 +33,8 @@ defect rather than a shortcut.
 
 | Script | Generates | Drift check |
 |---|---|---|
+| `ready_queue.py` | which packages can be started today, from plan dependencies plus the unsealed ledger | `--check` |
+| `progress.py` | moves a package between states and **refuses** what the plan forbids, citing the document that forbids it | — |
 | `make_figures.py` | all nine figures, then runs containment | `--check` |
 | `fig_lifecycle.py` · `fig_roles.py` · `fig_evidence.py` · `fig_stack.py` · `fig_reporting.py` | one figure each — lifecycle, roles, evidence chain, stack, reporting | via `make_figures.py` |
 | `fig_waves.py` · `fig_trust.py` · `fig_verification.py` · `fig_topology.py` | one figure each — commissioning waves, ADR-003 trust boundary, the verification bundle, repository/vault topology | via `make_figures.py` |

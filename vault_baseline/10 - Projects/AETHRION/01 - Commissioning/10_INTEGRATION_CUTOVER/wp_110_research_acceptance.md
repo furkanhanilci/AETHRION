@@ -13,7 +13,7 @@
 | Related gates | Commissioning |
 | Related controls | CTL-EPI-01, CTL-LIT-01, CTL-GOV-02 |
 | Related acceptance scenarios | ACC-01..ACC-08 |
-| Current status | `NOT_STARTED` |
+| Status at baseline | `NOT_STARTED` |
 
 ## Purpose and expected outcome
 

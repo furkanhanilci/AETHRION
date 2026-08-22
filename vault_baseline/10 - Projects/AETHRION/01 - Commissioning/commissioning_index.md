@@ -80,7 +80,7 @@ zero open critical findings.
 > The distinction is the whole point of a baseline: **a correction keeps the
 > finish line where it is; an addition moves it.**
 
-> **Commissioning baseline v1.0.4 — 2026-08-22.** This is the baseline the
+> **Commissioning baseline v1.0.5 — 2026-08-22.** This is the baseline the
 > programme will actually be commissioned against. Everything after this point
 > is a **recorded change**: edit the canonical file, regenerate the seal
 > deliberately, and record the change in the implementation log. Improvements
@@ -121,6 +121,17 @@ zero open critical findings.
 > and completion criterion are stated in one place, and additions now go to
 > `docs/V2_CANDIDATES.md` outside the seal. Two paragraphs of text; no
 > requirement, identifier, dependency, acceptance phase or scenario changed.
+
+> **v1.0.5 separates progress from the plan, so the programme can actually be
+> run.** Every package's `Current status` field is now `Status at baseline`, and
+> execution state moved to `delivery/progress.json` **outside the seal**. Until
+> this change, starting work on WP-001 would have broken the seal — the
+> specification's integrity proof would have been invalidated by progress against
+> that specification, and the only way to keep it green would have been to
+> re-seal on every status change, which change control prohibits. 141 field
+> labels, 14 regenerated indexes; no requirement, dependency, identifier,
+> acceptance phase or scenario changed. `docs/READY.md` now answers *what can be
+> started today* — one package, WP-001.
 
 Verify the seal from the repository root:
 

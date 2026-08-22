@@ -13,7 +13,7 @@
 | Related gates | G1–G7 |
 | Related controls | CTL-GOV-02, CTL-MOD-01 |
 | Related acceptance scenarios | ACC-46, ACC-47, ACC-48, ACC-51, plus those assigned during the relevant vertical slice |
-| Current status | `NOT_STARTED` |
+| Status at baseline | `NOT_STARTED` |
 
 ## Purpose and expected outcome
 

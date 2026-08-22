@@ -13,7 +13,7 @@
 | Related gates | Commissioning |
 | Related controls | All controls |
 | Related acceptance scenarios | ACC-01..ACC-40 |
-| Current status | `NOT_STARTED` |
+| Status at baseline | `NOT_STARTED` |
 
 ## Purpose and expected outcome
 

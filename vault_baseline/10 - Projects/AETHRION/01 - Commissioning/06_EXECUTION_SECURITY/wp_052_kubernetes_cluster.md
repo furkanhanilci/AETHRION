@@ -13,7 +13,7 @@
 | Related gates | G5,Platform |
 | Related controls | CTL-SEC-04, CTL-OPS-03 |
 | Related acceptance scenarios | ACC-27, ACC-33 |
-| Current status | `NOT_STARTED` |
+| Status at baseline | `NOT_STARTED` |
 
 ## Purpose and expected outcome
 

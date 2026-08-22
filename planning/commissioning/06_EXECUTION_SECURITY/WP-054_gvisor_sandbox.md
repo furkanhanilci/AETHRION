@@ -13,7 +13,7 @@
 | Related gates | G5,Engineering |
 | Related controls | CTL-SEC-04, CTL-SEC-05 |
 | Related acceptance scenarios | ACC-15, ACC-17 |
-| Current status | `NOT_STARTED` |
+| Status at baseline | `NOT_STARTED` |
 
 ## Purpose and expected outcome
 

@@ -13,7 +13,7 @@
 | Related gates | G2–G7 |
 | Related controls | CTL-OBS-02, CTL-DAT-03 |
 | Related acceptance scenarios | ACC-32 |
-| Current status | `NOT_STARTED` |
+| Status at baseline | `NOT_STARTED` |
 
 ## Purpose and expected outcome
 

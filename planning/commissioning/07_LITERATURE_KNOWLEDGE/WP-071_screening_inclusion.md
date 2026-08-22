@@ -13,7 +13,7 @@
 | Related gates | G3 |
 | Related controls | CTL-GOV-02, CTL-EPI-02 |
 | Related acceptance scenarios | Assigned during the relevant vertical slice and commissioning |
-| Current status | `NOT_STARTED` |
+| Status at baseline | `NOT_STARTED` |
 
 ## Purpose and expected outcome
 

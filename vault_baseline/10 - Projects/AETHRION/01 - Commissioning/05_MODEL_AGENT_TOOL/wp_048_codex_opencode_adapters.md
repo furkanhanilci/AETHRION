@@ -13,7 +13,7 @@
 | Related gates | G5,Engineering |
 | Related controls | CTL-SEC-03, CTL-SEC-04 |
 | Related acceptance scenarios | ACC-47, ACC-49, ACC-50, plus those assigned during the relevant vertical slice |
-| Current status | `NOT_STARTED` |
+| Status at baseline | `NOT_STARTED` |
 
 ## Adopted component
 

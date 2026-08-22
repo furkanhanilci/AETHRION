@@ -13,7 +13,7 @@
 | Related gates | Platform |
 | Related controls | CTL-SEC-01, CTL-SEC-02 |
 | Related acceptance scenarios | ACC-05, ACC-16 |
-| Current status | `NOT_STARTED` |
+| Status at baseline | `NOT_STARTED` |
 
 ## Purpose and expected outcome
 

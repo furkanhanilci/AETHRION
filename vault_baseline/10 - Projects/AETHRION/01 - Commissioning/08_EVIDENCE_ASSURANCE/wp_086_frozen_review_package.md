@@ -13,7 +13,7 @@
 | Related gates | G6 |
 | Related controls | CTL-GOV-02, CTL-EPI-04 |
 | Related acceptance scenarios | ACC-06, ACC-07 |
-| Current status | `NOT_STARTED` |
+| Status at baseline | `NOT_STARTED` |
 
 ## Purpose and expected outcome
 

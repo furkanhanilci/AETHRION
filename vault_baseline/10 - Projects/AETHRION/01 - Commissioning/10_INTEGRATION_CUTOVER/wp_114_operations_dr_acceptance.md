@@ -13,7 +13,7 @@
 | Related gates | Commissioning |
 | Related controls | CTL-OPS-02, CTL-OPS-03 |
 | Related acceptance scenarios | ACC-21, ACC-27, ACC-28, ACC-40 |
-| Current status | `NOT_STARTED` |
+| Status at baseline | `NOT_STARTED` |
 
 ## Purpose and expected outcome
 

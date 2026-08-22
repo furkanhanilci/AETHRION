@@ -13,7 +13,7 @@
 | Related gates | Platform |
 | Related controls | CTL-OPS-01, CTL-SUP-01 |
 | Related acceptance scenarios | Assigned during the relevant vertical slice and commissioning |
-| Current status | `NOT_STARTED` |
+| Status at baseline | `NOT_STARTED` |
 
 ## Adopted component
 

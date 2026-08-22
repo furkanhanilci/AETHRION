@@ -13,7 +13,7 @@
 | Related gates | G3 |
 | Related controls | CTL-LIT-01, CTL-LIT-03, CTL-SEC-01 |
 | Related acceptance scenarios | ACC-01, ACC-02, ACC-03, ACC-05, ACC-28 |
-| Current status | `NOT_STARTED` |
+| Status at baseline | `NOT_STARTED` |
 
 ## Purpose and expected outcome
 

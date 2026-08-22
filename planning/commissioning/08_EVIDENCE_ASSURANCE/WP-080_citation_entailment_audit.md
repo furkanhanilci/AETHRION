@@ -13,7 +13,7 @@
 | Related gates | G6,G9 |
 | Related controls | CTL-EPI-01 |
 | Related acceptance scenarios | ACC-30 |
-| Current status | `NOT_STARTED` |
+| Status at baseline | `NOT_STARTED` |
 
 ## Adopted component
 

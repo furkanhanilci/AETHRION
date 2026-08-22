@@ -13,7 +13,7 @@
 | Related gates | Platform,G6 |
 | Related controls | CTL-MOD-01, CTL-EPI-04 |
 | Related acceptance scenarios | ACC-07, ACC-37, ACC-48, ACC-49 |
-| Current status | `NOT_STARTED` |
+| Status at baseline | `NOT_STARTED` |
 
 ## Adopted component
 

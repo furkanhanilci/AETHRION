@@ -13,7 +13,7 @@
 | Related gates | G3,G8,G10 |
 | Related controls | CTL-OPS-03 |
 | Related acceptance scenarios | ACC-22 |
-| Current status | `NOT_STARTED` |
+| Status at baseline | `NOT_STARTED` |
 
 ## Purpose and expected outcome
 

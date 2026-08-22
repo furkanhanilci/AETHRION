@@ -13,7 +13,7 @@
 | Related gates | G9,G10 |
 | Related controls | CTL-EPI-01, CTL-DAT-03, CTL-SUP-01 |
 | Related acceptance scenarios | ACC-30, ACC-31, ACC-40 |
-| Current status | `NOT_STARTED` |
+| Status at baseline | `NOT_STARTED` |
 
 ## Adopted component
 

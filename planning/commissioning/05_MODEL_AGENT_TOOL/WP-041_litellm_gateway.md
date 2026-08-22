@@ -13,7 +13,7 @@
 | Related gates | G2–G7 |
 | Related controls | CTL-DAT-02, CTL-CST-01, CTL-MOD-01 |
 | Related acceptance scenarios | ACC-09, ACC-10, ACC-11, ACC-18 |
-| Current status | `NOT_STARTED` |
+| Status at baseline | `NOT_STARTED` |
 
 ## Purpose and expected outcome
 

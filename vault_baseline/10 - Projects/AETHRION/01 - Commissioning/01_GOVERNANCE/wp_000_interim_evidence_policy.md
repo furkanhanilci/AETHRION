@@ -13,7 +13,7 @@
 | Related gates | Program (applies to every gate's evidence requirement) |
 | Related controls | CTL-GOV-01, CTL-EPI-01 |
 | Related acceptance scenarios | ACC-06 |
-| Current status | `TECH_COMPLETE` — tooling implemented, specimen issued and verified; acceptance awaits the verifier arrangement in ADR-001 |
+| Status at baseline | `TECH_COMPLETE` — tooling implemented, specimen issued and verified; acceptance awaits the verifier arrangement in ADR-001 |
 
 ## Purpose and expected outcome
 

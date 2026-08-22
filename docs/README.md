@@ -4,7 +4,7 @@
 |---|---|
 | Document type | Index — the map of every document in this repository |
 | Scope | What each document is for, and the order to read them in |
-| Sibling documents | `../README.md` (the repository front page) · `DOCUMENT_STANDARD.md` (how these are written) · `branding.md` (what the project is called) |
+| Sibling documents | `../README.md` (the repository front page) · `DOCUMENT_STANDARD.md` (how these are written) · `branding.md` (naming) · `READY.md` (what can be started today) |
 | Status | Index — maintained by hand, checked by `scripts/check_doc_consistency.py` |
 | Date | 2026-08-22 |
 
@@ -54,6 +54,21 @@ overestimate this repository.
 Everything here records what was true on a date and is **never edited to match
 the present** — `DOCUMENT_STANDARD.md` §3 rule 4. Live status lives in
 `STATUS.md`, which is generated.
+
+## 3.3 `READY.md` and `EXECUTING_A_WORK_PACKAGE.md` — how V1 is actually run
+
+`READY.md` is generated and answers one question: *what can be started today*. A
+package is ready when its status is `NOT_STARTED` and every hard dependency is
+`ACCEPTED` — not `TECH_COMPLETE`, because issuance is not acceptance. At t0 the
+answer is one package, WP-001, and that is the plan working rather than the plan
+stuck: WP-001 is what authorises the programme.
+
+`EXECUTING_A_WORK_PACKAGE.md` is the loop around it — start, do the work, issue
+evidence, mark technically complete, have someone who is not the producer accept
+it. Every transition runs through `scripts/progress.py`, which refuses what the
+plan forbids and cites the document that forbids it. Its §5 lists what still has
+to be done by hand, because a runbook implying more automation than exists is
+worse than no runbook.
 
 ## 3.4 `V2_CANDIDATES.md` — what is deliberately not V1
 

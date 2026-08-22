@@ -64,6 +64,33 @@ revision it was accepted against.
 > acceptance onward — which is also the point at which the plan stops being a
 > draft.
 
+## Progress is not the plan
+
+Each work package records a **status at baseline** — the value frozen when the
+baseline was sealed. It is history, and it never changes again.
+
+**Execution state lives in `delivery/progress.json`, outside the seal.** This is
+a deliberate separation, and the reason is the seal's own purpose: it proves the
+*specification* did not change. If the status of a package lived inside the
+sealed file, then starting work on it would invalidate the integrity proof of
+the plan the work was against — every day's progress would look like tampering,
+and the only way to keep the seal green would be to re-seal constantly, which is
+the one prohibited use of it.
+
+So:
+
+| Question | Where it is answered | Sealed? |
+|---|---|---|
+| What was this package's status when the baseline froze? | The package document | Yes |
+| What is its status **now**? | `delivery/progress.json` | No |
+| What can be started today? | [`docs/READY.md`](../../../docs/READY.md), generated | No |
+
+`scripts/ready_queue.py` computes the ready queue: a package is ready when its
+status is `NOT_STARTED` and **every hard dependency is `ACCEPTED`**. Not
+`TECH_COMPLETE` — issuance is not acceptance, and a dependency that has produced
+something without being accepted does not release what depends on it. The queue
+is short by construction, and it will stay short until the first acceptance.
+
 ## Plan integrity — three checks, not one
 
 The seal is necessary and **not sufficient**. Baseline v1.0.1 exists because
@@ -89,7 +116,7 @@ An idea that *adds* to it belongs in
 seal on purpose: a V2 candidate inside the V1 baseline would move the finish line
 while appearing to be part of it.
 
-**The current baseline is v1.0.4.** v1.0.2 carried the project's name change to
+**The current baseline is v1.0.5.** v1.0.2 carried the project's name change to
 AETHRION across 29 files; v1.0.3 corrected three programme documents that claimed
 the evidence manifest is recorded in a public transparency log — it is not — and
 that still called finding C2 an open decision after ADR-001 decided it. It is the worked example of the rule above: the change
