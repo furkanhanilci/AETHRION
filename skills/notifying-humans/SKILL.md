@@ -1,14 +1,17 @@
 ---
 name: notifying-humans
-version: 1.0.0
-description: Use when a human must be informed of a gate state, budget threshold, anomaly, integrity concern, SLA risk or completed run
-gates: [G0, G1, G2, G3, G4, G5, G6, G7, G8, G9, G10]
-roles: [Notification Broker]
-assurance_classes: [R1, R2, R3]
-non_waivable: true
-tool_effect: T3
-emits: [NotificationReceipt, ToolReceipt]
-mechanical_checks: [data_class_ceiling_enforced, dlp_scan_passed, idempotency_key_present, rate_limit_respected]
+description: "Use when a human must be informed of a gate state, budget threshold, anomaly, integrity concern, SLA risk or completed run"
+metadata:
+  airl.version: "1.0.0"
+  airl.domain: "shared"
+  airl.origin: "airl-native"
+  airl.gates: "G0,G1,G2,G3,G4,G5,G6,G7,G8,G9,G10"
+  airl.roles: "Notification Broker"
+  airl.assurance_classes: "R1,R2,R3"
+  airl.non_waivable: "true"
+  airl.emits: "NotificationReceipt,ToolReceipt"
+  airl.mechanical_checks: "data_class_ceiling_enforced,dlp_scan_passed,idempotency_key_present,rate_limit_respected"
+  airl.tool_effect: "T3"
 ---
 
 # Notifying Humans

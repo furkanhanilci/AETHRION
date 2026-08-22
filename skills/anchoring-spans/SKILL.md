@@ -1,12 +1,15 @@
 ---
 name: anchoring-spans
-version: 1.0.0
-description: Use when creating an EvidenceSpan, when a source representation is re-extracted or updated, or when a span can no longer be located
-gates: [G3, G6, G10]
-roles: [Evidence Extractor, Knowledge Steward]
-assurance_classes: [R1, R2, R3]
-emits: [EvidenceSpan, ReanchorRecord, ImpactCase]
-mechanical_checks: [multi_selector_present, old_representation_hash_immutable]
+description: "Use when creating an EvidenceSpan, when a source representation is re-extracted or updated, or when a span can no longer be located"
+metadata:
+  airl.version: "1.0.0"
+  airl.domain: "scientific-research"
+  airl.origin: "airl-native"
+  airl.gates: "G3,G6,G10"
+  airl.roles: "Evidence Extractor,Knowledge Steward"
+  airl.assurance_classes: "R1,R2,R3"
+  airl.emits: "EvidenceSpan,ReanchorRecord,ImpactCase"
+  airl.mechanical_checks: "multi_selector_present,old_representation_hash_immutable"
 ---
 
 # Anchoring Spans

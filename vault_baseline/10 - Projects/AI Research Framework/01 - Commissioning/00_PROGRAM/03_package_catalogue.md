@@ -1,19 +1,23 @@
 # Complete Work Package Catalogue
 
 This catalogue shows the owner, effort class, hard dependencies, gate and expected
-outcome of all 140 work packages in one place. Package detail lives behind each link.
+outcome of all 140 work packages — plus the **WP-000** bootstrap package that
+precedes them — in one place. Package detail lives behind each link.
 
 Effort classes: **S** small (one owner, one review cycle) · **M** medium (needs a
 dedicated integration window) · **L** large (split if it cannot be reviewed in one pass).
 
 > **Status.** No package is currently `ACCEPTED`. See
 > `05_definition_of_ready_and_done.md` for what `ACCEPTED` requires and why the
-> bootstrap package **WP-000** must come first.
+> bootstrap package **WP-000** must come first. WP-000 is now written; the
+> attestation standards it adopts are recorded in
+> `docs/architecture/AIRL_OS_EXTERNAL_STANDARDS.md` §3.
 
 ## 01_GOVERNANCE — Governance and Policy
 
 | Package | Effort | Owner | Hard dependencies | Expected outcome |
 |---|---:|---|---|---|
+| [WP-000 — Interim Evidence Policy and Attestation Bootstrap](../01_GOVERNANCE/wp_000_interim_evidence_policy.md) | S | Project Decision Owner | — | Evidence becomes tamper-evident before the permanent WORM store exists: the `EvidenceManifest` is issued as a signed in-toto attestation recorded in a public transparency log and anchored in time, so packages can reach `ACCEPTED` without WP-026. |
 | [WP-001 — Commissioning Charter and Programme Authority](../01_GOVERNANCE/wp_001_commissioning_charter.md) | S | Executive Sponsor | — | The programme's purpose, its production boundary, its funding authority, its decision bodies and the single-cutover rule are brought into force through a signed charter. |
 | [WP-002 — Scope, NFRs and Requirement Traceability](../01_GOVERNANCE/wp_002_scope_nfr_traceability.md) | S | Chief Architect | WP-001 | Functional scope and the durability, traceability, isolation, idempotency, audit, privacy, cost and accessibility NFRs are converted into testable requirements. |
 | [WP-003 — Role Catalogue and RACI Baseline](../01_GOVERNANCE/wp_003_role_catalog_raci.md) | M | Governance Lead | WP-001, WP-002 | The mandate, decision rights, forbidden actions, required artifacts and escalation boundaries of every human, service and model actor are fixed in a single catalogue. |

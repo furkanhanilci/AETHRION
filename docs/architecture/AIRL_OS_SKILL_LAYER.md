@@ -5,9 +5,13 @@
 | Document type | Architectural contribution — operational layer design |
 | Source | `github.com/obra/superpowers` (14 skills, all read) |
 | Target | `AIRL-OS-Architecture.md` v1.0 |
-| Sibling document | `AIRL_OS_IDEAL_STRUCTURE.md` (roles, review mechanisms, metascience) |
+| Sibling documents | `AIRL_OS_ARCHITECTURE.md` (system overview + diagrams) · `AIRL_OS_IDEAL_STRUCTURE.md` (roles, review mechanisms, metascience) · `AIRL_OS_EXTERNAL_STANDARDS.md` (what is adopted) |
 | Date | 2026-08-22 |
-| Status | Proposal — awaiting a human decision |
+| Status | Proposal — awaiting a human decision, **except Section 14, which is decided** |
+
+> **Read Section 14 first.** It overrules the "convert each engineering skill into
+> a research skill" reading that runs through Sections 2–13, and fixes the format
+> the skills are written in.
 
 ---
 
@@ -796,6 +800,10 @@ This claim cannot be `confirmatory`.
 
 ## 11. Integration map — summary
 
+> **Superseded in part by Section 14.** Every row below that reads *"Add as
+> `<research-skill>`"* is to be read as *"add the research skill **alongside**
+> the engineering one"*, never as a replacement.
+
 | Superpowers | Status in AIRL-OS | Action |
 |---|---|---|
 | The skill concept + `SKILL.md` + trigger discovery | ❌ absent | **Build the Skill Registry** |
@@ -915,6 +923,125 @@ lowest-friction interactive channel. WhatsApp is left **for last**.
 5. **The commissioning plan is not agent-consumable.** 59% template, no triggers,
    no iron laws. The plan of a laboratory to be operated by models must be
    loadable into a model. *(Section 2.4)*
+
+---
+
+## 14. Correction, 2026-08-22 — two skill families, one open format
+
+> **Decision taken.** Sections 2–13 above treat every Superpowers skill as
+> something to be *converted* into a research skill. Section 11 states this
+> literally: `test-driven-development` → *"Add as `preregistration-discipline`"*.
+> **That is now overruled.** The research adaptations **extend** their engineering
+> counterparts; they do not replace them.
+
+### 14.1 Why the replacement reading was wrong
+
+AIRL-OS does two different jobs, and only one of them is research.
+
+| Job | Who does it | Discipline needed |
+|---|---|---|
+| **Building AIRL-OS** — Temporal workflows, the Tool Broker, the Source Registry, the Claim Ledger, harness adapters | agents working in this repository, today | **engineering**: TDD, systematic debugging, worktrees, code review |
+| **Doing research through AIRL-OS** — protocol, evidence, claim, review, publication | agents working inside a runtime that does not exist yet | **scientific**: preregistration, evidence anchoring, blind review |
+
+The evidence that the replacement reading was wrong is visible in the repository:
+**all 12 engineering skills are absent from `skills/`**, while AIRL-OS is itself
+being built by agents. The laboratory wrote down how to conduct research and
+threw away how to build the laboratory.
+
+### 14.2 The principle
+
+> **Engineering skills govern how AIRL-OS software is built. Scientific skills
+> govern how research is conducted through AIRL-OS. Shared discipline skills
+> govern both. Research adaptations extend, rather than replace, their
+> engineering counterparts.**
+
+One task may draw on both families. Building the Claim Ledger is engineering work
+(`test-driven-development`) that also carries evidence obligations
+(`evidence-before-claim`, `independence-discipline`).
+
+### 14.3 The families are not symmetric in urgency
+
+| | Engineering family | Research family |
+|---|---|---|
+| Consumer today | **yes** — this repository, this session | none |
+| Waiting on | nothing | the Task Compiler and LangGraph runtime (WP-046/047, unbuilt) |
+| Can be baseline-tested | now | only once a runtime can load it |
+
+`writing-skills` states the iron law *"no skill without a failing baseline test
+first."* The engineering family is currently **the only family that law can be
+applied to.** The research family stays written-but-untested — deliberately, and
+recorded as such, not by omission.
+
+### 14.4 Two classification axes, not one
+
+Section 2 folds Superpowers' execution-complexity classes into the research
+classes. They are orthogonal, and a confirmatory study can be a bounded task:
+
+```yaml
+research_mode:  exploratory | replication | confirmatory   # what the claim may assert
+execution_path: spike | bounded | architectural            # how heavy the execution is
+```
+
+Both are classified; when in doubt, the heavier value is taken on **each** axis
+(see `AIRL_OS_IDEAL_STRUCTURE.md` E4).
+
+### 14.5 Conform to the Agent Skills open format
+
+`SKILL.md` is no longer a Superpowers convention — it is an **open standard**
+(`agentskills.io`, opened by Anthropic in December 2025) implemented by Claude
+Code, Codex, OpenCode, Cursor, Copilot **and Hermes Agent** — that is, by every
+harness AIRL-OS targets, including the one in use today.
+
+**Consequence for WP-048:** per-harness bootstrap adapters are largely
+unnecessary. Conformance to the format *is* the bootstrap.
+
+But all 38 current skills are **non-conformant**. The spec permits exactly six
+top-level frontmatter fields — `name`, `description`, `license`,
+`compatibility`, `metadata`, `allowed-tools` — and every other key belongs under
+`metadata` as a string map. The current files declare `version`, `gates`,
+`roles`, `assurance_classes`, `emits`, `mechanical_checks`, `non_waivable`,
+`requires_skills`, `data_class_ceiling` and `tool_effect` at the top level.
+
+The required shape:
+
+```yaml
+---
+name: preregistration-discipline
+description: Use when any analysis is about to run, when a confirmatory claim is
+  being drafted, or when analysis choices are being changed after seeing results
+metadata:
+  airl.version: "1.0.0"
+  airl.domain: "scientific-research"          # engineering | scientific-research | shared
+  airl.origin: "airl-native"                  # airl-native | superpowers | upstream
+  airl.derived_from: "superpowers:test-driven-development"
+  airl.upstream_commit: "<sha>"
+  airl.gates: "G2,G4,G5,G6"
+  airl.assurance_classes: "R1,R2,R3"
+  airl.non_waivable: "true"
+  airl.requires_skills: "writing-analysis-plans"
+  airl.emits: "AnalysisPlanManifest,ClaimVersion"
+  airl.mechanical_checks: "plan_hash_precedes_result_timestamp"
+---
+```
+
+Nothing is lost: `skill_bundle_hash` still hashes the file, and the AIRL fields
+stay machine-readable under a namespaced prefix. What is gained is that the same
+directory loads unmodified in every harness, and `skills-ref validate` becomes a
+mechanical check that CI can run.
+
+**The `derived_from` / `upstream_commit` pair answers a question that has no
+answer today:** when `obra/superpowers` changes, which AIRL skills must be
+re-examined?
+
+### 14.6 What follows from this decision
+
+| # | Work | Cost |
+|---|---|---|
+| 1 | Migrate all 38 skills to spec-conformant frontmatter; add `skills-ref validate` to CI | small, mechanical |
+| 2 | Add the engineering family — installed from upstream with a pinned commit, **not** re-authored as AIRL prose | small |
+| 3 | `using-airl-os` becomes the router: it selects the family from `execution_path` + `research_mode` | small |
+| 4 | Skill-family binding into `TaskContract` | waits for WP-047 |
+| 5 | Reflect the skill layer into the sealed commissioning plan (WP-043/047/048 carry **zero** mentions of skills today; so do all 40 acceptance scenarios) | requires a recorded plan change and a re-seal |
 
 ---
 

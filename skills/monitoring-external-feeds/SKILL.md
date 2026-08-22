@@ -1,14 +1,17 @@
 ---
 name: monitoring-external-feeds
-version: 1.0.0
-description: Use when running G10 impact scans, when watching for retractions, corrections, dataset drift, vulnerabilities or model changelog updates
-gates: [G10]
-roles: [Knowledge Monitoring Lead, Knowledge Steward]
-assurance_classes: [R1, R2, R3]
-non_waivable: true
-requires_skills: [receiving-external-messages, anchoring-spans]
-emits: [ImpactSignal, ImpactCase]
-mechanical_checks: [feeds_pinned_and_versioned, signal_materiality_scored, no_silent_supersession]
+description: "Use when running G10 impact scans, when watching for retractions, corrections, dataset drift, vulnerabilities or model changelog updates"
+metadata:
+  airl.version: "1.0.0"
+  airl.domain: "scientific-research"
+  airl.origin: "airl-native"
+  airl.gates: "G10"
+  airl.roles: "Knowledge Monitoring Lead,Knowledge Steward"
+  airl.assurance_classes: "R1,R2,R3"
+  airl.non_waivable: "true"
+  airl.requires_skills: "receiving-external-messages,anchoring-spans"
+  airl.emits: "ImpactSignal,ImpactCase"
+  airl.mechanical_checks: "feeds_pinned_and_versioned,signal_materiality_scored,no_silent_supersession"
 ---
 
 # Monitoring External Feeds

@@ -4,14 +4,19 @@
 
 ---
 name: executing-experiments
-version: 1.0.0
-description: Use when running experiment batches at G5, when jobs are being dispatched to compute, or when a run fails mid-batch
-gates: [G4, G5]
-roles: [Engineering Owner, Research Software Engineer]
-assurance_classes: [R1, R2, R3]
-requires_skills: [preregistration-discipline, using-isolated-environments, verification-before-completion]
-emits: [ExperimentRun, ToolReceipt]
-mechanical_checks: [manifest_hashes_pinned, budget_within_hard_limit, artifacts_scanned]
+description: "Use when running experiment batches at G5, when jobs are being dispatched to compute, or when a run fails mid-batch"
+metadata:
+  airl.version: "1.0.0"
+  airl.domain: "scientific-research"
+  airl.origin: "airl-native"
+  airl.derived_from: "superpowers:executing-plans"
+  airl.upstream_commit: "b36e0829c6d0140e93cfef2ca599b1b07d4a7797"
+  airl.gates: "G4,G5"
+  airl.roles: "Engineering Owner,Research Software Engineer"
+  airl.assurance_classes: "R1,R2,R3"
+  airl.requires_skills: "preregistration-discipline,using-isolated-environments,verification-before-completion"
+  airl.emits: "ExperimentRun,ToolReceipt"
+  airl.mechanical_checks: "manifest_hashes_pinned,budget_within_hard_limit,artifacts_scanned"
 ---
 
 # Executing Experiments

@@ -63,7 +63,7 @@ tags:
 | `04 - Architecture/` | Target architecture and maps | [[10 - Projects/AI Research Framework/04 - Architecture/architecture_index\|Architecture Index]] |
 | `05 - Evidence/` | Test, hash and acceptance evidence | [[10 - Projects/AI Research Framework/05 - Evidence/evidence_index\|Evidence Index]] |
 | `06 - Components/` | Component status | [[10 - Projects/AI Research Framework/06 - Components/components_index\|Components Index]] |
-| **`07 - Skills/`** | **38 execution skills** | [[10 - Projects/AI Research Framework/07 - Skills/skills_index\|Skills Index]] |
+| **`07 - Skills/`** | **49 skills** — engineering · scientific · shared | [[10 - Projects/AI Research Framework/07 - Skills/skills_index\|Skills Index]] |
 
 ## Framework visibility map
 
@@ -81,7 +81,7 @@ target structure. Read them before starting any WP/ACC revision.
 - [[10 - Projects/AI Research Framework/04 - Architecture/airl_os_ideal_structure|AIRL-OS Ideal Structure]] — **what** should be added: the added roles, review mechanisms, the 7th plane (Metascience & Calibration), the role→model assignment and the tool stack
 - [[10 - Projects/AI Research Framework/04 - Architecture/airl_os_skill_layer|AIRL-OS Skill Layer]] — **how** it should be executed: full `obra/superpowers` integration; the Skill Registry, iron laws, rationalisation tables, the escalation ladder and `ProducerResponse`
 - [[10 - Projects/AI Research Framework/04 - Architecture/airl_os_role_model_assignment|Role → Model Assignment]] — **who** executes: human / model / deterministic code; the model pool, the effort→R mapping and the snapshot-pinning constraint
-- [[10 - Projects/AI Research Framework/07 - Skills/skills_index|Skills Index]] — the 38 execution skills, grouped
+- [[10 - Projects/AI Research Framework/07 - Skills/skills_index|Skills Index]] — the 49 skills in two families plus the shared core
 
 > [!important] Reading order
 > Audit report → Ideal structure (Sections C and D) → **Role → Model Assignment

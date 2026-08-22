@@ -4,15 +4,18 @@
 
 ---
 name: escalating-and-paging
-version: 1.0.0
-description: Use when an SLA is breached, when a budget hard limit is hit, when a pipeline integrity alert fires, or when a decision has been pending beyond its deadline
-gates: [G0, G1, G2, G3, G4, G5, G6, G7, G8, G9, G10]
-roles: [Notification Broker, SRE Lead, Assurance Lead]
-assurance_classes: [R1, R2, R3]
-non_waivable: true
-requires_skills: [notifying-humans]
-emits: [EscalationRecord]
-mechanical_checks: [no_auto_approve_on_timeout, escalation_chain_followed, acknowledgement_required]
+description: "Use when an SLA is breached, when a budget hard limit is hit, when a pipeline integrity alert fires, or when a decision has been pending beyond its deadline"
+metadata:
+  airl.version: "1.0.0"
+  airl.domain: "shared"
+  airl.origin: "airl-native"
+  airl.gates: "G0,G1,G2,G3,G4,G5,G6,G7,G8,G9,G10"
+  airl.roles: "Notification Broker,SRE Lead,Assurance Lead"
+  airl.assurance_classes: "R1,R2,R3"
+  airl.non_waivable: "true"
+  airl.requires_skills: "notifying-humans"
+  airl.emits: "EscalationRecord"
+  airl.mechanical_checks: "no_auto_approve_on_timeout,escalation_chain_followed,acknowledgement_required"
 ---
 
 # Escalating and Paging

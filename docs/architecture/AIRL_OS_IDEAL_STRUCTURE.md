@@ -16,6 +16,17 @@
 
 ---
 
+> **Adoption note, 2026-08-22.** Several proposals below now have an adopted
+> external standard behind them rather than a format to invent — see
+> [`AIRL_OS_EXTERNAL_STANDARDS.md`](AIRL_OS_EXTERNAL_STANDARDS.md): G3 reporting
+> (PRISMA 2020 / PRISMA-S / PRISMA-LSR and a preregistered screening stopping
+> rule) and evidence attestation (in-toto + Sigstore + Rekor, which resolves the
+> storage half of C1 as **WP-000**) are decided; the claim model
+> (nanopublication / micropublication / SEPIO), run provenance (Workflow Run
+> RO-Crate), evidence appraisal (GRADE, RoB 2, ROBINS-I) and the G8 assurance
+> case (CAE / GSN) are queued with reasons. A narrative, diagrammed overview of
+> the whole system is in [`AIRL_OS_ARCHITECTURE.md`](AIRL_OS_ARCHITECTURE.md).
+
 ## 0. What this document does
 
 The existing `AIRL-OS-Architecture.md` is **a strong architecture**. The division
@@ -771,6 +782,10 @@ Rules:
 > reproducibility is **non-waivable**. But hosted providers do not retain snapshots
 > indefinitely. If you run G7a six months later and that snapshot is gone, the
 > guarantee of "reproduce from the frozen manifest" collapses.
+
+> **Implementation note.** The R3 requirement now has off-the-shelf tooling:
+> `sigstore/model-transparency` and the OpenSSF Model Signing spec hash and sign
+> the local weights, and the frozen manifest points at that signature.
 
 **The unavoidable conclusion:**
 

@@ -1,13 +1,16 @@
 ---
 name: investigating-integrity-concerns
-version: 1.0.0
-description: Use when fabrication, falsification or plagiarism is suspected, when a mechanical forensic check fails, or when data cannot be traced to a source
-gates: [G5, G6, G7, G8, G9, G10]
-roles: [Research Integrity Officer]
-assurance_classes: [R1, R2, R3]
-non_waivable: true
-emits: [IntegrityCase]
-mechanical_checks: [statcheck, grim, grimmer, citation_entailment, artifact_hash]
+description: "Use when fabrication, falsification or plagiarism is suspected, when a mechanical forensic check fails, or when data cannot be traced to a source"
+metadata:
+  airl.version: "1.0.0"
+  airl.domain: "scientific-research"
+  airl.origin: "airl-native"
+  airl.gates: "G5,G6,G7,G8,G9,G10"
+  airl.roles: "Research Integrity Officer"
+  airl.assurance_classes: "R1,R2,R3"
+  airl.non_waivable: "true"
+  airl.emits: "IntegrityCase"
+  airl.mechanical_checks: "statcheck,grim,grimmer,citation_entailment,artifact_hash"
 ---
 
 # Investigating Integrity Concerns

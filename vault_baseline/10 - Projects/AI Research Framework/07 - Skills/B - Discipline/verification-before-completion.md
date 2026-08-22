@@ -4,13 +4,18 @@
 
 ---
 name: verification-before-completion
-version: 1.0.0
-description: Use before any statement implying work is done, correct, passing, ready, complete, or before any gate transition request
-gates: [G0, G1, G2, G3, G4, G5, G6, G7, G8, G9, G10]
-roles: [all]
-assurance_classes: [R1, R2, R3]
-non_waivable: true
-mechanical_checks: [fresh_command_execution, exit_code_captured]
+description: "Use before any statement implying work is done, correct, passing, ready, complete, or before any gate transition request"
+metadata:
+  airl.version: "1.0.0"
+  airl.domain: "shared"
+  airl.origin: "airl-native"
+  airl.derived_from: "superpowers:verification-before-completion"
+  airl.upstream_commit: "b36e0829c6d0140e93cfef2ca599b1b07d4a7797"
+  airl.gates: "G0,G1,G2,G3,G4,G5,G6,G7,G8,G9,G10"
+  airl.roles: "all"
+  airl.assurance_classes: "R1,R2,R3"
+  airl.non_waivable: "true"
+  airl.mechanical_checks: "fresh_command_execution,exit_code_captured"
 ---
 
 # Verification Before Completion

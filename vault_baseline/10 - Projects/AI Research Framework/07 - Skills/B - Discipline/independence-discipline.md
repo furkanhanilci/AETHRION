@@ -4,14 +4,17 @@
 
 ---
 name: independence-discipline
-version: 1.0.0
-description: Use when dispatching any agent, assigning a reviewer or reproducer, or when an agent requests help from another agent
-gates: [G5, G6, G7]
-roles: [all]
-assurance_classes: [R1, R2, R3]
-non_waivable: true
-emits: [IndependenceRecord]
-mechanical_checks: [no_producer_spawned_agents, reviewer_assigned_by_assurance_only]
+description: "Use when dispatching any agent, assigning a reviewer or reproducer, or when an agent requests help from another agent"
+metadata:
+  airl.version: "1.0.0"
+  airl.domain: "shared"
+  airl.origin: "airl-native"
+  airl.gates: "G5,G6,G7"
+  airl.roles: "all"
+  airl.assurance_classes: "R1,R2,R3"
+  airl.non_waivable: "true"
+  airl.emits: "IndependenceRecord"
+  airl.mechanical_checks: "no_producer_spawned_agents,reviewer_assigned_by_assurance_only"
 ---
 
 # Independence Discipline

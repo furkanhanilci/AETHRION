@@ -4,15 +4,20 @@
 
 ---
 name: preregistration-discipline
-version: 1.0.0
-description: Use when any analysis is about to run, when a confirmatory claim is being drafted, or when analysis choices are being changed after seeing results
-gates: [G2, G4, G5, G6]
-roles: [Scientific Owner, Statistical Methods Owner, Engineering Owner]
-assurance_classes: [R1, R2, R3]
-non_waivable: true
-requires_skills: [writing-analysis-plans]
-emits: [AnalysisPlanManifest, ClaimVersion]
-mechanical_checks: [plan_hash_precedes_result_timestamp, claim_labeled_exploratory_or_confirmatory]
+description: "Use when any analysis is about to run, when a confirmatory claim is being drafted, or when analysis choices are being changed after seeing results"
+metadata:
+  airl.version: "1.0.0"
+  airl.domain: "scientific-research"
+  airl.origin: "airl-native"
+  airl.derived_from: "superpowers:test-driven-development"
+  airl.upstream_commit: "b36e0829c6d0140e93cfef2ca599b1b07d4a7797"
+  airl.gates: "G2,G4,G5,G6"
+  airl.roles: "Scientific Owner,Statistical Methods Owner,Engineering Owner"
+  airl.assurance_classes: "R1,R2,R3"
+  airl.non_waivable: "true"
+  airl.requires_skills: "writing-analysis-plans"
+  airl.emits: "AnalysisPlanManifest,ClaimVersion"
+  airl.mechanical_checks: "plan_hash_precedes_result_timestamp,claim_labeled_exploratory_or_confirmatory"
 ---
 
 # Preregistration Discipline

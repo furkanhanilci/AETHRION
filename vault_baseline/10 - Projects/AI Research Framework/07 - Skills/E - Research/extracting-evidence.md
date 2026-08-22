@@ -4,14 +4,17 @@
 
 ---
 name: extracting-evidence
-version: 1.0.0
-description: Use when a ClaimCandidate exists without a linked EvidenceSpan and at least one SourceRepresentation is available
-gates: [G3, G6]
-roles: [Evidence Extractor]
-assurance_classes: [R1, R2, R3]
-requires_skills: [anchoring-spans, evidence-before-claim]
-emits: [EvidenceSpan, ClaimEvidenceLink]
-mechanical_checks: [quote_exact_match_in_representation, support_type_assigned]
+description: "Use when a ClaimCandidate exists without a linked EvidenceSpan and at least one SourceRepresentation is available"
+metadata:
+  airl.version: "1.0.0"
+  airl.domain: "scientific-research"
+  airl.origin: "airl-native"
+  airl.gates: "G3,G6"
+  airl.roles: "Evidence Extractor"
+  airl.assurance_classes: "R1,R2,R3"
+  airl.requires_skills: "anchoring-spans,evidence-before-claim"
+  airl.emits: "EvidenceSpan,ClaimEvidenceLink"
+  airl.mechanical_checks: "quote_exact_match_in_representation,support_type_assigned"
 ---
 
 # Extracting Evidence

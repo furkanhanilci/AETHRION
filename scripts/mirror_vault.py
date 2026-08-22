@@ -56,9 +56,24 @@ GROUPS = {
         "publishing-digests", "submitting-external-records",
         "monitoring-external-feeds",
     ],
+    # Vendored from obra/superpowers — engineering discipline for building
+    # AIRL-OS itself. Mirrored read-only like every other generated area.
+    "H - Engineering": [
+        "test-driven-development", "brainstorming", "writing-plans",
+        "executing-plans", "subagent-driven-development",
+        "dispatching-parallel-agents", "systematic-debugging",
+        "using-git-worktrees", "requesting-code-review",
+        "receiving-code-review", "finishing-a-development-branch",
+    ],
 }
 
 DOC_MAP = {
+    "04 - Architecture/airl_os_architecture.md":
+        "architecture/AIRL_OS_ARCHITECTURE.md",
+    "04 - Architecture/airl_os_external_standards.md":
+        "architecture/AIRL_OS_EXTERNAL_STANDARDS.md",
+    "04 - Architecture/airl_os_foundation.md":
+        "architecture/FOUNDATION.md",
     "02 - Reviews/claude_framework_audit_report.md":
         "review/FRAMEWORK_REVIEW_2026-08-21_CLAUDE.md",
     "02 - Reviews/claude_full_framework_review_prompt.md":

@@ -4,14 +4,17 @@
 
 ---
 name: writing-analysis-plans
-version: 1.0.0
-description: Use before any data is analysed, when defining decision rules for results, or when the statistical approach is being chosen
-gates: [G2, G4]
-roles: [Statistical Methods Owner]
-assurance_classes: [R1, R2, R3]
-non_waivable: true
-emits: [AnalysisPlanManifest]
-mechanical_checks: [locked_before_execution, decision_rules_precommitted]
+description: "Use before any data is analysed, when defining decision rules for results, or when the statistical approach is being chosen"
+metadata:
+  airl.version: "1.0.0"
+  airl.domain: "scientific-research"
+  airl.origin: "airl-native"
+  airl.gates: "G2,G4"
+  airl.roles: "Statistical Methods Owner"
+  airl.assurance_classes: "R1,R2,R3"
+  airl.non_waivable: "true"
+  airl.emits: "AnalysisPlanManifest"
+  airl.mechanical_checks: "locked_before_execution,decision_rules_precommitted"
 ---
 
 # Writing Analysis Plans

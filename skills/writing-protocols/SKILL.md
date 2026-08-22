@@ -1,14 +1,19 @@
 ---
 name: writing-protocols
-version: 1.0.0
-description: Use when authoring a ProtocolManifest, when freezing method at G2, or when a material method change requires a new protocol version
-gates: [G2]
-roles: [Scientific Owner, Statistical Methods Owner, Red Team Lead]
-assurance_classes: [R1, R2, R3]
-non_waivable: true
-requires_skills: [writing-analysis-plans]
-emits: [ProtocolManifest, InPrincipleAcceptance]
-mechanical_checks: [no_placeholders, required_sections_present, falsification_plan_nonempty]
+description: "Use when authoring a ProtocolManifest, when freezing method at G2, or when a material method change requires a new protocol version"
+metadata:
+  airl.version: "1.0.0"
+  airl.domain: "scientific-research"
+  airl.origin: "airl-native"
+  airl.derived_from: "superpowers:writing-plans"
+  airl.upstream_commit: "b36e0829c6d0140e93cfef2ca599b1b07d4a7797"
+  airl.gates: "G2"
+  airl.roles: "Scientific Owner,Statistical Methods Owner,Red Team Lead"
+  airl.assurance_classes: "R1,R2,R3"
+  airl.non_waivable: "true"
+  airl.requires_skills: "writing-analysis-plans"
+  airl.emits: "ProtocolManifest,InPrincipleAcceptance"
+  airl.mechanical_checks: "no_placeholders,required_sections_present,falsification_plan_nonempty"
 ---
 
 # Writing Protocols

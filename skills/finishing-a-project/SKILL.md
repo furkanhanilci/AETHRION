@@ -1,14 +1,19 @@
 ---
 name: finishing-a-project
-version: 1.0.0
-description: Use when work appears complete, when a project is about to be closed, published, superseded, retracted or abandoned
-gates: [G8, G9]
-roles: [Project Decision Owner, Assurance Lead]
-assurance_classes: [R1, R2, R3]
-non_waivable: true
-requires_skills: [verification-before-completion, scope-discipline]
-emits: [DecisionRecord, PublicationPackage]
-mechanical_checks: [all_verifications_green, exact_confirmation_word_received]
+description: "Use when work appears complete, when a project is about to be closed, published, superseded, retracted or abandoned"
+metadata:
+  airl.version: "1.0.0"
+  airl.domain: "scientific-research"
+  airl.origin: "airl-native"
+  airl.derived_from: "superpowers:finishing-a-development-branch"
+  airl.upstream_commit: "b36e0829c6d0140e93cfef2ca599b1b07d4a7797"
+  airl.gates: "G8,G9"
+  airl.roles: "Project Decision Owner,Assurance Lead"
+  airl.assurance_classes: "R1,R2,R3"
+  airl.non_waivable: "true"
+  airl.requires_skills: "verification-before-completion,scope-discipline"
+  airl.emits: "DecisionRecord,PublicationPackage"
+  airl.mechanical_checks: "all_verifications_green,exact_confirmation_word_received"
 ---
 
 # Finishing a Project

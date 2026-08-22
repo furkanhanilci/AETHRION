@@ -4,15 +4,18 @@
 
 ---
 name: evidence-before-claim
-version: 1.0.0
-description: Use when drafting any claim, when a claim has no linked EvidenceSpan, or when a sentence asserts a fact in a report or publication
-gates: [G3, G6, G9]
-roles: [Evidence Extractor, Scientific Owner, Scientific Editor]
-assurance_classes: [R1, R2, R3]
-non_waivable: true
-requires_skills: [anchoring-spans]
-emits: [ClaimEvidenceLink]
-mechanical_checks: [every_claim_resolves_to_span, span_quote_exact_match]
+description: "Use when drafting any claim, when a claim has no linked EvidenceSpan, or when a sentence asserts a fact in a report or publication"
+metadata:
+  airl.version: "1.0.0"
+  airl.domain: "shared"
+  airl.origin: "airl-native"
+  airl.gates: "G3,G6,G9"
+  airl.roles: "Evidence Extractor,Scientific Owner,Scientific Editor"
+  airl.assurance_classes: "R1,R2,R3"
+  airl.non_waivable: "true"
+  airl.requires_skills: "anchoring-spans"
+  airl.emits: "ClaimEvidenceLink"
+  airl.mechanical_checks: "every_claim_resolves_to_span,span_quote_exact_match"
 ---
 
 # Evidence Before Claim

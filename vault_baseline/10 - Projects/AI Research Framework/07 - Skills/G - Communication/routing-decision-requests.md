@@ -4,15 +4,18 @@
 
 ---
 name: routing-decision-requests
-version: 1.0.0
-description: Use when a human decision or approval is required, when a DecisionRequest enters the queue, or when an approval arrives through a messaging channel
-gates: [G1, G4, G8, G9]
-roles: [Notification Broker, Project Decision Owner, Safety/Data Owner]
-assurance_classes: [R1, R2, R3]
-non_waivable: true
-requires_skills: [notifying-humans]
-emits: [DecisionRequest, DecisionRecord]
-mechanical_checks: [approval_surface_authenticated, deep_link_signed_and_expiring, no_approval_via_chat_reply]
+description: "Use when a human decision or approval is required, when a DecisionRequest enters the queue, or when an approval arrives through a messaging channel"
+metadata:
+  airl.version: "1.0.0"
+  airl.domain: "shared"
+  airl.origin: "airl-native"
+  airl.gates: "G1,G4,G8,G9"
+  airl.roles: "Notification Broker,Project Decision Owner,Safety/Data Owner"
+  airl.assurance_classes: "R1,R2,R3"
+  airl.non_waivable: "true"
+  airl.requires_skills: "notifying-humans"
+  airl.emits: "DecisionRequest,DecisionRecord"
+  airl.mechanical_checks: "approval_surface_authenticated,deep_link_signed_and_expiring,no_approval_via_chat_reply"
 ---
 
 # Routing Decision Requests

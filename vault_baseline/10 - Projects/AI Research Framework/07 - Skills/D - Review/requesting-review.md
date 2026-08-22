@@ -4,14 +4,19 @@
 
 ---
 name: requesting-review
-version: 1.0.0
-description: Use when an artifact is ready for independent assessment, before any gate transition that requires review, or when a claim needs a verdict
-gates: [G2, G6, G9]
-roles: [Assurance Lead, Engineering Owner, Scientific Owner]
-assurance_classes: [R1, R2, R3]
-requires_skills: [building-review-packets, independence-discipline]
-emits: [ReviewPacket, ReviewVerdict]
-mechanical_checks: [packet_hash_recorded, reviewer_independence_verified]
+description: "Use when an artifact is ready for independent assessment, before any gate transition that requires review, or when a claim needs a verdict"
+metadata:
+  airl.version: "1.0.0"
+  airl.domain: "scientific-research"
+  airl.origin: "airl-native"
+  airl.derived_from: "superpowers:requesting-code-review"
+  airl.upstream_commit: "b36e0829c6d0140e93cfef2ca599b1b07d4a7797"
+  airl.gates: "G2,G6,G9"
+  airl.roles: "Assurance Lead,Engineering Owner,Scientific Owner"
+  airl.assurance_classes: "R1,R2,R3"
+  airl.requires_skills: "building-review-packets,independence-discipline"
+  airl.emits: "ReviewPacket,ReviewVerdict"
+  airl.mechanical_checks: "packet_hash_recorded,reviewer_independence_verified"
 ---
 
 # Requesting Review

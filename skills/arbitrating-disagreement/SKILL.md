@@ -1,14 +1,17 @@
 ---
 name: arbitrating-disagreement
-version: 1.0.0
-description: Use when reviewer verdicts conflict, when a producer disputes a finding, or when a finding remains open after repeated fix rounds
-gates: [G6]
-roles: [Assurance Lead, Arbiter]
-assurance_classes: [R1, R2, R3]
-non_waivable: true
-requires_skills: [agent-driven-research]
-emits: [DisagreementCase, FindingLedger, ArbitrationRecord]
-mechanical_checks: [finding_ledger_complete, round_counter_present]
+description: "Use when reviewer verdicts conflict, when a producer disputes a finding, or when a finding remains open after repeated fix rounds"
+metadata:
+  airl.version: "1.0.0"
+  airl.domain: "scientific-research"
+  airl.origin: "airl-native"
+  airl.gates: "G6"
+  airl.roles: "Assurance Lead,Arbiter"
+  airl.assurance_classes: "R1,R2,R3"
+  airl.non_waivable: "true"
+  airl.requires_skills: "agent-driven-research"
+  airl.emits: "DisagreementCase,FindingLedger,ArbitrationRecord"
+  airl.mechanical_checks: "finding_ledger_complete,round_counter_present"
 ---
 
 # Arbitrating Disagreement

@@ -19,6 +19,104 @@ the last entry, the cockpit and the relevant WP files are read again.
 
 ---
 
+## Step 006 — Two skill families, an open format, and an adopted evidence standard
+
+**Time:** 2026-08-22
+**Scope:** the skill layer, the external standards register, the architecture
+reference, and WP-000
+
+### What was decided
+
+**Research skills extend their engineering counterparts; they do not replace
+them.** Sections 2–13 of `AIRL_OS_SKILL_LAYER.md` treated every Superpowers
+skill as something to convert — §11 said literally *"`test-driven-development` →
+add as `preregistration-discipline`"*. That reading was overruled in a new §14.
+
+The evidence that it was wrong was in the repository: **all 12 engineering
+skills were absent**, while AIRL-OS is itself built by agents. The laboratory had
+written down how to conduct research and discarded how to build the laboratory.
+
+### What was observed
+
+- `skills/` held 38 skills and **zero** engineering skills.
+- `.claude/` held no skill registration at all — the 38 skills **loaded nowhere**,
+  including in the session editing them.
+- All 38 used non-conformant frontmatter: `version`, `gates`, `roles`,
+  `assurance_classes`, `emits`, `mechanical_checks`, `non_waivable`,
+  `requires_skills`, `data_class_ceiling`, `tool_effect` at the top level, where
+  the Agent Skills specification permits six fields and requires the rest under
+  `metadata`.
+- The word `skill` appears **zero** times in WP-043, WP-047 and WP-048, and zero
+  times across all 40 acceptance scenarios. The skill layer was never connected
+  to the sealed plan at all — not "partly", as had been assumed.
+
+### What was done
+
+1. **Format migration.** All 38 skills moved to the Agent Skills open format
+   (`agentskills.io`), AIRL fields namespaced under `metadata` as `airl.*`.
+2. **Engineering family vendored** from `obra/superpowers` @ `b36e0829`, MIT,
+   with `airl.upstream_commit` pinned — 11 skills, including upstream's
+   supporting material (`implementer-prompt.md`, task-brief scripts,
+   `root-cause-tracing.md`, the `test-pressure-*.md` behaviour baselines).
+   Upstream's `using-superpowers` and `writing-skills` were deliberately not
+   vendored: `using-airl-os` is the single router, and `writing-skills` is the
+   AIRL adaptation covering both families.
+3. **`scripts/validate_skills.py`** — a real mechanical check: format
+   conformance, the AIRL metadata contract, and pinned upstream provenance.
+4. **Bootstrap** — `.claude/skills → ../skills`, so the registry actually loads.
+5. **`using-airl-os` became a router** across both families with the two
+   classification axes (`research_mode` × `execution_path`).
+6. **`docs/architecture/AIRL_OS_EXTERNAL_STANDARDS.md`** — an adoption register:
+   what is adopted, what is deferred, and why, each with an integration point.
+7. **`docs/architecture/AIRL_OS_ARCHITECTURE.md`** — the explanatory entry point
+   the corpus lacked: the principle, the evidence chain, the planes, G0–G10,
+   the skill ecosystem, the attestation flow and the working V0 slice, with
+   diagrams throughout.
+8. **WP-000 written into the plan** — the interim evidence policy, expressed as
+   an in-toto attestation signed through Sigstore and recorded in Rekor.
+
+### Why WP-000 matters
+
+Finding **C1** blocked the entire programme: acceptance requires a signed
+manifest in an immutable store, and the store is WP-026, far downstream. The
+deadlock existed only because the store was assumed to be ours to build.
+Delegating immutability to a public transparency log removes the technical half
+of the blocker without inventing a format.
+
+### Evidence
+
+- `python3 scripts/validate_skills.py` → **49 skills conform** (11 engineering ·
+  28 scientific-research · 10 shared); one non-fatal warning on upstream's
+  564-line `subagent-driven-development`, which is upstream's to fix.
+- `uv run pytest` → **20 passed**.
+- Plan seal regenerated after the WP-000 addition → **196/196 OK**.
+- Mirror drift → **0** on both mirrors (197 plan files, 58 skill/doc files).
+- `mcp_smoke.py` and `acceptance_v0.py` → pass.
+
+### Limits and open points
+
+- ⚠️ **No skill is behaviour-tested.** Format conformance is not behaviour. The
+  `writing-skills` iron law — a failing baseline first — is satisfied by none of
+  the 49. Upstream ships pressure tests for `systematic-debugging` only.
+- ⚠️ **WP-000 resolves the storage half of C1 only.** Finding **C2** — who may
+  act as an independent verifier in a one-person operation — is untouched, and no
+  attestation standard resolves it.
+- The skill layer is still **absent from the sealed plan**: WP-043/047/048 carry
+  no skill acceptance criteria, and no acceptance scenario covers a missing or
+  wrongly-selected skill.
+- WP-000 is written, not executed: no manifest has been issued, signed or logged.
+- Nothing about the framework's runtime capability changed. The Bridge remains
+  the only working vertical slice.
+
+### Next step
+
+Behaviour-test the shared discipline skills against real work in this repository
+— starting with `writing-skills` — and record the rationalisations observed
+verbatim, replacing the anticipated tables. In parallel, stand up CI, which now
+has a fifth check to run (`validate_skills.py`) and closes finding **H5**.
+
+---
+
 ## Step 005 — File-by-file review of the whole repository
 
 **Time:** 2026-08-22

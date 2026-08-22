@@ -4,7 +4,7 @@ type: handover
 status: active
 owner: otonom
 created_at: "2026-08-22"
-session_end_commit: cf57f1f
+session_end_commit: pending-step-006
 tags:
   - ai-framework/handover
   - ai-framework/execution
@@ -28,11 +28,12 @@ tags:
 |---|---|
 | Repository | `/home/otonom/Desktop/FH/AI_RESEARCH_FRAMEWORK` |
 | Branch | `main`, working tree **clean** |
-| HEAD = origin/main | **`cf57f1f`** — 0 ahead / 0 behind |
+| HEAD = origin/main | Step 006 changes are **in the working tree, not yet committed** |
 | Remote | `github.com/furkanhanilci/AI-Research-Framework` (private) — **the only authorised remote** |
-| Last two steps | Step 004 (full English revision), Step 005 (file-by-file review) |
+| Last three steps | Step 004 (English revision), Step 005 (file-by-file review), **Step 006 (skill families, open format, WP-000)** |
 | Bridge service | `active` · sync timer `active` |
 | Sources in registry | 33 |
+| Skills | **49** — 11 engineering · 28 scientific-research · 10 shared |
 
 ### The last three commits
 
@@ -63,8 +64,9 @@ git status --short                                   # expect: empty
 git log --oneline -1                                 # expect: cf57f1f (or later)
 
 uv run pytest                                        # expect: 20 passed
+python3 scripts/validate_skills.py                   # expect: 49 skills conform
 (cd planning/commissioning && sha256sum -c 00_PROGRAM/SHA256SUMS.txt | grep -c ': OK$')
-                                                     # expect: 195
+                                                     # expect: 196
 uv run python scripts/mcp_smoke.py     >/dev/null && echo "smoke OK"
 uv run python scripts/acceptance_v0.py >/dev/null && echo "acceptance OK"
 python3 scripts/mirror_plan.py  "$V/01 - Commissioning" --check | tail -1
@@ -73,8 +75,9 @@ python3 scripts/mirror_vault.py "$V" --check | tail -1
 systemctl --user is-active airl-bridge.service airl-bridge-sync.timer
 ```
 
-Expected end state: `20 passed`, `195`, `smoke OK`, `acceptance OK`,
-`0 drift entries` twice, `active active`.
+Expected end state: `20 passed`, `49 skills conform`, `196`, `smoke OK`,
+`acceptance OK`, `0 drift entries` twice (197 plan files, 58 skill/doc files),
+`active active`.
 
 ---
 
@@ -95,6 +98,19 @@ reasoning than the version it replaced.
   the code
 - **two mirror generators added**: `scripts/mirror_plan.py` and
   `scripts/mirror_vault.py`, both with a `--check` drift mode
+
+### Step 006 — two skill families, an open format, an adopted evidence standard
+
+- **Decision:** research skills **extend** their engineering counterparts, never
+  replace them. `AIRL_OS_SKILL_LAYER.md` §14 overrules §§2–13 on this point.
+- 38 skills migrated to the **Agent Skills open format**; 11 engineering skills
+  **vendored** from `obra/superpowers` @ `b36e0829` with provenance pinned → 49.
+- `scripts/validate_skills.py` — a real mechanical check, now part of the bundle.
+- `.claude/skills → ../skills`: the registry actually loads. It previously
+  loaded **nowhere**, including in the sessions editing it.
+- New: `AIRL_OS_EXTERNAL_STANDARDS.md` (adopt before inventing) and
+  `AIRL_OS_ARCHITECTURE.md` (the diagrammed explanatory entry point).
+- **WP-000 written into the plan** and the seal regenerated: 195 → **196**.
 
 ### Step 005 — file-by-file review of every tracked file
 
@@ -122,8 +138,9 @@ reasoning than the version it replaced.
 
 | Finding | What is still missing | Why it matters |
 |---|---|---|
-| **C1** | **WP-000 Interim Evidence Policy is not written** | Every DoD requires a signed `EvidenceManifest` in an immutable store; that store is WP-026, far downstream. **No package — including WP-001 — can reach `ACCEPTED`.** The programme cannot start. |
-| **C2** | No written decision on scope or on what "independent verifier" means for one person | 73 owners / 114 verifiers assumed; R3 is permanently `BLOCKED` |
+| **C1** | **Half resolved.** WP-000 is now *written* — the manifest is an in-toto attestation signed through Sigstore and logged in Rekor, so immutability no longer waits for WP-026. But **nothing has been issued, signed or logged yet**, and the independence half stays open under C2. |
+| **C2** | No written decision on scope or on what "independent verifier" means for one person | 73 owners / 114 verifiers assumed; R3 is permanently `BLOCKED`. **No standard resolves this** — it is a decision |
+| **Skills** | None of the 49 is behaviour-tested; the skill layer is still absent from the sealed plan (WP-043/047/048 and all 40 ACC scenarios mention skills **zero** times) | Format conformance is not behaviour; a skill nobody tested is a document |
 | **H1** | Zotero ingest still capped at 100 records, no pagination, no `since=` | Above 100 sources the sync goes **silently partial** and still records `SUCCEEDED` |
 | **H2** | No deletion reconciliation, no tombstones | A source deleted in Zotero lives on forever as a ghost |
 | **H3** | No behavioural test of the read-only boundary | The strongest security claim is verified only by reading the code |
@@ -165,17 +182,19 @@ Four decisions are waiting alongside it:
 A field rename plus a `GET /v1/models` snapshot. It stops the schema promising
 something that cannot be delivered.
 
-### Step C — write **WP-000 Interim Evidence Policy** `document-only`
+### Step C — ~~write~~ **execute** WP-000
 
-Without it nothing can ever be accepted. Format proposed in
-`delivery/README.md`; the external time anchor comes from **WP-139**
-(OpenTimestamps — free, no trusted third party, hash-only).
+The policy is written (`01_GOVERNANCE/WP-000_interim_evidence_policy.md`). What
+remains is to *run* it: issue one specimen `EvidenceManifest`, sign it, log it,
+anchor it through **WP-139**, and verify it end to end — including the tamper
+case. Until a manifest exists, nothing can still be accepted.
 
 ### Step D — stand up CI 🔧 *highest leverage implementable step*
 
 One GitHub Actions workflow closes **four findings at once**:
 `uv sync` → `ruff check` → `pytest` → the read-only static check (half of H3) →
-`sha256sum -c` (mechanises M4/M11) → the two `--check` mirror runs.
+`sha256sum -c` (mechanises M4/M11) → `validate_skills.py` → the two `--check`
+mirror runs.
 
 The verification bundle in §2 is already exactly what this workflow should run.
 
@@ -234,6 +253,8 @@ works.
 | Who executes what? | `docs/architecture/AIRL_OS_ROLE_MODEL_ASSIGNMENT.md` |
 | The plan itself | `planning/commissioning/` (canonical, hash-sealed) |
 | Where is everything kept? | `04 - Architecture/framework_repository_and_obsidian_map` |
+| **What is this system, explained and diagrammed?** | `docs/architecture/AIRL_OS_ARCHITECTURE.md` |
+| What is adopted rather than invented? | `docs/architecture/AIRL_OS_EXTERNAL_STANDARDS.md` |
 
 ---
 
@@ -246,5 +267,7 @@ and **M3** by making two fake verification scripts into real ones. **Nothing
 about the framework's actual capability changed**: the Bridge is still the only
 working vertical slice, no work package is `ACCEPTED`, and the two critical
 blockers (**C1** evidence deadlock, **C2** scope versus organisation) are exactly
-where they were. The next move is a decision, not code: **who executes each
-role — human, model, or deterministic code.**
+where they were — although **C1's storage half is now unblocked on paper** by
+WP-000, and the skill layer finally loads in a real harness. The next move is
+still a decision, not code: **who executes each role — human, model, or
+deterministic code** — and, close behind it, the first behaviour test of a skill.

@@ -1,12 +1,15 @@
 ---
 name: calibrating-confidence
-version: 1.0.0
-description: Use when confidence scores are produced or displayed, when a claim reaches a terminal outcome, or when confidence numbers need interpreting
-gates: [G6, G8, G10]
-roles: [Metascience Lead, Statistical Methods Owner]
-assurance_classes: [R1, R2, R3]
-emits: [CalibrationReport]
-mechanical_checks: [raw_and_calibrated_stored, uncalibrated_flag_when_insufficient_data]
+description: "Use when confidence scores are produced or displayed, when a claim reaches a terminal outcome, or when confidence numbers need interpreting"
+metadata:
+  airl.version: "1.0.0"
+  airl.domain: "scientific-research"
+  airl.origin: "airl-native"
+  airl.gates: "G6,G8,G10"
+  airl.roles: "Metascience Lead,Statistical Methods Owner"
+  airl.assurance_classes: "R1,R2,R3"
+  airl.emits: "CalibrationReport"
+  airl.mechanical_checks: "raw_and_calibrated_stored,uncalibrated_flag_when_insufficient_data"
 ---
 
 # Calibrating Confidence

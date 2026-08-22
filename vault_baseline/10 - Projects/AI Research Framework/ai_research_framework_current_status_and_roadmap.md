@@ -657,6 +657,7 @@ partial success never hides its failing sub-items.**
 | 2026-08-22 | **Step 001 correction — WP-022 claim retracted** | **CORRECTED** | The deliverable was not in the repository; status returned to `NOT_STARTED` (finding **C3**) |
 | 2026-08-22 | Step 003 independent audit | DESIGN_PROPOSED | Audit report, ideal structure, skill layer, role→model assignment |
 | 2026-08-22 | Step 003 — 38 skills written | DESIGN_PROPOSED | `skills/`; not yet baseline-tested |
+| 2026-08-22 | Step 006 — 49 skills, two families, Agent Skills format, WP-000 written | DESIGN_PROPOSED | Format conformance is mechanically checked; **behaviour still untested** |
 | 2026-08-22 | Step 003 — WP-131–140 added | PASS | `13_TOOLING_INTEGRATION`; measurable acceptance criteria |
 | 2026-08-22 | **Step 004 — full English revision** | **PASS** | 140 WPs, 40 ACCs, 12 programme documents, 5 architecture/review documents, the vault; mirror generators added; 20 tests PASS; plan re-sealed |
 | 2026-08-22 | **Step 005 — file-by-file repository review** | **PASS** | Module docstrings across `src/` and `tests/`; findings **M2** and **M3** closed (smoke check now exits 1 when the Bridge is down; acceptance is data-independent); `FOUNDATION.md` stub replaced; SILBO naming removed from the units; four broken programme references fixed; ACC severity rules made severity-aware |

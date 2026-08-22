@@ -1,14 +1,17 @@
 ---
 name: submitting-external-records
-version: 1.0.0
-description: Use when a protocol or analysis plan must be externally timestamped, when artifacts need a persistent DOI, or when a publication package is being deposited
-gates: [G2, G9]
-roles: [Data Steward, Research Software Engineer, Project Decision Owner]
-assurance_classes: [R1, R2, R3]
-tool_effect: T3
-data_class_ceiling: D1
-emits: [ExternalRegistrationRecord, DOIRecord]
-mechanical_checks: [human_approved_before_submission, data_class_ceiling_enforced, doi_recorded_in_manifest]
+description: "Use when a protocol or analysis plan must be externally timestamped, when artifacts need a persistent DOI, or when a publication package is being deposited"
+metadata:
+  airl.version: "1.0.0"
+  airl.domain: "scientific-research"
+  airl.origin: "airl-native"
+  airl.gates: "G2,G9"
+  airl.roles: "Data Steward,Research Software Engineer,Project Decision Owner"
+  airl.assurance_classes: "R1,R2,R3"
+  airl.emits: "ExternalRegistrationRecord,DOIRecord"
+  airl.mechanical_checks: "human_approved_before_submission,data_class_ceiling_enforced,doi_recorded_in_manifest"
+  airl.data_class_ceiling: "D1"
+  airl.tool_effect: "T3"
 ---
 
 # Submitting External Records

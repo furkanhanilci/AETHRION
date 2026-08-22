@@ -15,23 +15,24 @@ implementation**; the table below separates the two.
 | Zotero → Obsidian projection | ✅ Working, read-only at the Zotero boundary | `src/airl_bridge/obsidian.py` |
 | Hermes MCP access | ✅ Working, five read-only tools | `src/airl_bridge/mcp_server.py` |
 | Shared contract core | ⚠️ `TECH_COMPLETE` — no production consumer | `src/airl_framework/` |
-| Skill registry (38 skills) | 📐 Written, **not yet tested** | `skills/` |
+| Skill registry (49 skills, two families) | ✅ Format-conformant and loadable · 📐 behaviour **not yet tested** | `skills/` |
 | Obsidian information architecture | ✅ V0 ready | `vault_baseline/` |
 | Target architecture and skill layer | 📐 Designed, awaiting decision | `docs/architecture/` |
 | Full commissioning programme | ⬜ Planned, not started | `planning/commissioning/` |
+| Interim evidence policy (WP-000) | 📐 Written — unblocks the storage half of C1 | `planning/commissioning/01_GOVERNANCE/` |
 
 ## Layout
 
 ```
 src/          Bridge component and the shared contract core
 tests/        Test suite
-skills/       38 execution skills — HOW agents work
-planning/     WP-001..140, ACC-01..40 (hash-sealed canonical plan)
+skills/       49 skills — HOW agents work; engineering + scientific + shared
+planning/     WP-000, WP-001..140, ACC-01..40 (hash-sealed canonical plan)
 docs/         Architecture, review and operations documents
 schemas/      Shared contract schemas
 delivery/     Per-package evidence packages
 deploy/       systemd unit files
-scripts/      Acceptance, smoke and Obsidian mirror-generation scripts
+scripts/      Acceptance, smoke, skill-validation and mirror-generation scripts
 vault_baseline/  Versioned copy of the Obsidian vault
 ```
 
@@ -39,10 +40,12 @@ vault_baseline/  Versioned copy of the Obsidian vault
 
 | Question | Document |
 |---|---|
+| **What is this system?** — explained and diagrammed | [`docs/architecture/AIRL_OS_ARCHITECTURE.md`](docs/architecture/AIRL_OS_ARCHITECTURE.md) |
 | What actually exists today? | [`docs/review/`](docs/review/) — evidence-based independent audit |
 | **What** should be added to the target architecture? | [`docs/architecture/AIRL_OS_IDEAL_STRUCTURE.md`](docs/architecture/AIRL_OS_IDEAL_STRUCTURE.md) |
 | **How** should agents work? | [`docs/architecture/AIRL_OS_SKILL_LAYER.md`](docs/architecture/AIRL_OS_SKILL_LAYER.md) · [`skills/README.md`](skills/README.md) |
 | **Who** performs each role — human, model or code? | [`docs/architecture/AIRL_OS_ROLE_MODEL_ASSIGNMENT.md`](docs/architecture/AIRL_OS_ROLE_MODEL_ASSIGNMENT.md) |
+| What is **adopted** rather than invented? | [`docs/architecture/AIRL_OS_EXTERNAL_STANDARDS.md`](docs/architecture/AIRL_OS_EXTERNAL_STANDARDS.md) |
 | Architecture of the working vertical slice | [`docs/ARCHITECTURE_V0.md`](docs/ARCHITECTURE_V0.md) |
 | Day-to-day operation | [`docs/OPERATIONS.md`](docs/OPERATIONS.md) |
 | The full programme plan | [`planning/commissioning/README.md`](planning/commissioning/README.md) |
@@ -119,10 +122,11 @@ branch and are regenerated from the canonical registry. Human synthesis stays in
 uv run pytest                          # 20 tests
 uv run python scripts/mcp_smoke.py     # asserts the five-tool boundary; exits 1 on failure
 uv run python scripts/acceptance_v0.py # data-independent structural acceptance
+python3 scripts/validate_skills.py     # Agent Skills format + AIRL metadata contract
 (cd planning/commissioning && sha256sum -c 00_PROGRAM/SHA256SUMS.txt)
 ```
 
-All four run by hand. **There is no CI** — see finding **H5**, and
+All five run by hand. **There is no CI** — see finding **H5**, and
 [`docs/OPERATIONS.md`](docs/OPERATIONS.md) for the full verification bundle.
 
 ## Hermes MCP access
@@ -143,13 +147,20 @@ mechanisms required to reach that state (signed evidence manifests, an immutable
 store, an independent verifier) do not yet exist. See finding **C1** in the audit
 report.
 
+[**WP-000**](planning/commissioning/01_GOVERNANCE/WP-000_interim_evidence_policy.md)
+now removes the *storage* half of that blocker by expressing the
+`EvidenceManifest` as a signed in-toto attestation in a public transparency log,
+rather than waiting for WP-026. The *independence* half — finding **C2**, who may
+verify in a one-person operation — remains open, and no standard resolves it.
+
 ## Verification
 
 ```
-20/20 tests pass · plan seal 195/195 OK · service and timer active
+20/20 tests pass · plan seal 196/196 OK · service and timer active
 MCP smoke: 5 read-only tools, exits 1 when the Bridge is down
 Acceptance: 11 structural checks pass, data-independent
-Mirror drift: 0 (196 plan files, 44 skill/doc files)
+Skills: 49/49 conform to the Agent Skills format and the AIRL metadata contract
+Mirror drift: 0 (197 plan files, 58 skill/doc files)
 Obsidian baseline and vault identical
 ```
 

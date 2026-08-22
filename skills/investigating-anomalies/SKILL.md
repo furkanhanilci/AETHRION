@@ -1,13 +1,18 @@
 ---
 name: investigating-anomalies
-version: 1.0.0
-description: Use when a result is unexpected, when a run fails, when metrics disagree between runs, or when data looks wrong
-gates: [G5, G6, G7]
-roles: [Engineering Owner, Statistical Methods Owner, Research Software Engineer]
-assurance_classes: [R1, R2, R3]
-non_waivable: true
-emits: [AnomalyRecord, ProtocolChallenge]
-mechanical_checks: [reproduced_before_explained, no_exclusion_without_root_cause]
+description: "Use when a result is unexpected, when a run fails, when metrics disagree between runs, or when data looks wrong"
+metadata:
+  airl.version: "1.0.0"
+  airl.domain: "scientific-research"
+  airl.origin: "airl-native"
+  airl.derived_from: "superpowers:systematic-debugging"
+  airl.upstream_commit: "b36e0829c6d0140e93cfef2ca599b1b07d4a7797"
+  airl.gates: "G5,G6,G7"
+  airl.roles: "Engineering Owner,Statistical Methods Owner,Research Software Engineer"
+  airl.assurance_classes: "R1,R2,R3"
+  airl.non_waivable: "true"
+  airl.emits: "AnomalyRecord,ProtocolChallenge"
+  airl.mechanical_checks: "reproduced_before_explained,no_exclusion_without_root_cause"
 ---
 
 # Investigating Anomalies

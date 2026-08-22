@@ -1,13 +1,16 @@
 ---
 name: adversarial-reviewing
-version: 1.0.0
-description: Use when assigned as adversarial reviewer, when a claim needs the strongest possible counter-case, or when competing hypotheses must be discriminated
-gates: [G2, G6]
-roles: [Adversarial Reviewer, Red Team Lead]
-assurance_classes: [R2, R3]
-requires_skills: [blind-reviewing]
-emits: [ReviewVerdict, ACHMatrix]
-mechanical_checks: [all_hypotheses_enumerated, diagnosticity_scored]
+description: "Use when assigned as adversarial reviewer, when a claim needs the strongest possible counter-case, or when competing hypotheses must be discriminated"
+metadata:
+  airl.version: "1.0.0"
+  airl.domain: "scientific-research"
+  airl.origin: "airl-native"
+  airl.gates: "G2,G6"
+  airl.roles: "Adversarial Reviewer,Red Team Lead"
+  airl.assurance_classes: "R2,R3"
+  airl.requires_skills: "blind-reviewing"
+  airl.emits: "ReviewVerdict,ACHMatrix"
+  airl.mechanical_checks: "all_hypotheses_enumerated,diagnosticity_scored"
 ---
 
 # Adversarial Reviewing

@@ -151,9 +151,13 @@ uv run pytest                                              # 20 tests
 (cd planning/commissioning && sha256sum -c 00_PROGRAM/SHA256SUMS.txt)
 uv run python scripts/mcp_smoke.py
 uv run python scripts/acceptance_v0.py
+python3 scripts/validate_skills.py                         # 49 skills, format + metadata
 python scripts/mirror_plan.py  "$V/01 - Commissioning" --check
 python scripts/mirror_vault.py "$V" --check
 ```
+
+Expected: `20 passed` · `196` OK · five MCP tools · 11 acceptance checks ·
+`49 skills` conform · `0 drift entries` twice.
 
 ⚠️ **These all run by hand.** There is no CI (finding **H5**), so nothing
 guarantees they were run before a change was committed. Automating this list is

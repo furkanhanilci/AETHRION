@@ -1,4 +1,5 @@
 "package_id","title","workstream","effort","owner","verifier","hard_dependencies","gates","controls","scenarios"
+"WP-000","Interim Evidence Policy and Attestation Bootstrap","01_GOVERNANCE","S","Project Decision Owner","Assurance Lead","","Program","CTL-GOV-01;CTL-EPI-01","ACC-06"
 "WP-001","Commissioning Charter and Programme Authority","01_GOVERNANCE","S","Executive Sponsor","Internal Audit / Commissioning Board","","Program","CTL-GOV-01",""
 "WP-002","Scope, NFRs and Requirement Traceability","01_GOVERNANCE","S","Chief Architect","Assurance Lead","WP-001","Program","CTL-GOV-01",""
 "WP-003","Role Catalogue and RACI Baseline","01_GOVERNANCE","M","Governance Lead","Internal Audit","WP-001;WP-002","G0–G10","CTL-GOV-01, CTL-GOV-02","ACC-06;ACC-38"

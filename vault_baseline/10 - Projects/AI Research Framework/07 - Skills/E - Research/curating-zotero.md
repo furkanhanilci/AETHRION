@@ -4,15 +4,18 @@
 
 ---
 name: curating-zotero
-version: 1.0.0
-description: Use when reading from or writing to Zotero, when a sync conflict occurs, or when agent-managed collections must be updated
-gates: [G3, G9, G10]
-roles: [Evidence Lead, Source Ingester, Evidence Linker]
-assurance_classes: [R1, R2, R3]
-non_waivable: true
-data_class_ceiling: D1
-emits: [SyncReceipt, ReconciliationTask]
-mechanical_checks: [conditional_write_used, human_fields_untouched, idempotency_key_present]
+description: "Use when reading from or writing to Zotero, when a sync conflict occurs, or when agent-managed collections must be updated"
+metadata:
+  airl.version: "1.0.0"
+  airl.domain: "scientific-research"
+  airl.origin: "airl-native"
+  airl.gates: "G3,G9,G10"
+  airl.roles: "Evidence Lead,Source Ingester,Evidence Linker"
+  airl.assurance_classes: "R1,R2,R3"
+  airl.non_waivable: "true"
+  airl.emits: "SyncReceipt,ReconciliationTask"
+  airl.mechanical_checks: "conditional_write_used,human_fields_untouched,idempotency_key_present"
+  airl.data_class_ceiling: "D1"
 ---
 
 # Curating Zotero

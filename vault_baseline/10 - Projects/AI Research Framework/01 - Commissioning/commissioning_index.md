@@ -137,9 +137,17 @@ The first executable point of the programme is `WP-001 Commissioning Charter`.
 No technology installation begins before WP-001 is accepted; otherwise
 environment, security and team choices advance without a scope authority.
 
-> **Known blocker.** Every package's Definition of Done requires a signed
-> `EvidenceManifest` written to an immutable store — but the immutable store is
-> WP-026, far downstream. As written, no package including WP-001 can reach
-> `ACCEPTED`. Resolving this requires an interim evidence policy (proposed as
-> **WP-000**) before the programme can start. See the audit report in
-> `docs/review/`.
+> **Known blocker — half resolved.** Every package's Definition of Done requires
+> a signed `EvidenceManifest` written to an immutable store — but the immutable
+> store is WP-026, far downstream. As written, no package including WP-001 could
+> reach `ACCEPTED`.
+>
+> [**WP-000 — Interim Evidence Policy and Attestation Bootstrap**](01_GOVERNANCE/wp_000_interim_evidence_policy.md)
+> now closes the storage half: the manifest is issued as a signed in-toto
+> attestation recorded in a public transparency log and anchored in time, so
+> immutability is delegated rather than deferred. The rationale is in
+> `docs/architecture/AIRL_OS_EXTERNAL_STANDARDS.md` §3.
+>
+> The other half — finding **C2**, who may act as an independent verifier in a
+> one-person operation — is **still open** and is a decision, not code. See the
+> audit report in `docs/review/`.

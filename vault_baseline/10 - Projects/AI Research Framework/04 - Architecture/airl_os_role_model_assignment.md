@@ -8,7 +8,7 @@
 |---|---|
 | Document type | Architecture decision (ADR candidate) |
 | Scope | Who executes each role: human / model / deterministic code |
-| Sibling documents | `AIRL_OS_IDEAL_STRUCTURE.md` (Section D) · `AIRL_OS_SKILL_LAYER.md` |
+| Sibling documents | `AIRL_OS_ARCHITECTURE.md` · `AIRL_OS_IDEAL_STRUCTURE.md` (Section D) · `AIRL_OS_SKILL_LAYER.md` · `AIRL_OS_EXTERNAL_STANDARDS.md` |
 | Date | 2026-08-22 |
 | Status | **Proposal — human approval required before implementation** |
 
@@ -53,7 +53,7 @@ preference; it is a constraint.
 |---|---|---|
 | **1. Capability fingerprint** | `GET /v1/models/{id}` → `max_input_tokens`, `max_tokens`, the `capabilities` tree; hashed and written into the manifest | That the model *surface* has not changed — **not that behaviour is unchanged** |
 | **2. Full I/O logging** | The request body, the response, `response.model` and `usage` (via Langfuse) | What was asked and what was answered is auditable — **but not reproducible** |
-| **3. Local open-weight model** | The **SHA-256** of the GGUF file plus the execution parameters | **Real determinism.** The weights are yours. |
+| **3. Local open-weight model** | The **SHA-256** of the GGUF file plus the execution parameters — signed with `sigstore/model-transparency` / OpenSSF Model Signing | **Real determinism.** The weights are yours, and the hash is attested rather than asserted. |
 
 > **Decision:** No run producing an `R3` claim may use a hosted model. **Layer 3
 > is mandatory.** For R1/R2, layers 1+2 suffice, and the `model_snapshot` field
@@ -260,7 +260,7 @@ per week) is the actual bottleneck, and no amount of model spend relieves it.
 | # | Work | What it unblocks |
 |---|---|---|
 | 1 | Rename `model_snapshot` → `capability_fingerprint` and snapshot `GET /v1/models` | Invariant 4 |
-| 2 | Write the R3 → local open-weight requirement into an ADR | G7a |
+| 2 | Write the R3 → local open-weight requirement into an ADR, signing the weights with OMS / `model-transparency` | G7a |
 | 3 | Connect at least one **non-Anthropic** provider to the reviewer pool | R2/R3 independence |
 | 4 | Check `stop_reason == "refusal"` and set `fallbacks: "default"` on every call | Production resilience |
 | 5 | Put the effort → R class mapping into the policy engine | Gate depth |

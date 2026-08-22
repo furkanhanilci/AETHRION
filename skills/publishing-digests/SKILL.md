@@ -1,13 +1,16 @@
 ---
 name: publishing-digests
-version: 1.0.0
-description: Use when producing a recurring status summary, portfolio report, cost report or metascience report for humans
-gates: [G10]
-roles: [Notification Broker, Metascience Lead, FinOps Lead]
-assurance_classes: [R1, R2, R3]
-requires_skills: [notifying-humans]
-emits: [DigestReport]
-mechanical_checks: [read_only_sources, dlp_scan_passed, no_decision_embedded]
+description: "Use when producing a recurring status summary, portfolio report, cost report or metascience report for humans"
+metadata:
+  airl.version: "1.0.0"
+  airl.domain: "scientific-research"
+  airl.origin: "airl-native"
+  airl.gates: "G10"
+  airl.roles: "Notification Broker,Metascience Lead,FinOps Lead"
+  airl.assurance_classes: "R1,R2,R3"
+  airl.requires_skills: "notifying-humans"
+  airl.emits: "DigestReport"
+  airl.mechanical_checks: "read_only_sources,dlp_scan_passed,no_decision_embedded"
 ---
 
 # Publishing Digests

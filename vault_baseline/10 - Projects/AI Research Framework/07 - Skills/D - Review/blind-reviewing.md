@@ -4,14 +4,17 @@
 
 ---
 name: blind-reviewing
-version: 1.0.0
-description: Use when assigned as a blind reviewer, when assessing a frozen review packet, or when producing a ReviewVerdict
-gates: [G6]
-roles: [Blind Reviewer]
-assurance_classes: [R1, R2, R3]
-requires_skills: [independence-discipline]
-emits: [ReviewVerdict]
-mechanical_checks: [packet_only_access, no_producer_trace_accessed]
+description: "Use when assigned as a blind reviewer, when assessing a frozen review packet, or when producing a ReviewVerdict"
+metadata:
+  airl.version: "1.0.0"
+  airl.domain: "scientific-research"
+  airl.origin: "airl-native"
+  airl.gates: "G6"
+  airl.roles: "Blind Reviewer"
+  airl.assurance_classes: "R1,R2,R3"
+  airl.requires_skills: "independence-discipline"
+  airl.emits: "ReviewVerdict"
+  airl.mechanical_checks: "packet_only_access,no_producer_trace_accessed"
 ---
 
 # Blind Reviewing

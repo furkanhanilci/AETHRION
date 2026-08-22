@@ -1,13 +1,16 @@
 ---
 name: measuring-agreement
-version: 1.0.0
-description: Use when assigning reviewers or reproducers, when independence must be demonstrated, or when multiple raters produce verdicts
-gates: [G6, G7]
-roles: [Metascience Lead, Assurance Lead]
-assurance_classes: [R1, R2, R3]
-non_waivable: true
-emits: [AgreementReport, IndependenceRecord]
-mechanical_checks: [pairwise_error_correlation_computed, quota_rule_enforced]
+description: "Use when assigning reviewers or reproducers, when independence must be demonstrated, or when multiple raters produce verdicts"
+metadata:
+  airl.version: "1.0.0"
+  airl.domain: "scientific-research"
+  airl.origin: "airl-native"
+  airl.gates: "G6,G7"
+  airl.roles: "Metascience Lead,Assurance Lead"
+  airl.assurance_classes: "R1,R2,R3"
+  airl.non_waivable: "true"
+  airl.emits: "AgreementReport,IndependenceRecord"
+  airl.mechanical_checks: "pairwise_error_correlation_computed,quota_rule_enforced"
 ---
 
 # Measuring Agreement

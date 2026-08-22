@@ -4,14 +4,17 @@
 
 ---
 name: screening-sources
-version: 1.0.0
-description: Use when candidate sources must be included or excluded, when a literature set is being narrowed, or before freezing a LiteratureSetManifest
-gates: [G3]
-roles: [Evidence Lead]
-assurance_classes: [R1, R2, R3]
-requires_skills: [searching-literature]
-emits: [ScreeningDecision, LiteratureSetManifest]
-mechanical_checks: [every_exclusion_has_reason, criteria_locked_before_screening]
+description: "Use when candidate sources must be included or excluded, when a literature set is being narrowed, or before freezing a LiteratureSetManifest"
+metadata:
+  airl.version: "1.0.0"
+  airl.domain: "scientific-research"
+  airl.origin: "airl-native"
+  airl.gates: "G3"
+  airl.roles: "Evidence Lead"
+  airl.assurance_classes: "R1,R2,R3"
+  airl.requires_skills: "searching-literature"
+  airl.emits: "ScreeningDecision,LiteratureSetManifest"
+  airl.mechanical_checks: "every_exclusion_has_reason,criteria_locked_before_screening"
 ---
 
 # Screening Sources

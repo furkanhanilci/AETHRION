@@ -1,13 +1,18 @@
 ---
 name: framing-research
-version: 1.0.0
-description: Use when a research idea arrives, when scope is unclear, or before any protocol, experiment or implementation work begins
-gates: [G0, G1]
-roles: [Scientific Owner, Project Decision Owner, Knowledge Steward]
-assurance_classes: [R1, R2, R3]
-non_waivable: true
-emits: [ResearchOpportunity, ProjectCharter, RiskProfile]
-mechanical_checks: [assurance_class_computed_by_policy_engine, duplicate_scan_executed]
+description: "Use when a research idea arrives, when scope is unclear, or before any protocol, experiment or implementation work begins"
+metadata:
+  airl.version: "1.0.0"
+  airl.domain: "scientific-research"
+  airl.origin: "airl-native"
+  airl.derived_from: "superpowers:brainstorming"
+  airl.upstream_commit: "b36e0829c6d0140e93cfef2ca599b1b07d4a7797"
+  airl.gates: "G0,G1"
+  airl.roles: "Scientific Owner,Project Decision Owner,Knowledge Steward"
+  airl.assurance_classes: "R1,R2,R3"
+  airl.non_waivable: "true"
+  airl.emits: "ResearchOpportunity,ProjectCharter,RiskProfile"
+  airl.mechanical_checks: "assurance_class_computed_by_policy_engine,duplicate_scan_executed"
 ---
 
 # Framing Research

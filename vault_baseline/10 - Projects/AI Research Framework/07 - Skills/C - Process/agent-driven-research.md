@@ -4,15 +4,20 @@
 
 ---
 name: agent-driven-research
-version: 1.0.0
-description: Use when dispatching an agent to produce any research artifact, when a produced artifact needs review, or when review findings remain open after fixes
-gates: [G2, G3, G5, G6]
-roles: [Task Compiler, Assurance Lead]
-assurance_classes: [R1, R2, R3]
-non_waivable: true
-requires_skills: [independence-discipline, requesting-review, receiving-review]
-emits: [TaskContract, ProducerReport, ReviewVerdict, FindingLedger]
-mechanical_checks: [no_session_history_passed, artifacts_passed_as_files, finding_ledger_complete]
+description: "Use when dispatching an agent to produce any research artifact, when a produced artifact needs review, or when review findings remain open after fixes"
+metadata:
+  airl.version: "1.0.0"
+  airl.domain: "scientific-research"
+  airl.origin: "airl-native"
+  airl.derived_from: "superpowers:subagent-driven-development"
+  airl.upstream_commit: "b36e0829c6d0140e93cfef2ca599b1b07d4a7797"
+  airl.gates: "G2,G3,G5,G6"
+  airl.roles: "Task Compiler,Assurance Lead"
+  airl.assurance_classes: "R1,R2,R3"
+  airl.non_waivable: "true"
+  airl.requires_skills: "independence-discipline,requesting-review,receiving-review"
+  airl.emits: "TaskContract,ProducerReport,ReviewVerdict,FindingLedger"
+  airl.mechanical_checks: "no_session_history_passed,artifacts_passed_as_files,finding_ledger_complete"
 ---
 
 # Agent-Driven Research

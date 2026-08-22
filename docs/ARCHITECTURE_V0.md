@@ -1,5 +1,7 @@
 # Local Knowledge Architecture — V0
 
+> System-wide context and diagrams: [`AIRL_OS_ARCHITECTURE.md`](architecture/AIRL_OS_ARCHITECTURE.md).
+
 ## Purpose
 
 This vertical slice treats Zotero as the source authority, SQLite as the

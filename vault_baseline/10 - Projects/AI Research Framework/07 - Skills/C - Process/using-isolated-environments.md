@@ -4,13 +4,18 @@
 
 ---
 name: using-isolated-environments
-version: 1.0.0
-description: Use before starting any producing, reviewing or reproducing work that touches files, state or compute
-gates: [G5, G6, G7]
-roles: [Engineering Owner, Research Software Engineer, Reproducer]
-assurance_classes: [R1, R2, R3]
-emits: [EnvironmentManifest, BaselineVerificationRecord]
-mechanical_checks: [clean_baseline_verified, environment_digest_pinned]
+description: "Use before starting any producing, reviewing or reproducing work that touches files, state or compute"
+metadata:
+  airl.version: "1.0.0"
+  airl.domain: "scientific-research"
+  airl.origin: "airl-native"
+  airl.derived_from: "superpowers:using-git-worktrees"
+  airl.upstream_commit: "b36e0829c6d0140e93cfef2ca599b1b07d4a7797"
+  airl.gates: "G5,G6,G7"
+  airl.roles: "Engineering Owner,Research Software Engineer,Reproducer"
+  airl.assurance_classes: "R1,R2,R3"
+  airl.emits: "EnvironmentManifest,BaselineVerificationRecord"
+  airl.mechanical_checks: "clean_baseline_verified,environment_digest_pinned"
 ---
 
 # Using Isolated Environments

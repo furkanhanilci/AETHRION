@@ -1,12 +1,15 @@
 ---
 name: searching-literature
-version: 1.0.0
-description: Use when a literature campaign starts, when coverage of a topic must be established, or when seed sources need expansion
-gates: [G3]
-roles: [Evidence Lead, Search Strategist]
-assurance_classes: [R1, R2, R3]
-emits: [SearchProtocol, SourceCandidate]
-mechanical_checks: [queries_recorded_verbatim, databases_and_dates_pinned]
+description: "Use when a literature campaign starts, when coverage of a topic must be established, or when seed sources need expansion"
+metadata:
+  airl.version: "1.0.0"
+  airl.domain: "scientific-research"
+  airl.origin: "airl-native"
+  airl.gates: "G3"
+  airl.roles: "Evidence Lead,Search Strategist"
+  airl.assurance_classes: "R1,R2,R3"
+  airl.emits: "SearchProtocol,SourceCandidate"
+  airl.mechanical_checks: "queries_recorded_verbatim,databases_and_dates_pinned"
 ---
 
 # Searching Literature

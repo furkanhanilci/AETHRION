@@ -1,13 +1,16 @@
 ---
 name: injecting-controls
-version: 1.0.0
-description: Use when the lab's own false positive or false negative rate must be measured, or when validating that the research pipeline detects known signals and rejects null data
-gates: [G0, G5, G6]
-roles: [Metascience Lead, Red Team Lead]
-assurance_classes: [R1, R2, R3]
-non_waivable: true
-emits: [ControlInjectionRecord, PipelineIntegrityAlert]
-mechanical_checks: [controls_indistinguishable_from_real, agents_blind_to_control_status]
+description: "Use when the lab's own false positive or false negative rate must be measured, or when validating that the research pipeline detects known signals and rejects null data"
+metadata:
+  airl.version: "1.0.0"
+  airl.domain: "scientific-research"
+  airl.origin: "airl-native"
+  airl.gates: "G0,G5,G6"
+  airl.roles: "Metascience Lead,Red Team Lead"
+  airl.assurance_classes: "R1,R2,R3"
+  airl.non_waivable: "true"
+  airl.emits: "ControlInjectionRecord,PipelineIntegrityAlert"
+  airl.mechanical_checks: "controls_indistinguishable_from_real,agents_blind_to_control_status"
 ---
 
 # Injecting Controls

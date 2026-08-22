@@ -4,15 +4,18 @@
 
 ---
 name: receiving-external-messages
-version: 1.0.0
-description: Use when any inbound message, email, webhook or external document arrives, or when external content is about to enter an agent context
-gates: [G0, G3, G10]
-roles: [Content Quarantine, Safety/Data Owner]
-assurance_classes: [R1, R2, R3]
-non_waivable: true
-data_class_ceiling: D0
-emits: [QuarantineRecord, ResearchOpportunity]
-mechanical_checks: [content_marked_untrusted, no_instruction_extraction, sender_verified]
+description: "Use when any inbound message, email, webhook or external document arrives, or when external content is about to enter an agent context"
+metadata:
+  airl.version: "1.0.0"
+  airl.domain: "shared"
+  airl.origin: "airl-native"
+  airl.gates: "G0,G3,G10"
+  airl.roles: "Content Quarantine,Safety/Data Owner"
+  airl.assurance_classes: "R1,R2,R3"
+  airl.non_waivable: "true"
+  airl.emits: "QuarantineRecord,ResearchOpportunity"
+  airl.mechanical_checks: "content_marked_untrusted,no_instruction_extraction,sender_verified"
+  airl.data_class_ceiling: "D0"
 ---
 
 # Receiving External Messages

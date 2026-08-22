@@ -1,13 +1,18 @@
 ---
 name: dispatching-parallel-analysts
-version: 1.0.0
-description: Use when the same data can be analysed in more than one defensible way, when multiple independent failures span different subsystems, or when analytic degrees of freedom need measuring
-gates: [G6]
-roles: [Assurance Lead, Statistical Methods Owner, Metascience Lead]
-assurance_classes: [R2, R3]
-requires_skills: [independence-discipline, measuring-agreement]
-emits: [MultiAnalystReport]
-mechanical_checks: [analysts_blind_to_each_other, same_analysis_plan_hash]
+description: "Use when the same data can be analysed in more than one defensible way, when multiple independent failures span different subsystems, or when analytic degrees of freedom need measuring"
+metadata:
+  airl.version: "1.0.0"
+  airl.domain: "scientific-research"
+  airl.origin: "airl-native"
+  airl.derived_from: "superpowers:dispatching-parallel-agents"
+  airl.upstream_commit: "b36e0829c6d0140e93cfef2ca599b1b07d4a7797"
+  airl.gates: "G6"
+  airl.roles: "Assurance Lead,Statistical Methods Owner,Metascience Lead"
+  airl.assurance_classes: "R2,R3"
+  airl.requires_skills: "independence-discipline,measuring-agreement"
+  airl.emits: "MultiAnalystReport"
+  airl.mechanical_checks: "analysts_blind_to_each_other,same_analysis_plan_hash"
 ---
 
 # Dispatching Parallel Analysts

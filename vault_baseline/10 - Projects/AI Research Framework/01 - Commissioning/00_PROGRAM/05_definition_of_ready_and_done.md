@@ -54,8 +54,15 @@ A package becomes `READY` only when all of the following hold:
 > by WP-026, which itself sits several dependency levels downstream of WP-001.
 > As written, no package can satisfy this — including the first one. An interim
 > evidence policy defining a temporary, externally time-anchored evidence store
-> is a precondition for the programme starting at all. Proposed as **WP-000**;
-> the timestamping mechanism it needs is **WP-139**.
+> is a precondition for the programme starting at all. Written as
+> [**WP-000**](../01_GOVERNANCE/wp_000_interim_evidence_policy.md); the
+> timestamping mechanism it needs is **WP-139**.
+>
+> WP-000 resolves the **storage** half of the deadlock by expressing the
+> `EvidenceManifest` as a signed in-toto attestation in a public transparency
+> log, rather than by building an immutable store first. It does **not** resolve
+> finding **C2** — who may act as an independent verifier in a small
+> organisation — which remains an open decision.
 
 ## Definition of Commissioned
 

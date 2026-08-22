@@ -1,13 +1,16 @@
 ---
 name: scope-discipline
-version: 1.0.0
-description: Use when writing a report, abstract, conclusion or any prose that states what the research found
-gates: [G6, G8, G9]
-roles: [Scientific Editor, Scientific Owner, Project Decision Owner]
-assurance_classes: [R1, R2, R3]
-non_waivable: true
-emits: [ScopeConformanceReport]
-mechanical_checks: [prose_sentence_maps_to_claim, prose_scope_within_claim_scope]
+description: "Use when writing a report, abstract, conclusion or any prose that states what the research found"
+metadata:
+  airl.version: "1.0.0"
+  airl.domain: "shared"
+  airl.origin: "airl-native"
+  airl.gates: "G6,G8,G9"
+  airl.roles: "Scientific Editor,Scientific Owner,Project Decision Owner"
+  airl.assurance_classes: "R1,R2,R3"
+  airl.non_waivable: "true"
+  airl.emits: "ScopeConformanceReport"
+  airl.mechanical_checks: "prose_sentence_maps_to_claim,prose_scope_within_claim_scope"
 ---
 
 # Scope Discipline

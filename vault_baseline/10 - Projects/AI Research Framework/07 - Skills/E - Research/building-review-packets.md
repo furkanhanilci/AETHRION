@@ -4,14 +4,17 @@
 
 ---
 name: building-review-packets
-version: 1.0.0
-description: Use when assembling a frozen packet for any reviewer, reproducer or arbiter
-gates: [G6, G7]
-roles: [Assurance Lead, Platform]
-assurance_classes: [R1, R2, R3]
-non_waivable: true
-emits: [ReviewPacket]
-mechanical_checks: [allowlist_enforced_in_code, packet_hash_recorded, no_inline_context]
+description: "Use when assembling a frozen packet for any reviewer, reproducer or arbiter"
+metadata:
+  airl.version: "1.0.0"
+  airl.domain: "scientific-research"
+  airl.origin: "airl-native"
+  airl.gates: "G6,G7"
+  airl.roles: "Assurance Lead,Platform"
+  airl.assurance_classes: "R1,R2,R3"
+  airl.non_waivable: "true"
+  airl.emits: "ReviewPacket"
+  airl.mechanical_checks: "allowlist_enforced_in_code,packet_hash_recorded,no_inline_context"
 ---
 
 # Building Review Packets

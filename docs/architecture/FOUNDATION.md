@@ -1,5 +1,7 @@
 # Foundation Layer
 
+> System-wide context and diagrams: [`AIRL_OS_ARCHITECTURE.md`](AIRL_OS_ARCHITECTURE.md).
+
 > **Status:** this document replaces a one-line stub that read
 > `# Foundation repository skeleton`. That stub was one of the empty
 > "deliverables" behind audit finding **C3** — a file that existed so a checklist

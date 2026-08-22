@@ -1,12 +1,16 @@
 ---
 name: writing-skills
-version: 1.0.0
-description: Use when authoring, editing or reviewing any AIRL-OS skill, or when a rule keeps being bypassed by agents
-gates: []
-roles: [Metascience Lead, Assurance Lead]
-assurance_classes: [R1, R2, R3]
-non_waivable: true
-emits: [Skill, BaselineTestRecord]
+description: "Use when authoring, editing or reviewing any AIRL-OS skill, or when a rule keeps being bypassed by agents"
+metadata:
+  airl.version: "1.0.0"
+  airl.domain: "shared"
+  airl.origin: "airl-native"
+  airl.derived_from: "superpowers:writing-skills"
+  airl.upstream_commit: "b36e0829c6d0140e93cfef2ca599b1b07d4a7797"
+  airl.roles: "Metascience Lead,Assurance Lead"
+  airl.assurance_classes: "R1,R2,R3"
+  airl.non_waivable: "true"
+  airl.emits: "Skill,BaselineTestRecord"
 ---
 
 # Writing Skills

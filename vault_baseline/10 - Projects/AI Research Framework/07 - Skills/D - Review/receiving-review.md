@@ -4,14 +4,19 @@
 
 ---
 name: receiving-review
-version: 1.0.0
-description: Use when a ReviewVerdict arrives, when review conditions must be addressed, or when you disagree with a finding
-gates: [G6, G8]
-roles: [Engineering Owner, Scientific Owner, Evidence Lead]
-assurance_classes: [R1, R2, R3]
-non_waivable: true
-emits: [ProducerResponse]
-mechanical_checks: [every_condition_has_stance, no_unanswered_condition_at_gate]
+description: "Use when a ReviewVerdict arrives, when review conditions must be addressed, or when you disagree with a finding"
+metadata:
+  airl.version: "1.0.0"
+  airl.domain: "scientific-research"
+  airl.origin: "airl-native"
+  airl.derived_from: "superpowers:receiving-code-review"
+  airl.upstream_commit: "b36e0829c6d0140e93cfef2ca599b1b07d4a7797"
+  airl.gates: "G6,G8"
+  airl.roles: "Engineering Owner,Scientific Owner,Evidence Lead"
+  airl.assurance_classes: "R1,R2,R3"
+  airl.non_waivable: "true"
+  airl.emits: "ProducerResponse"
+  airl.mechanical_checks: "every_condition_has_stance,no_unanswered_condition_at_gate"
 ---
 
 # Receiving Review
