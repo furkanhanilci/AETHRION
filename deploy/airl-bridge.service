@@ -1,5 +1,5 @@
 [Unit]
-Description=AIRL Zotero to Obsidian Bridge API
+Description=AETHRION Zotero to Obsidian Bridge API
 After=default.target
 
 [Service]
