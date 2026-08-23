@@ -345,7 +345,7 @@ A package whose evidence cannot be produced is not `READY`, however complete its
 | Source | Mode | What is taken | AETHRION owns | Unresolved |
 |---|---|---|---|---|
 | `CMP-005` — Inspect AI | `DEPENDENCY` | The evaluation engine: dataset/solver/scorer execution, sandboxing, limits, retry/resume and transcripts. | The behaviours themselves, their pass criteria, the golden sets and the contamination controls — encoded as Inspect tasks, solvers and scorers. | **2** |
-| `CMP-046` — buzz-acp — Agent Client Protocol runtime bridge | `DEPENDENCY` | Session transport, runtime process lifecycle and the protocol wire format. | The internal `AgentRuntime` contract — `qualify`, `start_session`, `send_task`, `stream_events`, `cancel`, `collect_result`, `close` — and the `AgentRuntimeProfile` that says which runtime may satisfy which requirement. | **2** |
+| `CMP-046` — buzz-acp — Agent Client Protocol runtime bridge | `DEPENDENCY` | Session transport, runtime process lifecycle and the protocol wire format. | The internal `AgentRuntime` contract — `qualify`, `start_session`, `send_task`, `stream_events`, `cancel`, `collect_result`, `close` — and the `AgentRuntimeProfile` that says which runtime may satisfy which requirement. | **1** |
 | `CMP-047` — Hermes — general-purpose cognitive runtime | `OPTIONAL_BACKEND` | The runtime's own reasoning and tool loop, session-local state, tool-call formatting and harness behaviour. | `AgentRuntimeProfile` and its qualification: which runtime may host which cognitive function, with what capabilities, under which clean-context guarantee. | **1** |
 | `CMP-048` — Buzz Agent — bundled runtime and `SKILL.md` workspace discovery | `OPTIONAL_BACKEND` | Runtime-side discovery of `SKILL.md` from `.agents/skills`, `.goose/skills` and `.claude/skills`, and git/worktree-aware workspace handling. | The Skill Compiler: which skills a given actor may see, materialised as a small task-specific bundle in that actor's worktree. | **1** |
 | `CMP-049` — Codex CLI | `OPTIONAL_BACKEND` | The runtime's own agent loop, model interaction and local tool interface. | `AgentRuntimeProfile` and its qualification record — which runtime may host which cognitive function, with which capabilities, under which clean-context guarantee. | **1** |
@@ -386,7 +386,6 @@ Each item below is an obligation its mode creates, quoted from the rule that cre
 
 **`CMP-046` — buzz-acp — Agent Client Protocol runtime bridge** · `DEPENDENCY` · status `PROPOSED`
 
-- a version or image-digest policy and an upgrade path
 - what happens when it is unavailable, slow or wrong
 
 **`CMP-047` — Hermes — general-purpose cognitive runtime** · `OPTIONAL_BACKEND` · status `PROPOSED`
@@ -409,7 +408,7 @@ Each item below is an obligation its mode creates, quoted from the rule that cre
 
 - the backend itself — still unchosen, which is the correct state until the qualification runs, and a stop condition for anyone about to pick one
 
-**Acquisition readiness — 9 obligations open across 7 of 7 sources.** `00_PROGRAM/05_definition_of_ready_and_done.md` requires the acquisition surface of a package to be classified and its obligations resolved before the package is `READY`; `scripts/ready_queue.py` holds it back until they are.
+**Acquisition readiness — 8 obligations open across 7 of 7 sources.** `00_PROGRAM/05_definition_of_ready_and_done.md` requires the acquisition surface of a package to be classified and its obligations resolved before the package is `READY`; `scripts/ready_queue.py` holds it back until they are.
 
 <!-- /generated:implementation-sources -->
 

@@ -323,6 +323,19 @@ this repository. None was in the specification; all three were here already.
 | **O2** | **The largest thing taken from someone else was in no register.** Eleven engineering skills are vendored verbatim from `obra/superpowers` at a pinned commit under MIT, recorded in `NOTICE` and in `CLAUDE.md` — and absent from `provenance/upstreams.json`, which is the register the acquisition-binding baseline had just made authoritative. It was invisible to every check that reads the register | `provenance/upstreams.json` | **Closed.** `ASM-066`, under a new `VENDORED` mode — verbatim inclusion is neither adaptation nor reimplementation, and calling it either misstates the obligation. A test asserts the register and `NOTICE` agree on the pin |
 | **O3** | **Two rules read a hyphen as a pattern failure.** `check_doc_consistency.py` matched spelled-out counts with `\w+`, so the bundle reaching *twenty-two* and the figure corpus reaching *twenty-one* each made a correct document report "pattern drifted" | `scripts/check_doc_consistency.py` | **Closed.** Both patterns accept a hyphen. This is the second time the spelled-number path has failed a correct document — the first was finding I12 |
 
+> **Closed on 2026-08-24, from a session with network access.** The licence was
+> read at the source and is the unmodified Apache License 2.0; the delta's
+> reported baseline commit was verified to exist and the crates it described were
+> confirmed present at that tree. `ASM-060` returned to `DIRECT_ADAPT` with a pin
+> and an exact file list — and **stayed `PROPOSED`**, because the obligation that
+> actually protects the adaptation is the characterisation suite, which no
+> session can write without executing the upstream. Two things worth keeping:
+> the reviewed tree is 465 commits ahead of the latest release tag, so the
+> analysed behaviour is unreleased development code; and the mechanism is a
+> ~180-line data model with no orchestration, no HTTP client and no relay
+> dependency, which is what made it separable in the first place. Baseline
+> v1.3.4.
+
 > **What the external specification got right, and it is worth recording because
 > it is unusual.** It classified its own changes against this repository's V1/V2
 > rule before proposing them, refused to hard-code counts it knew would be stale,

@@ -313,7 +313,7 @@ A package whose evidence cannot be produced is not `READY`, however complete its
 |---|---|---|---|---|
 | `ASM-041` — CONSENSAGENT — sycophancy as a reliability and cost problem | `ADAPTIVE_REIMPLEMENT` | `MS-COHORT-001` | the local module and contract surface this becomes — **named at refinement** | **1** |
 | `ASM-042` — MAS-Resilience — faulty-agent resilience, Challenger and Inspector | `ADAPTIVE_REIMPLEMENT` | `MS-RESIL-001` · `MS-RESIL-002` | the local module and contract surface this becomes — **named at refinement** | **1** |
-| `ASM-060` — Buzz Harbor Orchestra — frozen roster manifest for a cohort run | `PATTERN` | the idea only — no code and nothing called at runtime | everything — the implementation here is this repository's own | none |
+| `ASM-060` — Buzz Harbor Orchestra — frozen roster manifest for a cohort run | `DIRECT_ADAPT` | `benchmarks/harbor-buzz-orchestra/src/harbor_buzz_orchestra/manifest.py` · `benchmarks/harbor-buzz-orchestra/tests/test_manifest.py` | the local module and contract surface this becomes — **named at refinement** | **2** |
 | `ASM-063` — Buzz — signed collaboration event and audit export | `PATTERN` | the idea only — no code and nothing called at runtime | everything — the implementation here is this repository's own | none |
 | `CMP-045` — Buzz — collaboration relay, teams, rooms and agent identities | `OPTIONAL_BACKEND` | Operational collaboration: identity material, team and roster deployment, room and thread creation, message transport and targeted delivery, agent presence, runtime process attachment, and the collaboration activity feed. | The `CollaborationBackend` contract and everything above it: `AgentCohortRecord`, `CognitiveDiversityProfile`, `CommunicationGraph`, `CommunicationEdgePolicy`, `TypedAgentMessage`, `InitialPositionArtifact` and the round-zero embargo. AETHRION compiles *what collaboration must happen*; the backend is told, and reports … | **1** |
 | — | `BUILD_NATIVE` | Everything not listed above: the contracts, the authority boundaries and the integration this package specifies | All of it | — |
@@ -334,7 +334,7 @@ An adopted mechanism supplies a signal, never a verdict. The recurring failure o
 
 - **`ASM-041`** — Frames sycophancy as agents reinforcing one another instead of engaging critically, which inflates cost through extra debate rounds. Evaluated on six reasoning datasets across three models. The mechanism taken is the diagnostic and the framing; the convergence rule here is unresolved-material-challenge closure rather than agreement — ACC-089, ACC-090.
 - **`ASM-042`** — Reports that a hierarchical A→(B↔C) topology degrades least under faulty agents — 5.5% against 10.5% and 23.7% — and that Challenger and Inspector recover up to 96.4% of injected errors. Its AutoTransform and AutoInject fault-injection methods are the model for this baseline's faulty-agent fixtures. **This entry is the register's worked example of a licence changing the method rather than the decision.**
-- **`ASM-060`** — The mechanism worth taking is narrow and real: an execution manifest that freezes roster, model revision, prompt hash, budget and concurrency before a run starts, so what ran can be reconstructed afterwards. That maps almost exactly onto `AgentCohortRecord` plus the budget envelope, and it is the shape WP-153's ledger needs upstream of it. **Recorded as `PATTERN` rather than `DIRECT_ADAPT`, and the checker is the reason.** The architecture delta proposes direct adaptation and reports the licence as Apache-2.0, but no licence has been read at the source from here — this session has no network …
+- **`ASM-060`** — The mechanism worth taking is narrow and real: an execution manifest that freezes roster, model revision, prompt digest, budget envelope and concurrency before a run starts, so what ran can be reconstructed afterwards. That maps almost exactly onto `AgentCohortRecord` plus the budget envelope, and it is the shape WP-153's ledger needs upstream of it. **Read at the source on 2026-08-24.** The LICENSE file at the pinned tree is the unmodified Apache License 2.0 — nine numbered sections, the standard appendix, no non-commercial clause, no field-of-use restriction and no added term — under …
 - **`ASM-063`** — The provenance surface is genuinely good, which is why the boundary has to be stated: a well-signed record of the wrong kind of fact is more persuasive than an unsigned one, not less.
 - **`CMP-045`** — Buzz appears in both registers and the two entries are different subjects: this row is the runtime collaboration substrate, while `ASM-060`–`ASM-063` record specific mechanisms taken from the same project. Prototype-grade and moving at review, so a floating `main` is not an acceptable dependency — see WP-159.
 
@@ -350,11 +350,16 @@ Each item below is an obligation its mode creates, quoted from the rule that cre
 
 - a written mechanism specification — inputs, outputs, state, transitions, invariants, failure conditions and forbidden behaviour — before implementation
 
+**`ASM-060` — Buzz Harbor Orchestra — frozen roster manifest for a cohort run** · `DIRECT_ADAPT` · status `PROPOSED`
+
+- the register entry moved to `CHARACTERIZED` — upstream behaviour captured and the adaptation confirmed against the pinned tree, not against the paper
+- a characterisation suite capturing upstream behaviour **before** any code moves
+
 **`CMP-045` — Buzz — collaboration relay, teams, rooms and agent identities** · `OPTIONAL_BACKEND` · status `PROPOSED`
 
 - the backend itself — still unchosen, which is the correct state until the qualification runs, and a stop condition for anyone about to pick one
 
-**Acquisition readiness — 3 obligations open across 3 of 5 sources.** `00_PROGRAM/05_definition_of_ready_and_done.md` requires the acquisition surface of a package to be classified and its obligations resolved before the package is `READY`; `scripts/ready_queue.py` holds it back until they are.
+**Acquisition readiness — 5 obligations open across 4 of 5 sources.** `00_PROGRAM/05_definition_of_ready_and_done.md` requires the acquisition surface of a package to be classified and its obligations resolved before the package is `READY`; `scripts/ready_queue.py` holds it back until they are.
 
 <!-- /generated:implementation-sources -->
 

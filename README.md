@@ -52,7 +52,7 @@ implied.
 | Skill registry (52 skills, two families) | ✅ Format-conformant · ⚠️ wired for Claude Code only · 📐 behaviour **not yet tested** | `skills/` |
 | Obsidian information architecture | ✅ V0 ready | `vault_baseline/` |
 | Target architecture and skill layer | 📐 Designed, awaiting decision | `docs/architecture/` |
-| Commissioning programme — **baseline v1.3.3** | ⬜ Planned, not started; 160 package documents, 120 scenarios | `planning/commissioning/` |
+| Commissioning programme — **baseline v1.3.4** | ⬜ Planned, not started; 160 package documents, 120 scenarios | `planning/commissioning/` |
 | Interim evidence policy (WP-000) | ✅ `TECH_COMPLETE` — tooling implemented, specimen issued and verified | `scripts/evidence_manifest.py` · `delivery/WP-000/` |
 | Verification on push (BVC-01) | 📐 Decided and written, **not yet active** — needs a workflow-scoped token | `deploy/bvc-01-verify.yml` |
 | Human notification channels (ntfy · Telegram · Discord/Slack · WhatsApp) | ⬜ **Planned** — WP-132/135 specify a channel registry with a per-channel data-class ceiling; three skills written, **nothing connected, nothing sends** | `planning/commissioning/13_TOOLING_INTEGRATION/` |
@@ -66,7 +66,7 @@ implied.
 src/          Bridge component and the shared contract core
 tests/        Test suite
 skills/       52 skills — HOW agents work; engineering + scientific + shared
-planning/     WP-000, WP-001..159, ACC-01..120 (hash-sealed canonical plan, baseline v1.3.3)
+planning/     WP-000, WP-001..159, ACC-01..120 (hash-sealed canonical plan, baseline v1.3.4)
 docs/         Architecture, review, branding and operations documents
 docs/assets/  Branding assets — the logo, and the rules that keep it canonical
 schemas/      Shared contract schemas
@@ -1065,10 +1065,17 @@ by a harness.
 
 **None of it is built.** [`ADR-020`](docs/architecture/ADR-020_collaboration_backend_and_runtime.md)
 fixes the boundary before any code moves, which is the only point at which fixing
-it is cheap. No backend is integrated, no runtime is qualified, no adapter exists,
-and the licence of the first candidate has not been read from here — which is why
-its orchestration manifest is registered as a `PATTERN` rather than the direct
-adaptation originally proposed.
+it is cheap. No backend is integrated, no runtime is qualified and no adapter
+exists.
+
+One upstream mechanism is now cleared to move and has not moved. The licence was
+read at the source — unmodified Apache-2.0 — the tree is pinned, and the file
+list is two files: a 180-line manifest model that freezes roster, model revision,
+prompt digest, budget and concurrency before a run starts, plus its test. It
+stays `PROPOSED` because **no characterisation suite exists**, and `ADR-004`
+requires upstream behaviour to be captured in tests before any code moves. A pin
+and a licence make an adaptation legal; the characterisation is what later makes
+divergence distinguishable from intent.
 
 ## 9. How evidence is signed
 
@@ -1108,7 +1115,7 @@ the section to read first if you are deciding whether to trust anything else.
 ```mermaid
 flowchart LR
     subgraph WORKING["RUNNING - verified locally"]
-        W["Zotero read-only client<br/>SQLite source registry<br/>Obsidian projection<br/>Hermes MCP, 5 tools<br/>systemd units · 172 tests<br/>plan seal · 22 status checks<br/>signed evidence manifest<br/>21 generated figures<br/>upstream lineage register + checker"]
+        W["Zotero read-only client<br/>SQLite source registry<br/>Obsidian projection<br/>Hermes MCP, 5 tools<br/>systemd units · 173 tests<br/>plan seal · 22 status checks<br/>signed evidence manifest<br/>21 generated figures<br/>upstream lineage register + checker"]
     end
     subgraph WRITTEN["WRITTEN - never executed"]
         S["52 skills, none behaviour-tested<br/>160 package documents<br/>120 acceptance scenarios<br/>role-to-model assignment rules<br/>4 authoring profiles"]
@@ -1231,7 +1238,7 @@ branch and are regenerated from the canonical registry. Human synthesis stays in
 ### Verify
 
 ```bash
-uv run pytest                          # 172 tests
+uv run pytest                          # 173 tests
 uv run python scripts/mcp_smoke.py     # asserts the five-tool boundary; exits 1 on failure
 uv run python scripts/acceptance_v0.py # data-independent structural acceptance
 python3 scripts/validate_skills.py     # Agent Skills format + AIRL metadata contract
@@ -1338,7 +1345,7 @@ flowchart LR
 ```
 
 ```
-172/172 tests pass · plan seal 632/632 OK · plan semantics OK · service and timer active
+173/173 tests pass · plan seal 632/632 OK · plan semantics OK · service and timer active
 WP-000 attestation: signature OK, 9 subject digests OK, tamper rejected
 MCP smoke: 5 read-only tools, exits 1 when the Bridge is down
 Acceptance: 11 structural checks pass, data-independent

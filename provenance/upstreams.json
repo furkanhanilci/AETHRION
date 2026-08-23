@@ -1971,12 +1971,15 @@
       "repository": "https://github.com/block/buzz",
       "paper": null,
       "reference": null,
-      "licence": "UNVERIFIED — reported Apache-2.0 at the architecture delta's review of 0720f5380ce8a6c050afac159f8462c06cd51ab5; not read at the source from this session, which has no network access",
-      "licence_verified": null,
-      "assimilation": "PATTERN",
+      "licence": "Apache-2.0",
+      "licence_verified": "2026-08-24",
+      "assimilation": "DIRECT_ADAPT",
       "status": "PROPOSED",
-      "pinned_commit": null,
-      "source_files": [],
+      "pinned_commit": "0720f5380ce8a6c050afac159f8462c06cd51ab5",
+      "source_files": [
+        "benchmarks/harbor-buzz-orchestra/src/harbor_buzz_orchestra/manifest.py",
+        "benchmarks/harbor-buzz-orchestra/tests/test_manifest.py"
+      ],
       "mechanisms": [],
       "mechanism_spec": null,
       "local_modules": [],
@@ -1992,8 +1995,8 @@
       "selection": null,
       "conformance": null,
       "research_baseline": "0720f5380ce8a6c050afac159f8462c06cd51ab5",
-      "drift_status": "NOT_PINNED",
-      "notes": "The mechanism worth taking is narrow and real: an execution manifest that freezes roster, model revision, prompt hash, budget and concurrency before a run starts, so what ran can be reconstructed afterwards. That maps almost exactly onto `AgentCohortRecord` plus the budget envelope, and it is the shape WP-153's ledger needs upstream of it.\n\n**Recorded as `PATTERN` rather than `DIRECT_ADAPT`, and the checker is the reason.** The architecture delta proposes direct adaptation and reports the licence as Apache-2.0, but no licence has been read at the source from here — this session has no network — and `check_upstream_lineage.py` R7 refuses a direct adaptation under an unverified licence. That refusal is the correct outcome, not an obstacle: until someone reads the licence at the pinned tree, the honest mode is the one that moves no files. Re-classification to `DIRECT_ADAPT` is a deliberate act requiring a licence read, a production pin, an exact file list and a characterisation suite written first."
+      "drift_status": "PINNED",
+      "notes": "The mechanism worth taking is narrow and real: an execution manifest that freezes roster, model revision, prompt digest, budget envelope and concurrency before a run starts, so what ran can be reconstructed afterwards. That maps almost exactly onto `AgentCohortRecord` plus the budget envelope, and it is the shape WP-153's ledger needs upstream of it.\n\n**Read at the source on 2026-08-24.** The LICENSE file at the pinned tree is the unmodified Apache License 2.0 — nine numbered sections, the standard appendix, no non-commercial clause, no field-of-use restriction and no added term — under `Copyright 2026 Block, Inc.` The register previously carried this as `PATTERN` because `check_upstream_lineage.py` R7 refuses a direct adaptation under an unverified licence and no licence had been read from a session with no network. That refusal held for exactly as long as it should have.\n\n**What was verified at the pin.** `manifest.py` is approximately 180 lines and is a pure data model — `hashlib`, `json`, `pathlib`, `typing`, `pydantic`, `yaml`, and nothing else. It imports no container orchestration, no HTTP client and no relay. `ExperimentManifest` carries `schema_version`, `condition`, `roster`, `prices`, `trial_budget` and `metadata`; `AgentClass` carries `model_revision` and `concurrency`; `ArtifactRef` carries a `sha256`; budget is `AgentBudget` and `TrialBudget`. That is the mechanism and it is separable from the orchestrator, which is the whole basis for this being an adaptation rather than an import.\n\n**The file carries no per-file licence header**, so the Apache-2.0 attribution obligation is met through `NOTICE` and a reproduced `LICENSE`, not by preserving a header that does not exist.\n\n**The pin is a development tip, not a release.** It is 465 commits ahead of `v0.5.2` (2026-07-29), the latest tag, and was the tip of `main` when read. The architecture delta's mechanism analysis was done against this tree, which is why it is the pin: pinning a different commit would mean the recorded analysis was never performed against the pinned code. A production pin is a separate, later decision — WP-159.\n\n**Still `PROPOSED`, and the remaining obligation is the load-bearing one.** No characterisation suite exists. Under `ADR-004` upstream behaviour must be captured in tests *before* any code moves, and that cannot be done from a session that can read the repository but not execute it. R5 continues to refuse `ADAPTING` until it exists."
     },
     {
       "id": "ASM-061",

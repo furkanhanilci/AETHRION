@@ -272,10 +272,28 @@ removing either one loses no scientific truth.
 ## Provenance
 
 Prepared from the Buzz/ACP/Hermes architecture delta reviewed against AETHRION
-`c750946d0ee08e58e3090f979630743aafcf9696` and a Buzz research baseline of
-`0720f5380ce8a6c050afac159f8462c06cd51ab5`. The Buzz licence is reported as
-Apache-2.0 at that review and **has not been read at the source from this
-repository**, which has no network access — which is why the Harbor Orchestra
-manifest is registered as `PATTERN` rather than the `DIRECT_ADAPT` the delta
-proposed. `check_upstream_lineage.py` R7 refuses the second under an unverified
-licence, and that refusal is the correct outcome.
+`c750946d0ee08e58e3090f979630743aafcf9696` and a Buzz baseline of
+`0720f5380ce8a6c050afac159f8462c06cd51ab5`.
+
+**The licence was read at the source on 2026-08-24**, from a session with network
+access. The `LICENSE` file at the pinned tree is the unmodified Apache License
+2.0 — nine numbered sections, the standard appendix, no non-commercial clause, no
+field-of-use restriction and no added term — under `Copyright 2026 Block, Inc.`
+The delta's reported baseline commit was verified to exist, and the crates it
+described (`buzz-acp`, `buzz-agent`, `buzz-persona`, `buzz-relay`,
+`buzz-workflow`) were confirmed present.
+
+Between the decision and that reading, the Harbor Orchestra manifest was
+registered as `PATTERN` rather than the `DIRECT_ADAPT` the delta proposed,
+because `check_upstream_lineage.py` R7 refuses a direct adaptation under an
+unverified licence. The refusal held for exactly as long as it should have, and
+`ASM-060` now carries the verified licence, the pin and a named file list. **It
+is still `PROPOSED`**: no characterisation suite exists, and R5 refuses
+`ADAPTING` until one does.
+
+One fact from that reading belongs in the decision rather than only in the
+register. **The pinned tree is 465 commits ahead of `v0.5.2`**, the latest
+release tag — it was the tip of `main` when read. The mechanism analysis was
+performed against that tree, which is why it is the pin; it also means the
+reviewed behaviour is unreleased development code, and choosing a production pin
+is a separate decision under WP-159.

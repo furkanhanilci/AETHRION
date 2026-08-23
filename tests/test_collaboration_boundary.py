@@ -94,16 +94,41 @@ def test_a_runtime_is_never_recorded_as_a_role() -> None:
     assert "not a role" in hermes["not_used"].lower()
 
 
-def test_the_prototype_upstream_is_not_pinned_and_says_so() -> None:
-    """The delta proposed direct adaptation. The licence has not been read from a
-    session with no network, so R7 refuses it and PATTERN is the honest mode."""
+def test_the_pinned_adaptation_is_legal_and_still_has_not_moved() -> None:
+    """The licence was read at the source, so R7 no longer refuses the mode.
+
+    What must not happen next is the quiet step: a pin and a permissive licence
+    make an adaptation *legal*, and `ADR-004` still requires upstream behaviour
+    captured in tests before any code is taken. This test fails the moment the
+    entry claims to be adapting without that suite.
+    """
     manifest = _entry(_upstreams(), "ASM-060")
-    assert manifest["assimilation"] == "PATTERN"
-    assert manifest["pinned_commit"] is None
-    assert manifest["research_baseline"], "the review pin was discarded rather than labelled"
-    assert manifest["licence"].upper().startswith("UNVERIFIED")
-    assert "DIRECT_ADAPT" in manifest["notes"], (
-        "the intended mode and what it is waiting for must survive the refusal")
+    assert manifest["assimilation"] == "DIRECT_ADAPT"
+    assert manifest["licence"] == "Apache-2.0"
+    assert manifest["licence_verified"], "a permissive mode with no date the licence was read"
+    assert manifest["pinned_commit"] and len(manifest["pinned_commit"]) == 40
+    assert manifest["drift_status"] == "PINNED"
+    assert manifest["source_files"], "a direct adaptation with no named file list"
+
+    # The load-bearing half. If this ever passes trivially, check why.
+    assert manifest["characterization_suite"] is None
+    assert manifest["status"] == "PROPOSED", (
+        "the entry left PROPOSED without a characterisation suite — R5 exists to "
+        "refuse exactly this")
+    assert not manifest["local_modules"], (
+        "a local module exists for an entry that has not been characterised — "
+        "code moved before the suite that would detect divergence")
+
+
+def test_a_pinned_commit_is_a_commit_and_not_a_branch() -> None:
+    import re
+    for entry in _upstreams():
+        pin = entry.get("pinned_commit")
+        if pin is None:
+            assert entry.get("drift_status") == "NOT_PINNED", entry["id"]
+            continue
+        assert re.fullmatch(r"[0-9a-f]{40}", pin), f"{entry['id']}: {pin!r} is not a digest"
+        assert entry.get("drift_status") != "NOT_PINNED", entry["id"]
 
 
 def test_the_vendored_engineering_skills_are_registered_rather_than_only_noticed() -> None:

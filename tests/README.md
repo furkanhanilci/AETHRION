@@ -3,12 +3,12 @@
 | Field | Value |
 |---|---|
 | Document type | Index — what is tested, and what is deliberately not |
-| Scope | The 172 tests that run today |
+| Scope | The 173 tests that run today |
 | Sibling documents | `../scripts/README.md` · `../docs/OPERATIONS.md` |
-| Status | `WORKING` — 172 passing; coverage is narrow and honestly so |
+| Status | `WORKING` — 173 passing; coverage is narrow and honestly so |
 | Date | 2026-08-23 |
 
-**In one paragraph.** 172 tests cover the components that exist: the
+**In one paragraph.** 173 tests cover the components that exist: the
 bridge's database, projection, API and MCP boundary, the shared contract core,
 and the evidence attestation tooling. They do not cover the target architecture,
 because it is not built, and they do not cover agent behaviour, because no
@@ -47,6 +47,6 @@ behaves; it does not mean the framework works.
   gates.
 
 ```bash
-uv run pytest          # all 172
+uv run pytest          # all 173
 uv run pytest -k mcp   # one area
 ```

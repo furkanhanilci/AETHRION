@@ -57,7 +57,7 @@ tags:
 
 ---
 
-## DIRECT_ADAPT (7)
+## DIRECT_ADAPT (8)
 
 | ID | Mechanism | Upstream | Licence | Status | Authority boundary |
 |---|---|---|---|---|---|
@@ -68,6 +68,7 @@ tags:
 | `ASM-008` | ERA — ScorableTask and Flat UCB Tree Search (FUTS) | [google-research/era](https://github.com/google-research/era) | Apache-2.0 | `PROPOSED` | A FUTS selection score allocates compute. Writing it into a ClaimVersion, a VerifiedValue or a GateRecord is a forbidden conversion enforced by schema and policy. |
 | `ASM-022` | K-Dense Science Superpowers — computational-science methodology skills | [K-Dense-AI/science-superpowers](https://github.com/K-Dense-AI/science-superpowers) | MIT | `PROPOSED` | A skill changes how an agent works. It never changes what an agent is permitted to do — that is the RoleContract and the policy engine. |
 | `ASM-045` | BATS — budget-aware tool use and test-time scaling | [google-research/budget-aware-agent](https://github.com/google-research/budget-aware-agent) | Apache-2.0 | `PROPOSED` | A remaining-budget signal changes what a campaign does next. It can never lower an assurance route, reduce a cohort or skip a non-waivable control — a task that cannot afford its assurance is BLOCKED. |
+| `ASM-060` | Buzz Harbor Orchestra — frozen roster manifest for a cohort run | [block/buzz](https://github.com/block/buzz) | Apache-2.0 | `PROPOSED` | A manifest records what a cohort run was configured with. It is never evidence that the run was scientifically adequate, and a frozen roster does not establish epistemic independence — five identities on one model and one context are one contribution, whatever the manifest says. |
 
 ---
 
@@ -100,7 +101,7 @@ tags:
 
 ---
 
-## PATTERN (12)
+## PATTERN (11)
 
 | ID | Mechanism | Upstream | Licence | Status | Authority boundary |
 |---|---|---|---|---|---|
@@ -112,7 +113,6 @@ tags:
 | `ASM-049` | Search-Time Contamination — benchmark leakage through retrieval | arXiv:2606.05241 — Search-Time Contamination in Deep Research Agents | N/A | `PROPOSED` | A contamination label describes a measurement's conditions. It does not correct the score, and a labelled run is never reported as clean. |
 | `ASM-050` | Hosted-model nondeterminism under deterministic settings | Eval4NLP 2025 — https://aclanthology.org/2025.eval4nlp-1.12/ | N/A | `PROPOSED` | A reproduction level describes what the substrate can support. It is not a statement about whether the result is correct. |
 | `ASM-051` | Automation bias and correction effort in human oversight | HDSR 2026 — Bias in the Loop (2,784 participants); and arXiv:2607.13562 on AI advice and willingness to say 'I don't know' | N/A | `PROPOSED` | A debiasing measure changes the order and cost of an interaction. It confers no authority and removes none — the human decision remains the human's. |
-| `ASM-060` | Buzz Harbor Orchestra — frozen roster manifest for a cohort run | [block/buzz](https://github.com/block/buzz) | UNVERIFIED | `PROPOSED` | A manifest records what a cohort run was configured with. It is never evidence that the run was scientifically adequate, and a frozen roster does not establish epistemic independence — five identities on one model and one context are one contribution, whatever the manifest says. |
 | `ASM-061` | Buzz Harbor Orchestra — separate implementer and verifier workers | [block/buzz](https://github.com/block/buzz) | UNVERIFIED | `PROPOSED` | Implementation precedent, never authority. That the producer and the verifier are different workers is already an AETHRION invariant under ADR-001 and `00_PROGRAM/06`; observing it working elsewhere is corroboration and changes no rule here. |
 | `ASM-062` | Buzz Persona Pack — packaged actor configuration | [block/buzz](https://github.com/block/buzz) | UNVERIFIED | `PROPOSED` | A persona configures a backend actor. It is not a `RoleContract` and carries no scientific semantics: one AETHRION cognitive function may project to different personas on different runtimes while the role semantics stay fixed, and persona prompt metadata is never authoritative by itself. |
 | `ASM-063` | Buzz — signed collaboration event and audit export | [block/buzz](https://github.com/block/buzz) | UNVERIFIED | `PROPOSED` | A signed collaboration event attributes an operational act to an operational identity. It does not prove that identity held an AETHRION governance role at the time, and it is not admissible as evidence for a claim. Attribution and authority are different questions. |

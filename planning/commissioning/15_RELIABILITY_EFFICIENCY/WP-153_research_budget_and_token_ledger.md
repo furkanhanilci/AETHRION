@@ -104,10 +104,18 @@ before it touches anything epistemic.
 ### The frozen run manifest
 
 `ASM-060` records the one mechanism worth taking from the upstream orchestration
-model: freeze roster, model revision, prompt hash, budget envelope and
+model: freeze roster, model revision, prompt digest, budget envelope and
 concurrency **before** a run starts, so what ran can be reconstructed afterwards.
-That is the shape this ledger needs upstream of it, and it is registered as a
-`PATTERN` — no file has moved, and none may until a licence is read at the source.
+That is the shape this ledger needs upstream of it.
+
+It is a `DIRECT_ADAPT` under a licence read at the source, against a pinned tree,
+with an exact two-file list — and **no file has moved.** What stands between the
+decision and the code is the characterisation suite: `ADR-004` requires upstream
+behaviour to be captured in tests *before* any code is taken, because a mechanism
+adapted without one cannot be told apart from a mechanism that was misunderstood.
+The mechanism is a ~180-line data model with no orchestration, no HTTP client and
+no relay dependency, which is what makes it separable at all — the orchestrator
+around it is explicitly not taken.
 
 ## Out of scope
 
@@ -284,7 +292,7 @@ A package whose evidence cannot be produced is not `READY`, however complete its
 |---|---|---|---|---|
 | `ASM-039` — AgentSlimming — baseline-anchored workflow optimisation | `ADAPTIVE_REIMPLEMENT` | `MS-COMM-004` | the local module and contract surface this becomes — **named at refinement** | **1** |
 | `ASM-045` — BATS — budget-aware tool use and test-time scaling | `DIRECT_ADAPT` | `src/agent_budget_tracker.py` · `src/agent_bats.py` | the local module and contract surface this becomes — **named at refinement** | **3** |
-| `ASM-060` — Buzz Harbor Orchestra — frozen roster manifest for a cohort run | `PATTERN` | the idea only — no code and nothing called at runtime | everything — the implementation here is this repository's own | none |
+| `ASM-060` — Buzz Harbor Orchestra — frozen roster manifest for a cohort run | `DIRECT_ADAPT` | `benchmarks/harbor-buzz-orchestra/src/harbor_buzz_orchestra/manifest.py` · `benchmarks/harbor-buzz-orchestra/tests/test_manifest.py` | the local module and contract surface this becomes — **named at refinement** | **2** |
 | — | `BUILD_NATIVE` | Everything not listed above: the contracts, the authority boundaries and the integration this package specifies | All of it | — |
 
 ### What each source may never decide
@@ -301,7 +309,7 @@ An adopted mechanism supplies a signal, never a verdict. The recurring failure o
 
 - **`ASM-039`** — MIT-licensed and therefore legally adaptable, and still reimplemented — the taken mechanisms are multi-metric importance estimation, **baseline-anchored acceptance**, quality-regression rollback and Pareto reporting. The reported cost reduction was not confirmed on the repository page and is recorded here as a paper claim rather than an observed figure. This is the clearest entry in the register where a permissive licence does not make copying correct.
 - **`ASM-045`** — Makes remaining tool budget part of the agent's continuous context, and uses it to decide between deepening a promising lead and pivoting. Apache-2.0 with two compact, isolable modules, which makes this the strongest direct-adaptation candidate added by this delta. Also carries intermediate summarisation and old-tool-response compression, which belong to the context projection rather than to the budget controller.
-- **`ASM-060`** — The mechanism worth taking is narrow and real: an execution manifest that freezes roster, model revision, prompt hash, budget and concurrency before a run starts, so what ran can be reconstructed afterwards. That maps almost exactly onto `AgentCohortRecord` plus the budget envelope, and it is the shape WP-153's ledger needs upstream of it. **Recorded as `PATTERN` rather than `DIRECT_ADAPT`, and the checker is the reason.** The architecture delta proposes direct adaptation and reports the licence as Apache-2.0, but no licence has been read at the source from here — this session has no network …
+- **`ASM-060`** — The mechanism worth taking is narrow and real: an execution manifest that freezes roster, model revision, prompt digest, budget envelope and concurrency before a run starts, so what ran can be reconstructed afterwards. That maps almost exactly onto `AgentCohortRecord` plus the budget envelope, and it is the shape WP-153's ledger needs upstream of it. **Read at the source on 2026-08-24.** The LICENSE file at the pinned tree is the unmodified Apache License 2.0 — nine numbered sections, the standard appendix, no non-commercial clause, no field-of-use restriction and no added term — under …
 
 ### Unresolved before implementation
 
@@ -317,7 +325,12 @@ Each item below is an obligation its mode creates, quoted from the rule that cre
 - a pinned upstream commit — a branch name is not a pin
 - a characterisation suite capturing upstream behaviour **before** any code moves
 
-**Acquisition readiness — 4 obligations open across 2 of 3 sources.** `00_PROGRAM/05_definition_of_ready_and_done.md` requires the acquisition surface of a package to be classified and its obligations resolved before the package is `READY`; `scripts/ready_queue.py` holds it back until they are.
+**`ASM-060` — Buzz Harbor Orchestra — frozen roster manifest for a cohort run** · `DIRECT_ADAPT` · status `PROPOSED`
+
+- the register entry moved to `CHARACTERIZED` — upstream behaviour captured and the adaptation confirmed against the pinned tree, not against the paper
+- a characterisation suite capturing upstream behaviour **before** any code moves
+
+**Acquisition readiness — 6 obligations open across 3 of 3 sources.** `00_PROGRAM/05_definition_of_ready_and_done.md` requires the acquisition surface of a package to be classified and its obligations resolved before the package is `READY`; `scripts/ready_queue.py` holds it back until they are.
 
 <!-- /generated:implementation-sources -->
 

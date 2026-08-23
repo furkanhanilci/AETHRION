@@ -368,14 +368,23 @@ container digest is qualified, characterisation is rerun on upgrade, and an
 upgrade that changes room visibility defaults fails characterisation even with an
 unchanged API — WP-159.
 
-> **The licence has not been read from here.** It is reported as Apache-2.0 at
-> the review baseline, and this repository has no network access, so
+> **The licence was read at the source on 2026-08-24.** Unmodified Apache License
+> 2.0 at the pinned tree — nine numbered sections, the standard appendix, no
+> non-commercial clause and no added term, under `Copyright 2026 Block, Inc.`
+> Until that reading `ASM-060` was registered as a `PATTERN`, because
 > `check_upstream_lineage.py` R7 refuses a direct adaptation under an unverified
-> licence. `ASM-060` is therefore registered as a `PATTERN` — the mode that moves
-> no files — rather than the `DIRECT_ADAPT` originally proposed. That refusal is
-> the correct outcome, and re-classification is a deliberate act requiring a
-> licence read, a production pin, an exact file list and a characterisation suite
-> written first.
+> licence; it now carries `DIRECT_ADAPT`, the pin
+> `0720f5380ce8a6c050afac159f8462c06cd51ab5`, and an exact two-file list.
+>
+> **It is still `PROPOSED`, and the obligation that remains is the one that
+> matters.** No characterisation suite exists. `ADR-004` requires upstream
+> behaviour to be captured in tests *before* any code moves, and R5 refuses
+> `ADAPTING` until it is. A pin and a licence make the adaptation *legal*; the
+> characterisation is what makes divergence distinguishable from intent.
+>
+> **The pin is a development tip, not a release** — 465 commits ahead of `v0.5.2`
+> and the tip of `main` when read. The mechanism analysis was done against that
+> tree, so it is the pin; a production pin is a separate decision under WP-159.
 
 ---
 
@@ -433,10 +442,10 @@ derives is a count nobody maintains, so it is derived.
 
 | Register | Entries | By type |
 |---|---:|---|
-| `provenance/upstreams.json` — mechanisms assimilated | **66** | ADAPTIVE_REIMPLEMENT 22 · BENCHMARK 10 · DEFER 7 · DEPENDENCY 3 · DIRECT_ADAPT 7 · PATTERN 12 · REJECT 1 · STANDARD 3 · VENDORED 1 |
+| `provenance/upstreams.json` — mechanisms assimilated | **66** | ADAPTIVE_REIMPLEMENT 22 · BENCHMARK 10 · DEFER 7 · DEPENDENCY 3 · DIRECT_ADAPT 8 · PATTERN 11 · REJECT 1 · STANDARD 3 · VENDORED 1 |
 | `provenance/components.json` — components adopted | **51** | ADAPTER 6 · DEPENDENCY 25 · OPTIONAL_BACKEND 13 · PATTERN 2 · STANDARD 5 |
 
-Together they are bound to **87 of 160** work packages and carry **125** open obligations.
+Together they are bound to **87 of 160** work packages and carry **126** open obligations.
 
 **0 entries have reached `ADAPTING`**, and **2 components are `INTEGRATED`** — the Zotero and Obsidian adapters, which are the part of this system that actually runs. Every other row is a decision on paper: `pinned_commit` is `null` throughout, no `MS-*` mechanism specification has been written, and the rules that demand a pin, a file list and a characterisation suite begin to bite at the moment the first line of code moves.
 

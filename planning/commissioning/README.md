@@ -114,7 +114,43 @@ zero open critical findings.
 > finish line is a thing that happens with a version bump, a tag and a stated
 > reason — not twice, and not quietly.
 
-> **Commissioning baseline v1.3.3 — 2026-08-24.** A refinement baseline, and
+> **Commissioning baseline v1.3.4 — 2026-08-24.** The smallest baseline in this
+> programme, and it exists because one obligation stopped being unmeetable. A
+> session with network access read the Buzz licence **at the source**: the
+> `LICENSE` file at the pinned tree is the unmodified Apache License 2.0 — nine
+> numbered sections, the standard appendix, no non-commercial clause, no
+> field-of-use restriction, no added term — under `Copyright 2026 Block, Inc.`
+>
+> `ASM-060` therefore returns to the mode the architecture delta proposed:
+> `DIRECT_ADAPT`, pinned at `0720f5380ce8a6c050afac159f8462c06cd51ab5`, with an
+> exact two-file list. R7 had refused it under an unverified licence for exactly
+> as long as it should have, which is what a control is for.
+>
+> **It is still `PROPOSED` and no file has moved.** The remaining obligation is
+> the load-bearing one: no characterisation suite exists, and `ADR-004` requires
+> upstream behaviour to be captured in tests *before* any code is taken. R5
+> refuses `ADAPTING` until it does. A pin and a licence make an adaptation legal;
+> the characterisation is what later makes divergence distinguishable from a
+> misunderstanding.
+>
+> Three facts from the reading are recorded because they change how the upstream
+> should be treated rather than merely confirming it. The mechanism is **separable
+> and small** — a ~180-line data model importing `hashlib`, `json`, `pathlib`,
+> `typing`, `pydantic` and `yaml`, with no container orchestration, no HTTP client
+> and no relay dependency, which is the whole basis for adapting a mechanism
+> rather than importing an architecture. The file carries **no per-file licence
+> header**, so the attribution obligation is met through `NOTICE` and a reproduced
+> `LICENSE`. And the pin is **a development tip, not a release**: 465 commits
+> ahead of `v0.5.2`, and the tip of `main` when read. The mechanism analysis was
+> performed against that tree, so it is the pin — but the reviewed behaviour is
+> unreleased code, and choosing a production pin stays a separate decision under
+> WP-159.
+>
+> The delta's own reported facts were checked rather than trusted: the baseline
+> commit exists, and the crates it described — `buzz-acp`, `buzz-agent`,
+> `buzz-persona`, `buzz-relay`, `buzz-workflow` — are present at that tree.
+
+> **v1.3.3** was a refinement baseline, and
 > the classification is the first thing it had to settle. `AGENTS.md` §7.4: a
 > correction keeps the finish line where it is, an addition moves it. **No
 > package, no scenario and no capability is added.** WP-148 already had to
@@ -141,11 +177,13 @@ zero open critical findings.
 >
 > **The licence was not read, and the register said so.** The change
 > specification proposed direct adaptation of an orchestration manifest and
-> reported the upstream as Apache-2.0. No licence can be read at the source from
-> a session with no network, and `check_upstream_lineage.py` R7 refuses a direct
-> adaptation under an unverified one — so `ASM-060` is registered as a `PATTERN`,
-> the mode that moves no files. The checker refusing a proposal from outside the
-> repository is the control working, not an obstacle to route around.
+> reported the upstream as Apache-2.0. No licence could be read at the source
+> from a session with no network, and `check_upstream_lineage.py` R7 refuses a
+> direct adaptation under an unverified one — so `ASM-060` **was** registered as
+> a `PATTERN`, the mode that moves no files. The checker refusing a proposal from
+> outside the repository is the control working, not an obstacle to route
+> around. *(The licence was read at v1.3.4 and the entry now carries
+> `DIRECT_ADAPT`, a pin and a file list; it is still `PROPOSED`.)*
 >
 > Also closed here, and found on the way: `obra/superpowers` — eleven skills
 > vendored verbatim, the largest thing in this repository taken from someone
