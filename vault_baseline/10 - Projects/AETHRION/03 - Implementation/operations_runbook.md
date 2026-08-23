@@ -206,7 +206,7 @@ the same commands without `--check`.
 Everything that currently produces real evidence, in one place:
 
 ```bash
-uv run pytest                                              # 160 tests
+uv run pytest                                              # 172 tests
 (cd planning/commissioning && sha256sum -c 00_PROGRAM/SHA256SUMS.txt)
 uv run python scripts/mcp_smoke.py
 uv run python scripts/acceptance_v0.py
@@ -223,8 +223,8 @@ python scripts/mirror_plan.py  "$V/01 - Commissioning" --check
 python scripts/mirror_vault.py "$V" --check
 ```
 
-Expected: `160 passed` · `554` OK · five MCP tools · 11 acceptance checks ·
-`52 skills` conform · `19 figures, 0 drift, 0 overflow` · `plan semantics OK` ·
+Expected: `172 passed` · `554` OK · five MCP tools · 11 acceptance checks ·
+`52 skills` conform · `21 figures, 0 drift, 0 overflow` · `plan semantics OK` ·
 `0 drift entries`
 twice (plan and vault mirrors, 0 drift).
 

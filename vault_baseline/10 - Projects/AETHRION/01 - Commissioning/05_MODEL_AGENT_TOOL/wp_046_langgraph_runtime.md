@@ -117,6 +117,27 @@ Two other bindings:
   boundary rather than asserted at the prompt. Deterministic tool results are
   reusable within a declared freshness window and are marked as reused.
 
+
+### Three things are called "the runtime", and this package owns one of them
+
+`ADR-020`. The word covers a bounded reasoning graph, an agent harness executing
+a loop against a model, and a collaboration substrate hosting actors in rooms.
+Collapsing them is how a checkpoint library ends up being asked to own process
+lifecycle, or how "we ran it on Hermes" starts being offered as a description of
+a method.
+
+This package owns the **first** one and nothing else: bounded cognitive graph
+execution and checkpoint semantics, inside one task, where the compiled execution
+profile calls for it. It does not own collaboration rooms, operational
+identities, runtime processes or any part of G0–G10 state.
+
+Two consequences follow, and both are testable rather than editorial. A cognitive
+actor may be hosted by an external runtime — Hermes, Codex, Claude Code, Buzz
+Agent — while a graph here governs its bounded reasoning; and a task may use a
+runtime with **no** graph at all when its profile does not need one. Neither
+substitution may change graph semantics, and a graph output still reaches a gate
+through the same door as everything else: it may not move gate state directly.
+
 ## Out of scope
 
 - The internal implementation of any dependent package
@@ -344,6 +365,9 @@ The outline below is the summary. The executable procedure — environment, data
 - At least one negative test for unauthorised, missing, stale, duplicate and partial-failure inputs
 - Producer/consumer contract compatibility tests on every affected interface
 - Telemetry correlation and audit-record integrity checks
+- Replacing the agent runtime under an actor must not alter graph semantics or checkpoint contents
+- Replacing the collaboration backend must not alter checkpoints
+- A graph output must not be able to move gate state directly
 
 ## Acceptance criteria
 

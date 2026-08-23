@@ -276,6 +276,7 @@ A package whose evidence cannot be produced is not `READY`, however complete its
 |---|---|---|---|---|
 | `ASM-029` — AstaBench — cost-controlled scientific agent benchmark suite | `BENCHMARK` | a measurement of this system — nothing enters it | the contract this is held behind | none |
 | `CMP-020` — OpenSSF model-signing | `DEPENDENCY` | Signing and verification of model files. | The requirement that a local open-weight model file has a verified identity before it is admitted. | **2** |
+| `CMP-047` — Hermes — general-purpose cognitive runtime | `OPTIONAL_BACKEND` | The runtime's own reasoning and tool loop, session-local state, tool-call formatting and harness behaviour. | `AgentRuntimeProfile` and its qualification: which runtime may host which cognitive function, with what capabilities, under which clean-context guarantee. | **1** |
 | — | `BUILD_NATIVE` | Everything not listed above: the contracts, the authority boundaries and the integration this package specifies | All of it | — |
 
 ### What each source may never decide
@@ -286,10 +287,12 @@ An adopted mechanism supplies a signal, never a verdict. The recurring failure o
 |---|---|---|
 | `ASM-029` | Qualification evidence for a model or actor profile on a task class. Never a gate. | Its agent implementations. |
 | `CMP-020` | A signed model file is an admitted *artifact*, not a qualified *actor*. Qualification is WP-044's measurement. | A vendor signature as evidence of capability. |
+| `CMP-047` | A runtime executes cognition; it defines nothing. Hermes may not decide what a scientific role is, whether a cohort is sufficient, whether a gate passes, whether a claim is accepted, whether a reviewer is independent, whether a protocol may change, or whether a tool effect is authorised. Runtime-local memory or cache is a convenience and can never promote itself into epistemic memory — the … | Hermes as the task compiler, the collaboration fabric or a role name. **`Hermes` is not a role**: `Statistician` is a cognitive function and may run on any qualified runtime. |
 
 ### Where a plain row would mislead
 
 - **`ASM-029`** — Not in the source brief; added here. Eleven benchmarks and over 2,400 examples spanning literature search, code execution, data analysis and end-to-end discovery, with standardised tools, a date-restricted literature corpus for reproducibility, and explicit control for model cost and tool access. That last property is what the rest of the benchmark portfolio lacks: without cost normalisation, a governed-versus-ungoverned comparison cannot separate the effect of governance from the effect of spend.
+- **`CMP-047`** — WP-048 already names Hermes among its harness adapters; what changes is that it is now a profile behind a contract rather than an adapter written against one product.
 
 ### Unresolved before implementation
 
@@ -300,7 +303,11 @@ Each item below is an obligation its mode creates, quoted from the rule that cre
 - a version or image-digest policy and an upgrade path
 - what happens when it is unavailable, slow or wrong
 
-**Acquisition readiness — 2 obligations open across 1 of 2 sources.** `00_PROGRAM/05_definition_of_ready_and_done.md` requires the acquisition surface of a package to be classified and its obligations resolved before the package is `READY`; `scripts/ready_queue.py` holds it back until they are.
+**`CMP-047` — Hermes — general-purpose cognitive runtime** · `OPTIONAL_BACKEND` · status `PROPOSED`
+
+- the backend itself — still unchosen, which is the correct state until the qualification runs, and a stop condition for anyone about to pick one
+
+**Acquisition readiness — 3 obligations open across 2 of 3 sources.** `00_PROGRAM/05_definition_of_ready_and_done.md` requires the acquisition surface of a package to be classified and its obligations resolved before the package is `READY`; `scripts/ready_queue.py` holds it back until they are.
 
 <!-- /generated:implementation-sources -->
 

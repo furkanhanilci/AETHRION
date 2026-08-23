@@ -103,6 +103,54 @@ mechanism: **the minority position is what the cohort was convened to
 produce**, and a convergence rule that can outvote it has spent the cost of the
 cohort and discarded the return.
 
+
+### The plane is AETHRION's; the substrate underneath it is not
+
+`ADR-020`. Most of what this plane needs operationally — identities, teams,
+rooms, message transport, presence, runtime attachment, a workspace a human can
+watch — is not scientific, is genuinely solved elsewhere, and would consume most
+of this package's budget while differentiating nothing. So it is adopted behind a
+`CollaborationBackend` contract, with Buzz as the first candidate.
+
+Everything above the contract stays exactly as this package already specifies it:
+`AgentCohortRecord`, `CognitiveDiversityProfile`, the sealed
+`InitialPositionArtifact`, `MaterialChallenge`, and convergence that is not a
+vote. The backend is told what must happen and reports what it did.
+
+### The architectural test, and it is not rhetorical
+
+**If the backend disappears, which truths disappear?** Rooms, presence, message
+history and operational coordination are acceptable losses. Gate state, claims,
+evidence spans, verified values, protocol freeze, human decisions, experiment
+lineage, reproduction records and accepted artifacts are not. If any of those
+depends on backend state, the integration is wrong rather than fragile — and
+`T12` below exists to demonstrate the answer rather than assert it.
+
+### A backend identity is not a cohort, and five of them are not five contributions
+
+The temptation the substrate creates is arithmetic: five identities in a room
+look like a cohort. They are one contribution if they share a model profile and a
+context, and `ADR-011`'s five-dimension profile is what says so. Backend identity
+count is not an input to `CognitiveDiversityProfile` and must not become one.
+
+Nor is an operational identity a `RoleBinding`. Cryptographic identity supports
+attribution; it does not establish that an actor holds a governance role.
+Attribution and authorisation are different questions, and the mapping is
+`backend identity + runtime session + cohort actor id + RoleContract` — four
+things joined, never four things equated.
+
+### Qualification is characterisation, not a successful message
+
+A backend is qualified by fifteen behaviours, of which the load-bearing one is
+isolation: identity persistence, roster deployment, targeted versus broadcast
+delivery, thread ordering, reconnect and restart, runtime attachment, worktree-
+aware workspace behaviour, skill discovery precedence and duplicate handling,
+audit export completeness, unavailability behaviour, **round-zero peer isolation**,
+**sparse graph materialisation without accidental all-to-all visibility**,
+retention and deletion, credential exposure, and upgrade drift across pins.
+
+Sending a message between two agents proves none of it.
+
 ## Out of scope
 
 - The internal implementation of any dependent package
@@ -243,6 +291,7 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `Core role bundles` | `WP-047` | `python3 scripts/progress.py show WP-047` |
 | `Bundle conformance tests` | `WP-047` | `python3 scripts/progress.py show WP-047` |
 | `Cohort, topology, projection and assurance-route compilation` | `WP-047` | `python3 scripts/progress.py show WP-047` |
+| `CollaborationDeploymentPlan` | `WP-047` | `python3 scripts/progress.py show WP-047` |
 | `CognitiveFunction profile` | `WP-147` | `python3 scripts/progress.py show WP-147` |
 | `ScientificCouncilSession` | `WP-147` | `python3 scripts/progress.py show WP-147` |
 | `Recommendation schema` | `WP-147` | `python3 scripts/progress.py show WP-147` |
@@ -291,6 +340,9 @@ A package whose evidence cannot be produced is not `READY`, however complete its
 |---|---|---|---|---|
 | `ASM-041` — CONSENSAGENT — sycophancy as a reliability and cost problem | `ADAPTIVE_REIMPLEMENT` | `MS-COHORT-001` | the local module and contract surface this becomes — **named at refinement** | **1** |
 | `ASM-042` — MAS-Resilience — faulty-agent resilience, Challenger and Inspector | `ADAPTIVE_REIMPLEMENT` | `MS-RESIL-001` · `MS-RESIL-002` | the local module and contract surface this becomes — **named at refinement** | **1** |
+| `ASM-060` — Buzz Harbor Orchestra — frozen roster manifest for a cohort run | `PATTERN` | the idea only — no code and nothing called at runtime | everything — the implementation here is this repository's own | none |
+| `ASM-063` — Buzz — signed collaboration event and audit export | `PATTERN` | the idea only — no code and nothing called at runtime | everything — the implementation here is this repository's own | none |
+| `CMP-045` — Buzz — collaboration relay, teams, rooms and agent identities | `OPTIONAL_BACKEND` | Operational collaboration: identity material, team and roster deployment, room and thread creation, message transport and targeted delivery, agent presence, runtime process attachment, and the collaboration activity feed. | The `CollaborationBackend` contract and everything above it: `AgentCohortRecord`, `CognitiveDiversityProfile`, `CommunicationGraph`, `CommunicationEdgePolicy`, `TypedAgentMessage`, `InitialPositionArtifact` and the round-zero embargo. AETHRION compiles *what collaboration must happen*; the backend is told, and reports … | **1** |
 | — | `BUILD_NATIVE` | Everything not listed above: the contracts, the authority boundaries and the integration this package specifies | All of it | — |
 
 ### What each source may never decide
@@ -301,11 +353,17 @@ An adopted mechanism supplies a signal, never a verdict. The recurring failure o
 |---|---|---|
 | `ASM-041` | A sycophancy diagnostic is a measurement of how a cohort behaved. It is not a verdict on whether the cohort was right, and agreement is never evidence. | The prompt-refinement optimiser. Its purpose is to reach consensus faster; here consensus is not the goal, and a mechanism that accelerates agreement is the wrong lever on a system whose failure mode is agreement. |
 | `ASM-042` | A Challenger targets assumptions and a Inspector checks consistency. Neither holds gate authority, and a clean Inspector result satisfies no required verification — ACC-092. | **The source code, because of the licence.** GPL-3.0 is incompatible with this repository's proprietary licence, so no file may be copied under any circumstance. The mechanism is specified from the paper and written natively — which ADR-004 permits and ADR-019 requires to be recorded. |
+| `ASM-060` | A manifest records what a cohort run was configured with. It is never evidence that the run was scientifically adequate, and a frozen roster does not establish epistemic independence — five identities on one model and one context are one contribution, whatever the manifest says. | The shared-filesystem execution model, the orchestrator's own scheduling semantics, and any notion that completing the manifest completes the work. AETHRION worktree isolation, cohort versioning and acceptance rules are unchanged. |
+| `ASM-063` | A signed collaboration event attributes an operational act to an operational identity. It does not prove that identity held an AETHRION governance role at the time, and it is not admissible as evidence for a claim. Attribution and authority are different questions. | The event store as the audit ledger — that is WP-099's WORM ledger — and cryptographic identity as `RoleBinding`. |
+| `CMP-045` | A collaboration backend carries messages and holds no scientific authority whatever. A Buzz message is not a `ClaimVersion`, a Buzz room is not the blackboard, a Buzz workflow is not a gate transition, and a Buzz approval is not a `DecisionRecord`. Removing the backend entirely must lose no claim, evidence span, verified value, gate state, protocol freeze, human decision, experiment lineage, … | Relay state as canonical scientific truth · channel history as the Claim/Evidence store · workflow state as G0–G10 lifecycle authority · approvals as G8/G9 authority · free-for-all shared-channel visibility as the scientific default · operational agent identity as a `RoleBinding` · direct shell … |
 
 ### Where a plain row would mislead
 
 - **`ASM-041`** — Frames sycophancy as agents reinforcing one another instead of engaging critically, which inflates cost through extra debate rounds. Evaluated on six reasoning datasets across three models. The mechanism taken is the diagnostic and the framing; the convergence rule here is unresolved-material-challenge closure rather than agreement — ACC-089, ACC-090.
 - **`ASM-042`** — Reports that a hierarchical A→(B↔C) topology degrades least under faulty agents — 5.5% against 10.5% and 23.7% — and that Challenger and Inspector recover up to 96.4% of injected errors. Its AutoTransform and AutoInject fault-injection methods are the model for this baseline's faulty-agent fixtures. **This entry is the register's worked example of a licence changing the method rather than the decision.**
+- **`ASM-060`** — The mechanism worth taking is narrow and real: an execution manifest that freezes roster, model revision, prompt hash, budget and concurrency before a run starts, so what ran can be reconstructed afterwards. That maps almost exactly onto `AgentCohortRecord` plus the budget envelope, and it is the shape WP-153's ledger needs upstream of it. **Recorded as `PATTERN` rather than `DIRECT_ADAPT`, and the checker is the reason.** The architecture delta proposes direct adaptation and reports the licence as Apache-2.0, but no licence has been read at the source from here — this session has no network …
+- **`ASM-063`** — The provenance surface is genuinely good, which is why the boundary has to be stated: a well-signed record of the wrong kind of fact is more persuasive than an unsigned one, not less.
+- **`CMP-045`** — Buzz appears in both registers and the two entries are different subjects: this row is the runtime collaboration substrate, while `ASM-060`–`ASM-063` record specific mechanisms taken from the same project. Prototype-grade and moving at review, so a floating `main` is not an acceptable dependency — see WP-159.
 
 ### Unresolved before implementation
 
@@ -319,7 +377,11 @@ Each item below is an obligation its mode creates, quoted from the rule that cre
 
 - a written mechanism specification — inputs, outputs, state, transitions, invariants, failure conditions and forbidden behaviour — before implementation
 
-**Acquisition readiness — 2 obligations open across 2 of 2 sources.** `00_PROGRAM/05_definition_of_ready_and_done.md` requires the acquisition surface of a package to be classified and its obligations resolved before the package is `READY`; `scripts/ready_queue.py` holds it back until they are.
+**`CMP-045` — Buzz — collaboration relay, teams, rooms and agent identities** · `OPTIONAL_BACKEND` · status `PROPOSED`
+
+- the backend itself — still unchosen, which is the correct state until the qualification runs, and a stop condition for anyone about to pick one
+
+**Acquisition readiness — 3 obligations open across 3 of 5 sources.** `00_PROGRAM/05_definition_of_ready_and_done.md` requires the acquisition surface of a package to be classified and its obligations resolved before the package is `READY`; `scripts/ready_queue.py` holds it back until they are.
 
 <!-- /generated:implementation-sources -->
 
@@ -335,6 +397,12 @@ Each item below is an obligation its mode creates, quoted from the rule that cre
 | WP-148-T06 | Bind cohort compilation into the Task Compiler under the independence profile | Implementation owner | Commit / configuration / record reference |
 | WP-148-T07 | Emit cohort integrity and diversity metrics to the metascience plane | Implementation owner | Commit / configuration / record reference |
 
+| WP-148-T08 | Define `CollaborationBackendProfile` — capabilities, identity model, transport semantics, room model, runtime attachment, audit export, isolation, failure semantics, qualification record | Implementation owner | Commit / configuration / record reference |
+| WP-148-T09 | Define the `CollaborationBackend` contract and the actor-identity mapping | Implementation owner | Commit / configuration / record reference |
+| WP-148-T10 | Implement the Buzz adapter skeleton against the contract, with no Buzz term in the domain model | Implementation owner | Commit / configuration / record reference |
+| WP-148-T11 | Run the fifteen-behaviour characterisation suite against a pinned backend | Implementation owner | Commit / configuration / record reference |
+| WP-148-T12 | Demonstrate backend loss: destroy all collaboration state and show every canonical record survives | Implementation owner | Commit / configuration / record reference |
+
 ## Mandatory deliverables
 
 - `AgentCohortRecord`
@@ -344,6 +412,12 @@ Each item below is an obligation its mode creates, quoted from the rule that cre
 - `ConvergenceAssessment`
 - An updated runbook or operations note, plus the service/contract ownership record
 - A signed `EvidenceManifest`
+
+- `CollaborationBackendProfile`
+- `CollaborationBackend` contract
+- Backend capability matrix and qualification record
+- Round-zero isolation proof on the qualified backend
+- Backend-loss reconstruction proof
 
 ## Test and verification plan
 
@@ -358,6 +432,11 @@ The outline below is the summary. The executable procedure — environment, data
 - Producer/consumer contract compatibility tests on every affected interface
 - Telemetry correlation and audit-record integrity checks
 
+- Five backend identities on one model profile and one context must not satisfy cognitive diversity
+- Actors under embargo must not read peer initial positions although they share one backend service
+- A backend actor must not be able to bind AETHRION authority or move a gate
+- Destroying and recreating all backend state must lose no claim, evidence span, finding, artifact or decision
+- A backend that cannot enforce required isolation must fail qualification rather than run with the topology relaxed
 
 ## Acceptance criteria
 
@@ -393,6 +472,8 @@ The programme-level conditions are below. The package-specific, measurable crite
 - An efficiency measure that improves a cost number and quietly lowers assurance has moved the failure, not removed it. Every optimisation here is anchored to a quality guard and rolls back when it trips.
 - A coordination defect is invisible in a healthy run and obvious only in a post-mortem. These packages are specified as injection suites for that reason, not as properties.
 - Multi-agent cost pressure always argues for fewer agents. The cohort is fixed by ADR-011 and is not a lever any package here may pull.
+
+- - A collaboration substrate that is convenient acquires authority faster than one that is not; the boundary is enforced by contract and test, never by the intention of whoever wired it.
 
 ## Rollback / compensation
 

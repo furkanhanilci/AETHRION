@@ -105,6 +105,58 @@ Two other bindings:
   boundary rather than asserted at the prompt. Deterministic tool results are
   reusable within a declared freshness window and are marked as reused.
 
+
+### The adapters implement a contract, and the contract is AETHRION's
+
+`ADR-020`. This package predates the decision that gave it a boundary, and the
+difference matters: an adapter written against a product couples the scientific
+domain model to that product's API, while an adapter written against
+`AgentRuntime` leaves the product replaceable.
+
+The contract is small and deliberately semantic rather than protocol-shaped:
+
+```text
+qualify(runtime_profile)      start_session(actor, profile, workspace, context)
+send_task(session, payload)   stream_events(session)   cancel(session)
+collect_result(session)       close(session)
+```
+
+Where a harness speaks the Agent Client Protocol, ACP is the transport for that
+contract and nothing more. **ACP protocol fields do not appear in the scientific
+domain model.** It may carry sessions, working directories, messages, capabilities
+and lifecycle signals; it may not redefine role, evidence, gate or challenge
+semantics.
+
+### A completion signal is an observation
+
+A runtime reporting `completed`, a tool reporting success, an assistant
+producing confident closing text — each is an operational observation about a
+process, and none is a statement about the work. Acceptance still requires fresh
+tests bound to a revision, a signed evidence manifest and an independent
+verifier. **A runtime exit code is not `TECH_COMPLETE`.**
+
+### Hermes is preferred, and preference is not architecture
+
+Hermes is the default general-purpose profile where its qualification fits the
+task. Codex, Claude Code, Buzz Agent and future ACP-compatible runtimes stay
+selectable, and the layer is only real while more than one of them is. Runtime
+diversity is also not independence: several actors on one runtime may still be
+one contribution, because `CognitiveDiversityProfile` weighs cognitive function,
+evidence exposure, peer visibility, model profile and prompt perspective —
+`ADR-011`, unchanged.
+
+Runtime-local memory is a convenience. It is never epistemic memory, and a cache
+cannot promote itself into `Evidence` or `Principle` — the Context Projector
+decides what an invocation sees.
+
+### Bootstrap access is a named profile, not a phase
+
+Before the Tool Broker exists, an isolated worker may hold direct shell and file
+access inside its own worktree. That is recorded as `BOOTSTRAP_EXECUTION_PROFILE`,
+scoped to a target, credential-limited, and **retired** rather than reclassified
+as production-ready because it kept working. The permanent path is
+`ToolIntent → Tool Broker → PolicyDecision → Execution Broker`.
+
 ## Out of scope
 
 - The internal implementation of any dependent package
@@ -225,6 +277,7 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `Core role bundles` | `WP-047` | `python3 scripts/progress.py show WP-047` |
 | `Bundle conformance tests` | `WP-047` | `python3 scripts/progress.py show WP-047` |
 | `Cohort, topology, projection and assurance-route compilation` | `WP-047` | `python3 scripts/progress.py show WP-047` |
+| `CollaborationDeploymentPlan` | `WP-047` | `python3 scripts/progress.py show WP-047` |
 
 ### Classification that must be recorded before work begins
 
@@ -267,6 +320,12 @@ A package whose evidence cannot be produced is not `READY`, however complete its
 | Source | Mode | What is taken | AETHRION owns | Unresolved |
 |---|---|---|---|---|
 | `CMP-005` — Inspect AI | `DEPENDENCY` | The evaluation engine: dataset/solver/scorer execution, sandboxing, limits, retry/resume and transcripts. | The behaviours themselves, their pass criteria, the golden sets and the contamination controls — encoded as Inspect tasks, solvers and scorers. | **2** |
+| `CMP-046` — buzz-acp — Agent Client Protocol runtime bridge | `DEPENDENCY` | Session transport, runtime process lifecycle and the protocol wire format. | The internal `AgentRuntime` contract — `qualify`, `start_session`, `send_task`, `stream_events`, `cancel`, `collect_result`, `close` — and the `AgentRuntimeProfile` that says which runtime may satisfy which requirement. | **2** |
+| `CMP-047` — Hermes — general-purpose cognitive runtime | `OPTIONAL_BACKEND` | The runtime's own reasoning and tool loop, session-local state, tool-call formatting and harness behaviour. | `AgentRuntimeProfile` and its qualification: which runtime may host which cognitive function, with what capabilities, under which clean-context guarantee. | **1** |
+| `CMP-048` — Buzz Agent — bundled runtime and `SKILL.md` workspace discovery | `OPTIONAL_BACKEND` | Runtime-side discovery of `SKILL.md` from `.agents/skills`, `.goose/skills` and `.claude/skills`, and git/worktree-aware workspace handling. | The Skill Compiler: which skills a given actor may see, materialised as a small task-specific bundle in that actor's worktree. | **1** |
+| `CMP-049` — Codex CLI | `OPTIONAL_BACKEND` | The runtime's own agent loop, model interaction and local tool interface. | `AgentRuntimeProfile` and its qualification record — which runtime may host which cognitive function, with which capabilities, under which clean-context guarantee. | **1** |
+| `CMP-050` — Claude Code | `OPTIONAL_BACKEND` | The runtime's own agent loop, harness behaviour, skill loading and local tool interface. | `AgentRuntimeProfile` and its qualification record — which runtime may host which cognitive function, with which capabilities, under which clean-context guarantee. | **1** |
+| `CMP-051` — OpenCode | `OPTIONAL_BACKEND` | The runtime's own agent loop and local tool interface. | `AgentRuntimeProfile` and its qualification record — which runtime may host which cognitive function, with which capabilities, under which clean-context guarantee. | **1** |
 | — | `BUILD_NATIVE` | Everything not listed above: the contracts, the authority boundaries and the integration this package specifies | All of it | — |
 
 ### What each source may never decide
@@ -276,6 +335,20 @@ An adopted mechanism supplies a signal, never a verdict. The recurring failure o
 | Source | May never decide | Deliberately not taken |
 |---|---|---|
 | `CMP-005` | A scorer result is a `VerificationResult`, never a `GateRecord` verdict. Inspect measures; gate policy decides. An Inspect transcript is operational evidence and is not the canonical run record. | Inspect as the canonical evidence store, and its scores as claim confidence. |
+| `CMP-046` | ACP is a transport and interop boundary, never a scientific domain model. It may not redefine role, evidence, gate or challenge semantics, and an ACP event such as `completed` or `tool succeeded` is an operational observation — acceptance still depends on fresh tests, an evidence manifest and independent verification. | ACP protocol fields leaking into the scientific domain model, and runtime completion treated as package completion. |
+| `CMP-047` | A runtime executes cognition; it defines nothing. Hermes may not decide what a scientific role is, whether a cohort is sufficient, whether a gate passes, whether a claim is accepted, whether a reviewer is independent, whether a protocol may change, or whether a tool effect is authorised. Runtime-local memory or cache is a convenience and can never promote itself into epistemic memory — the … | Hermes as the task compiler, the collaboration fabric or a role name. **`Hermes` is not a role**: `Statistician` is a cognitive function and may run on any qualified runtime. |
+| `CMP-048` | Discovery decides what a runtime can find; it never decides what an actor may use. A skill reachable through a shared home directory but absent from the compiled bundle is a containment failure, and the canonical skill tree with its vendored provenance stays in this repository — a workspace holds a projection, never a second source of truth. | Exposing all 52 skills to every actor · Persona Packs as authoritative skill packaging · a runtime workspace as the canonical skill source · Buzz Agent's direct shell and file tools as anything but an explicitly classified bootstrap execution profile. |
+| `CMP-049` | A runtime executes cognition and defines nothing. It may not decide what a scientific role is, whether a cohort is sufficient, whether a gate passes, whether a claim is accepted, whether a reviewer is independent, or whether a tool effect is authorised. Its completion signal is an operational observation: acceptance still depends on fresh tests, an evidence manifest and an independent verifier. | The harness as a role name, its session memory as epistemic memory, and its direct tool access as anything but a classified bootstrap execution profile. |
+| `CMP-050` | A runtime executes cognition and defines nothing. It may not decide what a scientific role is, whether a cohort is sufficient, whether a gate passes, whether a claim is accepted, whether a reviewer is independent, or whether a tool effect is authorised. Its completion signal is an operational observation: acceptance still depends on fresh tests, an evidence manifest and an independent verifier. | The harness as a role name, its session memory as epistemic memory, and its direct tool access as anything but a classified bootstrap execution profile. |
+| `CMP-051` | A runtime executes cognition and defines nothing. It may not decide what a scientific role is, whether a cohort is sufficient, whether a gate passes, whether a claim is accepted, whether a reviewer is independent, or whether a tool effect is authorised. Its completion signal is an operational observation: acceptance still depends on fresh tests, an evidence manifest and an independent verifier. | The harness as a role name, its session memory as epistemic memory, and its direct tool access as anything but a classified bootstrap execution profile. |
+
+### Where a plain row would mislead
+
+- **`CMP-046`** — The reason this is a dependency rather than something built here: runtime-harness interoperability is non-differentiating infrastructure, and coupling AETHRION's roles to one harness API is the coupling ADR-020 exists to prevent.
+- **`CMP-047`** — WP-048 already names Hermes among its harness adapters; what changes is that it is now a profile behind a contract rather than an adapter written against one product.
+- **`CMP-049`** — Named in WP-048's title and in WP-107's engineering slice, and registered by no one until now.
+- **`CMP-050`** — This repository is itself operated through this runtime, which is a reason to state the boundary rather than to assume it: the harness that writes the plan holds no authority over what the plan accepts.
+- **`CMP-051`** — Carried because WP-048 commits to more than one alternative harness; a runtime layer with a single alternative is not a runtime layer.
 
 ### Unresolved before implementation
 
@@ -286,7 +359,32 @@ Each item below is an obligation its mode creates, quoted from the rule that cre
 - a version or image-digest policy and an upgrade path
 - what happens when it is unavailable, slow or wrong
 
-**Acquisition readiness — 2 obligations open across 1 of 1 sources.** `00_PROGRAM/05_definition_of_ready_and_done.md` requires the acquisition surface of a package to be classified and its obligations resolved before the package is `READY`; `scripts/ready_queue.py` holds it back until they are.
+**`CMP-046` — buzz-acp — Agent Client Protocol runtime bridge** · `DEPENDENCY` · status `PROPOSED`
+
+- a version or image-digest policy and an upgrade path
+- what happens when it is unavailable, slow or wrong
+
+**`CMP-047` — Hermes — general-purpose cognitive runtime** · `OPTIONAL_BACKEND` · status `PROPOSED`
+
+- the backend itself — still unchosen, which is the correct state until the qualification runs, and a stop condition for anyone about to pick one
+
+**`CMP-048` — Buzz Agent — bundled runtime and `SKILL.md` workspace discovery** · `OPTIONAL_BACKEND` · status `PROPOSED`
+
+- the backend itself — still unchosen, which is the correct state until the qualification runs, and a stop condition for anyone about to pick one
+
+**`CMP-049` — Codex CLI** · `OPTIONAL_BACKEND` · status `PROPOSED`
+
+- the backend itself — still unchosen, which is the correct state until the qualification runs, and a stop condition for anyone about to pick one
+
+**`CMP-050` — Claude Code** · `OPTIONAL_BACKEND` · status `PROPOSED`
+
+- the backend itself — still unchosen, which is the correct state until the qualification runs, and a stop condition for anyone about to pick one
+
+**`CMP-051` — OpenCode** · `OPTIONAL_BACKEND` · status `PROPOSED`
+
+- the backend itself — still unchosen, which is the correct state until the qualification runs, and a stop condition for anyone about to pick one
+
+**Acquisition readiness — 9 obligations open across 7 of 7 sources.** `00_PROGRAM/05_definition_of_ready_and_done.md` requires the acquisition surface of a package to be classified and its obligations resolved before the package is `READY`; `scripts/ready_queue.py` holds it back until they are.
 
 <!-- /generated:implementation-sources -->
 
@@ -307,6 +405,11 @@ Each item below is an obligation its mode creates, quoted from the rule that cre
 | WP-048-T24 | Implement **compaction and restart recovery** so the loaded procedure is not silently lost | Implementation owner | Recovery transcript per harness |
 | WP-048-T25 | Return a **structured result** and an audit trace, including cancellation | Implementation owner | Result schema conformance per harness |
 | WP-048-T26 | Run the **harness acceptance suite** — the same task, the same expected skill set, every harness | Implementation owner | Cross-harness matrix |
+
+| WP-048-T-A1 | Define the `AgentRuntime` contract and the `AgentRuntimeProfile` qualification record | Implementation owner | Commit / configuration / record reference |
+| WP-048-T-A2 | Implement the ACP transport mapping without leaking protocol fields into the domain model | Implementation owner | Commit / configuration / record reference |
+| WP-048-T-A3 | Implement clean-context invocation for reviewer and verifier actors | Implementation owner | Commit / configuration / record reference |
+| WP-048-T-A4 | Record the execution fingerprint: runtime profile, implementation version, transport version, model snapshot, prompt/role/skill digests, context digest, workspace digest | Implementation owner | Commit / configuration / record reference |
 
 ## Mandatory deliverables
 
@@ -335,6 +438,10 @@ Every harness adapter implements the same surface, or it is not an adapter:
 > actually loads the right skill at the right moment is what the acceptance
 > suite in this package establishes, and it is **not** established today.
 
+- `AgentRuntime` contract
+- `AgentRuntimeProfile`
+- `BOOTSTRAP_EXECUTION_PROFILE` classification and its retirement condition
+
 ## Test and verification plan
 
 The outline below is the summary. The executable procedure — environment, data, coverage items, cases, execution log, incident and completion reports — is in [`WP-048_codex_opencode_adapters.tests.md`](WP-048_codex_opencode_adapters.tests.md).
@@ -346,6 +453,10 @@ The outline below is the summary. The executable procedure — environment, data
 - At least one negative test for unauthorised, missing, stale, duplicate and partial-failure inputs
 - Producer/consumer contract compatibility tests on every affected interface
 - Telemetry correlation and audit-record integrity checks
+- The same cognitive function must run on two qualified runtimes without changing role semantics or cohort identity
+- A runtime lacking a required capability must be rejected at qualification, not discovered at run time
+- A reviewer or verifier in clean context must not inherit implementer state
+- A runtime completion signal must not be sufficient to move a package state
 
 ## Acceptance criteria
 

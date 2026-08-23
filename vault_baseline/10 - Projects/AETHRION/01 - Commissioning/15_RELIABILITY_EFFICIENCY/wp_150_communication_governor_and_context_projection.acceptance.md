@@ -76,6 +76,11 @@ Each criterion names the test case in [`WP-150_communication_governor_and_contex
       the regression measurement is retained.
 - [ ] Coordination overhead is reported as a frontier against the runnable
       fully-connected baseline, not as a single headline number.
+- [ ] The communication governor decides and the backend delivers; a delivery adapter that recomputes communication value fails acceptance.
+- [ ] A blocker or safety message is delivered under every budget state, including the degradation floor.
+- [ ] A `ContextProjection` is reproducible from canonical state alone, with channel history as no part of it.
+- [ ] Every delivered message is bound to its AETHRION message id and the policy decision that authorised it.
+- [ ] Topology rollback succeeds regardless of backend rooms already in existence.
 
 ## What this package cannot establish
 

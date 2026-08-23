@@ -198,7 +198,7 @@ def render(register: dict) -> str:
     for entry in entries:
         by_type.setdefault(entry["assimilation"], []).append(entry)
 
-    order = ["DIRECT_ADAPT", "ADAPTIVE_REIMPLEMENT", "PATTERN", "STANDARD",
+    order = ["VENDORED", "DIRECT_ADAPT", "ADAPTIVE_REIMPLEMENT", "PATTERN", "STANDARD",
              "BENCHMARK", "DEPENDENCY", "DEFER", "REJECT"]
 
     out = [

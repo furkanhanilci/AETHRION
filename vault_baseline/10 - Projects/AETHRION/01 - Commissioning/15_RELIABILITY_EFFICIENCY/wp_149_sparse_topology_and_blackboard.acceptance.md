@@ -78,6 +78,12 @@ Each criterion names the test case in [`WP-149_sparse_topology_and_blackboard.te
       in an explicit, recorded control mode.
 - [ ] The naive fully-connected baseline is runnable and emits the same metric
       schema as the optimised arm.
+- [ ] `CommunicationGraph` is canonical and backend room membership is a projection of it — never the reverse.
+- [ ] A message across a disallowed edge is denied or quarantined, and the attempt is visible.
+- [ ] A backend event becomes a `TypedAgentMessage` only by passing validation at the adapter boundary; raw text does not.
+- [ ] Replayed backend events are idempotent at the semantic message layer.
+- [ ] Deleting and rebuilding backend collaboration state loses no canonical claim, evidence, finding or artifact.
+- [ ] A fully connected topology is reachable only under an explicit benchmark control-arm flag.
 
 ## What this package cannot establish
 

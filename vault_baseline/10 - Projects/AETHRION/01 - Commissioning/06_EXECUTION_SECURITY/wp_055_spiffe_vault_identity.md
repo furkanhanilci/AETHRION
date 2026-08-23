@@ -303,6 +303,7 @@ A package whose evidence cannot be produced is not `READY`, however complete its
 
 | Source | Mode | What is taken | AETHRION owns | Unresolved |
 |---|---|---|---|---|
+| `ASM-064` — NIP-OA — agent identity and delegation extensions | `DEFER` | nothing — recorded so it is not re-examined from scratch | everything — the implementation here is this repository's own | none |
 | `CMP-040` — SPIFFE / SPIRE and Vault | `DEPENDENCY` | Workload attestation, SVID issuance and secret storage. | Which identity may hold which capability, and the scoped, short-lived credential injected only after a `PolicyDecision`. | **2** |
 | — | `BUILD_NATIVE` | Everything not listed above: the contracts, the authority boundaries and the integration this package specifies | All of it | — |
 
@@ -312,7 +313,12 @@ An adopted mechanism supplies a signal, never a verdict. The recurring failure o
 
 | Source | May never decide | Deliberately not taken |
 |---|---|---|
+| `ASM-064` | Not adopted, so it decides nothing. Recorded so the question is not re-opened from scratch. | Everything, for now. A draft protocol must not become a hard scientific requirement before a dedicated review. |
 | `CMP-040` | An identity system proves who is asking. It never decides what the asker may do — that is the policy decision point, and a valid identity with no grant is a denial. | A long-lived credential held by an agent, and any secret reachable from the untrusted data plane. |
+
+### Where a plain row would mislead
+
+- **`ASM-064`** — Promising for attribution and delegation; deferred because binding AETHRION's identity model to a moving draft is the kind of coupling ADR-004 exists to prevent. Revisit when the protocol stabilises or when WP-055 needs delegation semantics it cannot express.
 
 ### Unresolved before implementation
 
@@ -323,7 +329,7 @@ Each item below is an obligation its mode creates, quoted from the rule that cre
 - a version or image-digest policy and an upgrade path
 - what happens when it is unavailable, slow or wrong
 
-**Acquisition readiness — 2 obligations open across 1 of 1 sources.** `00_PROGRAM/05_definition_of_ready_and_done.md` requires the acquisition surface of a package to be classified and its obligations resolved before the package is `READY`; `scripts/ready_queue.py` holds it back until they are.
+**Acquisition readiness — 2 obligations open across 1 of 2 sources.** `00_PROGRAM/05_definition_of_ready_and_done.md` requires the acquisition surface of a package to be classified and its obligations resolved before the package is `READY`; `scripts/ready_queue.py` holds it back until they are.
 
 <!-- /generated:implementation-sources -->
 

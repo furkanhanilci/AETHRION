@@ -106,21 +106,27 @@ ISO/IEC/IEEE 29119-3 §8.3.2. A coverage item is something the tests must reach.
 | C03 | `InitialPositionArtifact` | Mandatory deliverable | *(name the test case)* |
 | C04 | `MaterialChallenge` | Mandatory deliverable | *(name the test case)* |
 | C05 | `ConvergenceAssessment` | Mandatory deliverable | *(name the test case)* |
-| C06 | Define `AgentCohortRecord` with its digest and its binding to `TaskContract` | WP-148-T01 | *(name the test case)* |
-| C07 | Define `CognitiveDiversityProfile` across the five independence dimensions | WP-148-T02 | *(name the test case)* |
-| C08 | Implement the independent-first scheduler and `InitialPositionArtifact` sealing | WP-148-T03 | *(name the test case)* |
-| C09 | Implement material-difference extraction and targeted exposure | WP-148-T04 | *(name the test case)* |
-| C10 | Implement `MaterialChallenge` tracking and the convergence rule | WP-148-T05 | *(name the test case)* |
-| C11 | Bind cohort compilation into the Task Compiler under the independence profile | WP-148-T06 | *(name the test case)* |
-| C12 | Emit cohort integrity and diversity metrics to the metascience plane | WP-148-T07 | *(name the test case)* |
-| C13 | Multi-Agent Cohort Required | [ACC-081](../12_ACCEPTANCE_SCENARIOS/ACC-081_multi_agent_cohort_required.md) — Critical | *(name the test case)* |
-| C14 | Independent-First Embargo | [ACC-082](../12_ACCEPTANCE_SCENARIOS/ACC-082_independent_first_embargo.md) — Critical | *(name the test case)* |
-| C15 | Sycophancy Anchor Attack | [ACC-089](../12_ACCEPTANCE_SCENARIOS/ACC-089_sycophancy_anchor_attack.md) — Critical | *(name the test case)* |
-| C16 | False Consensus Cannot Close a Challenge | [ACC-090](../12_ACCEPTANCE_SCENARIOS/ACC-090_false_consensus.md) — Critical | *(name the test case)* |
-| C17 | Faulty Agent Output Does Not Propagate | [ACC-091](../12_ACCEPTANCE_SCENARIOS/ACC-091_faulty_agent_challenge.md) — Critical | *(name the test case)* |
-| C18 | A Malicious Agent Cannot Bind Authority | [ACC-093](../12_ACCEPTANCE_SCENARIOS/ACC-093_malicious_agent_cannot_bind_authority.md) — Critical | *(name the test case)* |
+| C06 | `CollaborationBackendProfile` | Mandatory deliverable | *(name the test case)* |
+| C07 | Define `AgentCohortRecord` with its digest and its binding to `TaskContract` | WP-148-T01 | *(name the test case)* |
+| C08 | Define `CognitiveDiversityProfile` across the five independence dimensions | WP-148-T02 | *(name the test case)* |
+| C09 | Implement the independent-first scheduler and `InitialPositionArtifact` sealing | WP-148-T03 | *(name the test case)* |
+| C10 | Implement material-difference extraction and targeted exposure | WP-148-T04 | *(name the test case)* |
+| C11 | Implement `MaterialChallenge` tracking and the convergence rule | WP-148-T05 | *(name the test case)* |
+| C12 | Bind cohort compilation into the Task Compiler under the independence profile | WP-148-T06 | *(name the test case)* |
+| C13 | Emit cohort integrity and diversity metrics to the metascience plane | WP-148-T07 | *(name the test case)* |
+| C14 | Define `CollaborationBackendProfile` — capabilities, identity model, transport semantics, room model, runtime attachment, audit export, isolation, failure semantics, qualification record | WP-148-T08 | *(name the test case)* |
+| C15 | Define the `CollaborationBackend` contract and the actor-identity mapping | WP-148-T09 | *(name the test case)* |
+| C16 | Implement the Buzz adapter skeleton against the contract, with no Buzz term in the domain model | WP-148-T10 | *(name the test case)* |
+| C17 | Run the fifteen-behaviour characterisation suite against a pinned backend | WP-148-T11 | *(name the test case)* |
+| C18 | Demonstrate backend loss: destroy all collaboration state and show every canonical record survives | WP-148-T12 | *(name the test case)* |
+| C19 | Multi-Agent Cohort Required | [ACC-081](../12_ACCEPTANCE_SCENARIOS/ACC-081_multi_agent_cohort_required.md) — Critical | *(name the test case)* |
+| C20 | Independent-First Embargo | [ACC-082](../12_ACCEPTANCE_SCENARIOS/ACC-082_independent_first_embargo.md) — Critical | *(name the test case)* |
+| C21 | Sycophancy Anchor Attack | [ACC-089](../12_ACCEPTANCE_SCENARIOS/ACC-089_sycophancy_anchor_attack.md) — Critical | *(name the test case)* |
+| C22 | False Consensus Cannot Close a Challenge | [ACC-090](../12_ACCEPTANCE_SCENARIOS/ACC-090_false_consensus.md) — Critical | *(name the test case)* |
+| C23 | Faulty Agent Output Does Not Propagate | [ACC-091](../12_ACCEPTANCE_SCENARIOS/ACC-091_faulty_agent_challenge.md) — Critical | *(name the test case)* |
+| C24 | A Malicious Agent Cannot Bind Authority | [ACC-093](../12_ACCEPTANCE_SCENARIOS/ACC-093_malicious_agent_cannot_bind_authority.md) — Critical | *(name the test case)* |
 
-**18 coverage items.** Every one must appear in the *Covered by* column of at least one test case below before this package can reach `TECH_COMPLETE`.
+**24 coverage items.** Every one must appear in the *Covered by* column of at least one test case below before this package can reach `TECH_COMPLETE`.
 
 <!-- /generated:coverage -->
 
@@ -148,6 +154,16 @@ ISO/IEC/IEEE 29119-3 §8.3.2. A coverage item is something the tests must reach.
 Cases 3 and 4 are the pair that matters. Refusing five identical profiles proves
 the rule bites; accepting three differentiated ones proves it is a rule about
 independence rather than a tax on cohort size.
+| 15 | **E2** | **Backend loss.** Destroy every room, identity and message in the qualified backend, then query canonical state | Every claim, evidence span, finding, artifact, gate record and decision survives. Only rooms, presence and message projection are lost | Before/after canonical query |
+| 16 | **E2** | **Shared substrate, separate minds.** Deploy a cohort under embargo on one backend service and have one actor request a peer's initial position | Denied by the adapter and audited. Sharing a backend is not sharing visibility | Denial transcript |
+| 17 | **E1** | **Identity is not authority.** Have a backend actor with a valid signed identity attempt a gate transition | Refused. Operational identity is attribution; `RoleBinding` is authority, and the two are joined rather than equated | Refusal record |
+| 18 | **E1** | **Count is not diversity.** Deploy five backend identities sharing one model profile and one context | Cognitive diversity **not** satisfied. Backend identity count is not an input to the profile | `CognitiveDiversityProfile` |
+| 19 | **E2** | **Qualification refuses.** Present a backend that cannot enforce round-zero isolation | Qualification fails and the task does not run. The topology is never relaxed to fit a backend | Characterisation report |
+
+The backend-loss case is the one that decides whether the boundary is real.
+Everything else can be argued; a destroyed backend either left the science
+intact or it did not.
+
 
 ## How to execute
 

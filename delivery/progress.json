@@ -10,7 +10,7 @@
     "v1.3.1 is a repair baseline: it added no package, so no status here changed.",
     "The canonical baseline identity lives in planning/commissioning/00_PROGRAM/programme_metadata.json; this field must equal it, and check_doc_consistency.py fails if it does not."
   ],
-  "baseline": "v1.3.2",
+  "baseline": "v1.3.3",
   "states": [
     "NOT_STARTED",
     "IN_PROGRESS",

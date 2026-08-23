@@ -96,10 +96,10 @@ learn a number a script prints is how a session starts with a stale fact.
 | `src/airl_bridge/` | The working slice: Zotero client, SQLite registry, FastAPI, Obsidian projection, MCP server | no |
 | `src/airl_framework/` | Shared contract core. **Zero production consumers** — finding H4 | no |
 | `tests/` | 149 tests | no |
-| `scripts/` | Verification, generation and execution tooling — 57 scripts | no |
+| `scripts/` | Verification, generation and execution tooling — 59 scripts | no |
 | `planning/commissioning/` | The V1 plan: WP-000–159, ACC-01–120. **632 files, hash-sealed** | indexes only |
 | `docs/architecture/` | Target design, three ADRs, positioning | no |
-| `docs/figures/` | 19 SVG figures | **yes** — from `scripts/fig_*.py` |
+| `docs/figures/` | 21 SVG figures | **yes** — from `scripts/fig_*.py` |
 | `docs/STATUS.md`, `docs/READY.md` | Live state | **yes** |
 | `docs/review/` | Dated, frozen audit reports | no — and never updated |
 | `delivery/` | Evidence packages, signing keys, measurements, the progress ledger | partly |
@@ -149,8 +149,37 @@ may only recommend. **None of this is implemented** — there is no gate runtime
 
 Experience · Control (Temporal — the process authority) · Event (NATS — carries
 events, never authority) · Cognition (LangGraph — bounded reasoning inside one
-task, never across gates) · Execution (sandbox, tool broker, execution broker) ·
-Evidence and Operations · Metascience (proposed). **None is built.**
+task, never across gates) · **Collaboration** · **Runtime** · Execution (sandbox,
+tool broker, execution broker) · Evidence and Operations · Metascience
+(proposed). **None is built.**
+
+The last two used to sit implicitly inside Cognition and were doing three
+different jobs there. `ADR-020` separates them, and the separation is two
+AETHRION-owned contracts with everything adopted **underneath** them:
+
+```text
+AETHRION   authority · cohort semantics · communication policy · evidence
+    ▼ CollaborationBackend contract        ← ours
+Buzz       identities · rooms · transport · presence · runtime attachment
+    ▼ AgentRuntime contract                ← ours
+Hermes · Codex · Claude Code · Buzz Agent  ← a preference is not an architecture
+    ▼
+skills + Superpowers · then ToolIntent → Tool Broker → Execution Broker
+```
+
+**Role ≠ cognitive function ≠ model ≠ runtime ≠ backend identity**, and
+collapsing any adjacent pair breaks something different. `Hermes` is not a role;
+`Statistician` is, and it may run on any qualified runtime. The compiler emits
+cognitive functions and a selector matches a runtime afterwards — never the
+reverse.
+
+The test that decides whether an integration is correct: **remove the backend and
+say what disappears.** Rooms, presence and message history are acceptable losses;
+gate state, claims, evidence, verified values, decisions and lineage are not.
+
+Before the Tool Broker exists an actor may hold direct shell access inside its
+own worktree. That is `BOOTSTRAP_EXECUTION_PROFILE` — scoped, credential-limited
+and **retired**, not reclassified as production-ready because it kept working.
 
 ### 4.4 The trust boundary — ADR-003
 
@@ -177,8 +206,12 @@ Components carry an adoption type — `DEPENDENCY`, `ADAPTER`, `STANDARD`,
 `ADAPTIVE_REIMPLEMENT`, `DEFER`, `REJECTED` — each with a mandatory
 `authority_boundary`. Adopted: Inspect AI, GROBID + Pub2TEI, PaperQA2, ASReview,
 the CaMeL pattern, OSF Registries, Workflow Run RO-Crate, SEPIO + LinkML, CiTO,
-Croissant, SWHID, MLflow + OpenTelemetry, sigstore, Crossref/OpenAlex/arXiv.
-Register: `docs/architecture/AETHRION_COMPONENT_REUSE.md`.
+Croissant, SWHID, MLflow + OpenTelemetry, sigstore, Crossref/OpenAlex/arXiv —
+and, at v1.3.3, **Buzz** as the first collaboration backend, **`buzz-acp`** as
+the runtime bridge and **Hermes** as the preferred runtime profile, all three
+behind AETHRION contracts and none of them integrated. Register:
+`docs/architecture/AETHRION_COMPONENT_REUSE.md`, machine-readable in
+`provenance/components.json`.
 
 **Do not write a PDF parser, a policy language, a sandbox or an experiment
 tracker here.** The value is which evidence, through which control, licenses
@@ -257,6 +290,7 @@ per rule. A package with an open obligation is held out of *Ready now* by
 | 52 skills | Format-conformant; **none behaviour-tested** |
 | Contract core | Prototype, **zero consumers**, digest format conflicts with the bridge |
 | Temporal · LangGraph · NATS · brokers · ledgers · Model Gateway · G0–G10 runtime · policy set | **No code** |
+| Collaboration backend · agent runtime contract · ACP adapter · Buzz adapter | **No code** — boundary decided at v1.3.3 by ADR-020; no backend integrated, no runtime qualified, no characterisation run |
 | Discovery search graph · frozen evaluator zone · six memories · V0–V3 verifier engine · publication compiler | **No code** — specified at v1.2.0 by ADR-004–010 and WP-141–147 |
 | Collaboration plane · sparse topology · communication governor · memory mask · failure taxonomy · budget ledger · spec conformance · assurance router · human preliminary flow · model fingerprint · benchmark firewall | **No code** — specified at v1.3.0 by ADR-011–019 and WP-148–159 |
 | Notification channels (ntfy · Telegram · Discord/Slack · WhatsApp) | **Planned** — specified, nothing connected, nothing sends |
@@ -463,6 +497,7 @@ same is possible now.
 | What is the whole system? | `docs/architecture/AETHRION_ARCHITECTURE.md` — **§10 first** |
 | Who is accountable, and what may they never do? | `docs/architecture/AETHRION_ROLES.md` |
 | What was decided, and by whom? | `docs/architecture/ADR-001_solo_operator_independence.md` · `ADR-002_bootstrap_verification_control.md` · `ADR-003_trusted_control_and_policy.md` |
+| Who owns the collaboration and runtime layers, and what may they never decide? | `docs/architecture/ADR-020_collaboration_backend_and_runtime.md` |
 | What is adopted rather than invented? | `docs/architecture/AETHRION_COMPONENT_REUSE.md` |
 | **In this package, what do I adopt, copy, reimplement or build?** | the package card's own **Implementation acquisition and assimilation** block — generated from `provenance/upstreams.json` and `provenance/components.json`, and not written anywhere else |
 | How does this compare to Science One, PaperQA2? | `docs/architecture/AETHRION_RELATED_SYSTEMS.md` |

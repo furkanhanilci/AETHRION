@@ -79,6 +79,36 @@ A change buying +0.2% quality for +400% cost is not accepted silently, and neith
 is its mirror image. Both directions need an explicit decision, and the frontier
 is what a release reports — WP-130.
 
+
+### Backend and runtime numbers are observations to reconcile
+
+`ADR-020`. A collaboration backend, an ACP session and a runtime each report
+tokens, turns and calls, and those reports are useful and partial. They are
+ingested as telemetry projections and reconciled against the ledger; the budget
+service remains the authority for every budget decision.
+
+The distinction is the same one the evidence chain draws elsewhere: a number
+reported by a component that is not the evaluator is an observation, and an
+observation is reconciled rather than believed. A backend that under-reports is a
+reconciliation discrepancy to investigate, not a cheaper run.
+
+### Budget pressure degrades verbosity, never assurance
+
+Unchanged and restated here because a substrate with per-actor cost metering
+makes the wrong lever unusually easy to pull: the cheapest thing on the invoice
+is always an actor. `ADR-011` refuses that lever. A task that cannot afford its
+required cohort or its required assurance is `BLOCKED`, not completed more
+cheaply, and the degradation order touches verbosity, compression and routing
+before it touches anything epistemic.
+
+### The frozen run manifest
+
+`ASM-060` records the one mechanism worth taking from the upstream orchestration
+model: freeze roster, model revision, prompt hash, budget envelope and
+concurrency **before** a run starts, so what ran can be reconstructed afterwards.
+That is the shape this ledger needs upstream of it, and it is registered as a
+`PATTERN` — no file has moved, and none may until a licence is read at the source.
+
 ## Out of scope
 
 - The internal implementation of any dependent package
@@ -254,6 +284,7 @@ A package whose evidence cannot be produced is not `READY`, however complete its
 |---|---|---|---|---|
 | `ASM-039` — AgentSlimming — baseline-anchored workflow optimisation | `ADAPTIVE_REIMPLEMENT` | `MS-COMM-004` | the local module and contract surface this becomes — **named at refinement** | **1** |
 | `ASM-045` — BATS — budget-aware tool use and test-time scaling | `DIRECT_ADAPT` | `src/agent_budget_tracker.py` · `src/agent_bats.py` | the local module and contract surface this becomes — **named at refinement** | **3** |
+| `ASM-060` — Buzz Harbor Orchestra — frozen roster manifest for a cohort run | `PATTERN` | the idea only — no code and nothing called at runtime | everything — the implementation here is this repository's own | none |
 | — | `BUILD_NATIVE` | Everything not listed above: the contracts, the authority boundaries and the integration this package specifies | All of it | — |
 
 ### What each source may never decide
@@ -264,11 +295,13 @@ An adopted mechanism supplies a signal, never a verdict. The recurring failure o
 |---|---|---|
 | `ASM-039` | An importance score allocates optimisation effort. It cannot remove a cognitive contribution the multi-agent invariant requires — ADR-011. | **Node pruning and cheap-model substitution.** Upstream these are the point; here they are the one optimisation refused by name. The framework removes workflow nodes and replaces them with cheaper models, which applied to a scientific cohort is exactly the cost lever ADR-011 exists to refuse. |
 | `ASM-045` | A remaining-budget signal changes what a campaign does next. It can never lower an assurance route, reduce a cohort or skip a non-waivable control — a task that cannot afford its assurance is BLOCKED. | Hard-coded provider pricing — cost data comes from the Model Gateway and the Cost Ledger. And the two-dimensional budget model: this architecture needs nine dimensions including communication, verification, reproduction reserve and human attention. |
+| `ASM-060` | A manifest records what a cohort run was configured with. It is never evidence that the run was scientifically adequate, and a frozen roster does not establish epistemic independence — five identities on one model and one context are one contribution, whatever the manifest says. | The shared-filesystem execution model, the orchestrator's own scheduling semantics, and any notion that completing the manifest completes the work. AETHRION worktree isolation, cohort versioning and acceptance rules are unchanged. |
 
 ### Where a plain row would mislead
 
 - **`ASM-039`** — MIT-licensed and therefore legally adaptable, and still reimplemented — the taken mechanisms are multi-metric importance estimation, **baseline-anchored acceptance**, quality-regression rollback and Pareto reporting. The reported cost reduction was not confirmed on the repository page and is recorded here as a paper claim rather than an observed figure. This is the clearest entry in the register where a permissive licence does not make copying correct.
 - **`ASM-045`** — Makes remaining tool budget part of the agent's continuous context, and uses it to decide between deepening a promising lead and pivoting. Apache-2.0 with two compact, isolable modules, which makes this the strongest direct-adaptation candidate added by this delta. Also carries intermediate summarisation and old-tool-response compression, which belong to the context projection rather than to the budget controller.
+- **`ASM-060`** — The mechanism worth taking is narrow and real: an execution manifest that freezes roster, model revision, prompt hash, budget and concurrency before a run starts, so what ran can be reconstructed afterwards. That maps almost exactly onto `AgentCohortRecord` plus the budget envelope, and it is the shape WP-153's ledger needs upstream of it. **Recorded as `PATTERN` rather than `DIRECT_ADAPT`, and the checker is the reason.** The architecture delta proposes direct adaptation and reports the licence as Apache-2.0, but no licence has been read at the source from here — this session has no network …
 
 ### Unresolved before implementation
 
@@ -284,7 +317,7 @@ Each item below is an obligation its mode creates, quoted from the rule that cre
 - a pinned upstream commit — a branch name is not a pin
 - a characterisation suite capturing upstream behaviour **before** any code moves
 
-**Acquisition readiness — 4 obligations open across 2 of 2 sources.** `00_PROGRAM/05_definition_of_ready_and_done.md` requires the acquisition surface of a package to be classified and its obligations resolved before the package is `READY`; `scripts/ready_queue.py` holds it back until they are.
+**Acquisition readiness — 4 obligations open across 2 of 3 sources.** `00_PROGRAM/05_definition_of_ready_and_done.md` requires the acquisition surface of a package to be classified and its obligations resolved before the package is `READY`; `scripts/ready_queue.py` holds it back until they are.
 
 <!-- /generated:implementation-sources -->
 
@@ -300,6 +333,9 @@ Each item below is an obligation its mode creates, quoted from the rule that cre
 | WP-153-T06 | Implement deterministic tool-result reuse with recorded provenance | Implementation owner | Commit / configuration / record reference |
 | WP-153-T07 | Emit the quality/cost frontier for the release dossier | Implementation owner | Commit / configuration / record reference |
 
+| WP-153-T-B1 | Ingest collaboration-backend, ACP session and runtime token telemetry as reconciled projections | Implementation owner | Commit / configuration / record reference |
+| WP-153-T-B2 | Freeze the run manifest — roster, model revision, prompt digest, budget envelope, concurrency — before dispatch | Implementation owner | Commit / configuration / record reference |
+
 ## Mandatory deliverables
 
 - `ResearchBudgetContract`
@@ -309,6 +345,9 @@ Each item below is an obligation its mode creates, quoted from the rule that cre
 - `Pareto frontier report`
 - An updated runbook or operations note, plus the service/contract ownership record
 - A signed `EvidenceManifest`
+
+- Runtime and backend telemetry reconciliation record
+- Frozen run manifest
 
 ## Test and verification plan
 
@@ -323,6 +362,8 @@ The outline below is the summary. The executable procedure — environment, data
 - Producer/consumer contract compatibility tests on every affected interface
 - Telemetry correlation and audit-record integrity checks
 
+- A backend-reported token count that disagrees with the ledger must raise a reconciliation discrepancy, not silently overwrite either figure
+- Budget pressure must not be able to reduce the required cohort or the assurance route
 
 ## Acceptance criteria
 

@@ -283,7 +283,7 @@ A package whose evidence cannot be produced is not `READY`, however complete its
 |---|---|---|---|---|
 | `ASM-048` — WASP — realistic web-agent prompt injection | `BENCHMARK` | a measurement of this system — nothing enters it | the contract this is held behind | none |
 | `ASM-059` — AgentDojo — prompt-injection attack and defence suite | `BENCHMARK` | a measurement of this system — nothing enters it | the contract this is held behind | none |
-| `CMP-034` — CaMeL | `PATTERN` | Nothing is called at runtime — the idea is implemented here. | The trusted-control / untrusted-data architecture and the capability gate that enforces it. | none |
+| `CMP-034` — CaMeL | `PATTERN` | the idea only — no code and nothing called at runtime | The trusted-control / untrusted-data architecture and the capability gate that enforces it. | none |
 | — | `BUILD_NATIVE` | Everything not listed above: the contracts, the authority boundaries and the integration this package specifies | All of it | — |
 
 ### What each source may never decide

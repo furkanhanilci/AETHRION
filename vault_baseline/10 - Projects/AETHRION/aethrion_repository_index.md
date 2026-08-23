@@ -74,7 +74,7 @@ implied.
 | Skill registry (52 skills, two families) | ✅ Format-conformant · ⚠️ wired for Claude Code only · 📐 behaviour **not yet tested** | `skills/` |
 | Obsidian information architecture | ✅ V0 ready | `vault_baseline/` |
 | Target architecture and skill layer | 📐 Designed, awaiting decision | `docs/architecture/` |
-| Commissioning programme — **baseline v1.3.1** | ⬜ Planned, not started; 160 package documents, 120 scenarios | `planning/commissioning/` |
+| Commissioning programme — **baseline v1.3.3** | ⬜ Planned, not started; 160 package documents, 120 scenarios | `planning/commissioning/` |
 | Interim evidence policy (WP-000) | ✅ `TECH_COMPLETE` — tooling implemented, specimen issued and verified | `scripts/evidence_manifest.py` · `delivery/WP-000/` |
 | Verification on push (BVC-01) | 📐 Decided and written, **not yet active** — needs a workflow-scoped token | `deploy/bvc-01-verify.yml` |
 | Human notification channels (ntfy · Telegram · Discord/Slack · WhatsApp) | ⬜ **Planned** — WP-132/135 specify a channel registry with a per-channel data-class ceiling; three skills written, **nothing connected, nothing sends** | `planning/commissioning/13_TOOLING_INTEGRATION/` |
@@ -88,7 +88,7 @@ implied.
 src/          Bridge component and the shared contract core
 tests/        Test suite
 skills/       52 skills — HOW agents work; engineering + scientific + shared
-planning/     WP-000, WP-001..159, ACC-01..120 (hash-sealed canonical plan, baseline v1.3.1)
+planning/     WP-000, WP-001..159, ACC-01..120 (hash-sealed canonical plan, baseline v1.3.3)
 docs/         Architecture, review, branding and operations documents
 docs/assets/  Branding assets — the logo, and the rules that keep it canonical
 schemas/      Shared contract schemas
@@ -1038,6 +1038,60 @@ from its package, a watched third-party name in neither register, and a task lis
 that says *build* what a register recorded as *adopt*. Its `--self-test` injects a
 defect per rule.
 
+### 8.2 Two contracts, and everything adopted underneath them
+
+Most of what the collaboration plane needs is not scientific work — identities,
+rooms, message transport, presence, runtime attachment, a workspace a human can
+watch. Building it here would consume most of that plane's budget and
+differentiate nothing. So it is adopted; and the moment something is adopted the
+question stops being *does it work* and becomes *what has it quietly been given
+authority over*.
+
+```text
+AETHRION   authority · cohort semantics · communication policy · evidence
+    ▼  CollaborationBackend contract        ← AETHRION's
+Buzz       first candidate, replaceable
+    ▼  AgentRuntime contract                ← AETHRION's
+Hermes · Codex · Claude Code · Buzz Agent   ← preferred is not exclusive
+    ▼
+skills + Superpowers  →  ToolIntent → Tool Broker → Execution Broker
+```
+
+The mistake this inverts, and it is attractive because it is nearly true at the
+level of mechanics:
+
+```text
+AETHRION = Buzz + some scientific prompts
+```
+
+What that omits is the whole reason the system exists. A substrate that hosts a
+cohort has no opinion about whether the cohort was epistemically sufficient; a
+runtime reporting `completed` has no opinion about whether the work is
+acceptable; **a room full of agreeing agents is not a finding.**
+
+So the architecture is only correct while one test passes: **remove the backend
+and say what disappears.** Rooms, presence and message history are acceptable
+losses. Gate state, claims, evidence spans, verified values, protocol freeze,
+human decisions, experiment lineage and accepted artifacts are not — and
+WP-148-T12 runs the test rather than asserting the answer.
+
+Four boundaries follow. A message is not an instruction and messaging is not
+authorisation; an operational identity is not a `RoleBinding`; a room is not the
+blackboard and channel history is not a `ContextProjection`; an approval is not a
+`DecisionRecord`, and a backend cannot move G8 or G9.
+
+And one ordering: **`Hermes` is not a role.** `Statistician` is, and it may run on
+any qualified runtime. The compiler emits cognitive functions and a selector
+matches a runtime afterwards — reversing that is how a cohort comes to be shaped
+by a harness.
+
+**None of it is built.** [`ADR-020`](docs/architecture/ADR-020_collaboration_backend_and_runtime.md)
+fixes the boundary before any code moves, which is the only point at which fixing
+it is cheap. No backend is integrated, no runtime is qualified, no adapter exists,
+and the licence of the first candidate has not been read from here — which is why
+its orchestration manifest is registered as a `PATTERN` rather than the direct
+adaptation originally proposed.
+
 ## 9. How evidence is signed
 
 Acceptance requires a signed `EvidenceManifest` in an immutable store — and that
@@ -1076,7 +1130,7 @@ the section to read first if you are deciding whether to trust anything else.
 ```mermaid
 flowchart LR
     subgraph WORKING["RUNNING - verified locally"]
-        W["Zotero read-only client<br/>SQLite source registry<br/>Obsidian projection<br/>Hermes MCP, 5 tools<br/>systemd units · 160 tests<br/>plan seal · 22 status checks<br/>signed evidence manifest<br/>19 generated figures<br/>upstream lineage register + checker"]
+        W["Zotero read-only client<br/>SQLite source registry<br/>Obsidian projection<br/>Hermes MCP, 5 tools<br/>systemd units · 172 tests<br/>plan seal · 22 status checks<br/>signed evidence manifest<br/>21 generated figures<br/>upstream lineage register + checker"]
     end
     subgraph WRITTEN["WRITTEN - never executed"]
         S["52 skills, none behaviour-tested<br/>160 package documents<br/>120 acceptance scenarios<br/>role-to-model assignment rules<br/>4 authoring profiles"]
@@ -1199,7 +1253,7 @@ branch and are regenerated from the canonical registry. Human synthesis stays in
 ### Verify
 
 ```bash
-uv run pytest                          # 160 tests
+uv run pytest                          # 172 tests
 uv run python scripts/mcp_smoke.py     # asserts the five-tool boundary; exits 1 on failure
 uv run python scripts/acceptance_v0.py # data-independent structural acceptance
 python3 scripts/validate_skills.py     # Agent Skills format + AIRL metadata contract
@@ -1306,7 +1360,7 @@ flowchart LR
 ```
 
 ```
-160/160 tests pass · plan seal 632/632 OK · plan semantics OK · service and timer active
+172/172 tests pass · plan seal 632/632 OK · plan semantics OK · service and timer active
 WP-000 attestation: signature OK, 9 subject digests OK, tamper rejected
 MCP smoke: 5 read-only tools, exits 1 when the Bridge is down
 Acceptance: 11 structural checks pass, data-independent
@@ -1314,7 +1368,7 @@ Skills: 52/52 conform to the Agent Skills format and the AIRL metadata contract
 Documents: declared counts match the repository; no decision record contradicts itself
 References: 27/33 registry sources corroborated against Crossref, OpenAlex and arXiv
 Monitoring: G10 sweep clean over 15 DOI-bearing sources; positive control fired
-Figures: 19/19 match their generators; 0 text overflows out of their boxes
+Figures: 21/21 match their generators; 0 text overflows out of their boxes
 Mirror drift: 0 across the plan mirror and the vault mirror
 Obsidian baseline and vault identical
 ```

@@ -29,7 +29,7 @@ W, L = 1200, 24
 
 
 def main() -> None:
-    H = 940
+    H = 1244
     c = Canvas(W, H)
     tw = W - 2 * L
 
@@ -108,7 +108,34 @@ def main() -> None:
         if i:
             c.path(f"M {bx - 13} {sy + 54} L {bx - 3} {sy + 54}", stroke=RULE, sw=1.8, marker="arrowsm")
 
-    ny = sy + 108 + 26
+    # ADR-020 §7. The shortcut that keeps working is the one that fossilises,
+    # so each is drawn with the thing that replaces it rather than as a phase.
+    by = sy + 108 + 32
+    c.hrule(L, W - L, by - 14, sw=1.6, stroke=INK)
+    c.text(L, by + 14, "Before the broker exists: a named profile, not a phase",
+           size=21, weight="700", anchor="start")
+    c.para(L, by + 40,
+           "A runtime in an isolated worktree may hold direct shell and file access while the Tool Broker is "
+           "unbuilt. That is recorded as BOOTSTRAP_EXECUTION_PROFILE, scoped to a target, credential-limited, and "
+           "retired rather than reclassified as production-ready because it kept working — ADR-020.",
+           tw, size=17, fill=INK, lh=22, max_lines=3)
+
+    py2 = by + 40 + 3 * 22 + 16
+    swaps = [("backend or manifest coordination", "Task Compiler under Temporal"),
+             ("direct shell in a worktree", "ToolIntent → Broker → PolicyDecision"),
+             ("a room used as a scratchpad", "BlackboardEntry with a projection"),
+             ("review conducted in chat", "signed ReviewRecord and DecisionRecord")]
+    cw2 = (tw - 3 * 12) / 4
+    for i, (boot, perm) in enumerate(swaps):
+        x = L + i * (cw2 + 12)
+        c.cell(x, py2, cw2, 62, boot, accent=ORANGE, dash="5 4",
+               head_size=16, max_head_lines=3)
+        c.path(f"M {x + cw2 / 2} {py2 + 64} L {x + cw2 / 2} {py2 + 80}",
+               stroke=RULE, sw=1.6, marker="arrowsm")
+        c.cell(x, py2 + 84, cw2, 62, perm, accent=GREEN,
+               head_size=16, max_head_lines=3)
+
+    ny = py2 + 84 + 62 + 26
     c.hrule(L, W - L, ny, sw=1.2)
     c.text(L, ny + 30, "Honest limit", size=18, weight="700", anchor="start", fill=VERM)
     c.para(L + 118, ny + 30,

@@ -17,9 +17,9 @@
     "than of a package: what the waves and phases MEAN, and in what order."
   ],
   "commissioning_baseline": {
-    "version": "v1.3.2",
-    "supersedes": "v1.3.1",
-    "baseline_type": "acquisition-binding-remediation",
+    "version": "v1.3.3",
+    "supersedes": "v1.3.2",
+    "baseline_type": "collaboration-backend-and-runtime-separation",
     "sealed_at": "2026-08-24",
     "seal_file": "planning/commissioning/00_PROGRAM/SHA256SUMS.txt",
     "programme_document_format_version": "1.4",

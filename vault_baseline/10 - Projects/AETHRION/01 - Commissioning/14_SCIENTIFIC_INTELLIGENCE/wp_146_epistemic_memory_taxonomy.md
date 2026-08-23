@@ -317,7 +317,7 @@ A package whose evidence cannot be produced is not `READY`, however complete its
 | `ASM-009` — MLEvolve — progressive MCGS, reference edges, cross-branch fusion, stagnation | `ADAPTIVE_REIMPLEMENT` | `MS-SRCH-003` · `MS-SRCH-004` · `MS-SRCH-005` | the local module and contract surface this becomes — **named at refinement** | **1** |
 | `ASM-014` — PiEvo — evolving principle space and anomaly-aware augmentation | `ADAPTIVE_REIMPLEMENT` | `MS-PRIN-001` · `MS-PRIN-002` | the local module and contract surface this becomes — **named at refinement** | **1** |
 | `ASM-019` — DeepScientist — findings memory, failed routes, research map | `ADAPTIVE_REIMPLEMENT` | `MS-MEM-001` · `MS-MEM-002` | the local module and contract surface this becomes — **named at refinement** | **1** |
-| `ASM-020` — EvoScientist — ideation memory separated from procedural memory; failure classification | `DEFER` | nothing — recorded so it is not re-examined from scratch | the contract this is held behind | none |
+| `ASM-020` — EvoScientist — ideation memory separated from procedural memory; failure classification | `DEFER` | nothing — recorded so it is not re-examined from scratch | everything — the implementation here is this repository's own | none |
 | `ASM-040` — MAD-M2 — memory masking in multi-agent debate | `ADAPTIVE_REIMPLEMENT` | `MS-MEM-003` | the local module and contract surface this becomes — **named at refinement** | **1** |
 | — | `BUILD_NATIVE` | Everything not listed above: the contracts, the authority boundaries and the integration this package specifies | All of it | — |
 

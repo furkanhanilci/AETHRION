@@ -109,13 +109,16 @@ ISO/IEC/IEEE 29119-3 §8.3.2. A coverage item is something the tests must reach.
 | C08 | Define `ContextProjectionRecord` and the per-invocation assembly | WP-150-T04 | *(name the test case)* |
 | C09 | Implement the quality guard and the topology rollback path | WP-150-T05 | *(name the test case)* |
 | C10 | Emit coordination overhead, redundancy and useful-challenge metrics | WP-150-T06 | *(name the test case)* |
-| C11 | Delta-Only Communication | [ACC-084](../12_ACCEPTANCE_SCENARIOS/ACC-084_delta_only_communication.md) — High | *(name the test case)* |
-| C12 | Sparse Topology Preserves Quality | [ACC-086](../12_ACCEPTANCE_SCENARIOS/ACC-086_sparse_topology_quality_preservation.md) — High | *(name the test case)* |
-| C13 | Communication Optimisation Rollback | [ACC-087](../12_ACCEPTANCE_SCENARIOS/ACC-087_communication_optimization_rollback.md) — High | *(name the test case)* |
-| C14 | Strategic Silence Never Silences a Blocker | [ACC-088](../12_ACCEPTANCE_SCENARIOS/ACC-088_strategic_silence_never_silences_a_blocker.md) — Critical | *(name the test case)* |
-| C15 | Budget Degrades Communication, Not the Cohort | [ACC-099](../12_ACCEPTANCE_SCENARIOS/ACC-099_communication_budget_degradation.md) — Critical | *(name the test case)* |
+| C11 | Implement the delivery adapter: `CommunicationDecision` → backend action → delivery evidence | WP-150-T08 | *(name the test case)* |
+| C12 | Bind every delivered message to its AETHRION message id and the policy decision that authorised it | WP-150-T09 | *(name the test case)* |
+| C13 | Implement delivery failure handling — timeout, duplicate, reconnect — as classified collaboration events rather than silent omission | WP-150-T10 | *(name the test case)* |
+| C14 | Delta-Only Communication | [ACC-084](../12_ACCEPTANCE_SCENARIOS/ACC-084_delta_only_communication.md) — High | *(name the test case)* |
+| C15 | Sparse Topology Preserves Quality | [ACC-086](../12_ACCEPTANCE_SCENARIOS/ACC-086_sparse_topology_quality_preservation.md) — High | *(name the test case)* |
+| C16 | Communication Optimisation Rollback | [ACC-087](../12_ACCEPTANCE_SCENARIOS/ACC-087_communication_optimization_rollback.md) — High | *(name the test case)* |
+| C17 | Strategic Silence Never Silences a Blocker | [ACC-088](../12_ACCEPTANCE_SCENARIOS/ACC-088_strategic_silence_never_silences_a_blocker.md) — Critical | *(name the test case)* |
+| C18 | Budget Degrades Communication, Not the Cohort | [ACC-099](../12_ACCEPTANCE_SCENARIOS/ACC-099_communication_budget_degradation.md) — Critical | *(name the test case)* |
 
-**15 coverage items.** Every one must appear in the *Covered by* column of at least one test case below before this package can reach `TECH_COMPLETE`.
+**18 coverage items.** Every one must appear in the *Covered by* column of at least one test case below before this package can reach `TECH_COMPLETE`.
 
 <!-- /generated:coverage -->
 
@@ -144,6 +147,11 @@ ISO/IEC/IEEE 29119-3 §8.3.2. A coverage item is something the tests must reach.
 Cases 11 and 12 are the package's whole safety argument. An optimiser without an
 armed guard and an automatic rollback is a mechanism for degrading quality in
 exchange for a number that looks better.
+| 16 | **E2** | **Silence has a floor.** Drive the budget to its degradation limit, then emit a blocker message | Delivered. `SILENCE` never applies to a blocker or safety message, whatever the budget state | Delivery record |
+| 17 | **E1** | **The backend does not re-decide.** Hand the adapter a `SEND_COMPRESSED` decision and observe the delivered payload | Delivered as decided. The backend executes a communication action and never recomputes communication value | Decision/delivery pair |
+| 18 | **E2** | **History is not context.** Build a `ContextProjection` for an actor in a busy room | Reproducible from canonical state, evidence, skills and permitted peer deltas alone. Channel history is not an input | Projection digest |
+| 19 | **E1** | **Rollback over a live backend.** Trigger a quality regression and roll topology back while rooms exist | Previous topology restored; existing rooms do not prevent or distort it | Topology history |
+
 
 ## How to execute
 

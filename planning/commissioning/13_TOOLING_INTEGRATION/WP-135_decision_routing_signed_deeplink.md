@@ -261,17 +261,30 @@ A package whose evidence cannot be produced is not `READY`, however complete its
 
 **What is already solved elsewhere, and on what terms.** Before the first task starts, an implementer has to know which parts of this package are called at runtime, which are copied and refactored, which are reimplemented from a specification, and which have no upstream at all. Those decisions are recorded in [`provenance/upstreams.json`](../../../provenance/upstreams.json) — mechanisms assimilated into this repository's own code — and in [`provenance/components.json`](../../../provenance/components.json) — components adopted at runtime. This block is derived from both, so a decision and the place it is used cannot drift apart.
 
-### No registered source names this package
-
-Neither register binds an upstream mechanism or a runtime component to `WP-135`, so every deliverable below is **`BUILD_NATIVE`**.
-
-That is a statement about the registers, not a finding that no upstream exists. If refinement identifies one, it is recorded in the register **first** and appears here on the next generation — a component named in this document without a register entry is a defect that `scripts/check_wp_implementation_sources.py` reports.
+### Acquisition map
 
 | Source | Mode | What is taken | AETHRION owns | Unresolved |
 |---|---|---|---|---|
+| `ASM-065` — Buzz — workflow approval action as a human decision | `DEFER` | nothing — recorded so it is not re-examined from scratch | everything — the implementation here is this repository's own | none |
 | — | `BUILD_NATIVE` | Everything not listed above: the contracts, the authority boundaries and the integration this package specifies | All of it | — |
 
-**Acquisition readiness — nothing to resolve.** No acquisition obligation stands between this package and `READY`.
+### What each source may never decide
+
+An adopted mechanism supplies a signal, never a verdict. The recurring failure of adoption is not a component behaving badly but a component quietly acquiring authority, which is why every register entry states this before it is taken.
+
+| Source | May never decide | Deliberately not taken |
+|---|---|---|
+| `ASM-065` | Not adopted for authority. A backend approval may become an interaction surface that presents a decision and collects a human action; the canonical decision is still written through the Decision Service as a signed `DecisionRecord` with its preliminary-assessment rules and assurance context. **A Buzz approval cannot move G8 or G9.** | The approval action as the decision itself. At the reviewed baseline its implementation is not sufficient for scientific authority, and adopting it as UX while implying it is authority is exactly how a gate quietly stops being one. |
+
+### Where a plain row would mislead
+
+- **`ASM-065`** — Deferred rather than rejected: the UX is worth having later, under WP-093's queue and WP-135's signed deep links.
+
+### Unresolved before implementation
+
+**None.** Every obligation the modes above create has been met.
+
+**Acquisition readiness — resolved.** All 1 registered sources have met the obligations their modes create.
 
 <!-- /generated:implementation-sources -->
 

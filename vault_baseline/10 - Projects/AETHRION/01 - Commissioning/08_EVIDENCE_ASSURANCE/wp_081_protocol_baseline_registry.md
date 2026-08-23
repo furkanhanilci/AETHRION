@@ -316,7 +316,7 @@ A package whose evidence cannot be produced is not `READY`, however complete its
 |---|---|---|---|---|
 | `ASM-008` — ERA — ScorableTask and Flat UCB Tree Search (FUTS) | `DIRECT_ADAPT` | `implementation/futs.py` | the local module and contract surface this becomes — **named at refinement** | **3** |
 | `ASM-052` — Registered Reports and in-principle acceptance | `STANDARD` | the running implementation | the contract this is held behind | **1** |
-| `ASM-053` — Specification Curve Analysis — analytical-decision sensitivity | `DEFER` | nothing — recorded so it is not re-examined from scratch | the contract this is held behind | none |
+| `ASM-053` — Specification Curve Analysis — analytical-decision sensitivity | `DEFER` | nothing — recorded so it is not re-examined from scratch | everything — the implementation here is this repository's own | none |
 | — | `BUILD_NATIVE` | Everything not listed above: the contracts, the authority boundaries and the integration this package specifies | All of it | — |
 
 ### What each source may never decide

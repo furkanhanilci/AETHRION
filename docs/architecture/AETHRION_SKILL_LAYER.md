@@ -101,6 +101,45 @@ agent followed.
 
 ---
 
+### 1.1 How a bundle reaches an actor, and why it is compiled rather than mounted
+
+`ADR-020`. A runtime that discovers `SKILL.md` from a workspace directory —
+`.agents/skills`, `.goose/skills`, `.claude/skills` — makes it trivial to expose
+all fifty-two to every actor. That is the wrong default in three separate ways:
+conflicting instructions, unbounded context, and no observability of what an
+actor was actually operating under when it produced something.
+
+So the bundle is **compiled**, not mounted:
+
+```text
+TaskContract → Skill Compiler → a small task-specific bundle
+             → materialised into the actor's worktree
+             → runtime discovers the metadata
+             → actor loads the full procedure on demand
+```
+
+An implementer bundle is roughly *writing-plans · using-git-worktrees ·
+test-driven-development · systematic-debugging · requesting-code-review ·
+verification-before-completion*. A reviewer bundle is a different set, and the
+reviewer does not get the implementer's.
+
+Three rules make it checkable rather than intended:
+
+- **The canonical tree is here.** A workspace holds a projection. A backend
+  Persona Pack that copies skills into a second, untracked source of truth has
+  forked them — and the eleven vendored skills are byte-identical to
+  `obra/superpowers` at a pinned commit, registered as `ASM-066`, so a fork is a
+  provenance failure rather than an inconvenience.
+- **A skill outside the bundle is a containment failure.** One reachable through
+  a shared home directory but absent from the compiled bundle fails the check,
+  not the actor's judgement.
+- **A persona is not a role.** A backend persona configures an actor and carries
+  no scientific semantics. One AETHRION cognitive function may project to
+  different personas on different runtimes while the `RoleContract` stays fixed.
+
+Duplicate skill names across discovery paths must resolve deterministically
+before any backend is qualified — it is item eight of WP-148's characterisation.
+
 ## 2. Superpowers' real contribution: how skills are *written*
 
 The skill catalogue matters less than people assume. **The real contribution is

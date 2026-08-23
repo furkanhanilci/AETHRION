@@ -131,25 +131,30 @@ ISO/IEC/IEEE 29119-3 §8.3.2. A coverage item is something the tests must reach.
 | C02 | `Core role bundles` | Mandatory deliverable | *(name the test case)* |
 | C03 | `Bundle conformance tests` | Mandatory deliverable | *(name the test case)* |
 | C04 | `Cohort, topology, projection and assurance-route compilation` | Mandatory deliverable | *(name the test case)* |
-| C05 | Build the `RoleBundle` schema and its Git registry | WP-047-T01 | *(name the test case)* |
-| C06 | Write the `RoleContract` → runtime prompt/tool/context compiler | WP-047-T02 | *(name the test case)* |
-| C07 | Create the initial bundles for planner, scout, extractor, methodologist, coder, reviewer, reproducer and curator | WP-047-T03 | *(name the test case)* |
-| C08 | Bind the context budget and frozen-package policy | WP-047-T04 | *(name the test case)* |
-| C09 | Add bundle signature, admission and evaluation references | WP-047-T05 | *(name the test case)* |
-| C10 | Establish deprecation and migration management | WP-047-T06 | *(name the test case)* |
-| C11 | Build the **Skill Registry**: discovery, the Agent Skills format contract, and `scripts/validate_skills.py` as an admission gate | WP-047-T07 | *(name the test case)* |
-| C12 | Implement **trigger resolution** — classification fields → `skills_required` — with a recorded `skill_selection_reason` | WP-047-T08 | *(name the test case)* |
-| C13 | Implement **version and dependency resolution** across `airl.requires_skills`, including conflict refusal | WP-047-T09 | *(name the test case)* |
-| C14 | Compute and record `skill_bundle_hash`; bind it into `TaskContract` and the evidence chain | WP-047-T10 | *(name the test case)* |
-| C15 | Enforce the **two-family policy**: engineering, scientific-research and shared, selected from `work_domain` — never chosen freely by the agent | WP-047-T11 | *(name the test case)* |
-| C16 | Track **upstream provenance**: `airl.derived_from` + `airl.upstream_commit`, and flag derived skills when upstream moves | WP-047-T12 | *(name the test case)* |
-| C17 | Task Runs With No Skill Loaded | [ACC-46](../12_ACCEPTANCE_SCENARIOS/acc_46_skill_not_loaded.md) — Critical | *(name the test case)* |
-| C18 | Harness Starts Without the Skill Bootstrap | [ACC-47](../12_ACCEPTANCE_SCENARIOS/acc_47_skill_bootstrap_missing.md) — Critical | *(name the test case)* |
-| C19 | Wrong or Competing Skill Selected | [ACC-48](../12_ACCEPTANCE_SCENARIOS/acc_48_wrong_skill_selected.md) — High | *(name the test case)* |
-| C20 | Upstream Change Invalidates a Derived Skill | [ACC-51](../12_ACCEPTANCE_SCENARIOS/acc_51_upstream_skill_drift.md) — High | *(name the test case)* |
-| C21 | Multi-Agent Cohort Required | [ACC-081](../12_ACCEPTANCE_SCENARIOS/acc_081_multi_agent_cohort_required.md) — Critical | *(name the test case)* |
+| C05 | `CollaborationDeploymentPlan` | Mandatory deliverable | *(name the test case)* |
+| C06 | Build the `RoleBundle` schema and its Git registry | WP-047-T01 | *(name the test case)* |
+| C07 | Write the `RoleContract` → runtime prompt/tool/context compiler | WP-047-T02 | *(name the test case)* |
+| C08 | Create the initial bundles for planner, scout, extractor, methodologist, coder, reviewer, reproducer and curator | WP-047-T03 | *(name the test case)* |
+| C09 | Bind the context budget and frozen-package policy | WP-047-T04 | *(name the test case)* |
+| C10 | Add bundle signature, admission and evaluation references | WP-047-T05 | *(name the test case)* |
+| C11 | Establish deprecation and migration management | WP-047-T06 | *(name the test case)* |
+| C12 | Build the **Skill Registry**: discovery, the Agent Skills format contract, and `scripts/validate_skills.py` as an admission gate | WP-047-T07 | *(name the test case)* |
+| C13 | Implement **trigger resolution** — classification fields → `skills_required` — with a recorded `skill_selection_reason` | WP-047-T08 | *(name the test case)* |
+| C14 | Implement **version and dependency resolution** across `airl.requires_skills`, including conflict refusal | WP-047-T09 | *(name the test case)* |
+| C15 | Compute and record `skill_bundle_hash`; bind it into `TaskContract` and the evidence chain | WP-047-T10 | *(name the test case)* |
+| C16 | Enforce the **two-family policy**: engineering, scientific-research and shared, selected from `work_domain` — never chosen freely by the agent | WP-047-T11 | *(name the test case)* |
+| C17 | Track **upstream provenance**: `airl.derived_from` + `airl.upstream_commit`, and flag derived skills when upstream moves | WP-047-T12 | *(name the test case)* |
+| C18 | Emit `runtime_requirements` and resolve them to a qualified `AgentRuntimeProfile` | WP-047-T08 | *(name the test case)* |
+| C19 | Compile the backend-neutral `CollaborationDeploymentPlan` from the cohort and topology | WP-047-T09 | *(name the test case)* |
+| C20 | Implement the Skill Compiler bundle and its materialisation into an actor workspace | WP-047-T10 | *(name the test case)* |
+| C21 | Implement the seven compile-time refusals, each naming the rule that refuses | WP-047-T11 | *(name the test case)* |
+| C22 | Task Runs With No Skill Loaded | [ACC-46](../12_ACCEPTANCE_SCENARIOS/acc_46_skill_not_loaded.md) — Critical | *(name the test case)* |
+| C23 | Harness Starts Without the Skill Bootstrap | [ACC-47](../12_ACCEPTANCE_SCENARIOS/acc_47_skill_bootstrap_missing.md) — Critical | *(name the test case)* |
+| C24 | Wrong or Competing Skill Selected | [ACC-48](../12_ACCEPTANCE_SCENARIOS/acc_48_wrong_skill_selected.md) — High | *(name the test case)* |
+| C25 | Upstream Change Invalidates a Derived Skill | [ACC-51](../12_ACCEPTANCE_SCENARIOS/acc_51_upstream_skill_drift.md) — High | *(name the test case)* |
+| C26 | Multi-Agent Cohort Required | [ACC-081](../12_ACCEPTANCE_SCENARIOS/acc_081_multi_agent_cohort_required.md) — Critical | *(name the test case)* |
 
-**21 coverage items.** Every one must appear in the *Covered by* column of at least one test case below before this package can reach `TECH_COMPLETE`.
+**26 coverage items.** Every one must appear in the *Covered by* column of at least one test case below before this package can reach `TECH_COMPLETE`.
 
 <!-- /generated:coverage -->
 

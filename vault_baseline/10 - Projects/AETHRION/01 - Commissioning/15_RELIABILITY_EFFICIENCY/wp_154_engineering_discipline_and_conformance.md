@@ -116,6 +116,43 @@ preprocessing, removed stopping criterion.
 an obstacle whose findings get dismissed by habit, which is worse than no
 detector at all.
 
+
+### Where the work happens, and who says it is done
+
+`ADR-020` and `ADR-012`. The engineering loop is unchanged and is the discipline
+this programme deliberately adopted:
+
+```text
+spec analysis → plan → isolated worktree → implement (TDD)
+→ separate reviewer → separate verifier in clean context → acceptance evidence
+```
+
+What the adoption changes is only *where the actors live*. A collaboration
+backend hosts the rooms, identities and runtime sessions; ACP attaches Hermes,
+Codex, Claude Code or another qualified runtime to each worktree; the vendored
+Superpowers skills supply the process. Three different systems, three different
+jobs, and the composition is explicit so that none of them absorbs the others.
+
+**Superpowers is not replaced by persona text.** A persona configures a backend
+actor; the engineering discipline is a set of procedures with their own
+provenance and their own pinned commit — `ASM-066`, now registered rather than
+recorded only in `NOTICE`. A backend that repackages skills into a second,
+untracked source of truth has forked them.
+
+### "DONE" is not a state this programme has
+
+The single guard this package must carry: **a backend `DONE` message, an ACP
+`completed` status and a runtime success exit are none of them
+`TECH_COMPLETE`, and none of them is `ACCEPTED`.** Package state moves through
+`scripts/progress.py` against evidence, and acceptance requires a verifier who is
+not the producer. A chat transcript in which everyone agrees the work is finished
+is a chat transcript.
+
+This is not a hypothetical failure. It is the most likely one, because the
+substrate makes completion *look* reported: there is a message, a status, a green
+exit and a room full of agreement, and every one of them is an observation about
+a process rather than a statement about the work.
+
 ## Out of scope
 
 - The internal implementation of any dependent package
@@ -229,6 +266,7 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `Core role bundles` | `WP-047` | `python3 scripts/progress.py show WP-047` |
 | `Bundle conformance tests` | `WP-047` | `python3 scripts/progress.py show WP-047` |
 | `Cohort, topology, projection and assurance-route compilation` | `WP-047` | `python3 scripts/progress.py show WP-047` |
+| `CollaborationDeploymentPlan` | `WP-047` | `python3 scripts/progress.py show WP-047` |
 | `Method Registry` | `WP-081` | `python3 scripts/progress.py show WP-081` |
 | `Protocol validators` | `WP-081` | `python3 scripts/progress.py show WP-081` |
 | `Amendment workflow` | `WP-081` | `python3 scripts/progress.py show WP-081` |
@@ -271,17 +309,33 @@ A package whose evidence cannot be produced is not `READY`, however complete its
 
 **What is already solved elsewhere, and on what terms.** Before the first task starts, an implementer has to know which parts of this package are called at runtime, which are copied and refactored, which are reimplemented from a specification, and which have no upstream at all. Those decisions are recorded in [`provenance/upstreams.json`](../../../provenance/upstreams.json) — mechanisms assimilated into this repository's own code — and in [`provenance/components.json`](../../../provenance/components.json) — components adopted at runtime. This block is derived from both, so a decision and the place it is used cannot drift apart.
 
-### No registered source names this package
-
-Neither register binds an upstream mechanism or a runtime component to `WP-154`, so every deliverable below is **`BUILD_NATIVE`**.
-
-That is a statement about the registers, not a finding that no upstream exists. If refinement identifies one, it is recorded in the register **first** and appears here on the next generation — a component named in this document without a register entry is a defect that `scripts/check_wp_implementation_sources.py` reports.
+### Acquisition map
 
 | Source | Mode | What is taken | AETHRION owns | Unresolved |
 |---|---|---|---|---|
+| `ASM-061` — Buzz Harbor Orchestra — separate implementer and verifier workers | `PATTERN` | the idea only — no code and nothing called at runtime | everything — the implementation here is this repository's own | none |
+| `ASM-066` — obra/superpowers — the eleven vendored engineering skills | `VENDORED` | `skills/brainstorming` · `skills/dispatching-parallel-agents` · `skills/executing-plans` · `skills/finishing-a-development-branch` · `skills/receiving-code-review` · `skills/requesting-code-review` · `skills/subagent-driven-development` · `skills/systematic-debugging` · `skills/test-driven-development` · … | the contract this is held behind | none |
 | — | `BUILD_NATIVE` | Everything not listed above: the contracts, the authority boundaries and the integration this package specifies | All of it | — |
 
-**Acquisition readiness — nothing to resolve.** No acquisition obligation stands between this package and `READY`.
+### What each source may never decide
+
+An adopted mechanism supplies a signal, never a verdict. The recurring failure of adoption is not a component behaving badly but a component quietly acquiring authority, which is why every register entry states this before it is taken.
+
+| Source | May never decide | Deliberately not taken |
+|---|---|---|
+| `ASM-061` | Implementation precedent, never authority. That the producer and the verifier are different workers is already an AETHRION invariant under ADR-001 and `00_PROGRAM/06`; observing it working elsewhere is corroboration and changes no rule here. | The orchestration runtime and the assumption that two workers are sufficient independence. AETHRION's independence is a five-dimension profile, and `R3` remains `BLOCKED` rather than waived. |
+| `ASM-066` | An engineering discipline says how software work is conducted. It says nothing about whether a scientific claim is supported, and it never substitutes for the scientific procedure — `ADR-012` keeps the two families apart, and the pre-registration discipline is the scientific analogue of test-driven development rather than the same rule reused. | Any edit to the vendored content. Changes belong upstream or in a native skill recording `airl.derived_from`; a local fix would silently fork a file that claims to be byte-identical to a named commit. |
+
+### Where a plain row would mislead
+
+- **`ASM-061`** — Worth recording precisely because it is *not* new: the value of a pattern entry is that a later reader can see the idea was arrived at twice, independently, rather than assumed.
+- **`ASM-066`** — Registered because it was the largest thing in this repository taken from someone else and the only one recorded solely in NOTICE — which is the same defect class the acquisition-binding baseline closed for everything else. Verbatim integrity against the pinned tree cannot be proven from a session with no network; `characterization_suite` stays null until it can be.
+
+### Unresolved before implementation
+
+**None.** Every obligation the modes above create has been met.
+
+**Acquisition readiness — resolved.** All 2 registered sources have met the obligations their modes create.
 
 <!-- /generated:implementation-sources -->
 
@@ -297,6 +351,10 @@ That is a statement about the registers, not a finding that no upstream exists. 
 | WP-154-T06 | Build the seven positive drift fixtures and the clean negative control | Implementation owner | Commit / configuration / record reference |
 | WP-154-T07 | Write behaviour baselines for the engineering skills under pressure | Implementation owner | Commit / configuration / record reference |
 
+| WP-154-T-C1 | Compose the engineering loop over backend rooms, ACP runtimes and per-actor worktrees, preserving producer/reviewer/verifier separation | Implementation owner | Commit / configuration / record reference |
+| WP-154-T-C2 | Materialise the compiled Superpowers bundle into each engineering worktree, preserving vendor attribution | Implementation owner | Commit / configuration / record reference |
+| WP-154-T-C3 | Implement the completion guard: no backend or runtime signal may move package state | Implementation owner | Commit / configuration / record reference |
+
 ## Mandatory deliverables
 
 - `Dual-discipline task compilation`
@@ -305,6 +363,9 @@ That is a statement about the registers, not a finding that no upstream exists. 
 - `Extended WP-107 engineering slice`
 - An updated runbook or operations note, plus the service/contract ownership record
 - A signed `EvidenceManifest`
+
+- Engineering execution profile over the collaboration backend
+- Skill projection with vendor attribution preserved
 
 ## Test and verification plan
 
@@ -320,6 +381,10 @@ The outline below is the summary. The executable procedure — environment, data
 - Producer/consumer contract compatibility tests on every affected interface
 - Telemetry correlation and audit-record integrity checks
 
+- A backend `DONE` message must not move a package to `TECH_COMPLETE` or `ACCEPTED`
+- A reviewer actor must not share a worktree or a context with the implementer it reviews
+- A projected skill bundle must retain its upstream attribution and pinned commit
+- An engineering actor must be unable to write outside its assigned worktree under a target-only profile
 
 ## Acceptance criteria
 

@@ -252,6 +252,7 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `Core role bundles` | `WP-047` | `python3 scripts/progress.py show WP-047` |
 | `Bundle conformance tests` | `WP-047` | `python3 scripts/progress.py show WP-047` |
 | `Cohort, topology, projection and assurance-route compilation` | `WP-047` | `python3 scripts/progress.py show WP-047` |
+| `CollaborationDeploymentPlan` | `WP-047` | `python3 scripts/progress.py show WP-047` |
 | `SPIRE/Vault deployments` | `WP-055` | `python3 scripts/progress.py show WP-055` |
 | `Identity registry mapping` | `WP-055` | `python3 scripts/progress.py show WP-055` |
 | `Lease policies` | `WP-055` | `python3 scripts/progress.py show WP-055` |

@@ -256,6 +256,7 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `InitialPositionArtifact` | `WP-148` | `python3 scripts/progress.py show WP-148` |
 | `MaterialChallenge` | `WP-148` | `python3 scripts/progress.py show WP-148` |
 | `ConvergenceAssessment` | `WP-148` | `python3 scripts/progress.py show WP-148` |
+| `CollaborationBackendProfile` | `WP-148` | `python3 scripts/progress.py show WP-148` |
 
 ### Classification that must be recorded before work begins
 
@@ -298,7 +299,7 @@ A package whose evidence cannot be produced is not `READY`, however complete its
 | Source | Mode | What is taken | AETHRION owns | Unresolved |
 |---|---|---|---|---|
 | `ASM-042` — MAS-Resilience — faulty-agent resilience, Challenger and Inspector | `ADAPTIVE_REIMPLEMENT` | `MS-RESIL-001` · `MS-RESIL-002` | the local module and contract surface this becomes — **named at refinement** | **1** |
-| `ASM-043` — MAST — a taxonomy of multi-agent failure | `PATTERN` | the running implementation | the contract this is held behind | none |
+| `ASM-043` — MAST — a taxonomy of multi-agent failure | `PATTERN` | the idea only — no code and nothing called at runtime | everything — the implementation here is this repository's own | none |
 | `ASM-044` — Who&When — automated failure attribution, and its limits | `BENCHMARK` | a measurement of this system — nothing enters it | the contract this is held behind | none |
 | — | `BUILD_NATIVE` | Everything not listed above: the contracts, the authority boundaries and the integration this package specifies | All of it | — |
 

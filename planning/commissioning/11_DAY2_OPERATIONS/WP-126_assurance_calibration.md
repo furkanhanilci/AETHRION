@@ -353,7 +353,7 @@ A package whose evidence cannot be produced is not `READY`, however complete its
 | Source | Mode | What is taken | AETHRION owns | Unresolved |
 |---|---|---|---|---|
 | `ASM-003` — Scholar Loop — predict-then-verify calibration | `DIRECT_ADAPT` | `scholarloop/calibration.py` | the local module and contract surface this becomes — **named at refinement** | **3** |
-| `ASM-024` — PaperBench — producer / reproducer / grader separation and JudgeEval | `PATTERN` | the running implementation | the contract this is held behind | none |
+| `ASM-024` — PaperBench — producer / reproducer / grader separation and JudgeEval | `PATTERN` | the idea only — no code and nothing called at runtime | everything — the implementation here is this repository's own | none |
 | `ASM-028` — CORE-Bench — computational reproducibility agent benchmark | `BENCHMARK` | a measurement of this system — nothing enters it | the contract this is held behind | none |
 | `ASM-029` — AstaBench — cost-controlled scientific agent benchmark suite | `BENCHMARK` | a measurement of this system — nothing enters it | the contract this is held behind | none |
 | `ASM-046` — Trust or Escalate — cascaded selective evaluation | `ADAPTIVE_REIMPLEMENT` | `MS-ASSUR-001` · `MS-ASSUR-002` | the local module and contract surface this becomes — **named at refinement** | **1** |

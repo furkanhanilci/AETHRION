@@ -348,6 +348,69 @@ REGRESSIONS = [
         "The engineering family is not merely bootstrap tooling: a broken "
         "evaluator is a scientific failure that arrives as a code defect.",
     ),
+    # --- baseline v1.3.3 · ADR-020 ------------------------------------------
+    # Adopting a collaboration substrate creates four new ways to write
+    # something that is nearly true. Each of these sentences would pass a
+    # reviewer who is not holding the boundary in mind, which is what makes them
+    # worth a rule rather than a note.
+    Regression(
+        "a collaboration backend as the source of truth",
+        r"\b(buzz|collaboration backend)\b[^.\n]{0,60}"
+        r"\b(source of truth|canonical|system of record|holds the (claim|evidence|gate))\b"
+        r"|\b(canonical|source of truth)\b[^.\n]{0,40}"
+        r"\b(buzz|collaboration backend)\b",
+        "ADR-020: the backend carries messages and holds no scientific state. "
+        "Remove it and every claim, evidence span, verified value and decision "
+        "must survive",
+        "Buzz is the canonical store for collaboration state and the "
+        "system of record for what each actor concluded.",
+        "Buzz Relay is never the canonical store: a room is a projection, and "
+        "deleting it loses no claim or evidence span.",
+    ),
+    Regression(
+        "a runtime named as the architecture",
+        r"\b(hermes|codex|claude code|buzz agent)\b[^.\n]{0,40}"
+        r"\b(is|as) the\b[^.\n]{0,30}"
+        r"\b(aethrion (agent )?runtime|agent runtime|orchestrator|"
+        r"task compiler|architecture)\b",
+        "ADR-020: a runtime is a qualified profile behind the AgentRuntime "
+        "contract. Hermes is preferred and not exclusive, and a runtime is "
+        "never a role",
+        "Hermes is the AETHRION agent runtime and every actor is a Hermes "
+        "agent.",
+        "Hermes is one qualified runtime profile rather than the AETHRION "
+        "agent runtime; Codex and Claude Code remain selectable.",
+    ),
+    Regression(
+        "a backend approval treated as the human decision",
+        r"\b(buzz|backend|workflow|chat)\b[^.\n]{0,40}\bapprov\w+\b"
+        r"[^.\n]{0,40}\b(g8|g9|decisionrecord|human decision|"
+        r"scientific decision)\b"
+        r"|\b(g8|g9|decisionrecord)\b[^.\n]{0,40}"
+        r"\b(buzz|backend|chat) approv\w+",
+        "ADR-020: an approval is an interaction surface. The canonical decision "
+        "is a signed DecisionRecord written through the Decision Service, and a "
+        "backend cannot move G8 or G9",
+        "A Buzz approval creates the G8 DecisionRecord once the operator "
+        "clicks it.",
+        "A Buzz approval is not a G8 DecisionRecord and cannot move the gate; "
+        "the canonical decision is signed through the Decision Service.",
+    ),
+    Regression(
+        "channel history offered as context",
+        r"\b(channel|room|chat|conversation|transcript) history\b"
+        r"[^.\n]{0,60}\b(context|contextprojection|projection|"
+        r"what the agent sees)\b"
+        r"|\b(context|contextprojection|projection|what the agent sees)\b"
+        r"[^.\n]{0,60}\b(channel|room|chat|conversation|transcript) history\b",
+        "ADR-020 §6: a ContextProjection is assembled from canonical state, "
+        "admissible evidence, the compiled skill bundle and the peer deltas the "
+        "round permits. A transcript is neither cost-bounded nor independent",
+        "The agent's context is the room history plus the task, which keeps "
+        "everyone aligned.",
+        "Channel history is never the ContextProjection: appending a "
+        "transcript would negate round zero and the budget at once.",
+    ),
 ]
 
 

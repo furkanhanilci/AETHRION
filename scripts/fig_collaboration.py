@@ -37,7 +37,7 @@ W, L = 1200, 24
 
 
 def main() -> None:
-    H = 1330
+    H = 1660
     c = Canvas(W, H)
     tw = W - 2 * L
 
@@ -156,10 +156,45 @@ def main() -> None:
            "is a decision already taken on other grounds. ACC-086, ACC-087.",
            tw, size=17, fill=INK, lh=22, max_lines=4)
 
-    ny2 = ay + 24 + 4 * 22 + 24
+    # ---------------------------------------------- 6 · the substrate underneath
+    sy2 = ay + 24 + 4 * 22 + 30
+    c.hrule(L, W - L, sy2 - 16, sw=1.6, stroke=INK)
+    c.text(L, sy2 + 8, "6 · Everything above is policy; underneath it is a replaceable substrate",
+           size=21, weight="700", anchor="start")
+    c.para(L, sy2 + 34,
+           "Identities, rooms, message transport, presence and runtime attachment are not scientific work and are "
+           "adopted behind a CollaborationBackend contract — ADR-020, with Buzz as the first candidate. The "
+           "substrate makes one thing very easy, and that one thing is the failure: put every actor in a shared "
+           "room and rows 2, 3 and 4 above are all undone at once.",
+           tw, size=17, fill=INK, lh=22, max_lines=3)
+
+    ry2 = sy2 + 34 + 3 * 22 + 20
+    band = [("Compiled here", "CommunicationGraph · edge policy · embargo · projection", VERM),
+            ("Projected there", "rooms · subscriptions · targeted delivery · sessions", BLUE),
+            ("Never crosses back", "a room is not the blackboard, and history is not context", ORANGE)]
+    bw2 = (tw - 2 * 14) / 3
+    for i, (head, body, colour) in enumerate(band):
+        c.cell(L + i * (bw2 + 14), ry2, bw2, 86, head, body, accent=colour,
+               head_size=18, body_size=16, max_head_lines=1, max_body_lines=3)
+        if i:
+            c.path(f"M {L + i * (bw2 + 14) - 12} {ry2 + 43} L {L + i * (bw2 + 14) - 3} {ry2 + 43}",
+                   stroke=INK, sw=1.6, marker="arrowsm")
+
+    qy = ry2 + 86 + 26
+    c.rect(L, qy, tw, 74, fill=tint(GREEN, 0.06), stroke=GREEN, sw=1.6)
+    c.text(L + 18, qy + 28, "Qualification, not a successful message", size=18,
+           weight="700", anchor="start")
+    c.para(L + 18, qy + 50,
+           "A backend that cannot hold round-zero peers apart, or cannot materialise a sparse graph without "
+           "accidental all-to-all visibility, fails qualification and the task does not run. The topology is never "
+           "relaxed to fit a backend — WP-148-T11.",
+           tw - 36, size=16, fill=INK, lh=20, max_lines=2)
+
+    ny2 = qy + 74 + 28
     c.para(L, ny2,
            "Status: none of this is built. WP-148 to WP-150 and WP-153 specify it; there is no cohort record, no "
-           "blackboard, no topology compiler, no governor and no baseline harness to measure any of it against.",
+           "blackboard, no topology compiler, no governor, no backend adapter and no baseline harness to measure "
+           "any of it against.",
            tw, size=16, fill=MUTE, lh=21, max_lines=2)
 
     out = ROOT / "docs" / "figures" / "aethrion_collaboration.svg"

@@ -87,6 +87,39 @@ for this architecture, more useful kind of source.
 
 ---
 
+### 2.1 One system that is not a comparison
+
+**Buzz** (`block/buzz`) belongs in a different category from everything above and
+comparing it on scientific grounds would be a category error. It is a
+collaboration and runtime substrate: agent-first rooms and channels, distinct
+agent identities, ACP-based runtime attachment with presets for several harnesses
+including Hermes, persona and team concepts, `SKILL.md` discovery from a
+workspace, git- and worktree-aware handling, orchestration manifests carrying
+roster, model revision, prompt hash, budget and concurrency, and an event and
+audit surface. It was prototype-grade and moving quickly at review.
+
+| | Buzz | AETHRION |
+|---|---|---|
+| Collaboration transport | its subject | adopted behind `CollaborationBackend` |
+| Agent identity | operational, signed | attribution only; authority is `RoleBinding` |
+| Runtime attachment | ACP, several harnesses | adopted behind `AgentRuntime` |
+| Workflows | useful automation | never G0–G10 authority — that is Temporal |
+| Approvals | a UI action | never a `DecisionRecord`; cannot move G8 or G9 |
+| Scientific authority | **none, and it does not claim any** | the entire subject |
+
+The mistake worth naming, because it is attractive and would be fatal:
+
+```text
+AETHRION = Buzz + some scientific prompts
+```
+
+Nearly true at the level of mechanics, and it omits the whole reason this system
+exists — which evidence, having passed which control, licenses which claim. A
+substrate that hosts a cohort has no opinion about whether the cohort was
+epistemically sufficient; a room full of agreeing agents is not a finding.
+`ADR-020` inverts the relationship: two AETHRION contracts, with the adopted
+thing underneath each.
+
 ## 3. Chain-of-Evidence — the overlap, stated plainly
 
 ScientistOne's principle is that **every claim must be traceable to its evidence

@@ -87,13 +87,17 @@ are not ranked, because ranking implies a plan and there is no V2 plan.
 | V2-05 | Mirror the skill sub-resources (prompt templates, agent definitions) into the vault | Eleven links in the mirror point outside the mirrored subset and do not resolve in Obsidian. Cosmetic; the canonical files are one directory away in the repository | Constant. The alternative — deleting the links from the source documents — would make the repository worse to read |
 | V2-07 | Rename the `AIRL-GENERATED-*` note identifiers the bridge writes into the vault | Emitted by `src/airl_bridge/obsidian.py`; a code change plus a regeneration of every projected note | Constant, and bounded — two identifiers, two lines |
 | V2-06 | Rename the systemd unit files from `airl-bridge*` | Installed names on a running machine. A deployment change, not a documentation one | Grows with the number of machines; today that is one |
+| V2-08 | A collaboration desktop or mobile cockpit as a required research surface | The `CollaborationBackend` may ship one, and a backend's user interface is not an AETHRION requirement. V1's cockpit is WP-091–095, and nothing in the sealed plan needs a second one | Constant. Adopting the backend does not commit to its UI, and `ADR-020` keeps them separable |
+| V2-09 | Voice, huddles and synchronous audio collaboration | Genuinely useful for humans and unrelated to any V1 acceptance criterion. Adopting it because the backend offers it is exactly the scope creep `AGENTS.md` §7.4 refuses | Constant |
+| V2-10 | Signed identity and delegation protocol as canonical attribution | Recorded as `ASM-064`, `DEFER`. Binding AETHRION's identity model to a moving draft protocol is the coupling `ADR-004` exists to prevent | Grows if a delegation model is built without it, which is why the register entry exists rather than silence |
+| V2-11 | Backend approvals as a decision-collection surface | `ASM-065`, `DEFER`. The interaction surface is worth having under WP-093's queue and WP-135's signed deep links; the canonical decision stays a signed `DecisionRecord` and a backend approval never moves G8 or G9 | Constant, provided the boundary is not blurred first — which is why it is written down as deferred rather than left as an obvious next step |
 
 ---
 
 ## 3. What this register is not
 
-It is not a roadmap, not a backlog with estimates, and not a commitment. Six
-entries after a full brand migration and three baseline corrections is a
-deliberately small number: most of what surfaced during that work was a defect
+It is not a roadmap, not a backlog with estimates, and not a commitment. Eleven
+entries after a full brand migration, four baseline corrections and one
+architecture adoption is a deliberately small number: most of what surfaced during that work was a defect
 and was fixed in V1, which is the outcome this file exists to keep separate from
 the other one.

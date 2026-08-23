@@ -91,6 +91,36 @@ than no runbook:
   owner is assigned, that an estimate is recorded or that fixtures are reachable
   — those are DoR items a human confirms.
 
+## 5.1 If the work is run by a cohort rather than by a person
+
+`ADR-020` allows a package to be executed by a cohort hosted on a collaboration
+backend, with runtimes attached over ACP and the compiled Superpowers bundle in
+each worktree:
+
+```text
+WP packet → cohort → per-actor worktrees → implement under TDD
+          → separate reviewer → separate verifier in clean context
+          → evidence → scripts/progress.py
+```
+
+Three things do **not** change, and the first is the one that will be tested
+first:
+
+- **A `DONE` message is not a state this programme has.** A backend completion
+  message, an ACP `completed` status and a zero exit code are observations about
+  a process. Package state moves through `scripts/progress.py` against evidence,
+  and `TECH_COMPLETE` is not `ACCEPTED`. A room in which everyone agrees the work
+  is finished is a room.
+- **The verifier is not the producer**, and does not share the producer's
+  worktree or context. That is structural here, not procedural.
+- **Direct shell access is a named profile.** Until the Tool Broker exists an
+  actor may hold it inside its own worktree as `BOOTSTRAP_EXECUTION_PROFILE` —
+  scoped, credential-limited, and retired rather than reclassified as
+  production-ready because it kept working.
+
+None of this is available today. No backend is integrated and no runtime is
+qualified; the loop in §2 is the one that runs.
+
 ## 6. First real move, whenever it is made
 
 ```bash

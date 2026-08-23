@@ -111,6 +111,59 @@ Two other bindings:
   boundary rather than asserted at the prompt. Deterministic tool results are
   reusable within a declared freshness window and are marked as reused.
 
+
+### The compiler decides cognition; the runtime and the backend are downstream
+
+`ADR-020`. This is the integration point at which a task becomes an executable
+multi-agent plan, and it is where the ordering has to be enforced rather than
+assumed: **cognitive functions are derived first, and a qualified runtime is
+matched to them second.** Selecting a runtime first and then inventing roles that
+fit it is how a cohort comes to be shaped by a harness.
+
+So the compiler never emits `"a Hermes agent"`. It emits a cognitive function, a
+role contract, capability requirements, tool requirements, context requirements,
+independence constraints and model requirements — and a separate runtime selector
+maps those onto an `AgentRuntimeProfile`. `Statistician` is the function;
+`Hermes` is one qualified way to run it.
+
+The compilation sequence, stated once so the refusals below have something to
+refuse against:
+
+```text
+task classification → required cognitive functions → domain and method expertise
+→ independence and redundancy requirements → assurance and risk requirements
+→ minimum sufficient epistemic cohort → runtime capability matching
+→ communication topology → ContextProjection per actor
+→ CollaborationDeploymentPlan → backend projection
+```
+
+*Minimum* means no unnecessary actor. *Sufficient* means expertise, independence
+and assurance are not what gets cut when the budget is tight — `ADR-011`.
+
+### Compilation refuses rather than degrades
+
+A compiler that warns is a compiler whose warnings are read once. Each of these
+is a compile-time refusal:
+
+- a substantial scientific task with insufficient independent contributions;
+- a required specialist with no qualified runtime;
+- a backend that cannot enforce the required round-zero isolation;
+- a required skill bundle that cannot be materialised into the actor's workspace;
+- a verifier independence requirement that cannot be satisfied;
+- a communication graph needing a message type or backend capability that is
+  unsupported;
+- a budget that fits only by removing required cohort or assurance.
+
+### Skills are compiled, not exposed
+
+A runtime that discovers `SKILL.md` from a workspace directory makes it trivial
+to expose all fifty-two. That would create conflicting instructions, unbounded
+context and no observability of what an actor was actually operating under. The
+Skill Compiler selects a small task-specific bundle and materialises **only** that
+bundle into the actor's worktree; the canonical tree with its vendored provenance
+stays in this repository, and a workspace holds a projection rather than a second
+source of truth.
+
 ## Out of scope
 
 - The internal implementation of any dependent package
@@ -293,7 +346,10 @@ A package whose evidence cannot be produced is not `READY`, however complete its
 |---|---|---|---|---|
 | `ASM-010` — Curie — intra-agent and inter-agent rigor | `ADAPTIVE_REIMPLEMENT` | `MS-RIG-001` · `MS-RIG-002` | the local module and contract surface this becomes — **named at refinement** | **1** |
 | `ASM-022` — K-Dense Science Superpowers — computational-science methodology skills | `DIRECT_ADAPT` | named source files — **not yet selected** | the local module and contract surface this becomes — **named at refinement** | **4** |
-| `ASM-023` — K-Dense Scientific Agent Skills — domain capability catalogue | `DEFER` | nothing — recorded so it is not re-examined from scratch | the contract this is held behind | none |
+| `ASM-023` — K-Dense Scientific Agent Skills — domain capability catalogue | `DEFER` | nothing — recorded so it is not re-examined from scratch | everything — the implementation here is this repository's own | none |
+| `ASM-062` — Buzz Persona Pack — packaged actor configuration | `PATTERN` | the idea only — no code and nothing called at runtime | everything — the implementation here is this repository's own | none |
+| `ASM-066` — obra/superpowers — the eleven vendored engineering skills | `VENDORED` | `skills/brainstorming` · `skills/dispatching-parallel-agents` · `skills/executing-plans` · `skills/finishing-a-development-branch` · `skills/receiving-code-review` · `skills/requesting-code-review` · `skills/subagent-driven-development` · `skills/systematic-debugging` · `skills/test-driven-development` · … | the contract this is held behind | none |
+| `CMP-048` — Buzz Agent — bundled runtime and `SKILL.md` workspace discovery | `OPTIONAL_BACKEND` | Runtime-side discovery of `SKILL.md` from `.agents/skills`, `.goose/skills` and `.claude/skills`, and git/worktree-aware workspace handling. | The Skill Compiler: which skills a given actor may see, materialised as a small task-specific bundle in that actor's worktree. | **1** |
 | — | `BUILD_NATIVE` | Everything not listed above: the contracts, the authority boundaries and the integration this package specifies | All of it | — |
 
 ### What each source may never decide
@@ -305,12 +361,17 @@ An adopted mechanism supplies a signal, never a verdict. The recurring failure o
 | `ASM-010` | A RigorFinding blocks a transition when policy maps it to a control. It does not by itself reject a scientific claim. | The agent hierarchy and orchestrator, which would duplicate the authority Temporal already holds. |
 | `ASM-022` | A skill changes how an agent works. It never changes what an agent is permitted to do — that is the RoleContract and the policy engine. | A parallel skill family. Where an upstream skill and an AETHRION skill address the same procedure, the result is one merged local skill, not two. |
 | `ASM-023` | A domain skill is a capability. It cannot bypass a data class, an evidence contract or a gate. | Wholesale copy of the catalogue. Skill count is not a success metric, and a repository-level licence is not a per-file licence. |
+| `ASM-062` | A persona configures a backend actor. It is not a `RoleContract` and carries no scientific semantics: one AETHRION cognitive function may project to different personas on different runtimes while the role semantics stay fixed, and persona prompt metadata is never authoritative by itself. | Persona text as the definition of a role, and Persona Packs as a second home for skills that would fork the vendored tree. |
+| `ASM-066` | An engineering discipline says how software work is conducted. It says nothing about whether a scientific claim is supported, and it never substitutes for the scientific procedure — `ADR-012` keeps the two families apart, and the pre-registration discipline is the scientific analogue of test-driven development rather than the same rule reused. | Any edit to the vendored content. Changes belong upstream or in a native skill recording `airl.derived_from`; a local fix would silently fork a file that claims to be byte-identical to a named commit. |
+| `CMP-048` | Discovery decides what a runtime can find; it never decides what an actor may use. A skill reachable through a shared home directory but absent from the compiled bundle is a containment failure, and the canonical skill tree with its vendored provenance stays in this repository — a workspace holds a projection, never a second source of truth. | Exposing all 52 skills to every actor · Persona Packs as authoritative skill packaging · a runtime workspace as the canonical skill source · Buzz Agent's direct shell and file tools as anything but an explicitly classified bootstrap execution profile. |
 
 ### Where a plain row would mislead
 
 - **`ASM-010`** — The rule worth taking is that agent B must not infer A succeeded from A's confident prose. Every rigor check that can be deterministic must be.
 - **`ASM-022`** — Sixteen skills upstream, of which twelve overlap AETHRION's scientific family: framing-research-questions, surveying-prior-work, establishing-feasibility-first, designing-the-analysis, preregistering-analysis, subagent-driven-analysis, executing-analysis, dispatching-parallel-investigations, investigating-anomalous-results, verifying-results-before-claiming, requesting-red-team-review, receiving-critical-review, setting-up-reproducible-analysis, reporting-and-archiving-findings, writing-science-skills, using-science-superpowers. Its central discipline is pre-registration in place of …
 - **`ASM-023`** — 161 skills across 18+ scientific domains. Deferred until a domain is actually selected: importing a bioinformatics skill before there is a bioinformatics project adds surface without adding capability. When one is imported, the licence in that skill's own SKILL.md governs — the repository licence does not.
+- **`ASM-062`** — Useful packaging, and the conflation it invites — persona equals role — is the specific error ADR-020 names.
+- **`ASM-066`** — Registered because it was the largest thing in this repository taken from someone else and the only one recorded solely in NOTICE — which is the same defect class the acquisition-binding baseline closed for everything else. Verbatim integrity against the pinned tree cannot be proven from a session with no network; `characterization_suite` stays null until it can be.
 
 ### Unresolved before implementation
 
@@ -327,7 +388,11 @@ Each item below is an obligation its mode creates, quoted from the rule that cre
 - the exact list of files that will move
 - a characterisation suite capturing upstream behaviour **before** any code moves
 
-**Acquisition readiness — 5 obligations open across 2 of 3 sources.** `00_PROGRAM/05_definition_of_ready_and_done.md` requires the acquisition surface of a package to be classified and its obligations resolved before the package is `READY`; `scripts/ready_queue.py` holds it back until they are.
+**`CMP-048` — Buzz Agent — bundled runtime and `SKILL.md` workspace discovery** · `OPTIONAL_BACKEND` · status `PROPOSED`
+
+- the backend itself — still unchosen, which is the correct state until the qualification runs, and a stop condition for anyone about to pick one
+
+**Acquisition readiness — 6 obligations open across 3 of 6 sources.** `00_PROGRAM/05_definition_of_ready_and_done.md` requires the acquisition surface of a package to be classified and its obligations resolved before the package is `READY`; `scripts/ready_queue.py` holds it back until they are.
 
 <!-- /generated:implementation-sources -->
 
@@ -347,6 +412,11 @@ Each item below is an obligation its mode creates, quoted from the rule that cre
 | WP-047-T10 | Compute and record `skill_bundle_hash`; bind it into `TaskContract` and the evidence chain | Implementation owner | Hash reproduced from a stored bundle |
 | WP-047-T11 | Enforce the **two-family policy**: engineering, scientific-research and shared, selected from `work_domain` — never chosen freely by the agent | Implementation owner | Policy tests both ways |
 | WP-047-T12 | Track **upstream provenance**: `airl.derived_from` + `airl.upstream_commit`, and flag derived skills when upstream moves | Implementation owner | Impact report for a simulated upstream change |
+
+| WP-047-T08 | Emit `runtime_requirements` and resolve them to a qualified `AgentRuntimeProfile` | Implementation owner | Commit / configuration / record reference |
+| WP-047-T09 | Compile the backend-neutral `CollaborationDeploymentPlan` from the cohort and topology | Implementation owner | Commit / configuration / record reference |
+| WP-047-T10 | Implement the Skill Compiler bundle and its materialisation into an actor workspace | Implementation owner | Commit / configuration / record reference |
+| WP-047-T11 | Implement the seven compile-time refusals, each naming the rule that refuses | Implementation owner | Commit / configuration / record reference |
 
 ## Mandatory deliverables
 
@@ -382,6 +452,11 @@ RoleContract  +  TaskContract  +  classification fields
 from the classification fields and recorded with its reason; an agent that
 loads a different set than the one compiled produces a divergence finding.
 
+- `CollaborationDeploymentPlan`
+- `AgentRuntimeProfile` selection record
+- Skill bundle compiler and workspace materialisation contract
+- Compile-time refusal set
+
 ## Test and verification plan
 
 The outline below is the summary. The executable procedure — environment, data, coverage items, cases, execution log, incident and completion reports — is in [`WP-047_role_bundle_registry.tests.md`](WP-047_role_bundle_registry.tests.md).
@@ -393,6 +468,10 @@ The outline below is the summary. The executable procedure — environment, data
 - At least one negative test for unauthorised, missing, stale, duplicate and partial-failure inputs
 - Producer/consumer contract compatibility tests on every affected interface
 - Telemetry correlation and audit-record integrity checks
+- A compiled task must name cognitive functions, never a runtime product name
+- Each of the seven refusals must fire on a constructed input and name the rule that refuses it
+- A materialised workspace must contain exactly the compiled bundle — a skill reachable through a shared home directory but absent from the bundle is a containment failure
+- Duplicate skill names across discovery paths must resolve deterministically
 
 ## Acceptance criteria
 

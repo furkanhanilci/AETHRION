@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1257" width="100%" role="img">
+<defs>
+  <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+    <path d="M 0 1 L 9 5 L 0 9 z" fill="context-stroke"/>
+  </marker>
+  <marker id="arrowsm" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5.5" markerHeight="5.5" orient="auto-start-reverse">
+    <path d="M 0 1.5 L 9 5 L 0 8.5 z" fill="context-stroke"/>
+  </marker>
+  <pattern id="hatch" width="7" height="7" patternTransform="rotate(45)" patternUnits="userSpaceOnUse">
+    <line x1="0" y1="0" x2="0" y2="7" stroke="#C8C8C8" stroke-width="2.2"/>
+  </pattern>
+</defs>
+<rect width="1200" height="1257" fill="#FFFFFF"/>
+<text x="24.0" y="46.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="30" font-weight="700" font-style="normal" fill="#1A1A1A" text-anchor="start">The adopted substrate, and the boundary it may never cross</text>
+<text x="24.0" y="78.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="18" font-weight="400" font-style="normal" fill="#63666A" text-anchor="start">AETHRION owns two contracts and everything adopted sits underneath them. That ordering is the whole decision: a collaboration substrate</text>
+<text x="24.0" y="102.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="18" font-weight="400" font-style="normal" fill="#63666A" text-anchor="start">carries what the compiler decided, a runtime executes a cognitive function that was chosen before the runtime was, and neither of them</text>
+<text x="24.0" y="126.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="18" font-weight="400" font-style="normal" fill="#63666A" text-anchor="start">decides anything. None of it is built — ADR-020 fixes the boundary before any code moves, which is the only point at which fixing it is</text>
+<text x="24.0" y="150.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="18" font-weight="400" font-style="normal" fill="#63666A" text-anchor="start">cheap.</text>
+<rect x="24.0" y="190.0" width="700.0" height="74.0" rx="4" fill="#faeade" stroke="#D55E00" stroke-width="1.6" stroke-dasharray="6 4"/>
+<text x="374.0" y="219.3" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="18" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="middle">Scientific authority</text>
+<text x="374.0" y="243.3" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">gates · ClaimVersion · EvidenceSpan · VerifiedValue · DecisionRecord · protocol freeze</text>
+<text x="714.0" y="207.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="13" font-weight="700" font-style="normal" fill="#D55E00" text-anchor="end">AETHRION</text>
+<rect x="24.0" y="276.0" width="700.0" height="74.0" rx="4" fill="#faeade" stroke="#D55E00" stroke-width="1.6" stroke-dasharray="6 4"/>
+<text x="374.0" y="305.3" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="18" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="middle">Task and cohort compilation</text>
+<text x="374.0" y="329.3" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">cognitive functions, independence and topology — decided before any runtime is named</text>
+<text x="714.0" y="293.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="13" font-weight="700" font-style="normal" fill="#D55E00" text-anchor="end">AETHRION</text>
+<rect x="24.0" y="362.0" width="700.0" height="40.0" rx="3" fill="#f1f1f1" stroke="#1A1A1A" stroke-width="2.0"/>
+<text x="38.0" y="388.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="14" font-weight="700" font-style="normal" fill="#1A1A1A" text-anchor="start">CONTRACT</text>
+<text x="142.0" y="388.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#1A1A1A" text-anchor="start">CollaborationBackend — AETHRION says what collaboration must happen</text>
+<rect x="24.0" y="414.0" width="700.0" height="74.0" rx="4" fill="#deedf5" stroke="#0072B2" stroke-width="1.6" stroke-dasharray="6 4"/>
+<text x="374.0" y="443.3" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="18" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="middle">Collaboration substrate</text>
+<text x="374.0" y="467.3" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">identities · teams · rooms · message transport · presence · runtime attachment</text>
+<text x="714.0" y="431.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="13" font-weight="700" font-style="normal" fill="#0072B2" text-anchor="end">adopted</text>
+<text x="36.0" y="431.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="13" font-weight="700" font-style="normal" fill="#0072B2" text-anchor="start">Buzz — first candidate</text>
+<rect x="24.0" y="500.0" width="700.0" height="40.0" rx="3" fill="#f1f1f1" stroke="#1A1A1A" stroke-width="2.0"/>
+<text x="38.0" y="526.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="14" font-weight="700" font-style="normal" fill="#1A1A1A" text-anchor="start">CONTRACT</text>
+<text x="142.0" y="526.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#1A1A1A" text-anchor="start">AgentRuntime — qualify · start_session · send_task · collect_result</text>
+<rect x="24.0" y="552.0" width="700.0" height="74.0" rx="4" fill="#deedf5" stroke="#0072B2" stroke-width="1.6" stroke-dasharray="6 4"/>
+<text x="374.0" y="571.8" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="18" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="middle">Cognitive runtimes</text>
+<text x="374.0" y="595.8" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">Hermes · Codex · Claude Code · Buzz Agent · future ACP-compatible runtimes — a</text>
+<text x="374.0" y="614.8" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">preference is not an architecture</text>
+<text x="714.0" y="569.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="13" font-weight="700" font-style="normal" fill="#0072B2" text-anchor="end">adopted</text>
+<rect x="24.0" y="638.0" width="700.0" height="74.0" rx="4" fill="#faeade" stroke="#D55E00" stroke-width="1.6"/>
+<text x="374.0" y="657.8" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="18" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="middle">Discipline</text>
+<text x="374.0" y="681.8" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">AETHRION scientific and shared skills · the eleven vendored Superpowers engineering</text>
+<text x="374.0" y="700.8" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">skills</text>
+<text x="714.0" y="655.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="13" font-weight="700" font-style="normal" fill="#D55E00" text-anchor="end">AETHRION</text>
+<rect x="24.0" y="724.0" width="700.0" height="74.0" rx="4" fill="#faeade" stroke="#D55E00" stroke-width="1.6" stroke-dasharray="6 4"/>
+<text x="374.0" y="753.3" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="18" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="middle">Tool and execution boundary</text>
+<text x="374.0" y="777.3" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">ToolIntent → Tool Broker → PolicyDecision → Execution Broker → sandbox</text>
+<text x="714.0" y="741.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="13" font-weight="700" font-style="normal" fill="#D55E00" text-anchor="end">AETHRION</text>
+<rect x="758.0" y="190.0" width="418.0" height="481.0" rx="4" fill="#f2faf8" stroke="#009E73" stroke-width="1.6"/>
+<text x="774.0" y="220.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="19" font-weight="700" font-style="normal" fill="#1A1A1A" text-anchor="start">Remove the substrate. What goes?</text>
+<text x="774.0" y="246.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="start">The test that decides whether the boundary is real</text>
+<text x="774.0" y="266.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="start">rather than asserted — WP-148-T12 runs it.</text>
+<text x="774.0" y="296.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="700" font-style="normal" fill="#63666A" text-anchor="start">Acceptable to lose</text>
+<text x="780.0" y="318.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="start">·  active rooms</text>
+<text x="780.0" y="339.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="start">·  agent presence</text>
+<text x="780.0" y="360.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="start">·  message history projection</text>
+<text x="780.0" y="381.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="start">·  operational coordination</text>
+<path d="M 774 408 L 1160 408" fill="none" stroke="#C8C8C8" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="774.0" y="430.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="700" font-style="normal" fill="#D55E00" text-anchor="start">Must survive — or the integration is wrong</text>
+<text x="780.0" y="452.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#1A1A1A" text-anchor="start">·  gate state</text>
+<text x="780.0" y="473.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#1A1A1A" text-anchor="start">·  claims and evidence spans</text>
+<text x="780.0" y="494.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#1A1A1A" text-anchor="start">·  verified values</text>
+<text x="780.0" y="515.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#1A1A1A" text-anchor="start">·  protocol freeze</text>
+<text x="780.0" y="536.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#1A1A1A" text-anchor="start">·  human decisions</text>
+<text x="780.0" y="557.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#1A1A1A" text-anchor="start">·  experiment lineage</text>
+<text x="780.0" y="578.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#1A1A1A" text-anchor="start">·  reproduction records</text>
+<text x="780.0" y="599.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#1A1A1A" text-anchor="start">·  publication assertions</text>
+<text x="780.0" y="620.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#1A1A1A" text-anchor="start">·  accepted artifacts</text>
+<rect x="758.0" y="691.0" width="418.0" height="232.0" rx="4" fill="#f7f7f8" stroke="#63666A" stroke-width="1.4" stroke-dasharray="5 4"/>
+<text x="774.0" y="719.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="18" font-weight="700" font-style="normal" fill="#1A1A1A" text-anchor="start">Where the decision is written down</text>
+<text x="780.0" y="759.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="start">the boundary</text>
+<text x="780.0" y="779.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="start">ADR-020</text>
+<text x="780.0" y="803.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="start">substrate and runtimes</text>
+<text x="780.0" y="823.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="start">provenance/components.json</text>
+<text x="780.0" y="847.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="start">mechanisms taken</text>
+<text x="780.0" y="867.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="start">provenance/upstreams.json</text>
+<text x="780.0" y="891.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="start">contracts and refusals</text>
+<text x="780.0" y="911.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="start">WP-047 · WP-048 · WP-148</text>
+<path d="M 24 949 L 1176 949" fill="none" stroke="#1A1A1A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="24.0" y="977.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="20" font-weight="700" font-style="normal" fill="#1A1A1A" text-anchor="start">Four things the substrate may never decide</text>
+<rect x="24.0" y="993.0" width="277.5" height="92.0" rx="4" fill="#fcf3de" stroke="#E69F00" stroke-width="1.6"/>
+<text x="162.8" y="1010.9" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="17" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="middle">A message is not an</text>
+<text x="162.8" y="1031.9" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="17" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="middle">instruction</text>
+<text x="162.8" y="1054.9" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">and messaging is not</text>
+<text x="162.8" y="1073.9" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">authorisation</text>
+<rect x="315.5" y="993.0" width="277.5" height="92.0" rx="4" fill="#fcf3de" stroke="#E69F00" stroke-width="1.6"/>
+<text x="454.2" y="1010.9" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="17" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="middle">An identity is not a</text>
+<text x="454.2" y="1031.9" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="17" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="middle">RoleBinding</text>
+<text x="454.2" y="1054.9" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">attribution and authority are</text>
+<text x="454.2" y="1073.9" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">different questions</text>
+<rect x="607.0" y="993.0" width="277.5" height="92.0" rx="4" fill="#fcf3de" stroke="#E69F00" stroke-width="1.6"/>
+<text x="745.8" y="1021.4" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="17" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="middle">A room is not the blackboard</text>
+<text x="745.8" y="1044.4" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">and channel history is not a</text>
+<text x="745.8" y="1063.4" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">ContextProjection</text>
+<rect x="898.5" y="993.0" width="277.5" height="92.0" rx="4" fill="#fcf3de" stroke="#E69F00" stroke-width="1.6"/>
+<text x="1037.2" y="1030.9" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="17" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="middle">An approval is not a decision</text>
+<text x="1037.2" y="1053.9" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">a backend cannot move G8 or G9</text>
+<text x="24.0" y="1117.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="18" font-weight="700" font-style="normal" fill="#D55E00" text-anchor="start">Convenience is the attack surface</text>
+<text x="24.0" y="1143.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#1A1A1A" text-anchor="start">The substrate makes exactly one thing very easy — put every actor in one room — and that single convenience undoes round-zero independence, the sealed</text>
+<text x="24.0" y="1164.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#1A1A1A" text-anchor="start">initial position, the sparse default and the delta-only rule at once. A backend that cannot enforce the compiled topology fails qualification; the topology is never</text>
+<text x="24.0" y="1185.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#1A1A1A" text-anchor="start">relaxed to fit a backend.</text>
+</svg>

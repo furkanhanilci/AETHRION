@@ -437,6 +437,67 @@ reason a benchmark was named alongside it — and it has not been tested.
 
 ---
 
+## 4.9 Two more planes, and the contracts that keep them replaceable
+
+The plane model above leaves collaboration and runtime hosting implicit inside
+*Cognition*, and that is where they were quietly doing three different jobs. They
+are now explicit, because most of what they need is not scientific work and is
+better adopted than built — and the moment something is adopted, the question
+stops being *does it work* and becomes *what has it been given authority over*.
+
+![Two contracts, and everything adopted underneath them](../figures/aethrion_backend.svg)
+
+*Figure 20 — the adopted substrate and the boundary it may never cross. The
+contracts are drawn as boundary bars rather than layers: a layer is a thing you
+can replace and a boundary is the thing that lets you.*
+
+### Collaboration plane
+
+AETHRION owns the semantics — `AgentCohortRecord`, `CognitiveDiversityProfile`,
+`CommunicationGraph`, `CommunicationEdgePolicy`, `TypedAgentMessage`, the sealed
+`InitialPositionArtifact` and the round-zero embargo. Identities, teams, rooms,
+message transport, presence and runtime attachment are adopted behind a
+`CollaborationBackend` contract, with **Buzz** as the first candidate.
+
+### Runtime plane
+
+A cognitive function is compiled first and a qualified `AgentRuntimeProfile` is
+matched to it second — **`Hermes` is not a role**, `Statistician` is, and it may
+run on any qualified runtime. The `AgentRuntime` contract is AETHRION's; the
+Agent Client Protocol is one transport for it, and ACP protocol fields do not
+appear in the scientific domain model. **Hermes is preferred and not exclusive**:
+Codex, Claude Code, Buzz Agent and future ACP-compatible runtimes stay selectable,
+and the layer is only real while more than one of them is.
+
+![Cognition first, runtime second](../figures/aethrion_runtime.svg)
+
+*Figure 21 — the compilation order, over the five levels it exists to keep
+apart: role, cognitive function, model profile, runtime profile, backend
+identity.*
+
+### The test that decides whether this is right
+
+**If the backend disappears, which truths disappear?** Rooms, presence, message
+history and operational coordination are acceptable losses. Gate state, claims,
+evidence spans, verified values, protocol freeze, human decisions, experiment
+lineage, reproduction records and accepted artifacts are not. If any of those
+depends on backend state, the integration is architecturally wrong — WP-148-T12
+runs the test rather than asserting the answer.
+
+Four boundaries follow, and each is the concrete form of `ADR-003` meeting a
+substrate that is fast, present and full of text that looks like instructions: a
+message is not an instruction and messaging is not authorisation; an operational
+identity is not a `RoleBinding`; a room is not the blackboard and channel history
+is not a `ContextProjection`; an approval is not a `DecisionRecord`, and a backend
+cannot move G8 or G9.
+
+**None of it is built.** `ADR-020` fixes the boundary before any code moves,
+which is the only point at which fixing it is cheap. No backend is integrated, no
+runtime is qualified, no adapter exists and no characterisation suite has been
+written.
+
+---
+
 ## 5. The G0–G10 research lifecycle
 
 The spine of the system. Each gate has a frozen output — an artefact that, once
@@ -981,7 +1042,7 @@ This is the section that governs how every other section should be read.
 ```mermaid
 flowchart LR
     subgraph WORKING["RUNNING — verified locally"]
-        W["Zotero read-only client<br/>SQLite source registry<br/>Obsidian projection<br/>Hermes MCP · 5 tools<br/>systemd units · 160 tests<br/>plan seal · 22 status checks<br/>signed evidence manifest<br/>19 generated figures"]
+        W["Zotero read-only client<br/>SQLite source registry<br/>Obsidian projection<br/>Hermes MCP · 5 tools<br/>systemd units · 172 tests<br/>plan seal · 22 status checks<br/>signed evidence manifest<br/>21 generated figures"]
     end
     subgraph WRITTEN["WRITTEN — never executed"]
         S["52 skills, none behaviour-tested<br/>148 package documents<br/>80 acceptance scenarios<br/>role→model assignment rules<br/>4 authoring profiles"]

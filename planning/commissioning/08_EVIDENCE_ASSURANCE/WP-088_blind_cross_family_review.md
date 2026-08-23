@@ -269,6 +269,7 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `Core role bundles` | `WP-047` | `python3 scripts/progress.py show WP-047` |
 | `Bundle conformance tests` | `WP-047` | `python3 scripts/progress.py show WP-047` |
 | `Cohort, topology, projection and assurance-route compilation` | `WP-047` | `python3 scripts/progress.py show WP-047` |
+| `CollaborationDeploymentPlan` | `WP-047` | `python3 scripts/progress.py show WP-047` |
 | `Claim state engine` | `WP-077` | `python3 scripts/progress.py show WP-077` |
 | `Dependency validator` | `WP-077` | `python3 scripts/progress.py show WP-077` |
 | `Assessment rubric` | `WP-077` | `python3 scripts/progress.py show WP-077` |
@@ -329,6 +330,7 @@ A package whose evidence cannot be produced is not `READY`, however complete its
 |---|---|---|---|---|
 | `ASM-016` — ResearchTown — review and rebuttal finite-state environment | `ADAPTIVE_REIMPLEMENT` | `MS-REV-001` | the local module and contract surface this becomes — **named at refinement** | **1** |
 | `ASM-041` — CONSENSAGENT — sycophancy as a reliability and cost problem | `ADAPTIVE_REIMPLEMENT` | `MS-COHORT-001` | the local module and contract surface this becomes — **named at refinement** | **1** |
+| `ASM-061` — Buzz Harbor Orchestra — separate implementer and verifier workers | `PATTERN` | the idea only — no code and nothing called at runtime | everything — the implementation here is this repository's own | none |
 | — | `BUILD_NATIVE` | Everything not listed above: the contracts, the authority boundaries and the integration this package specifies | All of it | — |
 
 ### What each source may never decide
@@ -339,11 +341,13 @@ An adopted mechanism supplies a signal, never a verdict. The recurring failure o
 |---|---|---|
 | `ASM-016` | The review FSM sequences a process. A timeout in it can never become an approval. | The social simulation, and free-form discussion as the record of what was decided. |
 | `ASM-041` | A sycophancy diagnostic is a measurement of how a cohort behaved. It is not a verdict on whether the cohort was right, and agreement is never evidence. | The prompt-refinement optimiser. Its purpose is to reach consensus faster; here consensus is not the goal, and a mechanism that accelerates agreement is the wrong lever on a system whose failure mode is agreement. |
+| `ASM-061` | Implementation precedent, never authority. That the producer and the verifier are different workers is already an AETHRION invariant under ADR-001 and `00_PROGRAM/06`; observing it working elsewhere is corroboration and changes no rule here. | The orchestration runtime and the assumption that two workers are sufficient independence. AETHRION's independence is a five-dimension profile, and `R3` remains `BLOCKED` rather than waived. |
 
 ### Where a plain row would mislead
 
 - **`ASM-016`** — The transplantable idea is that review states are explicit and transitions are checked, rather than a chat thread being the authority.
 - **`ASM-041`** — Frames sycophancy as agents reinforcing one another instead of engaging critically, which inflates cost through extra debate rounds. Evaluated on six reasoning datasets across three models. The mechanism taken is the diagnostic and the framing; the convergence rule here is unresolved-material-challenge closure rather than agreement — ACC-089, ACC-090.
+- **`ASM-061`** — Worth recording precisely because it is *not* new: the value of a pattern entry is that a later reader can see the idea was arrived at twice, independently, rather than assumed.
 
 ### Unresolved before implementation
 
@@ -357,7 +361,7 @@ Each item below is an obligation its mode creates, quoted from the rule that cre
 
 - a written mechanism specification — inputs, outputs, state, transitions, invariants, failure conditions and forbidden behaviour — before implementation
 
-**Acquisition readiness — 2 obligations open across 2 of 2 sources.** `00_PROGRAM/05_definition_of_ready_and_done.md` requires the acquisition surface of a package to be classified and its obligations resolved before the package is `READY`; `scripts/ready_queue.py` holds it back until they are.
+**Acquisition readiness — 2 obligations open across 2 of 3 sources.** `00_PROGRAM/05_definition_of_ready_and_done.md` requires the acquisition surface of a package to be classified and its obligations resolved before the package is `READY`; `scripts/ready_queue.py` holds it back until they are.
 
 <!-- /generated:implementation-sources -->
 

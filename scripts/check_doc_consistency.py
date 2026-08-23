@@ -135,7 +135,11 @@ RULES: list[tuple[str, str, str, str]] = [
     ("README.md", r'SHARED · (\d+)<br/>', "skills_shared", "shared skills"),
     ("skills/README.md", r"All (\d+) conform to the Agent Skills", "skills", "skills"),
     ("skills/README.md", r"\| Scope \| All (\d+) skills", "skills", "skills"),
-    ("docs/figures/README.md", r"There are (\w+) of them rather than one", "figures", "figures"),
+    ("docs/figures/README.md", r"There are ([\w-]+) of them rather than one", "figures", "figures"),
+    # The figure count lived in two documents with no rule, which is how it
+    # drifted here twice. Both are registered now.
+    ("README.md", r"(\d+) generated figures", "figures", "figures"),
+    ("docs/architecture/AETHRION_ARCHITECTURE.md", r"(\d+) generated figures", "figures", "figures"),
 
     # Added after an inspection found the test count stale in four documents and
     # nine places, the bundle size stale in three, and the attestation's subject

@@ -89,6 +89,42 @@ mode**, because that is the baseline the optimisation is measured against.
 Comparing against a single agent would measure the cost of having a cohort — a
 decision already taken on other grounds — rather than the pruning.
 
+
+### The graph is the policy; rooms are how it is realised
+
+`ADR-020`. `CommunicationGraph` and `CommunicationEdgePolicy` are canonical.
+Backend room membership, subscriptions and targeted delivery are the projection
+of that graph, chosen by the adapter and never by convenience.
+
+This matters because the substrate makes exactly one thing very easy — put every
+actor in one room — and that single convenience would undo round-zero
+independence, the sealed initial position, the sparse default and the delta-only
+discipline in one move. A fully connected room stays legal in exactly one
+situation: the explicit benchmark control arm that `ADR-013` requires
+optimisation to be measured against.
+
+### The blackboard is not a channel
+
+`BlackboardEntry` is an AETHRION projection over canonical artifact pointers. A
+room can be destroyed and rebuilt from AETHRION state plus those pointers; the
+reverse must never become true. Declaring a channel canonical would put the
+scientific record inside a prototype-grade transport, which is the failure this
+whole boundary exists to prevent.
+
+### Backend events arrive as observations and are typed at the edge
+
+An inbound backend event is untrusted content under `ADR-003` — including one
+from another agent, which carries no privilege because its sender holds an
+identity. It is validated and typed at the adapter boundary into a
+`TypedAgentMessage` or rejected. Raw transcript text does not become evidence, and
+`backend message → EvidenceSpan` is not a path that exists: an agent reporting
+external evidence sends a *pointer*, which enters through source ingestion like
+everything else.
+
+Large payloads travel as artifact pointers with digests, never inlined — the
+delta-only rule is a property of the graph and the backend does not get to
+re-decide it.
+
 ## Out of scope
 
 - The internal implementation of any dependent package
@@ -228,11 +264,13 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `Core role bundles` | `WP-047` | `python3 scripts/progress.py show WP-047` |
 | `Bundle conformance tests` | `WP-047` | `python3 scripts/progress.py show WP-047` |
 | `Cohort, topology, projection and assurance-route compilation` | `WP-047` | `python3 scripts/progress.py show WP-047` |
+| `CollaborationDeploymentPlan` | `WP-047` | `python3 scripts/progress.py show WP-047` |
 | `AgentCohortRecord` | `WP-148` | `python3 scripts/progress.py show WP-148` |
 | `CognitiveDiversityProfile` | `WP-148` | `python3 scripts/progress.py show WP-148` |
 | `InitialPositionArtifact` | `WP-148` | `python3 scripts/progress.py show WP-148` |
 | `MaterialChallenge` | `WP-148` | `python3 scripts/progress.py show WP-148` |
 | `ConvergenceAssessment` | `WP-148` | `python3 scripts/progress.py show WP-148` |
+| `CollaborationBackendProfile` | `WP-148` | `python3 scripts/progress.py show WP-148` |
 
 ### Classification that must be recorded before work begins
 
@@ -277,6 +315,7 @@ A package whose evidence cannot be produced is not `READY`, however complete its
 | `ASM-037` — AgentPrune / Cut the Crap — communication redundancy on a spatial-temporal message graph | `ADAPTIVE_REIMPLEMENT` | `MS-COMM-001` · `MS-COMM-002` | the local module and contract surface this becomes — **named at refinement** | **1** |
 | `ASM-038` — S2-MAD — selective sparse participation in multi-agent debate | `ADAPTIVE_REIMPLEMENT` | `MS-COMM-003` | the local module and contract surface this becomes — **named at refinement** | **1** |
 | `ASM-058` — Google multi-agent blackboard — shared coordination workspace | `ADAPTIVE_REIMPLEMENT` | `MS-COMM-005` | the local module and contract surface this becomes — **named at refinement** | **1** |
+| `CMP-045` — Buzz — collaboration relay, teams, rooms and agent identities | `OPTIONAL_BACKEND` | Operational collaboration: identity material, team and roster deployment, room and thread creation, message transport and targeted delivery, agent presence, runtime process attachment, and the collaboration activity feed. | The `CollaborationBackend` contract and everything above it: `AgentCohortRecord`, `CognitiveDiversityProfile`, `CommunicationGraph`, `CommunicationEdgePolicy`, `TypedAgentMessage`, `InitialPositionArtifact` and the round-zero embargo. AETHRION compiles *what collaboration must happen*; the backend is told, and reports … | **1** |
 | — | `BUILD_NATIVE` | Everything not listed above: the contracts, the authority boundaries and the integration this package specifies | All of it | — |
 
 ### What each source may never decide
@@ -288,12 +327,14 @@ An adopted mechanism supplies a signal, never a verdict. The recurring failure o
 | `ASM-037` | An edge-utility score decides where a message goes. It is never a claim confidence and never a gate input — the same forbidden conversion ADR-006 fixes for search scores. | The trainable graph mask and its low-rank training procedure, which assume a differentiable pipeline this architecture does not have. And the framing of pruning as a property of the agent set rather than of the edges. |
 | `ASM-038` | Deciding that a viewpoint is redundant suppresses a message. It may never suppress a BLOCKER or a non-waivable safety message, and it may never be read as the viewpoint being wrong. | Keyword-based redundancy judgement. The paper's own limitation is that it misses synonyms and paraphrase, and a semantic detector is a V2 judgement that needs qualification before it can suppress anything. |
 | `ASM-058` | **The blackboard is a projection, not state.** Deleting it must lose no canonical scientific record, and no entry may be promoted to evidence or to a claim — ACC-085. | The blackboard as the coordination substrate's source of truth. Here it holds typed deltas and artifact pointers, and everything that matters lives in the artifact, evidence and claim stores. |
+| `CMP-045` | A collaboration backend carries messages and holds no scientific authority whatever. A Buzz message is not a `ClaimVersion`, a Buzz room is not the blackboard, a Buzz workflow is not a gate transition, and a Buzz approval is not a `DecisionRecord`. Removing the backend entirely must lose no claim, evidence span, verified value, gate state, protocol freeze, human decision, experiment lineage, … | Relay state as canonical scientific truth · channel history as the Claim/Evidence store · workflow state as G0–G10 lifecycle authority · approvals as G8/G9 authority · free-for-all shared-channel visibility as the scientific default · operational agent identity as a `RoleBinding` · direct shell … |
 
 ### Where a plain row would mislead
 
 - **`ASM-037`** — The paper formalises communication redundancy and reports 28.1-72.8% token reduction across six benchmarks with comparable performance, plus a cost comparison of $5.6 against $43.7. The transplantable idea is that redundancy lives in the *message graph* and can be pruned there. Licence is unconfirmed, so no code may be copied — ADR-004 permits the mechanism to be specified and reimplemented regardless.
 - **`ASM-038`** — Reports up to 94.5% token reduction with under 2% performance degradation by letting agents decline to participate when their viewpoint adds nothing. The number is striking and the limitation is the useful part: efficiency depends on response consistency, and the redundancy judge is keyword-based. AETHRION's version must be semantic and therefore qualified — which is a cost the headline figure does not carry.
 - **`ASM-058`** — A shared workspace is genuinely useful for letting an agent see what has already been tried without asking. It is also the most tempting place in the architecture to accidentally store truth, because it is where the interesting sentences appear — which is why its deletability is a tested property rather than a design intention.
+- **`CMP-045`** — Buzz appears in both registers and the two entries are different subjects: this row is the runtime collaboration substrate, while `ASM-060`–`ASM-063` record specific mechanisms taken from the same project. Prototype-grade and moving at review, so a floating `main` is not an acceptable dependency — see WP-159.
 
 ### Unresolved before implementation
 
@@ -311,7 +352,11 @@ Each item below is an obligation its mode creates, quoted from the rule that cre
 
 - a written mechanism specification — inputs, outputs, state, transitions, invariants, failure conditions and forbidden behaviour — before implementation
 
-**Acquisition readiness — 3 obligations open across 3 of 3 sources.** `00_PROGRAM/05_definition_of_ready_and_done.md` requires the acquisition surface of a package to be classified and its obligations resolved before the package is `READY`; `scripts/ready_queue.py` holds it back until they are.
+**`CMP-045` — Buzz — collaboration relay, teams, rooms and agent identities** · `OPTIONAL_BACKEND` · status `PROPOSED`
+
+- the backend itself — still unchosen, which is the correct state until the qualification runs, and a stop condition for anyone about to pick one
+
+**Acquisition readiness — 4 obligations open across 4 of 4 sources.** `00_PROGRAM/05_definition_of_ready_and_done.md` requires the acquisition surface of a package to be classified and its obligations resolved before the package is `READY`; `scripts/ready_queue.py` holds it back until they are.
 
 <!-- /generated:implementation-sources -->
 
@@ -326,6 +371,10 @@ Each item below is an obligation its mode creates, quoted from the rule that cre
 | WP-149-T05 | Implement topology compilation from the task and the independence profile | Implementation owner | Commit / configuration / record reference |
 | WP-149-T06 | Implement the fully-connected control mode and the baseline harness | Implementation owner | Commit / configuration / record reference |
 | WP-149-T07 | Prove the blackboard is deletable without canonical loss | Implementation owner | Commit / configuration / record reference |
+
+| WP-149-T08 | Implement the `CommunicationGraph` → backend room/subscription/targeted-delivery projection | Implementation owner | Commit / configuration / record reference |
+| WP-149-T09 | Implement the backend-event → `TypedAgentMessage` adapter with validation, rejection and idempotent replay | Implementation owner | Commit / configuration / record reference |
+| WP-149-T10 | Implement the benchmark-only fully connected mode, gated on an explicit control-arm flag | Implementation owner | Commit / configuration / record reference |
 
 ## Mandatory deliverables
 
@@ -390,6 +439,9 @@ Neither may be recorded as a success with a caveat attached.
 > Until a calibration run exists, every field above is `SPECIFIED` and no value
 > in it has been measured.
 
+- Communication graph projection contract
+- Backend event import adapter and its rejection semantics
+
 ## Test and verification plan
 
 The outline below is the summary. The executable procedure — environment, data, coverage items, cases, execution log, incident and completion reports — is in [`WP-149_sparse_topology_and_blackboard.tests.md`](WP-149_sparse_topology_and_blackboard.tests.md).
@@ -403,6 +455,12 @@ The outline below is the summary. The executable procedure — environment, data
 - Producer/consumer contract compatibility tests on every affected interface
 - Telemetry correlation and audit-record integrity checks
 
+- A message across an edge the graph does not allow must be denied or quarantined
+- An untyped or malformed backend event must be rejected at the adapter boundary
+- A pointer-only decision must not cause the backend to inline the artifact
+- A duplicated or replayed backend event must not produce a second semantic message
+- Deleting all backend collaboration state must lose no canonical claim, evidence, finding or artifact
+- A full-transcript injection must be rejected while the graph is in delta-only mode
 
 ## Acceptance criteria
 

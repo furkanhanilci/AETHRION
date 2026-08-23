@@ -127,7 +127,46 @@ zero open critical findings.
 > finish line is a thing that happens with a version bump, a tag and a stated
 > reason — not twice, and not quietly.
 
-> **Commissioning baseline v1.3.2 — 2026-08-24.** A repair baseline, and the
+> **Commissioning baseline v1.3.3 — 2026-08-24.** A refinement baseline, and
+> the classification is the first thing it had to settle. `AGENTS.md` §7.4: a
+> correction keeps the finish line where it is, an addition moves it. **No
+> package, no scenario and no capability is added.** WP-148 already had to
+> deliver a collaboration plane; naming the contract it is delivered behind is
+> *how*, not *what*, and every product idea that would have expanded scope —
+> a desktop cockpit, voice collaboration, mobile control, a draft delegation
+> protocol as canonical attribution — went to `docs/V2_CANDIDATES.md` instead.
+>
+> What it settles: most of what the collaboration plane needs is not scientific
+> work. Identities, rooms, message transport, presence and runtime attachment are
+> adopted behind a `CollaborationBackend` contract with **Buzz** as the first
+> candidate; agent harnesses are adopted behind an `AgentRuntime` contract with
+> **Hermes** preferred and not exclusive; and `ADR-020` fixes what neither may
+> ever decide **before** any code moves, which is the only point at which fixing
+> it is cheap.
+>
+> Nine packages change in the sealed tree — WP-046, WP-047, WP-048, WP-148,
+> WP-149, WP-150, WP-153, WP-154 and WP-159 — gaining the boundary, the
+> compile-time refusals, the fifteen-behaviour backend characterisation, the
+> backend-loss proof and the guard that a `DONE` message is not a package state.
+> Nineteen new test cases and twenty-one acceptance criteria are negative: the
+> integration is proven by what it refuses, not by two agents exchanging a
+> message.
+>
+> **The licence was not read, and the register said so.** The change
+> specification proposed direct adaptation of an orchestration manifest and
+> reported the upstream as Apache-2.0. No licence can be read at the source from
+> a session with no network, and `check_upstream_lineage.py` R7 refuses a direct
+> adaptation under an unverified one — so `ASM-060` is registered as a `PATTERN`,
+> the mode that moves no files. The checker refusing a proposal from outside the
+> repository is the control working, not an obstacle to route around.
+>
+> Also closed here, and found on the way: `obra/superpowers` — eleven skills
+> vendored verbatim, the largest thing in this repository taken from someone
+> else — was recorded only in `NOTICE` and in no register at all. It is now
+> `ASM-066` under a new `VENDORED` mode, because verbatim inclusion is neither
+> adaptation nor reimplementation and calling it either misstates the obligation.
+
+> **v1.3.2** was a repair baseline, and the
 > rule that decides it is `AGENTS.md` §7.4: a correction keeps the finish line
 > where it is, an addition moves it. **No package, no scenario and no capability
 > is added.** Every acquisition decision this baseline projects into a package

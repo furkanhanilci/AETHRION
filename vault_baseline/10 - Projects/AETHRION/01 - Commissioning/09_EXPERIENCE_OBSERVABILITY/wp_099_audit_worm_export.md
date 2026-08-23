@@ -350,17 +350,30 @@ A package whose evidence cannot be produced is not `READY`, however complete its
 
 **What is already solved elsewhere, and on what terms.** Before the first task starts, an implementer has to know which parts of this package are called at runtime, which are copied and refactored, which are reimplemented from a specification, and which have no upstream at all. Those decisions are recorded in [`provenance/upstreams.json`](../../../provenance/upstreams.json) — mechanisms assimilated into this repository's own code — and in [`provenance/components.json`](../../../provenance/components.json) — components adopted at runtime. This block is derived from both, so a decision and the place it is used cannot drift apart.
 
-### No registered source names this package
-
-Neither register binds an upstream mechanism or a runtime component to `WP-099`, so every deliverable below is **`BUILD_NATIVE`**.
-
-That is a statement about the registers, not a finding that no upstream exists. If refinement identifies one, it is recorded in the register **first** and appears here on the next generation — a component named in this document without a register entry is a defect that `scripts/check_wp_implementation_sources.py` reports.
+### Acquisition map
 
 | Source | Mode | What is taken | AETHRION owns | Unresolved |
 |---|---|---|---|---|
+| `ASM-063` — Buzz — signed collaboration event and audit export | `PATTERN` | the idea only — no code and nothing called at runtime | everything — the implementation here is this repository's own | none |
 | — | `BUILD_NATIVE` | Everything not listed above: the contracts, the authority boundaries and the integration this package specifies | All of it | — |
 
-**Acquisition readiness — nothing to resolve.** No acquisition obligation stands between this package and `READY`.
+### What each source may never decide
+
+An adopted mechanism supplies a signal, never a verdict. The recurring failure of adoption is not a component behaving badly but a component quietly acquiring authority, which is why every register entry states this before it is taken.
+
+| Source | May never decide | Deliberately not taken |
+|---|---|---|
+| `ASM-063` | A signed collaboration event attributes an operational act to an operational identity. It does not prove that identity held an AETHRION governance role at the time, and it is not admissible as evidence for a claim. Attribution and authority are different questions. | The event store as the audit ledger — that is WP-099's WORM ledger — and cryptographic identity as `RoleBinding`. |
+
+### Where a plain row would mislead
+
+- **`ASM-063`** — The provenance surface is genuinely good, which is why the boundary has to be stated: a well-signed record of the wrong kind of fact is more persuasive than an unsigned one, not less.
+
+### Unresolved before implementation
+
+**None.** Every obligation the modes above create has been met.
+
+**Acquisition readiness — resolved.** All 1 registered sources have met the obligations their modes create.
 
 <!-- /generated:implementation-sources -->
 

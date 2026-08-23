@@ -398,14 +398,14 @@ A package whose evidence cannot be produced is not `READY`, however complete its
 |---|---|---|---|---|
 | `ASM-001` — ScientistOne / Science One Framework — Chain-of-Evidence | `ADAPTIVE_REIMPLEMENT` | `MS-COE-001` · `MS-COE-002` · `MS-COE-003` · `MS-COE-004` · `MS-COE-005` · `MS-COE-006` | the local module and contract surface this becomes — **named at refinement** | **1** |
 | `ASM-033` — CiTO — Citation Typing Ontology | `STANDARD` | the running implementation | the contract this is held behind | **1** |
-| `ASM-034` — Nanopublications — claim-level machine-readable publication | `DEFER` | nothing — recorded so it is not re-examined from scratch | the contract this is held behind | none |
+| `ASM-034` — Nanopublications — claim-level machine-readable publication | `DEFER` | nothing — recorded so it is not re-examined from scratch | everything — the implementation here is this repository's own | none |
 | `CMP-022` — Workflow Run RO-Crate | `STANDARD` | The crate format and its PROV mapping. | Which run facts must be present for a run to be re-executable by someone who was not there. | none |
 | `CMP-027` — Pandoc | `DEPENDENCY` | The document AST, citeproc, reference templates and Lua filter execution. | Every AIRL transformation, expressed as an AST filter. | **2** |
 | `CMP-028` — Quarto | `DEPENDENCY` | Manuscript orchestration, cross references, multi-format render, JATS output and MECA bundling. | The publication package contract and what a rendered artifact must contain. | **2** |
 | `CMP-029` — MyST | `OPTIONAL_BACKEND` | The authoring and render stack. | The publication package contract, as for Quarto. | **1** |
 | `CMP-030` — CSL | `STANDARD` | Citation style definitions and their rendering. | Which style a venue requires; nothing more. | none |
 | `CMP-031` — veraPDF | `DEPENDENCY` | PDF/A and PDF/UA validation. | The accessibility contract the rendered artifact must satisfy. | **2** |
-| `CMP-035` — Manubot | `PATTERN` | Nothing is called at runtime. | Manuscript-as-code discipline: continuous rebuild and citation by identifier. | none |
+| `CMP-035` — Manubot | `PATTERN` | the idea only — no code and nothing called at runtime | Manuscript-as-code discipline: continuous rebuild and citation by identifier. | none |
 | — | `BUILD_NATIVE` | Everything not listed above: the contracts, the authority boundaries and the integration this package specifies | All of it | — |
 
 ### What each source may never decide

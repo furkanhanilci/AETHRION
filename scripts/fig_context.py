@@ -98,6 +98,22 @@ def main() -> None:
     c.text(bx + bw_ / 2, ay + 30, "ContextProjectionRecord", size=20, weight="700", fill=BLUE)
     c.text(bx + bw_ / 2, ay + 54, "what was shown, and what was masked", size=16, fill=MUTE)
 
+    # The one-line mistake a collaboration substrate makes easy, drawn as
+    # refused rather than described — ADR-020 §6.
+    nx = L
+    nw = bx - L - 26
+    c.rect(nx, ay - 4, nw, 80, fill=tint(VERM, 0.06), stroke=VERM, sw=1.6, dash="6 4")
+    c.text(nx + 14, ay + 20, "not an input: channel history", size=17,
+           weight="700", anchor="start", fill=VERM)
+    c.para(nx + 14, ay + 42,
+           "A room transcript is one line of code away and would negate round zero "
+           "and the budget at once.",
+           nw - 28, size=16, fill=INK, lh=20, max_lines=3)
+    c.path(f"M {nx + nw + 4} {ay + 32} L {bx - 6} {ay + 32}", stroke=VERM,
+           sw=1.6, dash="5 4", marker=None)
+    c.path(f"M {bx - 26} {ay + 22} L {bx - 12} {ay + 42} M {bx - 26} {ay + 42} "
+           f"L {bx - 12} {ay + 22}", stroke=VERM, sw=2.2, marker=None)
+
     # ------------------------------------------------------ the mask lifecycle
     my = ay + 72 + 36
     c.text(L, my, "3 · A mask is not a delete", size=21, weight="700", anchor="start")

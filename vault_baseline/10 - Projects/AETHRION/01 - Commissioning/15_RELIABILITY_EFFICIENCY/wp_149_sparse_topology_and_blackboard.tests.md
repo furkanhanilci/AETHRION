@@ -139,13 +139,16 @@ ISO/IEC/IEEE 29119-3 §8.3.2. A coverage item is something the tests must reach.
 | C10 | Implement topology compilation from the task and the independence profile | WP-149-T05 | *(name the test case)* |
 | C11 | Implement the fully-connected control mode and the baseline harness | WP-149-T06 | *(name the test case)* |
 | C12 | Prove the blackboard is deletable without canonical loss | WP-149-T07 | *(name the test case)* |
-| C13 | Independent-First Embargo | [ACC-082](../12_ACCEPTANCE_SCENARIOS/acc_082_independent_first_embargo.md) — Critical | *(name the test case)* |
-| C14 | Typed Inter-Agent Message | [ACC-083](../12_ACCEPTANCE_SCENARIOS/acc_083_typed_inter_agent_message.md) — High | *(name the test case)* |
-| C15 | Delta-Only Communication | [ACC-084](../12_ACCEPTANCE_SCENARIOS/acc_084_delta_only_communication.md) — High | *(name the test case)* |
-| C16 | A Blackboard Entry Is Not Evidence | [ACC-085](../12_ACCEPTANCE_SCENARIOS/acc_085_blackboard_entry_is_not_evidence.md) — Critical | *(name the test case)* |
-| C17 | Sparse Topology Preserves Quality | [ACC-086](../12_ACCEPTANCE_SCENARIOS/acc_086_sparse_topology_quality_preservation.md) — High | *(name the test case)* |
+| C13 | Implement the `CommunicationGraph` → backend room/subscription/targeted-delivery projection | WP-149-T08 | *(name the test case)* |
+| C14 | Implement the backend-event → `TypedAgentMessage` adapter with validation, rejection and idempotent replay | WP-149-T09 | *(name the test case)* |
+| C15 | Implement the benchmark-only fully connected mode, gated on an explicit control-arm flag | WP-149-T10 | *(name the test case)* |
+| C16 | Independent-First Embargo | [ACC-082](../12_ACCEPTANCE_SCENARIOS/acc_082_independent_first_embargo.md) — Critical | *(name the test case)* |
+| C17 | Typed Inter-Agent Message | [ACC-083](../12_ACCEPTANCE_SCENARIOS/acc_083_typed_inter_agent_message.md) — High | *(name the test case)* |
+| C18 | Delta-Only Communication | [ACC-084](../12_ACCEPTANCE_SCENARIOS/acc_084_delta_only_communication.md) — High | *(name the test case)* |
+| C19 | A Blackboard Entry Is Not Evidence | [ACC-085](../12_ACCEPTANCE_SCENARIOS/acc_085_blackboard_entry_is_not_evidence.md) — Critical | *(name the test case)* |
+| C20 | Sparse Topology Preserves Quality | [ACC-086](../12_ACCEPTANCE_SCENARIOS/acc_086_sparse_topology_quality_preservation.md) — High | *(name the test case)* |
 
-**17 coverage items.** Every one must appear in the *Covered by* column of at least one test case below before this package can reach `TECH_COMPLETE`.
+**20 coverage items.** Every one must appear in the *Covered by* column of at least one test case below before this package can reach `TECH_COMPLETE`.
 
 <!-- /generated:coverage -->
 
@@ -173,6 +176,13 @@ ISO/IEC/IEEE 29119-3 §8.3.2. A coverage item is something the tests must reach.
 Case 10 is the one that decides whether the blackboard is a projection or a
 second store. It is destructive on purpose: any answer other than *nothing
 canonical was lost* means the collaboration plane has quietly become authoritative.
+| 15 | **E2** | **Unauthorised edge.** Send a message across an edge `CommunicationGraph` does not allow | Denied or quarantined at the adapter; the attempt is recorded as a collaboration event | Denial record |
+| 16 | **E1** | **Untyped inbound.** Deliver a malformed backend event to the adapter | Rejected at the boundary. Raw transcript text never becomes a `TypedAgentMessage` | Rejection log |
+| 17 | **E1** | **Replay idempotency.** Replay the same backend event twice | One semantic message. A backend retry does not create a second | Message ledger |
+| 18 | **E1** | **Pointer stays a pointer.** Issue a pointer-only decision for a large artifact | The backend delivers the pointer and digest; the artifact is not inlined | Delivery record |
+| 19 | **E2** | **Channel is not the blackboard.** Delete the backend room backing a live blackboard, then rebuild it | Rebuilt from AETHRION state and canonical artifact pointers, with no canonical loss | Rebuild diff |
+| 20 | **E1** | **Control arm.** Request a fully connected topology without the benchmark flag | Refused. Fully connected is legal only as the explicit control arm `ADR-013` measures against | Refusal record |
+
 
 ## How to execute
 

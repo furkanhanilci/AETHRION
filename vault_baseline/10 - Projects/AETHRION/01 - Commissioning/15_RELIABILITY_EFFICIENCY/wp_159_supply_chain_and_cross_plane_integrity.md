@@ -116,6 +116,33 @@ excluded or redacted by data class.
 Without it a divergence between two stores is a fact nobody can trace to a
 cause, which turns every integrity test into a bug report with no next step.
 
+
+### A prototype upstream is pinned or it is not used
+
+`ADR-020`. The collaboration backend was prototype-grade and moving quickly at
+review. Depending on a floating `main` would mean the semantics of the
+collaboration plane could change without a decision being taken here — which is
+the precise failure `ADR-004` exists to prevent, arriving through a version
+number instead of through a copied file.
+
+Tracked subjects therefore include the backend repository, version and container
+digest; the ACP compatibility surface; every runtime profile and its version; the
+skill-discovery behaviour if it is relied on; and any source adapted from the same
+project.
+
+### Drift response, in order
+
+Detect the upstream change → rerun characterisation against the new pin →
+diff capability *and semantics*, not just the version string → quarantine an
+incompatible upgrade → update the register and the adapter qualification
+deliberately.
+
+The step that is easy to skip is the third. A backend upgrade that keeps every
+API and quietly changes room visibility defaults has changed the isolation
+guarantee that round zero depends on, and no version-string comparison would see
+it. **An upgrade may not change AETHRION message, role or evidence semantics
+silently**, and characterisation is what makes "silently" impossible.
+
 ## Out of scope
 
 - The internal implementation of any dependent package
@@ -333,6 +360,9 @@ Each item below is an obligation its mode creates, quoted from the rule that cre
 | WP-159-T07 | Build the split-brain injection suite and the projection rebuild proof | Implementation owner | Commit / configuration / record reference |
 | WP-159-T08 | Complete the OpenTelemetry correlation chain with data-class redaction | Implementation owner | Commit / configuration / record reference |
 
+| WP-159-T-D1 | Track the collaboration backend, the ACP surface, every runtime profile and any adapted source as drift subjects | Implementation owner | Commit / configuration / record reference |
+| WP-159-T-D2 | Quarantine an upgrade that fails characterisation, and record the capability or semantic difference that failed | Implementation owner | Commit / configuration / record reference |
+
 ## Mandatory deliverables
 
 - `SPDX/REUSE conformance`
@@ -342,6 +372,9 @@ Each item below is an obligation its mode creates, quoted from the rule that cre
 - `Correlation chain with redaction`
 - An updated runbook or operations note, plus the service/contract ownership record
 - A signed `EvidenceManifest`
+
+- Backend and runtime drift subject register
+- Upgrade quarantine procedure
 
 ## Test and verification plan
 
@@ -357,6 +390,8 @@ The outline below is the summary. The executable procedure — environment, data
 - Producer/consumer contract compatibility tests on every affected interface
 - Telemetry correlation and audit-record integrity checks
 
+- An upstream change to a tracked backend or runtime must be detected and must trigger re-characterisation
+- An upgrade that changes room visibility defaults must fail characterisation even when the API surface is unchanged
 
 ## Acceptance criteria
 

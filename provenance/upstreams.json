@@ -21,7 +21,8 @@
     "BENCHMARK": "Measures the system; is never part of it. A benchmark score is qualification evidence, never gate authority.",
     "PATTERN": "An architectural idea implemented here with no code taken. Attribution and honesty about divergence are the obligation.",
     "DEFER": "Examined, plausible, not taken now. The reason is recorded so it is not re-examined from scratch.",
-    "REJECT": "Examined and deliberately not taken. The reason is recorded."
+    "REJECT": "Examined and deliberately not taken. The reason is recorded.",
+    "VENDORED": "Source files are included verbatim under their own licence and are never edited here. The obligations are a pinned commit, an exact file list, the licence reproduced in full, and a recorded digest per file so a session with network access can prove the tree is unmodified."
   },
   "statuses": {
     "PROPOSED": "Decided on paper. No local code exists.",
@@ -67,6 +68,7 @@
       "failure_semantics": null,
       "selection": null,
       "conformance": null,
+      "research_baseline": null,
       "drift_status": "NOT_PINNED",
       "notes": "Two public versions of this work report different evaluation corpus sizes. Any number quoted from it must carry the version it came from — the same rule this architecture applies to SourceRepresentation."
     },
@@ -102,6 +104,7 @@
       "failure_semantics": null,
       "selection": null,
       "conformance": null,
+      "research_baseline": null,
       "drift_status": "NOT_PINNED",
       "notes": "A small pure state machine with a deterministic MockLLM path upstream, which is what makes characterisation before adaptation cheap."
     },
@@ -136,6 +139,7 @@
       "failure_semantics": null,
       "selection": null,
       "conformance": null,
+      "research_baseline": null,
       "drift_status": "NOT_PINNED",
       "notes": "Actor calibration and verifier qualification are separate records here, because they answer different questions."
     },
@@ -169,6 +173,7 @@
       "failure_semantics": null,
       "selection": null,
       "conformance": null,
+      "research_baseline": null,
       "drift_status": "NOT_PINNED",
       "notes": "Reimplemented rather than adapted because the logic is not isolated in one module upstream."
     },
@@ -205,6 +210,7 @@
       "failure_semantics": null,
       "selection": null,
       "conformance": null,
+      "research_baseline": null,
       "drift_status": "NOT_PINNED",
       "notes": "The value semantics — ordered parents, content hash, producer provenance — are what is taken. The storage decision is not."
     },
@@ -237,6 +243,7 @@
       "failure_semantics": null,
       "selection": null,
       "conformance": null,
+      "research_baseline": null,
       "drift_status": "NOT_PINNED",
       "notes": "The upstream mechanism is a coordination signal; the AETHRION object is a scientific need with an acceptance condition and a lifecycle."
     },
@@ -268,6 +275,7 @@
       "failure_semantics": null,
       "selection": null,
       "conformance": null,
+      "research_baseline": null,
       "drift_status": "NOT_PINNED",
       "notes": "DEBUG is the scientifically load-bearing state: it keeps an implementation defect from being counted as a failed hypothesis. Whether the node/state helpers are small enough to adapt directly is decided after reading the tree at a pinned commit; until then this entry may not leave PROPOSED."
     },
@@ -304,6 +312,7 @@
       "failure_semantics": null,
       "selection": null,
       "conformance": null,
+      "research_baseline": null,
       "drift_status": "NOT_PINNED",
       "notes": "The published property that matters is that selection may return a previously expanded interior node, not only a leaf. Direct adaptation is viable because the reference implementation is compact and Apache-2.0; the decision is confirmed after reading the file at a pinned commit."
     },
@@ -339,6 +348,7 @@
       "failure_semantics": null,
       "selection": null,
       "conformance": null,
+      "research_baseline": null,
       "drift_status": "NOT_PINNED",
       "notes": "Licence is permissive, so direct adaptation would be legal; it is still reimplemented because the native graph contract — typed SearchEdge, ArtifactRecord candidates, VerifiedValue metrics — matters more than importing the controller."
     },
@@ -373,6 +383,7 @@
       "failure_semantics": null,
       "selection": null,
       "conformance": null,
+      "research_baseline": null,
       "drift_status": "NOT_PINNED",
       "notes": "The rule worth taking is that agent B must not infer A succeeded from A's confident prose. Every rigor check that can be deterministic must be."
     },
@@ -407,6 +418,7 @@
       "failure_semantics": null,
       "selection": null,
       "conformance": null,
+      "research_baseline": null,
       "drift_status": "NOT_PINNED",
       "notes": "Upstream separates a public shared state symlinked into every worktree from a private grader area, and a 2026 security change isolates unprivileged agents from that private area even through a shell. That hardening history is itself the evidence the boundary is load-bearing."
     },
@@ -439,6 +451,7 @@
       "failure_semantics": null,
       "selection": null,
       "conformance": null,
+      "research_baseline": null,
       "drift_status": "NOT_PINNED",
       "notes": "The 'reviewer-defensible idea card' framing is confirmed upstream. The 'bottleneck diagnosis' and 'Scoop-Check' names used in the source brief were NOT confirmed on the public landing page — BottleneckRecord and PriorArtCollision are therefore recorded as AETHRION constructs inspired by this system, not as upstream feature names."
     },
@@ -472,6 +485,7 @@
       "failure_semantics": null,
       "selection": null,
       "conformance": null,
+      "research_baseline": null,
       "drift_status": "NOT_PINNED",
       "notes": "Proximity is used for duplicate detection, coverage and diversity-aware allocation — all resource decisions, none of them epistemic."
     },
@@ -505,6 +519,7 @@
       "failure_semantics": null,
       "selection": null,
       "conformance": null,
+      "research_baseline": null,
       "drift_status": "NOT_PINNED",
       "notes": "The canonical repository is amair-lab/PiEvo; the address circulating in the source brief (eurekaw/pievo) is a fork, and a fork is not a provenance anchor."
     },
@@ -536,6 +551,7 @@
       "failure_semantics": null,
       "selection": null,
       "conformance": null,
+      "research_baseline": null,
       "drift_status": "NOT_PINNED",
       "notes": "A council is chosen per task — methodologist, statistician, experimentalist, skeptic — and is not the fourteen durable governance roles under another name."
     },
@@ -568,6 +584,7 @@
       "failure_semantics": null,
       "selection": null,
       "conformance": null,
+      "research_baseline": null,
       "drift_status": "NOT_PINNED",
       "notes": "The transplantable idea is that review states are explicit and transitions are checked, rather than a chat thread being the authority."
     },
@@ -602,6 +619,7 @@
       "failure_semantics": null,
       "selection": null,
       "conformance": null,
+      "research_baseline": null,
       "drift_status": "NOT_PINNED",
       "notes": "Already registered as an ADAPTER in AETHRION_COMPONENT_REUSE.md; this entry records the mechanism-level lineage behind that adapter."
     },
@@ -634,6 +652,7 @@
       "failure_semantics": null,
       "selection": null,
       "conformance": null,
+      "research_baseline": null,
       "drift_status": "NOT_PINNED",
       "notes": "Taken as the second opinion to PaperQA2 behind one adapter contract, so the choice between them is settled by measurement rather than by preference."
     },
@@ -668,6 +687,7 @@
       "failure_semantics": null,
       "selection": null,
       "conformance": null,
+      "research_baseline": null,
       "drift_status": "NOT_PINNED",
       "notes": "The idea worth taking is that a failed route is an asset rather than something to delete — which is what makes 'have we tried this before?' answerable from records instead of from chat history."
     },
@@ -697,6 +717,7 @@
       "failure_semantics": null,
       "selection": null,
       "conformance": null,
+      "research_baseline": null,
       "drift_status": "NOT_PINNED",
       "notes": "Named in the source brief but neither the repository nor the licence was confirmed on 2026-08-23. The two ideas attributed to it — separating ideation memory from procedural memory, and classifying why a run failed — are already carried by ASM-019 and by the failure taxonomy in WP-082. Deferred rather than adopted on an unverified attribution."
     },
@@ -731,6 +752,7 @@
       "failure_semantics": null,
       "selection": null,
       "conformance": null,
+      "research_baseline": null,
       "drift_status": "NOT_PINNED",
       "notes": "This is the clearest case in the register of an upstream option being deliberately narrowed rather than copied. The action vocabulary is taken; the escape hatch is not."
     },
@@ -763,6 +785,7 @@
       "failure_semantics": null,
       "selection": null,
       "conformance": null,
+      "research_baseline": null,
       "drift_status": "NOT_PINNED",
       "notes": "Sixteen skills upstream, of which twelve overlap AETHRION's scientific family: framing-research-questions, surveying-prior-work, establishing-feasibility-first, designing-the-analysis, preregistering-analysis, subagent-driven-analysis, executing-analysis, dispatching-parallel-investigations, investigating-anomalous-results, verifying-results-before-claiming, requesting-red-team-review, receiving-critical-review, setting-up-reproducible-analysis, reporting-and-archiving-findings, writing-science-skills, using-science-superpowers. Its central discipline is pre-registration in place of test-driven development, which is the same move AETHRION's preregistration-discipline makes."
     },
@@ -792,6 +815,7 @@
       "failure_semantics": null,
       "selection": null,
       "conformance": null,
+      "research_baseline": null,
       "drift_status": "NOT_PINNED",
       "notes": "161 skills across 18+ scientific domains. Deferred until a domain is actually selected: importing a bioinformatics skill before there is a bioinformatics project adds surface without adding capability. When one is imported, the licence in that skill's own SKILL.md governs — the repository licence does not."
     },
@@ -825,6 +849,7 @@
       "failure_semantics": null,
       "selection": null,
       "conformance": null,
+      "research_baseline": null,
       "drift_status": "NOT_PINNED",
       "notes": "Already registered as PATTERN + BENCHMARK in AETHRION_COMPONENT_REUSE.md §4."
     },
@@ -856,6 +881,7 @@
       "failure_semantics": null,
       "selection": null,
       "conformance": null,
+      "research_baseline": null,
       "drift_status": "NOT_PINNED",
       "notes": "Artisan-Bench is 60 tasks from 23 software-engineering papers; the reported system produced 44 of 60 reproduction scripts. The transplantable idea is the reformulation: the deliverable is a reproduction procedure, and grading happens after the agent is gone. Its automated judge also guides toward expected results without revealing them, which is the same private-evaluator boundary as ASM-011."
     },
@@ -887,6 +913,7 @@
       "failure_semantics": null,
       "selection": null,
       "conformance": null,
+      "research_baseline": null,
       "drift_status": "NOT_PINNED",
       "notes": "Separating understanding from coding is what lets a failed reproduction distinguish 'the paper was misread' from 'the code was wrong' — two findings with different consequences for the original claim."
     },
@@ -917,6 +944,7 @@
       "failure_semantics": null,
       "selection": null,
       "conformance": null,
+      "research_baseline": null,
       "drift_status": "NOT_PINNED",
       "notes": "The lesson encoded as ACC-67: exit code zero is not a reproduction."
     },
@@ -947,6 +975,7 @@
       "failure_semantics": null,
       "selection": null,
       "conformance": null,
+      "research_baseline": null,
       "drift_status": "NOT_PINNED",
       "notes": "Not in the source brief; added here. 270 tasks over 90 papers across computer science, social science and medicine, at three difficulty levels, including vision-language tasks. It is the oldest and most-cited of the reproduction benchmarks and covers disciplines the others do not, which is why the G7 suite should not consist only of 2026 preprints."
     },
@@ -978,6 +1007,7 @@
       "failure_semantics": null,
       "selection": null,
       "conformance": null,
+      "research_baseline": null,
       "drift_status": "NOT_PINNED",
       "notes": "Not in the source brief; added here. Eleven benchmarks and over 2,400 examples spanning literature search, code execution, data analysis and end-to-end discovery, with standardised tools, a date-restricted literature corpus for reproducibility, and explicit control for model cost and tool access. That last property is what the rest of the benchmark portfolio lacks: without cost normalisation, a governed-versus-ungoverned comparison cannot separate the effect of governance from the effect of spend."
     },
@@ -1008,6 +1038,7 @@
       "failure_semantics": null,
       "selection": null,
       "conformance": null,
+      "research_baseline": null,
       "drift_status": "NOT_PINNED",
       "notes": "Already registered in AETHRION_COMPONENT_REUSE.md §4; the pinned facts are recorded here. 40 tasks across 10 domains, each grounded in a real published paper with the target paper hidden and expert-curated weighted rubrics. Published headline results — strongest autonomous agent 21.5, strongest harness LLM 20.7, frontier mean 26.5 — set the scale against which any AETHRION result must be read."
     },
@@ -1037,6 +1068,7 @@
       "failure_semantics": null,
       "selection": null,
       "conformance": null,
+      "research_baseline": null,
       "drift_status": "NOT_PINNED",
       "notes": null
     },
@@ -1067,6 +1099,7 @@
       "failure_semantics": null,
       "selection": null,
       "conformance": null,
+      "research_baseline": null,
       "drift_status": "NOT_PINNED",
       "notes": "Published by the Curie authors. Its result — that agents struggle to produce complete executable experiments — is why G5 acceptance tests execution rather than the quality of experiment-plan prose."
     },
@@ -1098,6 +1131,7 @@
       "failure_semantics": null,
       "selection": null,
       "conformance": null,
+      "research_baseline": null,
       "drift_status": "NOT_PINNED",
       "notes": "Not in the source brief; added here. EvidenceTag.support_relation was about to be an invented three-value enum (SUPPORTS / CHALLENGES / CONTEXTUALIZES). CiTO already provides the published vocabulary for exactly this — cito:supports, cito:disagreesWith, cito:usesMethodIn and the rest — and AETHRION's own rule is not to invent an identifier scheme where one is maintained by people closer to the problem. Binding the enum to CiTO IRIs costs nothing now and makes an EvidenceTag exportable to anyone who reads SPAR."
     },
@@ -1127,6 +1161,7 @@
       "failure_semantics": null,
       "selection": null,
       "conformance": null,
+      "research_baseline": null,
       "drift_status": "NOT_PINNED",
       "notes": "Not in the source brief; added here as a deferred candidate. Its structure — assertion, provenance, publication info as one citable unit — is close to an exact match for ClaimVersion plus EvidenceTag plus DecisionRecord, so the publication compiler should be built so that this projection is later addable without reshaping the claim model. Deferred because a projection nobody consumes is cost without benefit until the compiler exists."
     },
@@ -1154,6 +1189,7 @@
       "failure_semantics": null,
       "selection": null,
       "conformance": null,
+      "research_baseline": null,
       "drift_status": "NOT_PINNED",
       "notes": "The research-versus-development split it makes explicit is already carried here by the IdeaCard-to-HypothesisVersion path and by the DEBUG-versus-IMPROVE distinction in the search graph. Deferred rather than adopted, because a second vocabulary for a distinction already drawn is cost without capability."
     },
@@ -1181,6 +1217,7 @@
       "failure_semantics": null,
       "selection": null,
       "conformance": null,
+      "research_baseline": null,
       "drift_status": "NOT_PINNED",
       "notes": "Rejected as a source of code for two independent reasons, either of which suffices. Its licence is neither MIT nor Apache and attaches conditions to publications produced with it, which is exactly the kind of obligation a research system must not acquire silently. And its scope — idea, experiment, analysis, paper, review — overlaps AETHRION's own so completely that adopting it would be adopting a competing architecture rather than a mechanism. Recorded here so the question is not reopened without new information."
     },
@@ -1214,6 +1251,7 @@
       "failure_semantics": null,
       "selection": null,
       "conformance": null,
+      "research_baseline": null,
       "drift_status": "NOT_PINNED",
       "notes": "The paper formalises communication redundancy and reports 28.1-72.8% token reduction across six benchmarks with comparable performance, plus a cost comparison of $5.6 against $43.7. The transplantable idea is that redundancy lives in the *message graph* and can be pruned there. Licence is unconfirmed, so no code may be copied — ADR-004 permits the mechanism to be specified and reimplemented regardless."
     },
@@ -1246,6 +1284,7 @@
       "failure_semantics": null,
       "selection": null,
       "conformance": null,
+      "research_baseline": null,
       "drift_status": "NOT_PINNED",
       "notes": "Reports up to 94.5% token reduction with under 2% performance degradation by letting agents decline to participate when their viewpoint adds nothing. The number is striking and the limitation is the useful part: efficiency depends on response consistency, and the redundancy judge is keyword-based. AETHRION's version must be semantic and therefore qualified — which is a cost the headline figure does not carry."
     },
@@ -1278,6 +1317,7 @@
       "failure_semantics": null,
       "selection": null,
       "conformance": null,
+      "research_baseline": null,
       "drift_status": "NOT_PINNED",
       "notes": "MIT-licensed and therefore legally adaptable, and still reimplemented — the taken mechanisms are multi-metric importance estimation, **baseline-anchored acceptance**, quality-regression rollback and Pareto reporting. The reported cost reduction was not confirmed on the repository page and is recorded here as a paper claim rather than an observed figure. This is the clearest entry in the register where a permissive licence does not make copying correct."
     },
@@ -1310,6 +1350,7 @@
       "failure_semantics": null,
       "selection": null,
       "conformance": null,
+      "research_baseline": null,
       "drift_status": "NOT_PINNED",
       "notes": "The observation worth taking: an erroneous memory from a previous round degrades later reasoning even after it has been refuted. That is why REFUTED and SUPERSEDED items leave the reasoning context here while staying queryable as history — ACC-096."
     },
@@ -1342,6 +1383,7 @@
       "failure_semantics": null,
       "selection": null,
       "conformance": null,
+      "research_baseline": null,
       "drift_status": "NOT_PINNED",
       "notes": "Frames sycophancy as agents reinforcing one another instead of engaging critically, which inflates cost through extra debate rounds. Evaluated on six reasoning datasets across three models. The mechanism taken is the diagnostic and the framing; the convergence rule here is unresolved-material-challenge closure rather than agreement — ACC-089, ACC-090."
     },
@@ -1375,6 +1417,7 @@
       "failure_semantics": null,
       "selection": null,
       "conformance": null,
+      "research_baseline": null,
       "drift_status": "NOT_PINNED",
       "notes": "Reports that a hierarchical A→(B↔C) topology degrades least under faulty agents — 5.5% against 10.5% and 23.7% — and that Challenger and Inspector recover up to 96.4% of injected errors. Its AutoTransform and AutoInject fault-injection methods are the model for this baseline's faulty-agent fixtures. **This entry is the register's worked example of a licence changing the method rather than the decision.**"
     },
@@ -1407,6 +1450,7 @@
       "failure_semantics": null,
       "selection": null,
       "conformance": null,
+      "research_baseline": null,
       "drift_status": "NOT_PINNED",
       "notes": "Fourteen failure modes in three categories — system design, inter-agent misalignment, task verification — from 1,600+ annotated traces across seven frameworks, with inter-annotator agreement κ=0.88 and an LLM-judge pipeline at 94% accuracy and 0.77 Cohen's kappa. The three categories map cleanly onto this architecture's COORDINATION, VERIFICATION and design-time classes, which is why the taxonomy is taken as a pattern rather than adopted verbatim."
     },
@@ -1436,6 +1480,7 @@
       "failure_semantics": null,
       "selection": null,
       "conformance": null,
+      "research_baseline": null,
       "drift_status": "NOT_PINNED",
       "notes": "127 multi-agent failure logs from GAIA and AssistantBench, annotated with the responsible agent, the decisive step and why. The reported ceilings are the reason `UNKNOWN` is a first-class classification here: the best method identifies the responsible agent about 53.5% of the time and the exact failing step about 14.2%. **A taxonomy that forces a named cause onto every failure would be wrong most of the time at step level**, and would route work confidently to the wrong discipline — ACC-094."
     },
@@ -1471,6 +1516,7 @@
       "failure_semantics": null,
       "selection": null,
       "conformance": null,
+      "research_baseline": null,
       "drift_status": "NOT_PINNED",
       "notes": "Makes remaining tool budget part of the agent's continuous context, and uses it to decide between deepening a promising lead and pivoting. Apache-2.0 with two compact, isolable modules, which makes this the strongest direct-adaptation candidate added by this delta. Also carries intermediate summarisation and old-tool-response compression, which belong to the context projection rather than to the budget controller."
     },
@@ -1504,6 +1550,7 @@
       "failure_semantics": null,
       "selection": null,
       "conformance": null,
+      "research_baseline": null,
       "drift_status": "NOT_PINNED",
       "notes": "Uses judge confidence to escalate uncertain cases from a cheap judge to a stronger one, reporting roughly 80% coverage at an 80% human-agreement target. The mechanism taken is the cascade and, more importantly, **abstention as a first-class outcome** — ADR-015. A judge forced to choose on a case it cannot resolve produces a verdict indistinguishable from a confident one."
     },
@@ -1534,6 +1581,7 @@
       "failure_semantics": null,
       "selection": null,
       "conformance": null,
+      "research_baseline": null,
       "drift_status": "NOT_PINNED",
       "notes": "Ten scenarios, over 400 tools, 27 attack and defence methods across 13 model backbones, with a highest average attack success rate of 84.3% and defences reported as of limited effectiveness. That last finding is the architectural argument for ADR-003 and the capability gate: **if defences at the prompt layer are weak, the boundary has to be that the capability is unavailable** — ACC-117."
     },
@@ -1564,6 +1612,7 @@
       "failure_semantics": null,
       "selection": null,
       "conformance": null,
+      "research_baseline": null,
       "drift_status": "NOT_PINNED",
       "notes": "Attacks partially succeed in up to 86% of cases against top-tier agents using low-effort human-written injections, under a realistic threat model where the attacker is an ordinary user of a site rather than its owner. The licence split — CC-BY-NC for most of it, MIT for one bundled component — is exactly why ADR-019 requires a **file-level** licence position rather than a repository-level one."
     },
@@ -1595,6 +1644,7 @@
       "failure_semantics": null,
       "selection": null,
       "conformance": null,
+      "research_baseline": null,
       "drift_status": "NOT_PINNED",
       "notes": "Defines three leakage severities — benchmark metadata, question context, explicit answer — over six public benchmarks, and reports performance inflation up to 4%. The important part is not the size of the inflation but that **nothing about the model is contaminated: the measurement is**, which is why the firewall is a property of the run rather than of the model — ADR-017, ACC-118."
     },
@@ -1626,6 +1676,7 @@
       "failure_semantics": null,
       "selection": null,
       "conformance": null,
+      "research_baseline": null,
       "drift_status": "NOT_PINNED",
       "notes": "Reports up to a 15-point maximum-minimum accuracy difference across equivalent runs against hosted APIs under presumed deterministic settings. The consequence is the five-level reproduction taxonomy: **seed and temperature are not a reproducibility proof**, a hosted black box cannot yield EXACT, and a distributional claim needs its run count and interval declared in advance — ACC-116."
     },
@@ -1658,6 +1709,7 @@
       "failure_semantics": null,
       "selection": null,
       "conformance": null,
+      "research_baseline": null,
       "drift_status": "NOT_PINNED",
       "notes": "Two findings drive ADR-016. When correction takes more effort, people correct fewer AI errors — which is why friction symmetry between approve and reject is a tested property (ACC-112). And access to AI advice sharply reduces willingness to say 'I don't know', with wrong advice able to raise confidence while lowering accuracy — which is why `INSUFFICIENT_BASIS` exists as a one-action terminal decision (ACC-111)."
     },
@@ -1688,6 +1740,7 @@
       "failure_semantics": null,
       "selection": null,
       "conformance": null,
+      "research_baseline": null,
       "drift_status": "NOT_PINNED",
       "notes": "The model for G2 and G2b, and the mitigation for publication bias — PR-19. A gate structure that freezes a protocol and still rejects on the direction of the result has moved the bias rather than removed it."
     },
@@ -1717,6 +1770,7 @@
       "failure_semantics": null,
       "selection": null,
       "conformance": null,
+      "research_baseline": null,
       "drift_status": "NOT_PINNED",
       "notes": "Deferred, and recorded because an agent that can run thousands of analyses makes it newly relevant. A preregistered `AnalysisUniverseManifest` would let the whole space be reported rather than one specification cherry-picked from it — the mitigation for PR-40. Deferred until a real confirmatory study needs it, because a multiverse over a protocol nobody has run is arithmetic without a subject."
     },
@@ -1747,6 +1801,7 @@
       "failure_semantics": null,
       "selection": null,
       "conformance": null,
+      "research_baseline": null,
       "drift_status": "NOT_PINNED",
       "notes": null
     },
@@ -1777,6 +1832,7 @@
       "failure_semantics": null,
       "selection": null,
       "conformance": null,
+      "research_baseline": null,
       "drift_status": "NOT_PINNED",
       "notes": "A finding with no available fix becomes an owned, expiring residual risk rather than a suppression or an indefinite block — ACC-120."
     },
@@ -1807,6 +1863,7 @@
       "failure_semantics": null,
       "selection": null,
       "conformance": null,
+      "research_baseline": null,
       "drift_status": "NOT_PINNED",
       "notes": null
     },
@@ -1839,6 +1896,7 @@
       "failure_semantics": null,
       "selection": null,
       "conformance": null,
+      "research_baseline": null,
       "drift_status": "NOT_PINNED",
       "notes": "**The one entry in this register with running code.** `scripts/monitor_sources.py` sweeps Crossref and exits non-zero if its planted retracted DOI goes undetected. It also reports its own boundary: 18 of 33 sources carry no DOI and are invisible to it. Material-delta scoring — a citation-count change is not an event, a retraction is — is what keeps G10 from becoming a notification nobody reads (PR-56)."
     },
@@ -1870,6 +1928,7 @@
       "failure_semantics": null,
       "selection": null,
       "conformance": null,
+      "research_baseline": null,
       "drift_status": "NOT_PINNED",
       "notes": "A shared workspace is genuinely useful for letting an agent see what has already been tried without asking. It is also the most tempting place in the architecture to accidentally store truth, because it is where the interesting sentences appear — which is why its deletability is a tested property rather than a design intention."
     },
@@ -1901,8 +1960,238 @@
       "failure_semantics": null,
       "selection": null,
       "conformance": null,
+      "research_baseline": null,
       "drift_status": "NOT_PINNED",
       "notes": "AETHRION's untrusted-content boundary should be measured against someone else's attacks, not its own — AETHRION_COMPONENT_REUSE.md §4. Named in WP-060, WP-112 and WP-136 before it was registered."
+    },
+    {
+      "id": "ASM-060",
+      "name": "Buzz Harbor Orchestra — frozen roster manifest for a cohort run",
+      "kind": "SYSTEM",
+      "repository": "https://github.com/block/buzz",
+      "paper": null,
+      "reference": null,
+      "licence": "UNVERIFIED — reported Apache-2.0 at the architecture delta's review of 0720f5380ce8a6c050afac159f8462c06cd51ab5; not read at the source from this session, which has no network access",
+      "licence_verified": null,
+      "assimilation": "PATTERN",
+      "status": "PROPOSED",
+      "pinned_commit": null,
+      "source_files": [],
+      "mechanisms": [],
+      "mechanism_spec": null,
+      "local_modules": [],
+      "work_packages": [
+        "WP-148",
+        "WP-153"
+      ],
+      "authority_boundary": "A manifest records what a cohort run was configured with. It is never evidence that the run was scientifically adequate, and a frozen roster does not establish epistemic independence — five identities on one model and one context are one contribution, whatever the manifest says.",
+      "not_taken": "The shared-filesystem execution model, the orchestrator's own scheduling semantics, and any notion that completing the manifest completes the work. AETHRION worktree isolation, cohort versioning and acceptance rules are unchanged.",
+      "characterization_suite": null,
+      "version_policy": null,
+      "failure_semantics": null,
+      "selection": null,
+      "conformance": null,
+      "research_baseline": "0720f5380ce8a6c050afac159f8462c06cd51ab5",
+      "drift_status": "NOT_PINNED",
+      "notes": "The mechanism worth taking is narrow and real: an execution manifest that freezes roster, model revision, prompt hash, budget and concurrency before a run starts, so what ran can be reconstructed afterwards. That maps almost exactly onto `AgentCohortRecord` plus the budget envelope, and it is the shape WP-153's ledger needs upstream of it.\n\n**Recorded as `PATTERN` rather than `DIRECT_ADAPT`, and the checker is the reason.** The architecture delta proposes direct adaptation and reports the licence as Apache-2.0, but no licence has been read at the source from here — this session has no network — and `check_upstream_lineage.py` R7 refuses a direct adaptation under an unverified licence. That refusal is the correct outcome, not an obstacle: until someone reads the licence at the pinned tree, the honest mode is the one that moves no files. Re-classification to `DIRECT_ADAPT` is a deliberate act requiring a licence read, a production pin, an exact file list and a characterisation suite written first."
+    },
+    {
+      "id": "ASM-061",
+      "name": "Buzz Harbor Orchestra — separate implementer and verifier workers",
+      "kind": "PATTERN",
+      "repository": "https://github.com/block/buzz",
+      "paper": null,
+      "reference": null,
+      "licence": "UNVERIFIED — reported Apache-2.0 at the architecture delta's review of 0720f5380ce8a6c050afac159f8462c06cd51ab5; not read at the source from this session, which has no network access",
+      "licence_verified": null,
+      "assimilation": "PATTERN",
+      "status": "PROPOSED",
+      "pinned_commit": null,
+      "source_files": [],
+      "mechanisms": [],
+      "mechanism_spec": null,
+      "local_modules": [],
+      "work_packages": [
+        "WP-154",
+        "WP-088"
+      ],
+      "authority_boundary": "Implementation precedent, never authority. That the producer and the verifier are different workers is already an AETHRION invariant under ADR-001 and `00_PROGRAM/06`; observing it working elsewhere is corroboration and changes no rule here.",
+      "not_taken": "The orchestration runtime and the assumption that two workers are sufficient independence. AETHRION's independence is a five-dimension profile, and `R3` remains `BLOCKED` rather than waived.",
+      "characterization_suite": null,
+      "version_policy": null,
+      "failure_semantics": null,
+      "selection": null,
+      "conformance": null,
+      "research_baseline": "0720f5380ce8a6c050afac159f8462c06cd51ab5",
+      "drift_status": "NOT_PINNED",
+      "notes": "Worth recording precisely because it is *not* new: the value of a pattern entry is that a later reader can see the idea was arrived at twice, independently, rather than assumed."
+    },
+    {
+      "id": "ASM-062",
+      "name": "Buzz Persona Pack — packaged actor configuration",
+      "kind": "MECHANISM",
+      "repository": "https://github.com/block/buzz",
+      "paper": null,
+      "reference": null,
+      "licence": "UNVERIFIED — reported Apache-2.0 at the architecture delta's review of 0720f5380ce8a6c050afac159f8462c06cd51ab5; not read at the source from this session, which has no network access",
+      "licence_verified": null,
+      "assimilation": "PATTERN",
+      "status": "PROPOSED",
+      "pinned_commit": null,
+      "source_files": [],
+      "mechanisms": [],
+      "mechanism_spec": null,
+      "local_modules": [],
+      "work_packages": [
+        "WP-047"
+      ],
+      "authority_boundary": "A persona configures a backend actor. It is not a `RoleContract` and carries no scientific semantics: one AETHRION cognitive function may project to different personas on different runtimes while the role semantics stay fixed, and persona prompt metadata is never authoritative by itself.",
+      "not_taken": "Persona text as the definition of a role, and Persona Packs as a second home for skills that would fork the vendored tree.",
+      "characterization_suite": null,
+      "version_policy": null,
+      "failure_semantics": null,
+      "selection": null,
+      "conformance": null,
+      "research_baseline": "0720f5380ce8a6c050afac159f8462c06cd51ab5",
+      "drift_status": "NOT_PINNED",
+      "notes": "Useful packaging, and the conflation it invites — persona equals role — is the specific error ADR-020 names."
+    },
+    {
+      "id": "ASM-063",
+      "name": "Buzz — signed collaboration event and audit export",
+      "kind": "MECHANISM",
+      "repository": "https://github.com/block/buzz",
+      "paper": null,
+      "reference": null,
+      "licence": "UNVERIFIED — reported Apache-2.0 at the architecture delta's review of 0720f5380ce8a6c050afac159f8462c06cd51ab5; not read at the source from this session, which has no network access",
+      "licence_verified": null,
+      "assimilation": "PATTERN",
+      "status": "PROPOSED",
+      "pinned_commit": null,
+      "source_files": [],
+      "mechanisms": [],
+      "mechanism_spec": null,
+      "local_modules": [],
+      "work_packages": [
+        "WP-099",
+        "WP-148"
+      ],
+      "authority_boundary": "A signed collaboration event attributes an operational act to an operational identity. It does not prove that identity held an AETHRION governance role at the time, and it is not admissible as evidence for a claim. Attribution and authority are different questions.",
+      "not_taken": "The event store as the audit ledger — that is WP-099's WORM ledger — and cryptographic identity as `RoleBinding`.",
+      "characterization_suite": null,
+      "version_policy": null,
+      "failure_semantics": null,
+      "selection": null,
+      "conformance": null,
+      "research_baseline": "0720f5380ce8a6c050afac159f8462c06cd51ab5",
+      "drift_status": "NOT_PINNED",
+      "notes": "The provenance surface is genuinely good, which is why the boundary has to be stated: a well-signed record of the wrong kind of fact is more persuasive than an unsigned one, not less."
+    },
+    {
+      "id": "ASM-064",
+      "name": "NIP-OA — agent identity and delegation extensions",
+      "kind": "STANDARD",
+      "repository": "https://github.com/block/buzz",
+      "paper": null,
+      "reference": null,
+      "licence": "UNVERIFIED — reported Apache-2.0 at the architecture delta's review of 0720f5380ce8a6c050afac159f8462c06cd51ab5; not read at the source from this session, which has no network access",
+      "licence_verified": null,
+      "assimilation": "DEFER",
+      "status": "PROPOSED",
+      "pinned_commit": null,
+      "source_files": [],
+      "mechanisms": [],
+      "mechanism_spec": null,
+      "local_modules": [],
+      "work_packages": [
+        "WP-055"
+      ],
+      "authority_boundary": "Not adopted, so it decides nothing. Recorded so the question is not re-opened from scratch.",
+      "not_taken": "Everything, for now. A draft protocol must not become a hard scientific requirement before a dedicated review.",
+      "characterization_suite": null,
+      "version_policy": null,
+      "failure_semantics": null,
+      "selection": null,
+      "conformance": null,
+      "research_baseline": "0720f5380ce8a6c050afac159f8462c06cd51ab5",
+      "drift_status": "NOT_PINNED",
+      "notes": "Promising for attribution and delegation; deferred because binding AETHRION's identity model to a moving draft is the kind of coupling ADR-004 exists to prevent. Revisit when the protocol stabilises or when WP-055 needs delegation semantics it cannot express."
+    },
+    {
+      "id": "ASM-065",
+      "name": "Buzz — workflow approval action as a human decision",
+      "kind": "MECHANISM",
+      "repository": "https://github.com/block/buzz",
+      "paper": null,
+      "reference": null,
+      "licence": "UNVERIFIED — reported Apache-2.0 at the architecture delta's review of 0720f5380ce8a6c050afac159f8462c06cd51ab5; not read at the source from this session, which has no network access",
+      "licence_verified": null,
+      "assimilation": "DEFER",
+      "status": "PROPOSED",
+      "pinned_commit": null,
+      "source_files": [],
+      "mechanisms": [],
+      "mechanism_spec": null,
+      "local_modules": [],
+      "work_packages": [
+        "WP-093",
+        "WP-135"
+      ],
+      "authority_boundary": "Not adopted for authority. A backend approval may become an interaction surface that presents a decision and collects a human action; the canonical decision is still written through the Decision Service as a signed `DecisionRecord` with its preliminary-assessment rules and assurance context. **A Buzz approval cannot move G8 or G9.**",
+      "not_taken": "The approval action as the decision itself. At the reviewed baseline its implementation is not sufficient for scientific authority, and adopting it as UX while implying it is authority is exactly how a gate quietly stops being one.",
+      "characterization_suite": null,
+      "version_policy": null,
+      "failure_semantics": null,
+      "selection": null,
+      "conformance": null,
+      "research_baseline": "0720f5380ce8a6c050afac159f8462c06cd51ab5",
+      "drift_status": "NOT_PINNED",
+      "notes": "Deferred rather than rejected: the UX is worth having later, under WP-093's queue and WP-135's signed deep links."
+    },
+    {
+      "id": "ASM-066",
+      "name": "obra/superpowers — the eleven vendored engineering skills",
+      "kind": "SYSTEM",
+      "repository": "https://github.com/obra/superpowers",
+      "paper": null,
+      "reference": null,
+      "licence": "MIT",
+      "licence_verified": "2026-08-22",
+      "assimilation": "VENDORED",
+      "status": "ACCEPTED",
+      "pinned_commit": "b36e0829c6d0140e93cfef2ca599b1b07d4a7797",
+      "source_files": [
+        "skills/brainstorming",
+        "skills/dispatching-parallel-agents",
+        "skills/executing-plans",
+        "skills/finishing-a-development-branch",
+        "skills/receiving-code-review",
+        "skills/requesting-code-review",
+        "skills/subagent-driven-development",
+        "skills/systematic-debugging",
+        "skills/test-driven-development",
+        "skills/using-git-worktrees",
+        "skills/writing-plans"
+      ],
+      "mechanisms": [],
+      "mechanism_spec": null,
+      "local_modules": [
+        "skills/_vendor/LICENSE-superpowers.txt"
+      ],
+      "work_packages": [
+        "WP-047",
+        "WP-154"
+      ],
+      "authority_boundary": "An engineering discipline says how software work is conducted. It says nothing about whether a scientific claim is supported, and it never substitutes for the scientific procedure — `ADR-012` keeps the two families apart, and the pre-registration discipline is the scientific analogue of test-driven development rather than the same rule reused.",
+      "not_taken": "Any edit to the vendored content. Changes belong upstream or in a native skill recording `airl.derived_from`; a local fix would silently fork a file that claims to be byte-identical to a named commit.",
+      "characterization_suite": null,
+      "version_policy": null,
+      "failure_semantics": null,
+      "selection": null,
+      "conformance": null,
+      "research_baseline": null,
+      "drift_status": "PINNED",
+      "notes": "Registered because it was the largest thing in this repository taken from someone else and the only one recorded solely in NOTICE — which is the same defect class the acquisition-binding baseline closed for everything else. Verbatim integrity against the pinned tree cannot be proven from a session with no network; `characterization_suite` stays null until it can be."
     }
   ]
 }

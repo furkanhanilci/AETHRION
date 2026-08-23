@@ -49,6 +49,12 @@
 <rect x="440.0" y="530.0" width="320.0" height="72.0" rx="4" fill="#e0eef6" stroke="#0072B2" stroke-width="2.4"/>
 <text x="600.0" y="560.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="20" font-weight="700" font-style="normal" fill="#0072B2" text-anchor="middle">ContextProjectionRecord</text>
 <text x="600.0" y="584.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">what was shown, and what was masked</text>
+<rect x="24.0" y="526.0" width="390.0" height="80.0" rx="4" fill="#fcf5f0" stroke="#D55E00" stroke-width="1.6" stroke-dasharray="6 4"/>
+<text x="38.0" y="550.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="17" font-weight="700" font-style="normal" fill="#D55E00" text-anchor="start">not an input: channel history</text>
+<text x="38.0" y="572.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#1A1A1A" text-anchor="start">A room transcript is one line of code away and</text>
+<text x="38.0" y="592.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#1A1A1A" text-anchor="start">would negate round zero and the budget at once.</text>
+<path d="M 418.0 562 L 434.0 562" fill="none" stroke="#D55E00" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="5 4"/>
+<path d="M 414.0 552 L 428.0 572 M 414.0 572 L 428.0 552" fill="none" stroke="#D55E00" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
 <text x="24.0" y="638.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="21" font-weight="700" font-style="normal" fill="#1A1A1A" text-anchor="start">3 · A mask is not a delete</text>
 <rect x="24.0" y="664.0" width="277.5" height="92.0" rx="4" fill="#faeade" stroke="#D55E00" stroke-width="1.6"/>
 <text x="162.8" y="692.8" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="18" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="middle">refuted</text>

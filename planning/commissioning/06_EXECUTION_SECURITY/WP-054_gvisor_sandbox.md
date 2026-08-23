@@ -275,7 +275,7 @@ A package whose evidence cannot be produced is not `READY`, however complete its
 
 | Source | Mode | What is taken | AETHRION owns | Unresolved |
 |---|---|---|---|---|
-| `ASM-011` — CORAL — isolated candidate worktrees and private grader zone | `PATTERN` | the running implementation | the contract this is held behind | none |
+| `ASM-011` — CORAL — isolated candidate worktrees and private grader zone | `PATTERN` | the idea only — no code and nothing called at runtime | everything — the implementation here is this repository's own | none |
 | `CMP-013` — gVisor | `OPTIONAL_BACKEND` | Syscall interception and kernel-level isolation. | The `ExecutionBackend` interface and the risk-profile → backend routing. | **1** |
 | `CMP-014` — E2B | `OPTIONAL_BACKEND` | Hosted sandbox provisioning and lifecycle. | The `ExecutionBackend` interface, as for gVisor. | **1** |
 | — | `BUILD_NATIVE` | Everything not listed above: the contracts, the authority boundaries and the integration this package specifies | All of it | — |

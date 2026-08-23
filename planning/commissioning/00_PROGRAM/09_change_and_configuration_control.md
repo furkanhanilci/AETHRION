@@ -171,9 +171,10 @@ An idea that *adds* to it belongs in
 seal on purpose: a V2 candidate inside the V1 baseline would move the finish line
 while appearing to be part of it.
 
-**The current baseline is v1.3.2.** It is the second consecutive baseline that
-is a **repair rather than an addition**, and it is worth being precise about
-what that means. It adds no package, no scenario and no scientific capability.
+**The current baseline is v1.3.3.** It is the third consecutive baseline that
+is a **repair or refinement rather than an addition**, and it is worth being
+precise about what that means. It adds no package, no scenario and no scientific
+capability.
 It makes the v1.3.0 architecture *executable*, which it was not:
 
 - two packages required before go-live depended on Day-2 packages that only

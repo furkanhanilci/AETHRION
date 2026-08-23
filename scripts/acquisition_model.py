@@ -53,8 +53,8 @@ PLAN = ROOT / "planning" / "commissioning"
 # somewhere else and this one records that nothing did.
 MODES = (
     "DEPENDENCY", "ADAPTER", "OPTIONAL_BACKEND", "STANDARD", "BENCHMARK",
-    "PATTERN", "DIRECT_ADAPT", "ADAPTIVE_REIMPLEMENT", "DEFER", "REJECT",
-    "BUILD_NATIVE",
+    "PATTERN", "VENDORED", "DIRECT_ADAPT", "ADAPTIVE_REIMPLEMENT", "DEFER",
+    "REJECT", "BUILD_NATIVE",
 )
 
 # What each mode requires before an implementer may write code under it, and the
@@ -103,6 +103,14 @@ OBLIGATIONS: dict[str, tuple[tuple[str, str], ...]] = {
     ),
     "BENCHMARK": (),
     "PATTERN": (),
+    # Verbatim inclusion moves a licence without refactoring anything, so the
+    # obligations are provenance rather than behaviour: the tree must be
+    # attributable, pinned and demonstrably unmodified.
+    "VENDORED": (
+        ("licence_read", "a licence read at the source and reproduced in full"),
+        ("pinned_commit", "a pinned upstream commit — a branch name is not a pin"),
+        ("source_files", "the exact list of vendored paths"),
+    ),
     "DEFER": (),
     "REJECT": (),
     "BUILD_NATIVE": (),
@@ -170,7 +178,7 @@ def _unresolved(entry: dict, mode: str) -> list[str]:
 
 def _taken(entry: dict, mode: str) -> str:
     """What actually crosses over, in the register's own terms."""
-    if mode in {"DIRECT_ADAPT"}:
+    if mode in {"DIRECT_ADAPT", "VENDORED"}:
         files = entry.get("source_files") or []
         if files:
             return " · ".join(f"`{f}`" for f in files)
@@ -180,6 +188,15 @@ def _taken(entry: dict, mode: str) -> str:
         return " · ".join(f"`{m}`" for m in mechs) if mechs else "mechanisms not yet identified"
     if mode == "BENCHMARK":
         return "a measurement of this system — nothing enters it"
+    if mode == "PATTERN":
+        # A pattern moves an idea. Falling through to the runtime-component
+        # wording below made these rows read "the running implementation",
+        # which is the one thing a pattern explicitly does not take.
+        return "the idea only — no code and nothing called at runtime"
+    if mode == "VENDORED":
+        files = entry.get("source_files") or []
+        return (f"{len(files)} paths, verbatim and never edited here"
+                if files else "verbatim source — **paths not yet listed**")
     if mode in {"DEFER", "REJECT"}:
         return "nothing — recorded so it is not re-examined from scratch"
     owned = entry.get("not_owned")
@@ -190,6 +207,8 @@ def _owned(entry: dict, mode: str) -> str:
     """What stays AETHRION's when the source is taken, replaced or dropped."""
     if entry.get("owned_contract"):
         return entry["owned_contract"]
+    if mode in {"PATTERN", "DEFER", "REJECT"}:
+        return "everything — the implementation here is this repository's own"
     if mode in {"DIRECT_ADAPT", "ADAPTIVE_REIMPLEMENT"}:
         modules = entry.get("local_modules") or []
         if modules:

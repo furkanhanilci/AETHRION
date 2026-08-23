@@ -168,6 +168,11 @@ Case 7 is the one that keeps the detector alive. A drift check that fires on
 every refactor gets dismissed by habit within a month, and a control everyone
 has learned to ignore is worse than no control — it provides the appearance of
 one.
+| 15 | **E2** | **`DONE` is not done.** Have an implementer actor post a completion message and its runtime exit successfully | Package state unchanged. Neither a backend message nor a runtime exit is `TECH_COMPLETE`, and neither is `ACCEPTED` | Progress ledger before/after |
+| 16 | **E1** | **Reviewer separation.** Attempt to run reviewer and implementer in one worktree or one context | Refused at compilation; producer and verifier separation is structural rather than procedural | Refusal record |
+| 17 | **E1** | **Attribution survives projection.** Materialise an engineering bundle containing a vendored skill | The projected skill retains its upstream repository, licence and pinned commit | Workspace listing |
+| 18 | **E2** | **Target containment.** Have an engineering actor attempt to write outside its worktree under a target-only profile | Denied. A bootstrap profile is scoped, and the scope is enforced rather than described | Denial record |
+
 
 ## How to execute
 

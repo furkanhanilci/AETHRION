@@ -327,6 +327,58 @@ Summary:
 > run in pinned containers. Until it is, "this project uses Quarto" states an
 > intention, not a measurement.
 
+## 9.3 Collaboration substrate and agent runtime
+
+`ADR-020`. Most of what the collaboration plane needs is not scientific —
+identities, rooms, message transport, presence, runtime attachment, a workspace a
+human can watch. Building it here would consume most of WP-148's budget and
+differentiate nothing, so it is adopted; and because it is adopted, every row
+below carries the contract that stays AETHRION's when the row is replaced.
+
+| Capability | Decision | AETHRION-owned contract |
+|---|---|---|
+| collaboration rooms, teams, identities, transport | **OPTIONAL_BACKEND** — Buzz first | `CollaborationBackend` |
+| runtime interoperability | **DEPENDENCY** — `buzz-acp` | `AgentRuntime` |
+| preferred general runtime | **OPTIONAL_BACKEND** — Hermes | `AgentRuntimeProfile` |
+| alternative runtimes | **OPTIONAL_BACKEND** — Codex · Claude Code · Buzz Agent | `AgentRuntimeProfile` |
+| workspace skill discovery | **OPTIONAL_BACKEND** — Buzz Agent | Skill Compiler bundle |
+| frozen roster manifest | **PATTERN** — `ASM-060` | `AgentCohortRecord` + budget envelope |
+| implementer ≠ verifier | **PATTERN** — `ASM-061` | already an AETHRION invariant |
+| packaged actor configuration | **PATTERN** — `ASM-062` | `RoleContract`, which a persona is not |
+| signed collaboration events | **PATTERN** — `ASM-063` | WP-099's WORM audit ledger |
+| identity delegation protocol | **DEFER** — `ASM-064` | — |
+| approval as human decision | **DEFER** — `ASM-065` | `DecisionRecord`, and only that |
+| engineering discipline | **VENDORED** — `ASM-066`, eleven skills, MIT, pinned | the skill and discipline contracts |
+| scientific communication policy | **native** | `CommunicationGraph` · governor |
+| lifecycle authority | **native**, Temporal as backend | gate and process contracts |
+| canonical evidence | **native** | `ClaimVersion` · `EvidenceSpan` · `VerifiedValue` |
+
+**What is deliberately not taken, and it is the longer list.** Relay state as
+canonical scientific truth; channel history as the claim or evidence store;
+workflow state as G0–G10 authority; approvals as G8 or G9 authority;
+shared-channel visibility as the scientific default; operational identity as a
+`RoleBinding`; direct shell access as a permanent bypass around the Tool Broker;
+and the backend as a replacement for NATS JetStream on the system-wide event bus.
+Buzz Relay transports collaboration; NATS carries post-commit events. The two
+overlap and are not the same responsibility.
+
+**A prototype is pinned or it is not used.** Buzz was prototype-grade and moving
+at review, so a floating `main` is not an acceptable dependency: a version or
+container digest is qualified, characterisation is rerun on upgrade, and an
+upgrade that changes room visibility defaults fails characterisation even with an
+unchanged API — WP-159.
+
+> **The licence has not been read from here.** It is reported as Apache-2.0 at
+> the review baseline, and this repository has no network access, so
+> `check_upstream_lineage.py` R7 refuses a direct adaptation under an unverified
+> licence. `ASM-060` is therefore registered as a `PATTERN` — the mode that moves
+> no files — rather than the `DIRECT_ADAPT` originally proposed. That refusal is
+> the correct outcome, and re-classification is a deliberate act requiring a
+> licence read, a production pin, an exact file list and a characterisation suite
+> written first.
+
+---
+
 ## 9.2 Mechanisms assimilated rather than called
 
 The sections above answer *which running implementation does this control stand
@@ -381,10 +433,10 @@ derives is a count nobody maintains, so it is derived.
 
 | Register | Entries | By type |
 |---|---:|---|
-| `provenance/upstreams.json` — mechanisms assimilated | **59** | ADAPTIVE_REIMPLEMENT 22 · BENCHMARK 10 · DEFER 5 · DEPENDENCY 3 · DIRECT_ADAPT 7 · PATTERN 8 · REJECT 1 · STANDARD 3 |
-| `provenance/components.json` — components adopted | **44** | ADAPTER 6 · DEPENDENCY 24 · OPTIONAL_BACKEND 7 · PATTERN 2 · STANDARD 5 |
+| `provenance/upstreams.json` — mechanisms assimilated | **66** | ADAPTIVE_REIMPLEMENT 22 · BENCHMARK 10 · DEFER 7 · DEPENDENCY 3 · DIRECT_ADAPT 7 · PATTERN 12 · REJECT 1 · STANDARD 3 · VENDORED 1 |
+| `provenance/components.json` — components adopted | **51** | ADAPTER 6 · DEPENDENCY 25 · OPTIONAL_BACKEND 13 · PATTERN 2 · STANDARD 5 |
 
-Together they are bound to **84 of 160** work packages and carry **117** open obligations.
+Together they are bound to **87 of 160** work packages and carry **125** open obligations.
 
 **0 entries have reached `ADAPTING`**, and **2 components are `INTEGRATED`** — the Zotero and Obsidian adapters, which are the part of this system that actually runs. Every other row is a decision on paper: `pinned_commit` is `null` throughout, no `MS-*` mechanism specification has been written, and the rules that demand a pin, a file list and a characterisation suite begin to bite at the moment the first line of code moves.
 

@@ -217,6 +217,23 @@ skills/
     LICENSE-superpowers.txt
 ```
 
+## How a skill reaches an actor
+
+The tree here is canonical. A runtime that discovers `SKILL.md` from a workspace
+directory receives a **compiled bundle** — a small task-specific set materialised
+into that actor's worktree — never all 52. Exposing everything creates
+conflicting instructions, unbounded context and no record of what an actor was
+operating under.
+
+The vendored eleven are byte-identical to `obra/superpowers` at a pinned commit
+and are registered as `ASM-066` in `provenance/upstreams.json` under the
+`VENDORED` mode: attribution, a pin, an exact file list and a licence reproduced
+in full. **A projection into a workspace preserves that attribution.** A backend
+persona pack that copies them into a second, untracked source of truth has forked
+them, which is a provenance failure rather than an inconvenience — `ADR-020` §7.
+
+A persona is not a `RoleContract`, and a skill bundle is not a role.
+
 ## The five iron laws
 
 Whatever work you are doing, these hold:

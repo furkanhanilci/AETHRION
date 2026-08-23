@@ -250,6 +250,7 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `Core role bundles` | `WP-047` | `python3 scripts/progress.py show WP-047` |
 | `Bundle conformance tests` | `WP-047` | `python3 scripts/progress.py show WP-047` |
 | `Cohort, topology, projection and assurance-route compilation` | `WP-047` | `python3 scripts/progress.py show WP-047` |
+| `CollaborationDeploymentPlan` | `WP-047` | `python3 scripts/progress.py show WP-047` |
 | `Content firewall` | `WP-058` | `python3 scripts/progress.py show WP-058` |
 | `Parser workers` | `WP-058` | `python3 scripts/progress.py show WP-058` |
 | `ContentSafetyRecord` | `WP-058` | `python3 scripts/progress.py show WP-058` |

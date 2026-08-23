@@ -275,7 +275,7 @@ A package whose evidence cannot be produced is not `READY`, however complete its
 
 | Source | Mode | What is taken | AETHRION owns | Unresolved |
 |---|---|---|---|---|
-| `ASM-050` — Hosted-model nondeterminism under deterministic settings | `PATTERN` | the running implementation | the contract this is held behind | none |
+| `ASM-050` — Hosted-model nondeterminism under deterministic settings | `PATTERN` | the idea only — no code and nothing called at runtime | everything — the implementation here is this repository's own | none |
 | — | `BUILD_NATIVE` | Everything not listed above: the contracts, the authority boundaries and the integration this package specifies | All of it | — |
 
 ### What each source may never decide

@@ -348,7 +348,8 @@ A package whose evidence cannot be produced is not `READY`, however complete its
 | Source | Mode | What is taken | AETHRION owns | Unresolved |
 |---|---|---|---|---|
 | `ASM-021` — AutoResearchClaw — human-in-the-loop action vocabulary and attention prioritisation | `ADAPTIVE_REIMPLEMENT` | `MS-HITL-001` · `MS-HITL-002` | the local module and contract surface this becomes — **named at refinement** | **1** |
-| `ASM-051` — Automation bias and correction effort in human oversight | `PATTERN` | the running implementation | the contract this is held behind | none |
+| `ASM-051` — Automation bias and correction effort in human oversight | `PATTERN` | the idea only — no code and nothing called at runtime | everything — the implementation here is this repository's own | none |
+| `ASM-065` — Buzz — workflow approval action as a human decision | `DEFER` | nothing — recorded so it is not re-examined from scratch | everything — the implementation here is this repository's own | none |
 | — | `BUILD_NATIVE` | Everything not listed above: the contracts, the authority boundaries and the integration this package specifies | All of it | — |
 
 ### What each source may never decide
@@ -359,11 +360,13 @@ An adopted mechanism supplies a signal, never a verdict. The recurring failure o
 |---|---|---|
 | `ASM-021` | A HumanAttentionScore orders a queue. It carries no authority: a mandatory human gate with the lowest score in the queue still blocks. | auto_proceed_on_timeout. Upstream it is a configurable boolean defaulting to false. In AETHRION the capability itself is absent at G8 and at every mandatory human gate, because a setting that can be turned on is a control that will be turned on. |
 | `ASM-051` | A debiasing measure changes the order and cost of an interaction. It confers no authority and removes none — the human decision remains the human's. | Any claim that ordering eliminates automation bias. It reduces anchoring; it cannot manufacture attention. |
+| `ASM-065` | Not adopted for authority. A backend approval may become an interaction surface that presents a decision and collects a human action; the canonical decision is still written through the Decision Service as a signed `DecisionRecord` with its preliminary-assessment rules and assurance context. **A Buzz approval cannot move G8 or G9.** | The approval action as the decision itself. At the reviewed baseline its implementation is not sufficient for scientific authority, and adopting it as UX while implying it is authority is exactly how a gate quietly stops being one. |
 
 ### Where a plain row would mislead
 
 - **`ASM-021`** — This is the clearest case in the register of an upstream option being deliberately narrowed rather than copied. The action vocabulary is taken; the escape hatch is not.
 - **`ASM-051`** — Two findings drive ADR-016. When correction takes more effort, people correct fewer AI errors — which is why friction symmetry between approve and reject is a tested property (ACC-112). And access to AI advice sharply reduces willingness to say 'I don't know', with wrong advice able to raise confidence while lowering accuracy — which is why `INSUFFICIENT_BASIS` exists as a one-action terminal decision (ACC-111).
+- **`ASM-065`** — Deferred rather than rejected: the UX is worth having later, under WP-093's queue and WP-135's signed deep links.
 
 ### Unresolved before implementation
 
@@ -373,7 +376,7 @@ Each item below is an obligation its mode creates, quoted from the rule that cre
 
 - a written mechanism specification — inputs, outputs, state, transitions, invariants, failure conditions and forbidden behaviour — before implementation
 
-**Acquisition readiness — 1 obligation open across 1 of 2 sources.** `00_PROGRAM/05_definition_of_ready_and_done.md` requires the acquisition surface of a package to be classified and its obligations resolved before the package is `READY`; `scripts/ready_queue.py` holds it back until they are.
+**Acquisition readiness — 1 obligation open across 1 of 3 sources.** `00_PROGRAM/05_definition_of_ready_and_done.md` requires the acquisition surface of a package to be classified and its obligations resolved before the package is `READY`; `scripts/ready_queue.py` holds it back until they are.
 
 <!-- /generated:implementation-sources -->
 

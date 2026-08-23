@@ -80,6 +80,12 @@ Each criterion names the test case in [`WP-148_multi_agent_collaboration_plane.t
 - [ ] An accepted limitation is visible in the downstream finding rather than
       absorbed into the synthesis.
 - [ ] The cohort digest is deterministic for identical compiled inputs.
+- [ ] The `CollaborationBackend` contract carries no term from any backend product, and the domain model carries none either.
+- [ ] Destroying all backend collaboration state loses no canonical scientific record — demonstrated, not asserted.
+- [ ] Backend identity count is not an input to `CognitiveDiversityProfile`, and five identities on one model profile do not satisfy independence.
+- [ ] A backend actor cannot move a gate, create a `ClaimVersion` or bind a `RoleBinding`.
+- [ ] A backend that cannot enforce the required round-zero isolation **fails qualification** rather than running with the topology relaxed.
+- [ ] All fifteen characterisation behaviours are recorded against a pinned backend version, and the pin is the one that was characterised.
 
 ## What this package cannot establish
 

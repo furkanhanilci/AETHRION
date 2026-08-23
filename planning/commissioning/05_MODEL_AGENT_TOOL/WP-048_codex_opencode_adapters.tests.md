@@ -105,25 +105,26 @@ ISO/IEC/IEEE 29119-3 §8.3.2. A coverage item is something the tests must reach.
 | C03 | `OpenCode adapter` | Mandatory deliverable | *(name the test case)* |
 | C04 | `Direct worker adapter` | Mandatory deliverable | *(name the test case)* |
 | C05 | `Conformance report` | Mandatory deliverable | *(name the test case)* |
-| C06 | Write the adapter interface and its lifecycle | WP-048-T01 | *(name the test case)* |
-| C07 | Implement the Codex non-interactive task adapter | WP-048-T02 | *(name the test case)* |
-| C08 | Implement the OpenCode headless/server adapter | WP-048-T03 | *(name the test case)* |
-| C09 | Implement the direct/local queue worker adapter | WP-048-T04 | *(name the test case)* |
-| C10 | Bind worktree, sandbox and tool credentials | WP-048-T05 | *(name the test case)* |
-| C11 | Add structured results, tracing, cancellation and failure normalisation | WP-048-T06 | *(name the test case)* |
-| C12 | Add the **Claude Code** and **Hermes Agent** adapters alongside Codex, OpenCode and the direct worker | WP-048-T20 | *(name the test case)* |
-| C13 | Implement **skill discovery and loading** per harness, at the location each expects | WP-048-T21 | *(name the test case)* |
-| C14 | Implement **automatic session bootstrap**: the router skill is present on the first turn without being asked for | WP-048-T22 | *(name the test case)* |
-| C15 | Map **tools** per harness and reconcile names with the `ToolBundle` | WP-048-T23 | *(name the test case)* |
-| C16 | Implement **compaction and restart recovery** so the loaded procedure is not silently lost | WP-048-T24 | *(name the test case)* |
-| C17 | Return a **structured result** and an audit trace, including cancellation | WP-048-T25 | *(name the test case)* |
-| C18 | Run the **harness acceptance suite** — the same task, the same expected skill set, every harness | WP-048-T26 | *(name the test case)* |
-| C19 | Task Runs With No Skill Loaded | [ACC-46](../12_ACCEPTANCE_SCENARIOS/ACC-46_skill_not_loaded.md) — Critical | *(name the test case)* |
-| C20 | Harness Starts Without the Skill Bootstrap | [ACC-47](../12_ACCEPTANCE_SCENARIOS/ACC-47_skill_bootstrap_missing.md) — Critical | *(name the test case)* |
-| C21 | Non-Waivable Skill Ignored Under Pressure | [ACC-49](../12_ACCEPTANCE_SCENARIOS/ACC-49_skill_ignored_under_pressure.md) — Critical | *(name the test case)* |
-| C22 | Procedure Lost to Context Compaction or Restart | [ACC-50](../12_ACCEPTANCE_SCENARIOS/ACC-50_skill_lost_on_compaction.md) — High | *(name the test case)* |
+| C06 | `AgentRuntimeProfile` | Mandatory deliverable | *(name the test case)* |
+| C07 | Write the adapter interface and its lifecycle | WP-048-T01 | *(name the test case)* |
+| C08 | Implement the Codex non-interactive task adapter | WP-048-T02 | *(name the test case)* |
+| C09 | Implement the OpenCode headless/server adapter | WP-048-T03 | *(name the test case)* |
+| C10 | Implement the direct/local queue worker adapter | WP-048-T04 | *(name the test case)* |
+| C11 | Bind worktree, sandbox and tool credentials | WP-048-T05 | *(name the test case)* |
+| C12 | Add structured results, tracing, cancellation and failure normalisation | WP-048-T06 | *(name the test case)* |
+| C13 | Add the **Claude Code** and **Hermes Agent** adapters alongside Codex, OpenCode and the direct worker | WP-048-T20 | *(name the test case)* |
+| C14 | Implement **skill discovery and loading** per harness, at the location each expects | WP-048-T21 | *(name the test case)* |
+| C15 | Implement **automatic session bootstrap**: the router skill is present on the first turn without being asked for | WP-048-T22 | *(name the test case)* |
+| C16 | Map **tools** per harness and reconcile names with the `ToolBundle` | WP-048-T23 | *(name the test case)* |
+| C17 | Implement **compaction and restart recovery** so the loaded procedure is not silently lost | WP-048-T24 | *(name the test case)* |
+| C18 | Return a **structured result** and an audit trace, including cancellation | WP-048-T25 | *(name the test case)* |
+| C19 | Run the **harness acceptance suite** — the same task, the same expected skill set, every harness | WP-048-T26 | *(name the test case)* |
+| C20 | Task Runs With No Skill Loaded | [ACC-46](../12_ACCEPTANCE_SCENARIOS/ACC-46_skill_not_loaded.md) — Critical | *(name the test case)* |
+| C21 | Harness Starts Without the Skill Bootstrap | [ACC-47](../12_ACCEPTANCE_SCENARIOS/ACC-47_skill_bootstrap_missing.md) — Critical | *(name the test case)* |
+| C22 | Non-Waivable Skill Ignored Under Pressure | [ACC-49](../12_ACCEPTANCE_SCENARIOS/ACC-49_skill_ignored_under_pressure.md) — Critical | *(name the test case)* |
+| C23 | Procedure Lost to Context Compaction or Restart | [ACC-50](../12_ACCEPTANCE_SCENARIOS/ACC-50_skill_lost_on_compaction.md) — High | *(name the test case)* |
 
-**22 coverage items.** Every one must appear in the *Covered by* column of at least one test case below before this package can reach `TECH_COMPLETE`.
+**23 coverage items.** Every one must appear in the *Covered by* column of at least one test case below before this package can reach `TECH_COMPLETE`.
 
 <!-- /generated:coverage -->
 

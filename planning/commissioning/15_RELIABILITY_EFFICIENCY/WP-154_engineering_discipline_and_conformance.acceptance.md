@@ -51,6 +51,10 @@ Each criterion names the test case in [`WP-154_engineering_discipline_and_confor
       escalates — never `NONE`.
 - [ ] Conformance records bind to a code digest and supersede rather than
       overwrite.
+- [ ] No backend message, ACP status or runtime exit code can move a package to `TECH_COMPLETE` or `ACCEPTED`.
+- [ ] The reviewer and the verifier do not share a worktree or a context with the implementer.
+- [ ] A projected skill bundle retains upstream attribution and pinned commit; no workspace becomes a second source of truth for a vendored skill.
+- [ ] A bootstrap execution profile is recorded with its scope, its credential limit and the package that retires it.
 
 ## What this package cannot establish
 

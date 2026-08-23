@@ -83,6 +83,33 @@ ACC-087.
 The failure this guards against is the ordinary one: a change that improves the
 number being watched and degrades the one that is not.
 
+
+### The governor decides; the backend delivers
+
+`ADR-020`. `SEND_FULL_STRUCTURED`, `SEND_COMPRESSED`, `SEND_POINTER_ONLY`,
+`DEFER` and `SILENCE` are decided here, against communication value and the
+budget contract. The backend receives an already-decided action and returns
+delivery evidence. **It may not recompute communication value**, and a backend
+retry may not produce a second semantic message id.
+
+The rules that survive unchanged are the ones an efficiency argument reaches for
+first: a blocker or safety message is never silenced, a low-calibration sender is
+degraded rather than erased, and optimisation is measured against the fully
+connected control arm rather than assumed.
+
+### Channel history is not a context projection
+
+This is the single most likely wrong turn in the whole adoption, because a room
+transcript is *right there* and appending it is one line of code. It would
+violate the cost discipline and the independence discipline simultaneously: every
+actor would see every other actor's reasoning, which is round zero's exact
+negation, and the context would grow without bound.
+
+`ContextProjection` is assembled: the role contract, the task contract, the
+canonical state the task needs, admissible evidence, the compiled skill bundle,
+the peer deltas the current round permits, and the memory that survives masking.
+The backend delivers or references that projection. It does not supply context.
+
 ## Out of scope
 
 - The internal implementation of any dependent package
@@ -261,6 +288,7 @@ A package whose evidence cannot be produced is not `READY`, however complete its
 | `ASM-037` — AgentPrune / Cut the Crap — communication redundancy on a spatial-temporal message graph | `ADAPTIVE_REIMPLEMENT` | `MS-COMM-001` · `MS-COMM-002` | the local module and contract surface this becomes — **named at refinement** | **1** |
 | `ASM-038` — S2-MAD — selective sparse participation in multi-agent debate | `ADAPTIVE_REIMPLEMENT` | `MS-COMM-003` | the local module and contract surface this becomes — **named at refinement** | **1** |
 | `ASM-039` — AgentSlimming — baseline-anchored workflow optimisation | `ADAPTIVE_REIMPLEMENT` | `MS-COMM-004` | the local module and contract surface this becomes — **named at refinement** | **1** |
+| `CMP-045` — Buzz — collaboration relay, teams, rooms and agent identities | `OPTIONAL_BACKEND` | Operational collaboration: identity material, team and roster deployment, room and thread creation, message transport and targeted delivery, agent presence, runtime process attachment, and the collaboration activity feed. | The `CollaborationBackend` contract and everything above it: `AgentCohortRecord`, `CognitiveDiversityProfile`, `CommunicationGraph`, `CommunicationEdgePolicy`, `TypedAgentMessage`, `InitialPositionArtifact` and the round-zero embargo. AETHRION compiles *what collaboration must happen*; the backend is told, and reports … | **1** |
 | — | `BUILD_NATIVE` | Everything not listed above: the contracts, the authority boundaries and the integration this package specifies | All of it | — |
 
 ### What each source may never decide
@@ -272,12 +300,14 @@ An adopted mechanism supplies a signal, never a verdict. The recurring failure o
 | `ASM-037` | An edge-utility score decides where a message goes. It is never a claim confidence and never a gate input — the same forbidden conversion ADR-006 fixes for search scores. | The trainable graph mask and its low-rank training procedure, which assume a differentiable pipeline this architecture does not have. And the framing of pruning as a property of the agent set rather than of the edges. |
 | `ASM-038` | Deciding that a viewpoint is redundant suppresses a message. It may never suppress a BLOCKER or a non-waivable safety message, and it may never be read as the viewpoint being wrong. | Keyword-based redundancy judgement. The paper's own limitation is that it misses synonyms and paraphrase, and a semantic detector is a V2 judgement that needs qualification before it can suppress anything. |
 | `ASM-039` | An importance score allocates optimisation effort. It cannot remove a cognitive contribution the multi-agent invariant requires — ADR-011. | **Node pruning and cheap-model substitution.** Upstream these are the point; here they are the one optimisation refused by name. The framework removes workflow nodes and replaces them with cheaper models, which applied to a scientific cohort is exactly the cost lever ADR-011 exists to refuse. |
+| `CMP-045` | A collaboration backend carries messages and holds no scientific authority whatever. A Buzz message is not a `ClaimVersion`, a Buzz room is not the blackboard, a Buzz workflow is not a gate transition, and a Buzz approval is not a `DecisionRecord`. Removing the backend entirely must lose no claim, evidence span, verified value, gate state, protocol freeze, human decision, experiment lineage, … | Relay state as canonical scientific truth · channel history as the Claim/Evidence store · workflow state as G0–G10 lifecycle authority · approvals as G8/G9 authority · free-for-all shared-channel visibility as the scientific default · operational agent identity as a `RoleBinding` · direct shell … |
 
 ### Where a plain row would mislead
 
 - **`ASM-037`** — The paper formalises communication redundancy and reports 28.1-72.8% token reduction across six benchmarks with comparable performance, plus a cost comparison of $5.6 against $43.7. The transplantable idea is that redundancy lives in the *message graph* and can be pruned there. Licence is unconfirmed, so no code may be copied — ADR-004 permits the mechanism to be specified and reimplemented regardless.
 - **`ASM-038`** — Reports up to 94.5% token reduction with under 2% performance degradation by letting agents decline to participate when their viewpoint adds nothing. The number is striking and the limitation is the useful part: efficiency depends on response consistency, and the redundancy judge is keyword-based. AETHRION's version must be semantic and therefore qualified — which is a cost the headline figure does not carry.
 - **`ASM-039`** — MIT-licensed and therefore legally adaptable, and still reimplemented — the taken mechanisms are multi-metric importance estimation, **baseline-anchored acceptance**, quality-regression rollback and Pareto reporting. The reported cost reduction was not confirmed on the repository page and is recorded here as a paper claim rather than an observed figure. This is the clearest entry in the register where a permissive licence does not make copying correct.
+- **`CMP-045`** — Buzz appears in both registers and the two entries are different subjects: this row is the runtime collaboration substrate, while `ASM-060`–`ASM-063` record specific mechanisms taken from the same project. Prototype-grade and moving at review, so a floating `main` is not an acceptable dependency — see WP-159.
 
 ### Unresolved before implementation
 
@@ -295,7 +325,11 @@ Each item below is an obligation its mode creates, quoted from the rule that cre
 
 - a written mechanism specification — inputs, outputs, state, transitions, invariants, failure conditions and forbidden behaviour — before implementation
 
-**Acquisition readiness — 3 obligations open across 3 of 3 sources.** `00_PROGRAM/05_definition_of_ready_and_done.md` requires the acquisition surface of a package to be classified and its obligations resolved before the package is `READY`; `scripts/ready_queue.py` holds it back until they are.
+**`CMP-045` — Buzz — collaboration relay, teams, rooms and agent identities** · `OPTIONAL_BACKEND` · status `PROPOSED`
+
+- the backend itself — still unchosen, which is the correct state until the qualification runs, and a stop condition for anyone about to pick one
+
+**Acquisition readiness — 4 obligations open across 4 of 4 sources.** `00_PROGRAM/05_definition_of_ready_and_done.md` requires the acquisition surface of a package to be classified and its obligations resolved before the package is `READY`; `scripts/ready_queue.py` holds it back until they are.
 
 <!-- /generated:implementation-sources -->
 
@@ -310,6 +344,10 @@ Each item below is an obligation its mode creates, quoted from the rule that cre
 | WP-150-T05 | Implement the quality guard and the topology rollback path | Implementation owner | Commit / configuration / record reference |
 | WP-150-T06 | Emit coordination overhead, redundancy and useful-challenge metrics | Implementation owner | Commit / configuration / record reference |
 
+| WP-150-T08 | Implement the delivery adapter: `CommunicationDecision` → backend action → delivery evidence | Implementation owner | Commit / configuration / record reference |
+| WP-150-T09 | Bind every delivered message to its AETHRION message id and the policy decision that authorised it | Implementation owner | Commit / configuration / record reference |
+| WP-150-T10 | Implement delivery failure handling — timeout, duplicate, reconnect — as classified collaboration events rather than silent omission | Implementation owner | Commit / configuration / record reference |
+
 ## Mandatory deliverables
 
 - `CommunicationValue`
@@ -318,6 +356,9 @@ Each item below is an obligation its mode creates, quoted from the rule that cre
 - `Quality guard and rollback`
 - An updated runbook or operations note, plus the service/contract ownership record
 - A signed `EvidenceManifest`
+
+- Communication delivery adapter
+- Delivery audit binding
 
 ## Test and verification plan
 
@@ -332,6 +373,11 @@ The outline below is the summary. The executable procedure — environment, data
 - Producer/consumer contract compatibility tests on every affected interface
 - Telemetry correlation and audit-record integrity checks
 
+- `SILENCE` must never suppress a blocker or safety message, whatever the budget state
+- A pointer-only decision must not be inlined by the backend
+- A backend retry must not duplicate a semantic message id
+- A quality regression must be able to roll topology back regardless of existing backend rooms
+- A context projection must be reproducible from canonical state alone, with no channel history as an input
 
 ## Acceptance criteria
 

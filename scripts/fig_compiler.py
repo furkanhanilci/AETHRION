@@ -36,8 +36,8 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from figure_kit import (BLUE, GREEN, INK, MUTE, ORANGE, PURPLE, RULE, VERM,
-                        Canvas, tint)
+from figure_kit import (BLUE, GREEN, INK, MUTE, ORANGE, PURPLE, RULE, SKY,
+                        VERM, Canvas, tint)
 
 ROOT = Path(__file__).resolve().parent.parent
 W, L = 1200, 24
@@ -60,11 +60,13 @@ OUTPUTS = [
     ("ContextProjection", "what each actor is shown, and what is masked", PURPLE),
     ("ResearchBudgetContract", "spend, and the reserve exploration cannot reach", ORANGE),
     ("AssuranceRoute", "V0–V3 per claim, chosen before the work starts", GREEN),
+    ("AgentRuntimeProfile", "a qualified runtime per actor — matched after the function is fixed", SKY),
+    ("CollaborationDeploymentPlan", "backend-neutral: identities, rooms, embargo, workspaces", SKY),
 ]
 
 
 def main() -> None:
-    H = 1130
+    H = 1130 + 86
     c = Canvas(W, H)
     tw = W - 2 * L
 
@@ -116,7 +118,8 @@ def main() -> None:
         ox = L + colm * (ow + 12)
         c.cell(ox, oy2 + row * (oh + 12), ow, oh, head, body, accent=col,
                head_size=17, body_size=16, max_head_lines=1, max_body_lines=2)
-    out_bottom = oy2 + 2 * (oh + 12) - 12
+    rows_needed = -(-len(OUTPUTS) // 3)
+    out_bottom = oy2 + rows_needed * (oh + 12) - 12
 
     c.path(f"M {cx + cw_ / 2} {cy + 78 + 2} L {cx + cw_ / 2} {cy + 78 + 20}",
            stroke=RULE, sw=1.6, marker="arrowsm")
