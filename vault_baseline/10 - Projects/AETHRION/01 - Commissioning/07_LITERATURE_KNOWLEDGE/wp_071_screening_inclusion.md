@@ -206,6 +206,7 @@ The transitive figure is the leverage number. It does not appear anywhere else i
 - A named owner, a named implementer, and a verifier **independent of the producer** are assigned.
 - Affected canonical records, interfaces and ADRs have been linked during refinement.
 - `DataClass`, `CodeTrust`, `ToolEffect` and the network/credential scope are classified.
+- The **acquisition surface is classified**: every part of this package is `DEPENDENCY`, `ADAPTER`, `OPTIONAL_BACKEND`, `STANDARD`, `BENCHMARK`, `PATTERN`, `DIRECT_ADAPT`, `ADAPTIVE_REIMPLEMENT` or `BUILD_NATIVE`, and every obligation the mode creates is resolved — see **Implementation acquisition and assimilation** above.
 - Test fixtures, the environment, the rollback point and the acceptance measurement method are reachable.
 - An O/M/P person-day estimate is recorded and real capacity is reserved against it.
 
@@ -276,6 +277,58 @@ A package whose evidence cannot be produced is not `READY`, however complete its
 - The verifier can reach the evidence **without** seeing the producer's working trace.
 
 <!-- /generated:execution-requirements -->
+
+## Implementation acquisition and assimilation
+
+<!-- generated:implementation-sources — produced by scripts/expand_acquisition.py; do not edit inside this block -->
+
+**What is already solved elsewhere, and on what terms.** Before the first task starts, an implementer has to know which parts of this package are called at runtime, which are copied and refactored, which are reimplemented from a specification, and which have no upstream at all. Those decisions are recorded in [`provenance/upstreams.json`](../../../provenance/upstreams.json) — mechanisms assimilated into this repository's own code — and in [`provenance/components.json`](../../../provenance/components.json) — components adopted at runtime. This block is derived from both, so a decision and the place it is used cannot drift apart.
+
+### Acquisition map
+
+| Source | Mode | What is taken | AETHRION owns | Unresolved |
+|---|---|---|---|---|
+| `ASM-018` — OpenScholar — self-feedback retrieval sufficiency loop | `ADAPTIVE_REIMPLEMENT` | `MS-LIT-003` | the local module and contract surface this becomes — **named at refinement** | **1** |
+| `CMP-009` — OpenScholar | `ADAPTER` | Retrieval and self-feedback sufficiency at runtime. | The same adapter contract as PaperQA2, deliberately — so the two remain comparable. | **2** |
+| `CMP-010` — ASReview | `ADAPTER` | Active-learning ranking of candidate records. | The screening decision record, the stopping rule and the coverage claim that follows from it. | **2** |
+| — | `BUILD_NATIVE` | Everything not listed above: the contracts, the authority boundaries and the integration this package specifies | All of it | — |
+
+### What each source may never decide
+
+An adopted mechanism supplies a signal, never a verdict. The recurring failure of adoption is not a component behaving badly but a component quietly acquiring authority, which is why every register entry states this before it is taken.
+
+| Source | May never decide | Deliberately not taken |
+|---|---|---|
+| `ASM-018` | An EvidenceSufficiencyAssessment is advisory and model-mediated. The stopping rule of a confirmatory or systematic campaign is frozen in the SearchProtocol before results are seen and cannot be changed by the loop that reads them. | The peS2o datastore and retriever stack — AETHRION's canonical representation path is GROBID/Pub2TEI into TEI, not a second corpus. |
+| `CMP-009` | Retrieval supplies candidates and never a claim, exactly as for PaperQA2. | Any hard-coded preference between the two retrievers before the bake-off runs. |
+| `CMP-010` | Screening ranks; it never excludes. An exclusion is a recorded human or policy decision with a reason, and a stopping rule reports coverage rather than declaring completeness. | Model-suggested exclusion as an exclusion. |
+
+### Where a plain row would mislead
+
+- **`ASM-018`** — Taken as the second opinion to PaperQA2 behind one adapter contract, so the choice between them is settled by measurement rather than by preference.
+- **`CMP-009`** — Also carries reimplemented mechanisms — `ASM-018`.
+
+### Unresolved before implementation
+
+Each item below is an obligation its mode creates, quoted from the rule that creates it. None can be met from a session with no network access, and none may be assumed satisfied.
+
+**`ASM-018` — OpenScholar — self-feedback retrieval sufficiency loop** · `ADAPTIVE_REIMPLEMENT` · status `PROPOSED`
+
+- a written mechanism specification — inputs, outputs, state, transitions, invariants, failure conditions and forbidden behaviour — before implementation
+
+**`CMP-009` — OpenScholar** · `ADAPTER` · status `PROPOSED`
+
+- a version or image-digest policy and an upgrade path
+- what happens when it is unavailable, slow or wrong
+
+**`CMP-010` — ASReview** · `ADAPTER` · status `PROPOSED`
+
+- a version or image-digest policy and an upgrade path
+- what happens when it is unavailable, slow or wrong
+
+**Acquisition readiness — 5 obligations open across 3 of 3 sources.** `00_PROGRAM/05_definition_of_ready_and_done.md` requires the acquisition surface of a package to be classified and its obligations resolved before the package is `READY`; `scripts/ready_queue.py` holds it back until they are.
+
+<!-- /generated:implementation-sources -->
 
 ## Implementation tasks
 

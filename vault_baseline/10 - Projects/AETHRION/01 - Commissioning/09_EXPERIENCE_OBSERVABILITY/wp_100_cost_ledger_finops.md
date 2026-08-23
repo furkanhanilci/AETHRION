@@ -224,6 +224,7 @@ The transitive figure is the leverage number. It does not appear anywhere else i
 - A named owner, a named implementer, and a verifier **independent of the producer** are assigned.
 - Affected canonical records, interfaces and ADRs have been linked during refinement.
 - `DataClass`, `CodeTrust`, `ToolEffect` and the network/credential scope are classified.
+- The **acquisition surface is classified**: every part of this package is `DEPENDENCY`, `ADAPTER`, `OPTIONAL_BACKEND`, `STANDARD`, `BENCHMARK`, `PATTERN`, `DIRECT_ADAPT`, `ADAPTIVE_REIMPLEMENT` or `BUILD_NATIVE`, and every obligation the mode creates is resolved — see **Implementation acquisition and assimilation** above.
 - Test fixtures, the environment, the rollback point and the acceptance measurement method are reachable.
 - An O/M/P person-day estimate is recorded and real capacity is reserved against it.
 
@@ -333,6 +334,54 @@ A package whose evidence cannot be produced is not `READY`, however complete its
 - The verifier can reach the evidence **without** seeing the producer's working trace.
 
 <!-- /generated:execution-requirements -->
+
+## Implementation acquisition and assimilation
+
+<!-- generated:implementation-sources — produced by scripts/expand_acquisition.py; do not edit inside this block -->
+
+**What is already solved elsewhere, and on what terms.** Before the first task starts, an implementer has to know which parts of this package are called at runtime, which are copied and refactored, which are reimplemented from a specification, and which have no upstream at all. Those decisions are recorded in [`provenance/upstreams.json`](../../../provenance/upstreams.json) — mechanisms assimilated into this repository's own code — and in [`provenance/components.json`](../../../provenance/components.json) — components adopted at runtime. This block is derived from both, so a decision and the place it is used cannot drift apart.
+
+### Acquisition map
+
+| Source | Mode | What is taken | AETHRION owns | Unresolved |
+|---|---|---|---|---|
+| `ASM-002` — Scholar Loop — campaign governor | `DIRECT_ADAPT` | `scholarloop/governor.py` | the local module and contract surface this becomes — **named at refinement** | **3** |
+| `ASM-045` — BATS — budget-aware tool use and test-time scaling | `DIRECT_ADAPT` | `src/agent_budget_tracker.py` · `src/agent_bats.py` | the local module and contract surface this becomes — **named at refinement** | **3** |
+| — | `BUILD_NATIVE` | Everything not listed above: the contracts, the authority boundaries and the integration this package specifies | All of it | — |
+
+### What each source may never decide
+
+An adopted mechanism supplies a signal, never a verdict. The recurring failure of adoption is not a component behaving badly but a component quietly acquiring authority, which is why every register entry states this before it is taken.
+
+| Source | May never decide | Deliberately not taken |
+|---|---|---|
+| `ASM-002` | STOPPED_BY_BUDGET is a termination classification, never an acceptance. The governor may halt a campaign; it may not pass a gate. | The hard-coded model price table — cost data comes from WP-041 and WP-100. The orchestrator and the JSONL ledger. |
+| `ASM-045` | A remaining-budget signal changes what a campaign does next. It can never lower an assurance route, reduce a cohort or skip a non-waivable control — a task that cannot afford its assurance is BLOCKED. | Hard-coded provider pricing — cost data comes from the Model Gateway and the Cost Ledger. And the two-dimensional budget model: this architecture needs nine dimensions including communication, verification, reproduction reserve and human attention. |
+
+### Where a plain row would mislead
+
+- **`ASM-002`** — A small pure state machine with a deterministic MockLLM path upstream, which is what makes characterisation before adaptation cheap.
+- **`ASM-045`** — Makes remaining tool budget part of the agent's continuous context, and uses it to decide between deepening a promising lead and pivoting. Apache-2.0 with two compact, isolable modules, which makes this the strongest direct-adaptation candidate added by this delta. Also carries intermediate summarisation and old-tool-response compression, which belong to the context projection rather than to the budget controller.
+
+### Unresolved before implementation
+
+Each item below is an obligation its mode creates, quoted from the rule that creates it. None can be met from a session with no network access, and none may be assumed satisfied.
+
+**`ASM-002` — Scholar Loop — campaign governor** · `DIRECT_ADAPT` · status `PROPOSED`
+
+- the register entry moved to `CHARACTERIZED` — upstream behaviour captured and the adaptation confirmed against the pinned tree, not against the paper
+- a pinned upstream commit — a branch name is not a pin
+- a characterisation suite capturing upstream behaviour **before** any code moves
+
+**`ASM-045` — BATS — budget-aware tool use and test-time scaling** · `DIRECT_ADAPT` · status `PROPOSED`
+
+- the register entry moved to `CHARACTERIZED` — upstream behaviour captured and the adaptation confirmed against the pinned tree, not against the paper
+- a pinned upstream commit — a branch name is not a pin
+- a characterisation suite capturing upstream behaviour **before** any code moves
+
+**Acquisition readiness — 6 obligations open across 2 of 2 sources.** `00_PROGRAM/05_definition_of_ready_and_done.md` requires the acquisition surface of a package to be classified and its obligations resolved before the package is `READY`; `scripts/ready_queue.py` holds it back until they are.
+
+<!-- /generated:implementation-sources -->
 
 ## Implementation tasks
 

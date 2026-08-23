@@ -190,6 +190,7 @@ The transitive figure is the leverage number. It does not appear anywhere else i
 - A named owner, a named implementer, and a verifier **independent of the producer** are assigned.
 - Affected canonical records, interfaces and ADRs have been linked during refinement.
 - `DataClass`, `CodeTrust`, `ToolEffect` and the network/credential scope are classified.
+- The **acquisition surface is classified**: every part of this package is `DEPENDENCY`, `ADAPTER`, `OPTIONAL_BACKEND`, `STANDARD`, `BENCHMARK`, `PATTERN`, `DIRECT_ADAPT`, `ADAPTIVE_REIMPLEMENT` or `BUILD_NATIVE`, and every obligation the mode creates is resolved — see **Implementation acquisition and assimilation** above.
 - Test fixtures, the environment, the rollback point and the acceptance measurement method are reachable.
 - An O/M/P person-day estimate is recorded and real capacity is reserved against it.
 
@@ -266,6 +267,50 @@ A package whose evidence cannot be produced is not `READY`, however complete its
 - The verifier can reach the evidence **without** seeing the producer's working trace.
 
 <!-- /generated:execution-requirements -->
+
+## Implementation acquisition and assimilation
+
+<!-- generated:implementation-sources — produced by scripts/expand_acquisition.py; do not edit inside this block -->
+
+**What is already solved elsewhere, and on what terms.** Before the first task starts, an implementer has to know which parts of this package are called at runtime, which are copied and refactored, which are reimplemented from a specification, and which have no upstream at all. Those decisions are recorded in [`provenance/upstreams.json`](../../../provenance/upstreams.json) — mechanisms assimilated into this repository's own code — and in [`provenance/components.json`](../../../provenance/components.json) — components adopted at runtime. This block is derived from both, so a decision and the place it is used cannot drift apart.
+
+### Acquisition map
+
+| Source | Mode | What is taken | AETHRION owns | Unresolved |
+|---|---|---|---|---|
+| `ASM-012` — ResearchStudio-Idea — structured idea card and prior-art collision | `ADAPTIVE_REIMPLEMENT` | `MS-IDEA-001` · `MS-IDEA-002` | the local module and contract surface this becomes — **named at refinement** | **1** |
+| `ASM-052` — Registered Reports and in-principle acceptance | `STANDARD` | the running implementation | the contract this is held behind | **1** |
+| — | `BUILD_NATIVE` | Everything not listed above: the contracts, the authority boundaries and the integration this package specifies | All of it | — |
+
+### What each source may never decide
+
+An adopted mechanism supplies a signal, never a verdict. The recurring failure of adoption is not a component behaving badly but a component quietly acquiring authority, which is why every register entry states this before it is taken.
+
+| Source | May never decide | Deliberately not taken |
+|---|---|---|
+| `ASM-012` | A PriorArtCollision is an assessment, not a verdict. A novelty judgement at R2 or above requires a qualified verifier and, where policy says so, a human. | The UI, the orchestrator and the post-paper artifact generation. |
+| `ASM-052` | In-principle acceptance commits to publishing a result regardless of its direction. It does not commit to the result being correct. | The journal workflow. What is taken is the ordering: methods reviewed before data exist. |
+
+### Where a plain row would mislead
+
+- **`ASM-012`** — The 'reviewer-defensible idea card' framing is confirmed upstream. The 'bottleneck diagnosis' and 'Scoop-Check' names used in the source brief were NOT confirmed on the public landing page — BottleneckRecord and PriorArtCollision are therefore recorded as AETHRION constructs inspired by this system, not as upstream feature names.
+- **`ASM-052`** — The model for G2 and G2b, and the mitigation for publication bias — PR-19. A gate structure that freezes a protocol and still rejects on the direction of the result has moved the bias rather than removed it.
+
+### Unresolved before implementation
+
+Each item below is an obligation its mode creates, quoted from the rule that creates it. None can be met from a session with no network access, and none may be assumed satisfied.
+
+**`ASM-012` — ResearchStudio-Idea — structured idea card and prior-art collision** · `ADAPTIVE_REIMPLEMENT` · status `PROPOSED`
+
+- a written mechanism specification — inputs, outputs, state, transitions, invariants, failure conditions and forbidden behaviour — before implementation
+
+**`ASM-052` — Registered Reports and in-principle acceptance** · `STANDARD` · status `PROPOSED`
+
+- a conformance suite against the published specification
+
+**Acquisition readiness — 2 obligations open across 2 of 2 sources.** `00_PROGRAM/05_definition_of_ready_and_done.md` requires the acquisition surface of a package to be classified and its obligations resolved before the package is `READY`; `scripts/ready_queue.py` holds it back until they are.
+
+<!-- /generated:implementation-sources -->
 
 ## Implementation tasks
 

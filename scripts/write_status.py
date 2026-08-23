@@ -66,6 +66,14 @@ CHECKS = [
     ("Obsidian vault", [sys.executable, "scripts/check_vault.py"], "well-formed"),
     ("Package analysis blocks", [sys.executable, "scripts/expand_packages.py", "--check"], "drift"),
     ("Package companions", [sys.executable, "scripts/make_package_companions.py", "--check"], "drift"),
+    # Added at v1.3.2. The plan decided what to adopt, copy and reimplement, and
+    # nothing joined those decisions to the packages that execute them: AIDE was
+    # a registered DIRECT_ADAPT source for WP-144's candidate state machine and
+    # the package never named it, while WP-041 was titled after a component no
+    # register knew existed. The first check keeps the projection current; the
+    # second checks the binding in both directions and can be made to fail.
+    ("Package acquisition blocks", [sys.executable, "scripts/expand_acquisition.py", "--check"], "drift"),
+    ("Implementation sources", [sys.executable, "scripts/check_wp_implementation_sources.py"], "binding problems"),
 ]
 
 
@@ -81,7 +89,8 @@ def run(command: list[str]) -> tuple[bool, str]:
     # Prefer a line that summarises; pytest's final line is a documentation URL.
     for line in reversed(lines):
         if re.search(r"\b(passed|failed|conform|OK|drift|overflow|auditable|agree|"
-                     r"outgrown|inconsisten|stale|contradicts|ready queue|agent guide|well-formed|vault finding)\b", line) and not line.startswith("--"):
+                     r"outgrown|inconsisten|stale|contradicts|ready queue|agent guide|"
+                     r"well-formed|vault finding|binding problems)\b", line) and not line.startswith("--"):
             # Strip the elapsed time: a status page that records a duration can
             # never satisfy its own --check, which makes the check worthless.
             return result.returncode == 0, re.sub(r"\s+in \d+\.\d+s\b", "", line)

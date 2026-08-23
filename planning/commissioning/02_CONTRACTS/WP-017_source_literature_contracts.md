@@ -185,6 +185,7 @@ The transitive figure is the leverage number. It does not appear anywhere else i
 - A named owner, a named implementer, and a verifier **independent of the producer** are assigned.
 - Affected canonical records, interfaces and ADRs have been linked during refinement.
 - `DataClass`, `CodeTrust`, `ToolEffect` and the network/credential scope are classified.
+- The **acquisition surface is classified**: every part of this package is `DEPENDENCY`, `ADAPTER`, `OPTIONAL_BACKEND`, `STANDARD`, `BENCHMARK`, `PATTERN`, `DIRECT_ADAPT`, `ADAPTIVE_REIMPLEMENT` or `BUILD_NATIVE`, and every obligation the mode creates is resolved — see **Implementation acquisition and assimilation** above.
 - Test fixtures, the environment, the rollback point and the acceptance measurement method are reachable.
 - An O/M/P person-day estimate is recorded and real capacity is reserved against it.
 
@@ -242,6 +243,26 @@ A package whose evidence cannot be produced is not `READY`, however complete its
 - The verifier can reach the evidence **without** seeing the producer's working trace.
 
 <!-- /generated:execution-requirements -->
+
+## Implementation acquisition and assimilation
+
+<!-- generated:implementation-sources — produced by scripts/expand_acquisition.py; do not edit inside this block -->
+
+**What is already solved elsewhere, and on what terms.** Before the first task starts, an implementer has to know which parts of this package are called at runtime, which are copied and refactored, which are reimplemented from a specification, and which have no upstream at all. Those decisions are recorded in [`provenance/upstreams.json`](../../../provenance/upstreams.json) — mechanisms assimilated into this repository's own code — and in [`provenance/components.json`](../../../provenance/components.json) — components adopted at runtime. This block is derived from both, so a decision and the place it is used cannot drift apart.
+
+### No registered source names this package
+
+Neither register binds an upstream mechanism or a runtime component to `WP-017`, so every deliverable below is **`BUILD_NATIVE`**.
+
+That is a statement about the registers, not a finding that no upstream exists. If refinement identifies one, it is recorded in the register **first** and appears here on the next generation — a component named in this document without a register entry is a defect that `scripts/check_wp_implementation_sources.py` reports.
+
+| Source | Mode | What is taken | AETHRION owns | Unresolved |
+|---|---|---|---|---|
+| — | `BUILD_NATIVE` | Everything not listed above: the contracts, the authority boundaries and the integration this package specifies | All of it | — |
+
+**Acquisition readiness — nothing to resolve.** No acquisition obligation stands between this package and `READY`.
+
+<!-- /generated:implementation-sources -->
 
 ## Implementation tasks
 

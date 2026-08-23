@@ -52,6 +52,7 @@
         "MS-COE-005",
         "MS-COE-006"
       ],
+      "mechanism_spec": null,
       "local_modules": [],
       "work_packages": [
         "WP-075",
@@ -62,6 +63,10 @@
       "authority_boundary": "A CoE Audit result is a VerificationResult, never a GateRecord verdict. The audit reports; the gate policy decides.",
       "not_taken": "The producer architecture, the provider assumptions, and any notion that the audit score is itself a decision.",
       "characterization_suite": null,
+      "version_policy": null,
+      "failure_semantics": null,
+      "selection": null,
+      "conformance": null,
       "drift_status": "NOT_PINNED",
       "notes": "Two public versions of this work report different evaluation corpus sizes. Any number quoted from it must carry the version it came from — the same rule this architecture applies to SourceRepresentation."
     },
@@ -83,6 +88,7 @@
       "mechanisms": [
         "MS-GOV-001"
       ],
+      "mechanism_spec": null,
       "local_modules": [],
       "work_packages": [
         "WP-083",
@@ -92,6 +98,10 @@
       "authority_boundary": "STOPPED_BY_BUDGET is a termination classification, never an acceptance. The governor may halt a campaign; it may not pass a gate.",
       "not_taken": "The hard-coded model price table — cost data comes from WP-041 and WP-100. The orchestrator and the JSONL ledger.",
       "characterization_suite": null,
+      "version_policy": null,
+      "failure_semantics": null,
+      "selection": null,
+      "conformance": null,
       "drift_status": "NOT_PINNED",
       "notes": "A small pure state machine with a deterministic MockLLM path upstream, which is what makes characterisation before adaptation cheap."
     },
@@ -113,6 +123,7 @@
       "mechanisms": [
         "MS-CAL-001"
       ],
+      "mechanism_spec": null,
       "local_modules": [],
       "work_packages": [
         "WP-043",
@@ -121,6 +132,10 @@
       "authority_boundary": "A calibration profile qualifies an actor for a task class. It is not a claim confidence and cannot be attached to a ClaimVersion.",
       "not_taken": "The two-kind prediction vocabulary — AETHRION needs DIRECTIONAL_DELTA, CONTINUOUS, BINARY, PROBABILITY and RANKING — and the in-memory list as the store of record.",
       "characterization_suite": null,
+      "version_policy": null,
+      "failure_semantics": null,
+      "selection": null,
+      "conformance": null,
       "drift_status": "NOT_PINNED",
       "notes": "Actor calibration and verifier qualification are separate records here, because they answer different questions."
     },
@@ -141,6 +156,7 @@
         "MS-FUN-001",
         "MS-FUN-002"
       ],
+      "mechanism_spec": null,
       "local_modules": [],
       "work_packages": [
         "WP-083",
@@ -149,6 +165,10 @@
       "authority_boundary": "An ExperimentPromotionRecord is a mechanical policy decision where the criteria are computable. A model may not promote a candidate a threshold refused.",
       "not_taken": "The monolithic orchestrator the funnel is spread across, and the upstream seed counts as universal law — 3-seed VERIFY and 5-seed FULL are an initial profile to calibrate, not a constant.",
       "characterization_suite": null,
+      "version_policy": null,
+      "failure_semantics": null,
+      "selection": null,
+      "conformance": null,
       "drift_status": "NOT_PINNED",
       "notes": "Reimplemented rather than adapted because the logic is not isolated in one module upstream."
     },
@@ -171,6 +191,7 @@
       "mechanisms": [
         "MS-DAG-001"
       ],
+      "mechanism_spec": null,
       "local_modules": [],
       "work_packages": [
         "WP-014",
@@ -180,6 +201,10 @@
       "authority_boundary": "An ArtifactRecord is evidence lineage. It confers no authority to act and no claim status.",
       "not_taken": "Per-agent store.jsonl and the shared global_index.jsonl as canonical storage. AETHRION holds payloads in a content-addressed object store and metadata in PostgreSQL; a JSONL index is at most a derived projection.",
       "characterization_suite": null,
+      "version_policy": null,
+      "failure_semantics": null,
+      "selection": null,
+      "conformance": null,
       "drift_status": "NOT_PINNED",
       "notes": "The value semantics — ordered parents, content hash, producer provenance — are what is taken. The storage decision is not."
     },
@@ -199,6 +224,7 @@
       "mechanisms": [
         "MS-GAP-001"
       ],
+      "mechanism_spec": null,
       "local_modules": [],
       "work_packages": [
         "WP-075",
@@ -207,6 +233,10 @@
       "authority_boundary": "An open EvidenceGap authorises nothing. It is an input to task compilation under gate policy, never a trigger that starts work by itself.",
       "not_taken": "The ArtifactReactor's autonomy — upstream, an unmet need scored by urgency automatically triggers a peer agent to run a skill. That is precisely the authority AETHRION withholds.",
       "characterization_suite": null,
+      "version_policy": null,
+      "failure_semantics": null,
+      "selection": null,
+      "conformance": null,
       "drift_status": "NOT_PINNED",
       "notes": "The upstream mechanism is a coordination signal; the AETHRION object is a scientific need with an acceptance condition and a lifecycle."
     },
@@ -226,6 +256,7 @@
       "mechanisms": [
         "MS-SRCH-001"
       ],
+      "mechanism_spec": null,
       "local_modules": [],
       "work_packages": [
         "WP-144"
@@ -233,6 +264,10 @@
       "authority_boundary": "A node's metric is a search priority. It is never a claim assessment and never a gate input.",
       "not_taken": "The agent orchestration, prompts, CLI and model-provider abstraction.",
       "characterization_suite": null,
+      "version_policy": null,
+      "failure_semantics": null,
+      "selection": null,
+      "conformance": null,
       "drift_status": "NOT_PINNED",
       "notes": "DEBUG is the scientifically load-bearing state: it keeps an implementation defect from being counted as a failed hypothesis. Whether the node/state helpers are small enough to adapt directly is decided after reading the tree at a pinned commit; until then this entry may not leave PROPOSED."
     },
@@ -255,6 +290,7 @@
         "MS-SRCH-002",
         "MS-EVAL-001"
       ],
+      "mechanism_spec": null,
       "local_modules": [],
       "work_packages": [
         "WP-013",
@@ -264,6 +300,10 @@
       "authority_boundary": "A FUTS selection score allocates compute. Writing it into a ClaimVersion, a VerifiedValue or a GateRecord is a forbidden conversion enforced by schema and policy.",
       "not_taken": "The execute_fn contract — candidate execution goes through the Execution Broker against a private frozen evaluator — and raw solution strings as the unit of state.",
       "characterization_suite": null,
+      "version_policy": null,
+      "failure_semantics": null,
+      "selection": null,
+      "conformance": null,
       "drift_status": "NOT_PINNED",
       "notes": "The published property that matters is that selection may return a previously expanded interior node, not only a leaf. Direct adaptation is viable because the reference implementation is compact and Apache-2.0; the decision is confirmed after reading the file at a pinned commit."
     },
@@ -285,6 +325,7 @@
         "MS-SRCH-004",
         "MS-SRCH-005"
       ],
+      "mechanism_spec": null,
       "local_modules": [],
       "work_packages": [
         "WP-144",
@@ -294,6 +335,10 @@
       "authority_boundary": "A reference edge lets one branch read another. It may not alter primary-parent ancestry, which is the credit path evidence lineage depends on.",
       "not_taken": "The controller and runtime, and the reported stagnation thresholds as normative constants — they enter as an initial experimental profile to be calibrated, not as settings to copy.",
       "characterization_suite": null,
+      "version_policy": null,
+      "failure_semantics": null,
+      "selection": null,
+      "conformance": null,
       "drift_status": "NOT_PINNED",
       "notes": "Licence is permissive, so direct adaptation would be legal; it is still reimplemented because the native graph contract — typed SearchEdge, ArtifactRecord candidates, VerifiedValue metrics — matters more than importing the controller."
     },
@@ -314,6 +359,7 @@
         "MS-RIG-001",
         "MS-RIG-002"
       ],
+      "mechanism_spec": null,
       "local_modules": [],
       "work_packages": [
         "WP-047",
@@ -323,6 +369,10 @@
       "authority_boundary": "A RigorFinding blocks a transition when policy maps it to a control. It does not by itself reject a scientific claim.",
       "not_taken": "The agent hierarchy and orchestrator, which would duplicate the authority Temporal already holds.",
       "characterization_suite": null,
+      "version_policy": null,
+      "failure_semantics": null,
+      "selection": null,
+      "conformance": null,
       "drift_status": "NOT_PINNED",
       "notes": "The rule worth taking is that agent B must not infer A succeeded from A's confident prose. Every rigor check that can be deterministic must be."
     },
@@ -343,6 +393,7 @@
         "MS-ISO-001",
         "MS-ISO-002"
       ],
+      "mechanism_spec": null,
       "local_modules": [],
       "work_packages": [
         "WP-023",
@@ -352,6 +403,10 @@
       "authority_boundary": "The evaluator zone holds the official metric, hidden material and answer keys. A producer has no read or write path into it under the supported threat model.",
       "not_taken": "The multi-agent society framework and its shared-state model.",
       "characterization_suite": null,
+      "version_policy": null,
+      "failure_semantics": null,
+      "selection": null,
+      "conformance": null,
       "drift_status": "NOT_PINNED",
       "notes": "Upstream separates a public shared state symlinked into every worktree from a private grader area, and a 2026 security change isolates unprivileged agents from that private area even through a shell. That hardening history is itself the evidence the boundary is load-bearing."
     },
@@ -372,6 +427,7 @@
         "MS-IDEA-001",
         "MS-IDEA-002"
       ],
+      "mechanism_spec": null,
       "local_modules": [],
       "work_packages": [
         "WP-142"
@@ -379,6 +435,10 @@
       "authority_boundary": "A PriorArtCollision is an assessment, not a verdict. A novelty judgement at R2 or above requires a qualified verifier and, where policy says so, a human.",
       "not_taken": "The UI, the orchestrator and the post-paper artifact generation.",
       "characterization_suite": null,
+      "version_policy": null,
+      "failure_semantics": null,
+      "selection": null,
+      "conformance": null,
       "drift_status": "NOT_PINNED",
       "notes": "The 'reviewer-defensible idea card' framing is confirmed upstream. The 'bottleneck diagnosis' and 'Scoop-Check' names used in the source brief were NOT confirmed on the public landing page — BottleneckRecord and PriorArtCollision are therefore recorded as AETHRION constructs inspired by this system, not as upstream feature names."
     },
@@ -399,6 +459,7 @@
         "MS-HYP-001",
         "MS-HYP-002"
       ],
+      "mechanism_spec": null,
       "local_modules": [],
       "work_packages": [
         "WP-143",
@@ -407,6 +468,10 @@
       "authority_boundary": "A tournament rank is a SearchPriorityScore. Converting it into claim confidence is a forbidden conversion, checked by schema and policy.",
       "not_taken": "The system as a service, and its cognitive roles as governance roles.",
       "characterization_suite": null,
+      "version_policy": null,
+      "failure_semantics": null,
+      "selection": null,
+      "conformance": null,
       "drift_status": "NOT_PINNED",
       "notes": "Proximity is used for duplicate detection, coverage and diversity-aware allocation — all resource decisions, none of them epistemic."
     },
@@ -427,6 +492,7 @@
         "MS-PRIN-001",
         "MS-PRIN-002"
       ],
+      "mechanism_spec": null,
       "local_modules": [],
       "work_packages": [
         "WP-143",
@@ -435,6 +501,10 @@
       "authority_boundary": "A PrincipleVersion is a working belief. It uses a different status vocabulary from ClaimVersion on purpose, and a posterior belief is never an accepted claim.",
       "not_taken": "The Bayesian agent runtime and the Gaussian-process machinery, unless a domain later shows it earns its complexity.",
       "characterization_suite": null,
+      "version_policy": null,
+      "failure_semantics": null,
+      "selection": null,
+      "conformance": null,
       "drift_status": "NOT_PINNED",
       "notes": "The canonical repository is amair-lab/PiEvo; the address circulating in the source brief (eurekaw/pievo) is a fork, and a fork is not a provenance anchor."
     },
@@ -454,6 +524,7 @@
       "mechanisms": [
         "MS-COUNCIL-001"
       ],
+      "mechanism_spec": null,
       "local_modules": [],
       "work_packages": [
         "WP-147"
@@ -461,6 +532,10 @@
       "authority_boundary": "A ScientificCouncilSession emits a Recommendation. It cannot write a GateRecord, a ClaimVersion or an EvidenceSpan.",
       "not_taken": "The meeting framework, and any equation of a cognitive function with a governance role.",
       "characterization_suite": null,
+      "version_policy": null,
+      "failure_semantics": null,
+      "selection": null,
+      "conformance": null,
       "drift_status": "NOT_PINNED",
       "notes": "A council is chosen per task — methodologist, statistician, experimentalist, skeptic — and is not the fourteen durable governance roles under another name."
     },
@@ -480,6 +555,7 @@
       "mechanisms": [
         "MS-REV-001"
       ],
+      "mechanism_spec": null,
       "local_modules": [],
       "work_packages": [
         "WP-088",
@@ -488,6 +564,10 @@
       "authority_boundary": "The review FSM sequences a process. A timeout in it can never become an approval.",
       "not_taken": "The social simulation, and free-form discussion as the record of what was decided.",
       "characterization_suite": null,
+      "version_policy": null,
+      "failure_semantics": null,
+      "selection": null,
+      "conformance": null,
       "drift_status": "NOT_PINNED",
       "notes": "The transplantable idea is that review states are explicit and transitions are checked, rather than a chat thread being the authority."
     },
@@ -508,6 +588,7 @@
         "MS-LIT-001",
         "MS-LIT-002"
       ],
+      "mechanism_spec": null,
       "local_modules": [],
       "work_packages": [
         "WP-069",
@@ -517,6 +598,10 @@
       "authority_boundary": "Retrieval proposes candidate sources and candidate spans. Bibliographic identity belongs to the Source Registry, and inclusion in a frozen LiteratureSetManifest belongs to the screening protocol.",
       "not_taken": "Its storage as the canonical record, and contextual summaries as evidence — a summary is not an EvidenceSpan.",
       "characterization_suite": null,
+      "version_policy": null,
+      "failure_semantics": null,
+      "selection": null,
+      "conformance": null,
       "drift_status": "NOT_PINNED",
       "notes": "Already registered as an ADAPTER in AETHRION_COMPONENT_REUSE.md; this entry records the mechanism-level lineage behind that adapter."
     },
@@ -536,6 +621,7 @@
       "mechanisms": [
         "MS-LIT-003"
       ],
+      "mechanism_spec": null,
       "local_modules": [],
       "work_packages": [
         "WP-069",
@@ -544,6 +630,10 @@
       "authority_boundary": "An EvidenceSufficiencyAssessment is advisory and model-mediated. The stopping rule of a confirmatory or systematic campaign is frozen in the SearchProtocol before results are seen and cannot be changed by the loop that reads them.",
       "not_taken": "The peS2o datastore and retriever stack — AETHRION's canonical representation path is GROBID/Pub2TEI into TEI, not a second corpus.",
       "characterization_suite": null,
+      "version_policy": null,
+      "failure_semantics": null,
+      "selection": null,
+      "conformance": null,
       "drift_status": "NOT_PINNED",
       "notes": "Taken as the second opinion to PaperQA2 behind one adapter contract, so the choice between them is settled by measurement rather than by preference."
     },
@@ -564,6 +654,7 @@
         "MS-MEM-001",
         "MS-MEM-002"
       ],
+      "mechanism_spec": null,
       "local_modules": [],
       "work_packages": [
         "WP-077",
@@ -573,6 +664,10 @@
       "authority_boundary": "A FindingRecord is an interpretation of evidence. It never mutates the evidence it interprets, and it is not itself a ClaimVersion.",
       "not_taken": "The autonomous studio runtime and its control loop, which would contend with Temporal.",
       "characterization_suite": null,
+      "version_policy": null,
+      "failure_semantics": null,
+      "selection": null,
+      "conformance": null,
       "drift_status": "NOT_PINNED",
       "notes": "The idea worth taking is that a failed route is an asset rather than something to delete — which is what makes 'have we tried this before?' answerable from records instead of from chat history."
     },
@@ -590,6 +685,7 @@
       "pinned_commit": null,
       "source_files": [],
       "mechanisms": [],
+      "mechanism_spec": null,
       "local_modules": [],
       "work_packages": [
         "WP-146"
@@ -597,6 +693,10 @@
       "authority_boundary": "N/A — deferred.",
       "not_taken": "Everything, for now.",
       "characterization_suite": null,
+      "version_policy": null,
+      "failure_semantics": null,
+      "selection": null,
+      "conformance": null,
       "drift_status": "NOT_PINNED",
       "notes": "Named in the source brief but neither the repository nor the licence was confirmed on 2026-08-23. The two ideas attributed to it — separating ideation memory from procedural memory, and classifying why a run failed — are already carried by ASM-019 and by the failure taxonomy in WP-082. Deferred rather than adopted on an unverified attribution."
     },
@@ -617,6 +717,7 @@
         "MS-HITL-001",
         "MS-HITL-002"
       ],
+      "mechanism_spec": null,
       "local_modules": [],
       "work_packages": [
         "WP-004",
@@ -626,6 +727,10 @@
       "authority_boundary": "A HumanAttentionScore orders a queue. It carries no authority: a mandatory human gate with the lowest score in the queue still blocks.",
       "not_taken": "auto_proceed_on_timeout. Upstream it is a configurable boolean defaulting to false. In AETHRION the capability itself is absent at G8 and at every mandatory human gate, because a setting that can be turned on is a control that will be turned on.",
       "characterization_suite": null,
+      "version_policy": null,
+      "failure_semantics": null,
+      "selection": null,
+      "conformance": null,
       "drift_status": "NOT_PINNED",
       "notes": "This is the clearest case in the register of an upstream option being deliberately narrowed rather than copied. The action vocabulary is taken; the escape hatch is not."
     },
@@ -645,6 +750,7 @@
       "mechanisms": [
         "MS-SKILL-001"
       ],
+      "mechanism_spec": null,
       "local_modules": [],
       "work_packages": [
         "WP-043",
@@ -653,6 +759,10 @@
       "authority_boundary": "A skill changes how an agent works. It never changes what an agent is permitted to do — that is the RoleContract and the policy engine.",
       "not_taken": "A parallel skill family. Where an upstream skill and an AETHRION skill address the same procedure, the result is one merged local skill, not two.",
       "characterization_suite": null,
+      "version_policy": null,
+      "failure_semantics": null,
+      "selection": null,
+      "conformance": null,
       "drift_status": "NOT_PINNED",
       "notes": "Sixteen skills upstream, of which twelve overlap AETHRION's scientific family: framing-research-questions, surveying-prior-work, establishing-feasibility-first, designing-the-analysis, preregistering-analysis, subagent-driven-analysis, executing-analysis, dispatching-parallel-investigations, investigating-anomalous-results, verifying-results-before-claiming, requesting-red-team-review, receiving-critical-review, setting-up-reproducible-analysis, reporting-and-archiving-findings, writing-science-skills, using-science-superpowers. Its central discipline is pre-registration in place of test-driven development, which is the same move AETHRION's preregistration-discipline makes."
     },
@@ -670,6 +780,7 @@
       "pinned_commit": null,
       "source_files": [],
       "mechanisms": [],
+      "mechanism_spec": null,
       "local_modules": [],
       "work_packages": [
         "WP-047"
@@ -677,6 +788,10 @@
       "authority_boundary": "A domain skill is a capability. It cannot bypass a data class, an evidence contract or a gate.",
       "not_taken": "Wholesale copy of the catalogue. Skill count is not a success metric, and a repository-level licence is not a per-file licence.",
       "characterization_suite": null,
+      "version_policy": null,
+      "failure_semantics": null,
+      "selection": null,
+      "conformance": null,
       "drift_status": "NOT_PINNED",
       "notes": "161 skills across 18+ scientific domains. Deferred until a domain is actually selected: importing a bioinformatics skill before there is a bioinformatics project adds surface without adding capability. When one is imported, the licence in that skill's own SKILL.md governs — the repository licence does not."
     },
@@ -696,6 +811,7 @@
       "mechanisms": [
         "MS-REPRO-001"
       ],
+      "mechanism_spec": null,
       "local_modules": [],
       "work_packages": [
         "WP-084",
@@ -705,6 +821,10 @@
       "authority_boundary": "A benchmark measures the system and never gates it. JudgeEval measures the grader, which is why a grader's verdict needs its own qualification record.",
       "not_taken": "The runtime as an embedded dependency.",
       "characterization_suite": null,
+      "version_policy": null,
+      "failure_semantics": null,
+      "selection": null,
+      "conformance": null,
       "drift_status": "NOT_PINNED",
       "notes": "Already registered as PATTERN + BENCHMARK in AETHRION_COMPONENT_REUSE.md §4."
     },
@@ -724,6 +844,7 @@
       "mechanisms": [
         "MS-REPRO-002"
       ],
+      "mechanism_spec": null,
       "local_modules": [],
       "work_packages": [
         "WP-085"
@@ -731,6 +852,10 @@
       "authority_boundary": "Reproduction is accepted on the strength of a package that runs without the agent, not on the agent's account of having reproduced something.",
       "not_taken": "The agent itself.",
       "characterization_suite": null,
+      "version_policy": null,
+      "failure_semantics": null,
+      "selection": null,
+      "conformance": null,
       "drift_status": "NOT_PINNED",
       "notes": "Artisan-Bench is 60 tasks from 23 software-engineering papers; the reported system produced 44 of 60 reproduction scripts. The transplantable idea is the reformulation: the deliverable is a reproduction procedure, and grading happens after the agent is gone. Its automated judge also guides toward expected results without revealing them, which is the same private-evaluator boundary as ASM-011."
     },
@@ -750,6 +875,7 @@
       "mechanisms": [
         "MS-REPRO-003"
       ],
+      "mechanism_spec": null,
       "local_modules": [],
       "work_packages": [
         "WP-085"
@@ -757,6 +883,10 @@
       "authority_boundary": "An AlgorithmUnderstandingRecord is an interpretation of a claim, frozen before code is written. It is not evidence about the claim.",
       "not_taken": "The framework.",
       "characterization_suite": null,
+      "version_policy": null,
+      "failure_semantics": null,
+      "selection": null,
+      "conformance": null,
       "drift_status": "NOT_PINNED",
       "notes": "Separating understanding from coding is what lets a failed reproduction distinguish 'the paper was misread' from 'the code was wrong' — two findings with different consequences for the original claim."
     },
@@ -774,6 +904,7 @@
       "pinned_commit": null,
       "source_files": [],
       "mechanisms": [],
+      "mechanism_spec": null,
       "local_modules": [],
       "work_packages": [
         "WP-085",
@@ -782,6 +913,10 @@
       "authority_boundary": "Measures G7; never gates it.",
       "not_taken": "Any runtime dependency.",
       "characterization_suite": null,
+      "version_policy": null,
+      "failure_semantics": null,
+      "selection": null,
+      "conformance": null,
       "drift_status": "NOT_PINNED",
       "notes": "The lesson encoded as ACC-67: exit code zero is not a reproduction."
     },
@@ -799,6 +934,7 @@
       "pinned_commit": null,
       "source_files": [],
       "mechanisms": [],
+      "mechanism_spec": null,
       "local_modules": [],
       "work_packages": [
         "WP-085",
@@ -807,6 +943,10 @@
       "authority_boundary": "Measures G7a; never gates it.",
       "not_taken": "Any runtime dependency.",
       "characterization_suite": null,
+      "version_policy": null,
+      "failure_semantics": null,
+      "selection": null,
+      "conformance": null,
       "drift_status": "NOT_PINNED",
       "notes": "Not in the source brief; added here. 270 tasks over 90 papers across computer science, social science and medicine, at three difficulty levels, including vision-language tasks. It is the oldest and most-cited of the reproduction benchmarks and covers disciplines the others do not, which is why the G7 suite should not consist only of 2026 preprints."
     },
@@ -824,6 +964,7 @@
       "pinned_commit": null,
       "source_files": [],
       "mechanisms": [],
+      "mechanism_spec": null,
       "local_modules": [],
       "work_packages": [
         "WP-043",
@@ -833,6 +974,10 @@
       "authority_boundary": "Qualification evidence for a model or actor profile on a task class. Never a gate.",
       "not_taken": "Its agent implementations.",
       "characterization_suite": null,
+      "version_policy": null,
+      "failure_semantics": null,
+      "selection": null,
+      "conformance": null,
       "drift_status": "NOT_PINNED",
       "notes": "Not in the source brief; added here. Eleven benchmarks and over 2,400 examples spanning literature search, code execution, data analysis and end-to-end discovery, with standardised tools, a date-restricted literature corpus for reproducibility, and explicit control for model cost and tool access. That last property is what the rest of the benchmark portfolio lacks: without cost normalisation, a governed-versus-ungoverned comparison cannot separate the effect of governance from the effect of spend."
     },
@@ -850,6 +995,7 @@
       "pinned_commit": null,
       "source_files": [],
       "mechanisms": [],
+      "mechanism_spec": null,
       "local_modules": [],
       "work_packages": [
         "WP-043",
@@ -858,6 +1004,10 @@
       "authority_boundary": "Measures the governed-versus-ungoverned experiment. Never a gate.",
       "not_taken": "Any runtime dependency.",
       "characterization_suite": null,
+      "version_policy": null,
+      "failure_semantics": null,
+      "selection": null,
+      "conformance": null,
       "drift_status": "NOT_PINNED",
       "notes": "Already registered in AETHRION_COMPONENT_REUSE.md §4; the pinned facts are recorded here. 40 tasks across 10 domains, each grounded in a real published paper with the target paper hidden and expert-curated weighted rubrics. Published headline results — strongest autonomous agent 21.5, strongest harness LLM 20.7, frontier mean 26.5 — set the scale against which any AETHRION result must be read."
     },
@@ -875,6 +1025,7 @@
       "pinned_commit": null,
       "source_files": [],
       "mechanisms": [],
+      "mechanism_spec": null,
       "local_modules": [],
       "work_packages": [
         "WP-043"
@@ -882,6 +1033,10 @@
       "authority_boundary": "Qualification evidence for scientific execution capability. Never a gate.",
       "not_taken": "Any runtime dependency.",
       "characterization_suite": null,
+      "version_policy": null,
+      "failure_semantics": null,
+      "selection": null,
+      "conformance": null,
       "drift_status": "NOT_PINNED",
       "notes": null
     },
@@ -899,6 +1054,7 @@
       "pinned_commit": null,
       "source_files": [],
       "mechanisms": [],
+      "mechanism_spec": null,
       "local_modules": [],
       "work_packages": [
         "WP-043",
@@ -907,6 +1063,10 @@
       "authority_boundary": "Measures whether an experiment was actually conducted, not whether its plan reads well. Never a gate.",
       "not_taken": "Any runtime dependency.",
       "characterization_suite": null,
+      "version_policy": null,
+      "failure_semantics": null,
+      "selection": null,
+      "conformance": null,
       "drift_status": "NOT_PINNED",
       "notes": "Published by the Curie authors. Its result — that agents struggle to produce complete executable experiments — is why G5 acceptance tests execution rather than the quality of experiment-plan prose."
     },
@@ -924,6 +1084,7 @@
       "pinned_commit": null,
       "source_files": [],
       "mechanisms": [],
+      "mechanism_spec": null,
       "local_modules": [],
       "work_packages": [
         "WP-018",
@@ -933,6 +1094,10 @@
       "authority_boundary": "A citation type describes the intent of a link. It does not establish that the link is correct — that is the V2 entailment verifier's job.",
       "not_taken": "The full ontology surface; only the relations EvidenceTag actually needs.",
       "characterization_suite": null,
+      "version_policy": null,
+      "failure_semantics": null,
+      "selection": null,
+      "conformance": null,
       "drift_status": "NOT_PINNED",
       "notes": "Not in the source brief; added here. EvidenceTag.support_relation was about to be an invented three-value enum (SUPPORTS / CHALLENGES / CONTEXTUALIZES). CiTO already provides the published vocabulary for exactly this — cito:supports, cito:disagreesWith, cito:usesMethodIn and the rest — and AETHRION's own rule is not to invent an identifier scheme where one is maintained by people closer to the problem. Binding the enum to CiTO IRIs costs nothing now and makes an EvidenceTag exportable to anyone who reads SPAR."
     },
@@ -950,6 +1115,7 @@
       "pinned_commit": null,
       "source_files": [],
       "mechanisms": [],
+      "mechanism_spec": null,
       "local_modules": [],
       "work_packages": [
         "WP-090"
@@ -957,6 +1123,10 @@
       "authority_boundary": "An export projection of accepted claims. Publishing one does not accept a claim; a DecisionRecord does.",
       "not_taken": "Nothing yet — deferred.",
       "characterization_suite": null,
+      "version_policy": null,
+      "failure_semantics": null,
+      "selection": null,
+      "conformance": null,
       "drift_status": "NOT_PINNED",
       "notes": "Not in the source brief; added here as a deferred candidate. Its structure — assertion, provenance, publication info as one citable unit — is close to an exact match for ClaimVersion plus EvidenceTag plus DecisionRecord, so the publication compiler should be built so that this projection is later addable without reshaping the claim model. Deferred because a projection nobody consumes is cost without benefit until the compiler exists."
     },
@@ -974,11 +1144,16 @@
       "pinned_commit": null,
       "source_files": [],
       "mechanisms": [],
+      "mechanism_spec": null,
       "local_modules": [],
       "work_packages": [],
       "authority_boundary": "N/A — deferred.",
       "not_taken": "The platform.",
       "characterization_suite": null,
+      "version_policy": null,
+      "failure_semantics": null,
+      "selection": null,
+      "conformance": null,
       "drift_status": "NOT_PINNED",
       "notes": "The research-versus-development split it makes explicit is already carried here by the IdeaCard-to-HypothesisVersion path and by the DEBUG-versus-IMPROVE distinction in the search graph. Deferred rather than adopted, because a second vocabulary for a distinction already drawn is cost without capability."
     },
@@ -996,11 +1171,16 @@
       "pinned_commit": null,
       "source_files": [],
       "mechanisms": [],
+      "mechanism_spec": null,
       "local_modules": [],
       "work_packages": [],
       "authority_boundary": "N/A — rejected.",
       "not_taken": "All of it.",
       "characterization_suite": null,
+      "version_policy": null,
+      "failure_semantics": null,
+      "selection": null,
+      "conformance": null,
       "drift_status": "NOT_PINNED",
       "notes": "Rejected as a source of code for two independent reasons, either of which suffices. Its licence is neither MIT nor Apache and attaches conditions to publications produced with it, which is exactly the kind of obligation a research system must not acquire silently. And its scope — idea, experiment, analysis, paper, review — overlaps AETHRION's own so completely that adopting it would be adopting a competing architecture rather than a mechanism. Recorded here so the question is not reopened without new information."
     },
@@ -1021,6 +1201,7 @@
         "MS-COMM-001",
         "MS-COMM-002"
       ],
+      "mechanism_spec": null,
       "local_modules": [],
       "work_packages": [
         "WP-149",
@@ -1029,6 +1210,10 @@
       "authority_boundary": "An edge-utility score decides where a message goes. It is never a claim confidence and never a gate input — the same forbidden conversion ADR-006 fixes for search scores.",
       "not_taken": "The trainable graph mask and its low-rank training procedure, which assume a differentiable pipeline this architecture does not have. And the framing of pruning as a property of the agent set rather than of the edges.",
       "characterization_suite": null,
+      "version_policy": null,
+      "failure_semantics": null,
+      "selection": null,
+      "conformance": null,
       "drift_status": "NOT_PINNED",
       "notes": "The paper formalises communication redundancy and reports 28.1-72.8% token reduction across six benchmarks with comparable performance, plus a cost comparison of $5.6 against $43.7. The transplantable idea is that redundancy lives in the *message graph* and can be pruned there. Licence is unconfirmed, so no code may be copied — ADR-004 permits the mechanism to be specified and reimplemented regardless."
     },
@@ -1048,6 +1233,7 @@
       "mechanisms": [
         "MS-COMM-003"
       ],
+      "mechanism_spec": null,
       "local_modules": [],
       "work_packages": [
         "WP-149",
@@ -1056,6 +1242,10 @@
       "authority_boundary": "Deciding that a viewpoint is redundant suppresses a message. It may never suppress a BLOCKER or a non-waivable safety message, and it may never be read as the viewpoint being wrong.",
       "not_taken": "Keyword-based redundancy judgement. The paper's own limitation is that it misses synonyms and paraphrase, and a semantic detector is a V2 judgement that needs qualification before it can suppress anything.",
       "characterization_suite": null,
+      "version_policy": null,
+      "failure_semantics": null,
+      "selection": null,
+      "conformance": null,
       "drift_status": "NOT_PINNED",
       "notes": "Reports up to 94.5% token reduction with under 2% performance degradation by letting agents decline to participate when their viewpoint adds nothing. The number is striking and the limitation is the useful part: efficiency depends on response consistency, and the redundancy judge is keyword-based. AETHRION's version must be semantic and therefore qualified — which is a cost the headline figure does not carry."
     },
@@ -1075,6 +1265,7 @@
       "mechanisms": [
         "MS-COMM-004"
       ],
+      "mechanism_spec": null,
       "local_modules": [],
       "work_packages": [
         "WP-150",
@@ -1083,6 +1274,10 @@
       "authority_boundary": "An importance score allocates optimisation effort. It cannot remove a cognitive contribution the multi-agent invariant requires — ADR-011.",
       "not_taken": "**Node pruning and cheap-model substitution.** Upstream these are the point; here they are the one optimisation refused by name. The framework removes workflow nodes and replaces them with cheaper models, which applied to a scientific cohort is exactly the cost lever ADR-011 exists to refuse.",
       "characterization_suite": null,
+      "version_policy": null,
+      "failure_semantics": null,
+      "selection": null,
+      "conformance": null,
       "drift_status": "NOT_PINNED",
       "notes": "MIT-licensed and therefore legally adaptable, and still reimplemented — the taken mechanisms are multi-metric importance estimation, **baseline-anchored acceptance**, quality-regression rollback and Pareto reporting. The reported cost reduction was not confirmed on the repository page and is recorded here as a paper claim rather than an observed figure. This is the clearest entry in the register where a permissive licence does not make copying correct."
     },
@@ -1102,6 +1297,7 @@
       "mechanisms": [
         "MS-MEM-003"
       ],
+      "mechanism_spec": null,
       "local_modules": [],
       "work_packages": [
         "WP-151",
@@ -1110,6 +1306,10 @@
       "authority_boundary": "A mask decides what enters a reasoning context. It deletes nothing, re-labels nothing, and cannot make a masked item unavailable to a failure-history query.",
       "not_taken": "Chat-memory pruning as the model. Upstream masks turns of a debate; here the same idea generalises to a typed ContextProjection over six canonical stores, which is a different object with different retention rules.",
       "characterization_suite": null,
+      "version_policy": null,
+      "failure_semantics": null,
+      "selection": null,
+      "conformance": null,
       "drift_status": "NOT_PINNED",
       "notes": "The observation worth taking: an erroneous memory from a previous round degrades later reasoning even after it has been refuted. That is why REFUTED and SUPERSEDED items leave the reasoning context here while staying queryable as history — ACC-096."
     },
@@ -1129,6 +1329,7 @@
       "mechanisms": [
         "MS-COHORT-001"
       ],
+      "mechanism_spec": null,
       "local_modules": [],
       "work_packages": [
         "WP-148",
@@ -1137,6 +1338,10 @@
       "authority_boundary": "A sycophancy diagnostic is a measurement of how a cohort behaved. It is not a verdict on whether the cohort was right, and agreement is never evidence.",
       "not_taken": "The prompt-refinement optimiser. Its purpose is to reach consensus faster; here consensus is not the goal, and a mechanism that accelerates agreement is the wrong lever on a system whose failure mode is agreement.",
       "characterization_suite": null,
+      "version_policy": null,
+      "failure_semantics": null,
+      "selection": null,
+      "conformance": null,
       "drift_status": "NOT_PINNED",
       "notes": "Frames sycophancy as agents reinforcing one another instead of engaging critically, which inflates cost through extra debate rounds. Evaluated on six reasoning datasets across three models. The mechanism taken is the diagnostic and the framing; the convergence rule here is unresolved-material-challenge closure rather than agreement — ACC-089, ACC-090."
     },
@@ -1157,6 +1362,7 @@
         "MS-RESIL-001",
         "MS-RESIL-002"
       ],
+      "mechanism_spec": null,
       "local_modules": [],
       "work_packages": [
         "WP-152",
@@ -1165,6 +1371,10 @@
       "authority_boundary": "A Challenger targets assumptions and a Inspector checks consistency. Neither holds gate authority, and a clean Inspector result satisfies no required verification — ACC-092.",
       "not_taken": "**The source code, because of the licence.** GPL-3.0 is incompatible with this repository's proprietary licence, so no file may be copied under any circumstance. The mechanism is specified from the paper and written natively — which ADR-004 permits and ADR-019 requires to be recorded.",
       "characterization_suite": null,
+      "version_policy": null,
+      "failure_semantics": null,
+      "selection": null,
+      "conformance": null,
       "drift_status": "NOT_PINNED",
       "notes": "Reports that a hierarchical A→(B↔C) topology degrades least under faulty agents — 5.5% against 10.5% and 23.7% — and that Challenger and Inspector recover up to 96.4% of injected errors. Its AutoTransform and AutoInject fault-injection methods are the model for this baseline's faulty-agent fixtures. **This entry is the register's worked example of a licence changing the method rather than the decision.**"
     },
@@ -1184,6 +1394,7 @@
       "mechanisms": [
         "MS-RESIL-003"
       ],
+      "mechanism_spec": null,
       "local_modules": [],
       "work_packages": [
         "WP-152",
@@ -1192,6 +1403,10 @@
       "authority_boundary": "A failure class routes work to a discipline. It is not a verdict about the science, and only a validly executed run under the frozen plan can support a HYPOTHESIS class.",
       "not_taken": "The fourteen upstream failure modes as this system's taxonomy. AETHRION's classes are cut by *who acts next* rather than by observed frequency, because the taxonomy's job here is routing.",
       "characterization_suite": null,
+      "version_policy": null,
+      "failure_semantics": null,
+      "selection": null,
+      "conformance": null,
       "drift_status": "NOT_PINNED",
       "notes": "Fourteen failure modes in three categories — system design, inter-agent misalignment, task verification — from 1,600+ annotated traces across seven frameworks, with inter-annotator agreement κ=0.88 and an LLM-judge pipeline at 94% accuracy and 0.77 Cohen's kappa. The three categories map cleanly onto this architecture's COORDINATION, VERIFICATION and design-time classes, which is why the taxonomy is taken as a pattern rather than adopted verbatim."
     },
@@ -1209,15 +1424,20 @@
       "pinned_commit": null,
       "source_files": [],
       "mechanisms": [],
+      "mechanism_spec": null,
       "local_modules": [],
       "work_packages": [
         "WP-152"
       ],
       "authority_boundary": "Measures an attributor. Never gates anything, and never converts an attribution into a scientific conclusion.",
       "not_taken": "Any runtime dependency, and any treatment of an attributor as an oracle.",
-      "notes": "127 multi-agent failure logs from GAIA and AssistantBench, annotated with the responsible agent, the decisive step and why. The reported ceilings are the reason `UNKNOWN` is a first-class classification here: the best method identifies the responsible agent about 53.5% of the time and the exact failing step about 14.2%. **A taxonomy that forces a named cause onto every failure would be wrong most of the time at step level**, and would route work confidently to the wrong discipline — ACC-094.",
       "characterization_suite": null,
-      "drift_status": "NOT_PINNED"
+      "version_policy": null,
+      "failure_semantics": null,
+      "selection": null,
+      "conformance": null,
+      "drift_status": "NOT_PINNED",
+      "notes": "127 multi-agent failure logs from GAIA and AssistantBench, annotated with the responsible agent, the decisive step and why. The reported ceilings are the reason `UNKNOWN` is a first-class classification here: the best method identifies the responsible agent about 53.5% of the time and the exact failing step about 14.2%. **A taxonomy that forces a named cause onto every failure would be wrong most of the time at step level**, and would route work confidently to the wrong discipline — ACC-094."
     },
     {
       "id": "ASM-045",
@@ -1238,6 +1458,7 @@
       "mechanisms": [
         "MS-BUDGET-001"
       ],
+      "mechanism_spec": null,
       "local_modules": [],
       "work_packages": [
         "WP-153",
@@ -1246,6 +1467,10 @@
       "authority_boundary": "A remaining-budget signal changes what a campaign does next. It can never lower an assurance route, reduce a cohort or skip a non-waivable control — a task that cannot afford its assurance is BLOCKED.",
       "not_taken": "Hard-coded provider pricing — cost data comes from the Model Gateway and the Cost Ledger. And the two-dimensional budget model: this architecture needs nine dimensions including communication, verification, reproduction reserve and human attention.",
       "characterization_suite": null,
+      "version_policy": null,
+      "failure_semantics": null,
+      "selection": null,
+      "conformance": null,
       "drift_status": "NOT_PINNED",
       "notes": "Makes remaining tool budget part of the agent's continuous context, and uses it to decide between deepening a promising lead and pivoting. Apache-2.0 with two compact, isolable modules, which makes this the strongest direct-adaptation candidate added by this delta. Also carries intermediate summarisation and old-tool-response compression, which belong to the context projection rather than to the budget controller."
     },
@@ -1266,6 +1491,7 @@
         "MS-ASSUR-001",
         "MS-ASSUR-002"
       ],
+      "mechanism_spec": null,
       "local_modules": [],
       "work_packages": [
         "WP-155",
@@ -1274,6 +1500,10 @@
       "authority_boundary": "A cascade decides which verifier answers. It cannot decide that a claim is true, and a coverage guarantee is not a substitute for human authority at G8.",
       "not_taken": "The framing of a statistical human-agreement guarantee as sufficient. Selective evaluation reports the fraction of cases it is willing to judge at a target agreement level; that is a useful property and it is not scientific authority.",
       "characterization_suite": null,
+      "version_policy": null,
+      "failure_semantics": null,
+      "selection": null,
+      "conformance": null,
       "drift_status": "NOT_PINNED",
       "notes": "Uses judge confidence to escalate uncertain cases from a cheap judge to a stronger one, reporting roughly 80% coverage at an 80% human-agreement target. The mechanism taken is the cascade and, more importantly, **abstention as a first-class outcome** — ADR-015. A judge forced to choose on a case it cannot resolve produces a verdict indistinguishable from a confident one."
     },
@@ -1291,6 +1521,7 @@
       "pinned_commit": null,
       "source_files": [],
       "mechanisms": [],
+      "mechanism_spec": null,
       "local_modules": [],
       "work_packages": [
         "WP-060",
@@ -1299,6 +1530,10 @@
       "authority_boundary": "Measures the security boundary. Never part of the running system, and a passing score is not a security property.",
       "not_taken": "Any runtime dependency.",
       "characterization_suite": null,
+      "version_policy": null,
+      "failure_semantics": null,
+      "selection": null,
+      "conformance": null,
       "drift_status": "NOT_PINNED",
       "notes": "Ten scenarios, over 400 tools, 27 attack and defence methods across 13 model backbones, with a highest average attack success rate of 84.3% and defences reported as of limited effectiveness. That last finding is the architectural argument for ADR-003 and the capability gate: **if defences at the prompt layer are weak, the boundary has to be that the capability is unavailable** — ACC-117."
     },
@@ -1316,6 +1551,7 @@
       "pinned_commit": null,
       "source_files": [],
       "mechanisms": [],
+      "mechanism_spec": null,
       "local_modules": [],
       "work_packages": [
         "WP-060",
@@ -1324,6 +1560,10 @@
       "authority_boundary": "Measures the untrusted-content boundary. Never part of the running system.",
       "not_taken": "**Everything except running it as a benchmark.** The licence is non-commercial, so no code and no content may be adapted into this repository regardless of how useful the fixtures are. Use is limited to evaluation under the terms that licence permits.",
       "characterization_suite": null,
+      "version_policy": null,
+      "failure_semantics": null,
+      "selection": null,
+      "conformance": null,
       "drift_status": "NOT_PINNED",
       "notes": "Attacks partially succeed in up to 86% of cases against top-tier agents using low-effort human-written injections, under a realistic threat model where the attacker is an ordinary user of a site rather than its owner. The licence split — CC-BY-NC for most of it, MIT for one bundled component — is exactly why ADR-019 requires a **file-level** licence position rather than a repository-level one."
     },
@@ -1343,6 +1583,7 @@
       "mechanisms": [
         "MS-BENCH-001"
       ],
+      "mechanism_spec": null,
       "local_modules": [],
       "work_packages": [
         "WP-158"
@@ -1350,6 +1591,10 @@
       "authority_boundary": "A contamination label describes a measurement's conditions. It does not correct the score, and a labelled run is never reported as clean.",
       "not_taken": "The detection heuristics as a finished detector. They are the starting point for a scanner that will need its own qualification and its own false-positive path.",
       "characterization_suite": null,
+      "version_policy": null,
+      "failure_semantics": null,
+      "selection": null,
+      "conformance": null,
       "drift_status": "NOT_PINNED",
       "notes": "Defines three leakage severities — benchmark metadata, question context, explicit answer — over six public benchmarks, and reports performance inflation up to 4%. The important part is not the size of the inflation but that **nothing about the model is contaminated: the measurement is**, which is why the firewall is a property of the run rather than of the model — ADR-017, ACC-118."
     },
@@ -1369,6 +1614,7 @@
       "mechanisms": [
         "MS-REPRO-004"
       ],
+      "mechanism_spec": null,
       "local_modules": [],
       "work_packages": [
         "WP-157"
@@ -1376,6 +1622,10 @@
       "authority_boundary": "A reproduction level describes what the substrate can support. It is not a statement about whether the result is correct.",
       "not_taken": "Nothing to take as code — the finding is the contribution.",
       "characterization_suite": null,
+      "version_policy": null,
+      "failure_semantics": null,
+      "selection": null,
+      "conformance": null,
       "drift_status": "NOT_PINNED",
       "notes": "Reports up to a 15-point maximum-minimum accuracy difference across equivalent runs against hosted APIs under presumed deterministic settings. The consequence is the five-level reproduction taxonomy: **seed and temperature are not a reproducibility proof**, a hosted black box cannot yield EXACT, and a distributional claim needs its run count and interval declared in advance — ACC-116."
     },
@@ -1395,6 +1645,7 @@
       "mechanisms": [
         "MS-HITL-003"
       ],
+      "mechanism_spec": null,
       "local_modules": [],
       "work_packages": [
         "WP-156",
@@ -1403,6 +1654,10 @@
       "authority_boundary": "A debiasing measure changes the order and cost of an interaction. It confers no authority and removes none — the human decision remains the human's.",
       "not_taken": "Any claim that ordering eliminates automation bias. It reduces anchoring; it cannot manufacture attention.",
       "characterization_suite": null,
+      "version_policy": null,
+      "failure_semantics": null,
+      "selection": null,
+      "conformance": null,
       "drift_status": "NOT_PINNED",
       "notes": "Two findings drive ADR-016. When correction takes more effort, people correct fewer AI errors — which is why friction symmetry between approve and reject is a tested property (ACC-112). And access to AI advice sharply reduces willingness to say 'I don't know', with wrong advice able to raise confidence while lowering accuracy — which is why `INSUFFICIENT_BASIS` exists as a one-action terminal decision (ACC-111)."
     },
@@ -1420,6 +1675,7 @@
       "pinned_commit": null,
       "source_files": [],
       "mechanisms": [],
+      "mechanism_spec": null,
       "local_modules": [],
       "work_packages": [
         "WP-081",
@@ -1428,6 +1684,10 @@
       "authority_boundary": "In-principle acceptance commits to publishing a result regardless of its direction. It does not commit to the result being correct.",
       "not_taken": "The journal workflow. What is taken is the ordering: methods reviewed before data exist.",
       "characterization_suite": null,
+      "version_policy": null,
+      "failure_semantics": null,
+      "selection": null,
+      "conformance": null,
       "drift_status": "NOT_PINNED",
       "notes": "The model for G2 and G2b, and the mitigation for publication bias — PR-19. A gate structure that freezes a protocol and still rejects on the direction of the result has moved the bias rather than removed it."
     },
@@ -1445,6 +1705,7 @@
       "pinned_commit": null,
       "source_files": [],
       "mechanisms": [],
+      "mechanism_spec": null,
       "local_modules": [],
       "work_packages": [
         "WP-081"
@@ -1452,6 +1713,10 @@
       "authority_boundary": "A specification curve shows how a conclusion depends on analytical choices. It does not select the right specification.",
       "not_taken": "Nothing yet — deferred.",
       "characterization_suite": null,
+      "version_policy": null,
+      "failure_semantics": null,
+      "selection": null,
+      "conformance": null,
       "drift_status": "NOT_PINNED",
       "notes": "Deferred, and recorded because an agent that can run thousands of analyses makes it newly relevant. A preregistered `AnalysisUniverseManifest` would let the whole space be reported rather than one specification cherry-picked from it — the mitigation for PR-40. Deferred until a real confirmatory study needs it, because a multiverse over a protocol nobody has run is arithmetic without a subject."
     },
@@ -1469,6 +1734,7 @@
       "pinned_commit": null,
       "source_files": [],
       "mechanisms": [],
+      "mechanism_spec": null,
       "local_modules": [],
       "work_packages": [
         "WP-159",
@@ -1477,6 +1743,10 @@
       "authority_boundary": "A posture score informs an adoption decision. It is a heuristic, not a safety property, and a high score is not evidence that a dependency is secure.",
       "not_taken": "Any reimplementation. This is precisely the category the adoption rule reserves for maintained tooling.",
       "characterization_suite": null,
+      "version_policy": null,
+      "failure_semantics": null,
+      "selection": null,
+      "conformance": null,
       "drift_status": "NOT_PINNED",
       "notes": null
     },
@@ -1494,6 +1764,7 @@
       "pinned_commit": null,
       "source_files": [],
       "mechanisms": [],
+      "mechanism_spec": null,
       "local_modules": [],
       "work_packages": [
         "WP-159",
@@ -1502,6 +1773,10 @@
       "authority_boundary": "Reports known vulnerabilities in a lockfile or image. Silence means nothing is known, not that nothing is there.",
       "not_taken": "Any reimplementation.",
       "characterization_suite": null,
+      "version_policy": null,
+      "failure_semantics": null,
+      "selection": null,
+      "conformance": null,
       "drift_status": "NOT_PINNED",
       "notes": "A finding with no available fix becomes an owned, expiring residual risk rather than a suppression or an indefinite block — ACC-120."
     },
@@ -1519,6 +1794,7 @@
       "pinned_commit": null,
       "source_files": [],
       "mechanisms": [],
+      "mechanism_spec": null,
       "local_modules": [],
       "work_packages": [
         "WP-159",
@@ -1527,6 +1803,10 @@
       "authority_boundary": "Provenance establishes what built an artifact from which source. It says nothing about whether the artifact is correct.",
       "not_taken": "Any bespoke provenance format.",
       "characterization_suite": null,
+      "version_policy": null,
+      "failure_semantics": null,
+      "selection": null,
+      "conformance": null,
       "drift_status": "NOT_PINNED",
       "notes": null
     },
@@ -1544,6 +1824,7 @@
       "pinned_commit": null,
       "source_files": [],
       "mechanisms": [],
+      "mechanism_spec": null,
       "local_modules": [
         "scripts/monitor_sources.py"
       ],
@@ -1554,6 +1835,10 @@
       "authority_boundary": "A retraction signal opens an impact scan. It does not itself retract a claim — that is a decision, recorded as one.",
       "not_taken": "A custom retraction database. Crossref already carries Retraction Watch data and exposes update-to and updated-by relations.",
       "characterization_suite": null,
+      "version_policy": null,
+      "failure_semantics": null,
+      "selection": null,
+      "conformance": null,
       "drift_status": "NOT_PINNED",
       "notes": "**The one entry in this register with running code.** `scripts/monitor_sources.py` sweeps Crossref and exits non-zero if its planted retracted DOI goes undetected. It also reports its own boundary: 18 of 33 sources carry no DOI and are invisible to it. Material-delta scoring — a citation-count change is not an event, a retraction is — is what keeps G10 from becoming a notification nobody reads (PR-56)."
     },
@@ -1573,6 +1858,7 @@
       "mechanisms": [
         "MS-COMM-005"
       ],
+      "mechanism_spec": null,
       "local_modules": [],
       "work_packages": [
         "WP-149"
@@ -1580,8 +1866,43 @@
       "authority_boundary": "**The blackboard is a projection, not state.** Deleting it must lose no canonical scientific record, and no entry may be promoted to evidence or to a claim — ACC-085.",
       "not_taken": "The blackboard as the coordination substrate's source of truth. Here it holds typed deltas and artifact pointers, and everything that matters lives in the artifact, evidence and claim stores.",
       "characterization_suite": null,
+      "version_policy": null,
+      "failure_semantics": null,
+      "selection": null,
+      "conformance": null,
       "drift_status": "NOT_PINNED",
       "notes": "A shared workspace is genuinely useful for letting an agent see what has already been tried without asking. It is also the most tempting place in the architecture to accidentally store truth, because it is where the interesting sentences appear — which is why its deletability is a tested property rather than a design intention."
+    },
+    {
+      "id": "ASM-059",
+      "name": "AgentDojo — prompt-injection attack and defence suite",
+      "kind": "BENCHMARK",
+      "repository": "https://github.com/ethz-spylab/agentdojo",
+      "paper": "AgentDojo: A Dynamic Environment to Evaluate Prompt Injection Attacks and Defenses for LLM Agents",
+      "reference": null,
+      "licence": "UNVERIFIED — reported permissive; not read at the source from this session, which has no network access",
+      "licence_verified": null,
+      "assimilation": "BENCHMARK",
+      "status": "PROPOSED",
+      "pinned_commit": null,
+      "source_files": [],
+      "mechanisms": [],
+      "mechanism_spec": null,
+      "local_modules": [],
+      "work_packages": [
+        "WP-060",
+        "WP-112",
+        "WP-136"
+      ],
+      "authority_boundary": "A benchmark measures the system and is never part of it. An AgentDojo score is qualification evidence for the untrusted-content boundary; it is never a gate verdict, never a control effectiveness claim, and a passing score does not license a capability that policy has not granted.",
+      "not_taken": "The runtime, the task environments and any notion that a defence which scores well here is a security boundary. ADR-003 puts the boundary at the capability, not at the text.",
+      "characterization_suite": null,
+      "version_policy": null,
+      "failure_semantics": null,
+      "selection": null,
+      "conformance": null,
+      "drift_status": "NOT_PINNED",
+      "notes": "AETHRION's untrusted-content boundary should be measured against someone else's attacks, not its own — AETHRION_COMPONENT_REUSE.md §4. Named in WP-060, WP-112 and WP-136 before it was registered."
     }
   ]
 }

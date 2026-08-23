@@ -280,7 +280,39 @@ rather than in the plan they check.
 
 ---
 
-## 8. What this register does not do
+## 8. Findings from the 2026-08-24 acquisition-binding review
+
+An external review asked one question of the commissioning plan: **can somebody
+who opens a single work package tell what they will use as-is, what they will
+copy and adapt, and what they will write from scratch?** Its verdict was that the
+reuse architecture was strong and the binding between it and the packages was
+not. Four findings, all closed in baseline v1.3.2.
+
+| # | Finding | Where | State |
+|---|---|---|---|
+| **N1** | **A registered acquisition decision was invisible in the package that had to execute it.** `WP-144` specified the DRAFT/DEBUG/IMPROVE candidate state machine across seven tasks while `ASM-007` recorded AIDE as its `DIRECT_ADAPT` source; the string *AIDE* appeared nowhere in the package. `WP-153` and BATS were the same shape. An implementer reading only the package would have rewritten a mechanism the architecture had already decided to take — correctly, under the plan's own rules, and for no reason | `planning/commissioning/**` | **Closed.** `scripts/expand_acquisition.py` projects both registers into every package card as **Implementation acquisition and assimilation**. `check_wp_implementation_sources.py` rule B7 refuses a binding that is not visible in its package |
+| **N2** | **A component the plan named, and no register knew.** `WP-041` is titled *LiteLLM Model Gateway Foundation* and LiteLLM had no register entry, so it had no authority boundary, no version policy and no statement of what it may never decide. The same held for Temporal, NATS, LangGraph, MLflow, OpenTelemetry, Kubernetes, gVisor, PostgreSQL and the rest of the platform: named throughout the plan, adopted by nobody in writing. This is the more dangerous direction — adoption without an obligation | `provenance/` | **Closed.** `provenance/components.json` records the runtime-component decisions that `AETHRION_COMPONENT_REUSE.md` had already taken, machine-readable, with `owned_contract`, `not_owned`, `authority_boundary` and `not_used` per entry. Rule B8b holds a watchlist of third-party names that must resolve to an entry |
+| **N3** | **An obligation nobody printed reads as an obligation nobody has.** Every entry in both registers is `PROPOSED`: no commit pinned, no characterisation suite, and **no `MS-*` mechanism specification written anywhere in this repository**. A package that presented *AIDE · DIRECT_ADAPT* and stopped would have read as permission to copy a file that `ADR-004` has not permitted to move | `00_PROGRAM/05_definition_of_ready_and_done.md` | **Closed.** The block prints the open obligation in the words of the rule that creates it; `00_PROGRAM/05` makes the acquisition surface a `READY` precondition; `ready_queue.py` holds such a package under *Held — acquisition unresolved* |
+| **N4** | **A count in prose against a register that had moved.** `AETHRION_COMPONENT_REUSE.md` §9.2 said **36 entries** and enumerated seven types, against a register holding fifty-eight entries across eight — it named no `DEPENDENCY` at all, because the type was added after the sentence was written | `docs/architecture/AETHRION_COMPONENT_REUSE.md` | **Closed.** The paragraph is a generated block written by `check_wp_implementation_sources.py --write` and drift-checked on every bundle run |
+
+> **What this review did not find, and it matters.** It found no wrong decision.
+> Every mode, licence position, authority boundary and `not_taken` list it
+> examined was sound, and the two registers now carry them unchanged. What was
+> missing was a projection — which is the same defect class as `docs/FINDINGS.md`
+> itself: a fact that existed, was correct, and lived where the person who needed
+> it would not look.
+
+> **Two defects were introduced while closing these and are recorded because
+> they were caught by the checks written alongside them.** Rule B8 first failed
+> every package that *named* a component it did not own — conflating ownership
+> with use, and would have pushed one authority boundary into fifteen documents
+> where the fifteenth copy goes stale. And rule B8b reported "Temporal" as
+> registered because an unrelated entry's description contains the phrase
+> *spatial-temporal message graph*: a coverage rule satisfied by an accident,
+> which reports the gap as closed. Both were found by the `--self-test`, which is
+> the argument for having one.
+
+## 9. What this register does not do
 
 It does not rank, schedule or assign. It records what is known to be wrong and
 whether it still is. Two limits are worth stating plainly:

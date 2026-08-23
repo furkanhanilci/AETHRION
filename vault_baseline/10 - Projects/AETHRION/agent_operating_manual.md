@@ -65,12 +65,12 @@ that document is the defect.
 
 ```bash
 cd /home/otonom/Desktop/FH/AETHRION
-uv run python scripts/write_status.py    # runs the 20-check bundle, rewrites docs/STATUS.md
+uv run python scripts/write_status.py    # runs the 22-check bundle, rewrites docs/STATUS.md
 python3 scripts/ready_queue.py           # rewrites docs/READY.md
 git log --oneline -5
 ```
 
-`write_status.py` must print **20/20**. If it does not, fix that before doing
+`write_status.py` must print **22/22**. If it does not, fix that before doing
 anything else — a session that starts on a red bundle cannot tell its own
 breakage from the breakage it inherited.
 
@@ -95,8 +95,8 @@ learn a number a script prints is how a session starts with a stale fact.
 |---|---|---|
 | `src/airl_bridge/` | The working slice: Zotero client, SQLite registry, FastAPI, Obsidian projection, MCP server | no |
 | `src/airl_framework/` | Shared contract core. **Zero production consumers** — finding H4 | no |
-| `tests/` | 35 tests | no |
-| `scripts/` | Verification, generation and execution tooling — 54 scripts | no |
+| `tests/` | 149 tests | no |
+| `scripts/` | Verification, generation and execution tooling — 57 scripts | no |
 | `planning/commissioning/` | The V1 plan: WP-000–159, ACC-01–120. **632 files, hash-sealed** | indexes only |
 | `docs/architecture/` | Target design, three ADRs, positioning | no |
 | `docs/figures/` | 19 SVG figures | **yes** — from `scripts/fig_*.py` |
@@ -106,7 +106,7 @@ learn a number a script prints is how a session starts with a stale fact.
 | `deploy/` | systemd units, the staged CI workflow | no |
 | `skills/` | 52 Agent Skills — 11 vendored from `obra/superpowers`, 41 native | no |
 | `schemas/` | Shared contract schemas | no |
-| `provenance/` | Which mechanism came from which project, its licence, and what it may never decide | `provenance/README.md` **yes** — generated from `provenance/upstreams.json` |
+| `provenance/` | Two registers: `provenance/upstreams.json` — which **mechanism** came from which project, its licence and what it may never decide · `provenance/components.json` — which **component** this system runs on, what AETHRION still owns behind it, and what it may never decide | `provenance/README.md` and `provenance/COMPONENTS.md` **yes** — generated from the two registers |
 | `vault_baseline/` | Versioned snapshot of the Obsidian vault — linted by `check_vault.py` | **mostly** |
 | `docs/assets/branding/` | The canonical logo | no |
 
@@ -226,15 +226,31 @@ paper and `pinned_commit` is `null` throughout. There is no network access from
 the sandboxed shell here, so pinning a commit is work for a session that has one
 — do not invent a digest to satisfy the field.
 
+**A decision reaches the package that executes it, or it reaches nobody.** Both
+registers carry `work_packages`, and `scripts/expand_acquisition.py` projects
+every binding into that package's **Implementation acquisition and assimilation**
+block: the mode, what is taken, what AETHRION still owns, what the source may
+never decide, and — the load-bearing column — the obligation the mode creates and
+nobody has met yet. `BUILD_NATIVE` is emitted explicitly, because silence cannot
+distinguish a package with no upstream from a package whose upstream nobody
+recorded.
+
+`scripts/check_wp_implementation_sources.py` checks the binding in both
+directions and refuses three things: a registered decision absent from its
+package, a watched third-party name in neither register, and a task list that
+says *build* what a register recorded as *adopt*. `--self-test` injects a defect
+per rule. A package with an open obligation is held out of *Ready now* by
+`scripts/ready_queue.py` and listed under *Held — acquisition unresolved*.
+
 ---
 
 ## 5. What actually runs — read this before believing §4
 
 | Component | State |
 |---|---|
-| Zotero → SQLite → Obsidian bridge, read-only MCP (5 tools) | **Working**, 35 tests |
+| Zotero → SQLite → Obsidian bridge, read-only MCP (5 tools) | **Working**, 149 tests |
 | Evidence issuance/verification, signed, tamper-rejecting | **Working** — `TECH_COMPLETE`, not `ACCEPTED` |
-| Plan seal, figure generators, mirrors, 20-check bundle | **Working** |
+| Plan seal, figure generators, mirrors, 22-check bundle | **Working** |
 | Upstream lineage register and its checker, 11 firing controls | **Working** — the register is decisions, not adapted code |
 | Reference verification (Crossref/OpenAlex/arXiv) | **Working** — 27 of 33 corroborated |
 | Source monitoring (first slice of G10) | **Working** — positive control fires |
@@ -246,17 +262,19 @@ the sandboxed shell here, so pinning a commit is work for a session that has one
 | Notification channels (ntfy · Telegram · Discord/Slack · WhatsApp) | **Planned** — specified, nothing connected, nothing sends |
 | CI (BVC-01) | **Staged, never run** — needs a workflow-scoped token |
 
-Open findings: **H1** Zotero ingest capped at 100 records (fix M9 first, or
-pagination turns a masked truncation into active data loss) · **H2** no deletion
-reconciliation · **H3** the read-only boundary has no behavioural test · **H4**
-the contract core has no consumers · **H5** no CI. **C1** and **C2** are closed
-by WP-000 and ADR-001.
+Open findings: **H5** — no continuous integration. `deploy/bvc-01-verify.yml`
+covers the whole automatable bundle and has never run; activating it means
+copying it to `.github/workflows/` with a workflow-scoped token, which is an
+operator action no session here can perform. **H1–H4 were closed on 2026-08-23**
+with the bridge findings, and **C1** and **C2** by WP-000 and ADR-001.
 
-That is the high tier only. **`docs/FINDINGS.md` is the register** — all
-twenty-four audit findings with their current state, plus the twelve raised by
-the 2026-08-22 and 2026-08-23 inspections. Twelve are open. Do not infer a
-finding's state from a module docstring; sixteen of them used to live nowhere else, and several had
-been fixed with nothing saying so.
+That is the high tier only. **`docs/FINDINGS.md` is the register** — every audit
+finding with its current state, and it is the only place a state is written down.
+This paragraph named H1–H4 as open for two baselines after they were closed,
+which is the failure mode the register exists to prevent: a finding's state is a
+judgement, no script can derive it, and a second copy of it becomes a second
+version of it. Do not infer a finding's state from a module docstring, and do not
+infer it from here — read the register.
 
 ---
 
@@ -357,6 +375,25 @@ python3 scripts/progress.py accept WP-001 --verifier "<not the owner>" --assuran
 `progress.py` refuses what the plan forbids and names the document that forbids
 it. A refusal is not advice. Full runbook: `docs/EXECUTING_A_WORK_PACKAGE.md`.
 
+### Bind a mechanism or a component to a package
+
+Add or edit the entry in `provenance/upstreams.json` (a mechanism this repository
+implements) or `provenance/components.json` (something called at runtime), name
+its `work_packages`, then:
+
+```bash
+python3 scripts/check_upstream_lineage.py --write            # if you touched upstreams.json
+python3 scripts/check_wp_implementation_sources.py --write   # regenerates COMPONENTS.md + the reuse counts
+python3 scripts/expand_acquisition.py                        # projects it into the package cards
+python3 scripts/check_wp_implementation_sources.py           # binding, both directions
+python3 scripts/ready_queue.py
+```
+
+Editing a package card's acquisition block by hand is overwritten on the next
+run. **The register is where the decision is made**; the card is where it is
+read. Every obligation the mode creates is reported as open until the register
+answers it, and the package cannot be `READY` while one stands.
+
 ### Add a skill
 Agent Skills format plus the `airl.*` metadata contract; validate with
 `python3 scripts/validate_skills.py`. Vendored skills under `skills/_vendor/`
@@ -367,7 +404,7 @@ keep upstream attribution and their pinned commit — do not rewrite them.
 ## 9. Before you finish anything
 
 ```bash
-uv run python scripts/write_status.py                                    # must print 20/20
+uv run python scripts/write_status.py                                    # must print 22/22
 python3 scripts/mirror_vault.py "vault_baseline/10 - Projects/AETHRION"
 python3 scripts/mirror_plan.py "vault_baseline/10 - Projects/AETHRION/01 - Commissioning"
 python3 scripts/mirror_vault.py "/home/otonom/Documents/Obsidian Vault/10 - Projects/AETHRION"
@@ -427,6 +464,7 @@ same is possible now.
 | Who is accountable, and what may they never do? | `docs/architecture/AETHRION_ROLES.md` |
 | What was decided, and by whom? | `docs/architecture/ADR-001_solo_operator_independence.md` · `ADR-002_bootstrap_verification_control.md` · `ADR-003_trusted_control_and_policy.md` |
 | What is adopted rather than invented? | `docs/architecture/AETHRION_COMPONENT_REUSE.md` |
+| **In this package, what do I adopt, copy, reimplement or build?** | the package card's own **Implementation acquisition and assimilation** block — generated from `provenance/upstreams.json` and `provenance/components.json`, and not written anywhere else |
 | How does this compare to Science One, PaperQA2? | `docs/architecture/AETHRION_RELATED_SYSTEMS.md` |
 | How are documents written here? | `docs/DOCUMENT_STANDARD.md` |
 | What is the project called, and where does `AIRL` stay? | `docs/branding.md` |

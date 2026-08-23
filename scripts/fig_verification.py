@@ -88,6 +88,17 @@ PROSE = {
                                 "whether the package is well designed", PURPLE),
     "Package companions": ("make_package_companions.py --check", "every package carries a test procedure and an acceptance criteria document, both current",
                            "whether the cases in them are the right cases", VERM),
+    "Package acquisition blocks": ("expand_acquisition.py --check",
+                                   "each package carries the adopt / copy / reimplement / build decisions "
+                                   "bound to it, and the obligation each one has not yet met",
+                                   "whether the decision was the right one — only that it reaches "
+                                   "the package that has to execute it", ORANGE),
+    "Implementation sources": ("check_wp_implementation_sources.py",
+                               "every registered acquisition decision is visible in its package, no "
+                               "watched third-party name is unregistered, and no task list "
+                               "contradicts the register",
+                               "third-party names nobody added to the watchlist; its --self-test "
+                               "proves each rule can fire", VERM),
 }
 
 
@@ -123,7 +134,13 @@ def main() -> None:
                tw, size=18, lh=24)
 
     hy = y + 34
-    c1, c2 = 292, 410
+    # The command column was 292u wide, which fitted every script name in the
+    # bundle until `check_wp_implementation_sources.py` needed 283u of a 262u
+    # cell. figure_kit refuses to shrink text below the legibility floor rather
+    # than rendering something unreadable, so the column is widened here — the
+    # fix AGENTS.md §8 names, and the reason a script name is not abbreviated:
+    # a truncated command cannot be copied and run.
+    c1, c2 = 322, 398
     c3 = tw - c1 - c2 - 28
     c.text(L, hy, "Check", size=17, weight="700", anchor="start", fill=INK)
     c.text(L + c1 + 14, hy, "What it proves", size=17, weight="700", anchor="start", fill=GREEN)

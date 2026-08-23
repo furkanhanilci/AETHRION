@@ -236,6 +236,7 @@ The transitive figure is the leverage number. It does not appear anywhere else i
 - A named owner, a named implementer, and a verifier **independent of the producer** are assigned.
 - Affected canonical records, interfaces and ADRs have been linked during refinement.
 - `DataClass`, `CodeTrust`, `ToolEffect` and the network/credential scope are classified.
+- The **acquisition surface is classified**: every part of this package is `DEPENDENCY`, `ADAPTER`, `OPTIONAL_BACKEND`, `STANDARD`, `BENCHMARK`, `PATTERN`, `DIRECT_ADAPT`, `ADAPTIVE_REIMPLEMENT` or `BUILD_NATIVE`, and every obligation the mode creates is resolved — see **Implementation acquisition and assimilation** above.
 - Test fixtures, the environment, the rollback point and the acceptance measurement method are reachable.
 - An O/M/P person-day estimate is recorded and real capacity is reserved against it.
 
@@ -331,6 +332,51 @@ A package whose evidence cannot be produced is not `READY`, however complete its
 - The verifier can reach the evidence **without** seeing the producer's working trace.
 
 <!-- /generated:execution-requirements -->
+
+## Implementation acquisition and assimilation
+
+<!-- generated:implementation-sources — produced by scripts/expand_acquisition.py; do not edit inside this block -->
+
+**What is already solved elsewhere, and on what terms.** Before the first task starts, an implementer has to know which parts of this package are called at runtime, which are copied and refactored, which are reimplemented from a specification, and which have no upstream at all. Those decisions are recorded in [`provenance/upstreams.json`](../../../provenance/upstreams.json) — mechanisms assimilated into this repository's own code — and in [`provenance/components.json`](../../../provenance/components.json) — components adopted at runtime. This block is derived from both, so a decision and the place it is used cannot drift apart.
+
+### Acquisition map
+
+| Source | Mode | What is taken | AETHRION owns | Unresolved |
+|---|---|---|---|---|
+| `ASM-024` — PaperBench — producer / reproducer / grader separation and JudgeEval | `PATTERN` | the running implementation | the contract this is held behind | none |
+| `ASM-025` — Artisan — standalone reproduction script as the reproduction artifact | `PATTERN` | the running implementation | the contract this is held behind | none |
+| `ASM-026` — SciReplicate-Bench — paper understanding separated from implementation | `PATTERN` | the running implementation | the contract this is held behind | none |
+| `ASM-027` — REPRO-Bench — claim / package / recomputed-output consistency | `BENCHMARK` | a measurement of this system — nothing enters it | the contract this is held behind | none |
+| `ASM-028` — CORE-Bench — computational reproducibility agent benchmark | `BENCHMARK` | a measurement of this system — nothing enters it | the contract this is held behind | none |
+| — | `BUILD_NATIVE` | Everything not listed above: the contracts, the authority boundaries and the integration this package specifies | All of it | — |
+
+### What each source may never decide
+
+An adopted mechanism supplies a signal, never a verdict. The recurring failure of adoption is not a component behaving badly but a component quietly acquiring authority, which is why every register entry states this before it is taken.
+
+| Source | May never decide | Deliberately not taken |
+|---|---|---|
+| `ASM-024` | A benchmark measures the system and never gates it. JudgeEval measures the grader, which is why a grader's verdict needs its own qualification record. | The runtime as an embedded dependency. |
+| `ASM-025` | Reproduction is accepted on the strength of a package that runs without the agent, not on the agent's account of having reproduced something. | The agent itself. |
+| `ASM-026` | An AlgorithmUnderstandingRecord is an interpretation of a claim, frozen before code is written. It is not evidence about the claim. | The framework. |
+| `ASM-027` | Measures G7; never gates it. | Any runtime dependency. |
+| `ASM-028` | Measures G7a; never gates it. | Any runtime dependency. |
+
+### Where a plain row would mislead
+
+- **`ASM-024`** — Already registered as PATTERN + BENCHMARK in AETHRION_COMPONENT_REUSE.md §4.
+- **`ASM-025`** — Artisan-Bench is 60 tasks from 23 software-engineering papers; the reported system produced 44 of 60 reproduction scripts. The transplantable idea is the reformulation: the deliverable is a reproduction procedure, and grading happens after the agent is gone. Its automated judge also guides toward expected results without revealing them, which is the same private-evaluator boundary as ASM-011.
+- **`ASM-026`** — Separating understanding from coding is what lets a failed reproduction distinguish 'the paper was misread' from 'the code was wrong' — two findings with different consequences for the original claim.
+- **`ASM-027`** — The lesson encoded as ACC-67: exit code zero is not a reproduction.
+- **`ASM-028`** — Not in the source brief; added here. 270 tasks over 90 papers across computer science, social science and medicine, at three difficulty levels, including vision-language tasks. It is the oldest and most-cited of the reproduction benchmarks and covers disciplines the others do not, which is why the G7 suite should not consist only of 2026 preprints.
+
+### Unresolved before implementation
+
+**None.** Every obligation the modes above create has been met.
+
+**Acquisition readiness — resolved.** All 5 registered sources have met the obligations their modes create.
+
+<!-- /generated:implementation-sources -->
 
 ## Implementation tasks
 

@@ -348,19 +348,47 @@ this system's vocabulary — a candidate node becomes a `SearchNode` bound to an
 `RawEvaluatorArtifact`, a budget counter becomes a `CampaignStopRecord` that
 explicitly satisfies no gate.
 
-### Where the register lives
+### Where the registers live
 
-`provenance/upstreams.json` is authoritative; **[`provenance/README.md`](upstream_lineage_register.md)** is generated
-from it and lists every entry with its upstream, its licence, what was
-deliberately not taken, and what the mechanism may never decide.
-`scripts/check_upstream_lineage.py` validates it and can be made to fail on
-demand — `--self-test` injects a defect per rule and reports any rule that stays
-silent.
+There are two, and the split is the difference between installing something and
+becoming something.
 
-Current state: **36 entries** — ADAPTIVE_REIMPLEMENT 14 · BENCHMARK 6 · DEFER 4 · DIRECT_ADAPT 6 · PATTERN 4 · REJECT 1 · STANDARD 1.
-**None has reached `ADAPTING`.** Every row is a decision on paper, `pinned_commit`
-is `null` throughout, and the rules that demand a pin, a file list and a
-characterisation suite begin to bite at the moment the first line of code moves.
+`provenance/upstreams.json` records **mechanisms assimilated** into this
+repository's own code — `ADR-004`'s subject. **[`provenance/README.md`](upstream_lineage_register.md)**
+is generated from it. `scripts/check_upstream_lineage.py` validates it and can be
+made to fail on demand: `--self-test` injects a defect per rule and reports any
+rule that stays silent.
+
+`provenance/components.json` records **components adopted at runtime** — the
+decisions in §3–§9.1 above, in machine-readable form.
+**[`provenance/COMPONENTS.md`](../../provenance/COMPONENTS.md)** is generated
+from it, and `scripts/check_wp_implementation_sources.py` validates it under the
+same discipline.
+
+Both are joined to the work package that has to execute the decision, and
+projected into that package's **Implementation acquisition and assimilation**
+block by `scripts/expand_acquisition.py`. That binding is the part that did not
+exist: the decisions were sound and they reached nobody, so `WP-144` specified a
+candidate state machine without naming AIDE, and `WP-041` was titled after a
+component neither register knew.
+
+The counts below were prose, and prose drifted — this section read **36 entries**
+against a register that held fifty-eight, and named no `DEPENDENCY` at all
+because the type had been added after the sentence was written. A count nobody
+derives is a count nobody maintains, so it is derived.
+
+<!-- generated:register-state — produced by scripts/check_wp_implementation_sources.py; do not edit inside this block -->
+
+| Register | Entries | By type |
+|---|---:|---|
+| `provenance/upstreams.json` — mechanisms assimilated | **59** | ADAPTIVE_REIMPLEMENT 22 · BENCHMARK 10 · DEFER 5 · DEPENDENCY 3 · DIRECT_ADAPT 7 · PATTERN 8 · REJECT 1 · STANDARD 3 |
+| `provenance/components.json` — components adopted | **44** | ADAPTER 6 · DEPENDENCY 24 · OPTIONAL_BACKEND 7 · PATTERN 2 · STANDARD 5 |
+
+Together they are bound to **84 of 160** work packages and carry **117** open obligations.
+
+**0 entries have reached `ADAPTING`**, and **2 components are `INTEGRATED`** — the Zotero and Obsidian adapters, which are the part of this system that actually runs. Every other row is a decision on paper: `pinned_commit` is `null` throughout, no `MS-*` mechanism specification has been written, and the rules that demand a pin, a file list and a characterisation suite begin to bite at the moment the first line of code moves.
+
+<!-- /generated:register-state -->
 
 ### What the register refuses, and why those examples
 

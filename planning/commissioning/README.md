@@ -114,7 +114,50 @@ zero open critical findings.
 > finish line is a thing that happens with a version bump, a tag and a stated
 > reason — not twice, and not quietly.
 
-> **Commissioning baseline v1.3.1 — 2026-08-23.** A repair baseline: no package,
+> **Commissioning baseline v1.3.2 — 2026-08-24.** A repair baseline, and the
+> rule that decides it is `AGENTS.md` §7.4: a correction keeps the finish line
+> where it is, an addition moves it. **No package, no scenario and no capability
+> is added.** Every acquisition decision this baseline projects into a package
+> was already taken — in `AETHRION_COMPONENT_REUSE.md`, in `ADR-004` or in the
+> package that owns the integration. What was missing was the **binding**.
+>
+> The plan decided what to adopt, what to copy and refactor under a licence, and
+> what to reimplement from a specification. Those decisions lived in the
+> architecture corpus; the work lived in a package document; nothing joined
+> them. So `WP-144` specified a candidate state machine over seven tasks while
+> AIDE sat in the register as its `DIRECT_ADAPT` source, unnamed by the package —
+> an implementer reading only the package would have rewritten a mechanism the
+> architecture had already decided to take. `WP-153` specified a nine-dimensional
+> budget ledger without naming BATS. And the reverse defect was worse: `WP-041`
+> is titled *LiteLLM Model Gateway Foundation* and no register knew LiteLLM
+> existed, so the component had no version policy, no failure semantics and no
+> statement of what it may never decide.
+>
+> What this baseline changes in the sealed tree:
+>
+> - Every package card gains **Implementation acquisition and assimilation**, a
+>   generated block naming each bound source, its mode, what is taken, what
+>   AETHRION still owns, what the source may never decide, and the obligation the
+>   mode creates that nobody has met yet. `BUILD_NATIVE` is stated rather than
+>   left to silence, because silence cannot distinguish a package with no
+>   upstream from a package whose upstream nobody recorded.
+> - Every package card's **Definition of Ready** gains the acquisition
+>   precondition, and `00_PROGRAM/05` states why it gates `READY` rather than
+>   `TECH_COMPLETE`.
+>
+> Outside the seal: `provenance/components.json` makes the runtime-component
+> decisions machine-readable for the first time, `scripts/expand_acquisition.py`
+> projects both registers into the packages, and
+> `scripts/check_wp_implementation_sources.py` checks the binding in both
+> directions with a `--self-test` per rule. `scripts/ready_queue.py` now holds a
+> package out of *Ready now* while an obligation is open.
+>
+> **No entry moved to `ADAPTING` and no code was copied.** Every obligation is
+> reported as open, which is the honest state: no commit is pinned, no
+> characterisation suite exists, and no `MS-*` mechanism specification has been
+> written anywhere in this repository.
+
+> **v1.3.1** was a repair baseline: no package,
 > no scenario and no capability added. It closes the integration defects that
 > made v1.3.0's plan unexecutable — two pre-go-live packages depending on Day-2
 > packages, two cutover aggregators binding two scenarios where they meant 118,

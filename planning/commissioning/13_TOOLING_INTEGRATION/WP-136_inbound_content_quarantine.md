@@ -195,6 +195,7 @@ The transitive figure is the leverage number. It does not appear anywhere else i
 - Dependencies accepted: WP-058 (Content Quarantine Firewall), WP-131, WP-132
 - A named owner, a named implementer and a verifier independent of the producer are assigned.
 - `DataClass`, `CodeTrust`, `ToolEffect` and the network/credential scope are classified.
+- The **acquisition surface is classified**: every part of this package is `DEPENDENCY`, `ADAPTER`, `OPTIONAL_BACKEND`, `STANDARD`, `BENCHMARK`, `PATTERN`, `DIRECT_ADAPT`, `ADAPTIVE_REIMPLEMENT` or `BUILD_NATIVE`, and every obligation the mode creates is resolved — see **Implementation acquisition and assimilation** above.
 - Test fixtures, the environment, the rollback point and the acceptance measurement method are reachable.
 
 ## Execution requirements
@@ -243,6 +244,45 @@ A package whose evidence cannot be produced is not `READY`, however complete its
 - The verifier can reach the evidence **without** seeing the producer's working trace.
 
 <!-- /generated:execution-requirements -->
+
+## Implementation acquisition and assimilation
+
+<!-- generated:implementation-sources — produced by scripts/expand_acquisition.py; do not edit inside this block -->
+
+**What is already solved elsewhere, and on what terms.** Before the first task starts, an implementer has to know which parts of this package are called at runtime, which are copied and refactored, which are reimplemented from a specification, and which have no upstream at all. Those decisions are recorded in [`provenance/upstreams.json`](../../../provenance/upstreams.json) — mechanisms assimilated into this repository's own code — and in [`provenance/components.json`](../../../provenance/components.json) — components adopted at runtime. This block is derived from both, so a decision and the place it is used cannot drift apart.
+
+### Acquisition map
+
+| Source | Mode | What is taken | AETHRION owns | Unresolved |
+|---|---|---|---|---|
+| `ASM-048` — WASP — realistic web-agent prompt injection | `BENCHMARK` | a measurement of this system — nothing enters it | the contract this is held behind | none |
+| `ASM-059` — AgentDojo — prompt-injection attack and defence suite | `BENCHMARK` | a measurement of this system — nothing enters it | the contract this is held behind | none |
+| `CMP-034` — CaMeL | `PATTERN` | Nothing is called at runtime — the idea is implemented here. | The trusted-control / untrusted-data architecture and the capability gate that enforces it. | none |
+| — | `BUILD_NATIVE` | Everything not listed above: the contracts, the authority boundaries and the integration this package specifies | All of it | — |
+
+### What each source may never decide
+
+An adopted mechanism supplies a signal, never a verdict. The recurring failure of adoption is not a component behaving badly but a component quietly acquiring authority, which is why every register entry states this before it is taken.
+
+| Source | May never decide | Deliberately not taken |
+|---|---|---|
+| `ASM-048` | Measures the untrusted-content boundary. Never part of the running system. | **Everything except running it as a benchmark.** The licence is non-commercial, so no code and no content may be adapted into this repository regardless of how useful the fixtures are. Use is limited to evaluation under the terms that licence permits. |
+| `ASM-059` | A benchmark measures the system and is never part of it. An AgentDojo score is qualification evidence for the untrusted-content boundary; it is never a gate verdict, never a control effectiveness claim, and a passing score does not license a capability that policy has not granted. | The runtime, the task environments and any notion that a defence which scores well here is a security boundary. ADR-003 puts the boundary at the capability, not at the text. |
+| `CMP-034` | Control flow comes from trusted intent. Untrusted content may supply values; it can never create actions or expand permissions. Content crosses the boundary, authority does not. | Prompt-layer injection detection as a security boundary — a detector is defence in depth, not a boundary. |
+
+### Where a plain row would mislead
+
+- **`ASM-048`** — Attacks partially succeed in up to 86% of cases against top-tier agents using low-effort human-written injections, under a realistic threat model where the attacker is an ordinary user of a site rather than its owner. The licence split — CC-BY-NC for most of it, MIT for one bundled component — is exactly why ADR-019 requires a **file-level** licence position rather than a repository-level one.
+- **`ASM-059`** — AETHRION's untrusted-content boundary should be measured against someone else's attacks, not its own — AETHRION_COMPONENT_REUSE.md §4. Named in WP-060, WP-112 and WP-136 before it was registered.
+- **`CMP-034`** — WP-136 changes character: from *prompt-injection detection* to **trusted control / untrusted data architecture**.
+
+### Unresolved before implementation
+
+**None.** Every obligation the modes above create has been met.
+
+**Acquisition readiness — resolved.** All 3 registered sources have met the obligations their modes create.
+
+<!-- /generated:implementation-sources -->
 
 ## Implementation tasks
 

@@ -234,6 +234,7 @@ The transitive figure is the leverage number. It does not appear anywhere else i
 - A named owner, a named implementer, and a verifier **independent of the producer** are assigned.
 - Affected canonical records, interfaces and ADRs have been linked during refinement.
 - `DataClass`, `CodeTrust`, `ToolEffect` and the network/credential scope are classified.
+- The **acquisition surface is classified**: every part of this package is `DEPENDENCY`, `ADAPTER`, `OPTIONAL_BACKEND`, `STANDARD`, `BENCHMARK`, `PATTERN`, `DIRECT_ADAPT`, `ADAPTIVE_REIMPLEMENT` or `BUILD_NATIVE`, and every obligation the mode creates is resolved — see **Implementation acquisition and assimilation** above.
 - Test fixtures, the environment, the rollback point and the acceptance measurement method are reachable.
 - An O/M/P person-day estimate is recorded and real capacity is reserved against it.
 
@@ -326,6 +327,61 @@ A package whose evidence cannot be produced is not `READY`, however complete its
 - The verifier can reach the evidence **without** seeing the producer's working trace.
 
 <!-- /generated:execution-requirements -->
+
+## Implementation acquisition and assimilation
+
+<!-- generated:implementation-sources — produced by scripts/expand_acquisition.py; do not edit inside this block -->
+
+**What is already solved elsewhere, and on what terms.** Before the first task starts, an implementer has to know which parts of this package are called at runtime, which are copied and refactored, which are reimplemented from a specification, and which have no upstream at all. Those decisions are recorded in [`provenance/upstreams.json`](../../../provenance/upstreams.json) — mechanisms assimilated into this repository's own code — and in [`provenance/components.json`](../../../provenance/components.json) — components adopted at runtime. This block is derived from both, so a decision and the place it is used cannot drift apart.
+
+### Acquisition map
+
+| Source | Mode | What is taken | AETHRION owns | Unresolved |
+|---|---|---|---|---|
+| `ASM-001` — ScientistOne / Science One Framework — Chain-of-Evidence | `ADAPTIVE_REIMPLEMENT` | `MS-COE-001` · `MS-COE-002` · `MS-COE-003` · `MS-COE-004` · `MS-COE-005` · `MS-COE-006` | the local module and contract surface this becomes — **named at refinement** | **1** |
+| `ASM-005` — ScienceClaw — immutable artifact DAG | `DIRECT_ADAPT` | `artifacts/artifact.py` · `artifacts/graph_snapshot.py` | the local module and contract surface this becomes — **named at refinement** | **3** |
+| `ASM-006` — ScienceClaw — NeedItem broadcast | `ADAPTIVE_REIMPLEMENT` | `MS-GAP-001` | the local module and contract surface this becomes — **named at refinement** | **1** |
+| `CMP-025` — SEPIO | `STANDARD` | The assertion/evidence/provenance core model. | The AIRL profile over SEPIO's core — which relation types are used and what each licenses. | none |
+| — | `BUILD_NATIVE` | Everything not listed above: the contracts, the authority boundaries and the integration this package specifies | All of it | — |
+
+### What each source may never decide
+
+An adopted mechanism supplies a signal, never a verdict. The recurring failure of adoption is not a component behaving badly but a component quietly acquiring authority, which is why every register entry states this before it is taken.
+
+| Source | May never decide | Deliberately not taken |
+|---|---|---|
+| `ASM-001` | A CoE Audit result is a VerificationResult, never a GateRecord verdict. The audit reports; the gate policy decides. | The producer architecture, the provider assumptions, and any notion that the audit score is itself a decision. |
+| `ASM-005` | An ArtifactRecord is evidence lineage. It confers no authority to act and no claim status. | Per-agent store.jsonl and the shared global_index.jsonl as canonical storage. AETHRION holds payloads in a content-addressed object store and metadata in PostgreSQL; a JSONL index is at most a derived projection. |
+| `ASM-006` | An open EvidenceGap authorises nothing. It is an input to task compilation under gate policy, never a trigger that starts work by itself. | The ArtifactReactor's autonomy — upstream, an unmet need scored by urgency automatically triggers a peer agent to run a skill. That is precisely the authority AETHRION withholds. |
+| `CMP-025` | A model of assertions is not an assertion about truth. SEPIO gives the shape; the gate decides what may be believed. | SEPIO's full ontology where the profile does not use it. |
+
+### Where a plain row would mislead
+
+- **`ASM-001`** — Two public versions of this work report different evaluation corpus sizes. Any number quoted from it must carry the version it came from — the same rule this architecture applies to SourceRepresentation.
+- **`ASM-005`** — The value semantics — ordered parents, content hash, producer provenance — are what is taken. The storage decision is not.
+- **`ASM-006`** — The upstream mechanism is a coordination signal; the AETHRION object is a scientific need with an acceptance condition and a lifecycle.
+
+### Unresolved before implementation
+
+Each item below is an obligation its mode creates, quoted from the rule that creates it. None can be met from a session with no network access, and none may be assumed satisfied.
+
+**`ASM-001` — ScientistOne / Science One Framework — Chain-of-Evidence** · `ADAPTIVE_REIMPLEMENT` · status `PROPOSED`
+
+- a written mechanism specification — inputs, outputs, state, transitions, invariants, failure conditions and forbidden behaviour — before implementation
+
+**`ASM-005` — ScienceClaw — immutable artifact DAG** · `DIRECT_ADAPT` · status `PROPOSED`
+
+- the register entry moved to `CHARACTERIZED` — upstream behaviour captured and the adaptation confirmed against the pinned tree, not against the paper
+- a pinned upstream commit — a branch name is not a pin
+- a characterisation suite capturing upstream behaviour **before** any code moves
+
+**`ASM-006` — ScienceClaw — NeedItem broadcast** · `ADAPTIVE_REIMPLEMENT` · status `PROPOSED`
+
+- a written mechanism specification — inputs, outputs, state, transitions, invariants, failure conditions and forbidden behaviour — before implementation
+
+**Acquisition readiness — 5 obligations open across 3 of 4 sources.** `00_PROGRAM/05_definition_of_ready_and_done.md` requires the acquisition surface of a package to be classified and its obligations resolved before the package is `READY`; `scripts/ready_queue.py` holds it back until they are.
+
+<!-- /generated:implementation-sources -->
 
 ## Implementation tasks
 

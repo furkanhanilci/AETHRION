@@ -204,6 +204,7 @@ The transitive figure is the leverage number. It does not appear anywhere else i
 - A named owner, a named implementer, and a verifier **independent of the producer** are assigned.
 - Affected canonical records, interfaces and ADRs have been linked during refinement.
 - `DataClass`, `CodeTrust`, `ToolEffect` and the network/credential scope are classified.
+- The **acquisition surface is classified**: every part of this package is `DEPENDENCY`, `ADAPTER`, `OPTIONAL_BACKEND`, `STANDARD`, `BENCHMARK`, `PATTERN`, `DIRECT_ADAPT`, `ADAPTIVE_REIMPLEMENT` or `BUILD_NATIVE`, and every obligation the mode creates is resolved — see **Implementation acquisition and assimilation** above.
 - Test fixtures, the environment, the rollback point and the acceptance measurement method are reachable.
 - An O/M/P person-day estimate is recorded and real capacity is reserved against it.
 
@@ -262,6 +263,46 @@ A package whose evidence cannot be produced is not `READY`, however complete its
 - The verifier can reach the evidence **without** seeing the producer's working trace.
 
 <!-- /generated:execution-requirements -->
+
+## Implementation acquisition and assimilation
+
+<!-- generated:implementation-sources — produced by scripts/expand_acquisition.py; do not edit inside this block -->
+
+**What is already solved elsewhere, and on what terms.** Before the first task starts, an implementer has to know which parts of this package are called at runtime, which are copied and refactored, which are reimplemented from a specification, and which have no upstream at all. Those decisions are recorded in [`provenance/upstreams.json`](../../../provenance/upstreams.json) — mechanisms assimilated into this repository's own code — and in [`provenance/components.json`](../../../provenance/components.json) — components adopted at runtime. This block is derived from both, so a decision and the place it is used cannot drift apart.
+
+### Acquisition map
+
+| Source | Mode | What is taken | AETHRION owns | Unresolved |
+|---|---|---|---|---|
+| `ASM-029` — AstaBench — cost-controlled scientific agent benchmark suite | `BENCHMARK` | a measurement of this system — nothing enters it | the contract this is held behind | none |
+| `CMP-020` — OpenSSF model-signing | `DEPENDENCY` | Signing and verification of model files. | The requirement that a local open-weight model file has a verified identity before it is admitted. | **2** |
+| — | `BUILD_NATIVE` | Everything not listed above: the contracts, the authority boundaries and the integration this package specifies | All of it | — |
+
+### What each source may never decide
+
+An adopted mechanism supplies a signal, never a verdict. The recurring failure of adoption is not a component behaving badly but a component quietly acquiring authority, which is why every register entry states this before it is taken.
+
+| Source | May never decide | Deliberately not taken |
+|---|---|---|
+| `ASM-029` | Qualification evidence for a model or actor profile on a task class. Never a gate. | Its agent implementations. |
+| `CMP-020` | A signed model file is an admitted *artifact*, not a qualified *actor*. Qualification is WP-044's measurement. | A vendor signature as evidence of capability. |
+
+### Where a plain row would mislead
+
+- **`ASM-029`** — Not in the source brief; added here. Eleven benchmarks and over 2,400 examples spanning literature search, code execution, data analysis and end-to-end discovery, with standardised tools, a date-restricted literature corpus for reproducibility, and explicit control for model cost and tool access. That last property is what the rest of the benchmark portfolio lacks: without cost normalisation, a governed-versus-ungoverned comparison cannot separate the effect of governance from the effect of spend.
+
+### Unresolved before implementation
+
+Each item below is an obligation its mode creates, quoted from the rule that creates it. None can be met from a session with no network access, and none may be assumed satisfied.
+
+**`CMP-020` — OpenSSF model-signing** · `DEPENDENCY` · status `PROPOSED`
+
+- a version or image-digest policy and an upgrade path
+- what happens when it is unavailable, slow or wrong
+
+**Acquisition readiness — 2 obligations open across 1 of 2 sources.** `00_PROGRAM/05_definition_of_ready_and_done.md` requires the acquisition surface of a package to be classified and its obligations resolved before the package is `READY`; `scripts/ready_queue.py` holds it back until they are.
+
+<!-- /generated:implementation-sources -->
 
 ## Implementation tasks
 

@@ -286,6 +286,7 @@ The transitive figure is the leverage number. It does not appear anywhere else i
 - A named owner, a named implementer, and a verifier **independent of the producer** are assigned.
 - Affected canonical records, interfaces and ADRs have been linked during refinement.
 - `DataClass`, `CodeTrust`, `ToolEffect` and the network/credential scope are classified.
+- The **acquisition surface is classified**: every part of this package is `DEPENDENCY`, `ADAPTER`, `OPTIONAL_BACKEND`, `STANDARD`, `BENCHMARK`, `PATTERN`, `DIRECT_ADAPT`, `ADAPTIVE_REIMPLEMENT` or `BUILD_NATIVE`, and every obligation the mode creates is resolved — see **Implementation acquisition and assimilation** above.
 - Test fixtures, the environment, the rollback point and the acceptance measurement method are reachable.
 - An O/M/P person-day estimate is recorded and real capacity is reserved against it.
 
@@ -409,6 +410,86 @@ A package whose evidence cannot be produced is not `READY`, however complete its
 - The verifier can reach the evidence **without** seeing the producer's working trace.
 
 <!-- /generated:execution-requirements -->
+
+## Implementation acquisition and assimilation
+
+<!-- generated:implementation-sources — produced by scripts/expand_acquisition.py; do not edit inside this block -->
+
+**What is already solved elsewhere, and on what terms.** Before the first task starts, an implementer has to know which parts of this package are called at runtime, which are copied and refactored, which are reimplemented from a specification, and which have no upstream at all. Those decisions are recorded in [`provenance/upstreams.json`](../../../provenance/upstreams.json) — mechanisms assimilated into this repository's own code — and in [`provenance/components.json`](../../../provenance/components.json) — components adopted at runtime. This block is derived from both, so a decision and the place it is used cannot drift apart.
+
+### Acquisition map
+
+| Source | Mode | What is taken | AETHRION owns | Unresolved |
+|---|---|---|---|---|
+| `ASM-001` — ScientistOne / Science One Framework — Chain-of-Evidence | `ADAPTIVE_REIMPLEMENT` | `MS-COE-001` · `MS-COE-002` · `MS-COE-003` · `MS-COE-004` · `MS-COE-005` · `MS-COE-006` | the local module and contract surface this becomes — **named at refinement** | **1** |
+| `ASM-033` — CiTO — Citation Typing Ontology | `STANDARD` | the running implementation | the contract this is held behind | **1** |
+| `ASM-034` — Nanopublications — claim-level machine-readable publication | `DEFER` | nothing — recorded so it is not re-examined from scratch | the contract this is held behind | none |
+| `CMP-022` — Workflow Run RO-Crate | `STANDARD` | The crate format and its PROV mapping. | Which run facts must be present for a run to be re-executable by someone who was not there. | none |
+| `CMP-027` — Pandoc | `DEPENDENCY` | The document AST, citeproc, reference templates and Lua filter execution. | Every AIRL transformation, expressed as an AST filter. | **2** |
+| `CMP-028` — Quarto | `DEPENDENCY` | Manuscript orchestration, cross references, multi-format render, JATS output and MECA bundling. | The publication package contract and what a rendered artifact must contain. | **2** |
+| `CMP-029` — MyST | `OPTIONAL_BACKEND` | The authoring and render stack. | The publication package contract, as for Quarto. | **1** |
+| `CMP-030` — CSL | `STANDARD` | Citation style definitions and their rendering. | Which style a venue requires; nothing more. | none |
+| `CMP-031` — veraPDF | `DEPENDENCY` | PDF/A and PDF/UA validation. | The accessibility contract the rendered artifact must satisfy. | **2** |
+| `CMP-035` — Manubot | `PATTERN` | Nothing is called at runtime. | Manuscript-as-code discipline: continuous rebuild and citation by identifier. | none |
+| — | `BUILD_NATIVE` | Everything not listed above: the contracts, the authority boundaries and the integration this package specifies | All of it | — |
+
+### What each source may never decide
+
+An adopted mechanism supplies a signal, never a verdict. The recurring failure of adoption is not a component behaving badly but a component quietly acquiring authority, which is why every register entry states this before it is taken.
+
+| Source | May never decide | Deliberately not taken |
+|---|---|---|
+| `ASM-001` | A CoE Audit result is a VerificationResult, never a GateRecord verdict. The audit reports; the gate policy decides. | The producer architecture, the provider assumptions, and any notion that the audit score is itself a decision. |
+| `ASM-033` | A citation type describes the intent of a link. It does not establish that the link is correct — that is the V2 entailment verifier's job. | The full ontology surface; only the relations EvidenceTag actually needs. |
+| `ASM-034` | An export projection of accepted claims. Publishing one does not accept a claim; a DecisionRecord does. | Nothing yet — deferred. |
+| `CMP-022` | A crate records what ran. It does not assert that the result supports a claim; that binding is the `EvidenceManifest`'s. | Any AETHRION-specific run format that would fork the standard. |
+| `CMP-027` | A renderer formats what the compiler decided; it never changes what a document asserts. **AIRL transformations are AST filters, never regexes over a manuscript.** | Any transformation that edits rendered output after the fact. |
+| `CMP-028` | As for Pandoc: rendering never changes an assertion. | Quarto's computation cache as a source of results. |
+| `CMP-029` | As for Quarto. | Any stack-specific syntax in canonical content. |
+| `CMP-030` | A citation style is presentation. It never changes which source supports a claim. | An AIRL-invented citation style — AETHRION does not invent one. |
+| `CMP-031` | A validator reports conformance to a format profile. It does not assess whether the document is readable by a person, and a pass is not an accessibility claim. | A validator pass as evidence that WCAG 2.2 is met. |
+| `CMP-035` | A build discipline says nothing about what the manuscript may claim. | Manubot as a second render engine — taken as discipline, not as an engine. |
+
+### Where a plain row would mislead
+
+- **`ASM-001`** — Two public versions of this work report different evaluation corpus sizes. Any number quoted from it must carry the version it came from — the same rule this architecture applies to SourceRepresentation.
+- **`ASM-033`** — Not in the source brief; added here. EvidenceTag.support_relation was about to be an invented three-value enum (SUPPORTS / CHALLENGES / CONTEXTUALIZES). CiTO already provides the published vocabulary for exactly this — cito:supports, cito:disagreesWith, cito:usesMethodIn and the rest — and AETHRION's own rule is not to invent an identifier scheme where one is maintained by people closer to the problem. Binding the enum to CiTO IRIs costs nothing now and makes an EvidenceTag exportable to anyone who reads SPAR.
+- **`ASM-034`** — Not in the source brief; added here as a deferred candidate. Its structure — assertion, provenance, publication info as one citable unit — is close to an exact match for ClaimVersion plus EvidenceTag plus DecisionRecord, so the publication compiler should be built so that this projection is later addable without reshaping the claim model. Deferred because a projection nobody consumes is cost without benefit until the compiler exists.
+
+### Unresolved before implementation
+
+Each item below is an obligation its mode creates, quoted from the rule that creates it. None can be met from a session with no network access, and none may be assumed satisfied.
+
+**`ASM-001` — ScientistOne / Science One Framework — Chain-of-Evidence** · `ADAPTIVE_REIMPLEMENT` · status `PROPOSED`
+
+- a written mechanism specification — inputs, outputs, state, transitions, invariants, failure conditions and forbidden behaviour — before implementation
+
+**`ASM-033` — CiTO — Citation Typing Ontology** · `STANDARD` · status `PROPOSED`
+
+- a conformance suite against the published specification
+
+**`CMP-027` — Pandoc** · `DEPENDENCY` · status `PROPOSED`
+
+- a version or image-digest policy and an upgrade path
+- what happens when it is unavailable, slow or wrong
+
+**`CMP-028` — Quarto** · `DEPENDENCY` · status `PROPOSED`
+
+- a version or image-digest policy and an upgrade path
+- what happens when it is unavailable, slow or wrong
+
+**`CMP-029` — MyST** · `OPTIONAL_BACKEND` · status `PROPOSED`
+
+- the backend itself — still unchosen, which is the correct state until the qualification runs, and a stop condition for anyone about to pick one
+
+**`CMP-031` — veraPDF** · `DEPENDENCY` · status `PROPOSED`
+
+- a version or image-digest policy and an upgrade path
+- what happens when it is unavailable, slow or wrong
+
+**Acquisition readiness — 9 obligations open across 6 of 10 sources.** `00_PROGRAM/05_definition_of_ready_and_done.md` requires the acquisition surface of a package to be classified and its obligations resolved before the package is `READY`; `scripts/ready_queue.py` holds it back until they are.
+
+<!-- /generated:implementation-sources -->
 
 ## Implementation tasks
 

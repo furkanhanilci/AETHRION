@@ -231,6 +231,7 @@ The transitive figure is the leverage number. It does not appear anywhere else i
 - A named owner, a named implementer, and a verifier **independent of the producer** are assigned.
 - Affected canonical records, interfaces and ADRs have been linked during refinement.
 - `DataClass`, `CodeTrust`, `ToolEffect` and the network/credential scope are classified.
+- The **acquisition surface is classified**: every part of this package is `DEPENDENCY`, `ADAPTER`, `OPTIONAL_BACKEND`, `STANDARD`, `BENCHMARK`, `PATTERN`, `DIRECT_ADAPT`, `ADAPTIVE_REIMPLEMENT` or `BUILD_NATIVE`, and every obligation the mode creates is resolved — see **Implementation acquisition and assimilation** above.
 - Test fixtures, the environment, the rollback point and the acceptance measurement method are reachable.
 - An O/M/P person-day estimate is recorded and real capacity is reserved against it.
 
@@ -302,6 +303,67 @@ A package whose evidence cannot be produced is not `READY`, however complete its
 - The verifier can reach the evidence **without** seeing the producer's working trace.
 
 <!-- /generated:execution-requirements -->
+
+## Implementation acquisition and assimilation
+
+<!-- generated:implementation-sources — produced by scripts/expand_acquisition.py; do not edit inside this block -->
+
+**What is already solved elsewhere, and on what terms.** Before the first task starts, an implementer has to know which parts of this package are called at runtime, which are copied and refactored, which are reimplemented from a specification, and which have no upstream at all. Those decisions are recorded in [`provenance/upstreams.json`](../../../provenance/upstreams.json) — mechanisms assimilated into this repository's own code — and in [`provenance/components.json`](../../../provenance/components.json) — components adopted at runtime. This block is derived from both, so a decision and the place it is used cannot drift apart.
+
+### Acquisition map
+
+| Source | Mode | What is taken | AETHRION owns | Unresolved |
+|---|---|---|---|---|
+| `ASM-009` — MLEvolve — progressive MCGS, reference edges, cross-branch fusion, stagnation | `ADAPTIVE_REIMPLEMENT` | `MS-SRCH-003` · `MS-SRCH-004` · `MS-SRCH-005` | the local module and contract surface this becomes — **named at refinement** | **1** |
+| `ASM-014` — PiEvo — evolving principle space and anomaly-aware augmentation | `ADAPTIVE_REIMPLEMENT` | `MS-PRIN-001` · `MS-PRIN-002` | the local module and contract surface this becomes — **named at refinement** | **1** |
+| `ASM-019` — DeepScientist — findings memory, failed routes, research map | `ADAPTIVE_REIMPLEMENT` | `MS-MEM-001` · `MS-MEM-002` | the local module and contract surface this becomes — **named at refinement** | **1** |
+| `ASM-020` — EvoScientist — ideation memory separated from procedural memory; failure classification | `DEFER` | nothing — recorded so it is not re-examined from scratch | the contract this is held behind | none |
+| `ASM-040` — MAD-M2 — memory masking in multi-agent debate | `ADAPTIVE_REIMPLEMENT` | `MS-MEM-003` | the local module and contract surface this becomes — **named at refinement** | **1** |
+| — | `BUILD_NATIVE` | Everything not listed above: the contracts, the authority boundaries and the integration this package specifies | All of it | — |
+
+### What each source may never decide
+
+An adopted mechanism supplies a signal, never a verdict. The recurring failure of adoption is not a component behaving badly but a component quietly acquiring authority, which is why every register entry states this before it is taken.
+
+| Source | May never decide | Deliberately not taken |
+|---|---|---|
+| `ASM-009` | A reference edge lets one branch read another. It may not alter primary-parent ancestry, which is the credit path evidence lineage depends on. | The controller and runtime, and the reported stagnation thresholds as normative constants — they enter as an initial experimental profile to be calibrated, not as settings to copy. |
+| `ASM-014` | A PrincipleVersion is a working belief. It uses a different status vocabulary from ClaimVersion on purpose, and a posterior belief is never an accepted claim. | The Bayesian agent runtime and the Gaussian-process machinery, unless a domain later shows it earns its complexity. |
+| `ASM-019` | A FindingRecord is an interpretation of evidence. It never mutates the evidence it interprets, and it is not itself a ClaimVersion. | The autonomous studio runtime and its control loop, which would contend with Temporal. |
+| `ASM-020` | N/A — deferred. | Everything, for now. |
+| `ASM-040` | A mask decides what enters a reasoning context. It deletes nothing, re-labels nothing, and cannot make a masked item unavailable to a failure-history query. | Chat-memory pruning as the model. Upstream masks turns of a debate; here the same idea generalises to a typed ContextProjection over six canonical stores, which is a different object with different retention rules. |
+
+### Where a plain row would mislead
+
+- **`ASM-009`** — Licence is permissive, so direct adaptation would be legal; it is still reimplemented because the native graph contract — typed SearchEdge, ArtifactRecord candidates, VerifiedValue metrics — matters more than importing the controller.
+- **`ASM-014`** — The canonical repository is amair-lab/PiEvo; the address circulating in the source brief (eurekaw/pievo) is a fork, and a fork is not a provenance anchor.
+- **`ASM-019`** — The idea worth taking is that a failed route is an asset rather than something to delete — which is what makes 'have we tried this before?' answerable from records instead of from chat history.
+- **`ASM-020`** — Named in the source brief but neither the repository nor the licence was confirmed on 2026-08-23. The two ideas attributed to it — separating ideation memory from procedural memory, and classifying why a run failed — are already carried by ASM-019 and by the failure taxonomy in WP-082. Deferred rather than adopted on an unverified attribution.
+- **`ASM-040`** — The observation worth taking: an erroneous memory from a previous round degrades later reasoning even after it has been refuted. That is why REFUTED and SUPERSEDED items leave the reasoning context here while staying queryable as history — ACC-096.
+
+### Unresolved before implementation
+
+Each item below is an obligation its mode creates, quoted from the rule that creates it. None can be met from a session with no network access, and none may be assumed satisfied.
+
+**`ASM-009` — MLEvolve — progressive MCGS, reference edges, cross-branch fusion, stagnation** · `ADAPTIVE_REIMPLEMENT` · status `PROPOSED`
+
+- a written mechanism specification — inputs, outputs, state, transitions, invariants, failure conditions and forbidden behaviour — before implementation
+
+**`ASM-014` — PiEvo — evolving principle space and anomaly-aware augmentation** · `ADAPTIVE_REIMPLEMENT` · status `PROPOSED`
+
+- a written mechanism specification — inputs, outputs, state, transitions, invariants, failure conditions and forbidden behaviour — before implementation
+
+**`ASM-019` — DeepScientist — findings memory, failed routes, research map** · `ADAPTIVE_REIMPLEMENT` · status `PROPOSED`
+
+- a written mechanism specification — inputs, outputs, state, transitions, invariants, failure conditions and forbidden behaviour — before implementation
+
+**`ASM-040` — MAD-M2 — memory masking in multi-agent debate** · `ADAPTIVE_REIMPLEMENT` · status `PROPOSED`
+
+- a written mechanism specification — inputs, outputs, state, transitions, invariants, failure conditions and forbidden behaviour — before implementation
+
+**Acquisition readiness — 4 obligations open across 4 of 5 sources.** `00_PROGRAM/05_definition_of_ready_and_done.md` requires the acquisition surface of a package to be classified and its obligations resolved before the package is `READY`; `scripts/ready_queue.py` holds it back until they are.
+
+<!-- /generated:implementation-sources -->
 
 ## Implementation tasks
 

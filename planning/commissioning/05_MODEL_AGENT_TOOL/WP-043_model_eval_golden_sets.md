@@ -200,6 +200,7 @@ The transitive figure is the leverage number. It does not appear anywhere else i
 - A named owner, a named implementer, and a verifier **independent of the producer** are assigned.
 - Affected canonical records, interfaces and ADRs have been linked during refinement.
 - `DataClass`, `CodeTrust`, `ToolEffect` and the network/credential scope are classified.
+- The **acquisition surface is classified**: every part of this package is `DEPENDENCY`, `ADAPTER`, `OPTIONAL_BACKEND`, `STANDARD`, `BENCHMARK`, `PATTERN`, `DIRECT_ADAPT`, `ADAPTIVE_REIMPLEMENT` or `BUILD_NATIVE`, and every obligation the mode creates is resolved — see **Implementation acquisition and assimilation** above.
 - Test fixtures, the environment, the rollback point and the acceptance measurement method are reachable.
 - An O/M/P person-day estimate is recorded and real capacity is reserved against it.
 
@@ -284,6 +285,73 @@ A package whose evidence cannot be produced is not `READY`, however complete its
 - The verifier can reach the evidence **without** seeing the producer's working trace.
 
 <!-- /generated:execution-requirements -->
+
+## Implementation acquisition and assimilation
+
+<!-- generated:implementation-sources — produced by scripts/expand_acquisition.py; do not edit inside this block -->
+
+**What is already solved elsewhere, and on what terms.** Before the first task starts, an implementer has to know which parts of this package are called at runtime, which are copied and refactored, which are reimplemented from a specification, and which have no upstream at all. Those decisions are recorded in [`provenance/upstreams.json`](../../../provenance/upstreams.json) — mechanisms assimilated into this repository's own code — and in [`provenance/components.json`](../../../provenance/components.json) — components adopted at runtime. This block is derived from both, so a decision and the place it is used cannot drift apart.
+
+### Acquisition map
+
+| Source | Mode | What is taken | AETHRION owns | Unresolved |
+|---|---|---|---|---|
+| `ASM-003` — Scholar Loop — predict-then-verify calibration | `DIRECT_ADAPT` | `scholarloop/calibration.py` | the local module and contract surface this becomes — **named at refinement** | **3** |
+| `ASM-022` — K-Dense Science Superpowers — computational-science methodology skills | `DIRECT_ADAPT` | named source files — **not yet selected** | the local module and contract surface this becomes — **named at refinement** | **4** |
+| `ASM-029` — AstaBench — cost-controlled scientific agent benchmark suite | `BENCHMARK` | a measurement of this system — nothing enters it | the contract this is held behind | none |
+| `ASM-030` — ResearchClawBench — end-to-end autonomous research benchmark | `BENCHMARK` | a measurement of this system — nothing enters it | the contract this is held behind | none |
+| `ASM-031` — ScienceAgentBench — scientific coding and analysis tasks | `BENCHMARK` | a measurement of this system — nothing enters it | the contract this is held behind | none |
+| `ASM-032` — EXP-Bench — experimental research task benchmark | `BENCHMARK` | a measurement of this system — nothing enters it | the contract this is held behind | none |
+| `CMP-005` — Inspect AI | `DEPENDENCY` | The evaluation engine: dataset/solver/scorer execution, sandboxing, limits, retry/resume and transcripts. | The behaviours themselves, their pass criteria, the golden sets and the contamination controls — encoded as Inspect tasks, solvers and scorers. | **2** |
+| — | `BUILD_NATIVE` | Everything not listed above: the contracts, the authority boundaries and the integration this package specifies | All of it | — |
+
+### What each source may never decide
+
+An adopted mechanism supplies a signal, never a verdict. The recurring failure of adoption is not a component behaving badly but a component quietly acquiring authority, which is why every register entry states this before it is taken.
+
+| Source | May never decide | Deliberately not taken |
+|---|---|---|
+| `ASM-003` | A calibration profile qualifies an actor for a task class. It is not a claim confidence and cannot be attached to a ClaimVersion. | The two-kind prediction vocabulary — AETHRION needs DIRECTIONAL_DELTA, CONTINUOUS, BINARY, PROBABILITY and RANKING — and the in-memory list as the store of record. |
+| `ASM-022` | A skill changes how an agent works. It never changes what an agent is permitted to do — that is the RoleContract and the policy engine. | A parallel skill family. Where an upstream skill and an AETHRION skill address the same procedure, the result is one merged local skill, not two. |
+| `ASM-029` | Qualification evidence for a model or actor profile on a task class. Never a gate. | Its agent implementations. |
+| `ASM-030` | Measures the governed-versus-ungoverned experiment. Never a gate. | Any runtime dependency. |
+| `ASM-031` | Qualification evidence for scientific execution capability. Never a gate. | Any runtime dependency. |
+| `ASM-032` | Measures whether an experiment was actually conducted, not whether its plan reads well. Never a gate. | Any runtime dependency. |
+| `CMP-005` | A scorer result is a `VerificationResult`, never a `GateRecord` verdict. Inspect measures; gate policy decides. An Inspect transcript is operational evidence and is not the canonical run record. | Inspect as the canonical evidence store, and its scores as claim confidence. |
+
+### Where a plain row would mislead
+
+- **`ASM-003`** — Actor calibration and verifier qualification are separate records here, because they answer different questions.
+- **`ASM-022`** — Sixteen skills upstream, of which twelve overlap AETHRION's scientific family: framing-research-questions, surveying-prior-work, establishing-feasibility-first, designing-the-analysis, preregistering-analysis, subagent-driven-analysis, executing-analysis, dispatching-parallel-investigations, investigating-anomalous-results, verifying-results-before-claiming, requesting-red-team-review, receiving-critical-review, setting-up-reproducible-analysis, reporting-and-archiving-findings, writing-science-skills, using-science-superpowers. Its central discipline is pre-registration in place of …
+- **`ASM-029`** — Not in the source brief; added here. Eleven benchmarks and over 2,400 examples spanning literature search, code execution, data analysis and end-to-end discovery, with standardised tools, a date-restricted literature corpus for reproducibility, and explicit control for model cost and tool access. That last property is what the rest of the benchmark portfolio lacks: without cost normalisation, a governed-versus-ungoverned comparison cannot separate the effect of governance from the effect of spend.
+- **`ASM-030`** — Already registered in AETHRION_COMPONENT_REUSE.md §4; the pinned facts are recorded here. 40 tasks across 10 domains, each grounded in a real published paper with the target paper hidden and expert-curated weighted rubrics. Published headline results — strongest autonomous agent 21.5, strongest harness LLM 20.7, frontier mean 26.5 — set the scale against which any AETHRION result must be read.
+- **`ASM-032`** — Published by the Curie authors. Its result — that agents struggle to produce complete executable experiments — is why G5 acceptance tests execution rather than the quality of experiment-plan prose.
+
+### Unresolved before implementation
+
+Each item below is an obligation its mode creates, quoted from the rule that creates it. None can be met from a session with no network access, and none may be assumed satisfied.
+
+**`ASM-003` — Scholar Loop — predict-then-verify calibration** · `DIRECT_ADAPT` · status `PROPOSED`
+
+- the register entry moved to `CHARACTERIZED` — upstream behaviour captured and the adaptation confirmed against the pinned tree, not against the paper
+- a pinned upstream commit — a branch name is not a pin
+- a characterisation suite capturing upstream behaviour **before** any code moves
+
+**`ASM-022` — K-Dense Science Superpowers — computational-science methodology skills** · `DIRECT_ADAPT` · status `PROPOSED`
+
+- the register entry moved to `CHARACTERIZED` — upstream behaviour captured and the adaptation confirmed against the pinned tree, not against the paper
+- a pinned upstream commit — a branch name is not a pin
+- the exact list of files that will move
+- a characterisation suite capturing upstream behaviour **before** any code moves
+
+**`CMP-005` — Inspect AI** · `DEPENDENCY` · status `PROPOSED`
+
+- a version or image-digest policy and an upgrade path
+- what happens when it is unavailable, slow or wrong
+
+**Acquisition readiness — 9 obligations open across 3 of 7 sources.** `00_PROGRAM/05_definition_of_ready_and_done.md` requires the acquisition surface of a package to be classified and its obligations resolved before the package is `READY`; `scripts/ready_queue.py` holds it back until they are.
+
+<!-- /generated:implementation-sources -->
 
 ## Implementation tasks
 

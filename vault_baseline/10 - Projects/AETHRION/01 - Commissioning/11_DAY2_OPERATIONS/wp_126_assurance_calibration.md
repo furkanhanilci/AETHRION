@@ -267,6 +267,7 @@ The transitive figure is the leverage number. It does not appear anywhere else i
 - A named owner, a named implementer, and a verifier **independent of the producer** are assigned.
 - Affected canonical records, interfaces and ADRs have been linked during refinement.
 - `DataClass`, `CodeTrust`, `ToolEffect` and the network/credential scope are classified.
+- The **acquisition surface is classified**: every part of this package is `DEPENDENCY`, `ADAPTER`, `OPTIONAL_BACKEND`, `STANDARD`, `BENCHMARK`, `PATTERN`, `DIRECT_ADAPT`, `ADAPTIVE_REIMPLEMENT` or `BUILD_NATIVE`, and every obligation the mode creates is resolved — see **Implementation acquisition and assimilation** above.
 - Test fixtures, the environment, the rollback point and the acceptance measurement method are reachable.
 - An O/M/P person-day estimate is recorded and real capacity is reserved against it.
 
@@ -366,6 +367,68 @@ A package whose evidence cannot be produced is not `READY`, however complete its
 - The verifier can reach the evidence **without** seeing the producer's working trace.
 
 <!-- /generated:execution-requirements -->
+
+## Implementation acquisition and assimilation
+
+<!-- generated:implementation-sources — produced by scripts/expand_acquisition.py; do not edit inside this block -->
+
+**What is already solved elsewhere, and on what terms.** Before the first task starts, an implementer has to know which parts of this package are called at runtime, which are copied and refactored, which are reimplemented from a specification, and which have no upstream at all. Those decisions are recorded in [`provenance/upstreams.json`](../../../provenance/upstreams.json) — mechanisms assimilated into this repository's own code — and in [`provenance/components.json`](../../../provenance/components.json) — components adopted at runtime. This block is derived from both, so a decision and the place it is used cannot drift apart.
+
+### Acquisition map
+
+| Source | Mode | What is taken | AETHRION owns | Unresolved |
+|---|---|---|---|---|
+| `ASM-003` — Scholar Loop — predict-then-verify calibration | `DIRECT_ADAPT` | `scholarloop/calibration.py` | the local module and contract surface this becomes — **named at refinement** | **3** |
+| `ASM-024` — PaperBench — producer / reproducer / grader separation and JudgeEval | `PATTERN` | the running implementation | the contract this is held behind | none |
+| `ASM-028` — CORE-Bench — computational reproducibility agent benchmark | `BENCHMARK` | a measurement of this system — nothing enters it | the contract this is held behind | none |
+| `ASM-029` — AstaBench — cost-controlled scientific agent benchmark suite | `BENCHMARK` | a measurement of this system — nothing enters it | the contract this is held behind | none |
+| `ASM-046` — Trust or Escalate — cascaded selective evaluation | `ADAPTIVE_REIMPLEMENT` | `MS-ASSUR-001` · `MS-ASSUR-002` | the local module and contract surface this becomes — **named at refinement** | **1** |
+| `CMP-033` — krippendorff · statsmodels · scikit-learn | `DEPENDENCY` | The estimators. | Which estimator answers which question, and the decision rule written before the data is seen. | **2** |
+| — | `BUILD_NATIVE` | Everything not listed above: the contracts, the authority boundaries and the integration this package specifies | All of it | — |
+
+### What each source may never decide
+
+An adopted mechanism supplies a signal, never a verdict. The recurring failure of adoption is not a component behaving badly but a component quietly acquiring authority, which is why every register entry states this before it is taken.
+
+| Source | May never decide | Deliberately not taken |
+|---|---|---|
+| `ASM-003` | A calibration profile qualifies an actor for a task class. It is not a claim confidence and cannot be attached to a ClaimVersion. | The two-kind prediction vocabulary — AETHRION needs DIRECTIONAL_DELTA, CONTINUOUS, BINARY, PROBABILITY and RANKING — and the in-memory list as the store of record. |
+| `ASM-024` | A benchmark measures the system and never gates it. JudgeEval measures the grader, which is why a grader's verdict needs its own qualification record. | The runtime as an embedded dependency. |
+| `ASM-028` | Measures G7a; never gates it. | Any runtime dependency. |
+| `ASM-029` | Qualification evidence for a model or actor profile on a task class. Never a gate. | Its agent implementations. |
+| `ASM-046` | A cascade decides which verifier answers. It cannot decide that a claim is true, and a coverage guarantee is not a substitute for human authority at G8. | The framing of a statistical human-agreement guarantee as sufficient. Selective evaluation reports the fraction of cases it is willing to judge at a target agreement level; that is a useful property and it is not scientific authority. |
+| `CMP-033` | An agreement coefficient measures agreement, not correctness. Two reviewers who agree may both be wrong, and a high coefficient is never evidence that a verdict is right. | An estimator chosen after seeing the result — `preregistration-discipline` forbids it. |
+
+### Where a plain row would mislead
+
+- **`ASM-003`** — Actor calibration and verifier qualification are separate records here, because they answer different questions.
+- **`ASM-024`** — Already registered as PATTERN + BENCHMARK in AETHRION_COMPONENT_REUSE.md §4.
+- **`ASM-028`** — Not in the source brief; added here. 270 tasks over 90 papers across computer science, social science and medicine, at three difficulty levels, including vision-language tasks. It is the oldest and most-cited of the reproduction benchmarks and covers disciplines the others do not, which is why the G7 suite should not consist only of 2026 preprints.
+- **`ASM-029`** — Not in the source brief; added here. Eleven benchmarks and over 2,400 examples spanning literature search, code execution, data analysis and end-to-end discovery, with standardised tools, a date-restricted literature corpus for reproducibility, and explicit control for model cost and tool access. That last property is what the rest of the benchmark portfolio lacks: without cost normalisation, a governed-versus-ungoverned comparison cannot separate the effect of governance from the effect of spend.
+- **`ASM-046`** — Uses judge confidence to escalate uncertain cases from a cheap judge to a stronger one, reporting roughly 80% coverage at an 80% human-agreement target. The mechanism taken is the cascade and, more importantly, **abstention as a first-class outcome** — ADR-015. A judge forced to choose on a case it cannot resolve produces a verdict indistinguishable from a confident one.
+
+### Unresolved before implementation
+
+Each item below is an obligation its mode creates, quoted from the rule that creates it. None can be met from a session with no network access, and none may be assumed satisfied.
+
+**`ASM-003` — Scholar Loop — predict-then-verify calibration** · `DIRECT_ADAPT` · status `PROPOSED`
+
+- the register entry moved to `CHARACTERIZED` — upstream behaviour captured and the adaptation confirmed against the pinned tree, not against the paper
+- a pinned upstream commit — a branch name is not a pin
+- a characterisation suite capturing upstream behaviour **before** any code moves
+
+**`ASM-046` — Trust or Escalate — cascaded selective evaluation** · `ADAPTIVE_REIMPLEMENT` · status `PROPOSED`
+
+- a written mechanism specification — inputs, outputs, state, transitions, invariants, failure conditions and forbidden behaviour — before implementation
+
+**`CMP-033` — krippendorff · statsmodels · scikit-learn** · `DEPENDENCY` · status `PROPOSED`
+
+- a version or image-digest policy and an upgrade path
+- what happens when it is unavailable, slow or wrong
+
+**Acquisition readiness — 6 obligations open across 3 of 6 sources.** `00_PROGRAM/05_definition_of_ready_and_done.md` requires the acquisition surface of a package to be classified and its obligations resolved before the package is `READY`; `scripts/ready_queue.py` holds it back until they are.
+
+<!-- /generated:implementation-sources -->
 
 ## Implementation tasks
 

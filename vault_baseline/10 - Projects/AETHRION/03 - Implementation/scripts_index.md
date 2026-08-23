@@ -52,6 +52,7 @@ defect rather than a shortcut.
 | `check_programme_graph.py` | the programme is **executable**: package, scenario and aggregation edges combined are acyclic; no pre-go-live or cutover package depends transitively on Day-2 or hypercare work; each declared aggregator's resolved scenario set equals its registry query. **`--self-test` injects each historical defect and fails if the rule written for it stays silent** | whether the execution order it admits is a sensible one, and whether any package is worth doing |
 | `check_figure_semantics.py` | the counts and labels a figure **renders** match the registries — read from the SVG, never through the generator that drew it | anything not mechanically derivable: a wrong arrow, a mislabelled relationship, a mechanism explained incorrectly |
 | `check_document_hygiene.py` | no duplicate heading, broken relative link, unbalanced generated marker or orphaned companion, reported as distinct error codes | whether the prose inside a well-formed document is correct |
+| `check_wp_implementation_sources.py` | every acquisition decision in `provenance/upstreams.json` and `provenance/components.json` is **visible in the package that has to execute it**; every watched third-party name resolves to a register entry; no task list says *build* what a register recorded as *adopt*; and an adopted component says what AETHRION still owns behind it. **`--self-test` injects a defect per rule** | third-party names nobody put on the watchlist, and whether the adoption decision was the right one — only that it reaches the person who has to act on it |
 | `check_skill_baseline.py` | every skill is **reachable** from the router transitively, still contains its own core rule, and stays in a different family from its confusable pair. Prints on every run that the *execution* half has a fixture corpus, no runtime, and has never been measured | whether loading a skill changes what an agent does — that is the half this cannot see, and it says so rather than passing quietly |
 
 ## 2. Generators — output is derived, never hand-edited
@@ -71,6 +72,8 @@ defect rather than a shortcut.
 | `mirror_plan.py` · `mirror_vault.py` | the generated areas of the Obsidian vault | `--check` |
 | `write_status.py` | `docs/STATUS.md` by running the bundle | `--check` |
 | `check_upstream_lineage.py --write` | `provenance/README.md` from `provenance/upstreams.json` | default run fails on drift |
+| `check_wp_implementation_sources.py --write` | `provenance/COMPONENTS.md` from `provenance/components.json`, and the register-state block in `AETHRION_COMPONENT_REUSE.md` — a count that was prose said **36 entries** against a register holding fifty-eight | default run fails on drift |
+| `expand_acquisition.py` | the **Implementation acquisition and assimilation** block in all 160 package cards: the sources bound to the package, their mode, what is taken, what AETHRION owns, what the source may never decide, and the obligation nobody has met yet | `--check` |
 | `render_figures.py` | PNG rasters of every committed SVG, for a human to look at | **not a check** — it produces images and exits. Rendering makes inspection possible; inspection is still a human act, and a bundle row saying "figures rendered" would read as "figures reviewed" |
 
 ## 3. Working tooling
@@ -91,6 +94,7 @@ BVC-01 (deploy/bvc-01-verify.yml, written but not active)
     check_doc_consistency · check_stale_claims · check_reporting_registry
     check_upstream_lineage · check_programme_graph
     check_figure_semantics · check_document_hygiene · check_skill_baseline
+    check_wp_implementation_sources · expand_acquisition --check
     sha256sum -c · make_figures --check
 
 Manual, because they need something CI does not have

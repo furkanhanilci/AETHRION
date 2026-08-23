@@ -151,6 +151,31 @@ upstream one, which is a different claim from the upstream one being right.
 
 ---
 
+## 7.2 The sibling register, and the binding this record assumed
+
+This record governs **mechanisms assimilated** into this repository's own code,
+and `provenance/upstreams.json` is its register. It is not the only one. Which
+running implementation a control stands on is a different decision with different
+obligations — a version policy and failure semantics rather than a pin and a
+characterisation suite — and it lives in `provenance/components.json`, generated
+into [`provenance/COMPONENTS.md`](../../provenance/COMPONENTS.md) and decided in
+`AETHRION_COMPONENT_REUSE.md`. Nothing appears in both as the same decision; an
+upstream that is adopted at runtime *and* has a mechanism reimplemented natively
+carries one entry in each, and the component entry is required to disclose the
+other. PaperQA2 is that case.
+
+This record already required an entry to name its work packages. What it assumed
+without saying is that naming them is enough — and it is not. For two baselines
+the decisions were sound and reached nobody: `WP-144` specified a candidate state
+machine while `ASM-007` sat in the register as its direct-adaptation source,
+unnamed by the package. **A decision reaches the package that executes it, or it
+reaches nobody**, so both registers are now projected into the package card by
+`scripts/expand_acquisition.py` and the binding is checked in both directions by
+`scripts/check_wp_implementation_sources.py`.
+
+The obligations in §3 are unchanged. What changed is that they are now printed
+where the work happens, and a package cannot be `READY` while one is open.
+
 ## 7.1 What this record leaves open, and where it is decided
 
 This record fixes the **rules** for taking a mechanism. It names no tools, and it

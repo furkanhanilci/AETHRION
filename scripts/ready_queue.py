@@ -20,6 +20,14 @@ What "ready" means here
     and it is the point: it is what stops the programme from running ahead of
     its own evidence.
 
+    **And its acquisition decisions must be resolved.** A package whose registered
+    upstream has no pinned commit, no file list and no characterisation suite
+    cannot be started: an implementer reaching that package would either copy
+    code ADR-004 has not yet permitted to move, or rewrite a mechanism that was
+    already decided to be taken. Dependency readiness and acquisition readiness
+    are different questions and a package needs both, so they are reported
+    separately rather than merged into one blocked list.
+
 Usage
     python3 scripts/ready_queue.py            regenerate docs/READY.md
     python3 scripts/ready_queue.py --check    fail if it has drifted
@@ -32,6 +40,9 @@ import os
 import re
 import sys
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import acquisition_model                                          # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
 PLAN = ROOT / "planning" / "commissioning"
@@ -91,7 +102,8 @@ def render(packages: dict[str, dict], progress: dict[str, dict]) -> str:
     def state(pid: str) -> str:
         return progress.get(pid, {}).get("state", "NOT_STARTED")
 
-    ready, blocked, moving, done = [], [], [], []
+    holds = acquisition_model.unresolved_packages()
+    ready, blocked, moving, done, held = [], [], [], [], []
     for pid, pkg in packages.items():
         st = state(pid)
         if st in RELEASES:
@@ -100,8 +112,13 @@ def render(packages: dict[str, dict], progress: dict[str, dict]) -> str:
             moving.append(pid)
         else:
             missing = [d for d in pkg["deps"] if state(d) not in RELEASES]
-            (blocked if missing else ready).append(pid)
             pkg["missing"] = missing
+            if missing:
+                blocked.append(pid)
+            elif pid in holds:
+                held.append(pid)
+            else:
+                ready.append(pid)
 
     lines = [
         "# Ready Queue",
@@ -137,7 +154,23 @@ def render(packages: dict[str, dict], progress: dict[str, dict]) -> str:
     else:
         lines.append("Nothing. Every remaining package waits on something unaccepted.")
 
-    lines += ["", f"## 2. In flight — {len(moving)}", ""]
+    lines += ["", f"## 2. Held — acquisition unresolved — {len(held)}", "",
+              "Every dependency of these packages is accepted and they still cannot "
+              "start. Each has a registered upstream whose obligation is open — a "
+              "commit that is not pinned, a file list that is not selected, a "
+              "characterisation suite that does not exist, a mechanism "
+              "specification that was never written, or a backend nobody has "
+              "chosen. The obligation is named in the package's own **Implementation "
+              "acquisition and assimilation** block.", ""]
+    if held:
+        lines += ["| Package | Open obligations | First one |", "|---|---:|---|"]
+        for pid in held:
+            items = holds[pid]
+            lines.append(f"| **{pid}** | {len(items)} | {items[0]} |")
+    else:
+        lines.append("**None.** No package is waiting only on an acquisition decision.")
+
+    lines += ["", f"## 3. In flight — {len(moving)}", ""]
     if moving:
         lines += ["| Package | State | Note |", "|---|---|---|"]
         for pid in moving:
@@ -146,24 +179,26 @@ def render(packages: dict[str, dict], progress: dict[str, dict]) -> str:
     else:
         lines.append("Nothing is in progress.")
 
-    lines += ["", f"## 3. Accepted — {len(done)}", "",
+    lines += ["", f"## 4. Accepted — {len(done)}", "",
               ", ".join(f"`{p}`" for p in done) if done else
               "**None.** No package in this repository has been accepted, which is why "
               "section 1 is as short as it is."]
 
-    lines += ["", f"## 4. Blocked — {len(blocked)}", "",
+    lines += ["", f"## 5. Blocked — {len(blocked)}", "",
               "Every entry names the packages it is waiting for, so a blockage is "
               "traceable to a decision rather than to a queue.", ""]
     if blocked:
-        lines += ["| Package | Waiting on |", "|---|---|"]
+        lines += ["| Package | Waiting on | Acquisition |", "|---|---|---:|"]
         for pid in blocked:
             miss = packages[pid].get("missing", [])
             shown = ", ".join(f"`{m}`" for m in miss[:6])
             if len(miss) > 6:
                 shown += f" (+{len(miss) - 6} more)"
-            lines.append(f"| {pid} | {shown} |")
+            open_items = len(holds.get(pid, []))
+            lines.append(f"| {pid} | {shown} | "
+                         f"{open_items if open_items else '—'} |")
 
-    lines += ["", "---", "", "## 5. Distance to V1", "",
+    lines += ["", "---", "", "## 6. Distance to V1", "",
               "V1 is complete when `10_go_live_checklist.md`'s entry conditions hold. "
               "Two of them are countable here; the rest are scenario runs and "
               "rehearsals that cannot be derived from a document.", "",
@@ -208,7 +243,9 @@ def main() -> int:
 
     OUT.write_text(text, encoding="utf-8")
     ready = text.split("## 1. Ready now — ")[1].split("\n")[0]
+    held = text.split("## 2. Held — acquisition unresolved — ")[1].split("\n")[0]
     print(f"wrote docs/READY.md — {ready} package(s) ready now, "
+          f"{held} held on an acquisition decision, "
           f"{len(packages)} in the programme")
     return 0
 

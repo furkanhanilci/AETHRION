@@ -84,6 +84,7 @@ jobs:
           uv run python scripts/check_programme_graph.py --self-test
           uv run python scripts/check_figure_semantics.py --self-test
           uv run python scripts/check_document_hygiene.py --self-test
+          uv run python scripts/check_wp_implementation_sources.py --self-test
 
       - name: Workstream indexes match their packages
         run: uv run python scripts/make_plan_indexes.py --check
@@ -101,6 +102,14 @@ jobs:
         run: |
           uv run python scripts/expand_packages.py --check
           uv run python scripts/make_package_companions.py --check
+          uv run python scripts/expand_acquisition.py --check
+
+      # A decision recorded in a register and absent from the package that has
+      # to execute it reaches nobody. This checks the binding in both
+      # directions: every registered source is visible in its package, and every
+      # watched third-party name resolves to a register entry.
+      - name: Acquisition decisions are bound to the packages that execute them
+        run: uv run python scripts/check_wp_implementation_sources.py
 
       - name: The ready queue follows the sealed dependencies
         run: uv run python scripts/ready_queue.py --check

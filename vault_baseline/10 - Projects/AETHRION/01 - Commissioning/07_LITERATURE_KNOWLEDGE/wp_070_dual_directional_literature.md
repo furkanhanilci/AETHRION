@@ -210,6 +210,7 @@ The transitive figure is the leverage number. It does not appear anywhere else i
 - A named owner, a named implementer, and a verifier **independent of the producer** are assigned.
 - Affected canonical records, interfaces and ADRs have been linked during refinement.
 - `DataClass`, `CodeTrust`, `ToolEffect` and the network/credential scope are classified.
+- The **acquisition surface is classified**: every part of this package is `DEPENDENCY`, `ADAPTER`, `OPTIONAL_BACKEND`, `STANDARD`, `BENCHMARK`, `PATTERN`, `DIRECT_ADAPT`, `ADAPTIVE_REIMPLEMENT` or `BUILD_NATIVE`, and every obligation the mode creates is resolved — see **Implementation acquisition and assimilation** above.
 - Test fixtures, the environment, the rollback point and the acceptance measurement method are reachable.
 - An O/M/P person-day estimate is recorded and real capacity is reserved against it.
 
@@ -284,6 +285,51 @@ A package whose evidence cannot be produced is not `READY`, however complete its
 - The verifier can reach the evidence **without** seeing the producer's working trace.
 
 <!-- /generated:execution-requirements -->
+
+## Implementation acquisition and assimilation
+
+<!-- generated:implementation-sources — produced by scripts/expand_acquisition.py; do not edit inside this block -->
+
+**What is already solved elsewhere, and on what terms.** Before the first task starts, an implementer has to know which parts of this package are called at runtime, which are copied and refactored, which are reimplemented from a specification, and which have no upstream at all. Those decisions are recorded in [`provenance/upstreams.json`](../../../provenance/upstreams.json) — mechanisms assimilated into this repository's own code — and in [`provenance/components.json`](../../../provenance/components.json) — components adopted at runtime. This block is derived from both, so a decision and the place it is used cannot drift apart.
+
+### Acquisition map
+
+| Source | Mode | What is taken | AETHRION owns | Unresolved |
+|---|---|---|---|---|
+| `ASM-017` — PaperQA2 — iterative query expansion, citation traversal, evidence reranking | `ADAPTIVE_REIMPLEMENT` | `MS-LIT-001` · `MS-LIT-002` | the local module and contract surface this becomes — **named at refinement** | **1** |
+| `CMP-008` — PaperQA2 | `ADAPTER` | Iterative retrieval, ranking and answer synthesis at runtime. | How retrieval binds to provenance and claim scope — the retrieval contract, not the retriever. | **2** |
+| — | `BUILD_NATIVE` | Everything not listed above: the contracts, the authority boundaries and the integration this package specifies | All of it | — |
+
+### What each source may never decide
+
+An adopted mechanism supplies a signal, never a verdict. The recurring failure of adoption is not a component behaving badly but a component quietly acquiring authority, which is why every register entry states this before it is taken.
+
+| Source | May never decide | Deliberately not taken |
+|---|---|---|
+| `ASM-017` | Retrieval proposes candidate sources and candidate spans. Bibliographic identity belongs to the Source Registry, and inclusion in a frozen LiteratureSetManifest belongs to the screening protocol. | Its storage as the canonical record, and contextual summaries as evidence — a summary is not an EvidenceSpan. |
+| `CMP-008` | Retrieval supplies candidates and never a claim. Nothing retrieved becomes evidence until it is anchored as an `EvidenceSpan` against a stored representation. | PaperQA2's answers as claim text, and its citations as verified references. |
+
+### Where a plain row would mislead
+
+- **`ASM-017`** — Already registered as an ADAPTER in AETHRION_COMPONENT_REUSE.md; this entry records the mechanism-level lineage behind that adapter.
+- **`CMP-008`** — Two decisions exist about this upstream and they do not conflict: the runtime retrieval service is adopted behind an adapter (this entry), while three of its algorithmic mechanisms are reimplemented natively (`ASM-017`, ADAPTIVE_REIMPLEMENT). An implementer needs both rows.
+
+### Unresolved before implementation
+
+Each item below is an obligation its mode creates, quoted from the rule that creates it. None can be met from a session with no network access, and none may be assumed satisfied.
+
+**`ASM-017` — PaperQA2 — iterative query expansion, citation traversal, evidence reranking** · `ADAPTIVE_REIMPLEMENT` · status `PROPOSED`
+
+- a written mechanism specification — inputs, outputs, state, transitions, invariants, failure conditions and forbidden behaviour — before implementation
+
+**`CMP-008` — PaperQA2** · `ADAPTER` · status `PROPOSED`
+
+- a version or image-digest policy and an upgrade path
+- what happens when it is unavailable, slow or wrong
+
+**Acquisition readiness — 3 obligations open across 2 of 2 sources.** `00_PROGRAM/05_definition_of_ready_and_done.md` requires the acquisition surface of a package to be classified and its obligations resolved before the package is `READY`; `scripts/ready_queue.py` holds it back until they are.
+
+<!-- /generated:implementation-sources -->
 
 ## Implementation tasks
 

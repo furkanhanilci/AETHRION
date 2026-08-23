@@ -144,7 +144,12 @@ RULES: list[tuple[str, str, str, str]] = [
     ("README.md", r"uv run pytest\s+# (\d+) tests", "tests", "tests"),
     ("README.md", r"(\d+)/\d+ tests pass", "tests", "tests"),
     ("README.md", r"plan seal · (\d+) status checks", "bundle_checks", "bundle checks"),
-    ("README.md", r"One command runs all (\w+)\.", "bundle_checks", "bundle checks"),
+    # `\w+` stopped matching the moment the bundle reached twenty-two: `_words()`
+    # generates the hyphenated forms, and the pattern that reads them did not
+    # accept a hyphen. The rule then reported "pattern drifted" against a
+    # document that had just been updated correctly — a consistency check
+    # failing a correct document, which is the defect I12 recorded.
+    ("README.md", r"One command runs all ([\w-]+)\.", "bundle_checks", "bundle checks"),
     ("README.md", r"signature OK, (\d+) subject digests OK", "attestation_subjects", "attestation subjects"),
     ("docs/architecture/AETHRION_ARCHITECTURE.md", r"systemd units · (\d+) tests<br/>", "tests", "tests"),
     ("docs/architecture/AETHRION_ARCHITECTURE.md", r"plan seal · (\d+) status checks", "bundle_checks", "bundle checks"),

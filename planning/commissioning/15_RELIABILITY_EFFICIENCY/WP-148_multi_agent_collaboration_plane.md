@@ -182,6 +182,7 @@ The transitive figure is the leverage number. It does not appear anywhere else i
 - A named owner, a named implementer, and a verifier **independent of the producer** are assigned.
 - Affected canonical records, interfaces and ADRs have been linked during refinement.
 - `DataClass`, `CodeTrust`, `ToolEffect` and the network/credential scope are classified.
+- The **acquisition surface is classified**: every part of this package is `DEPENDENCY`, `ADAPTER`, `OPTIONAL_BACKEND`, `STANDARD`, `BENCHMARK`, `PATTERN`, `DIRECT_ADAPT`, `ADAPTIVE_REIMPLEMENT` or `BUILD_NATIVE`, and every obligation the mode creates is resolved — see **Implementation acquisition and assimilation** above.
 - Test fixtures, the environment, the rollback point and the acceptance measurement method are reachable.
 - An O/M/P person-day estimate is recorded and real capacity is reserved against it.
 
@@ -250,6 +251,50 @@ A package whose evidence cannot be produced is not `READY`, however complete its
 - The verifier can reach the evidence **without** seeing the producer's working trace.
 
 <!-- /generated:execution-requirements -->
+
+## Implementation acquisition and assimilation
+
+<!-- generated:implementation-sources — produced by scripts/expand_acquisition.py; do not edit inside this block -->
+
+**What is already solved elsewhere, and on what terms.** Before the first task starts, an implementer has to know which parts of this package are called at runtime, which are copied and refactored, which are reimplemented from a specification, and which have no upstream at all. Those decisions are recorded in [`provenance/upstreams.json`](../../../provenance/upstreams.json) — mechanisms assimilated into this repository's own code — and in [`provenance/components.json`](../../../provenance/components.json) — components adopted at runtime. This block is derived from both, so a decision and the place it is used cannot drift apart.
+
+### Acquisition map
+
+| Source | Mode | What is taken | AETHRION owns | Unresolved |
+|---|---|---|---|---|
+| `ASM-041` — CONSENSAGENT — sycophancy as a reliability and cost problem | `ADAPTIVE_REIMPLEMENT` | `MS-COHORT-001` | the local module and contract surface this becomes — **named at refinement** | **1** |
+| `ASM-042` — MAS-Resilience — faulty-agent resilience, Challenger and Inspector | `ADAPTIVE_REIMPLEMENT` | `MS-RESIL-001` · `MS-RESIL-002` | the local module and contract surface this becomes — **named at refinement** | **1** |
+| — | `BUILD_NATIVE` | Everything not listed above: the contracts, the authority boundaries and the integration this package specifies | All of it | — |
+
+### What each source may never decide
+
+An adopted mechanism supplies a signal, never a verdict. The recurring failure of adoption is not a component behaving badly but a component quietly acquiring authority, which is why every register entry states this before it is taken.
+
+| Source | May never decide | Deliberately not taken |
+|---|---|---|
+| `ASM-041` | A sycophancy diagnostic is a measurement of how a cohort behaved. It is not a verdict on whether the cohort was right, and agreement is never evidence. | The prompt-refinement optimiser. Its purpose is to reach consensus faster; here consensus is not the goal, and a mechanism that accelerates agreement is the wrong lever on a system whose failure mode is agreement. |
+| `ASM-042` | A Challenger targets assumptions and a Inspector checks consistency. Neither holds gate authority, and a clean Inspector result satisfies no required verification — ACC-092. | **The source code, because of the licence.** GPL-3.0 is incompatible with this repository's proprietary licence, so no file may be copied under any circumstance. The mechanism is specified from the paper and written natively — which ADR-004 permits and ADR-019 requires to be recorded. |
+
+### Where a plain row would mislead
+
+- **`ASM-041`** — Frames sycophancy as agents reinforcing one another instead of engaging critically, which inflates cost through extra debate rounds. Evaluated on six reasoning datasets across three models. The mechanism taken is the diagnostic and the framing; the convergence rule here is unresolved-material-challenge closure rather than agreement — ACC-089, ACC-090.
+- **`ASM-042`** — Reports that a hierarchical A→(B↔C) topology degrades least under faulty agents — 5.5% against 10.5% and 23.7% — and that Challenger and Inspector recover up to 96.4% of injected errors. Its AutoTransform and AutoInject fault-injection methods are the model for this baseline's faulty-agent fixtures. **This entry is the register's worked example of a licence changing the method rather than the decision.**
+
+### Unresolved before implementation
+
+Each item below is an obligation its mode creates, quoted from the rule that creates it. None can be met from a session with no network access, and none may be assumed satisfied.
+
+**`ASM-041` — CONSENSAGENT — sycophancy as a reliability and cost problem** · `ADAPTIVE_REIMPLEMENT` · status `PROPOSED`
+
+- a written mechanism specification — inputs, outputs, state, transitions, invariants, failure conditions and forbidden behaviour — before implementation
+
+**`ASM-042` — MAS-Resilience — faulty-agent resilience, Challenger and Inspector** · `ADAPTIVE_REIMPLEMENT` · status `PROPOSED`
+
+- a written mechanism specification — inputs, outputs, state, transitions, invariants, failure conditions and forbidden behaviour — before implementation
+
+**Acquisition readiness — 2 obligations open across 2 of 2 sources.** `00_PROGRAM/05_definition_of_ready_and_done.md` requires the acquisition surface of a package to be classified and its obligations resolved before the package is `READY`; `scripts/ready_queue.py` holds it back until they are.
+
+<!-- /generated:implementation-sources -->
 
 ## Implementation tasks
 

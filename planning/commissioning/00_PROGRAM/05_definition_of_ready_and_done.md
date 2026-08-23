@@ -11,12 +11,39 @@ A package becomes `READY` only when all of the following hold:
   state.
 - Affected canonical owners and interfaces are identified.
 - DataClass, ToolEffect, CodeTrust and network/credential scope are classified.
+- **The acquisition surface is classified and its obligations are resolved.** Every
+  part of the package is one of `DEPENDENCY`, `ADAPTER`, `OPTIONAL_BACKEND`,
+  `STANDARD`, `BENCHMARK`, `PATTERN`, `DIRECT_ADAPT`, `ADAPTIVE_REIMPLEMENT` or
+  `BUILD_NATIVE`, recorded in `provenance/upstreams.json` or
+  `provenance/components.json` and projected into the package's own
+  **Implementation acquisition and assimilation** block.
 - Required environments and test fixtures are accessible.
 - Acceptance criteria are **measurable** and the owner of the test command or
   scenario is identified.
 - Migration, rollback or compensation behaviour is defined.
 - A three-point effort estimate and a capacity owner exist.
 - Open blockers and assumptions are visible.
+
+> **On acquisition, and why it gates `READY` rather than `TECH_COMPLETE`.**
+> `READY` means an implementer may start. An implementer who starts against a
+> `DIRECT_ADAPT` source with no pinned commit, no selected file list and no
+> characterisation suite has two options and both are wrong: copy code that
+> `ADR-004` has not permitted to move, or rewrite from scratch a mechanism the
+> architecture already decided to take. The same holds for an
+> `ADAPTIVE_REIMPLEMENT` source with no written mechanism specification — two
+> implementers will read the paper differently and neither will be checkable
+> against the other — and for an `OPTIONAL_BACKEND` nobody has chosen, where the
+> backend ends up being whichever one a table happened to name first.
+>
+> `BUILD_NATIVE` is an answer, not an absence. It has to be *recorded* as the
+> classification, because silence cannot distinguish a package with no upstream
+> from a package whose upstream nobody wrote down — and the second is what
+> `WP-144` looked like while AIDE sat in the register, unnamed by the package
+> that was supposed to adapt it.
+>
+> `scripts/ready_queue.py` holds a package out of *Ready now* while any
+> obligation is open and lists it under *Held — acquisition unresolved*, so the
+> distinction is visible rather than remembered.
 
 > **On measurability.** The generic criteria in the current package template
 > ("all mandatory tests have passed") are not measurable in the sense meant here.
