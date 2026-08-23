@@ -224,7 +224,7 @@ python scripts/mirror_vault.py "$V" --check
 ```
 
 Expected: `149 passed` · `554` OK · five MCP tools · 11 acceptance checks ·
-`52 skills` conform · `17 figures, 0 drift, 0 overflow` · `plan semantics OK` ·
+`52 skills` conform · `19 figures, 0 drift, 0 overflow` · `plan semantics OK` ·
 `0 drift entries`
 twice (plan and vault mirrors, 0 drift).
 

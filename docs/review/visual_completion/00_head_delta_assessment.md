@@ -46,13 +46,15 @@ Each verified by reading the **rendered SVG**, not the generator.
 | `aethrion_lifecycle.svg` | REVISE — blanket "no model in G5" | **SUPERSEDED** | Split into `G5·D` / `G5·E` at baseline v1.3.1. `NO MODEL` survives only on the `G7a` row, where it is correct |
 | `aethrion_waves.svg` | KEEP | **ALREADY_FIXED_EQUIVALENTLY** | Derived from the wave registry at v1.3.1; `check_figure_semantics.py` compares the rendered total to the package count |
 | `aethrion_memory.svg` | KEEP — tighten wording | **NOT_APPLICABLE_WITH_EVIDENCE** | The suggested phrase "only Evidence is directly admissible" is absent because the figure already carries the constraint on its axes; adding the sentence would restate the diagram |
-| `aethrion_assurance.svg` | KEEP/REFINE | **STILL_VALID, deferred** | V0–V3 preserved. The determinism qualification is a wording refinement with no defect behind it; recorded rather than made |
-| `aethrion_roles.svg` | REVISE — enforcement status | **STILL_VALID, deferred** | The figure does not claim runtime enforcement; no contradiction found to repair |
-| `aethrion_reporting.svg` | REVISE — sequence connectors | **STILL_VALID, deferred** | A layout preference, not a semantic defect. Recorded so it is a decision rather than an omission |
+| `aethrion_assurance.svg` | KEEP/REFINE | **CONFIRMED_AND_FIXED** | The qualification turned out to have a defect behind it: the V0 row says *"same input, same answer, always"* and lists **reference resolution** among its examples — a check that asks a service whose answer changes the day a paper is retracted. It is repeatable for a pinned snapshot, not timeless. Also: the heading counted four questions beside a list of five |
+| `aethrion_roles.svg` | REVISE — enforcement status | **CONFIRMED_AND_FIXED** | The card did not claim it; the closing paragraph did — *"the constraint is now enforced instead of argued about"*, while the engine that would admit or refuse a binding is WP-013 and is not built. Found by reading the rendered figure, not the card |
+| `aethrion_reporting.svg` | REVISE — sequence connectors | **CONFIRMED_AND_FIXED** | Not a layout preference. The 3×3 grid carried arrows *within* each row and none between them, so the only thing telling a reader that stage 2 leads to stage 3 was the numbering — the audit's exact words, and exactly right |
 | `aethrion_collaboration.svg` | KEEP/PROJECT | **STILL_VALID, deferred** | The publication projection is a real suggestion and is deferred with the reason: this repository has no publication venue and no rendering toolchain, so a 89 mm projection would be an artifact nothing consumes |
 
-**Seven confirmed and fixed. One superseded. Two already equivalent or
-inapplicable. Four deferred with reasons.** Nothing was accepted on the package's
+**Ten confirmed and fixed. One superseded. Two already equivalent or
+inapplicable. One deferred with a reason.** Three of the four originally deferred
+turned out to have real defects behind them, and all three were found by
+*rendering the figure and looking at it* rather than by reading the generator. Nothing was accepted on the package's
 authority; each was reproduced first.
 
 ## Two defects the package did not name

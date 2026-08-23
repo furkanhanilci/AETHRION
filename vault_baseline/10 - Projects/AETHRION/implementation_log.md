@@ -160,6 +160,68 @@ quietly skipped.
 
 ---
 
+## Step 026 — Two missing views, and three deferrals that were not
+
+**Time:** 2026-08-23
+**Scope:** `aethrion_compiler.svg` and `aethrion_context.svg` added · the three
+remaining audit deferrals reopened and closed · 19 figures
+
+### The two views the corpus still could not show
+
+**The Task Compiler** is named in `ADR-011`, `ADR-013` and `WP-047` and drawn
+nowhere. That is not a missing picture; it is a property the prose keeps
+inverting. *"The Task Compiler emits a cohort"* reads as a configuration step,
+and the thing that matters is the opposite: **agent count is derived.** A setting
+can be turned down under deadline; a derivation cannot, because reducing the
+cohort means changing what the task claims to be — a scope decision, made in the
+open, by a human.
+
+**Context projection** had the same problem in a different direction. Told as an
+efficiency story it is uninteresting and slightly suspect: the system hides
+things from its own agents to save money. Two different reasons remove material
+from a projection, and only one of them is about tokens. **A larger context
+window fixes the first and makes the second worse** — a reviewer who can read the
+producer's dead ends inherits the framing, and the review is anchored before it
+starts.
+
+Seven other proposed figures were rejected against the package's own test: the
+corpus already carries their mechanism.
+
+### The three deferrals that were not deferrals
+
+Earlier in this pass, four of the audit's fourteen findings were recorded as
+`STILL_VALID, deferred` — no defect found behind the suggestion. **Three of them
+had one.** All three surfaced by rendering the figure and looking at it, after
+the generator had been read and cleared.
+
+| Recorded as | Actually |
+|---|---|
+| *roles: does not claim runtime enforcement* | The card did not. The closing paragraph said the constraint is **"now enforced"** while the engine is WP-013 and unbuilt |
+| *reporting: a layout preference* | Not a preference. Arrows ran within each row and none between them — the sequence was held together by its own numbering |
+| *assurance: a wording refinement* | The V0 row says *"same input, same answer, always"* and lists **reference resolution** among its examples — a check that asks a service whose answer changes the day a paper is retracted |
+
+The pattern is worth keeping: **reading a generator clears the generator.** Three
+findings were dismissed on that basis and three were wrong, because what a
+generator says and what its output shows are different objects.
+
+### Evidence
+
+```text
+figures               17 → 19, 0 overflows, 0 collisions
+audit dispositions    10 confirmed and fixed, 1 superseded, 2 n/a, 1 deferred
+tests                 149
+bundle                20/20
+```
+
+### Limits
+
+One deferral stands: the collaboration publication projection. This repository
+has no rendering toolchain and no venue, so an 89 mm projection would be an
+artifact nothing consumes and no one has inspected. Every figure here remains
+architecture/reference-only and is labelled so.
+
+---
+
 ## Step 025 — Looking at the figures, which is not the same as checking them
 
 **Time:** 2026-08-23

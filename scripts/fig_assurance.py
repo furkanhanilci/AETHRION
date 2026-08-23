@@ -37,11 +37,11 @@ W, L = 1200, 24
 CLASSES = [
     ("V0", "Deterministic", GREEN,
      "digest comparison · schema validation · signature · reference resolution · artifact existence",
-     "Same input, same answer, always. Never invokes a model",
+     "Same authoritative input, same answer, always. Never invokes a model",
      "non-waivable"),
     ("V1", "Computational or statistical", GREEN,
      "score recomputation · statistical test · GRIM and statcheck consistency · tolerance comparison",
-     "Deterministic given pinned software and configuration",
+     "Deterministic given pinned software, configuration and input snapshot",
      "non-waivable"),
     ("V2", "Model-mediated semantic", ORANGE,
      "citation entailment · claim scope and overclaim · method–code alignment · prior-art overlap",
@@ -89,7 +89,7 @@ def main() -> None:
 
     # ------------------------------------------------------------ the repaired rule
     ry2 = ly + len(CLASSES) * row_h + 26
-    rule_h = 104
+    rule_h = 126
     c.rect(L, ry2, tw, rule_h, fill=tint(VERM, 0.10), stroke=VERM, sw=2.0)
     c.text(L + 18, ry2 + 28, "Why the split repairs the gate rule rather than weakening it",
            size=19, weight="700", anchor="start", fill=VERM)
@@ -97,8 +97,10 @@ def main() -> None:
            "The gate rule is that a mechanical check runs first and cannot be overridden by a model. That is "
            "right for V0 and V1. Applied to V2 it says something absurd — that a model's judgement cannot be "
            "overridden by a model. So “mechanical” now means V0 and V1, a V2 result is a finding routed to "
-           "review, and only V0 and V1 failures are absolute.",
-           tw - 36, size=17, fill=INK, lh=22, max_lines=3)
+           "review, and only V0 and V1 failures are absolute. And “deterministic” means for a PINNED input "
+           "snapshot: resolving a reference asks a service whose answer changes the day a paper is retracted, "
+           "which is a V0 check that is repeatable rather than timeless.",
+           tw - 36, size=17, fill=INK, lh=22, max_lines=4)
 
     # --------------------------------------------------------- one check, four classes
     dy = ry2 + rule_h + 38

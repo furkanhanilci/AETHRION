@@ -3,12 +3,12 @@
 | Field | Value |
 |---|---|
 | Document type | Convention — figure inventory and design specification |
-| Scope | The seventeen generated figures, their design system and their guarantees |
+| Scope | The nineteen generated figures, their design system and their guarantees |
 | Sibling documents | `../DOCUMENT_STANDARD.md` · `../architecture/AETHRION_ARCHITECTURE.md` · `../../skills/scientific-figures/SKILL.md` |
 | Status | `WORKING` — figures are generated and mechanically checked |
 | Date | 2026-08-23 |
 
-**In one paragraph.** Figures here are generated artifacts, not drawings: the corpus is the source, the generator is version-controlled, and the SVG is reproducible from a clean checkout. There are seventeen of them rather than one per document, because a figure earns its place only by carrying a mechanism prose carries badly. Every string is measured against the box it sits in, and a figure that cannot be laid out honestly fails the build.
+**In one paragraph.** Figures here are generated artifacts, not drawings: the corpus is the source, the generator is version-controlled, and the SVG is reproducible from a clean checkout. There are nineteen of them rather than one per document, because a figure earns its place only by carrying a mechanism prose carries badly. Every string is measured against the box it sits in, and a figure that cannot be laid out honestly fails the build.
 
 Figures here are **generated artifacts**, like the Obsidian mirrors and the
 package catalogue. The canonical source is the architecture corpus; the
@@ -48,7 +48,7 @@ Two mechanisms now make it impossible:
 
 ---
 
-## 1. Why there are seventeen figures and not fifty
+## 1. Why there are nineteen figures and not fifty
 
 The temptation with a corpus this size is to put a diagram on every document.
 That would produce exactly the failure mode a scientific-figure discipline warns
@@ -78,11 +78,15 @@ carries a **mechanism** that prose carries badly:
 | 15 | `aethrion_disciplines.svg` | The four pairs that get conflated, with the failure written between the halves — and the two rules that make it checkable rather than advisory | A glossary, which is exactly how four ways of being wrong become four synonyms |
 | 16 | `aethrion_decision.svg` | That a human decision is an **ordering**: the assessment sealed before any recommendation is reachable, and the delta between them measured | "The human decides", which is already true and says nothing about when they were told what |
 | 17 | `aethrion_reproduction.svg` | Four zones, with the leak paths drawn *underneath* them — a shared cache, an inherited credential, a warm layer | A boundary diagram, which only shows the routes an attacker would have to cross |
+| 18 | `aethrion_compiler.svg` | That agent count is an **output**, not a setting — the cohort, topology, context, budget and assurance route all derived from the task before anything runs | "The Task Compiler emits a cohort", which reads as a configuration step and inverts the property that matters |
+| 19 | `aethrion_context.svg` | That two different reasons remove material from a context, and only one of them is about tokens — a larger window fixes the first and makes the second worse | An efficiency story, which makes context minimisation sound like a cost measure and slightly suspect |
 
-**Figures 15–17 were added by the visual-completion pass**, and each closes a
+**Figures 15–19 were added by the visual-completion pass**, and each closes a
 decision record that had no visual at all. `ADR-012`'s content is a
-*distinction*, `ADR-016`'s is an *ordering*, and `WP-157`'s is a set of *quiet
-paths* — three things prose carries badly and a reader skims. The test applied
+*distinction*, `ADR-016`'s is an *ordering*, `WP-157`'s is a set of *quiet
+paths*, `WP-047`'s is a **derivation** that reads as a setting, and `WP-151`'s is
+a **distinction between two reasons** that prose collapses into one — five things
+prose carries badly and a reader skims. The test applied
 before adding each was the one the visual instructions state: a figure that
 merely repeats a paragraph does not earn its place. These replace paragraphs
 that had already been misread.
@@ -118,7 +122,7 @@ renders in both GitHub and Obsidian, and does not need a build step. The rule:
 
 ## 2. Design specification
 
-Applied identically to all seventeen figures.
+Applied identically to all nineteen figures.
 
 ### Communication objective
 
@@ -144,7 +148,7 @@ generator module. If a reader takes away only that sentence, the figure worked.
 
 ### Archetype selection
 
-None of the seventeen is a generic left-to-right pipeline, because none of the
+None of the nineteen is a generic left-to-right pipeline, because none of the
 underlying structures is one.
 
 - **Figure 1** is a **matrix**: gates on the vertical axis (time), actor class on

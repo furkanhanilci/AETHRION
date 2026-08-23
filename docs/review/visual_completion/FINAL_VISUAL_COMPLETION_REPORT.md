@@ -5,7 +5,7 @@
 | Document type | Evidence — dated, frozen once written |
 | Package | `AETHRION_VISUAL_ARCHITECTURE_COMPLETION` · seal 206/206 verified |
 | Package baseline | `5928ddd` — identical to HEAD at start |
-| Figures before → after | **14 → 17** |
+| Figures before → after | **14 → 19** |
 | Date | 2026-08-23 |
 
 **In one paragraph.** Seven figures were teaching something the repository had
@@ -31,6 +31,8 @@ checks were added so the class cannot recur silently.
 | **`aethrion_disciplines.svg`** | **new** | `ADR-012` had no figure |
 | **`aethrion_decision.svg`** | **new** | `ADR-016` had no figure |
 | **`aethrion_reproduction.svg`** | **new** | `WP-157`'s zones had no figure |
+| **`aethrion_compiler.svg`** | **new** | `WP-047`'s compiler is named in three decision records and drawn in none |
+| **`aethrion_context.svg`** | **new** | `WP-151`'s projection had no figure, and its content is a *distinction between two reasons* that prose collapses into one |
 
 Nothing was removed. `waves`, `memory`, `assurance`, `roles`, `reporting`,
 `collaboration` and `lifecycle` were verified and kept, four of them with
