@@ -244,8 +244,15 @@ rather than in the plan they check.
 | # | Finding | Fixed by | Regression guard |
 |---|---|---|---|
 | **L6** | **Seventeen of fifty-two skills were reachable by no chain of references from the router.** `validate_skills.py` proved all 52 parse and carry their metadata, and every one of the seventeen passed it. A skill nobody can be routed to never loads, so whatever it says is unreachable rather than merely untested — and the check that appeared to cover the registry was measuring a different property | The router names every skill, and `check_skill_baseline.py` R1 fails when one becomes unreachable — transitively, so a skill reached only through another still counts | `scripts/check_skill_baseline.py --self-test` · `tests/test_skill_baseline.py` — 9 tests |
+| **L7** | **The staged CI workflow ran thirteen of the bundle's twenty checks**, and nothing compared the two. `fig_verification.py` has refused since finding **I7** to draw a figure that under-reports the bundle; the same rule was never applied to the workflow. Activating it would have produced a green badge covering two thirds of what it appeared to cover | The workflow runs every automatable check; `check_ci_covers_the_bundle` fails when one is absent from both the workflow and the declared-manual list, so adding a check to the bundle now forces a decision — automate it, or name the resource a runner lacks | `tests/test_architectural_regressions.py` — three tests, including one proving a script named only in a **comment** does not count as covered |
 
-> **The consequence was not abstract, and it is the part worth keeping.** Two of
+> **L7's first version had the defect it was written to catch.** The rule
+> matched the whole workflow file, so `scripts/check_vault.py` — which appears
+> *only* in the comment block listing what CI does **not** run — counted as
+> covered. The comment satisfied the check that the comment exists to explain.
+> It now reads `run:` lines alone, and a test pins that specific false negative.
+
+> **L6's consequence was not abstract, and it is the part worth keeping.** Two of
 > the seventeen were the *scientific* halves of pairs `ADR-012` §2 says must
 > never be substituted — `dispatching-parallel-analysts` and
 > `adversarial-reviewing` — while their engineering counterparts sat in the

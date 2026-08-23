@@ -93,14 +93,36 @@ jobs:
         run: sha256sum -c 00_PROGRAM/SHA256SUMS.txt
 
       - name: Figures match their generators, and text fits its boxes
-        run: uv run python scripts/make_figures.py --check
+        run: |
+          uv run python scripts/make_figures.py --check
+          uv run python scripts/check_figures.py
 
-      # Not run here, and the omission is recorded rather than hidden:
+      - name: Generated blocks inside package documents match the registry
+        run: |
+          uv run python scripts/expand_packages.py --check
+          uv run python scripts/make_package_companions.py --check
+
+      - name: The ready queue follows the sealed dependencies
+        run: uv run python scripts/ready_queue.py --check
+
+      - name: The agent guide matches the repository
+        run: uv run python scripts/check_agent_guide.py
+
+      - name: Every skill is reachable, and its core rule intact
+        run: uv run python scripts/check_skill_baseline.py
+
+      # Not run here, and the omission is recorded rather than hidden. The list
+      # is also MECHANICAL: check_doc_consistency.py fails when a bundle check
+      # is absent from this file and absent from the manual list below, so this
+      # workflow cannot silently fall behind the bundle it claims to run.
+      #
+      #   scripts/check_vault.py     needs the operator's Obsidian vault
       #   scripts/mcp_smoke.py       needs a live Bridge
       #   scripts/acceptance_v0.py   needs a live Bridge and a local Zotero
-      #   mirror_plan / mirror_vault --check   need the operator's Obsidian vault
+      #   mirror_plan / mirror_vault --check   need the operator's vault
       - name: Record what this control does not cover
         run: |
-          echo "BVC-01 does not run: mcp_smoke, acceptance_v0, or the vault mirror checks."
-          echo "They need a live Bridge, a local Zotero library, and the operator's vault."
+          echo "BVC-01 does not run: check_vault, mcp_smoke, acceptance_v0, or"
+          echo "the vault mirror checks. They need a live Bridge, a local Zotero"
+          echo "library, and the operator's Obsidian vault."
           echo "Those remain manual until WP-024. See docs/architecture/ADR-002.md"

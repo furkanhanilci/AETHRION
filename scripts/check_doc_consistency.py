@@ -276,13 +276,77 @@ def check_baseline_agreement() -> list[str]:
     return []
 
 
+
+# Checks the CI workflow is not expected to run, each with the resource it needs
+# that a runner does not have. Declared here rather than inferred, so adding a
+# check to the bundle forces a decision: automate it, or say why not.
+CI_MANUAL = {
+    "scripts/check_vault.py": "the operator's Obsidian vault",
+    "scripts/mcp_smoke.py": "a live Bridge",
+    "scripts/acceptance_v0.py": "a live Bridge and a local Zotero library",
+}
+
+
+def check_ci_covers_the_bundle() -> list[str]:
+    """The CI workflow must run every bundle check it can, or say why it cannot.
+
+    `fig_verification.py` already refuses to draw a figure that under-reports the
+    bundle. Nothing applied the same rule to the workflow, and the workflow was
+    running thirteen of twenty checks — so activating CI would have produced a
+    green badge covering two thirds of the bundle, which is a worse artifact than
+    no badge at all.
+
+    Only `run:` lines count. An earlier version of this rule matched the whole
+    file and passed on a script that appeared solely in a comment listing what
+    the workflow does NOT run — the comment satisfying the check that the comment
+    exists to explain.
+    """
+    workflow = ROOT / "deploy" / "bvc-01-verify.yml"
+    if not workflow.exists():
+        return []
+    text = workflow.read_text(encoding="utf-8")
+    executed = "\n".join(
+        line for line in text.splitlines()
+        if not line.lstrip().startswith("#")
+    )
+
+    sys.path.insert(0, str(ROOT / "scripts"))
+    import write_status
+
+    problems = []
+    for name, command, _ in write_status.CHECKS:
+        script = next((c for c in command if str(c).startswith("scripts/")), None)
+        if script is None:
+            continue
+        if script in executed:
+            continue
+        if script in CI_MANUAL:
+            if script not in text:
+                problems.append(
+                    f"deploy/bvc-01-verify.yml: {script} is declared manual "
+                    f"(needs {CI_MANUAL[script]}) but the workflow never says so")
+            continue
+        problems.append(
+            f"deploy/bvc-01-verify.yml: the bundle runs {name} ({script}) and "
+            f"the workflow does not. Either add it, or declare it in CI_MANUAL "
+            f"with the resource a runner lacks — a CI badge that covers part of "
+            f"the bundle while looking like all of it is worse than no badge")
+    for script in sorted(CI_MANUAL):
+        if script in executed:
+            problems.append(
+                f"deploy/bvc-01-verify.yml runs {script}, which is declared "
+                f"manual — the declaration is now wrong, not the workflow")
+    return problems
+
+
 def main() -> int:
     truth = derive()
     print("derived from the repository: " +
           " · ".join(f"{k} {v}" for k, v in truth.items() if k != "highest_scenario"))
 
     problems = (check_counts(truth) + check_decision_records()
-                + check_matrix_references() + check_baseline_agreement())
+                + check_matrix_references() + check_baseline_agreement()
+                + check_ci_covers_the_bundle())
     for problem in problems:
         print(f"  ✗ {problem}")
 

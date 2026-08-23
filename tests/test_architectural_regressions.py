@@ -119,3 +119,45 @@ def test_every_rule_names_the_decision_record_it_defends() -> None:
     for rule in stale.REGRESSIONS:
         assert any(token in rule.correction
                    for token in ("ADR-", "skills/")), rule.name
+
+
+# --- the CI workflow may not under-report the bundle it claims to run --------
+
+def test_the_ci_workflow_runs_every_automatable_bundle_check() -> None:
+    """`fig_verification.py` refuses to draw a figure that under-reports the
+    bundle. Nothing applied the same rule to CI, and CI ran thirteen of twenty
+    checks — so activating it would have produced a green badge covering two
+    thirds of the bundle, which is worse than no badge."""
+    import check_doc_consistency as consistency
+
+    assert consistency.check_ci_covers_the_bundle() == []
+
+
+def test_a_check_named_only_in_a_comment_does_not_count_as_covered(tmp_path) -> None:
+    """The first version of the rule matched the whole file, so a script listed
+    in the comment explaining what CI does NOT run satisfied the check that the
+    comment exists to explain."""
+    import check_doc_consistency as consistency
+
+    workflow = ROOT / "deploy" / "bvc-01-verify.yml"
+    original = workflow.read_text(encoding="utf-8")
+    line = ("      - name: Every skill is reachable, and its core rule intact\n"
+            "        run: uv run python scripts/check_skill_baseline.py\n")
+    assert line in original, "fixture drifted; update the line this test removes"
+    try:
+        workflow.write_text(
+            original.replace(line, "      #   scripts/check_skill_baseline.py\n"),
+            encoding="utf-8")
+        problems = consistency.check_ci_covers_the_bundle()
+        assert any("check_skill_baseline" in p for p in problems)
+    finally:
+        workflow.write_text(original, encoding="utf-8")
+
+
+def test_every_manually_declared_check_names_the_resource_a_runner_lacks() -> None:
+    """A check excused from CI without a reason is a check quietly dropped."""
+    import check_doc_consistency as consistency
+
+    for script, reason in consistency.CI_MANUAL.items():
+        assert reason and len(reason) > 8, script
+        assert (ROOT / script).exists(), script

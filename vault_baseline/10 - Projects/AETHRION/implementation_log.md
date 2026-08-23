@@ -160,6 +160,75 @@ quietly skipped.
 
 ---
 
+## Step 023 — CI approved, and what the approval revealed
+
+**Time:** 2026-08-23
+**Scope:** activation attempted under explicit approval and refused at the token
+scope · the workflow found to cover 13 of 20 bundle checks · finding L7
+
+### The approval could not lift the blocker
+
+Activation was approved. It still cannot be done from here, and the reason is
+worth stating precisely because it is *not* a permissions question inside this
+repository:
+
+```
+X-Oauth-Scopes: gist, read:org, repo
+```
+
+No `workflow` scope. GitHub refuses the push, and refuses the Contents API for
+the same reason. `gh auth refresh -h github.com -s workflow` is an interactive
+browser flow — the operator's hands, not an agent's.
+
+So the approval was spent instead on making sure that when the token is
+refreshed, the first CI run is green rather than a discovery exercise. That turned
+out to matter more than expected.
+
+### The workflow ran thirteen of twenty checks
+
+`fig_verification.py` has refused since finding **I7** to draw a figure that
+under-reports the bundle — it raises rather than silently omitting a row. **The
+same rule had never been applied to CI.** The workflow was missing seven checks,
+six of them perfectly automatable, including three added earlier the same day.
+
+Activating it as it stood would have produced a **green badge covering two
+thirds of what it appeared to cover.** That is worse than no badge: an absent
+control is visible, and a partial control that looks total is not.
+
+### The rule now, and the false negative it started with
+
+`check_doc_consistency.check_ci_covers_the_bundle` compares `write_status.CHECKS`
+against the workflow, and a check absent from both the workflow and the declared
+manual list is a hard failure. Adding a check to the bundle now forces a
+decision: **automate it, or name the resource a runner lacks.**
+
+Its first version matched the whole file. So `scripts/check_vault.py`, which
+appears *only inside the comment block listing what CI does not run*, counted as
+covered — **the comment satisfying the check that the comment exists to
+explain.** It now reads `run:` lines alone, and a test pins that exact false
+negative.
+
+That is the third time in three baselines that a first-draft control had the
+defect it was written to catch, and the third time the mutation found it before
+the corpus did.
+
+### Evidence
+
+```text
+CI coverage           13/20 → 19/20   (check_vault declared manual)
+tests                 140 → 143
+bundle                20/20
+```
+
+### Limits
+
+**CI still has never run.** Everything above makes the first run more likely to
+succeed; none of it makes the run happen. H5 remains open and its blocker is now
+recorded as a tested refusal with the exact scope header, rather than as an
+assertion.
+
+---
+
 ## Step 022 — The skill baseline, and a blocker tested rather than assumed
 
 **Time:** 2026-08-23
