@@ -132,6 +132,24 @@ Every defect below passed `check_figures.py` while it reported zero overflows.
 | `memory`, `authority`, `disciplines`, `verification` | zebra stripes offset below the rows they were striping, reading as separators | a background rect is not text |
 | `trust`, `collaboration`, `assurance` | a section heading sitting on the box above it, after that box was grown | a literal height and a literal next-offset, edited independently |
 
+### The second inspection pass, after every fix
+
+Rendering once and fixing is not the same as rendering *again*. Every figure was
+re-rendered after its repair and looked at a second time, and the second pass
+found six more — all of them **introduced by the first pass**:
+
+| Figure | Introduced by |
+|---|---|
+| `compiler` | the fan-in and fan-out connectors crossed whichever section heading sat between the blocks. Moving the heading only moved the problem; short ticks at each end fixed it |
+| `lifecycle` | `NO EVALUATOR AUTHORITY` in caps measured 257u in a 227u cell, wrapped into the hatch pattern and became unreadable |
+| `decision`, `context` | a status line landing on the border of a box that had just been grown |
+| `topology` | the caption grew to three lines and touched the cell beneath it |
+| `assurance` | the prose column narrowed when the command column widened, and rows had to grow to hold three lines |
+
+Each was a *consequence* of a repair, which is the argument for looking twice
+rather than once. A fix that resolves one geometry disturbs the geometry around
+it, and the only thing that reliably catches that is another render.
+
 ### Two checks were added because of it
 
 `check_figures.py` gained **`box bottom`** — a paragraph whose last line has

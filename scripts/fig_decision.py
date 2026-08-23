@@ -126,7 +126,8 @@ def main() -> None:
            accent=MUTE, head_size=19, body_size=16, max_body_lines=5)
 
     by = fy2 + 140 + 20
-    c.rect(L, by, tw, 104, fill=tint(VERM, 0.10), stroke=VERM, sw=2.2)
+    req_h = 104
+    c.rect(L, by, tw, req_h, fill=tint(VERM, 0.10), stroke=VERM, sw=2.2)
     c.text(L + 18, by + 28, "The requirement", size=19, weight="700",
            anchor="start", fill=VERM)
     c.para(L + 18, by + 50,
@@ -135,7 +136,7 @@ def main() -> None:
            "different thing, and the difference does not appear anywhere in the record. ACC-112.",
            tw - 36, size=17, fill=INK, lh=22, max_lines=3)
 
-    ny3 = by + 92 + 26
+    ny3 = by + req_h + 30
     c.para(L, ny3,
            "Status: specified, not built. WP-156 owns it; there is no HumanPreliminaryAssessment record, no "
            "DecisionDelta and no measurement of friction anywhere in this repository.",

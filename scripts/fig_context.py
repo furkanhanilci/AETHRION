@@ -42,7 +42,7 @@ W, L = 1200, 24
 
 
 def main() -> None:
-    H = 960
+    H = 980
     c = Canvas(W, H)
     tw = W - 2 * L
 
@@ -92,7 +92,7 @@ def main() -> None:
     bx = L + (tw - bw_) / 2
     for i in range(4):
         x = L + i * (lw + 14) + lw / 2
-        c.path(f"M {x} {py2 + 96 + 2} L {x} {ay - 16} L {bx + bw_ / 2} {ay - 16} "
+        c.path(f"M {x} {py2 + 96 + 6} L {x} {ay - 18} L {bx + bw_ / 2} {ay - 18} "
                f"L {bx + bw_ / 2} {ay - 5}", stroke=RULE, sw=1.4, marker="arrowsm")
     c.rect(bx, ay, bw_, 72, fill=tint(BLUE, 0.12), stroke=BLUE, sw=2.4)
     c.text(bx + bw_ / 2, ay + 30, "ContextProjectionRecord", size=20, weight="700", fill=BLUE)
@@ -116,7 +116,7 @@ def main() -> None:
                    stroke=RULE, sw=1.6, marker="arrowsm")
 
     fy = my2 + 92 + 28
-    note_h = 104
+    note_h = 112
     c.rect(L, fy, tw, note_h, fill=tint(VERM, 0.10), stroke=VERM, sw=2.2)
     c.text(L + 18, fy + 28, "The two failures this prevents, and they pull opposite ways",
            size=19, weight="700", anchor="start", fill=VERM)
@@ -127,7 +127,7 @@ def main() -> None:
            "than trimmed from a running transcript. ACC-096, ACC-097.",
            tw - 36, size=17, fill=INK, lh=22, max_lines=4)
 
-    ny = fy + note_h + 28
+    ny = fy + note_h + 32
     c.para(L, ny,
            "Status: specified, not built. WP-151 owns it; there is no projection record, no mask and no "
            "memory intervention anywhere in this repository.",

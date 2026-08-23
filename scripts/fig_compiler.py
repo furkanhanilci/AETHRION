@@ -91,10 +91,7 @@ def main() -> None:
     in_bottom = iy + 2 * (ih + 12) - 12
 
     # -------------------------------------------------------- the compilation
-    hy2 = in_bottom + 32
-    c.text(L, hy2, "2 · The compilation, and the contracts it emits — every one binding",
-           size=21, weight="700", anchor="start")
-    cy = hy2 + 26
+    cy = in_bottom + 46
     cw_ = 420
     cx = L + (tw - cw_) / 2
     c.rect(cx, cy, cw_, 78, fill=tint(BLUE, 0.12), stroke=BLUE, sw=2.4)
@@ -103,11 +100,16 @@ def main() -> None:
 
     for i in range(3):
         x = L + i * (iw + 14) + iw / 2
-        c.path(f"M {x} {in_bottom + 2} L {x} {cy - 16} L {cx + cw_ / 2} {cy - 16} "
-               f"L {cx + cw_ / 2} {cy - 5}", stroke=RULE, sw=1.4, marker="arrowsm")
+        c.path(f"M {x} {in_bottom + 2} L {x} {in_bottom + 20}",
+               stroke=RULE, sw=1.4, marker="arrowsm")
+    c.path(f"M {cx + cw_ / 2} {cy - 22} L {cx + cw_ / 2} {cy - 5}",
+           stroke=RULE, sw=1.6, marker="arrowsm")
 
     # ------------------------------------------------------------- fan-out
-    oy2 = cy + 78 + 44
+    oy = cy + 78 + 38
+    c.text(L, oy, "2 · The contracts it emits — every one binding, none optional",
+           size=21, weight="700", anchor="start")
+    oy2 = oy + 30
     ow, oh = 372, 74
     for i, (head, body, col) in enumerate(OUTPUTS):
         row, colm = divmod(i, 3)
@@ -116,10 +118,11 @@ def main() -> None:
                head_size=17, body_size=16, max_head_lines=1, max_body_lines=2)
     out_bottom = oy2 + 2 * (oh + 12) - 12
 
+    c.path(f"M {cx + cw_ / 2} {cy + 78 + 2} L {cx + cw_ / 2} {cy + 78 + 20}",
+           stroke=RULE, sw=1.6, marker="arrowsm")
     for i in range(3):
         x = L + i * (ow + 12) + ow / 2
-        c.path(f"M {cx + cw_ / 2} {cy + 78 + 2} L {cx + cw_ / 2} {oy2 - 34} "
-               f"L {x} {oy2 - 34} L {x} {oy2 - 5}", stroke=RULE, sw=1.4, marker="arrowsm")
+        c.path(f"M {x} {oy2 - 22} L {x} {oy2 - 5}", stroke=RULE, sw=1.4, marker="arrowsm")
 
     # ------------------------------------------------------- the refusal path
     ry = out_bottom + 38

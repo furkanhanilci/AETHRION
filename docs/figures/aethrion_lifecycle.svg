@@ -153,10 +153,9 @@
 <text x="385.5" y="948.3" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="18" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="middle">the experiment itself</text>
 <text x="385.5" y="972.3" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">immutable raw output</text>
 <rect x="523.0" y="920.0" width="255.0" height="72.0" rx="4" fill="url(#hatch)" stroke="#63666A" stroke-width="1.3" stroke-dasharray="4 3"/>
-<text x="650.5" y="927.9" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="17" font-weight="600" font-style="normal" fill="#63666A" text-anchor="middle">NO EVALUATOR</text>
-<text x="650.5" y="948.9" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="17" font-weight="600" font-style="normal" fill="#63666A" text-anchor="middle">AUTHORITY</text>
-<text x="650.5" y="971.9" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">may be the subject, never the</text>
-<text x="650.5" y="990.9" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">judge</text>
+<text x="650.5" y="938.4" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="17" font-weight="600" font-style="normal" fill="#63666A" text-anchor="middle">no evaluator authority</text>
+<text x="650.5" y="961.4" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">the model may be the subject,</text>
+<text x="650.5" y="980.4" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">never the judge</text>
 <text x="880.5" y="962.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="19" font-weight="400" font-style="normal" fill="#C8C8C8" text-anchor="middle">—</text>
 <rect x="983.0" y="920.0" width="215.0" height="72.0" rx="4" fill="#fcf3de" stroke="#E69F00" stroke-width="1.5"/>
 <text x="1090.5" y="948.3" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="18" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="middle">RawEvaluatorArtifact</text>

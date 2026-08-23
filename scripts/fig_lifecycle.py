@@ -70,7 +70,7 @@ ROWS = [
      ("bounded candidates", "search · fuse · debug"),
      ("—", ""), ("SearchNode", "candidate workspace"), ""),
     ("G5·E", "Execute", ("the experiment itself", "immutable raw output"),
-     ("NO EVALUATOR AUTHORITY", "may be the subject, never the judge"),
+     ("no evaluator authority", "the model may be the subject, never the judge"),
      ("—", ""), ("RawEvaluatorArtifact", "ExperimentRun"), ""),
     ("G6", "Assurance", ("statcheck · GRIM · GRIMMER", "entailment · hashes"),
      ("blind + adversarial review", "different provider family"), ("—", ""),

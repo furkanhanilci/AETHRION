@@ -160,6 +160,59 @@ quietly skipped.
 
 ---
 
+## Step 027 — The second render, and why once is not enough
+
+**Time:** 2026-08-23
+**Scope:** all 19 figures re-rendered and inspected after their repairs · six
+further defects, every one introduced by the previous pass
+
+### What a second look found
+
+Rendering once and fixing is not the same as rendering **again**. Every figure
+was re-rendered after its repair and looked at a second time. Six more defects —
+and all six were **consequences of the first pass**:
+
+- the compiler's fan-in and fan-out crossed whichever section heading sat
+  between the blocks; moving the heading only moved the problem, and short ticks
+  at each end resolved it;
+- `NO EVALUATOR AUTHORITY` in capitals measured 257u in a 227u cell, wrapped into
+  the hatch pattern and became unreadable — lower case fits on one line and
+  matches the G7a row beside it;
+- two status lines landed on the border of a box that had just been grown;
+- the topology caption reached three lines and touched the cell beneath it;
+- the assurance prose column narrowed when the command column widened, so its
+  rows had to grow.
+
+**A fix that resolves one geometry disturbs the geometry around it**, and the
+only thing that reliably catches that is another render. That is the argument
+for the loop rather than the single pass.
+
+### Also corrected
+
+`G5·E`'s hatched cell had been rendering the fixed string *"no model in the loop"*
+over its own label, which is the exact wording the G5 split existed to replace —
+a model MAY run there as the subject of the measurement. The cell now carries the
+row's own label, and the figure's prose and legend were corrected to match: one
+row admits no model at all, and it is `G7a`.
+
+### Evidence
+
+```text
+figures               19, 0 overflows, 0 collisions
+second-pass defects   6, all introduced by the first pass
+tests                 149
+bundle                20/20
+```
+
+### Limits
+
+Two passes are not a proof. Both were made by the actor that produced the
+figures, and `ADR-001` puts an independent adversarial review out of reach for a
+solo operator. What changed is only that the corpus has now been *seen* twice,
+which it had never been once.
+
+---
+
 ## Step 026 — Two missing views, and three deferrals that were not
 
 **Time:** 2026-08-23
