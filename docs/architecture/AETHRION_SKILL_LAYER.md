@@ -7,7 +7,7 @@
 | Target | `AIRL-OS-Architecture.md` v1.0 — *historical name; current identity **AETHRION**, current reference [`AETHRION_ARCHITECTURE.md`](AETHRION_ARCHITECTURE.md)* |
 | Sibling documents | `AETHRION_ARCHITECTURE.md` (system overview + diagrams) · `AETHRION_IDEAL_STRUCTURE.md` (roles, review mechanisms, metascience) · `AETHRION_EXTERNAL_STANDARDS.md` (what is adopted) |
 | Date | 2026-08-23 |
-| Status | Proposal — awaiting a human decision, **except Sections 14 and 15, which are decided** |
+| Status | Proposal — awaiting a human decision, **except Sections 14, 15 and 16, which are decided** |
 
 **In one paragraph.** A `RoleContract` says who an agent is; nothing said how it works, and that gap was filled by the prompt — an unversioned, untested, unauditable layer. This report analyses `obra/superpowers` and derives the skill layer that closes it. Sections 2–13 record the original analysis; **§14 is the decided correction**: research skills extend their engineering counterparts rather than replacing them, both families live in one registry in the Agent Skills open format, and provenance to upstream is pinned per skill.
 
@@ -1175,3 +1175,64 @@ That any of these skills works. Fifteen counterparts existing is a statement
 about coverage, not about behaviour — **none of the 52 has a behaviour
 baseline**, which is WP-043's job and is not started. An audit that finds good
 coverage of untested procedures has found good coverage of untested procedures.
+
+---
+
+## 16. Two disciplines, composable — the decision, 2026-08-23
+
+`ADR-012`. Section 15's audit answered *does the scientific family duplicate an
+upstream methodology*. This section answers a question that arrives immediately
+afterwards and has the opposite shape: **now that the scientific mechanisms are
+very visible, should the eleven engineering skills be folded into them?**
+
+No. And the reason is not symmetry or attribution — it is that most of what this
+system will actually produce is **code**.
+
+### 16.1 Where the science's failure modes actually live
+
+Evaluators, preprocessing, simulation harnesses, reproduction packages, analysis
+scripts. Every one is a place where an ordinary software defect becomes a
+scientific error with a plausible number attached, and none of them is caught by
+a scientific procedure. A p-value computed correctly from a wrongly filtered
+dataframe is a correct computation of the wrong thing.
+
+The engineering discipline is not supporting work around the science. It is where
+a large fraction of the science's failure modes live.
+
+### 16.2 The four pairs that get conflated
+
+| Engineering | Scientific | Why the substitution fails |
+|---|---|---|
+| `test-driven-development` | `preregistration-discipline` | Both commit before seeing an outcome, and that is where the resemblance stops. A test fixes what the code must **do**; a preregistration fixes what a result will **mean**. Passing tests on an analysis reshaped after seeing the data is a correct implementation of a compromised study |
+| `requesting-code-review` | `requesting-review` · `adversarial-reviewing` | Code review asks *is this correct and maintainable*. Scientific review asks *does the evidence support the claim, and what would show it does not*. A reviewer who approved the diff has said nothing about the inference |
+| `systematic-debugging` | `investigating-anomalies` | Debugging assumes the system is wrong and the expectation is right. Anomaly investigation cannot assume that — **the surprising result may be the finding**, and treating every anomaly as a bug is how a discovery gets fixed |
+| `dispatching-parallel-agents` | `dispatching-parallel-analysts` | One decomposes work that has a right answer and merges. The other runs independent analyses *because* the answer is unknown, and its output is a spread rather than a merge |
+
+### 16.3 What a coding-science task compiles to
+
+Both families, in one `TaskContract`, with neither aliasing the other:
+
+```
+preregistration-discipline · writing-analysis-plans · executing-experiments
+evidence-before-claim · scope-discipline                    ← scientific
+using-git-worktrees · test-driven-development
+systematic-debugging · requesting-code-review               ← engineering
+verification-before-completion · independence-discipline    ← shared
+```
+
+The junction between the two loops is the only interesting part: a code artifact
+becomes **eligible to produce scientific evidence** when the engineering loop has
+closed on it — specification, worktree, RED, implementation, GREEN, review, CI,
+attestation, signed artifact. Before that it is a draft, and a result from a
+draft is a result from unknown code. WP-107 proves that arrow end to end; WP-154
+adds the check that afterwards keeps the frozen specification and the running
+code in agreement (`ADR-018`).
+
+### 16.4 What this section does not establish
+
+That either family works. The engineering eleven are vendored at a pinned commit
+and are not rewritten here; the scientific thirty-one were audited for coverage
+in §15. **Neither has a behaviour baseline** — that is WP-043's job, extended by
+WP-154 to cover engineering discipline under deadline pressure, and it has not
+started. Coverage of untested procedures is still coverage of untested
+procedures.

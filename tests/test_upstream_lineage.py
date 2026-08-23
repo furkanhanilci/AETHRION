@@ -94,21 +94,54 @@ def test_every_adopted_mechanism_states_what_it_may_never_decide(register, packa
     assert any("no authority boundary" in p for p in lineage.audit(broken, packages))
 
 
-def test_an_unverified_licence_bounds_the_decision(register, packages) -> None:
-    """Only DEFER or REJECT may rest on a licence nobody has read."""
-    broken = mutate(register, lambda es: first_of(es, "ADAPTIVE_REIMPLEMENT")
-                    .update(licence="UNVERIFIED"))
-    assert any("UNVERIFIED" in p for p in lineage.audit(broken, packages))
+def test_an_unverified_licence_forbids_copying(register, packages) -> None:
+    """A licence nobody has read blocks DIRECT_ADAPT — and only DIRECT_ADAPT."""
+    broken = mutate(register, lambda es: first_of(es, "DIRECT_ADAPT")
+                    .update(licence="UNVERIFIED — not read"))
+    assert any("unverified licence" in p for p in lineage.audit(broken, packages))
+
+
+def test_an_unverified_licence_does_not_block_reimplementation(register, packages) -> None:
+    """ADR-004: reimplementing a published mechanism creates no licence obligation.
+
+    The register genuinely contains entries whose upstream licence could not be
+    confirmed and which are therefore reimplemented rather than copied. Treating
+    that as a defect would invert the rule.
+    """
+    ok = mutate(register, lambda es: first_of(es, "ADAPTIVE_REIMPLEMENT")
+                .update(licence="UNVERIFIED — not read"))
+    assert not [p for p in lineage.audit(ok, packages) if "unverified licence" in p]
+
+
+def test_the_licence_rule_is_not_defeated_by_a_longer_string(register, packages) -> None:
+    """The rule once matched only the bare word and a more informative value escaped it."""
+    broken = mutate(register, lambda es: first_of(es, "DIRECT_ADAPT")
+                    .update(licence="UNVERIFIED — repository licence not confirmed on 2026-08-23"))
+    assert any("unverified licence" in p for p in lineage.audit(broken, packages))
 
 
 # --- the honesty property this register exists to keep visible ----------------
 
 def test_no_entry_claims_code_has_moved_while_leaving_the_pin_empty(register) -> None:
-    """`status` is the honest field. An entry cannot be both under way and unpinned."""
+    """`status` is the honest field for the entries where code actually moves.
+
+    The pin obligation belongs to DIRECT_ADAPT: those are the entries that copy
+    source files into this repository. A DEPENDENCY at `ACCEPTED` is integrated
+    and called rather than copied — Crossref is one — and demanding a commit
+    digest for a live API would be a rule that cannot be satisfied honestly.
+    """
     for entry in register["entries"]:
-        if entry["status"] in {"ADAPTING", "ACCEPTED"}:
+        if entry["assimilation"] == "DIRECT_ADAPT" and entry["status"] in {"ADAPTING", "ACCEPTED"}:
             assert entry["pinned_commit"], entry["id"]
-            assert entry["source_files"] or entry["assimilation"] != "DIRECT_ADAPT", entry["id"]
+            assert entry["source_files"], entry["id"]
+            assert entry["characterization_suite"], entry["id"]
+
+
+def test_an_integrated_dependency_names_the_code_that_calls_it(register) -> None:
+    """An entry claiming to be live must point at something that exists here."""
+    for entry in register["entries"]:
+        if entry["status"] == "ACCEPTED":
+            assert entry["local_modules"], entry["id"]
 
 
 def test_references_into_the_plan_resolve(register, packages) -> None:

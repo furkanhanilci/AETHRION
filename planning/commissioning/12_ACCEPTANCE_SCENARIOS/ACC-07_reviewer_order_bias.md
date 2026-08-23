@@ -48,6 +48,7 @@ environment manifest as every other scenario in the same acceptance round.
 | 4 | Compute the verdict, finding and latency differences | Execution log + trace/event references |
 | 5 | Apply the threshold and the statistical rule | Execution log + trace/event references |
 | 6 | Produce the `CapabilityProfile` disposition | Execution log + trace/event references |
+| 7 | Confirm the embargo held before running the order-randomisation measurement | Execution log + trace/event references |
 
 ## Mandatory invariants and assertions
 
@@ -55,10 +56,21 @@ environment manifest as every other scenario in the same acceptance round.
 - [ ] A failed profile is excluded from critical routing
 - [ ] Raw reviews and run manifests are reproducible
 - [ ] The human calibration decision is recorded
+- [ ] Order bias is now **structurally prevented before it can be measured**: peer output is embargoed until every initial position is sealed — ACC-082.
+- [ ] The sealed positions are what distinguish independent agreement from deference afterwards; a diagnostic run without them measures the wrong thing.
 - [ ] The actual canonical state equals the expected state, or an explained safe failure state.
 - [ ] Duplicate, stale, forged or partial inputs produced no unsafe side effect.
 - [ ] Trace, event, audit and business records share one project/workflow/run correlation chain.
 - [ ] Every Critical or High finding raised during the test is recorded in the Finding Registry.
+
+### Baseline v1.3.0 — what this scenario must also show
+
+This scenario measured order bias. The independent-first protocol removes most of its cause, so the measurement becomes a check that the embargo worked rather than the primary control — `ADR-011`.
+
+The additional assertions above are **extensions of this scenario, not a new
+one.** Where the reliability layer needs a scenario of its own it has one in
+ACC-081–120; what is added here is the case this scenario would otherwise pass
+while the new failure went unexamined.
 
 ## Expected canonical records
 

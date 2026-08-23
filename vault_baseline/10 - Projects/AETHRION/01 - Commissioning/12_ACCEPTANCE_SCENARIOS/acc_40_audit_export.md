@@ -66,6 +66,7 @@ environment manifest as every other scenario in the same acceptance round.
 | 4 | Verify the chain, links and counts with the offline verifier | Execution log + trace/event references |
 | 5 | Tamper with or drop a record in one copy and verify again | Execution log + trace/event references |
 | 6 | Check access, audit-of-audit and retention | Execution log + trace/event references |
+| 7 | Destroy and rebuild the derived projections, then re-run the export and compare | Execution log + trace/event references |
 
 ## Mandatory invariants and assertions
 
@@ -74,10 +75,21 @@ environment manifest as every other scenario in the same acceptance round.
 - [ ] Tampered or missing records are detected
 - [ ] The auditor's access is read-only
 - [ ] Sensitive fields remain policy-compliant
+- [ ] The export must carry the **complete correlation chain across planes**, including the collaboration plane, and must survive a projection rebuild — ACC-119.
+- [ ] A `HumanPreliminaryAssessment` and its `DecisionDelta` are part of the decision chain the export reconstructs.
 - [ ] The actual canonical state equals the expected state, or an explained safe failure state.
 - [ ] Duplicate, stale, forged or partial inputs produced no unsafe side effect.
 - [ ] Trace, event, audit and business records share one project/workflow/run correlation chain.
 - [ ] Every Critical or High finding raised during the test is recorded in the Finding Registry.
+
+### Baseline v1.3.0 — what this scenario must also show
+
+An audit export that only reconstructs from projections is reconstructing from something rebuildable. `ADR-014` requires the canonical stores to be sufficient on their own.
+
+The additional assertions above are **extensions of this scenario, not a new
+one.** Where the reliability layer needs a scenario of its own it has one in
+ACC-081–120; what is added here is the case this scenario would otherwise pass
+while the new failure went unexamined.
 
 ## Expected canonical records
 

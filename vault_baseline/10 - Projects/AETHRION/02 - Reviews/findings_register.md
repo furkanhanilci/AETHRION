@@ -103,16 +103,26 @@ that raised them; each names the test or check that would catch a regression.
 
 ---
 
-## 4. Finding raised by the 2026-08-23 baseline v1.2.0 work
+## 4. Findings raised by the 2026-08-23 baseline v1.2.0 and v1.3.0 work
 
-One defect surfaced while running the checks the verification bundle does **not**
-cover, and it is recorded in its own namespace for the same reason the 08-22
-inspection is: the earlier reports are frozen evidence and their identifiers
+Four defects surfaced while running the checks the verification bundle does **not**
+cover, and they are recorded in their own namespace for the same reason the
+08-22 inspection is: the earlier reports are frozen evidence and their identifiers
 belong to them.
 
 | # | Finding | Fixed by | Regression guard |
 |---|---|---|---|
 | **J1** | `acceptance_v0.py`'s `manifest_matches_registry_count` compared the **whole** projection manifest against the registry's source count. Finding **I3** had deliberately moved the two dashboards *inside* the manifest — a generated file outside it is one the projector can never clean up again — so from the moment I3 landed the check failed by exactly the number of dashboards, on a correct system. It reported `manifest=35 registry=33` and the defect was in the check | The dashboards and the source notes are counted separately; the manifest check now compares source notes to the registry and reports the dashboard count beside it | `uv run python scripts/acceptance_v0.py` → `"result": "accepted"`, 11 PASS, 0 FAIL |
+
+| **J2** | `check_upstream_lineage.py`'s licence rule matched `licence.upper() == "UNVERIFIED"` **exactly**, so an entry reading `"UNVERIFIED — repository licence not confirmed on 2026-08-23"` — strictly more informative — slipped past it in silence. The same rule was also wrong in principle: it forbade every assimilation type except `DEFER` and `REJECT`, which contradicts `ADR-004`, where reimplementing a published mechanism creates no licence obligation and an unverified licence is a *reason* to reimplement rather than a reason to stop | The rule now matches a prefix and forbids only what an unverified licence actually forbids — `DIRECT_ADAPT`. Three regression tests: the rule fires on a direct adaptation, does **not** fire on a reimplementation, and is not defeated by a longer string | `uv run pytest tests/test_upstream_lineage.py` — 14 tests |
+
+> **Both J1 and J2 are the same failure in different clothes.** A check that is
+> narrower than the sentence it prints. J1 compared the wrong two numbers and
+> reported a defect that was in the check; J2 matched the wrong string and
+> reported clean because nothing it could see was wrong. The register's own
+> `--self-test` did not catch J2 either, because the injection it used happened
+> to write the bare word the rule matched — **a control tested only with the
+> input it was written for is a control tested against itself.**
 
 > **Why this was not caught earlier.** `acceptance_v0.py` needs a live Bridge and
 > the operator's Zotero library, so it is one of the two checks the bundle
@@ -123,6 +133,26 @@ belong to them.
 > The general lesson is the one this register keeps re-learning: **a check that
 > nothing forces to run will eventually be a check nobody has run.** It is
 > recorded here rather than fixed and forgotten.
+
+| **J3** | The final-audit list in the reliability delta asks a human to grep for eight wordings that contradict a decision record. Written that way it is not a control at all: **every one of the eight phrases already appears in this repository, every time inside a sentence that forbids it.** A hand grep returns a wall of correct prose, and the one affirmative use is somewhere in the middle of it. A checklist item that produces a hundred false positives is a checklist item that gets ticked without being read | The list is implemented as a third rule family in `check_stale_claims.py` with two guards at different scopes — a paragraph-level prohibition marker and a local negation check on the thirty characters before the match — and every rule carries a specimen that must trip it **and** one that must not | `python3 scripts/check_stale_claims.py --self-test` · `uv run pytest tests/test_architectural_regressions.py` — 10 tests |
+
+| **J4** | Two rules in that new family were **silent on the sentences written to trip them**, and the self-test found both before they ever ran on the corpus: the fully-connected rule read left-to-right only, and English does not; and the timeout rule was suppressed by a paragraph guard containing the bare word `not`, so *"if the reviewer does **not** respond the gate auto-approves"* read as a refusal. The corpus scan then produced four more false positives — `Expiry \| WP-024 acceptance` in a decision-record table, the heading `Timeout escalation path with no approval branch` in nine packages, and two scenarios naming a derived store and the canonical records in one breath | The bare `not` and `fails` were removed from the prohibition guard, which now carries only idioms that do the refusing; a local-negation guard was added for text with no sentence around it; and both loose patterns were tightened to require an actual copula or an actual causal verb | The four false positives are pinned as tests in `tests/test_architectural_regressions.py` |
+
+> **J3 and J4 are the pair, and the second is the more useful one.** J3 says a
+> control expressed as a checklist is not a control. J4 says the control that
+> replaces it does not work the first time either — and the only reason that is
+> known is that the rules were required to demonstrate themselves before being
+> trusted. **Two of eight rules were dead on arrival.** A regression checker
+> shipped without a self-test would have printed the same reassuring line as one
+> that worked, and this repository would have recorded eight controls where it
+> had six.
+>
+> It is the same sentence as J2, one layer up: *a control tested only with the
+> input it was written for is a control tested against itself.* The difference
+> here is that the negative specimen was mandatory too — because for this rule
+> family, false positives are not an annoyance, they are the failure mode. A
+> checker that flags every correct paragraph gets switched off, and a switched-off
+> checker and an absent one are the same thing.
 
 ---
 

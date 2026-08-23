@@ -69,6 +69,7 @@ environment manifest as every other scenario in the same acceptance round.
 | 3 | Re-run and record which skill is selected and why | Selection record |
 | 4 | Run the confusion matrix across the trigger test set | Trigger confusion matrix |
 | 5 | Verify the engineering / scientific / shared family boundary is respected | Policy decision records |
+| 6 | Present each of the four non-synonym pairs and confirm the router selects by discipline, not by surface similarity | Execution log + trace/event references |
 
 ## Mandatory invariants and assertions
 
@@ -77,10 +78,21 @@ environment manifest as every other scenario in the same acceptance round.
 - [ ] An unresolvable overlap fails closed instead of selecting arbitrarily
 - [ ] Family selection follows `work_domain` and is never chosen by the agent
 - [ ] The confusion matrix is stored as evidence, not summarised in prose
+- [ ] Selecting a scientific skill where an engineering one was needed is a wrong selection **even though both loaded** — the four non-synonym pairs are the test set.
+- [ ] `test-driven-development` and `preregistration-discipline` are the sharpest pair: both commit before an outcome, and substituting one for the other produces a correct implementation of a compromised study.
 - [ ] The actual canonical state equals the expected state, or an explained safe failure state.
 - [ ] Duplicate, stale, forged or partial inputs produced no unsafe side effect.
 - [ ] Trace, event, audit and business records share one project/workflow/run correlation chain.
 - [ ] Every Critical or High finding raised during the test is recorded in the Finding Registry.
+
+### Baseline v1.3.0 — what this scenario must also show
+
+`ADR-012` §16.2. The pairs rhyme, which is exactly why a router that matches on description will get them wrong.
+
+The additional assertions above are **extensions of this scenario, not a new
+one.** Where the reliability layer needs a scenario of its own it has one in
+ACC-081–120; what is added here is the case this scenario would otherwise pass
+while the new failure went unexamined.
 
 ## Expected canonical records
 

@@ -48,6 +48,7 @@ environment manifest as every other scenario in the same acceptance round.
 | 4 | Query the bundle and profile lineage and the affected decisions | Execution log + trace/event references |
 | 5 | Run the invalidate, revoke and impact workflow | Execution log + trace/event references |
 | 6 | Produce the clean replacement set and the re-evaluation plan | Execution log + trace/event references |
+| 7 | Run the evaluation with benchmark material reachable through retrieval and read the label assigned | Execution log + trace/event references |
 
 ## Mandatory invariants and assertions
 
@@ -56,10 +57,21 @@ environment manifest as every other scenario in the same acceptance round.
 - [ ] Golden store access isolation is restored
 - [ ] Historical evaluations are not silently edited
 - [ ] The impact assessment and re-evaluation are complete
+- [ ] Contamination now has a **second source**: retrieval during the run, not only the training corpus — ACC-118.
+- [ ] A contaminated run is labelled and never reported as a clean score, and it is **not silently rerun** for a cleaner one.
 - [ ] The actual canonical state equals the expected state, or an explained safe failure state.
 - [ ] Duplicate, stale, forged or partial inputs produced no unsafe side effect.
 - [ ] Trace, event, audit and business records share one project/workflow/run correlation chain.
 - [ ] Every Critical or High finding raised during the test is recorded in the Finding Registry.
+
+### Baseline v1.3.0 — what this scenario must also show
+
+Search-time contamination is the newer failure and the harder one: nothing about the model is contaminated, the measurement is — `ADR-017`, WP-158.
+
+The additional assertions above are **extensions of this scenario, not a new
+one.** Where the reliability layer needs a scenario of its own it has one in
+ACC-081–120; what is added here is the case this scenario would otherwise pass
+while the new failure went unexamined.
 
 ## Expected canonical records
 

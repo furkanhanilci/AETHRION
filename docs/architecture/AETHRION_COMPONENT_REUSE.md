@@ -137,6 +137,11 @@ reassurance, and the report says so.
 |---|---|---|---|
 | **Inspect AI** (UK AI Security Institute) | **DEPENDENCY** | WP-043 behaviour evaluation · WP-048 harness adapters · ACC-46–51 | Its `Dataset → Solver → Scorer` model, sandboxing, limits, retry/resume and transcripts are exactly what skill-behaviour testing needs — and it can drive **real agent harnesses** (Claude Code, Codex CLI, Gemini CLI) as evaluation subjects. Writing an eval runner here would reproduce a worse version of a framework built for frontier safety testing |
 | **AgentDojo** | **BENCHMARK** | Prompt-injection assurance, WP-136 | A published attack/defence suite. AETHRION's untrusted-content boundary should be measured against someone else's attacks, not its own |
+| **Agent Security Bench (ASB)** | **BENCHMARK** | WP-060 · WP-058 | Ten scenarios, 400+ tools, 27 attack and defence methods across 13 model backbones. Its headline finding is the architectural argument for the capability gate: a highest average attack success rate of **84.3%** with defences reported as of limited effectiveness. **If prompt-layer defences are weak, the boundary must be that the capability is unavailable** — ADR-003, ACC-117 |
+| **WASP** | **BENCHMARK** (non-commercial) | WP-060 · WP-136 | Realistic web-agent injection where the attacker is an ordinary user of a site rather than its owner. Attacks partially succeed in up to **86%** of cases against top-tier agents. **Licence: majority CC-BY-NC 4.0**, with one bundled component MIT — usable as a benchmark under those terms and **not adaptable into this repository at all**, which is why ADR-019 requires a file-level licence position |
+| **MAST** | **PATTERN + BENCHMARK** | WP-152 · WP-128 | Fourteen failure modes in three categories from 1,600+ annotated traces across seven frameworks, κ=0.88. The three categories map onto this architecture's COORDINATION, VERIFICATION and design-time classes, which is why the taxonomy is a pattern rather than an adoption |
+| **Who&When** | **BENCHMARK** | WP-152 | 127 annotated multi-agent failure logs. Its reported ceilings — around 53.5% for the responsible agent and 14.2% for the exact failing step — are the reason `UNKNOWN` is a first-class classification here rather than a gap. **A taxonomy that names a cause for every failure would be wrong most of the time at step level** — ACC-094 |
+| **Search-Time Contamination** | **PATTERN + BENCHMARK** | WP-158 | Three leakage severities over six public benchmarks, with measured inflation up to 4%. The point is not the size: **nothing about the model is contaminated — the measurement is**, so the firewall is a property of the run — ADR-017 |
 | **CoE Audit** | **BENCHMARK** | G6-0 · G9 | Adopted in `AETHRION_EXTERNAL_STANDARDS.md` §4.3; check 1 implemented |
 | **PaperBench** | **PATTERN + BENCHMARK** | G7a / G7b | Its three-container separation — the agent builds in one, reproduction runs fresh in a second, grading happens in a third — is the working demonstration of the producer / reproducer / reviewer split this architecture asserts. The pattern is taken; the runtime is not embedded |
 | **ResearchClawBench** | **BENCHMARK** | End-to-end metascience | 40 real research tasks across 10 domains, each grounded in a real published paper with the target paper hidden and expert-curated weighted rubrics. It enables the experiment that would make this project's central claim testable — see §11 |
@@ -208,6 +213,14 @@ stays bound to the representation that actually supported it.
 control / untrusted data architecture**. A detector is defence in depth; it is
 not a security boundary.
 
+**And the boundary has a concrete form: the capability gate.** *Prompt says safe*
+is not security; *the capability is unavailable unless policy grants it* is.
+External content is quarantined into a data object; the agent forms a
+`ToolIntent`; policy decides; only then is a scoped credential injected. ASB's
+finding that existing defences are of limited effectiveness against an 84.3%
+average attack success rate is the empirical case for putting the boundary at the
+capability rather than at the text — WP-058, ACC-117.
+
 ---
 
 ## 7. Provenance, identity and storage
@@ -220,6 +233,9 @@ not a security boundary.
 | **S3 Object Lock semantics** | **OPTIONAL BACKEND** | WP-026 | Compliance-mode WORM that no account, including root, can delete within retention |
 | **lakeFS** | **OPTIONAL BACKEND** | Working datasets | Git-like branching over object storage for *mutable* research data — a different problem from accepted-evidence immutability, and worth keeping separate |
 | **MLflow + OpenTelemetry** | **DEPENDENCY** | Observability | Traces, token usage, cost and tool calls over OTLP. **Operational observability only** — never the scientific truth store |
+| **OpenSSF Scorecard** | **DEPENDENCY** | WP-159 · WP-059 | Project security posture before depending on something. A heuristic, not a safety property — a high score is not evidence that a dependency is secure |
+| **OSV-Scanner** | **DEPENDENCY** | WP-159 · WP-024 | Known vulnerabilities in the lockfile and images. **Silence means nothing is known, not that nothing is there**, and a finding with no available fix becomes an owned, expiring residual risk rather than a suppression |
+| **SLSA** | **STANDARD** | WP-159 · WP-027 | What built an artifact, from which source. Provenance establishes origin; it says nothing about correctness |
 
 **WP-026 changes character:** from *build a content-addressed WORM store* to
 **integrate and verify an existing object-lock implementation** behind an
@@ -341,6 +357,23 @@ mechanism as-is would have handed authority to something that should not have it
 | `auto_proceed_on_timeout`, a boolean defaulting to false | The human-intervention action vocabulary — approve, reject, edit, guidance, request revision, rollback, abort | The flag itself. At G8 and every mandatory human gate the capability is **absent**, not defaulted off, because a setting that can be turned on is a control that will be |
 | A search tree whose node score drives the whole loop | The selection mechanism and its revisit-interior-nodes property | The score's reach. It allocates compute; writing it into a claim assessment is refused by schema and by policy — `ADR-006` |
 
+### What baseline v1.3.0 added, and the three licences that changed a decision
+
+Twenty-two entries arrived with the reliability layer, and three of them are
+worth naming because the **licence changed the method rather than the decision** —
+which is the case ADR-004 exists to handle and the one most often got wrong.
+
+| Upstream | Licence | Consequence |
+|---|---|---|
+| **MAS-Resilience** — faulty-agent resilience, Challenger and Inspector | **GPL-3.0** | Incompatible with this repository's licence, so **no file may be copied under any circumstance**. The mechanism is specified from the paper and written natively — which creates no obligation and is recorded anyway |
+| **WASP** — web-agent injection benchmark | **CC-BY-NC 4.0** for the majority; one bundled component MIT | Non-commercial. Usable as a benchmark under those terms, adaptable **not at all**. The split inside one repository is the concrete reason a repository-level licence is not a per-file licence |
+| **AgentSlimming** — workflow optimisation | **MIT** | Legally adaptable, and still reimplemented. Its core mechanism is node pruning and cheap-model substitution — **the one optimisation ADR-011 refuses by name.** A permissive licence makes copying legal; it does not make copying correct |
+
+The fourth case is the opposite: **BATS** is Apache-2.0 with two compact,
+isolable modules (`agent_budget_tracker.py`, `agent_bats.py`), which makes it the
+strongest direct-adaptation candidate in the register — and it still cannot move
+until it has a pinned commit and a characterisation suite.
+
 ### An end-to-end paper generator was examined and rejected
 
 One candidate overlapped this system's entire scope — idea, experiment,
@@ -453,5 +486,13 @@ part AETHRION actually contributes.**
 - SciReplicate-Bench — <https://arxiv.org/abs/2504.00255> · Artisan — <https://arxiv.org/abs/2602.10046> · REPRO-Bench — <https://arxiv.org/abs/2507.18901>
 - OpenScholar — <https://github.com/AkariAsai/OpenScholar> · <https://arxiv.org/abs/2411.14199>
 - CiTO — <https://sparontologies.github.io/cito/current/cito.html> · nanopublications — <https://nanopub.net/>
+- AgentPrune / *Cut the Crap* — <https://arxiv.org/abs/2410.02506> · S2-MAD — <https://arxiv.org/abs/2502.04790>
+- AgentSlimming — <https://github.com/CitrusYL/AgentSlimming> · MAD-M2 — <https://github.com/HongduanTian/MAD-MM>
+- CONSENSAGENT — <https://aclanthology.org/2025.findings-acl.1141/> · MAS-Resilience — <https://arxiv.org/abs/2408.00989>
+- MAST — <https://arxiv.org/abs/2503.13657> · Who&When — <https://arxiv.org/abs/2505.00212>
+- BATS — <https://github.com/google-research/budget-aware-agent> · <https://arxiv.org/abs/2511.17006>
+- Agent Security Bench — <https://arxiv.org/abs/2410.02644> · WASP — <https://arxiv.org/abs/2504.18575>
+- Search-Time Contamination — <https://arxiv.org/abs/2606.05241> · Eval4NLP nondeterminism — <https://aclanthology.org/2025.eval4nlp-1.12/>
+- OpenSSF Scorecard — <https://openssf.org/projects/scorecard/> · OSV-Scanner — <https://google.github.io/osv-scanner/> · SLSA — <https://slsa.dev/>
 - **Assimilated mechanisms and their upstreams: [`provenance/README.md`](../../provenance/README.md)**, generated from `provenance/upstreams.json`
 - statcheck (Python) — <https://github.com/hplisiecki/statcheck_python> · `grim` — <https://pypi.org/project/grim/> · `pysprite` — <https://github.com/QuentinAndre/pysprite> · `krippendorff` — <https://pypi.org/project/krippendorff/>

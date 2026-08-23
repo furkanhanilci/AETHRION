@@ -47,6 +47,7 @@ environment manifest as every other scenario in the same acceptance round.
 | 4 | Write B under a new content address | Execution log + trace/event references |
 | 5 | Query the old run, claim and publication references | Execution log + trace/event references |
 | 6 | Run the tamper and integrity scan | Execution log + trace/event references |
+| 7 | Attempt the overwrite against a raw evaluator artifact and a model execution fingerprint as well as a general artifact | Execution log + trace/event references |
 
 ## Mandatory invariants and assertions
 
@@ -55,10 +56,21 @@ environment manifest as every other scenario in the same acceptance round.
 - [ ] B receives a unique address and version
 - [ ] Old references continue to resolve to A
 - [ ] The audit trail records the tamper attempt
+- [ ] `RawEvaluatorArtifact` and `ModelExecutionFingerprint` join the artifacts that cannot be overwritten — a fingerprint that can be edited is not a fingerprint.
+- [ ] A legitimate recomputation creates a **successor**; assertions referencing the original still resolve to the original — ACC-077.
 - [ ] The actual canonical state equals the expected state, or an explained safe failure state.
 - [ ] Duplicate, stale, forged or partial inputs produced no unsafe side effect.
 - [ ] Trace, event, audit and business records share one project/workflow/run correlation chain.
 - [ ] Every Critical or High finding raised during the test is recorded in the Finding Registry.
+
+### Baseline v1.3.0 — what this scenario must also show
+
+The overwrite refusal was written for evidence artifacts. Baseline v1.3.0 adds two record classes whose whole value is that they cannot change — WP-157, WP-026.
+
+The additional assertions above are **extensions of this scenario, not a new
+one.** Where the reliability layer needs a scenario of its own it has one in
+ACC-081–120; what is added here is the case this scenario would otherwise pass
+while the new failure went unexamined.
 
 ## Expected canonical records
 

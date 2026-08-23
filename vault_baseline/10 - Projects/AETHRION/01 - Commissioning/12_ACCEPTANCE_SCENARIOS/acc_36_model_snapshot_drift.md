@@ -67,6 +67,7 @@ environment manifest as every other scenario in the same acceptance round.
 | 4 | Observe the profile lifecycle and route cache behaviour | Execution log + trace/event references |
 | 5 | Verify the `ImpactScan` affected set | Execution log + trace/event references |
 | 6 | Issue a requalification or disable disposition | Execution log + trace/event references |
+| 7 | Force a silent provider failover and confirm it appears in the fingerprint rather than in nothing | Execution log + trace/event references |
 
 ## Mandatory invariants and assertions
 
@@ -75,10 +76,21 @@ environment manifest as every other scenario in the same acceptance round.
 - [ ] Open-task impact recall is 100% on the fixture
 - [ ] Historical runs are unchanged
 - [ ] With no eligible route the work is `BLOCKED`
+- [ ] Snapshot drift is detected from the **`ModelExecutionFingerprint`**, which records the provider, snapshot, API version and any retry or fallback — ACC-115.
+- [ ] A silent failover to a different provider mid-run is drift, and it invalidates any `EXACT` reproduction claim.
 - [ ] The actual canonical state equals the expected state, or an explained safe failure state.
 - [ ] Duplicate, stale, forged or partial inputs produced no unsafe side effect.
 - [ ] Trace, event, audit and business records share one project/workflow/run correlation chain.
 - [ ] Every Critical or High finding raised during the test is recorded in the Finding Registry.
+
+### Baseline v1.3.0 — what this scenario must also show
+
+The original scenario watched for an announced snapshot change. The fingerprint catches the unannounced one, which is the case that actually damages a result — WP-157.
+
+The additional assertions above are **extensions of this scenario, not a new
+one.** Where the reliability layer needs a scenario of its own it has one in
+ACC-081–120; what is added here is the case this scenario would otherwise pass
+while the new failure went unexamined.
 
 ## Expected canonical records
 

@@ -47,6 +47,7 @@ environment manifest as every other scenario in the same acceptance round.
 | 4 | Observe the Temporal, Kueue and gateway states | Execution log + trace/event references |
 | 5 | Check the owner budget decision queue | Execution log + trace/event references |
 | 6 | Release and reconcile the reservation | Execution log + trace/event references |
+| 7 | Drive the budget through each communication degradation threshold and confirm the cohort and assurance route are unchanged | Execution log + trace/event references |
 
 ## Mandatory invariants and assertions
 
@@ -55,10 +56,22 @@ environment manifest as every other scenario in the same acceptance round.
 - [ ] The workflow is `PAUSED`/`BUDGET_BLOCKED`
 - [ ] Existing artifacts and checkpoints are intact
 - [ ] Cost events are idempotent
+- [ ] Budget pressure degrades **communication verbosity** through its declared ladder and never reduces the cohort or lowers the assurance route — ACC-099.
+- [ ] Reserved verification, reproduction and assurance budget is unreachable from the exploration path — ACC-101.
+- [ ] A `BLOCKER` or non-waivable safety message is delivered at any utility threshold — ACC-088.
 - [ ] The actual canonical state equals the expected state, or an explained safe failure state.
 - [ ] Duplicate, stale, forged or partial inputs produced no unsafe side effect.
 - [ ] Trace, event, audit and business records share one project/workflow/run correlation chain.
 - [ ] Every Critical or High finding raised during the test is recorded in the Finding Registry.
+
+### Baseline v1.3.0 — what this scenario must also show
+
+The original scenario stopped expensive work at a hard limit. The reliability layer adds what happens *before* the limit, and the rule that matters is what degradation may not touch — WP-153.
+
+The additional assertions above are **extensions of this scenario, not a new
+one.** Where the reliability layer needs a scenario of its own it has one in
+ACC-081–120; what is added here is the case this scenario would otherwise pass
+while the new failure went unexamined.
 
 ## Expected canonical records
 

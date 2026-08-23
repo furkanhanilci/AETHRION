@@ -83,6 +83,27 @@ mechanism should AETHRION take from each* — §5.1.
 | **AutoResearchClaw** | End-to-end research pipeline with explicit human-in-the-loop actions | A worked HITL interaction vocabulary and a large user base |
 | **K-Dense Science Superpowers** | Computational-science methodology as agent skills, centred on pre-registration | The same methodology this project's scientific skills describe, published and iterated |
 
+A third group was surveyed at baseline v1.3.0. These are not research *systems*
+— they are **studies of how multi-agent systems fail**, which is a different and,
+for this architecture, more useful kind of source.
+
+| Work | What it establishes | Why it matters here |
+|---|---|---|
+| **MAST** — *Why Do Multi-Agent LLM Systems Fail?* | Fourteen failure modes in three categories over 1,600+ traces from seven frameworks | The failure taxonomy is not invented here. Its three categories map onto coordination, verification and design-time classes |
+| **Who&When** | Automated failure attribution is hard — around 53.5% for the responsible agent, 14.2% for the exact step | **The reason `UNKNOWN` is a legitimate classification.** A system that names a cause for every failure would be confidently wrong most of the time |
+| **MAS-Resilience** | A hierarchical topology degrades least under faulty agents (5.5% against 10.5% and 23.7%); Challenger and Inspector recover up to 96.4% of injected errors | Resilience is a property of the topology, and it is measurable. Also the source of the fault-injection method |
+| **AgentPrune** / *Cut the Crap* | Communication redundancy is formally definable on a message graph; 28.1–72.8% token reduction at comparable performance | Redundancy lives in the **edges**, not in the agent set — the empirical case for ADR-013 |
+| **S2-MAD** | Selective participation reaches up to 94.5% token reduction at under 2% degradation | The ceiling is high, and the paper's own limitation — a keyword-based redundancy judge — is what makes a semantic version a V2 check needing qualification |
+| **AgentSlimming** | Baseline-anchored workflow optimisation with importance scoring, pruning and cheap-model substitution | Its core mechanism is the one ADR-011 refuses. Its **acceptance discipline** — anchored to a baseline, rolled back on regression — is taken |
+| **CONSENSAGENT** | Sycophancy is a reliability *and* cost problem: agents reinforce one another and burn rounds doing it | Agreement is not evidence. The diagnostic is taken; the consensus-acceleration optimiser is not |
+| **MAD-M2** | Erroneous prior-round memories degrade later reasoning even after refutation | Why refuted items leave the reasoning context while staying queryable as history |
+| **BATS** | Remaining budget as continuous context changes what an agent does next | The budget model, generalised from two dimensions to nine |
+| **Trust or Escalate** | Judge confidence can drive escalation at a target human-agreement level | The cascade, and **abstention as a first-class outcome** |
+| **ASB** / **WASP** | Agent security is weak: 84.3% average attack success, 86% partial success from low-effort injections | The empirical case for a capability gate rather than a prompt-layer defence |
+| **Search-Time Contamination** | Deep-research agents retrieve benchmark answers during evaluation, inflating scores | The measurement is contaminated, not the model — the firewall is a property of the run |
+| **Eval4NLP nondeterminism** | Up to 15 points of accuracy difference across equivalent hosted-API runs under deterministic settings | Seed and temperature are not a reproducibility proof |
+| **HDSR *Bias in the Loop*** (2,784 participants) | Correction effort predicts fewer corrected AI errors; automation-positive attitudes predict accepting wrong suggestions | Friction symmetry is a **tested property**, not an interface preference |
+
 ---
 
 ## 3. Chain-of-Evidence — the overlap, stated plainly
@@ -188,6 +209,30 @@ the terms.
 | AutoResearchClaw | Human intervention action vocabulary · attention prioritisation | reimplement | WP-004 · WP-093 |
 | K-Dense Science Superpowers | Computational-science methodology skills | adapt and merge | WP-047 |
 
+### What baseline v1.3.0 added
+
+Twenty-two more entries, and the pattern in them is different from the first
+wave. The first wave took **capabilities** — a search tree, an artifact graph, a
+retrieval loop. This one takes **failure knowledge**: what goes wrong in a
+multi-agent system, how often, and how badly the obvious detection methods do.
+
+| From | Mechanism taken | Method | Lands in |
+|---|---|---|---|
+| AgentPrune · S2-MAD | Communication redundancy on a message graph; selective participation | reimplement | WP-149 · WP-150 |
+| AgentSlimming | Baseline-anchored acceptance and quality-regression rollback | reimplement | WP-150 · WP-153 |
+| MAD-M2 | Masking erroneous prior memories out of reasoning context | reimplement | WP-151 |
+| CONSENSAGENT | Sycophancy diagnostics; challenge-based rather than agreement-based convergence | reimplement | WP-148 |
+| MAS-Resilience | Challenger and Inspector; fault-injection method | reimplement — **GPL-3.0, no copy** | WP-152 |
+| MAST · Who&When | Failure taxonomy; the honest limits of attribution | pattern + benchmark | WP-152 |
+| BATS | Remaining-budget awareness driving deepen-or-pivot | **adapt** — Apache-2.0 | WP-153 |
+| Trust or Escalate | Confidence-driven cascade; abstention | reimplement | WP-155 |
+| HDSR · *I don't know* study | Preliminary judgment before reveal; friction symmetry | pattern | WP-156 |
+| Eval4NLP | Model execution fingerprint; distributional reproduction | pattern | WP-157 |
+| ASB · WASP | Attack surface measurement | benchmark — **WASP non-commercial** | WP-060 · WP-158 |
+| Search-Time Contamination | Leakage severities; run-level firewall | pattern | WP-158 |
+| Scorecard · OSV · SLSA · Sigstore | Provenance and posture | dependency | WP-159 |
+| Google blackboard | Shared coordination workspace as a **projection** | reimplement | WP-149 |
+
 ### The three things this register makes visible
 
 **What was refused.** Every entry names what was deliberately not taken, and four
@@ -204,6 +249,15 @@ decision is `DEFER` — not adoption on an assumption.
 **That nothing has been taken yet.** Every entry is `PROPOSED`, `pinned_commit`
 is `null`, and no code has moved. A register of intentions is worth having
 precisely because it says so.
+
+> **A note on where the numbers in this document come from.** Every figure above
+> — 84.3%, 86%, 53.5%, 14.2%, 96.4%, 28.1–72.8%, 94.5%, 15 points, 2,784
+> participants — was read from the paper or repository named beside it on
+> 2026-08-23, not from a secondary summary. Where a claim in the source package
+> could not be confirmed at the source, the register says so rather than
+> repeating it: AgentSlimming's reported cost reduction is recorded as a paper
+> claim, and two repository licences are recorded as unconfirmed, which under
+> ADR-004 forbids copying and permits reimplementation.
 
 > **None of these systems appears in the runtime architecture.** There is no
 > directory, module, backend or configuration key named after any of them. That

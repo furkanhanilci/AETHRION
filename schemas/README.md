@@ -30,6 +30,50 @@ boundaries.
 | `human-intervention.json` | WP-004 · WP-093 | Intervention vocabulary with before/after refs; attention score, `authority=false` |
 | `upstream-lineage.json` | WP-141 | Assimilation candidate and upstream lineage — **the one entry with a working implementation today**, as `provenance/upstreams.json` plus `scripts/check_upstream_lineage.py` |
 
+### Added by baseline v1.3.0 — the reliability layer
+
+The contracts above describe a research *pipeline*. These describe a **cohort**:
+who is in it, what may cross between its members, what it costs, what it may not
+be allowed to skip, and what makes a number it produced believable afterwards.
+They are listed separately because the failure modes they carry did not exist
+before there was more than one actor.
+
+| Schema | Work package | What it defines |
+|---|---|---|
+| `agent-cohort.json` | WP-148 | `AgentCohortRecord` — the actors bound to a task, their roles, and the record that a cohort was convened rather than assumed |
+| `cognitive-diversity.json` | WP-148 | `CognitiveDiversityProfile` — independence across five dimensions (cognitive function, evidence exposure, peer visibility, model profile, prompt perspective). **A count is not a profile**, and five instances of one model on one context is one contribution |
+| `communication-edge.json` | WP-149 | `CommunicationEdgePolicy` — which actor may say what to which other actor, compiled per task rather than assumed complete |
+| `blackboard-entry.json` | WP-150 | `BlackboardEntry` — a delta with a pointer and a digest. Deletable by construction: no canonical science lives here |
+| `agent-message.json` | WP-150 | `TypedAgentMessage` — the ten message types. A `CHALLENGE` can be tracked to resolution; a paragraph cannot |
+| `communication-utility.json` | WP-149 · WP-153 | `CommunicationUtilityRecord` — the measured value of an edge, and the record of what a degradation step actually removed |
+| `context-projection.json` | WP-151 | `ContextProjectionRecord` — what was assembled into an invocation's context, and what was masked. A refuted conclusion must not return as current |
+| `memory-intervention.json` | WP-151 | `MemoryInterventionRecord` — a masking, supersession or correction of a memory, with its authority and its reason |
+| `research-budget.json` | WP-153 | `ResearchBudgetContract` — the exploration budget and the **reserved** verification, reproduction and assurance budget the exploration path cannot reach |
+| `token-ledger.json` | WP-153 | `TokenLedgerEntry` — tokens classified by purpose, so that coordination overhead is a measurement rather than an estimate |
+| `spec-conformance.json` | WP-154 | `SpecificationConformanceRecord` — the drift severity ladder `NONE` / `ENGINEERING_ONLY` / `SCIENTIFIC_MINOR` / `SCIENTIFIC_MAJOR` / `UNKNOWN`, and which frozen artefact the code diverged from |
+| `human-preliminary.json` | WP-156 | `HumanPreliminaryAssessment` — sealed **before** any AI recommendation is reachable, plus `INSUFFICIENT_BASIS` as a first-class outcome |
+| `decision-delta.json` | WP-156 | `DecisionDelta` — the distance between the preliminary assessment and the final decision, which is the only way anchoring becomes measurable |
+| `model-fingerprint.json` | WP-157 | `ModelExecutionFingerprint` — provider, snapshot, API version, sampling parameters, and every retry and fallback. A silent failover mid-run is drift |
+| `benchmark-policy.json` | WP-158 | `BenchmarkRunPolicy` — the frozen network mode, allowed domains and retrieval audit for a benchmark run |
+| `contamination-finding.json` | WP-158 | `ContaminationFinding` — training-corpus and **search-time** contamination, and the label a contaminated score carries permanently |
+| `upstream-assimilation.json` | WP-159 · WP-141 | `UpstreamAssimilationRecord` — the admission record for adapted code: lineage, licence, pin, characterisation suite and `authority_boundary` |
+
+Three properties cut across the whole group, and each exists because of a
+specific way this kind of record goes wrong:
+
+- **A record here is never a substitute for canonical state.** A
+  `BlackboardEntry` carries a pointer and a digest, and the content lives in the
+  artifact store. Delete the blackboard and the science survives — `ADR-013`,
+  ACC-085.
+- **Every one of them is evidence about a run, not authority over it.** A cohort
+  record does not approve a gate; a diversity profile does not license a claim; a
+  fingerprint does not make a result reproducible. `ADR-014` keeps the authority
+  where it was.
+- **The immutable ones are immutable.** A `ModelExecutionFingerprint` or a
+  `RawEvaluatorArtifact` that can be edited is not one. A legitimate
+  recomputation creates a successor and leaves the original resolvable —
+  ACC-023, ACC-077.
+
 ## Status
 
 > ⚠️ **Currently empty**, with one exception: the upstream lineage register
@@ -44,6 +88,13 @@ boundaries.
 >
 > Until these schemas exist and are enforced in CI, WP-020 (Schema Registry and
 > Contract SDK) cannot reach `TECH_COMPLETE`, let alone `ACCEPTED`.
+>
+> The seventeen contracts added at v1.3.0 are `SPECIFIED` in the same sense as
+> the rest of the table — named, owned by a work package, and unwritten. Listing
+> them is worth doing anyway: the table is what a schema author is handed, and
+> the alternative is re-deriving seventeen record shapes from twelve work
+> packages under deadline. It is not, and must not be read as, a claim that any
+> of them exists.
 
 ## Rules once populated
 

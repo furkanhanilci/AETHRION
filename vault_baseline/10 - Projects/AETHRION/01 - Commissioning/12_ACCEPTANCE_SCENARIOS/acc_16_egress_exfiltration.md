@@ -66,6 +66,7 @@ environment manifest as every other scenario in the same acceptance round.
 | 4 | Observe the egress, DLP, Vault and network logs | Execution log + trace/event references |
 | 5 | Verify lease revocation and the incident workflow | Execution log + trace/event references |
 | 6 | Confirm that no byte reached the canary destination | Execution log + trace/event references |
+| 7 | Repeat the exfiltration attempt from inside a benchmark run under its frozen network policy | Execution log + trace/event references |
 
 ## Mandatory invariants and assertions
 
@@ -74,10 +75,21 @@ environment manifest as every other scenario in the same acceptance round.
 - [ ] DLP matches the canary
 - [ ] The lease is revoked
 - [ ] Security event correlation is complete
+- [ ] Egress is also constrained **per benchmark run**: network mode and allowed domains are frozen before the run and every retrieval is audited — ACC-118.
+- [ ] An exfiltration attempt through a benchmark harness is the same attempt through a different door and is refused the same way.
 - [ ] The actual canonical state equals the expected state, or an explained safe failure state.
 - [ ] Duplicate, stale, forged or partial inputs produced no unsafe side effect.
 - [ ] Trace, event, audit and business records share one project/workflow/run correlation chain.
 - [ ] Every Critical or High finding raised during the test is recorded in the Finding Registry.
+
+### Baseline v1.3.0 — what this scenario must also show
+
+Baseline v1.3.0 adds a second reason to constrain egress: not only preventing data leaving, but preventing answers coming in — `ADR-017`.
+
+The additional assertions above are **extensions of this scenario, not a new
+one.** Where the reliability layer needs a scenario of its own it has one in
+ACC-081–120; what is added here is the case this scenario would otherwise pass
+while the new failure went unexamined.
 
 ## Expected canonical records
 

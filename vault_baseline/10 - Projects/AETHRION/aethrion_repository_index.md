@@ -435,6 +435,9 @@ flowchart TD
     subgraph COG["COGNITION PLANE"]
         G1["LangGraph: bounded agent reasoning<br/>inside a single task, never across gates"]
     end
+    subgraph CLB["COLLABORATION PLANE - specified at v1.3.0"]
+        B1["Cohort · diversity profile · sparse topology<br/>typed delta blackboard · communication governor"]
+    end
     subgraph EXE["EXECUTION PLANE"]
         X1["Sandbox · Tool Broker · Execution Broker<br/>credentials never reach the agent"]
     end
@@ -445,13 +448,102 @@ flowchart TD
         M1["Agreement · calibration · gate yield<br/>control injection · claim survival"]
     end
     EXP --> CTL --> COG --> EXE --> EVD
+    COG --> CLB
+    CLB -.->|"deltas only, never transcripts"| COG
     CTL --> EVT
     EVT -.-> EXP
     EVD -.-> MET
     MET -.->|"measures the laboratory itself"| CTL
     style MET fill:#FBEFD6,stroke:#E69F00,color:#000
     style EVD fill:#E0F3EC,stroke:#009E73,color:#000
+    style CLB fill:#E7F0FA,stroke:#0072B2,color:#000
 ```
+
+### 4.1 The collaboration plane — keep the cohort, prune the conversation
+
+The cognition plane bounds what **one** agent may do. Baseline v1.3.0 adds the
+plane that governs what happens when there is more than one, and it exists
+because that situation has its own failure modes rather than more of the same
+ones.
+
+![The collaboration plane: independence, typed deltas, and the floor budget pressure cannot cross](docs/figures/aethrion_collaboration.svg)
+
+Four things live here, and the order matters:
+
+**The cohort is fixed, and it is not a cost lever.** Substantial scientific
+execution requires at least two epistemically independent contributions. That is
+an epistemic requirement, so a cost argument is not an answer to it — and every
+cost pressure a multi-agent system ever experiences argues for fewer agents.
+`ADR-011` closes that door once, deliberately, so it does not have to be argued
+per sprint. What gets optimised instead is everything below.
+
+**Independence is a profile, not a count.** Five instances of one model on one
+context are one contribution: they will agree, and the agreement carries no
+information. A `CognitiveDiversityProfile` spans cognitive function, evidence
+exposure, peer visibility, model profile and prompt perspective — and a cohort of
+three differentiated actors passes where a cohort of five identical ones is
+refused (ACC-081).
+
+**Independent-first, and the seal is the mechanism.** Each actor writes its
+position before it sees any peer's. The positions are sealed, and only then are
+material deltas exposed. Anchoring is an effect rather than a preference: an
+actor shown a confident prior answer converges on it, and the record afterwards
+shows two agreeing actors — indistinguishable from two that independently agreed.
+The seal is the only thing that can tell them apart later (ACC-082). A majority
+cannot close an unanswered material challenge (ACC-090).
+
+**A typed delta crosses an edge; a transcript never does.** Ten message types,
+because a `CHALLENGE` can be tracked to resolution and a paragraph cannot. The
+message carries the change and a digest; the content goes to the artifact store.
+Delete the blackboard and no canonical science is lost — which is the test of
+whether it was ever holding any (`ADR-013`, ACC-085). Passing a full reasoning
+transcript between agents is refused for the unobvious reason as much as the
+obvious one: it is the channel through which one agent's error becomes another's
+premise.
+
+#### 4.1.1 What budget pressure may degrade, and the floor it cannot cross
+
+Communication verbosity degrades along a declared ladder — structured full,
+compressed, pointer only, silence unless material. Beneath it is a floor:
+
+> The cohort. The assurance route. Any non-waivable control. A `BLOCKER` or a
+> safety message at any utility threshold. A task that cannot afford its required
+> assurance is `BLOCKED_BUDGET` or asks for a scope reduction — **it does not
+> proceed more cheaply** (ACC-088, ACC-099, ACC-101).
+
+The optimisation is also anchored or it is not an optimisation: it is accepted
+only when quality stays inside a declared tolerance and coordination cost falls
+meaningfully, measured against the **runnable naive fully-connected cohort**. Not
+against a single agent — comparing to one agent measures the cost of having a
+cohort at all, a question already settled on other grounds. A quality regression
+rolls the topology back automatically (ACC-086, ACC-087).
+
+#### 4.1.2 Where authority stays while all of this happens
+
+Adding actors adds places for state to live, which is how a system acquires two
+truths.
+
+![One canonical owner per kind of state, and everything else rebuildable](docs/figures/aethrion_authority.svg)
+
+Exactly one canonical owner per kind of state, and everything else is a
+projection that can be destroyed and rebuilt losslessly. A cohort record does not
+approve a gate. A blackboard entry is not evidence. An event announces a
+transition and is never promoted to truth — the consumer re-reads the canonical
+store. MLflow answers what the system *did*; an `EvidenceManifest` answers what
+may be *believed*, and operational telemetry is not provenance (`ADR-014`).
+
+Split brain is invisible in a healthy run and obvious only in a post-mortem, so
+nothing short of causing one demonstrates it would be caught. That is why WP-159
+carries an injection suite — kill the publisher after the DB commit, deliver the
+same event twice, deliver events out of order, return a cancelled task's late
+result, drop a projection and rebuild it — and why every injection must end with
+canonical state correct and the projection agreeing, or with an explicit recorded
+failure (ACC-119).
+
+> **Status.** None of this is built. WP-148–159 specify it; there is no cohort
+> record, no blackboard, no topology compiler, no communication governor and no
+> baseline harness to measure any of it against. It is listed as a plane because
+> that is where it belongs in the architecture, not because it runs.
 
 ### The trust boundary that cuts across all of them
 
@@ -824,7 +916,7 @@ the section to read first if you are deciding whether to trust anything else.
 ```mermaid
 flowchart LR
     subgraph WORKING["RUNNING - verified locally"]
-        W["Zotero read-only client<br/>SQLite source registry<br/>Obsidian projection<br/>Hermes MCP, 5 tools<br/>systemd units · 57 tests<br/>plan seal · 16 status checks<br/>signed evidence manifest<br/>12 generated figures<br/>upstream lineage register + checker"]
+        W["Zotero read-only client<br/>SQLite source registry<br/>Obsidian projection<br/>Hermes MCP, 5 tools<br/>systemd units · 70 tests<br/>plan seal · 16 status checks<br/>signed evidence manifest<br/>14 generated figures<br/>upstream lineage register + checker"]
     end
     subgraph WRITTEN["WRITTEN - never executed"]
         S["52 skills, none behaviour-tested<br/>160 package documents<br/>120 acceptance scenarios<br/>role-to-model assignment rules<br/>4 authoring profiles"]
@@ -946,7 +1038,7 @@ branch and are regenerated from the canonical registry. Human synthesis stays in
 ### Verify
 
 ```bash
-uv run pytest                          # 57 tests
+uv run pytest                          # 70 tests
 uv run python scripts/mcp_smoke.py     # asserts the five-tool boundary; exits 1 on failure
 uv run python scripts/acceptance_v0.py # data-independent structural acceptance
 python3 scripts/validate_skills.py     # Agent Skills format + AIRL metadata contract
@@ -1053,7 +1145,7 @@ flowchart LR
 ```
 
 ```
-57/57 tests pass · plan seal 631/631 OK · plan semantics OK · service and timer active
+70/70 tests pass · plan seal 631/631 OK · plan semantics OK · service and timer active
 WP-000 attestation: signature OK, 9 subject digests OK, tamper rejected
 MCP smoke: 5 read-only tools, exits 1 when the Bridge is down
 Acceptance: 11 structural checks pass, data-independent
@@ -1061,7 +1153,7 @@ Skills: 52/52 conform to the Agent Skills format and the AIRL metadata contract
 Documents: declared counts match the repository; no decision record contradicts itself
 References: 27/33 registry sources corroborated against Crossref, OpenAlex and arXiv
 Monitoring: G10 sweep clean over 15 DOI-bearing sources; positive control fired
-Figures: 12/12 match their generators; 0 text overflows out of their boxes
+Figures: 14/14 match their generators; 0 text overflows out of their boxes
 Mirror drift: 0 across the plan mirror and the vault mirror
 Obsidian baseline and vault identical
 ```

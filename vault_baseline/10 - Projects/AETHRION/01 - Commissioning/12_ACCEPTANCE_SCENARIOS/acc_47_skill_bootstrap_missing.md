@@ -70,6 +70,7 @@ environment manifest as every other scenario in the same acceptance round.
 | 3 | Dispatch the same task again | Execution log + refusal record |
 | 4 | Repeat for every supported harness | Cross-harness matrix |
 | 5 | Confirm the audit trail distinguishes 'never started' from 'ran and failed' | Audit export |
+| 6 | Start a harness on a coding-science task and confirm both skill families are present and distinct | Execution log + trace/event references |
 
 ## Mandatory invariants and assertions
 
@@ -78,10 +79,21 @@ environment manifest as every other scenario in the same acceptance round.
 - [ ] No unguided fallback session is created
 - [ ] The refusal is recorded distinctly from an execution failure
 - [ ] Every supported harness behaves identically under this test
+- [ ] The bootstrap must load **both families**: engineering and scientific, with neither aliasing the other — `ADR-012`.
+- [ ] A coding-science task missing either family compiles to a discipline that cannot check its own failure mode.
 - [ ] The actual canonical state equals the expected state, or an explained safe failure state.
 - [ ] Duplicate, stale, forged or partial inputs produced no unsafe side effect.
 - [ ] Trace, event, audit and business records share one project/workflow/run correlation chain.
 - [ ] Every Critical or High finding raised during the test is recorded in the Finding Registry.
+
+### Baseline v1.3.0 — what this scenario must also show
+
+The eleven engineering skills are where a large fraction of the science's failure modes live — evaluators, preprocessing, reproduction packages. A bootstrap that loads only the scientific family is a bootstrap that has dropped them.
+
+The additional assertions above are **extensions of this scenario, not a new
+one.** Where the reliability layer needs a scenario of its own it has one in
+ACC-081–120; what is added here is the case this scenario would otherwise pass
+while the new failure went unexamined.
 
 ## Expected canonical records
 

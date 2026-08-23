@@ -141,11 +141,21 @@ def audit(register: dict, packages: set[str]) -> list[str]:
                 problems.append(f"{eid}: ADAPTIVE_REIMPLEMENT with no mechanism specification "
                                 f"identifiers — the specification is the deliverable")
 
-        # R7 — an unverified licence bounds what may be done with the source
-        if licence.upper() == "UNVERIFIED" and assimilation not in {"DEFER", "REJECT"}:
-            problems.append(f"{eid}: licence is UNVERIFIED but assimilation is "
-                            f"{assimilation} — only DEFER or REJECT may rest on an "
-                            f"unverified licence")
+        # R7 — an unverified licence forbids copying, and nothing else.
+        #
+        # This rule was wrong twice and both errors are worth recording. It
+        # matched `licence.upper() == "UNVERIFIED"` exactly, so an entry saying
+        # "UNVERIFIED — not confirmed on <date>" — strictly more informative —
+        # slipped past it silently. And it forbade every assimilation type except
+        # DEFER and REJECT, which contradicts ADR-004: reimplementing a published
+        # mechanism creates no licence obligation at all, and an unverified
+        # licence is a *reason* to reimplement rather than a reason to stop.
+        #
+        # What an unverified licence actually forbids is moving files.
+        if licence.upper().startswith("UNVERIFIED") and assimilation == "DIRECT_ADAPT":
+            problems.append(f"{eid}: DIRECT_ADAPT under an unverified licence — "
+                            f"code cannot be copied until the licence is read at "
+                            f"the source; reimplement instead")
         verified = entry.get("licence_verified")
         if verified is not None and not DATE.match(str(verified)):
             problems.append(f"{eid}: licence_verified {verified!r} is not a date")
@@ -273,8 +283,8 @@ def self_test(register: dict, packages: set[str]) -> int:
         ("R5 direct adapt with no pin", lambda es: first_of(es, "DIRECT_ADAPT").update(status="ADAPTING")),
         ("R6 reimplementation carrying source files",
          lambda es: first_of(es, "ADAPTIVE_REIMPLEMENT").update(source_files=["upstream/thing.py"])),
-        ("R7 unverified licence on an adopted mechanism",
-         lambda es: first_of(es, "ADAPTIVE_REIMPLEMENT").update(licence="UNVERIFIED")),
+        ("R7 unverified licence on a direct adaptation",
+         lambda es: first_of(es, "DIRECT_ADAPT").update(licence="UNVERIFIED — not read")),
         ("R8 reference to a package that does not exist",
          lambda es: es[0].update(work_packages=["WP-999"])),
         ("R9 local module that does not exist",
@@ -324,9 +334,16 @@ def main() -> int:
 
     for problem in problems:
         print(f"  {problem}")
-    adapting = sum(1 for e in register["entries"] if e["status"] in {"ADAPTING", "ACCEPTED"})
-    print(f"{len(register['entries'])} upstream entries checked, {adapting} with code taken, "
-          f"{len(problems)} lineage problems")
+    # "code taken" means source files moved into this repository — which only a
+    # DIRECT_ADAPT entry can do. A DEPENDENCY at ACCEPTED is integrated and
+    # called, not copied, and counting it as adapted code would overstate what
+    # this repository contains.
+    adapted = sum(1 for e in register["entries"]
+                  if e["assimilation"] == "DIRECT_ADAPT"
+                  and e["status"] in {"ADAPTING", "ACCEPTED"})
+    live = sum(1 for e in register["entries"] if e["status"] == "ACCEPTED")
+    print(f"{len(register['entries'])} upstream entries checked, {adapted} with code taken, "
+          f"{live} integrated, {len(problems)} lineage problems")
     return 1 if problems else 0
 
 

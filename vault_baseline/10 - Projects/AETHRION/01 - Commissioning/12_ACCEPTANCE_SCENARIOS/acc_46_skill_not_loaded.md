@@ -70,6 +70,7 @@ environment manifest as every other scenario in the same acceptance round.
 | 3 | Attempt to produce a result anyway | Execution log + refusal record |
 | 4 | Repeat with a waivable skill and confirm the difference in behaviour | Policy decision records |
 | 5 | Restore the skill and confirm the task proceeds normally | Execution log + task record |
+| 6 | Compile a substantial task and confirm every output element is present, not only the skill bundle | Execution log + trace/event references |
 
 ## Mandatory invariants and assertions
 
@@ -78,10 +79,21 @@ environment manifest as every other scenario in the same acceptance round.
 - [ ] No `AgentResult` and no claim is produced by the blocked task
 - [ ] A waivable skill produces a warning, not a block, and the difference is policy-driven
 - [ ] The audit record names the rule, the policy version and the missing skill
+- [ ] The Task Compiler now emits more than a skill bundle: a cohort, a diversity profile, a communication topology, a context projection, a budget contract and an assurance route.
+- [ ] A task compiled with skills but no cohort is as incomplete as one compiled with no skills — ACC-081.
 - [ ] The actual canonical state equals the expected state, or an explained safe failure state.
 - [ ] Duplicate, stale, forged or partial inputs produced no unsafe side effect.
 - [ ] Trace, event, audit and business records share one project/workflow/run correlation chain.
 - [ ] Every Critical or High finding raised during the test is recorded in the Finding Registry.
+
+### Baseline v1.3.0 — what this scenario must also show
+
+This scenario tested that a skill loads. Baseline v1.3.0 makes the compiler's output substantially larger, and each missing element is a silent capability loss — WP-047, WP-148.
+
+The additional assertions above are **extensions of this scenario, not a new
+one.** Where the reliability layer needs a scenario of its own it has one in
+ACC-081–120; what is added here is the case this scenario would otherwise pass
+while the new failure went unexamined.
 
 ## Expected canonical records
 

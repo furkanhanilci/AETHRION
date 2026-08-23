@@ -34,6 +34,8 @@ MODULES = (
     "fig_discovery",
     "fig_memory",
     "fig_assurance",
+    "fig_collaboration",
+    "fig_authority",
 )
 MIN_FONT_UNITS = 16          # ≈ 6.8 pt when the figure is set 180 mm wide
 

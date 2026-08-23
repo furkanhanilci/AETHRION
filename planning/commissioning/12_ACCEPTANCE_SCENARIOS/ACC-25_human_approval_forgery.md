@@ -47,6 +47,7 @@ environment manifest as every other scenario in the same acceptance round.
 | 4 | Check the gate, history and `DecisionRecord` | Execution log + trace/event references |
 | 5 | Send a valid decision after re-authenticating as the correct owner | Execution log + trace/event references |
 | 6 | Verify the security alert and incident threshold | Execution log + trace/event references |
+| 7 | Attempt the forgery against the preliminary assessment and against the final decision separately | Execution log + trace/event references |
 
 ## Mandatory invariants and assertions
 
@@ -55,10 +56,21 @@ environment manifest as every other scenario in the same acceptance round.
 - [ ] A replay produces exactly one decision
 - [ ] A valid actor, role and evidence snapshot are required
 - [ ] The audit trail contains every attempt
+- [ ] A forged approval must also fail to produce a **`HumanPreliminaryAssessment`**, which is sealed before any recommendation is reachable — ACC-110.
+- [ ] No timeout, learned preference or attention score creates an approval, through any interface — ACC-069.
 - [ ] The actual canonical state equals the expected state, or an explained safe failure state.
 - [ ] Duplicate, stale, forged or partial inputs produced no unsafe side effect.
 - [ ] Trace, event, audit and business records share one project/workflow/run correlation chain.
 - [ ] Every Critical or High finding raised during the test is recorded in the Finding Registry.
+
+### Baseline v1.3.0 — what this scenario must also show
+
+Baseline v1.3.0 splits a G8 decision into two sealed records. A forgery that produces one without the other is detectable in a way a single record could not be — `ADR-016`.
+
+The additional assertions above are **extensions of this scenario, not a new
+one.** Where the reliability layer needs a scenario of its own it has one in
+ACC-081–120; what is added here is the case this scenario would otherwise pass
+while the new failure went unexamined.
 
 ## Expected canonical records
 

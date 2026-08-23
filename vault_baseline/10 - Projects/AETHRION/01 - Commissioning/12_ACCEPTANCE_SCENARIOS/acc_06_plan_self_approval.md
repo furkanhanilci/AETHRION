@@ -65,6 +65,7 @@ environment manifest as every other scenario in the same acceptance round.
 | 3 | Try the variant with the same human, a different model, but a contaminated context | Execution log + trace/event references |
 | 4 | Compare the R1 and R3 policy outcomes | Execution log + trace/event references |
 | 5 | Assign a suitable independent reviewer and continue the flow | Execution log + trace/event references |
+| 6 | Attempt the self-approval as a cohort member and as a scientific council session, not only as a planner | Execution log + trace/event references |
 
 ## Mandatory invariants and assertions
 
@@ -73,10 +74,21 @@ environment manifest as every other scenario in the same acceptance round.
 - [ ] R3 enforces the required human and model separation
 - [ ] A denied attempt never turns the gate into `PASS`
 - [ ] The audit record carries the rule, bundle and input
+- [ ] A **cohort member** cannot approve its own gate either, through any interface including the event plane — ACC-093.
+- [ ] A council or cohort that contributed to the design cannot be bound as reviewer of the same artefact where the independence profile forbids it — ACC-072.
 - [ ] The actual canonical state equals the expected state, or an explained safe failure state.
 - [ ] Duplicate, stale, forged or partial inputs produced no unsafe side effect.
 - [ ] Trace, event, audit and business records share one project/workflow/run correlation chain.
 - [ ] Every Critical or High finding raised during the test is recorded in the Finding Registry.
+
+### Baseline v1.3.0 — what this scenario must also show
+
+Baseline v1.3.0 adds cognitive actors that did not exist when this scenario was written. Each is a new surface for the same attempt, and none of them holds authority — `ADR-011`, `ADR-014`.
+
+The additional assertions above are **extensions of this scenario, not a new
+one.** Where the reliability layer needs a scenario of its own it has one in
+ACC-081–120; what is added here is the case this scenario would otherwise pass
+while the new failure went unexamined.
 
 ## Expected canonical records
 

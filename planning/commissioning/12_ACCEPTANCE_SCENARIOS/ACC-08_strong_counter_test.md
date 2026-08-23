@@ -25,7 +25,7 @@ environment manifest as every other scenario in the same acceptance round.
 
 **Given:** Three reviewers have returned `PASS`, but a pre-registered deterministic counter-test holds a fixture that refutes the claim.
 
-**When:** The mechanical verifier runs the counter-test against the frozen target.
+**When:** The **V1 computational verifier** runs the counter-test against the frozen target — deterministic re-execution under pinned software and configuration, not a model reading the result.
 
 **Then:** The majority vote does not override the test; the claim becomes `CHALLENGED`/`REJECTED`, a `DisagreementCase` opens and G6 does not pass.
 
@@ -47,6 +47,7 @@ environment manifest as every other scenario in the same acceptance round.
 | 4 | Put the finding through structural and reproducer validation | Execution log + trace/event references |
 | 5 | Run disagreement handling and arbitration | Execution log + trace/event references |
 | 6 | Verify the gate and claim disposition | Execution log + trace/event references |
+| 7 | Run the counter-test inside a cohort and leave one member's objection unanswered | Execution log + trace/event references |
 
 ## Mandatory invariants and assertions
 
@@ -55,10 +56,21 @@ environment manifest as every other scenario in the same acceptance round.
 - [ ] The claim state is `CHALLENGED` or `REJECTED`
 - [ ] The arbiter records an evidence rationale
 - [ ] Review count remains an anti-metric, never a justification
+- [ ] A **material challenge cannot be closed by majority agreement**, and a counter-test left unanswered blocks convergence — ACC-090.
+- [ ] The sycophancy diagnostic reports agreement-before-evidence, so a cohort that converged without engaging is visible rather than merely fast.
 - [ ] The actual canonical state equals the expected state, or an explained safe failure state.
 - [ ] Duplicate, stale, forged or partial inputs produced no unsafe side effect.
 - [ ] Trace, event, audit and business records share one project/workflow/run correlation chain.
 - [ ] Every Critical or High finding raised during the test is recorded in the Finding Registry.
+
+### Baseline v1.3.0 — what this scenario must also show
+
+The strong counter-test was a single-actor discipline. Inside a cohort it acquires a second failure mode — everyone agreeing the counter-test is unnecessary — which CONSENSAGENT frames as sycophancy and WP-148 makes structurally hard.
+
+The additional assertions above are **extensions of this scenario, not a new
+one.** Where the reliability layer needs a scenario of its own it has one in
+ACC-081–120; what is added here is the case this scenario would otherwise pass
+while the new failure went unexamined.
 
 ## Expected canonical records
 

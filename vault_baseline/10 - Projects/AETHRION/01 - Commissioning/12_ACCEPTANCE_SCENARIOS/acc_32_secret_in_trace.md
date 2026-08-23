@@ -66,6 +66,7 @@ environment manifest as every other scenario in the same acceptance round.
 | 4 | Scan the Langfuse, OTel, log, NATS, audit and search stores | Execution log + trace/event references |
 | 5 | Check a UI and export sample | Execution log + trace/event references |
 | 6 | Verify the revoke and incident behaviour | Execution log + trace/event references |
+| 7 | Inspect a trace spanning the collaboration, execution and evidence planes for secret leakage | Execution log + trace/event references |
 
 ## Mandatory invariants and assertions
 
@@ -74,10 +75,21 @@ environment manifest as every other scenario in the same acceptance round.
 - [ ] A security event is raised and the lease is revoked
 - [ ] The DLP detector produces no false negative
 - [ ] The canonical task result remains policy-compliant
+- [ ] The correlation chain spans project, gate, task, agent, model, tool, artifact, run and claim — and carries **no secrets and no full sensitive prompts**, redacted by data class.
+- [ ] Redaction is verified on a trace that spans planes, not on a single service's output.
 - [ ] The actual canonical state equals the expected state, or an explained safe failure state.
 - [ ] Duplicate, stale, forged or partial inputs produced no unsafe side effect.
 - [ ] Trace, event, audit and business records share one project/workflow/run correlation chain.
 - [ ] Every Critical or High finding raised during the test is recorded in the Finding Registry.
+
+### Baseline v1.3.0 — what this scenario must also show
+
+Baseline v1.3.0 adds agents, tools and a blackboard to the trace surface. Each is a new place for a secret to appear, and the chain is only useful if it is complete — `ADR-014`, WP-159.
+
+The additional assertions above are **extensions of this scenario, not a new
+one.** Where the reliability layer needs a scenario of its own it has one in
+ACC-081–120; what is added here is the case this scenario would otherwise pass
+while the new failure went unexamined.
 
 ## Expected canonical records
 

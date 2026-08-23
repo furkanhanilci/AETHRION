@@ -47,6 +47,7 @@ environment manifest as every other scenario in the same acceptance round.
 | 4 | Create the claim and the negative-result artifact | Execution log + trace/event references |
 | 5 | Run the review and the decision queue | Execution log + trace/event references |
 | 6 | Verify the knowledge, Obsidian and portfolio write-back | Execution log + trace/event references |
+| 7 | Classify a compile failure, a data failure and a valid null result and confirm only the third can be a negative result | Execution log + trace/event references |
 
 ## Mandatory invariants and assertions
 
@@ -55,10 +56,21 @@ environment manifest as every other scenario in the same acceptance round.
 - [ ] The decision carries a rationale and a next action
 - [ ] The cost is captured
 - [ ] The knowledge is searchable afterwards
+- [ ] A negative result is now one outcome of a **typed failure taxonomy**: only a validly executed run under the frozen plan can support a `HYPOTHESIS` class — ACC-095.
+- [ ] A failed approach is retained and retrievable after the campaign closes, and does not suppress a scientifically distinct retry — ACC-063.
 - [ ] The actual canonical state equals the expected state, or an explained safe failure state.
 - [ ] Duplicate, stale, forged or partial inputs produced no unsafe side effect.
 - [ ] Trace, event, audit and business records share one project/workflow/run correlation chain.
 - [ ] Every Critical or High finding raised during the test is recorded in the Finding Registry.
+
+### Baseline v1.3.0 — what this scenario must also show
+
+The original scenario proved a negative result can be published. The reliability layer proves the other three cannot be mistaken for one — WP-152.
+
+The additional assertions above are **extensions of this scenario, not a new
+one.** Where the reliability layer needs a scenario of its own it has one in
+ACC-081–120; what is added here is the case this scenario would otherwise pass
+while the new failure went unexamined.
 
 ## Expected canonical records
 

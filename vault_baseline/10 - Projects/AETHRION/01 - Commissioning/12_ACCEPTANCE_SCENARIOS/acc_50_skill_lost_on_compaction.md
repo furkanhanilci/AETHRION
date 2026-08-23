@@ -69,6 +69,7 @@ environment manifest as every other scenario in the same acceptance round.
 | 3 | Assert the loaded skill set after compaction | Loaded-skill listing |
 | 4 | Kill and resume the session | Recovery transcript |
 | 5 | Confirm the resumed run carries the same bundle hash, or halted | Task record + audit export |
+| 6 | Compact the context and confirm both that the skill reloads and that a masked item does not return as current | Execution log + trace/event references |
 
 ## Mandatory invariants and assertions
 
@@ -77,10 +78,21 @@ environment manifest as every other scenario in the same acceptance round.
 - [ ] A silent continuation without the procedure is impossible
 - [ ] The recovery or halt is visible in the audit trail
 - [ ] Behaviour is identical across supported harnesses
+- [ ] Context compaction is now governed rather than incidental: a `ContextProjection` is assembled per invocation, and a **frozen constraint the step would violate triggers a reminder** — ACC-097.
+- [ ] A refuted or superseded item does not return to the reasoning context on reload, while remaining queryable as history — ACC-096.
 - [ ] The actual canonical state equals the expected state, or an explained safe failure state.
 - [ ] Duplicate, stale, forged or partial inputs produced no unsafe side effect.
 - [ ] Trace, event, audit and business records share one project/workflow/run correlation chain.
 - [ ] Every Critical or High finding raised during the test is recorded in the Finding Registry.
+
+### Baseline v1.3.0 — what this scenario must also show
+
+The original failure was a procedure lost on compaction. The reliability layer adds the opposite failure — a refuted conclusion *surviving* compaction and being read as current — WP-151.
+
+The additional assertions above are **extensions of this scenario, not a new
+one.** Where the reliability layer needs a scenario of its own it has one in
+ACC-081–120; what is added here is the case this scenario would otherwise pass
+while the new failure went unexamined.
 
 ## Expected canonical records
 

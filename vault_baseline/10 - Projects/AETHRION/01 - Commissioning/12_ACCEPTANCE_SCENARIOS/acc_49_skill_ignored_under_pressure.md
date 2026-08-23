@@ -71,6 +71,7 @@ environment manifest as every other scenario in the same acceptance round.
 | 3 | Capture every rationalization verbatim | Rationalization corpus |
 | 4 | Attempt to reach a completion claim without the iron-law evidence | Refusal record |
 | 5 | Feed observed rationalizations back into the skill and re-test | Updated table + re-test transcript |
+| 6 | Apply deadline pressure to an engineering skill and to a scientific skill in the same run | Execution log + trace/event references |
 
 ## Mandatory invariants and assertions
 
@@ -79,10 +80,21 @@ environment manifest as every other scenario in the same acceptance round.
 - [ ] No completion claim is produced without the required evidence
 - [ ] The skill's rationalization table is updated from observed, not anticipated, justifications
 - [ ] The re-test after the update shows the closed evasion no longer succeeds
+- [ ] The pressure test now covers **engineering discipline** as well as scientific: RED before implementation, review before merge, verification before completion — WP-154.
+- [ ] Budget and deadline pressure degrade communication verbosity and never a non-waivable discipline — ACC-099.
 - [ ] The actual canonical state equals the expected state, or an explained safe failure state.
 - [ ] Duplicate, stale, forged or partial inputs produced no unsafe side effect.
 - [ ] Trace, event, audit and business records share one project/workflow/run correlation chain.
 - [ ] Every Critical or High finding raised during the test is recorded in the Finding Registry.
+
+### Baseline v1.3.0 — what this scenario must also show
+
+Baseline v1.3.0 adds a second pressure source — a budget governor — and a second discipline for it to erode. Both are tested.
+
+The additional assertions above are **extensions of this scenario, not a new
+one.** Where the reliability layer needs a scenario of its own it has one in
+ACC-081–120; what is added here is the case this scenario would otherwise pass
+while the new failure went unexamined.
 
 ## Expected canonical records
 

@@ -308,6 +308,90 @@ flowchart LR
 If the entire event stream were deleted, gate state would still be recoverable
 from Temporal. A consumer may miss an event; it may never *decide* anything.
 
+### 4.1.1 The collaboration plane — how a cohort works without talking itself broke
+
+Substantial scientific execution runs as a **cohort**, not a single actor
+(`ADR-011`). That is an epistemic decision rather than a capability one: this
+system is built against *plausibility*, and a second independent look is the only
+mechanism that sees what the first could not. It is also expensive, and the
+plane exists to make it affordable without making it pointless.
+
+**Independence is a profile, not a count.**
+
+| Dimension | The question |
+|---|---|
+| Cognitive function | Different kinds of scrutiny — methodologist, statistician, skeptic? |
+| Evidence exposure | Derived from the same evidence, or different subsets? |
+| Peer visibility | Did the second see the first before forming a position? |
+| Model profile | Different family and snapshot — necessary, not sufficient |
+| Prompt perspective | Different framing, or the same framing twice? |
+
+Several instances of one model on one context are **one** contribution. They will
+agree, and the agreement carries no information — ACC-081.
+
+**Independent-first, because order is the mechanism.** Peer output is hidden for
+round zero; each actor produces an `InitialPositionArtifact`; the artifacts are
+sealed; only then are material differences exposed. Anchoring is an effect rather
+than a preference, and a sealed first position is the only thing that later
+distinguishes independent agreement from deference — ACC-082.
+
+**Convergence is not a vote.** A cohort converges when no material
+methodological challenge is unresolved, no critical evidence contradiction is
+open, and every protocol blocker is closed or explicitly escalated. Four actors
+agreeing does not close a skeptic's unanswered objection — ACC-090.
+
+#### What the cohort says to itself
+
+```mermaid
+flowchart LR
+    A["agent"] -->|"typed delta<br/><i>+ artifact pointer</i>"| BB["Scientific Blackboard<br/><i>a projection</i>"]
+    BB --> B["agent"]
+    A -.->|"full content"| AR["Artifact store<br/><i>canonical</i>"]
+    BB -.->|"pointer resolves"| AR
+    BB -->|"delete the blackboard"| X["no canonical<br/>science is lost"]
+
+    style AR fill:#F7E2D6,stroke:#D55E00,color:#000
+    style X fill:#E0F3EC,stroke:#009E73,color:#000
+```
+
+Ten message types — `PROPOSAL`, `CHALLENGE`, `EVIDENCE`, `REQUEST`,
+`CORRECTION`, `DISAGREEMENT`, `CONSENSUS_CANDIDATE`, `ABSTAIN`, `STATUS`,
+`BLOCKER` — because a type can be tracked to resolution and a tone cannot. A
+message carries a **delta and a pointer**, never a transcript: the token saving
+is the obvious reason, and the other one is that a transcript passed between
+agents is a channel through which one agent's error becomes another's premise.
+
+The topology is compiled per task and is **fully connected only in an explicit
+control mode** — which exists because that is the baseline the optimisation is
+measured against. Comparing to a single agent would measure the cost of having a
+cohort at all, a decision already taken on other grounds.
+
+**Two things a governor may never silence:** a `BLOCKER`, and any non-waivable
+safety message. A low-utility edge carrying a blocker is still carrying a
+blocker — ACC-088. And a low-calibration sender is not silenced either; its
+message changes priority and corroboration requirement, because silencing an
+actor for having been wrong is how a cohort stops being able to surprise itself.
+
+**Optimisation is anchored.** Accepted only when quality stays within a declared
+tolerance *and* coordination cost falls meaningfully; a regression rolls the
+topology back automatically — ACC-086, ACC-087. `ADR-013`; WP-148 to WP-150.
+
+### 4.1.2 What degrades when the budget runs low
+
+Not the cohort, and not the assurance route. Communication verbosity, in a
+declared order:
+
+```
+structured full → compressed → pointer-only → silence unless material
+```
+
+A task that cannot afford its required assurance becomes `BLOCKED_BUDGET` or
+requests a scope reduction — it does not proceed more cheaply (ACC-099,
+ACC-101). Every token carries one of seven categories, so **coordination overhead
+is a derived ratio rather than an estimate**: a single cost total says a campaign
+was expensive, and the categories say whether it was expensive because it did
+science or because it held a meeting. `ADR-011` §5; WP-153.
+
 ### 4.2 The separation that cuts across every plane
 
 The planes answer *where* a thing runs. [ADR-003](ADR-003_trusted_control_and_policy.md)
@@ -892,7 +976,7 @@ This is the section that governs how every other section should be read.
 ```mermaid
 flowchart LR
     subgraph WORKING["RUNNING — verified locally"]
-        W["Zotero read-only client<br/>SQLite source registry<br/>Obsidian projection<br/>Hermes MCP · 5 tools<br/>systemd units · 57 tests<br/>plan seal · 16 status checks<br/>signed evidence manifest<br/>12 generated figures"]
+        W["Zotero read-only client<br/>SQLite source registry<br/>Obsidian projection<br/>Hermes MCP · 5 tools<br/>systemd units · 70 tests<br/>plan seal · 16 status checks<br/>signed evidence manifest<br/>14 generated figures"]
     end
     subgraph WRITTEN["WRITTEN — never executed"]
         S["52 skills, none behaviour-tested<br/>148 package documents<br/>80 acceptance scenarios<br/>role→model assignment rules<br/>4 authoring profiles"]
@@ -1107,9 +1191,28 @@ changes — and each names the scenario that tests it.
 19. **No human intervention without an audit record**, and no timeout, learned preference or inbound message creates an approval — ACC-68, ACC-69.
 20. **No adapted mechanism without lineage** — a pinned commit, a licence read at the source, a characterisation suite, and a statement of what it may never decide — ACC-73, ACC-74.
 
+The following were added at baseline v1.3.0 with `ADR-011` to `ADR-019`. Where
+the previous ten constrain what may be **believed**, these constrain **how the
+work is carried out**.
+
+21. **Substantial scientific execution stays multi-agent**, and independence is a profile rather than a count. Optimisation targets the conversation, the context and the assurance route — never the cohort — ACC-081.
+22. **Peer output is embargoed until initial positions are sealed** — ACC-082.
+23. **A majority cannot close a material challenge** — ACC-090.
+24. **The blackboard is deletable.** Exchange is typed and delta-only, no entry is evidence, and none may be promoted to a claim — ACC-085.
+25. **Budget degrades verbosity, never the cohort and never assurance** — ACC-099, ACC-101.
+26. **A verifier may abstain, and abstention escalates.** No route is lowered by queue length or budget — ACC-108, ACC-109.
+27. **The human judges before the machine recommends**, through every interface, and correcting costs no more than approving — ACC-110, ACC-112.
+28. **The frozen specification and the running code must still agree** — ACC-104.
+29. **Every contributing model invocation carries an execution fingerprint**, and a hosted black box does not yield an `EXACT` reproduction claim — ACC-115, ACC-116.
+30. **A benchmark score carries the conditions it was produced under** — ACC-118.
+31. **One canonical owner per kind of state**, and every projection rebuilds losslessly — ACC-119.
+32. **`UNKNOWN` is a legitimate failure classification** — ACC-094.
+
 > **These are constraints on what may be believed, not on what may be tried.**
 > Every one of them permits the work and refuses the *record* of the work when
-> the record would claim more than the work established.
+> the record would claim more than the work established. The v1.3.0 additions
+> extend that: they permit the work and refuse the *shortcut* — the cheaper
+> cohort, the skipped assurance, the recommendation shown first.
 
 ---
 
@@ -1128,4 +1231,9 @@ changes — and each names the scenario that tests it.
 | Where does a published number come from? | `ADR-007` · Figure 10 |
 | What does "verify" mean here? | `ADR-008` · Figure 12 |
 | What is remembered, and which store may support a claim? | `ADR-005` · Figure 11 |
+| How does a cohort collaborate, and why is it not a cost lever? | `ADR-011` · `ADR-013` · §4.1.1 |
+| Who owns which truth, and what happens when a projection disagrees? | `ADR-014` |
+| When does each verification class run, and what if the verifier cannot tell? | `ADR-015` |
+| Why does the human see the evidence before the recommendation? | `ADR-016` |
+| What makes a benchmark score mean anything? | `ADR-017` |
 | The plan itself | `planning/commissioning/` — canonical, hash-sealed |

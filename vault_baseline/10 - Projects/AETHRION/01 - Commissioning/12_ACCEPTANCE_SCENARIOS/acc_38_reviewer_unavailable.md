@@ -67,6 +67,7 @@ environment manifest as every other scenario in the same acceptance round.
 | 4 | Observe the SLA timeout and escalation | Execution log + trace/event references |
 | 5 | Attempt to bypass by assigning the producer or an ineligible model | Execution log + trace/event references |
 | 6 | Make a reviewer available and complete the new assignment | Execution log + trace/event references |
+| 7 | Repeat with a verifier that abstains rather than one that is unavailable, and confirm both escalate | Execution log + trace/event references |
 
 ## Mandatory invariants and assertions
 
@@ -75,10 +76,21 @@ environment manifest as every other scenario in the same acceptance round.
 - [ ] SLA escalation and a capacity metric are produced
 - [ ] The frozen package is unchanged throughout
 - [ ] The later eligible review is valid
+- [ ] An unavailable reviewer is one case of a general rule: **abstention and unavailability escalate and never approve** — ACC-109.
+- [ ] A route is not lowered because the queue is long or a reviewer is missing — ACC-108.
 - [ ] The actual canonical state equals the expected state, or an explained safe failure state.
 - [ ] Duplicate, stale, forged or partial inputs produced no unsafe side effect.
 - [ ] Trace, event, audit and business records share one project/workflow/run correlation chain.
 - [ ] Every Critical or High finding raised during the test is recorded in the Finding Registry.
+
+### Baseline v1.3.0 — what this scenario must also show
+
+Baseline v1.3.0 adds a verdict that looks like unavailability and is not — `ABSTAIN` is a calibrated verifier saying it cannot tell, and it must escalate rather than pass — `ADR-015`.
+
+The additional assertions above are **extensions of this scenario, not a new
+one.** Where the reliability layer needs a scenario of its own it has one in
+ACC-081–120; what is added here is the case this scenario would otherwise pass
+while the new failure went unexamined.
 
 ## Expected canonical records
 

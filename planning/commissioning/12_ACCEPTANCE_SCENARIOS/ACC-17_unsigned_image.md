@@ -47,6 +47,7 @@ environment manifest as every other scenario in the same acceptance round.
 | 4 | Collect the admission denial reason and audit record | Execution log + trace/event references |
 | 5 | Submit an approved signed digest | Execution log + trace/event references |
 | 6 | Observe the impact behaviour for a running revoked digest | Execution log + trace/event references |
+| 7 | Verify SLSA provenance and run OSV and Scorecard over the same release candidate | Execution log + trace/event references |
 
 ## Mandatory invariants and assertions
 
@@ -54,10 +55,21 @@ environment manifest as every other scenario in the same acceptance round.
 - [ ] The denial rule and digest are visible
 - [ ] An approved signed digest runs
 - [ ] Revocation produces an alert and an impact assessment
+- [ ] The release also carries **SLSA provenance**, an **OSV** scan result and an **OpenSSF Scorecard** posture, and an unsigned artifact is refused — ACC-120.
+- [ ] A vulnerability with no available fix becomes an owned, expiring residual risk rather than a suppression or an indefinite block.
 - [ ] The actual canonical state equals the expected state, or an explained safe failure state.
 - [ ] Duplicate, stale, forged or partial inputs produced no unsafe side effect.
 - [ ] Trace, event, audit and business records share one project/workflow/run correlation chain.
 - [ ] Every Critical or High finding raised during the test is recorded in the Finding Registry.
+
+### Baseline v1.3.0 — what this scenario must also show
+
+Signature verification answers *who built this*. It does not answer *is anything in it known to be broken*, which is a different question with its own maintained tooling — `ADR-019`, WP-159.
+
+The additional assertions above are **extensions of this scenario, not a new
+one.** Where the reliability layer needs a scenario of its own it has one in
+ACC-081–120; what is added here is the case this scenario would otherwise pass
+while the new failure went unexamined.
 
 ## Expected canonical records
 

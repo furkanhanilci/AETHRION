@@ -44,7 +44,7 @@ defect rather than a shortcut.
 | `validate_skills.py` | 52 skills conform to the Agent Skills format and the AIRL metadata contract, with upstream provenance pinned | whether a skill changes agent behaviour |
 | `validate_commissioning_plan.py` | identifiers exist · **WP↔ACC references resolve both ways** · the dependency graph is acyclic · acceptance phases are valid · **go-live is feasible** · no stale ranges · catalogue parity | whether the plan is a *good* plan |
 | `check_doc_consistency.py` | every count a document states matches the repository; no decision record contradicts its own status | anything outside the declared numbers |
-| `check_stale_claims.py` | no document claims a state the repository has outgrown — while **exempting genuine history** | prose that is merely wrong rather than stale |
+| `check_stale_claims.py` | no document claims a state the repository has outgrown — while **exempting genuine history** — across three rule families: literal counts, contradictions derived from the repository, and **eight architectural regressions** that invert a decision record. **`--self-test` runs a must-fire and a must-not-fire specimen through every regression rule** | prose that is merely wrong rather than stale, and an affirmative regression written inside a paragraph that refuses something else |
 | `check_figures.py` | no text escapes the box it was drawn in, re-measured from the rendered SVG | whether a figure communicates |
 | `check_document.py` | placeholders, citation resolution, cross-reference resolution in a document source | whether a citation *supports* its sentence |
 | `check_reporting_registry.py` | every adopted component has a type, a source, a retrieval date and an **authority boundary** | whether the adoption was wise |
@@ -57,12 +57,13 @@ defect rather than a shortcut.
 | `check_agent_guide.py` | every path, command and count in `AGENTS.md` and `CLAUDE.md` resolves against this repository | — |
 | `ready_queue.py` | which packages can be started today, from plan dependencies plus the unsealed ledger | `--check` |
 | `progress.py` | moves a package between states and **refuses** what the plan forbids, citing the document that forbids it | — |
-| `make_figures.py` | all twelve figures, then runs containment | `--check` |
+| `make_figures.py` | all fourteen figures, then runs containment | `--check` |
 | `fig_lifecycle.py` · `fig_roles.py` · `fig_evidence.py` · `fig_stack.py` · `fig_reporting.py` | one figure each — lifecycle, roles, evidence chain, stack, reporting | via `make_figures.py` |
 | `fig_waves.py` · `fig_trust.py` · `fig_verification.py` · `fig_topology.py` | one figure each — commissioning waves, ADR-003 trust boundary, the verification bundle, repository/vault topology | via `make_figures.py` |
 | `fig_discovery.py` · `fig_memory.py` · `fig_assurance.py` | one figure each — the discovery search graph and the evaluator boundary, the six epistemic memories, the V0–V3 verification classes | via `make_figures.py` |
+| `fig_collaboration.py` · `fig_authority.py` | one figure each — the collaboration plane and its degradation floor, the canonical authority matrix and its injection suite | via `make_figures.py` |
 | `figure_kit.py` | *(library)* SVG primitives with real text metrics; **fails the build** rather than clipping text | — |
-| `make_plan_indexes.py` | a README for each of the 15 commissioning workstreams | `--check` |
+| `make_plan_indexes.py` | a README for each of the 16 commissioning workstreams | `--check` |
 | `mirror_plan.py` · `mirror_vault.py` | the generated areas of the Obsidian vault | `--check` |
 | `write_status.py` | `docs/STATUS.md` by running the bundle | `--check` |
 | `check_upstream_lineage.py --write` | `provenance/README.md` from `provenance/upstreams.json` | default run fails on drift |
@@ -99,3 +100,12 @@ Manual, because they need something CI does not have
 > `figure_kit` raises rather than shrinking text below legibility;
 > `check_stale_claims.py` was itself corrected after it flagged legitimate
 > history. Each of those is the same rule applied to the tooling that applies it.
+
+> **And a check that fires on everything proves nothing either**, which is the
+> half usually left out. The architectural regression rules added at v1.3.0 hunt
+> for phrases that already appear all over this repository *inside sentences that
+> forbid them* — so each rule carries two specimens, one it must flag and one it
+> must not, and `--self-test` reports both silence and noise. It earned that
+> design immediately: the first run reported two rules silent on their own
+> positive specimen, and the first corpus scan produced four false positives that
+> are now pinned as tests in `tests/test_architectural_regressions.py`.

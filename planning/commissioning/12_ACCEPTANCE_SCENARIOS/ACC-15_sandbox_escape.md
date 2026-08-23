@@ -47,6 +47,7 @@ environment manifest as every other scenario in the same acceptance round.
 | 4 | Monitor runtime, network and Vault telemetry | Execution log + trace/event references |
 | 5 | Verify the contain, stop, snapshot and node action | Execution log + trace/event references |
 | 6 | Check host and cluster integrity after the test | Execution log + trace/event references |
+| 7 | Attempt the escape through a shared cache, an inherited credential and a warm layer, not only through the sandbox boundary | Execution log + trace/event references |
 
 ## Mandatory invariants and assertions
 
@@ -55,10 +56,21 @@ environment manifest as every other scenario in the same acceptance round.
 - [ ] Secret leases are minimal or absent
 - [ ] Forensic artifacts are complete
 - [ ] Neither the node nor other workloads are affected
+- [ ] The isolation is **four zones**, not one sandbox: producer, evaluator, reproducer and independent grader.
+- [ ] The quiet paths are tested explicitly — a shared cache, an inherited credential, a warm container layer — because none of them looks like an escape in a log — ACC-113.
 - [ ] The actual canonical state equals the expected state, or an explained safe failure state.
 - [ ] Duplicate, stale, forged or partial inputs produced no unsafe side effect.
 - [ ] Trace, event, audit and business records share one project/workflow/run correlation chain.
 - [ ] Every Critical or High finding raised during the test is recorded in the Finding Registry.
+
+### Baseline v1.3.0 — what this scenario must also show
+
+A sandbox escape test that only attacks the sandbox misses the three routes that do not require one. WP-157 owns the leakage suite.
+
+The additional assertions above are **extensions of this scenario, not a new
+one.** Where the reliability layer needs a scenario of its own it has one in
+ACC-081–120; what is added here is the case this scenario would otherwise pass
+while the new failure went unexamined.
 
 ## Expected canonical records
 

@@ -104,6 +104,61 @@ status is `NOT_STARTED` and **every hard dependency is `ACCEPTED`**. Not
 something without being accepted does not release what depends on it. The queue
 is short by construction, and it will stay short until the first acceptance.
 
+## The baseline freeze dossier
+
+Sealing the plan proves the specification did not change. It says nothing about
+what was *built*, what was *measured*, or what a reader is entitled to believe
+about either. A baseline freeze therefore produces a dossier, and the dossier is
+an inventory rather than a narrative: every line is a reference to an artifact
+that exists, or the line is not written.
+
+| Element | What it pins | Absent means |
+|---|---|---|
+| Exact git commit and tag | The revision every other line refers to | Nothing below is addressable |
+| Schema registry version | The contracts in force | A record validated against an unknown shape |
+| WP and ACC inventory | What was in scope | Scope is whatever anyone remembers |
+| Generated plan indexes | The derived views, regenerated at the tag | An index describing a different plan |
+| Package dependency matrix | The order the work admits | A wave map with no evidence behind it |
+| Skill registry versions | The discipline agents operated under | Results produced under two different disciplines, compared |
+| Upstream assimilation manifest | Every mechanism taken from elsewhere, its licence and its pin | An obligation nobody can locate |
+| SBOM | What is actually inside the artifact | A dependency list that is a guess |
+| Vulnerability and Scorecard results | The known state of that inventory | "No known vulnerabilities" meaning "nobody looked" |
+| Signed build and provenance attestation | Who built it, from what, on what | An artifact whose origin rests on trust |
+| Model qualification snapshots | Which model, at which snapshot, qualified for which task type | A verdict from an unmeasured judge |
+| External benchmark results | The comparable, published measurements | A capability claim with no external anchor |
+| Internal acceptance results | ACC pass/fail on this candidate | Scenarios passed on some other revision |
+| Known limitations | What does not work | A limitation discovered by a user instead |
+| Unresolved risks | What is owned and still open | A risk register that closed itself |
+
+### Five maturity words, and the distance between them
+
+The dossier's most load-bearing rule is a vocabulary rule, because the failure it
+prevents is the cheapest one in the world to commit: describing a capability at a
+maturity it has not reached. **A `SPECIFIED` capability is never presented as
+operational.** Release notes use exactly these words and never a synonym:
+
+| Word | Means | Does **not** mean |
+|---|---|---|
+| `SPECIFIED` | A contract, schema or procedure is written | Any code exists |
+| `CODED` | An implementation exists and runs | Anyone has checked it is right |
+| `TESTED` | Positive **and** negative tests pass | An independent party looked |
+| `ACCEPTED` | Acceptance scenarios passed on this candidate, witnessed | It has met anything outside this repository |
+| `EXTERNAL_BENCHMARKED` | Measured on a benchmark this project did not write | The measurement was clean — see the contamination label |
+| `MEASURED` | The quality/cost/latency/human-effort frontier is published for it | The numbers are targets that were met |
+
+The gap between `TESTED` and `ACCEPTED` is an independent witness. The gap
+between `ACCEPTED` and `EXTERNAL_BENCHMARKED` is a comparison this project does
+not control. Both gaps are where a system's self-assessment is normally wrong,
+and collapsing either of them into a single word called "done" is how that error
+gets published.
+
+> **Current state, stated in the same vocabulary.** Every capability in
+> workstreams 14 and 15 is `SPECIFIED`. The Zotero bridge is `CODED` and
+> partially `TESTED`. Nothing in this repository is `ACCEPTED`,
+> `EXTERNAL_BENCHMARKED` or `MEASURED`, and the dossier above has never been
+> produced, because there has been no release to freeze.
+
+
 ## Plan integrity — three checks, not one
 
 The seal is necessary and **not sufficient**. Baseline v1.0.1 exists because
@@ -129,7 +184,18 @@ An idea that *adds* to it belongs in
 seal on purpose: a V2 candidate inside the V1 baseline would move the finish line
 while appearing to be part of it.
 
-**The current baseline is v1.1.0.** It is the largest recorded change so far and it is a **refinement, not an addition**: the finish line — `00_PROGRAM/10_go_live_checklist.md`'s entry conditions — is unmoved, and no package, scenario, dependency or acceptance phase was added or removed. What changed is that every package is now **three documents** (§4): the card, its test procedures and its acceptance criteria. `00_PROGRAM/05` already required this — *a package is genuinely `READY` when its criteria name a number, a threshold or a command* — and the generic template criteria did not. The split also makes the verifier's packet handable, which `00_PROGRAM/06` requires and a criteria section living inside the producer's working card cannot be.
+**The current baseline is v1.3.0.** It adds the reliability and efficiency
+workstream — WP-148–159 and ACC-081–120 — and, like v1.2.0 before it, it is an
+**addition** rather than a refinement: it moves the finish line, and
+`00_PROGRAM/10_go_live_checklist.md` gained entry conditions accordingly. That
+is recorded here in the same words used for every other change, because a
+baseline that moves the finish line while calling itself a refinement is the
+single most expensive kind of undocumented change a plan can carry.
+
+**The baseline before it was v1.2.0**, which opened the scientific-intelligence
+workstream (WP-141–147, ACC-052–080) on the same terms.
+
+**Before that, v1.1.0.** It is the largest recorded change so far and it is a **refinement, not an addition**: the finish line — `00_PROGRAM/10_go_live_checklist.md`'s entry conditions — is unmoved, and no package, scenario, dependency or acceptance phase was added or removed. What changed is that every package is now **three documents** (§4): the card, its test procedures and its acceptance criteria. `00_PROGRAM/05` already required this — *a package is genuinely `READY` when its criteria name a number, a threshold or a command* — and the generic template criteria did not. The split also makes the verifier's packet handable, which `00_PROGRAM/06` requires and a criteria section living inside the producer's working card cannot be.
 
 **The previous baseline was v1.0.5.** v1.0.2 carried the project's name change to
 AETHRION across 29 files; v1.0.3 corrected three programme documents that claimed

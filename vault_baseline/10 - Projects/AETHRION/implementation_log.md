@@ -3,7 +3,7 @@ airl_id: AETHRION-IMPLEMENTATION-LOG
 type: execution-log
 status: active
 owner: otonom
-updated_at: "2026-08-22"
+updated_at: "2026-08-23"
 tags:
   - aethrion/execution
   - aethrion/contracts
@@ -18,6 +18,287 @@ Every material implementation step is recorded here. Each entry separates **what
 was observed** (evidence) from **what was concluded** (interpretation), states
 its **limits**, and names the **exact next step**. Before starting a new step,
 the last entry, the cockpit and the relevant WP files are read again.
+
+---
+
+## Step 018 — Baselines v1.2.0 and v1.3.0: assimilation, and the failure modes a cohort adds
+
+**Time:** 2026-08-23
+**Scope:** two workstreams opened · WP-141–159 · ACC-052–120 · ADR-004–019 ·
+58 upstream entries · a lineage register with its own checker · five figures ·
+findings J1 and J2
+
+### The premise, stated because it governs everything below
+
+The intent was never to invent. It was to assemble: *copy implementations
+selectively, copy ideas aggressively, copy architecture only after understanding
+why it works, and rewrite everything into this project's domain model.* And with
+one constraint that is not a preference — **do not hide the source; remove the
+source's architectural identity.** Taking someone's code, changing it slightly,
+concealing where it came from and claiming it as original is the thing this step
+was built to make structurally impossible.
+
+That is why the first artifact produced was not a design. It was a register.
+
+### `provenance/upstreams.json` — 58 entries, and a checker that can fail
+
+Every mechanism considered from another project has an entry: repository, paper,
+licence, whether the licence was **read at the source**, assimilation type,
+pinned commit, source files, local modules, work packages, and — required on
+every entry — an **`authority_boundary`** saying what the mechanism may never
+decide.
+
+`scripts/check_upstream_lineage.py` enforces eleven rules and `--self-test`
+injects a defect per rule, failing if any rule stays silent.
+
+Three licences changed the *method* rather than the paperwork:
+
+- **GPL-3.0** (MAS-Resilience) → no copy; reimplement from the published
+  description.
+- **CC-BY-NC** (WASP) → benchmark use only; it never enters product code.
+- **MIT** (AgentSlimming) → legally copyable, and its core mechanism is **refused
+  anyway** because `ADR-011` forbids reducing a cohort for cost. A permissive
+  licence is permission, not a reason.
+
+Fifty-six of the fifty-eight are `PROPOSED`. One is `REJECTED`. **One is
+`ACCEPTED` and has running code** — Crossref, behind `scripts/monitor_sources.py`.
+That ratio is the honest state of the assimilation programme and is printed by
+the checker on every run.
+
+### v1.2.0 — the scientific-intelligence workstream
+
+Seven packages and twenty-nine scenarios, over six decision records: mechanism
+assimilation (`ADR-004`), epistemic memory separation (`ADR-005`), the discovery
+search graph (`ADR-006`), the frozen evaluator zone (`ADR-007`), the V0–V3
+verification taxonomy (`ADR-008`) and publication as projection (`ADR-009`).
+
+`ADR-008` is the one that reached back into the existing plan: the evidence
+strategy's "E1 mechanical" had been covering two incompatible kinds of check, and
+the rule *a mechanical check runs first and cannot be overridden by a model* is
+correct for V0 and V1 and absurd at V2, where it says a model's judgement cannot
+be overridden by a model.
+
+### v1.3.0 — the reliability layer, and why it was needed
+
+The plan to this point described a **pipeline**. It did not describe a **cohort**.
+Nothing in it refused a single-agent downgrade of substantial work, caught a
+confident wrong answer becoming consensus, stopped a budget optimiser cutting
+assurance instead of verbosity, noticed an implementation quietly diverging from
+a frozen method, or told a benchmark score that had seen the answers from one
+that had not.
+
+Twelve packages (WP-148–159), forty scenarios (ACC-081–120) and nine decision
+records (`ADR-011`–`ADR-019`).
+
+**The identifier collision, and how it was resolved.** The delta proposed
+ADR-004–012; all nine were taken. Applying the delta's own rule — never
+overwrite, the semantic name is binding — they became ADR-011–019, and reading
+them properly revealed that two were not new decisions at all: `ADR-015`
+*extends* `ADR-008`, and `ADR-019` *extends* `ADR-004`. Both are cross-linked in
+both directions, and the remap is recorded in
+`docs/review/2026-08-23_reliability_delta_id_remap.md`.
+
+**The invariant that costs the most and is least negotiable.** Every cost
+pressure a multi-agent system ever experiences argues for fewer agents.
+`ADR-011` closes that door once: the cohort is an epistemic requirement, a cost
+argument is not an answer to it, and what gets optimised is the conversation
+instead. Independence is a five-dimension profile rather than a count — five
+instances of one model on one context are one contribution, and they will agree.
+
+### Two findings, and they are the same failure
+
+- **J1** — `acceptance_v0.py` compared the whole projection manifest against the
+  registry's source count. Finding I3 had deliberately moved two dashboards
+  inside the manifest, so from that moment the check failed by exactly the number
+  of dashboards, on a correct system. **The defect was in the check.**
+- **J2** — the lineage checker's licence rule matched `licence.upper() ==
+  "UNVERIFIED"` *exactly*, so `"UNVERIFIED — repository licence not confirmed on
+  2026-08-23"`, strictly more informative, slipped past in silence. The rule was
+  also wrong in principle: it forbade every assimilation type, when `ADR-004`
+  says reimplementing a published mechanism creates no licence obligation and an
+  unverified licence is a *reason* to reimplement rather than a reason to stop.
+
+J1 compared the wrong two numbers and reported a defect that was in the check. J2
+matched the wrong string and reported clean because nothing it could see was
+wrong. The register's own `--self-test` missed J2 because its injection wrote the
+bare word the rule matched: **a control tested only with the input it was written
+for is a control tested against itself.**
+
+### The correction that mattered most
+
+Work opened as a **v2.0.0** baseline. It is not v2 — it is an improvement inside
+V1 — and every reference was reverted to v1.2.0 across the plan README, the
+progress ledger, the index generator, the acceptance index, WP-115 and the root
+README.
+
+But the rule in `AGENTS.md` §7.4 is *a correction keeps the finish line where it
+is; an addition moves it*, and both baselines are **additions**. That is recorded
+as such rather than softened. `10_go_live_checklist.md` gained entry conditions,
+and the plan is larger than it was.
+
+### Evidence at the close of this step
+
+```text
+packages              141 → 159   (plus WP-000)
+scenarios              51 → 120
+decision records        3 → 19
+figures                 9 → 14
+tests                  46 → 60
+upstream entries        0 → 58
+plan seal             631 files
+bundle                16/16
+```
+
+### Limits
+
+Every capability added across both baselines is `SPECIFIED`. `src/` is a Zotero
+bridge with thirteen modules; there is no cohort record, no blackboard, no
+topology compiler, no communication governor, and no baseline harness to measure
+any of it against. The delta's execution order assumes a runtime from step 5
+onward, and that half is deferred with the reason written down rather than
+quietly skipped.
+
+---
+
+## Step 019 — Baseline v1.3.0 completion: the extension pass, and a checklist made mechanical
+
+**Time:** 2026-08-23
+**Scope:** 26 pre-v1.2.0 scenarios extended in place · delta documents 28, 29,
+32, 35 and 38 applied · the final-audit wording list implemented as eight
+regression rules with a self-test · findings J3 and J4
+
+### What was left after Step 018
+
+Step 018 landed the reliability layer as new material: twelve work packages,
+forty scenarios, nine decision records, two figures, twenty-two upstream entries.
+What it did not do is reconcile that layer with the plan that already existed.
+`ACC_001_080_EXISTING_IMPACT_MATRIX.md` flags fifty-five scenarios
+`REVIEW/EXTEND`, with the instruction *"avoid duplicate semantics"*, and five
+delta documents had been read but not applied.
+
+### The extension pass — 26 scenarios, not 55
+
+Twenty-nine of the fifty-five are ACC-052–080, authored at v1.2.0 and already
+carrying the layer the matrix asks for. Extending them would have produced the
+duplication the instruction forbids. **Twenty-six predate v1.2.0**, and each was
+extended in place: two or three additional invariants, one additional test step,
+and a short section naming the failure that scenario would otherwise pass while
+leaving unexamined.
+
+Every added block says, in the scenario itself, that it is an extension and that
+the reliability layer's own scenarios are ACC-081–120 — so a reader arriving at
+ACC-05 from an old reference finds the new obligation without finding a second
+copy of ACC-117.
+
+**One correction fell out of reading them.** ACC-08 described its counter-test as
+run by "the mechanical verifier" — precisely the wording the delta asks a final
+audit to search for. It is a deterministic re-execution against a frozen target,
+so it now names the **V1 computational verifier** it actually is. Worth recording
+because the regression rule written the same day does *not* fire on it: the
+wording was found by reading, and that is the limit of the rule.
+
+### Five delta documents, applied where they belong
+
+| Document | Applied to |
+|---|---|
+| 28 — external benchmark release qualification | `00_PROGRAM/06` as **E6**: five axes, three constraint rules (licence, no merge into product code, every result pinned to model and snapshot) |
+| 29 — metascience and Pareto release gates | `00_PROGRAM/06` as **"Release quality is a frontier, not a verdict"**: a fixed, public measurement set |
+| 32 — baseline freeze and release dossier | `00_PROGRAM/09`: fifteen inventory elements, and the five-word maturity vocabulary `SPECIFIED` → `CODED` → `TESTED` → `ACCEPTED` → `EXTERNAL_BENCHMARKED` → `MEASURED` |
+| 35 — definition of done / final audit | `00_PROGRAM/05`: ten `DONE` conditions, plus the wording audit — see below |
+| 38 — hard acceptance targets | `00_PROGRAM/10` and `06`: hard zeros as conditions, performance figures as **targets to be frozen after calibration** |
+
+Two of those deserve their own sentence. **Useful challenge rate** is the ratio
+that stops the coordination measures from being gamed: cutting every message
+between agents drives redundant message rate to zero and drives useful challenge
+rate to zero with it, and only the second number reveals that the cohort has been
+silenced rather than optimised. And the performance targets are recorded
+everywhere as targets — they are reported results from other systems doing other
+work, and importing them as thresholds would be the same error as importing a
+benchmark score.
+
+### The finding that changed the shape of the work — J3
+
+Document 35 ends with eight wordings a final audit should grep for: a
+single-agent default, a fully-connected topology as the target, a mechanical
+check doing semantic work, a timeout that approves, an event as authority, a
+projection as canonical, a published number with no binding, the engineering
+skills as tooling.
+
+**Every one of those eight phrases already appears in this repository, every time
+inside a sentence that forbids it.** A hand grep returns a wall of correct prose.
+The auditor stops reading it, and the one affirmative use is somewhere in the
+middle. A checklist item that produces a hundred false positives is a checklist
+item that gets ticked without being read.
+
+So it is implemented instead: a third rule family in `check_stale_claims.py`,
+with two guards at different scopes — a paragraph-level prohibition marker, and a
+local negation check on the thirty characters before the match — and every rule
+carrying **a specimen that must trip it and a specimen that must not.**
+
+### The finding that justified the design — J4
+
+The self-test reported **two of the eight rules silent on their own positive
+specimen**, before either had touched the corpus. The fully-connected rule read
+left-to-right only, and English does not. The timeout rule was suppressed by a
+paragraph guard containing the bare word `not`, so *"if the reviewer does **not**
+respond the gate auto-approves"* read as a refusal.
+
+The first corpus scan then produced four false positives: `Expiry | WP-024
+acceptance` in a decision-record table, the heading `Timeout escalation path with
+no approval branch` in nine work packages, and two scenarios naming a derived
+store and the canonical records in one breath. All four are now tests.
+
+**A regression checker shipped without a self-test would have printed the same
+reassuring line as one that worked, and this repository would have recorded eight
+controls where it had six.** It is J2's sentence one layer up — *a control tested
+only with the input it was written for is a control tested against itself* — with
+one addition: for this rule family the negative specimen is mandatory too,
+because a checker that flags every correct paragraph gets switched off, and a
+switched-off checker and an absent one are the same thing.
+
+### Also completed
+
+- `README.md` §4 gained the **collaboration plane**, with both new figures, the
+  degradation floor, and the authority section — the planes diagram had six
+  planes and the architecture had seven.
+- `schemas/README.md` gained the seventeen v1.3.0 contracts, each owned by a work
+  package and each labelled `SPECIFIED`, with the three properties that cut
+  across them: never a substitute for canonical state, evidence about a run
+  rather than authority over it, and immutable where immutability is the point.
+- `09_change_and_configuration_control.md` said **"the current baseline is
+  v1.1.0"** two baselines after it stopped being true. Corrected, with v1.2.0 and
+  v1.3.0 both recorded as **additions that moved the finish line** — because a
+  baseline that moves the finish line while calling itself a refinement is the
+  most expensive undocumented change a plan can carry.
+
+### Evidence
+
+```text
+bundle                16/16
+plan seal             631/631 OK   (29 files changed, no file added or removed)
+plan semantics        160 work packages · 120 acceptance scenarios · 0 warnings
+tests                 70 passed
+stale claims          6 literal · 2 derived · 8 architectural regression rules
+regression self-test  0 silent on positive · 0 firing on negative
+vault                 929 pages · 0 broken links · 0 uncontrolled tags
+attestation           signature OK · 9 subject digests OK
+```
+
+### Limits
+
+The seal proves twenty-nine plan files changed and none was added — it does not
+prove the extensions are the right extensions. The eight regression rules are
+narrower than the concept they implement, and the gap is stated in the checker
+itself rather than implied: an author who asserts a regression inside a paragraph
+that happens to refuse something else escapes the rule. And every capability
+touched in this step remains `SPECIFIED`. Nothing in workstream 15 runs.
+
+### Next
+
+The five delta documents applied here were the last unapplied ones. What remains
+is not delta application but the standing gap: **no work package is `ACCEPTED`,
+and no skill has a behaviour baseline.** Those are the two claims this repository
+most wants to be able to make and currently cannot.
 
 ---
 

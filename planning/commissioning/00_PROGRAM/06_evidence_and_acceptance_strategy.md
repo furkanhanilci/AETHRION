@@ -77,6 +77,111 @@ This is not a new principle here — `scripts/monitor_sources.py` has always exi
 non-zero when its planted retracted DOI went undetected. Baseline v1.2.0
 generalises it to every verifier, and `check_upstream_lineage.py --self-test` is
 the pattern applied to a checker's own rule set.
+## E6 — External benchmark qualification
+
+E0–E5 are all evidence this project produces about itself. Every one of them can
+be complete, signed, witnessed and internally consistent while the system is
+worse than a much simpler one at the thing it exists to do. That is not a
+hypothetical failure of self-assessment; it is the normal one. **E6 is the layer
+where the measurement is not ours.**
+
+A V1 release dossier covers five axes. They are separate because a system can be
+strong on one and unusable on another, and an average across them hides exactly
+that.
+
+| Axis | Question it answers | Instruments |
+|---|---|---|
+| **Scientific capability** | Can it do the research task at all? | ResearchClawBench, ScienceAgentBench, and domain-fit benchmarks chosen for the actual field |
+| **Verifiability and reproduction** | Does the evidence hold when someone else checks it? | Chain-of-evidence audit tasks, PaperBench- and JudgeEval-style reproduction and grading sets |
+| **Multi-agent reliability** | Does the cohort fail in the ways cohorts fail? | The MAST failure taxonomy, Who&When attribution data, and the internal faulty-agent suite (WP-152) |
+| **Security** | Does the boundary hold under adversarial input? | Agent Security Bench, WASP, and the internal capability-gate injection suite (WP-155, ACC-117) |
+| **Engineering maintenance** | Does it stay correct as its dependencies move? | CodeSyncBench- and AgentIssue-style regression sets, where a comparable harness is feasible |
+
+The fifth axis is the one most often left out, and leaving it out is what makes a
+system that benchmarked well eighteen months ago quietly stop working.
+
+### Three rules that constrain how E6 may be used
+
+**A benchmark's licence governs its use, and redistribution is the usual trap.**
+Several of the instruments above are non-commercial, share-alike, or licensed
+only for evaluation. The register in `provenance/upstreams.json` records the
+licence for each, and the assimilation type for a benchmark is `BENCHMARK`
+precisely so that it cannot be confused with a dependency that ships.
+
+**Benchmark source code is never merged into product code.** It lives behind the
+firewall described in `ADR-017` and WP-158, and it is reachable from an
+evaluation harness and from nowhere else. The reason is not licence hygiene —
+that is a side benefit. It is that a benchmark inside the product is a training
+signal inside the product, and a score produced afterwards means nothing.
+
+**Every result is pinned to model, provider, snapshot, version and date.** A
+benchmark number with no model snapshot beside it is not a result about this
+system; it is a result about an unnamed configuration on an unnamed day. The
+`ModelExecutionFingerprint` (WP-157) is what makes the pin something other than a
+promise, and a score whose run reached benchmark material through retrieval is
+labelled contaminated and **is not silently rerun for a cleaner one**
+(ACC-118).
+
+> **Current state.** No axis has been run. E6 is specified here so that the
+> release dossier has a shape to fill, and so that the first person to run a
+> benchmark does not have to invent the rules under time pressure — which is
+> when the licence gets skipped and the snapshot goes unrecorded.
+
+## Release quality is a frontier, not a verdict
+
+An acceptance scenario answers pass or fail. That is the right shape for a
+control and the wrong shape for an architecture decision, because every
+optimisation this system makes trades along four axes at once: **quality, cost,
+latency and human effort.** A change that improves one and silently damages
+another has moved the problem, and a pass/fail gate cannot see it.
+
+So each architectural optimisation is reported on the frontier, using a fixed
+measurement set. The set is fixed so that two optimisations are comparable; it is
+public so that a favourable subset cannot be selected after the fact.
+
+| Group | Measures |
+|---|---|
+| **Volume** | Total model calls · input tokens · output tokens · inter-agent tokens |
+| **Coordination** | Coordination overhead ratio (inter-agent tokens ÷ total) · redundant message rate · **useful challenge rate** · rounds to convergence |
+| **Latency** | Wall-clock per task · time to first material challenge |
+| **Reuse** | Tool-result reuse hit rate · context projection hit rate |
+| **Human** | Human minutes per decision · per correction · per accepted claim |
+| **Scientific** | Claim survival rate · reproduction success rate · verifier coverage · verifier abstention rate |
+| **Unit economics** | Cost per `VerifiedValue` · cost per accepted claim |
+
+Two of these deserve their own sentence. **Useful challenge rate** is the ratio
+that stops the coordination measures from being gamed: cutting every message
+between agents drives redundant message rate to zero and drives useful challenge
+rate to zero with it, and only the second number reveals that the cohort has been
+silenced rather than optimised. **Verifier abstention rate** is a health measure
+rather than a failure measure — a verifier that never abstains is either
+perfectly calibrated or not calibrated at all, and the second is far more common.
+
+### The targets, and what kind of thing they are
+
+Baseline v1.3.0 proposes, as **starting release targets**:
+
+- optimised cohort communication and tokens **≥50% below the naive
+  fully-connected baseline**;
+- scientific quality drop **≤2%** against that same baseline;
+- redundant inter-agent communication **<15%**;
+- communication token share **<25–30%** of total;
+- unresolved material challenges silently dropped: **0** — this one is not a
+  target, it is a hard zero (ACC-090).
+
+**These are targets to be frozen after calibration, with confidence intervals —
+not constants derived from the literature.** They come from reported results on
+other systems doing other work, and importing them as thresholds would be the
+same error as importing a benchmark score: a number that is true somewhere,
+asserted here. The first calibration run replaces every figure above with a
+measured one and records the interval; until then they are a direction of travel
+and are labelled as such wherever they appear.
+
+The baseline for all of them is the **runnable naive fully-connected cohort**,
+not a single agent. Comparing to a single agent measures the cost of having a
+cohort at all — a question `ADR-011` settled on epistemic grounds, and one that a
+cost measurement is not entitled to reopen (ACC-086, ACC-087).
+
 
 ## Finding lifecycle
 

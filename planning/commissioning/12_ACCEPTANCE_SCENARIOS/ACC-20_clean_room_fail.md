@@ -47,6 +47,7 @@ environment manifest as every other scenario in the same acceptance round.
 | 4 | Perform hash, environment and data diffing and root-cause triage | Execution log + trace/event references |
 | 5 | Follow the claim, gate and workflow transition | Execution log + trace/event references |
 | 6 | Produce the corrected manifest and the new reproduction plan | Execution log + trace/event references |
+| 7 | Attempt the reproduction in five environments of decreasing producer lineage and compare the status awarded | Execution log + trace/event references |
 
 ## Mandatory invariants and assertions
 
@@ -55,10 +56,21 @@ environment manifest as every other scenario in the same acceptance round.
 - [ ] The original producer and reproduction artifacts are retained
 - [ ] The `RootCauseCase` carries an owner and an SLA
 - [ ] The G4/G5 return produces a new version
+- [ ] Reproduced status is refused by **environment digest lineage**, not by declaration — and the subtle lineages count: cached layers, shared credentials, a shared cache — ACC-114.
+- [ ] A run that executes despite failing the independence check is classified as **repeatability**, with its reason recorded, rather than discarded.
 - [ ] The actual canonical state equals the expected state, or an explained safe failure state.
 - [ ] Duplicate, stale, forged or partial inputs produced no unsafe side effect.
 - [ ] Trace, event, audit and business records share one project/workflow/run correlation chain.
 - [ ] Every Critical or High finding raised during the test is recorded in the Finding Registry.
+
+### Baseline v1.3.0 — what this scenario must also show
+
+The original failure case was a shared workspace. The reliability layer adds the four cases that do not look like sharing a workspace and are — WP-157.
+
+The additional assertions above are **extensions of this scenario, not a new
+one.** Where the reliability layer needs a scenario of its own it has one in
+ACC-081–120; what is added here is the case this scenario would otherwise pass
+while the new failure went unexamined.
 
 ## Expected canonical records
 

@@ -96,6 +96,36 @@ result at G6.** Reusing the same function or model profile for both would let th
 design's own assumptions grade the design's own output — the same principle
 ACC-06 already applies to a planner approving its own plan. WP-147; ACC-72.
 
+### 1.2 A cohort is not a role set either
+
+Baseline v1.3.0 adds a third thing that looks like this catalogue and is not: the
+**agent cohort** compiled for one task (`ADR-011`, WP-148).
+
+A cohort is a set of *cognitive functions* selected for a specific question, with
+a diversity profile recording how independent they actually are. It exists for
+the duration of the task. The fourteen governance functions are durable
+accountabilities that exist whether or not any task is running.
+
+Three consequences follow, and the middle one is the one that gets violated:
+
+- **A cohort member holds no authority.** It contributes a position and may raise
+  a challenge. It cannot write canonical state, approve a gate, select its own
+  verifier or elevate its own capability — ACC-093.
+- **Cohort size is not a governance question.** How many cognitive contributions
+  a task needs is decided by the multi-agent invariant and the diversity profile,
+  not by which governance roles are bound. Nothing in this catalogue changes
+  when a cohort grows or shrinks.
+- **A `RoleBinding` may bind an actor that also sits in a cohort**, and the
+  independence profile is what decides whether that is legal for the specific
+  pair — most sharply, whether an actor that helped design a protocol may review
+  its result (ACC-072).
+
+> **Independence is measured across five dimensions, not counted.** Several
+> instances of one model on one context are one contribution — they will agree,
+> and the agreement carries no information. This is the same distinction §1.1
+> draws between a function and a person, applied to cognition instead of
+> accountability.
+
 ---
 
 ## 2. Authority tiers

@@ -47,6 +47,7 @@ environment manifest as every other scenario in the same acceptance round.
 | 4 | Check the release endpoint and the object store | Execution log + trace/event references |
 | 5 | Add the missing evidence as a new version | Execution log + trace/event references |
 | 6 | Verify the new package build and the retained history of the old draft | Execution log + trace/event references |
+| 7 | Break one link of a complete evidence chain and confirm the audit names it | Execution log + trace/event references |
 
 ## Mandatory invariants and assertions
 
@@ -55,10 +56,21 @@ environment manifest as every other scenario in the same acceptance round.
 - [ ] Critical lineage coverage targets 100%
 - [ ] The corrected package receives a new version and hash
 - [ ] The old failed draft is retained
+- [ ] Completeness now includes an **evidence-chain integrity check that names the failing link** rather than reporting a generic failure — ACC-105.
+- [ ] Every result number resolves to a `VerifiedValue`; a model-produced figure fails the build regardless of prose quality — ACC-106.
 - [ ] The actual canonical state equals the expected state, or an explained safe failure state.
 - [ ] Duplicate, stale, forged or partial inputs produced no unsafe side effect.
 - [ ] Trace, event, audit and business records share one project/workflow/run correlation chain.
 - [ ] Every Critical or High finding raised during the test is recorded in the Finding Registry.
+
+### Baseline v1.3.0 — what this scenario must also show
+
+Publication completeness was a presence check. The reliability layer makes it a traversal, because a chain with every link present and one link broken passes a presence check.
+
+The additional assertions above are **extensions of this scenario, not a new
+one.** Where the reliability layer needs a scenario of its own it has one in
+ACC-081–120; what is added here is the case this scenario would otherwise pass
+while the new failure went unexamined.
 
 ## Expected canonical records
 

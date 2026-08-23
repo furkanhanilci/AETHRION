@@ -281,6 +281,41 @@ nothing.
 
 `ADR-004` fixes the terms.
 
+### Adopted 2026-08-23 — the supply-chain and provenance toolchain
+
+Five maintained standards and tools, adopted as a set because each answers a
+question the others do not, and none of them is reimplemented here.
+
+| Standard / tool | The question it answers | Where it binds |
+|---|---|---|
+| **SPDX** + **REUSE** | What licence governs *this file*, machine-readably | WP-059 admission · WP-159 release |
+| **OSV-Scanner** | Does anything in the lockfile or image have a known vulnerability | WP-024 CI · WP-159 |
+| **OpenSSF Scorecard** | What is the security posture of a project before depending on it | WP-159 · WP-059 |
+| **SLSA** | What built this artifact, from which source, on what | WP-027 · WP-159 |
+| **Sigstore / Cosign** | Is this artifact signed by an identity that can be checked | WP-027 · WP-139 · WP-159 |
+
+Three properties of how they are used, each of which is where this kind of
+integration usually goes wrong:
+
+**Machine-readable outputs are release evidence.** A scan that produced a
+terminal summary nobody kept has not contributed to a dossier. The outputs are
+persisted and travel with the artifact.
+
+**Waivers are explicit and time-bounded.** A vulnerability with no available fix
+does not block indefinitely and is not suppressed — it becomes an owned residual
+risk with an expiry. The failure mode of a strict gate is that it gets bypassed;
+the failure mode of a silent one is that nobody knows.
+
+**A repository licence is not a file licence.** WASP is the worked example: the
+majority of that project is CC-BY-NC 4.0 while one bundled component is MIT.
+Reading the top-level licence and concluding anything about a file inside it is
+exactly the error SPDX per-file identifiers exist to prevent — and the reason the
+K-Dense domain catalogue is `DEFER` in the register rather than imported.
+
+`ADR-019` fixes the terms; WP-159 integrates them; ACC-120 tests that an
+unregistered adapted file fails admission **and** that a correctly registered one
+passes.
+
 ---
 
 ## 5. Deferred queue — with the reason, not just the name

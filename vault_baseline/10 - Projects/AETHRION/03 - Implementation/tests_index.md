@@ -5,7 +5,7 @@ cssclasses:
 type: index
 category: implementation
 status: WORKING
-summary: "Fifty-seven tests cover the components that exist: the bridge's database, projection, API and MCP boundary, the shared contract core, and the evidence attestation tooling."
+summary: "Seventy tests cover the components that exist: the bridge's database, projection, API and MCP boundary, the shared contract core, and the evidence attestation tooling."
 source: "tests/README.md"
 generated: true
 provenance: mirror_vault.py
@@ -23,12 +23,12 @@ tags:
 | Field | Value |
 |---|---|
 | Document type | Index — what is tested, and what is deliberately not |
-| Scope | The 57 tests that run today |
+| Scope | The 70 tests that run today |
 | Sibling documents | `../scripts/README.md` · `../docs/OPERATIONS.md` |
-| Status | `WORKING` — 57 passing; coverage is narrow and honestly so |
-| Date | 2026-08-22 |
+| Status | `WORKING` — 70 passing; coverage is narrow and honestly so |
+| Date | 2026-08-23 |
 
-**In one paragraph.** Fifty-seven tests cover the components that exist: the
+**In one paragraph.** Seventy tests cover the components that exist: the
 bridge's database, projection, API and MCP boundary, the shared contract core,
 and the evidence attestation tooling. They do not cover the target architecture,
 because it is not built, and they do not cover agent behaviour, because no
@@ -48,6 +48,7 @@ behaves; it does not mean the framework works.
 | `test_progress_cli.py` | the execution loop's refusals | the ledger is a ledger, not a file anyone can type into: an unmet dependency, an unverified manifest and an R3 acceptance are each refused, and the refusal names the document that forbids it |
 | `test_stale_claim_checker.py` | the checker that catches stale prose | it plants the two defects an external review found in a corpus whose status page reported none — a checker narrower than the sentence it prints is the failure this test stops recurring |
 | `test_upstream_lineage.py` | the assimilation register and its checker | **every rule must be demonstrable in both directions**: the committed register passes, and each ADR-004 obligation — pin, characterisation suite, no source files on a reimplementation, a stated authority boundary — can be made to fail on demand |
+| `test_architectural_regressions.py` | the eight wordings that contradict a decision record | the hard half is **suppression**, not detection: every one of those phrases already appears here inside a sentence that forbids it, so each rule carries a specimen that must trip it *and* a specimen that must not, and the two guards are pinned to the false positives that produced them |
 
 ## What is not tested
 
@@ -68,6 +69,6 @@ behaves; it does not mean the framework works.
   gates.
 
 ```bash
-uv run pytest          # all 57
+uv run pytest          # all 70
 uv run pytest -k mcp   # one area
 ```

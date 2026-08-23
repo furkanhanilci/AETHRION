@@ -50,6 +50,7 @@ environment manifest as every other scenario in the same acceptance round.
 | 3 | Run the provenance impact report | Impact report |
 | 4 | Confirm the pin does not move without an explicit, recorded change | Registry diff + audit record |
 | 5 | Resolve an old claim's `skill_bundle_hash` back to its exact procedure | Resolution proof |
+| 6 | Advance an upstream past its pin for an adapted mechanism as well as for a derived skill | Execution log + trace/event references |
 
 ## Mandatory invariants and assertions
 
@@ -58,10 +59,21 @@ environment manifest as every other scenario in the same acceptance round.
 - [ ] The pinned commit never moves implicitly
 - [ ] A historical `skill_bundle_hash` still resolves to the exact procedure text
 - [ ] The impact report is machine-readable evidence, not a narrative
+- [ ] Upstream drift now covers **adapted mechanisms as well as derived skills**: a pinned commit whose upstream moves opens a review item and is never auto-merged — ACC-073.
+- [ ] A file adapted without lineage, licence or pin fails admission before merge — ACC-120.
 - [ ] The actual canonical state equals the expected state, or an explained safe failure state.
 - [ ] Duplicate, stale, forged or partial inputs produced no unsafe side effect.
 - [ ] Trace, event, audit and business records share one project/workflow/run correlation chain.
 - [ ] Every Critical or High finding raised during the test is recorded in the Finding Registry.
+
+### Baseline v1.3.0 — what this scenario must also show
+
+`ADR-004` and `ADR-019`. A derived skill and an adapted source file have the same drift problem and only one of them was covered.
+
+The additional assertions above are **extensions of this scenario, not a new
+one.** Where the reliability layer needs a scenario of its own it has one in
+ACC-081–120; what is added here is the case this scenario would otherwise pass
+while the new failure went unexamined.
 
 ## Expected canonical records
 

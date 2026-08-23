@@ -22,12 +22,12 @@ tags:
 | Field | Value |
 |---|---|
 | Document type | Convention — figure inventory and design specification |
-| Scope | The twelve generated figures, their design system and their guarantees |
+| Scope | The fourteen generated figures, their design system and their guarantees |
 | Sibling documents | `../DOCUMENT_STANDARD.md` · `../architecture/AETHRION_ARCHITECTURE.md` · `../../skills/scientific-figures/SKILL.md` |
 | Status | `WORKING` — figures are generated and mechanically checked |
 | Date | 2026-08-23 |
 
-**In one paragraph.** Figures here are generated artifacts, not drawings: the corpus is the source, the generator is version-controlled, and the SVG is reproducible from a clean checkout. There are twelve of them rather than one per document, because a figure earns its place only by carrying a mechanism prose carries badly. Every string is measured against the box it sits in, and a figure that cannot be laid out honestly fails the build.
+**In one paragraph.** Figures here are generated artifacts, not drawings: the corpus is the source, the generator is version-controlled, and the SVG is reproducible from a clean checkout. There are fourteen of them rather than one per document, because a figure earns its place only by carrying a mechanism prose carries badly. Every string is measured against the box it sits in, and a figure that cannot be laid out honestly fails the build.
 
 Figures here are **generated artifacts**, like the Obsidian mirrors and the
 package catalogue. The canonical source is the architecture corpus; the
@@ -67,7 +67,7 @@ Two mechanisms now make it impossible:
 
 ---
 
-## 1. Why there are twelve figures and not thirty
+## 1. Why there are fourteen figures and not thirty
 
 The temptation with a corpus this size is to put a diagram on every document.
 That would produce exactly the failure mode a scientific-figure discipline warns
@@ -92,10 +92,19 @@ carries a **mechanism** that prose carries badly:
 | 10 | `aethrion_discovery.svg` | Node states, edge classes and the vertical boundary the producer cannot cross | A description of a loop, which hides both the lineage and the authority question |
 | 11 | `aethrion_memory.svg` | Six stores on the axes that decide authority, and the one that may support a claim | A list of six memories, which makes them look like six of the same thing |
 | 12 | `aethrion_assurance.svg` | The V1/V2 break between a check that is certain and a check with an error rate | A taxonomy paragraph, which is exactly how the two got conflated in the first place |
+| 13 | `aethrion_collaboration.svg` | The embargo, the edge policy and the degradation floor — that the expensive part and the valuable part of a cohort are different things | A cost argument, which always concludes "fewer agents" |
+| 14 | `aethrion_authority.svg` | One owner per kind of state, with the write path and the injections beside it | A matrix in prose, which reads as obvious and is violated within a sprint |
 
 Figures 6–9 were added after the ADRs, the adoption matrix and the reporting
 subsystem landed. Their absence was itself a defect: the corpus had grown four
 structures that only prose described, and prose describes none of them well.
+
+**Figures 13–14 were added at baseline v1.3.0**, and both carry a distinction
+that a reader agrees with in prose and then violates in practice: that optimising
+a cohort's conversation is not the same as shrinking the cohort, and that one
+canonical owner per kind of state is a rule with a testable shape rather than a
+preference. Neither survives being written as a paragraph — the first reads as a
+cost argument, the second as something everybody already does.
 
 **Figures 10–12 were added at baseline v1.2.0**, with ADR-004 to ADR-010, for the
 same reason and about the same failure. Each carries a distinction that reads as
@@ -117,7 +126,7 @@ renders in both GitHub and Obsidian, and does not need a build step. The rule:
 
 ## 2. Design specification
 
-Applied identically to all twelve figures.
+Applied identically to all fourteen figures.
 
 ### Communication objective
 
@@ -138,10 +147,12 @@ generator module. If a reader takes away only that sentence, the figure worked.
 | 10 | Search proposes candidates and spends compute; it never decides anything, and the only door into the evidence path runs through an evaluator the producer cannot reach |
 | 11 | There is no such thing as "the memory" — what is remembered splits six ways by epistemic status, and only one of the six may stand behind a claim |
 | 12 | "Verify" was one word doing two incompatible jobs; split into four classes, the non-waivable rule becomes coherent |
+| 13 | Every cost pressure on a multi-agent system argues for fewer agents; this architecture refuses that lever and prunes the conversation instead |
+| 14 | Seven stores, one owner per kind of truth — and split brain arrives as a projection quietly ahead of its source, not as a crash |
 
 ### Archetype selection
 
-None of the twelve is a generic left-to-right pipeline, because none of the
+None of the fourteen is a generic left-to-right pipeline, because none of the
 underlying structures is one.
 
 - **Figure 1** is a **matrix**: gates on the vertical axis (time), actor class on
@@ -176,6 +187,12 @@ underlying structures is one.
   decide authority**. Deliberately not six boxes in a row: six boxes make six
   stores look like six of the same thing, which is the misreading the figure
   exists to prevent.
+- **Figure 13** is a **protocol with a sealed boundary in the middle**, over a
+  degradation ladder that terminates at a floor. The floor is the argument: it is
+  what budget pressure may never reach.
+- **Figure 14** is an **ownership table with an injection suite attached**. The
+  third element is what makes the first two testable — an authority matrix
+  nobody has tried to break is a list of intentions.
 - **Figure 12** is a **ladder with one rule drawn across it**. The line between
   V1 and V2 is the only mark on the figure that carries an argument; everything
   above it is certain and everything below it has an error rate.

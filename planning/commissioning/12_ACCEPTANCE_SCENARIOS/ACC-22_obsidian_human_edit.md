@@ -47,6 +47,7 @@ environment manifest as every other scenario in the same acceptance round.
 | 4 | Run the renderer refresh concurrently | Execution log + trace/event references |
 | 5 | Check the Git diff, zone parser and link integrity | Execution log + trace/event references |
 | 6 | Try the out-of-zone conflict fixture | Execution log + trace/event references |
+| 7 | Destroy and rebuild every derived projection, not only the vault region, and compare against the pre-capture | Execution log + trace/event references |
 
 ## Mandatory invariants and assertions
 
@@ -55,10 +56,21 @@ environment manifest as every other scenario in the same acceptance round.
 - [ ] Git history is complete
 - [ ] A zone conflict opens a case
 - [ ] No broken links remain, or they sit in the curator queue
+- [ ] The same guarantee is now stated as a **general property**: every derived projection can be destroyed and rebuilt losslessly from canonical stores — ACC-119.
+- [ ] A human-owned vault region is one instance of the rule that a projection never owns anything.
 - [ ] The actual canonical state equals the expected state, or an explained safe failure state.
 - [ ] Duplicate, stale, forged or partial inputs produced no unsafe side effect.
 - [ ] Trace, event, audit and business records share one project/workflow/run correlation chain.
 - [ ] Every Critical or High finding raised during the test is recorded in the Finding Registry.
+
+### Baseline v1.3.0 — what this scenario must also show
+
+`ADR-014` generalises what this scenario tests for Obsidian into an authority matrix that covers the graph, the vector index and the search index too.
+
+The additional assertions above are **extensions of this scenario, not a new
+one.** Where the reliability layer needs a scenario of its own it has one in
+ACC-081–120; what is added here is the case this scenario would otherwise pass
+while the new failure went unexamined.
 
 ## Expected canonical records
 
