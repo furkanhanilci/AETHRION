@@ -90,6 +90,22 @@ WP-058 uses, and for the same reason.
 a detector's opinion — because a detector that decides when to tag is a detector
 that will eventually decide not to.
 
+### Baseline v1.3.0 — the messaging layer inherits the same two refusals
+
+Nothing changes about what these packages own. Two rules from this baseline
+apply to all of them, and both are restatements of things that erode first at the
+edges of a system:
+
+**No message and no timeout becomes authority.** An inbound message is never an
+instruction; a notification is never an authorisation; an expired SLA escalates
+and pages and never approves.
+
+**Alignment with the new paths.** The capability gate governs any action an
+inbound message might trigger. Evidence-delta priority drives the decision
+queue. The human preliminary flow means a notification announcing a decision may
+not carry the recommendation. Every intervention writes an immutable audit
+record atomically with the change it describes.
+
 ## Out of scope
 
 - Scientific assessment of the content (owned by the G0/G3 packages)
@@ -110,7 +126,7 @@ that will eventually decide not to.
 
 ### Full prerequisite closure
 
-**49 of 141 packages (35%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
+**49 of 160 packages (31%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
 
 | Level | Packages |
 |---:|---|
@@ -145,7 +161,7 @@ that will eventually decide not to.
 ### What acceptance of this package releases
 
 - **Directly unblocked:** 1 — `WP-137`
-- **Transitively reachable:** **1 of 141 packages (1%)** cannot be accepted until this one is.
+- **Transitively reachable:** **1 of 160 packages (1%)** cannot be accepted until this one is.
 
 The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
 
@@ -195,6 +211,7 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `ContentSafetyRecord` | `WP-058` | `python3 scripts/progress.py show WP-058` |
 | `Injection detector` | `WP-058` | `python3 scripts/progress.py show WP-058` |
 | `Quarantine UI/API` | `WP-058` | `python3 scripts/progress.py show WP-058` |
+| `Capability gate for untrusted content` | `WP-058` | `python3 scripts/progress.py show WP-058` |
 
 ### Classification that must be recorded before work begins
 
@@ -280,6 +297,14 @@ The programme-level conditions are below. The package-specific, measurable crite
 - [ ] All mandatory tests passed on the same target revision.
 - [ ] No open Critical or High findings.
 - [ ] The independent verifier has accepted the evidence package.
+
+## Acceptance evidence package
+
+- Test results captured on the same target revision/digest
+- An `EvidenceManifest` recording the environment, schema, policy and dependency versions
+- The independent verifier's `ReviewRecord` or `VerificationRecord`
+- The rollback/compensation trial and its result reference
+- The list of open findings and residual risks with owners and expiry dates
 
 ## Risks and control points
 

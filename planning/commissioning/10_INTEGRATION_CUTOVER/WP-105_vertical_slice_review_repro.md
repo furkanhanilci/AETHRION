@@ -75,6 +75,27 @@ Both paths run here, and the six root-cause categories are exercised.
 A failed reproduction reopens G4/G5. Which downstream artifacts invalidate, and
 whether the claim's state follows, is where WP-008, WP-077 and WP-085 meet.
 
+### Baseline v1.3.0 — the slices exercise the cohort, and the regression injects faults
+
+The vertical slices and the cutover path grow to cover what this baseline adds,
+and one package changes character.
+
+**WP-107 becomes the engineering completion slice.** Requirement and
+specification → worktree → TDD → code review → CI → supply-chain attestation →
+signed artifact → **eligibility to produce scientific evidence**. That last arrow
+is the junction between the two disciplines, and before this baseline nothing
+proved it end to end.
+
+**The other slices exercise the collaboration plane**: a compiled cohort, sealed
+initial positions, typed delta exchange over a sparse topology, an adaptive
+assurance route, a fingerprinted reproduction and a firewalled benchmark run.
+
+**The regression suite gains injections rather than cases.** Faulty agent,
+malicious agent, split brain, duplicate and out-of-order events, communication
+degradation under budget pressure, and benchmark contamination. These are
+failures that are invisible in a healthy run and obvious only in a post-mortem,
+which is why they are caused deliberately rather than waited for.
+
 ## Out of scope
 
 - The internal implementation of any dependent package
@@ -102,7 +123,7 @@ whether the claim's state follows, is where WP-008, WP-077 and WP-085 meet.
 
 ### Full prerequisite closure
 
-**90 of 141 packages (64%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
+**90 of 160 packages (56%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
 
 | Level | Packages |
 |---:|---|
@@ -152,7 +173,7 @@ whether the claim's state follows, is where WP-008, WP-077 and WP-085 meet.
 ### What acceptance of this package releases
 
 - **Directly unblocked:** 3 — `WP-106` · `WP-109` · `WP-110`
-- **Transitively reachable:** **24 of 141 packages (17%)** cannot be accepted until this one is.
+- **Transitively reachable:** **27 of 160 packages (17%)** cannot be accepted until this one is.
 
 The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
 
@@ -208,11 +229,16 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `Environment resolver` | `WP-084` | `python3 scripts/progress.py show WP-084` |
 | `Isolation attestation` | `WP-084` | `python3 scripts/progress.py show WP-084` |
 | `Repro runbook` | `WP-084` | `python3 scripts/progress.py show WP-084` |
+| `Three-zone clean room profiles` | `WP-084` | `python3 scripts/progress.py show WP-084` |
 | `Verification pipeline` | `WP-085` | `python3 scripts/progress.py show WP-085` |
 | `Type-specific protocols` | `WP-085` | `python3 scripts/progress.py show WP-085` |
 | `Robustness matrix` | `WP-085` | `python3 scripts/progress.py show WP-085` |
 | `Reproduction certificates` | `WP-085` | `python3 scripts/progress.py show WP-085` |
 | `Failure taxonomy` | `WP-085` | `python3 scripts/progress.py show WP-085` |
+| `AlgorithmUnderstandingRecord` | `WP-085` | `python3 scripts/progress.py show WP-085` |
+| `ReproductionPackage` | `WP-085` | `python3 scripts/progress.py show WP-085` |
+| `ClaimConsistencyReport` | `WP-085` | `python3 scripts/progress.py show WP-085` |
+| `Five-level reproduction taxonomy` | `WP-085` | `python3 scripts/progress.py show WP-085` |
 | `Review Package Builder` | `WP-086` | `python3 scripts/progress.py show WP-086` |
 | `Blind/redaction rules` | `WP-086` | `python3 scripts/progress.py show WP-086` |
 | `Package manifests` | `WP-086` | `python3 scripts/progress.py show WP-086` |
@@ -221,6 +247,11 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `Validator catalog` | `WP-087` | `python3 scripts/progress.py show WP-087` |
 | `VerificationRecord service` | `WP-087` | `python3 scripts/progress.py show WP-087` |
 | `Regression fixtures` | `WP-087` | `python3 scripts/progress.py show WP-087` |
+| `V0-V3 verification routing` | `WP-087` | `python3 scripts/progress.py show WP-087` |
+| `VerifierQualificationRecord` | `WP-087` | `python3 scripts/progress.py show WP-087` |
+| `Positive and negative control suite` | `WP-087` | `python3 scripts/progress.py show WP-087` |
+| `Adaptive assurance routing` | `WP-087` | `python3 scripts/progress.py show WP-087` |
+| `Abstention verdicts` | `WP-087` | `python3 scripts/progress.py show WP-087` |
 | `Review service` | `WP-088` | `python3 scripts/progress.py show WP-088` |
 | `Assignment/eligibility engine` | `WP-088` | `python3 scripts/progress.py show WP-088` |
 | `Review rubrics` | `WP-088` | `python3 scripts/progress.py show WP-088` |
@@ -235,6 +266,10 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `Rationale forms` | `WP-093` | `python3 scripts/progress.py show WP-093` |
 | `Delegation/escalation views` | `WP-093` | `python3 scripts/progress.py show WP-093` |
 | `Decision audit export` | `WP-093` | `python3 scripts/progress.py show WP-093` |
+| `HumanAttentionScore` | `WP-093` | `python3 scripts/progress.py show WP-093` |
+| `Evidence delta view` | `WP-093` | `python3 scripts/progress.py show WP-093` |
+| `Human preliminary flow` | `WP-093` | `python3 scripts/progress.py show WP-093` |
+| `Friction symmetry measurement` | `WP-093` | `python3 scripts/progress.py show WP-093` |
 | `Claim Explorer` | `WP-095` | `python3 scripts/progress.py show WP-095` |
 | `Evidence preview` | `WP-095` | `python3 scripts/progress.py show WP-095` |
 | `Provenance graph` | `WP-095` | `python3 scripts/progress.py show WP-095` |

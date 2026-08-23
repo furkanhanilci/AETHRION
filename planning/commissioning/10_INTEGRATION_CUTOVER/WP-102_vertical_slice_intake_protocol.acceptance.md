@@ -83,7 +83,7 @@ From `00_PROGRAM/05_definition_of_ready_and_done.md`, instantiated for this pack
 - [ ] **Research Workflow Lead** is assigned accountable; an implementer is named; **Assurance / Project Decision Owner** is assigned verifier and is **independent of the producer** under WP-007's profile.
 - [ ] `WP-034` — G0 Intake and G1 Charter Workflows — is `ACCEPTED` (not `TECH_COMPLETE`).
 - [ ] `WP-035` — G2 Protocol, G3 Literature and G4 Baseline Workflows — is `ACCEPTED` (not `TECH_COMPLETE`).
-- [ ] `WP-056` — OPA Policy Platform and Bundle Distribution — is `ACCEPTED` (not `TECH_COMPLETE`).
+- [ ] `WP-056` — Policy Decision Point and Bundle Distribution — is `ACCEPTED` (not `TECH_COMPLETE`).
 - [ ] `WP-091` — Lab Cockpit Information Architecture and Application Shell — is `ACCEPTED` (not `TECH_COMPLETE`).
 - [ ] `WP-092` — Project Workspace and G0–G10 Gate Timeline — is `ACCEPTED` (not `TECH_COMPLETE`).
 - [ ] `WP-093` — Human Decision Queue and Evidence-Delta UI — is `ACCEPTED` (not `TECH_COMPLETE`).

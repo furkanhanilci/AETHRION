@@ -110,6 +110,31 @@ with `airl.upstream_commit` in their frontmatter and the licence reproduced in
 moves — a derived skill silently diverging from its origin is a provenance defect
 that no format check sees.
 
+### Baseline v1.3.0 — the Task Compiler stops emitting a skill list
+
+This is the largest change in the model and agent layer, and it is a change of
+kind rather than of size. The compiler's output was a skill bundle and a model
+choice. It becomes the full execution shape of a task:
+
+`AgentCohortRecord` · `CognitiveDiversityProfile` · skill bundles **by family** ·
+`CommunicationTopology` · `ContextProjectionPolicy` · `ResearchBudgetContract` ·
+`AssuranceRoute` · `ExecutionProfile` · `IndependenceProfile`.
+
+A coding-science task compiles **both** skill families — preregistration
+discipline beside test-driven development, scientific review beside code review
+— without either aliasing the other (`ADR-012`).
+
+Two other bindings:
+
+- **Qualification records gain scope.** A verifier's qualification is keyed by
+  verifier, version, task class, domain profile *and* threshold, and now also
+  carries a model execution fingerprint and an abstention rate.
+- **The Tool Broker gains a capability gate.** An action is unavailable unless
+  policy grants it — not available-but-discouraged. Untrusted content can supply
+  values and can never create an action, which is `ADR-003` enforced at the tool
+  boundary rather than asserted at the prompt. Deterministic tool results are
+  reusable within a declared freshness window and are marked as reused.
+
 ## Out of scope
 
 - The internal implementation of any dependent package
@@ -135,7 +160,7 @@ that no format check sees.
 
 ### Full prerequisite closure
 
-**37 of 141 packages (26%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
+**37 of 160 packages (23%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
 
 | Level | Packages |
 |---:|---|
@@ -164,8 +189,8 @@ that no format check sees.
 
 ### What acceptance of this package releases
 
-- **Directly unblocked:** 7 — `WP-048` · `WP-069` · `WP-070` · `WP-078` · `WP-088` · `WP-097` · `WP-107`
-- **Transitively reachable:** **53 of 141 packages (38%)** cannot be accepted until this one is.
+- **Directly unblocked:** 11 — `WP-048` · `WP-069` · `WP-070` · `WP-078` · `WP-088` · `WP-097` · `WP-107` · `WP-147` · `WP-148` · `WP-149` · `WP-154`
+- **Transitively reachable:** **64 of 160 packages (40%)** cannot be accepted until this one is.
 
 The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
 
@@ -217,6 +242,8 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `Eligibility matrix` | `WP-007` | `python3 scripts/progress.py show WP-007` |
 | `Conflict-of-interest declaration` | `WP-007` | `python3 scripts/progress.py show WP-007` |
 | `Violation response` | `WP-007` | `python3 scripts/progress.py show WP-007` |
+| `Evaluator and memory-context independence constraints` | `WP-007` | `python3 scripts/progress.py show WP-007` |
+| `Cohort independence dimensions` | `WP-007` | `python3 scripts/progress.py show WP-007` |
 | `ProjectContract schemas` | `WP-013` | `python3 scripts/progress.py show WP-013` |
 | `TaskContract schema` | `WP-013` | `python3 scripts/progress.py show WP-013` |
 | `RoleContract schema` | `WP-013` | `python3 scripts/progress.py show WP-013` |
@@ -297,6 +324,7 @@ A package whose evidence cannot be produced is not `READY`, however complete its
 - **Upstream provenance impact report**
 - `Core role bundles`
 - `Bundle conformance tests`
+- `Cohort, topology, projection and assurance-route compilation`
 - An updated runbook or operations note, plus the service/contract ownership record
 - A signed `EvidenceManifest`
 

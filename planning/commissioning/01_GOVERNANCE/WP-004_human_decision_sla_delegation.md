@@ -80,6 +80,51 @@ resolve to a defined state for every decision type — and for material decision
 that state is *not approved*. An SLA that expires into approval is a timer that
 grants authority, which is the opposite of a control.
 
+### Baseline v1.2.0 — the intervention vocabulary, and the two things that are never approvals
+
+A human decision is currently modelled as approve or reject. Real intervention is
+wider, and the wider set has to be recorded or the audit trail records only the
+outcomes that happened to fit two words: `APPROVE`, `REJECT`, `EDIT`,
+`GUIDANCE`, `REQUEST_REVISION`, `ROLLBACK`, `ABORT`. Each produces a
+`HumanInterventionRecord` with before and after references.
+
+Two things are then structurally excluded rather than defaulted off:
+
+- **A timeout is not an approval.** An expired SLA escalates and pages. There is
+  no configuration under which it produces a `DecisionRecord`, because a setting
+  that can be turned on is a control that will be turned on — ACC-69.
+- **A learned preference is not an authorisation.** That this operator usually
+  approves this class may order the queue and suggest an edit format. It may not
+  sign anything.
+
+`HumanAttentionScore` follows from the same rule: it orders the queue and carries
+no authority, so a mandatory gate at the bottom of the queue still blocks.
+
+### Baseline v1.3.0 — the invariants a cost optimiser must not be able to reach
+
+Three additions, and they share a shape: each names something that an
+efficiency argument would otherwise be free to trade away.
+
+**The cohort is not a lever.** `ADR-011` fixes that substantial scientific
+execution requires at least two epistemically independent cognitive
+contributions. Independence is a five-dimension profile, not a count — several
+instances of one model on one context are one contribution. Governance language
+here must make that an invariant rather than a default, because the pressure to
+relax it will arrive as a budget conversation.
+
+**Two disciplines, composable, neither collapsed.** `ADR-012`. A passing test is
+not a confirmed hypothesis and a preregistered analysis is not correct code. The
+four pairs that get conflated — TDD against preregistration, code review against
+scientific review, debugging against anomaly investigation, parallel agents
+against parallel analysts — stay distinct in the role, risk and control language.
+
+**What budget may and may not degrade.** Communication verbosity degrades; the
+cohort and the assurance route do not. A task that cannot afford its required
+assurance is `BLOCKED`, never quietly completed more cheaply. The new
+non-waivable controls follow from that: cohort integrity, assurance-route
+integrity, human preliminary judgment before recommendation, and specification
+conformance for confirmatory work.
+
 ## Out of scope
 
 - The internal implementation of any dependent package
@@ -99,7 +144,7 @@ grants authority, which is the opposite of a control.
 
 ### Full prerequisite closure
 
-**3 of 141 packages (2%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
+**3 of 160 packages (2%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
 
 | Level | Packages |
 |---:|---|
@@ -109,8 +154,8 @@ grants authority, which is the opposite of a control.
 
 ### What acceptance of this package releases
 
-- **Directly unblocked:** 10 — `WP-008` · `WP-013` · `WP-034` · `WP-036` · `WP-038` · `WP-055` · `WP-064` · `WP-089` · `WP-093` · `WP-134`
-- **Transitively reachable:** **133 of 141 packages (94%)** cannot be accepted until this one is.
+- **Directly unblocked:** 11 — `WP-008` · `WP-013` · `WP-034` · `WP-036` · `WP-038` · `WP-055` · `WP-064` · `WP-089` · `WP-093` · `WP-134` · `WP-156`
+- **Transitively reachable:** **152 of 160 packages (95%)** cannot be accepted until this one is.
 
 The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
 
@@ -208,6 +253,8 @@ A package whose evidence cannot be produced is not `READY`, however complete its
 - `SLA/escalation table`
 - `Delegation matrix`
 - `Decision rationale rubric`
+- `Human intervention vocabulary`
+- `Timeout escalation path with no approval branch`
 - An updated runbook or operations note, plus the service/contract ownership record
 - A signed `EvidenceManifest`
 

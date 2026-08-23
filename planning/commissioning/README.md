@@ -1,6 +1,6 @@
 # AETHRION Commissioning Programme
 
-**Version:** 1.2
+**Version:** 1.4
 **Status:** Implementation and commissioning plan
 **Purpose:** Bring the AETHRION target architecture into service through work
 packages small enough to be assigned independently and closed with objective
@@ -53,36 +53,68 @@ zero open critical findings.
 | Item | Count |
 |---|---:|
 | Bootstrap package | **1** (WP-000) — precedes the programme, depends on nothing |
-| Work packages | **140** (WP-001 – WP-140) |
-| Work package documents in total | **141** |
-| Test procedure documents | **141** — one per package, `*.tests.md` |
-| Acceptance criteria documents | **141** — one per package, `*.acceptance.md` |
-| Acceptance scenarios | **51** (ACC-01 – ACC-51) |
+| Work packages | **159** (WP-001 – WP-159) |
+| Work package documents in total | **160** |
+| Test procedure documents | **160** — one per package, `*.tests.md` |
+| Acceptance criteria documents | **160** — one per package, `*.acceptance.md` |
+| Acceptance scenarios | **120** (ACC-01 – ACC-120) |
 | Programme documents | 12 |
-| Markdown files under this tree | 502 |
-| Files covered by the hash seal | 503 (220 Markdown + 1 CSV) |
+| Markdown files under this tree | 630 |
+| Files covered by the hash seal | 631 (630 Markdown + 1 CSV) |
 
 > ### What V1 is
 >
-> **V1 is this plan.** Its scope is the sealed baseline below — WP-000–140 and
-> ACC-01–51, exactly the 221 files the seal covers and nothing else. Its
-> completion criterion is already written and mechanical:
+> **V1 is this plan.** Its scope is the sealed baseline below — WP-000–159 and
+> ACC-01–120, exactly the files the seal covers and nothing else. Its completion
+> criterion is already written and mechanical:
 > [`00_PROGRAM/10_go_live_checklist.md`](00_PROGRAM/10_go_live_checklist.md) —
-> WP-001–119 `COMMISSIONED`, every `PRE_GO_LIVE` scenario passing on **one**
-> release candidate, zero open critical findings, and a signed go-live
-> `DecisionRecord`. V1 is finished when those conditions hold, and not before.
+> every `PRE_GO_LIVE` scenario passing on **one** release candidate, zero open
+> critical findings, and a signed go-live `DecisionRecord`. V1 is finished when
+> those conditions hold, and not before.
 >
 > **V2 is everything proposed after the freeze.** "Should we add this too?" and
 > "let's do that differently" are V2 questions by definition, and they have a
 > home outside the seal:
-> [`docs/V2_CANDIDATES.md`](../../docs/V2_CANDIDATES.md). Correcting a defect in
-> the plan is *not* V2 — that is a recorded change to V1, which is what the two
-> baseline bumps below are.
+> [`docs/V2_CANDIDATES.md`](../../docs/V2_CANDIDATES.md).
 >
-> The distinction is the whole point of a baseline: **a correction keeps the
-> finish line where it is; an addition moves it.**
+> The distinction that governs which is which: **a correction keeps the finish
+> line where it is; an addition moves it.**
+>
+> ### v1.2.0 moved it, once, on purpose
+>
+> Baseline v1.2.0 added a workstream and twenty-nine scenarios. By the rule
+> above that is an addition, not a correction, and it is recorded as one: the
+> finish line moved, the minor version was bumped rather than the patch version,
+> and this paragraph exists so that nobody later reads the change as
+> housekeeping.
+>
+> **Why it was taken inside V1 rather than parked.** The register exists to stop
+> a plan absorbing every good idea, and it has done that job — six entries after
+> a full brand migration, all of them cosmetic renames. But the earlier baseline
+> had a gap that parking would have preserved rather than deferred. It tested
+> the *platform* thoroughly: isolation, replay, budget stops, supply chain,
+> notification ceilings. It did not test the *epistemic path*. Nothing in
+> ACC-01–51 refused a publication sentence with no claim behind it, a reported
+> number with no verified value under it, a producer editing the evaluator that
+> scores it, a compile error recorded as a refuted hypothesis, or a reproduction
+> run in the environment that produced the result.
+>
+> Those are the failures this architecture exists to prevent. The plan could
+> have been completed in full, every scenario passing, without one of them being
+> caught. That is a defect in what the baseline verifies, and a baseline whose
+> completion would not demonstrate the thing it was built for is not finishable
+> in any sense worth having.
+>
+> **And it was the cheapest possible moment.** Nothing is `ACCEPTED`; one
+> package is `READY`; no work has been done against the old finish line. The
+> same change made after a year of execution would have reopened a plan with
+> completed work measured against it.
+>
+> The rule is unchanged and still binding for the next proposal. Moving the
+> finish line is a thing that happens with a version bump, a tag and a stated
+> reason — not twice, and not quietly.
 
-> **Commissioning baseline v1.0.5 — 2026-08-22.** This is the baseline the
+> **Commissioning baseline v1.3.0 — 2026-08-23.** This is the baseline the
 > programme will actually be commissioned against. Everything after this point
 > is a **recorded change**: edit the canonical file, regenerate the seal
 > deliberately, and record the change in the implementation log. Improvements
@@ -134,6 +166,63 @@ zero open critical findings.
 > labels, 14 regenerated indexes; no requirement, dependency, identifier,
 > acceptance phase or scenario changed. `docs/READY.md` now answers *what can be
 > started today* — one package, WP-001.
+
+> **v1.2.0 opens the scientific-intelligence workstream — the first change that
+> moves the finish line.** Every baseline before it was a correction: naming,
+> a false assurance claim, a mislabelled field, a status column in the wrong
+> file. This one adds capability, and it says so in the minor version rather
+> than arriving as a v1.1.1 nobody would look at twice.
+>
+> What it adds: `14_SCIENTIFIC_INTELLIGENCE` with **WP-141–147**, and
+> **ACC-52–80**. The packages cover study mode and idea framing, hypothesis and
+> principle evolution, the discovery search graph, how that search is allocated
+> and stopped, the six epistemic memories, and specialist cognition that
+> recommends without deciding. The scenarios cover the epistemic failures V1
+> could not catch.
+>
+> What it does **not** do: renumber anything. Every V1 identifier means what it
+> meant, every V1 dependency still resolves, and no acceptance phase changed.
+> WP-141–147 append; ACC-52–80 append. The `v1.1.0` tag and its seal are intact,
+> so the previous baseline can still be verified exactly as it stood.
+>
+> One structural rule came with it. The seven new packages describe mechanisms
+> that other projects solved first, and **WP-141 makes taking one an auditable
+> act**: a pinned commit, a named file list, a characterisation suite written
+> before the code moves, a licence read at the source, and a statement of what
+> the mechanism may never decide. The register is `provenance/upstreams.json`
+> and `scripts/check_upstream_lineage.py` refuses an entry that skips any of it.
+
+> **v1.3.0 adds the reliability layer, and moves the finish line a second time.**
+> The rule in §3 says moving it should not happen twice without a reason as
+> specific as the first. Here is the reason: v1.2.0 gave the plan an epistemic
+> path and left the *execution* of that path unmodelled. It assumed a cohort of
+> agents without saying what made one legitimate, assumed they would talk without
+> bounding the cost, assumed a failure could be attributed, and assumed a human
+> reading a recommendation was judging rather than ratifying.
+>
+> What it adds: `15_RELIABILITY_EFFICIENCY` with **WP-148–159**, and
+> **ACC-081–120**. The cohort invariant and what independence means; typed
+> delta-only exchange over a compiled sparse topology; a governor with a quality
+> guard that rolls back; memory masking by epistemic status; a failure taxonomy
+> in which `UNKNOWN` is legitimate; a budget that degrades verbosity and never
+> assurance; specification-to-code conformance; assurance routed by consequence
+> with abstention; the human judging before the machine recommends; model
+> execution fingerprints; a benchmark firewall; and cross-plane integrity.
+>
+> Nine decision records — **ADR-011 to ADR-019** — fix the decisions behind them.
+> Two of the nine *extend* an existing record rather than adding one: ADR-015
+> extends ADR-008's verification taxonomy with routing and abstention, and
+> ADR-019 extends ADR-004's assimilation rules with the supply-chain toolchain.
+>
+> What it does **not** do: renumber anything. WP-148–159 append, ACC-081–120
+> append, and the nine decision records took the next free numbers rather than
+> the ones their source package proposed — recorded in
+> [`docs/review/2026-08-23_reliability_delta_id_remap.md`](../../docs/review/2026-08-23_reliability_delta_id_remap.md).
+>
+> **The direction it explicitly refuses.** Every cost pressure on a multi-agent
+> system argues for fewer agents. This baseline holds the cohort fixed and
+> optimises the conversation instead — `ADR-011` — and that refusal is the single
+> most load-bearing decision in it.
 
 Verify the seal from the repository root:
 
@@ -199,7 +288,7 @@ Each companion carries generated blocks — test strategy, environment requireme
 | [`09_EXPERIENCE_OBSERVABILITY/`](09_EXPERIENCE_OBSERVABILITY/README.md) | WP-091–101: cockpit, decision UI, telemetry and FinOps |
 | [`10_INTEGRATION_CUTOVER/`](10_INTEGRATION_CUTOVER/README.md) | WP-102–121: vertical slices, commissioning and production cutover |
 | [`11_DAY2_OPERATIONS/`](11_DAY2_OPERATIONS/README.md) | WP-122–130: continuous operation and assurance |
-| [`12_ACCEPTANCE_SCENARIOS/`](12_ACCEPTANCE_SCENARIOS/README.md) | ACC-01–ACC-51: Given/When/Then system acceptance scenarios, including ACC-41–46 skill governance and ACC-47–51 |
+| [`12_ACCEPTANCE_SCENARIOS/`](12_ACCEPTANCE_SCENARIOS/README.md) | ACC-01–ACC-120: Given/When/Then system acceptance scenarios, including ACC-41–46 skill governance and ACC-47–51 |
 | [`13_TOOLING_INTEGRATION/`](13_TOOLING_INTEGRATION/README.md) | WP-131–140: notification, communication, external records, evidence sealing and liveness |
 
 ## 6. Package status model

@@ -53,7 +53,7 @@ ISO/IEC/IEEE 29119-3 §8.6 requires each environment item to name a description,
 | `WP-027` accepted output | Git, OCI Registry and Build Provenance Foundation | Supply Chain Security Lead | Before the first test case runs |
 | `WP-052` accepted output | Kubernetes Cluster and Node Pool Baseline | Platform Infrastructure Lead | Before the first test case runs |
 | `WP-054` accepted output | gVisor Sandbox and Execution Cell Lifecycle | Execution Security Lead | Before the first test case runs |
-| `WP-056` accepted output | OPA Policy Platform and Bundle Distribution | Policy Platform Lead | Before the first test case runs |
+| `WP-056` accepted output | Policy Decision Point and Bundle Distribution | Policy Platform Lead | Before the first test case runs |
 
 ### Environment readiness report — §8.8
 
@@ -104,16 +104,17 @@ ISO/IEC/IEEE 29119-3 §8.3.2. A coverage item is something the tests must reach.
 | C02 | `Trust root management` | Mandatory deliverable | *(name the test case)* |
 | C03 | `CVE/exception workflow` | Mandatory deliverable | *(name the test case)* |
 | C04 | `Revocation/impact runbook` | Mandatory deliverable | *(name the test case)* |
-| C05 | Deploy the admission controller and its trust roots | WP-059-T01 | *(name the test case)* |
-| C06 | Write the Cosign signature, provenance and SBOM policy | WP-059-T02 | *(name the test case)* |
-| C07 | Define the allowed builders, source repositories and dependency thresholds | WP-059-T03 | *(name the test case)* |
-| C08 | Bind the CVE exception and expiry workflow | WP-059-T04 | *(name the test case)* |
-| C09 | Add signature checks for tool, MCP and plugin artifacts | WP-059-T05 | *(name the test case)* |
-| C10 | Establish revocation behaviour and its impact on running workloads | WP-059-T06 | *(name the test case)* |
-| C11 | Unsigned or Mutable Image | [ACC-17](../12_ACCEPTANCE_SCENARIOS/ACC-17_unsigned_image.md) — Critical | *(name the test case)* |
-| C12 | Approval, Delegation and Exception Expiry | [ACC-26](../12_ACCEPTANCE_SCENARIOS/ACC-26_approval_expiry.md) — Critical | *(name the test case)* |
+| C05 | `Adapted-source admission control` | Mandatory deliverable | *(name the test case)* |
+| C06 | Deploy the admission controller and its trust roots | WP-059-T01 | *(name the test case)* |
+| C07 | Write the Cosign signature, provenance and SBOM policy | WP-059-T02 | *(name the test case)* |
+| C08 | Define the allowed builders, source repositories and dependency thresholds | WP-059-T03 | *(name the test case)* |
+| C09 | Bind the CVE exception and expiry workflow | WP-059-T04 | *(name the test case)* |
+| C10 | Add signature checks for tool, MCP and plugin artifacts | WP-059-T05 | *(name the test case)* |
+| C11 | Establish revocation behaviour and its impact on running workloads | WP-059-T06 | *(name the test case)* |
+| C12 | Unsigned or Mutable Image | [ACC-17](../12_ACCEPTANCE_SCENARIOS/ACC-17_unsigned_image.md) — Critical | *(name the test case)* |
+| C13 | Approval, Delegation and Exception Expiry | [ACC-26](../12_ACCEPTANCE_SCENARIOS/ACC-26_approval_expiry.md) — Critical | *(name the test case)* |
 
-**12 coverage items.** Every one must appear in the *Covered by* column of at least one test case below before this package can reach `TECH_COMPLETE`.
+**13 coverage items.** Every one must appear in the *Covered by* column of at least one test case below before this package can reach `TECH_COMPLETE`.
 
 <!-- /generated:coverage -->
 

@@ -103,15 +103,16 @@ ISO/IEC/IEEE 29119-3 §8.3.2. A coverage item is something the tests must reach.
 | C02 | `Event Catalog seed` | Mandatory deliverable | *(name the test case)* |
 | C03 | `Subject/retention table` | Mandatory deliverable | *(name the test case)* |
 | C04 | `Consumer contract` | Mandatory deliverable | *(name the test case)* |
-| C05 | Fix the `EventEnvelope` fields | WP-015-T01 | *(name the test case)* |
-| C06 | Establish the workflow, artifact, evidence, security, cost and telemetry subject taxonomy | WP-015-T02 | *(name the test case)* |
-| C07 | Write the rule separating an inline payload from an encrypted reference | WP-015-T03 | *(name the test case)* |
-| C08 | Add the at-least-once delivery and idempotent-consumer expectation | WP-015-T04 | *(name the test case)* |
-| C09 | Define schema evolution and `replay_mode` semantics | WP-015-T05 | *(name the test case)* |
-| C10 | Duplicate Event Delivery | [ACC-12](../12_ACCEPTANCE_SCENARIOS/ACC-12_duplicate_event.md) — Critical | *(name the test case)* |
-| C11 | DLQ Repair and Corrected Replay | [ACC-34](../12_ACCEPTANCE_SCENARIOS/ACC-34_dlq_repair.md) — High | *(name the test case)* |
+| C05 | `Post-commit event taxonomy for the collaboration plane` | Mandatory deliverable | *(name the test case)* |
+| C06 | Fix the `EventEnvelope` fields | WP-015-T01 | *(name the test case)* |
+| C07 | Establish the workflow, artifact, evidence, security, cost and telemetry subject taxonomy | WP-015-T02 | *(name the test case)* |
+| C08 | Write the rule separating an inline payload from an encrypted reference | WP-015-T03 | *(name the test case)* |
+| C09 | Add the at-least-once delivery and idempotent-consumer expectation | WP-015-T04 | *(name the test case)* |
+| C10 | Define schema evolution and `replay_mode` semantics | WP-015-T05 | *(name the test case)* |
+| C11 | Duplicate Event Delivery | [ACC-12](../12_ACCEPTANCE_SCENARIOS/ACC-12_duplicate_event.md) — Critical | *(name the test case)* |
+| C12 | DLQ Repair and Corrected Replay | [ACC-34](../12_ACCEPTANCE_SCENARIOS/ACC-34_dlq_repair.md) — High | *(name the test case)* |
 
-**11 coverage items.** Every one must appear in the *Covered by* column of at least one test case below before this package can reach `TECH_COMPLETE`.
+**12 coverage items.** Every one must appear in the *Covered by* column of at least one test case below before this package can reach `TECH_COMPLETE`.
 
 <!-- /generated:coverage -->
 

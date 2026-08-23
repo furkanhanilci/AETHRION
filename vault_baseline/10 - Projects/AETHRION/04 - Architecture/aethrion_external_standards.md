@@ -259,6 +259,48 @@ Component-level adoption, including type and priority, is in
 
 ---
 
+## 4.5 Adopted 2026-08-23 — two standards this project was about to reinvent
+
+### CiTO — the Citation Typing Ontology
+
+`EvidenceTag` needs a support relation: does this evidence support, challenge or
+merely contextualise the assertion bound to it. That was about to become a
+three-value enum defined here.
+
+**CiTO already publishes that vocabulary** — `cito:supports`,
+`cito:disagreesWith`, `cito:usesMethodIn` and the rest — from the same SPAR
+ontology family as the scholarly identifiers this project already adopts. §1's
+rule applies without qualification: do not invent an identifier scheme where one
+is maintained by people closer to the problem.
+
+Binding the enum to CiTO IRIs costs nothing now and makes an evidence tag mean
+the same thing outside this system as inside it. Only the relations `EvidenceTag`
+actually needs are used; the full ontology surface is not adopted.
+
+> **A citation type describes intent, not correctness.** Declaring
+> `cito:supports` does not establish that the passage supports the sentence —
+> that is the V2 entailment verifier's job, and ACC-76 is where the difference
+> is tested.
+
+### REUSE and SPDX
+
+Adapted source code — copied from another project and refactored in — has no
+package-manager entry, no version and no upgrade path. It is invisible to every
+other supply-chain control here, which makes a machine-readable licence
+statement per file the only way its position is checkable rather than
+remembered.
+
+SPDX identifiers in adapted files, the REUSE conventions for the repository, and
+`provenance/upstreams.json` as the register that ties a local file to its
+upstream commit. `scripts/check_upstream_lineage.py` enforces it, and ACC-74
+tests that an unregistered adapted file fails admission **and** that a correctly
+registered one passes — a check that blocks all new files has demonstrated
+nothing.
+
+`ADR-004` fixes the terms.
+
+---
+
 ## 5. Deferred queue — with the reason, not just the name
 
 Each entry is real and each is currently **out of scope**, because adopting all

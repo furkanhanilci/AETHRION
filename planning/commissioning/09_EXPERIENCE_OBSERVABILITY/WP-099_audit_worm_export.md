@@ -78,6 +78,29 @@ hash chain makes tampering detectable **by someone who trusts the operator's
 infrastructure**; it does not make the record independently verifiable. WP-139 is
 where that changes.
 
+### Baseline v1.3.0 — showing the cost of collaboration, and the shape of a decision
+
+The experience and observability layer gains three things it could not
+previously display, because they did not exist to be displayed.
+
+**Collaboration cost.** Coordination overhead ratio, redundant message rate,
+useful challenge rate, rounds, and the token ledger's seven categories. A single
+cost total says a campaign was expensive; the categories say whether it was
+expensive because it did science or because it held a meeting.
+
+**The human decision surface, reordered.** Evidence first, recommendation second,
+and a `DecisionDelta` when the second changes the first (`ADR-016`). The queue
+uses evidence-delta priority — what changed since the last decision, not the full
+state every time. **Attention priority orders and never authorises**, and no
+timeout or learned preference produces an approval.
+
+**Verifier abstention, surfaced.** An `ABSTAIN` is an escalation signal and has to
+look like one in the interface. A surface that renders it as a soft pass has
+undone `ADR-015`.
+
+New SLOs: coordination overhead, challenge rate, contamination and security
+findings, and the quality/cost Pareto frontier.
+
 ## Out of scope
 
 - The internal implementation of any dependent package
@@ -101,7 +124,7 @@ where that changes.
 | [WP-028 — NATS JetStream and Transactional Outbox Foundation](../03_FOUNDATION/WP-028_nats_jetstream_outbox.md) | `NATS cluster` · `Outbox relay` · `Consumer SDK` · `DLQ/replay runbook` |
 | [WP-049 — Tool Registry and Tool Broker Core](../05_MODEL_AGENT_TOOL/WP-049_tool_registry_broker.md) | `Tool Registry` · `Tool Broker service` · `Invocation/Receipt persistence` · `Connector SDK` |
 | [WP-055 — SPIFFE/SPIRE Workload Identity and Vault](../06_EXECUTION_SECURITY/WP-055_spiffe_vault_identity.md) | `SPIRE/Vault deployments` · `Identity registry mapping` · `Lease policies` · `Break-glass procedure` |
-| [WP-056 — OPA Policy Platform and Bundle Distribution](../06_EXECUTION_SECURITY/WP-056_opa_policy_platform.md) | `OPA platform` · `Policy bundle v1` · `Policy test suite` · `Bundle promotion pipeline` |
+| [WP-056 — Policy Decision Point and Bundle Distribution](../06_EXECUTION_SECURITY/WP-056_opa_policy_platform.md) | `Policy decision point` · `PolicyDecision interface conformance suite` · `Policy bundle v1` · `Policy test suite` |
 | [WP-059 — Supply-Chain Admission, Sigstore and SLSA Policy](../06_EXECUTION_SECURITY/WP-059_supply_chain_admission.md) | `Admission policies` · `Trust root management` · `CVE/exception workflow` · `Revocation/impact runbook` |
 | [WP-075 — Canonical Claim/Evidence Ledger Service](../08_EVIDENCE_ASSURANCE/WP-075_claim_evidence_ledger.md) | `Claim Ledger service` · `Migrations/API` · `State transition engine` · `Lineage queries` |
 | [WP-082 — Run Registry and MLflow Lineage Integration](../08_EVIDENCE_ASSURANCE/WP-082_run_registry_mlflow.md) | `Run Registry` · `Preflight validator` · `MLflow integration` · `Run lineage queries` |
@@ -109,7 +132,7 @@ where that changes.
 
 ### Full prerequisite closure
 
-**55 of 141 packages (39%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
+**55 of 160 packages (34%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
 
 | Level | Packages |
 |---:|---|
@@ -147,7 +170,7 @@ where that changes.
 ### What acceptance of this package releases
 
 - **Directly unblocked:** 8 — `WP-101` · `WP-103` · `WP-106` · `WP-109` · `WP-114` · `WP-118` · `WP-128` · `WP-129`
-- **Transitively reachable:** **28 of 141 packages (20%)** cannot be accepted until this one is.
+- **Transitively reachable:** **31 of 160 packages (19%)** cannot be accepted until this one is.
 
 The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
 
@@ -201,6 +224,7 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `Event Catalog seed` | `WP-015` | `python3 scripts/progress.py show WP-015` |
 | `Subject/retention table` | `WP-015` | `python3 scripts/progress.py show WP-015` |
 | `Consumer contract` | `WP-015` | `python3 scripts/progress.py show WP-015` |
+| `Post-commit event taxonomy for the collaboration plane` | `WP-015` | `python3 scripts/progress.py show WP-015` |
 | `PolicyDecision schema` | `WP-016` | `python3 scripts/progress.py show WP-016` |
 | `ControlRecord schema` | `WP-016` | `python3 scripts/progress.py show WP-016` |
 | `ExceptionRecord schema` | `WP-016` | `python3 scripts/progress.py show WP-016` |
@@ -225,12 +249,15 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `Invocation/Receipt persistence` | `WP-049` | `python3 scripts/progress.py show WP-049` |
 | `Connector SDK` | `WP-049` | `python3 scripts/progress.py show WP-049` |
 | `Audit events` | `WP-049` | `python3 scripts/progress.py show WP-049` |
+| `Capability gate` | `WP-049` | `python3 scripts/progress.py show WP-049` |
+| `Tool-result reuse with recorded provenance` | `WP-049` | `python3 scripts/progress.py show WP-049` |
 | `SPIRE/Vault deployments` | `WP-055` | `python3 scripts/progress.py show WP-055` |
 | `Identity registry mapping` | `WP-055` | `python3 scripts/progress.py show WP-055` |
 | `Lease policies` | `WP-055` | `python3 scripts/progress.py show WP-055` |
 | `Break-glass procedure` | `WP-055` | `python3 scripts/progress.py show WP-055` |
 | `Identity audit dashboard` | `WP-055` | `python3 scripts/progress.py show WP-055` |
-| `OPA platform` | `WP-056` | `python3 scripts/progress.py show WP-056` |
+| `Policy decision point` | `WP-056` | `python3 scripts/progress.py show WP-056` |
+| `PolicyDecision interface conformance suite` | `WP-056` | `python3 scripts/progress.py show WP-056` |
 | `Policy bundle v1` | `WP-056` | `python3 scripts/progress.py show WP-056` |
 | `Policy test suite` | `WP-056` | `python3 scripts/progress.py show WP-056` |
 | `Bundle promotion pipeline` | `WP-056` | `python3 scripts/progress.py show WP-056` |
@@ -239,6 +266,7 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `Trust root management` | `WP-059` | `python3 scripts/progress.py show WP-059` |
 | `CVE/exception workflow` | `WP-059` | `python3 scripts/progress.py show WP-059` |
 | `Revocation/impact runbook` | `WP-059` | `python3 scripts/progress.py show WP-059` |
+| `Adapted-source admission control` | `WP-059` | `python3 scripts/progress.py show WP-059` |
 | `Claim Ledger service` | `WP-075` | `python3 scripts/progress.py show WP-075` |
 | `Migrations/API` | `WP-075` | `python3 scripts/progress.py show WP-075` |
 | `State transition engine` | `WP-075` | `python3 scripts/progress.py show WP-075` |
@@ -249,6 +277,11 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `MLflow integration` | `WP-082` | `python3 scripts/progress.py show WP-082` |
 | `Run lineage queries` | `WP-082` | `python3 scripts/progress.py show WP-082` |
 | `Run lifecycle dashboard` | `WP-082` | `python3 scripts/progress.py show WP-082` |
+| `RawEvaluatorArtifact` | `WP-082` | `python3 scripts/progress.py show WP-082` |
+| `VerifiedValue` | `WP-082` | `python3 scripts/progress.py show WP-082` |
+| `PredictionRecord` | `WP-082` | `python3 scripts/progress.py show WP-082` |
+| `FailureAssessment` | `WP-082` | `python3 scripts/progress.py show WP-082` |
+| `ModelExecutionFingerprint` | `WP-082` | `python3 scripts/progress.py show WP-082` |
 | `OTel platform` | `WP-096` | `python3 scripts/progress.py show WP-096` |
 | `Semantic conventions` | `WP-096` | `python3 scripts/progress.py show WP-096` |
 | `Instrumentation libraries` | `WP-096` | `python3 scripts/progress.py show WP-096` |

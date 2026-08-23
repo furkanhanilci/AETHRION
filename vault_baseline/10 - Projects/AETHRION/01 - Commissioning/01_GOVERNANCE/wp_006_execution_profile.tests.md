@@ -126,15 +126,17 @@ ISO/IEC/IEEE 29119-3 §8.3.2. A coverage item is something the tests must reach.
 | C02 | `Route/control decision tables` | Mandatory deliverable | *(name the test case)* |
 | C03 | `Enforcement map` | Mandatory deliverable | *(name the test case)* |
 | C04 | `Negative examples` | Mandatory deliverable | *(name the test case)* |
-| C05 | Define the D0–D4 `DataClass` rubric | WP-006-T01 | *(name the test case)* |
-| C06 | Write the C0–C3 `CodeTrust` and T0–T5 `ToolEffect` rubrics | WP-006-T02 | *(name the test case)* |
-| C07 | Define the network and credential scope levels | WP-006-T03 | *(name the test case)* |
-| C08 | Write the dominance rule and the minimum execution tier rule | WP-006-T04 | *(name the test case)* |
-| C09 | Map the enforcement points across the model router, the broker, Kueue and the sandbox | WP-006-T05 | *(name the test case)* |
-| C10 | Sandbox Escape Attempt | [ACC-15](../12_ACCEPTANCE_SCENARIOS/acc_15_sandbox_escape.md) — Critical | *(name the test case)* |
-| C11 | D3 Data to a Public Provider | [ACC-18](../12_ACCEPTANCE_SCENARIOS/acc_18_d3_public_route.md) — Critical | *(name the test case)* |
+| C05 | `Producer and evaluator zone profiles` | Mandatory deliverable | *(name the test case)* |
+| C06 | `MutationPolicy` | Mandatory deliverable | *(name the test case)* |
+| C07 | Define the D0–D4 `DataClass` rubric | WP-006-T01 | *(name the test case)* |
+| C08 | Write the C0–C3 `CodeTrust` and T0–T5 `ToolEffect` rubrics | WP-006-T02 | *(name the test case)* |
+| C09 | Define the network and credential scope levels | WP-006-T03 | *(name the test case)* |
+| C10 | Write the dominance rule and the minimum execution tier rule | WP-006-T04 | *(name the test case)* |
+| C11 | Map the enforcement points across the model router, the broker, Kueue and the sandbox | WP-006-T05 | *(name the test case)* |
+| C12 | Sandbox Escape Attempt | [ACC-15](../12_ACCEPTANCE_SCENARIOS/acc_15_sandbox_escape.md) — Critical | *(name the test case)* |
+| C13 | D3 Data to a Public Provider | [ACC-18](../12_ACCEPTANCE_SCENARIOS/acc_18_d3_public_route.md) — Critical | *(name the test case)* |
 
-**11 coverage items.** Every one must appear in the *Covered by* column of at least one test case below before this package can reach `TECH_COMPLETE`.
+**13 coverage items.** Every one must appear in the *Covered by* column of at least one test case below before this package can reach `TECH_COMPLETE`.
 
 <!-- /generated:coverage -->
 

@@ -81,7 +81,7 @@ ISO/IEC/IEEE 29119-3 §8.6 requires each environment item to name a description,
 | `WP-049` accepted output | Tool Registry and Tool Broker Core | Tool Platform Lead | Before the first test case runs |
 | `WP-051` accepted output | Four Trust Zones and Network Segmentation | Security Architecture Lead | Before the first test case runs |
 | `WP-055` accepted output | SPIFFE/SPIRE Workload Identity and Vault | Identity Platform Lead | Before the first test case runs |
-| `WP-056` accepted output | OPA Policy Platform and Bundle Distribution | Policy Platform Lead | Before the first test case runs |
+| `WP-056` accepted output | Policy Decision Point and Bundle Distribution | Policy Platform Lead | Before the first test case runs |
 
 ### Environment readiness report — §8.8
 

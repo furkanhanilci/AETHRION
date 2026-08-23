@@ -36,7 +36,7 @@ tags:
 | Hard dependencies | WP-110, WP-111, WP-112, WP-113, WP-114 |
 | Related gates | Commissioning |
 | Related controls | All controls |
-| Related acceptance scenarios | every scenario whose `Acceptance phase` is `PRE_GO_LIVE` (ACC-01 – ACC-51 excluding the Day-2 set) |
+| Related acceptance scenarios | every scenario whose `Acceptance phase` is `PRE_GO_LIVE`; the set is derived, never enumerated here, because an enumeration drifts the moment a scenario is added |
 | Status at baseline | `NOT_STARTED` |
 
 ## Package documents
@@ -64,11 +64,19 @@ release candidate.
 `00_PROGRAM/06` lists what is not evidence, and the second entry is *test outputs
 from different revisions mixed together.*
 
-### The count is 51 and the purpose sentence says forty-six
+### The set is derived, and it has been wrong twice for the same reason
 
-`12_ACCEPTANCE_SCENARIOS/` holds ACC-01 through ACC-51. The task list here says
-"the forty-six scenarios", which predates ACC-47–51. **The dossier must consolidate
-all `PRE_GO_LIVE` scenarios**, which is currently all 51.
+This section once read "the count is 51 and the purpose sentence says forty-six",
+because the task list had been written when there were forty-six scenarios and
+ACC-47–51 arrived afterwards. Baseline v1.2.0 then added ACC-52–80 and the
+sentence would have been wrong a second time in exactly the same way.
+
+So the rule, rather than the number: **the dossier consolidates every scenario
+whose `Acceptance phase` is `PRE_GO_LIVE`**, and that set is read from the
+scenario files by `validate_commissioning_plan.py`. Two of the current set —
+ACC-73 and ACC-80 — are `DAY2_CONTINUOUS` and are armed at cutover rather than
+passed before it. Any number written here in prose is a number that will be stale
+again.
 
 ### The open-findings sweep is the step that decides the verdict (T04)
 
@@ -93,6 +101,27 @@ KPIs and SLOs, yes. Also: the number of scenarios that passed by witnessed manua
 step rather than automation, the number skipped, the flake rate, and the fraction of
 sources the monitoring actually covers.
 
+### Baseline v1.3.0 — the slices exercise the cohort, and the regression injects faults
+
+The vertical slices and the cutover path grow to cover what this baseline adds,
+and one package changes character.
+
+**WP-107 becomes the engineering completion slice.** Requirement and
+specification → worktree → TDD → code review → CI → supply-chain attestation →
+signed artifact → **eligibility to produce scientific evidence**. That last arrow
+is the junction between the two disciplines, and before this baseline nothing
+proved it end to end.
+
+**The other slices exercise the collaboration plane**: a compiled cohort, sealed
+initial positions, typed delta exchange over a sparse topology, an adaptive
+assurance route, a fingerprinted reproduction and a firewalled benchmark run.
+
+**The regression suite gains injections rather than cases.** Faulty agent,
+malicious agent, split brain, duplicate and out-of-order events, communication
+degradation under budget pressure, and benchmark contamination. These are
+failures that are invisible in a healthy run and obvious only in a post-mortem,
+which is why they are caused deliberately rather than waited for.
+
 ## Out of scope
 
 - The internal implementation of any dependent package
@@ -116,7 +145,7 @@ sources the monitoring actually covers.
 
 ### Full prerequisite closure
 
-**114 of 141 packages (81%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
+**114 of 160 packages (71%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
 
 | Level | Packages |
 |---:|---|
@@ -170,8 +199,8 @@ sources the monitoring actually covers.
 
 ### What acceptance of this package releases
 
-- **Directly unblocked:** 6 — `WP-116` · `WP-117` · `WP-118` · `WP-119` · `WP-120` · `WP-130`
-- **Transitively reachable:** **15 of 141 packages (11%)** cannot be accepted until this one is.
+- **Directly unblocked:** 7 — `WP-116` · `WP-117` · `WP-118` · `WP-119` · `WP-120` · `WP-130` · `WP-158`
+- **Transitively reachable:** **18 of 160 packages (11%)** cannot be accepted until this one is.
 
 The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
 
@@ -288,6 +317,7 @@ A package whose evidence cannot be produced is not `READY`, however complete its
 - `Finding/risk register snapshot`
 - `Readiness scorecard`
 - `Board verdict`
+- `Faulty-agent, split-brain and contamination regression`
 - An updated runbook or operations note, plus the service/contract ownership record
 - A signed `EvidenceManifest`
 

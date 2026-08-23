@@ -77,6 +77,35 @@ extraction useful for `ACC-08`.
 Disagreement rate between passes, missing-field rate, locator-resolution failure
 rate. Without them, extraction quality is an impression.
 
+### Baseline v1.3.0 — the assurance layer stops using one word for two things
+
+Three changes, and the first is a vocabulary correction with real consequences.
+
+**"Mechanical verifier" is retired as a broad term.** It becomes V0 deterministic
+· V1 computational · V2 qualified semantic · V3 human (`ADR-008`), and the class
+is assigned by the verifier service from the procedure that actually ran — never
+by the caller. The reason is that the gate rule *a mechanical check cannot be
+overridden by a model* is correct for V0 and V1 and absurd at V2, where it says a
+model's judgement cannot be overridden by a model.
+
+**Assurance becomes routed** (`ADR-015`): by consequence and uncertainty rather
+than uniformly, with a cascade to a stronger independent verifier or to a human,
+and with `ABSTAIN` as a valid verdict that escalates. A route cannot be lowered
+because the queue is long or the budget is tight.
+
+**Three hard bindings** into the evidence and publication path:
+
+- **Specification conformance** — the frozen method and the running code are
+  compared, and an unapproved `SCIENTIFIC_MAJOR` deviation cannot carry a
+  confirmatory package forward (`ADR-018`, ACC-104).
+- **Model execution fingerprint** — every invocation contributing to a result
+  records what actually executed, retry and fallback history included, and a
+  hosted black-box model does not yield an `EXACT` reproduction claim
+  (ACC-115, ACC-116).
+- **Publication compiler** — no prose without a claim, no number without a
+  `VerifiedValue`, and a complete evidence chain checked link by link
+  (ACC-105, ACC-106).
+
 ## Out of scope
 
 - The internal implementation of any dependent package
@@ -93,7 +122,7 @@ rate. Without them, extraction quality is an impression.
 | Package | Supplies to this package |
 |---|---|
 | [WP-045 — Policy Router and Minimum-Sufficient Model Package](../05_MODEL_AGENT_TOOL/WP-045_policy_router_budget.md) | `Policy Router` · `RouteDecision service` · `Fan-out/budget rules` · `Routing conformance suite` |
-| [WP-047 — Role and Skill Registries, and the Task Compiler](../05_MODEL_AGENT_TOOL/WP-047_role_bundle_registry.md) | `Role Bundle Registry` · `Core role bundles` · `Bundle conformance tests` |
+| [WP-047 — Role and Skill Registries, and the Task Compiler](../05_MODEL_AGENT_TOOL/WP-047_role_bundle_registry.md) | `Role Bundle Registry` · `Core role bundles` · `Bundle conformance tests` · `Cohort, topology, projection and assurance-route compilation` |
 | [WP-058 — Untrusted Content Quarantine and Prompt-Injection Firewall](../06_EXECUTION_SECURITY/WP-058_content_quarantine_firewall.md) | `Content firewall` · `Parser workers` · `ContentSafetyRecord` · `Injection detector` |
 | [WP-063 — Source Representation, Licence and Status Monitoring](../07_LITERATURE_KNOWLEDGE/WP-063_source_representation_status.md) | `Representation ingest service` · `License/status policy` · `Status monitor` · `Format locator metadata` |
 | [WP-068 — Zotero Annotation → EvidenceCandidate Pipeline](../07_LITERATURE_KNOWLEDGE/WP-068_zotero_annotation_ingest.md) | `Annotation ingest service` · `AnnotationObservation records` · `EvidenceCandidate queue` · `Promotion/disposition UI contract` |
@@ -102,7 +131,7 @@ rate. Without them, extraction quality is an impression.
 
 ### Full prerequisite closure
 
-**60 of 141 packages (43%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
+**60 of 160 packages (38%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
 
 | Level | Packages |
 |---:|---|
@@ -142,7 +171,7 @@ rate. Without them, extraction quality is an impression.
 ### What acceptance of this package releases
 
 - **Directly unblocked:** 4 — `WP-079` · `WP-080` · `WP-095` · `WP-104`
-- **Transitively reachable:** **39 of 141 packages (28%)** cannot be accepted until this one is.
+- **Transitively reachable:** **50 of 160 packages (31%)** cannot be accepted until this one is.
 
 The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
 
@@ -193,11 +222,13 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `Role Bundle Registry` | `WP-047` | `python3 scripts/progress.py show WP-047` |
 | `Core role bundles` | `WP-047` | `python3 scripts/progress.py show WP-047` |
 | `Bundle conformance tests` | `WP-047` | `python3 scripts/progress.py show WP-047` |
+| `Cohort, topology, projection and assurance-route compilation` | `WP-047` | `python3 scripts/progress.py show WP-047` |
 | `Content firewall` | `WP-058` | `python3 scripts/progress.py show WP-058` |
 | `Parser workers` | `WP-058` | `python3 scripts/progress.py show WP-058` |
 | `ContentSafetyRecord` | `WP-058` | `python3 scripts/progress.py show WP-058` |
 | `Injection detector` | `WP-058` | `python3 scripts/progress.py show WP-058` |
 | `Quarantine UI/API` | `WP-058` | `python3 scripts/progress.py show WP-058` |
+| `Capability gate for untrusted content` | `WP-058` | `python3 scripts/progress.py show WP-058` |
 | `Representation ingest service` | `WP-063` | `python3 scripts/progress.py show WP-063` |
 | `License/status policy` | `WP-063` | `python3 scripts/progress.py show WP-063` |
 | `Status monitor` | `WP-063` | `python3 scripts/progress.py show WP-063` |

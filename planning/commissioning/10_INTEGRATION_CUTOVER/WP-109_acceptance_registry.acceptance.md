@@ -1,4 +1,4 @@
-# WP-109 — Forty Acceptance Scenario Registry and Harness — Acceptance Criteria
+# WP-109 — Acceptance Scenario Registry and Harness — Acceptance Criteria
 
 ## Document identity
 
@@ -7,7 +7,7 @@
 | Field | Value |
 |---|---|
 | Unique identifier | `AC-WP-109` |
-| Work package | [`WP-109` — Forty Acceptance Scenario Registry and Harness](WP-109_acceptance_registry.md) |
+| Work package | [`WP-109` — Acceptance Scenario Registry and Harness](WP-109_acceptance_registry.md) |
 | Companion | [test procedures](WP-109_acceptance_registry.tests.md) |
 | Workstream | `10_INTEGRATION_CUTOVER` |
 | Approval authority | **Commissioning Board** — the independent verifier |

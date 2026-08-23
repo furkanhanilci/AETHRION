@@ -78,7 +78,7 @@ ISO/IEC/IEEE 29119-3 §8.6 requires each environment item to name a description,
 | Evidence sink | Somewhere `EvidenceManifest` can be issued and verified | Assurance / Project Decision Owner | At completion |
 | `WP-034` accepted output | G0 Intake and G1 Charter Workflows | Research Operations Lead | Before the first test case runs |
 | `WP-035` accepted output | G2 Protocol, G3 Literature and G4 Baseline Workflows | Scientific Workflow Lead | Before the first test case runs |
-| `WP-056` accepted output | OPA Policy Platform and Bundle Distribution | Policy Platform Lead | Before the first test case runs |
+| `WP-056` accepted output | Policy Decision Point and Bundle Distribution | Policy Platform Lead | Before the first test case runs |
 | `WP-091` accepted output | Lab Cockpit Information Architecture and Application Shell | Product/Experience Lead | Before the first test case runs |
 | `WP-092` accepted output | Project Workspace and G0–G10 Gate Timeline | Experience Lead | Before the first test case runs |
 | `WP-093` accepted output | Human Decision Queue and Evidence-Delta UI | Governance Product Lead | Before the first test case runs |

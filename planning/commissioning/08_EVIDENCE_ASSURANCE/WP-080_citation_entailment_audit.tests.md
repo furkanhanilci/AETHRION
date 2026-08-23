@@ -108,15 +108,16 @@ ISO/IEC/IEEE 29119-3 §8.3.2. A coverage item is something the tests must reach.
 | C02 | `Audit rubric` | Mandatory deliverable | *(name the test case)* |
 | C03 | `Mechanical locator checker` | Mandatory deliverable | *(name the test case)* |
 | C04 | `Audit report/scorecard` | Mandatory deliverable | *(name the test case)* |
-| C05 | Write the claim–evidence relationship rubric | WP-080-T01 | *(name the test case)* |
-| C06 | Add mechanical locator integrity and quote/fingerprint checking | WP-080-T02 | *(name the test case)* |
-| C07 | Build the entailment, scope, hedging and secondary-citation review graph | WP-080-T03 | *(name the test case)* |
-| C08 | Add counter-evidence and citation-laundering checks | WP-080-T04 | *(name the test case)* |
-| C09 | Apply risk-based human sampling and full audit | WP-080-T05 | *(name the test case)* |
-| C10 | Integrate the `CitationAudit` verdict as a G9 blocker | WP-080-T06 | *(name the test case)* |
-| C11 | Publication Completeness | [ACC-30](../12_ACCEPTANCE_SCENARIOS/ACC-30_publication_completeness.md) — Critical | *(name the test case)* |
+| C05 | `Decomposed citation audit with per-question verification class` | Mandatory deliverable | *(name the test case)* |
+| C06 | Write the claim–evidence relationship rubric | WP-080-T01 | *(name the test case)* |
+| C07 | Add mechanical locator integrity and quote/fingerprint checking | WP-080-T02 | *(name the test case)* |
+| C08 | Build the entailment, scope, hedging and secondary-citation review graph | WP-080-T03 | *(name the test case)* |
+| C09 | Add counter-evidence and citation-laundering checks | WP-080-T04 | *(name the test case)* |
+| C10 | Apply risk-based human sampling and full audit | WP-080-T05 | *(name the test case)* |
+| C11 | Integrate the `CitationAudit` verdict as a G9 blocker | WP-080-T06 | *(name the test case)* |
+| C12 | Publication Completeness | [ACC-30](../12_ACCEPTANCE_SCENARIOS/ACC-30_publication_completeness.md) — Critical | *(name the test case)* |
 
-**11 coverage items.** Every one must appear in the *Covered by* column of at least one test case below before this package can reach `TECH_COMPLETE`.
+**12 coverage items.** Every one must appear in the *Covered by* column of at least one test case below before this package can reach `TECH_COMPLETE`.
 
 <!-- /generated:coverage -->
 

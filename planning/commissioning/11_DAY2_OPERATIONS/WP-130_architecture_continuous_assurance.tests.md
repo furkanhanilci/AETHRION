@@ -54,7 +54,7 @@ ISO/IEC/IEEE 29119-3 §8.6 requires each environment item to name a description,
 | `WP-030` accepted output | Neo4j, pgvector and OpenSearch Derived Read Models | Knowledge Data Lead | Before the first test case runs |
 | `WP-040` accepted output | Workflow Replay, Versioning and Failure Test Suite | Platform Assurance Lead | Before the first test case runs |
 | `WP-060` accepted output | Agentic Security Attack Suite and Red-Team Acceptance | Red Team Lead | Before the first test case runs |
-| `WP-109` accepted output | Forty Acceptance Scenario Registry and Harness | Platform Assurance Lead | Before the first test case runs |
+| `WP-109` accepted output | Acceptance Scenario Registry and Harness | Platform Assurance Lead | Before the first test case runs |
 | `WP-115` accepted output | Full System Regression and Commissioning Dossier | Platform Assurance Lead | Before the first test case runs |
 | `WP-121` accepted output | Hypercare, Stabilisation and Programme Closure | SRE Lead / Program Lead | Before the first test case runs |
 | `WP-123` accepted output | Control Effectiveness and Policy Regression Rhythm | Safety & Governance Owner | Before the first test case runs |
@@ -115,14 +115,15 @@ ISO/IEC/IEEE 29119-3 §8.3.2. A coverage item is something the tests must reach.
 | C03 | `Golden-path results` | Mandatory deliverable | *(name the test case)* |
 | C04 | `ADR/retirement decisions` | Mandatory deliverable | *(name the test case)* |
 | C05 | `Assurance backlog` | Mandatory deliverable | *(name the test case)* |
-| C06 | Run the monthly architecture drift and canonical-owner scan | WP-130-T01 | *(name the test case)* |
-| C07 | Run the schema, adapter and policy compatibility suite | WP-130-T02 | *(name the test case)* |
-| C08 | Execute the golden-path synthetic research and engineering runs | WP-130-T03 | *(name the test case)* |
-| C09 | Run a derived graph, index and Obsidian rebuild sample | WP-130-T04 | *(name the test case)* |
-| C10 | Review the platform chaos, replay and backup evidence | WP-130-T05 | *(name the test case)* |
-| C11 | Produce the ADR reopen triggers, service retirement and technical-debt decisions | WP-130-T06 | *(name the test case)* |
+| C06 | `MAS efficiency and Pareto frontier assurance` | Mandatory deliverable | *(name the test case)* |
+| C07 | Run the monthly architecture drift and canonical-owner scan | WP-130-T01 | *(name the test case)* |
+| C08 | Run the schema, adapter and policy compatibility suite | WP-130-T02 | *(name the test case)* |
+| C09 | Execute the golden-path synthetic research and engineering runs | WP-130-T03 | *(name the test case)* |
+| C10 | Run a derived graph, index and Obsidian rebuild sample | WP-130-T04 | *(name the test case)* |
+| C11 | Review the platform chaos, replay and backup evidence | WP-130-T05 | *(name the test case)* |
+| C12 | Produce the ADR reopen triggers, service retirement and technical-debt decisions | WP-130-T06 | *(name the test case)* |
 
-**11 coverage items.** Every one must appear in the *Covered by* column of at least one test case below before this package can reach `TECH_COMPLETE`.
+**12 coverage items.** Every one must appear in the *Covered by* column of at least one test case below before this package can reach `TECH_COMPLETE`.
 
 <!-- /generated:coverage -->
 

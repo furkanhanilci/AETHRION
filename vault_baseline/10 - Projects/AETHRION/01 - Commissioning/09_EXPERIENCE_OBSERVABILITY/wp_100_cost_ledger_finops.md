@@ -96,6 +96,29 @@ Provider bills and internal accounting diverge — by rounding, by unmetered cal
 by a misattributed project. A variance case with an owner is what stops the ledger
 quietly becoming approximate.
 
+### Baseline v1.3.0 — showing the cost of collaboration, and the shape of a decision
+
+The experience and observability layer gains three things it could not
+previously display, because they did not exist to be displayed.
+
+**Collaboration cost.** Coordination overhead ratio, redundant message rate,
+useful challenge rate, rounds, and the token ledger's seven categories. A single
+cost total says a campaign was expensive; the categories say whether it was
+expensive because it did science or because it held a meeting.
+
+**The human decision surface, reordered.** Evidence first, recommendation second,
+and a `DecisionDelta` when the second changes the first (`ADR-016`). The queue
+uses evidence-delta priority — what changed since the last decision, not the full
+state every time. **Attention priority orders and never authorises**, and no
+timeout or learned preference produces an approval.
+
+**Verifier abstention, surfaced.** An `ABSTAIN` is an escalation signal and has to
+look like one in the interface. A surface that renders it as a soft pass has
+undone `ADR-015`.
+
+New SLOs: coordination overhead, challenge rate, contamination and security
+findings, and the quality/cost Pareto frontier.
+
 ## Out of scope
 
 - The internal implementation of any dependent package
@@ -127,7 +150,7 @@ quietly becoming approximate.
 
 ### Full prerequisite closure
 
-**53 of 141 packages (38%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
+**53 of 160 packages (33%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
 
 | Level | Packages |
 |---:|---|
@@ -164,8 +187,8 @@ quietly becoming approximate.
 
 ### What acceptance of this package releases
 
-- **Directly unblocked:** 6 — `WP-101` · `WP-102` · `WP-104` · `WP-111` · `WP-117` · `WP-127`
-- **Transitively reachable:** **29 of 141 packages (21%)** cannot be accepted until this one is.
+- **Directly unblocked:** 9 — `WP-101` · `WP-102` · `WP-104` · `WP-111` · `WP-117` · `WP-127` · `WP-145` · `WP-150` · `WP-153`
+- **Transitively reachable:** **36 of 160 packages (22%)** cannot be accepted until this one is.
 
 The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
 
@@ -225,6 +248,7 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `Event Catalog seed` | `WP-015` | `python3 scripts/progress.py show WP-015` |
 | `Subject/retention table` | `WP-015` | `python3 scripts/progress.py show WP-015` |
 | `Consumer contract` | `WP-015` | `python3 scripts/progress.py show WP-015` |
+| `Post-commit event taxonomy for the collaboration plane` | `WP-015` | `python3 scripts/progress.py show WP-015` |
 | `PolicyDecision schema` | `WP-016` | `python3 scripts/progress.py show WP-016` |
 | `ControlRecord schema` | `WP-016` | `python3 scripts/progress.py show WP-016` |
 | `ExceptionRecord schema` | `WP-016` | `python3 scripts/progress.py show WP-016` |
@@ -253,6 +277,8 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `Invocation/Receipt persistence` | `WP-049` | `python3 scripts/progress.py show WP-049` |
 | `Connector SDK` | `WP-049` | `python3 scripts/progress.py show WP-049` |
 | `Audit events` | `WP-049` | `python3 scripts/progress.py show WP-049` |
+| `Capability gate` | `WP-049` | `python3 scripts/progress.py show WP-049` |
+| `Tool-result reuse with recorded provenance` | `WP-049` | `python3 scripts/progress.py show WP-049` |
 | `Kubernetes clusters` | `WP-052` | `python3 scripts/progress.py show WP-052` |
 | `Node pool catalog` | `WP-052` | `python3 scripts/progress.py show WP-052` |
 | `Namespace/security baseline` | `WP-052` | `python3 scripts/progress.py show WP-052` |
@@ -266,6 +292,11 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `MLflow integration` | `WP-082` | `python3 scripts/progress.py show WP-082` |
 | `Run lineage queries` | `WP-082` | `python3 scripts/progress.py show WP-082` |
 | `Run lifecycle dashboard` | `WP-082` | `python3 scripts/progress.py show WP-082` |
+| `RawEvaluatorArtifact` | `WP-082` | `python3 scripts/progress.py show WP-082` |
+| `VerifiedValue` | `WP-082` | `python3 scripts/progress.py show WP-082` |
+| `PredictionRecord` | `WP-082` | `python3 scripts/progress.py show WP-082` |
+| `FailureAssessment` | `WP-082` | `python3 scripts/progress.py show WP-082` |
+| `ModelExecutionFingerprint` | `WP-082` | `python3 scripts/progress.py show WP-082` |
 | `OTel platform` | `WP-096` | `python3 scripts/progress.py show WP-096` |
 | `Semantic conventions` | `WP-096` | `python3 scripts/progress.py show WP-096` |
 | `Instrumentation libraries` | `WP-096` | `python3 scripts/progress.py show WP-096` |
@@ -319,6 +350,7 @@ A package whose evidence cannot be produced is not `READY`, however complete its
 - `Cost adapters`
 - `Invoice reconciliation`
 - `FinOps dashboard/runbook`
+- `Token ledger categories`
 - An updated runbook or operations note, plus the service/contract ownership record
 - A signed `EvidenceManifest`
 

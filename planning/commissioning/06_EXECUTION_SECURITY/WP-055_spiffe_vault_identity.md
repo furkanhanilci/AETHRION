@@ -68,6 +68,31 @@ laboratory cannot always supply two people, and the honest response is the one
 ADR-001 already models: **declare the gap** rather than quietly implement a
 one-person break-glass and call it two.
 
+### Baseline v1.3.0 — four zones, a capability gate, and a benchmark firewall
+
+The isolation story gains a fourth zone and two new attack surfaces.
+
+**Four zones, not three.** Producer, evaluator, reproducer and independent
+grader, separated in secrets, cache and workspace. The leakage paths that matter
+are the quiet ones — a shared cache, an inherited credential, a warm container
+layer — and none of them looks like a boundary violation in a log. Each is tested
+explicitly rather than inferred from the zone configuration (ACC-113).
+
+**Security is a capability, not a prompt.** *Prompt says safe* is not security;
+*the capability is unavailable unless policy grants it* is. External content —
+PDF, web page, tool result, reviewer comment — is quarantined into a data object,
+and the agent's tool intent passes a policy gate before any credential is
+injected (ACC-117).
+
+**A benchmark firewall.** An evaluation run freezes its dataset manifest, network
+mode, allowed domains, known identifiers and evaluator isolation before it
+starts, and audits every retrieval. Gold answers, private rubrics, hidden tests
+and grader prompts are unreachable from the agent environment (ACC-118).
+
+The attack suite gains ASB and WASP as external regressions, alongside internal
+fixtures for source-PDF injection, malicious citation text, tool-result
+injection, memory poisoning and credential exfiltration.
+
 ## Out of scope
 
 - The internal implementation of any dependent package
@@ -94,7 +119,7 @@ one-person break-glass and call it two.
 
 ### Full prerequisite closure
 
-**40 of 141 packages (28%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
+**40 of 160 packages (25%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
 
 | Level | Packages |
 |---:|---|
@@ -125,7 +150,7 @@ one-person break-glass and call it two.
 ### What acceptance of this package releases
 
 - **Directly unblocked:** 12 — `WP-056` · `WP-057` · `WP-060` · `WP-061` · `WP-075` · `WP-084` · `WP-091` · `WP-096` · `WP-097` · `WP-099` · `WP-101` · `WP-135`
-- **Transitively reachable:** **80 of 141 packages (57%)** cannot be accepted until this one is.
+- **Transitively reachable:** **99 of 160 packages (62%)** cannot be accepted until this one is.
 
 The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
 
@@ -176,6 +201,8 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `SLA/escalation table` | `WP-004` | `python3 scripts/progress.py show WP-004` |
 | `Delegation matrix` | `WP-004` | `python3 scripts/progress.py show WP-004` |
 | `Decision rationale rubric` | `WP-004` | `python3 scripts/progress.py show WP-004` |
+| `Human intervention vocabulary` | `WP-004` | `python3 scripts/progress.py show WP-004` |
+| `Timeout escalation path with no approval branch` | `WP-004` | `python3 scripts/progress.py show WP-004` |
 | `PolicyDecision schema` | `WP-016` | `python3 scripts/progress.py show WP-016` |
 | `ControlRecord schema` | `WP-016` | `python3 scripts/progress.py show WP-016` |
 | `ExceptionRecord schema` | `WP-016` | `python3 scripts/progress.py show WP-016` |
@@ -199,6 +226,8 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `Invocation/Receipt persistence` | `WP-049` | `python3 scripts/progress.py show WP-049` |
 | `Connector SDK` | `WP-049` | `python3 scripts/progress.py show WP-049` |
 | `Audit events` | `WP-049` | `python3 scripts/progress.py show WP-049` |
+| `Capability gate` | `WP-049` | `python3 scripts/progress.py show WP-049` |
+| `Tool-result reuse with recorded provenance` | `WP-049` | `python3 scripts/progress.py show WP-049` |
 | `Trust zone diagram/data flows` | `WP-051` | `python3 scripts/progress.py show WP-051` |
 | `Network IaC` | `WP-051` | `python3 scripts/progress.py show WP-051` |
 | `Boundary policy` | `WP-051` | `python3 scripts/progress.py show WP-051` |

@@ -80,6 +80,25 @@ WP-012 decides who owns which field. This service is where that becomes a refusa
 an agent write to a human-authority field returns an error, rather than depending
 on every caller to have read the matrix.
 
+### Baseline v1.3.0 — source status, retrieval budget and what survives a pruned context
+
+Two additions and one guarantee.
+
+**Material-delta detection for G10.** A citation-count change is not a material
+event. A retraction, a major correction, strong contradictory evidence, a
+reproduction failure or a dependency drift that invalidates a result is. The
+distinction is what keeps G10 from becoming a notification nobody reads —
+alert fatigue is a failure mode of a monitoring system, not a nuisance.
+
+**Search and retrieval budget.** Literature retrieval draws on the same
+`ResearchBudgetContract` as everything else, and its stopping rule stays
+distinct from the communication stopping rule — the two answer different
+questions and sharing a threshold would couple them wrongly.
+
+**The guarantee:** source and literature records stay canonical **even when the
+blackboard and the context projections are pruned**. A source that only exists in
+an agent's context is not a source, and pruning must never be able to lose one.
+
 ## Out of scope
 
 - The internal implementation of any dependent package
@@ -102,11 +121,11 @@ on every caller to have read the matrix.
 | [WP-026 — Content-Addressed Object Store and WORM](../03_FOUNDATION/WP-026_object_store_worm.md) | `Object storage IaC` · `Object address service` · `Retention matrix` · `Integrity scan job` |
 | [WP-028 — NATS JetStream and Transactional Outbox Foundation](../03_FOUNDATION/WP-028_nats_jetstream_outbox.md) | `NATS cluster` · `Outbox relay` · `Consumer SDK` · `DLQ/replay runbook` |
 | [WP-055 — SPIFFE/SPIRE Workload Identity and Vault](../06_EXECUTION_SECURITY/WP-055_spiffe_vault_identity.md) | `SPIRE/Vault deployments` · `Identity registry mapping` · `Lease policies` · `Break-glass procedure` |
-| [WP-056 — OPA Policy Platform and Bundle Distribution](../06_EXECUTION_SECURITY/WP-056_opa_policy_platform.md) | `OPA platform` · `Policy bundle v1` · `Policy test suite` · `Bundle promotion pipeline` |
+| [WP-056 — Policy Decision Point and Bundle Distribution](../06_EXECUTION_SECURITY/WP-056_opa_policy_platform.md) | `Policy decision point` · `PolicyDecision interface conformance suite` · `Policy bundle v1` · `Policy test suite` |
 
 ### Full prerequisite closure
 
-**42 of 141 packages (30%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
+**42 of 160 packages (26%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
 
 | Level | Packages |
 |---:|---|
@@ -139,7 +158,7 @@ on every caller to have read the matrix.
 ### What acceptance of this package releases
 
 - **Directly unblocked:** 17 — `WP-062` · `WP-063` · `WP-064` · `WP-065` · `WP-066` · `WP-067` · `WP-068` · `WP-069` · `WP-071` · `WP-072` · `WP-073` · `WP-074` · `WP-075` · `WP-094` · `WP-101` · `WP-103` · `WP-125`
-- **Transitively reachable:** **71 of 141 packages (50%)** cannot be accepted until this one is.
+- **Transitively reachable:** **86 of 160 packages (54%)** cannot be accepted until this one is.
 
 The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
 
@@ -219,7 +238,8 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `Lease policies` | `WP-055` | `python3 scripts/progress.py show WP-055` |
 | `Break-glass procedure` | `WP-055` | `python3 scripts/progress.py show WP-055` |
 | `Identity audit dashboard` | `WP-055` | `python3 scripts/progress.py show WP-055` |
-| `OPA platform` | `WP-056` | `python3 scripts/progress.py show WP-056` |
+| `Policy decision point` | `WP-056` | `python3 scripts/progress.py show WP-056` |
+| `PolicyDecision interface conformance suite` | `WP-056` | `python3 scripts/progress.py show WP-056` |
 | `Policy bundle v1` | `WP-056` | `python3 scripts/progress.py show WP-056` |
 | `Policy test suite` | `WP-056` | `python3 scripts/progress.py show WP-056` |
 | `Bundle promotion pipeline` | `WP-056` | `python3 scripts/progress.py show WP-056` |

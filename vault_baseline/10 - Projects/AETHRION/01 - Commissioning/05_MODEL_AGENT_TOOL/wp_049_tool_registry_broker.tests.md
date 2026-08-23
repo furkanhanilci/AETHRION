@@ -138,17 +138,19 @@ ISO/IEC/IEEE 29119-3 §8.3.2. A coverage item is something the tests must reach.
 | C03 | `Invocation/Receipt persistence` | Mandatory deliverable | *(name the test case)* |
 | C04 | `Connector SDK` | Mandatory deliverable | *(name the test case)* |
 | C05 | `Audit events` | Mandatory deliverable | *(name the test case)* |
-| C06 | Build the `ToolDefinition` registry with signatures and versioning | WP-049-T01 | *(name the test case)* |
-| C07 | Validate the `InvocationEnvelope` | WP-049-T02 | *(name the test case)* |
-| C08 | Bind the OPA actor × purpose × data × tool × target × risk decision | WP-049-T03 | *(name the test case)* |
-| C09 | Write the idempotency and reconciliation store | WP-049-T04 | *(name the test case)* |
-| C10 | Add the Vault/SPIRE credential lease and the egress proxy adapter | WP-049-T05 | *(name the test case)* |
-| C11 | Produce result quarantine, redaction, provenance and the `ToolReceipt` | WP-049-T06 | *(name the test case)* |
-| C12 | Prompt-Injection PDF | [ACC-05](../12_ACCEPTANCE_SCENARIOS/acc_05_prompt_injection_pdf.md) — Critical | *(name the test case)* |
-| C13 | Duplicate Event Delivery | [ACC-12](../12_ACCEPTANCE_SCENARIOS/acc_12_duplicate_event.md) — Critical | *(name the test case)* |
-| C14 | Tool Partial Failure | [ACC-35](../12_ACCEPTANCE_SCENARIOS/acc_35_tool_partial_failure.md) — Critical | *(name the test case)* |
+| C06 | `Capability gate` | Mandatory deliverable | *(name the test case)* |
+| C07 | `Tool-result reuse with recorded provenance` | Mandatory deliverable | *(name the test case)* |
+| C08 | Build the `ToolDefinition` registry with signatures and versioning | WP-049-T01 | *(name the test case)* |
+| C09 | Validate the `InvocationEnvelope` | WP-049-T02 | *(name the test case)* |
+| C10 | Bind the OPA actor × purpose × data × tool × target × risk decision | WP-049-T03 | *(name the test case)* |
+| C11 | Write the idempotency and reconciliation store | WP-049-T04 | *(name the test case)* |
+| C12 | Add the Vault/SPIRE credential lease and the egress proxy adapter | WP-049-T05 | *(name the test case)* |
+| C13 | Produce result quarantine, redaction, provenance and the `ToolReceipt` | WP-049-T06 | *(name the test case)* |
+| C14 | Prompt-Injection PDF | [ACC-05](../12_ACCEPTANCE_SCENARIOS/acc_05_prompt_injection_pdf.md) — Critical | *(name the test case)* |
+| C15 | Duplicate Event Delivery | [ACC-12](../12_ACCEPTANCE_SCENARIOS/acc_12_duplicate_event.md) — Critical | *(name the test case)* |
+| C16 | Tool Partial Failure | [ACC-35](../12_ACCEPTANCE_SCENARIOS/acc_35_tool_partial_failure.md) — Critical | *(name the test case)* |
 
-**14 coverage items.** Every one must appear in the *Covered by* column of at least one test case below before this package can reach `TECH_COMPLETE`.
+**16 coverage items.** Every one must appear in the *Covered by* column of at least one test case below before this package can reach `TECH_COMPLETE`.
 
 <!-- /generated:coverage -->
 

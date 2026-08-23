@@ -84,7 +84,7 @@ From `00_PROGRAM/05_definition_of_ready_and_done.md`, instantiated for this pack
 - [ ] Out-of-scope items are written down.
 - [ ] **Safety & Governance Owner** is assigned accountable; an implementer is named; **Independent Red Team / Privacy Reviewer** is assigned verifier and is **independent of the producer** under WP-007's profile.
 - [ ] `WP-060` — Agentic Security Attack Suite and Red-Team Acceptance — is `ACCEPTED` (not `TECH_COMPLETE`).
-- [ ] `WP-109` — Forty Acceptance Scenario Registry and Harness — is `ACCEPTED` (not `TECH_COMPLETE`).
+- [ ] `WP-109` — Acceptance Scenario Registry and Harness — is `ACCEPTED` (not `TECH_COMPLETE`).
 - [ ] `DataClass`, `CodeTrust`, `ToolEffect` and the network/credential scope are classified — all four, with no `UNKNOWN`.
 - [ ] Acceptance criteria name **a number, a threshold or a command**. `00_PROGRAM/05` states that the generic template criteria are not measurable in the sense meant here; refinement is where that is fixed.
 - [ ] Migration, rollback or compensation behaviour is defined.

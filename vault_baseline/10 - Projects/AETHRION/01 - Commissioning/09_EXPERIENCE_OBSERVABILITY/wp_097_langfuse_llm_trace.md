@@ -98,6 +98,29 @@ Trace-level evaluation signals feed the eval harness. The contamination rule
 applies in reverse here: the golden set must not be reachable from the trace store
 (`PR-15`).
 
+### Baseline v1.3.0 — showing the cost of collaboration, and the shape of a decision
+
+The experience and observability layer gains three things it could not
+previously display, because they did not exist to be displayed.
+
+**Collaboration cost.** Coordination overhead ratio, redundant message rate,
+useful challenge rate, rounds, and the token ledger's seven categories. A single
+cost total says a campaign was expensive; the categories say whether it was
+expensive because it did science or because it held a meeting.
+
+**The human decision surface, reordered.** Evidence first, recommendation second,
+and a `DecisionDelta` when the second changes the first (`ADR-016`). The queue
+uses evidence-delta priority — what changed since the last decision, not the full
+state every time. **Attention priority orders and never authorises**, and no
+timeout or learned preference produces an approval.
+
+**Verifier abstention, surfaced.** An `ABSTAIN` is an escalation signal and has to
+look like one in the interface. A surface that renders it as a soft pass has
+undone `ADR-015`.
+
+New SLOs: coordination overhead, challenge rate, contamination and security
+findings, and the quality/cost Pareto frontier.
+
 ## Out of scope
 
 - The internal implementation of any dependent package
@@ -120,15 +143,15 @@ applies in reverse here: the golden set must not be reachable from the trace sto
 | [WP-026 — Content-Addressed Object Store and WORM](../03_FOUNDATION/wp_026_object_store_worm.md) | `Object storage IaC` · `Object address service` · `Retention matrix` · `Integrity scan job` |
 | [WP-041 — LiteLLM Model Gateway Foundation](../05_MODEL_AGENT_TOOL/wp_041_litellm_gateway.md) | `LiteLLM deployment` · `Provider configuration` · `Gateway policy adapter` · `Model-call audit/cost events` |
 | [WP-046 — LangGraph Bounded Cognition Runtime](../05_MODEL_AGENT_TOOL/wp_046_langgraph_runtime.md) | `LangGraph runtime` · `Temporal adapter` · `Checkpoint policy` · `Agent graph SDK` |
-| [WP-047 — Role and Skill Registries, and the Task Compiler](../05_MODEL_AGENT_TOOL/wp_047_role_bundle_registry.md) | `Role Bundle Registry` · `Core role bundles` · `Bundle conformance tests` |
+| [WP-047 — Role and Skill Registries, and the Task Compiler](../05_MODEL_AGENT_TOOL/wp_047_role_bundle_registry.md) | `Role Bundle Registry` · `Core role bundles` · `Bundle conformance tests` · `Cohort, topology, projection and assurance-route compilation` |
 | [WP-055 — SPIFFE/SPIRE Workload Identity and Vault](../06_EXECUTION_SECURITY/wp_055_spiffe_vault_identity.md) | `SPIRE/Vault deployments` · `Identity registry mapping` · `Lease policies` · `Break-glass procedure` |
-| [WP-056 — OPA Policy Platform and Bundle Distribution](../06_EXECUTION_SECURITY/wp_056_opa_policy_platform.md) | `OPA platform` · `Policy bundle v1` · `Policy test suite` · `Bundle promotion pipeline` |
+| [WP-056 — Policy Decision Point and Bundle Distribution](../06_EXECUTION_SECURITY/wp_056_opa_policy_platform.md) | `Policy decision point` · `PolicyDecision interface conformance suite` · `Policy bundle v1` · `Policy test suite` |
 | [WP-057 — Default-Deny Egress Proxy, DLP and Allowlist](../06_EXECUTION_SECURITY/wp_057_egress_proxy_dlp.md) | `Egress proxy` · `Allowlist registry` · `DLP pipeline` · `Egress audit/alerts` |
 | [WP-096 — OpenTelemetry End-to-End Correlation Spine](../09_EXPERIENCE_OBSERVABILITY/wp_096_otel_correlation.md) | `OTel platform` · `Semantic conventions` · `Instrumentation libraries` · `Trace completeness dashboard` |
 
 ### Full prerequisite closure
 
-**53 of 141 packages (38%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
+**53 of 160 packages (33%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
 
 | Level | Packages |
 |---:|---|
@@ -166,7 +189,7 @@ applies in reverse here: the golden set must not be reachable from the trace sto
 ### What acceptance of this package releases
 
 - **Directly unblocked:** 2 — `WP-098` · `WP-104`
-- **Transitively reachable:** **30 of 141 packages (21%)** cannot be accepted until this one is.
+- **Transitively reachable:** **33 of 160 packages (21%)** cannot be accepted until this one is.
 
 The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
 
@@ -216,6 +239,8 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `Route/control decision tables` | `WP-006` | `python3 scripts/progress.py show WP-006` |
 | `Enforcement map` | `WP-006` | `python3 scripts/progress.py show WP-006` |
 | `Negative examples` | `WP-006` | `python3 scripts/progress.py show WP-006` |
+| `Producer and evaluator zone profiles` | `WP-006` | `python3 scripts/progress.py show WP-006` |
+| `MutationPolicy` | `WP-006` | `python3 scripts/progress.py show WP-006` |
 | `ProjectContract schemas` | `WP-013` | `python3 scripts/progress.py show WP-013` |
 | `TaskContract schema` | `WP-013` | `python3 scripts/progress.py show WP-013` |
 | `RoleContract schema` | `WP-013` | `python3 scripts/progress.py show WP-013` |
@@ -249,12 +274,14 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `Role Bundle Registry` | `WP-047` | `python3 scripts/progress.py show WP-047` |
 | `Core role bundles` | `WP-047` | `python3 scripts/progress.py show WP-047` |
 | `Bundle conformance tests` | `WP-047` | `python3 scripts/progress.py show WP-047` |
+| `Cohort, topology, projection and assurance-route compilation` | `WP-047` | `python3 scripts/progress.py show WP-047` |
 | `SPIRE/Vault deployments` | `WP-055` | `python3 scripts/progress.py show WP-055` |
 | `Identity registry mapping` | `WP-055` | `python3 scripts/progress.py show WP-055` |
 | `Lease policies` | `WP-055` | `python3 scripts/progress.py show WP-055` |
 | `Break-glass procedure` | `WP-055` | `python3 scripts/progress.py show WP-055` |
 | `Identity audit dashboard` | `WP-055` | `python3 scripts/progress.py show WP-055` |
-| `OPA platform` | `WP-056` | `python3 scripts/progress.py show WP-056` |
+| `Policy decision point` | `WP-056` | `python3 scripts/progress.py show WP-056` |
+| `PolicyDecision interface conformance suite` | `WP-056` | `python3 scripts/progress.py show WP-056` |
 | `Policy bundle v1` | `WP-056` | `python3 scripts/progress.py show WP-056` |
 | `Policy test suite` | `WP-056` | `python3 scripts/progress.py show WP-056` |
 | `Bundle promotion pipeline` | `WP-056` | `python3 scripts/progress.py show WP-056` |

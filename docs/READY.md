@@ -28,7 +28,7 @@
 
 **None.** No package in this repository has been accepted, which is why section 1 is as short as it is.
 
-## 4. Blocked — 139
+## 4. Blocked — 158
 
 Every entry names the packages it is waiting for, so a blockage is traceable to a decision rather than to a queue.
 
@@ -173,6 +173,25 @@ Every entry names the packages it is waiting for, so a blockage is traceable to 
 | WP-138 | `WP-014`, `WP-090`, `WP-131` |
 | WP-139 | `WP-014`, `WP-026` |
 | WP-140 | `WP-101`, `WP-131`, `WP-134` |
+| WP-141 | `WP-010`, `WP-022`, `WP-024`, `WP-059` |
+| WP-142 | `WP-005`, `WP-008`, `WP-013`, `WP-018`, `WP-034`, `WP-141` |
+| WP-143 | `WP-018`, `WP-020`, `WP-030`, `WP-035`, `WP-142` |
+| WP-144 | `WP-014`, `WP-019`, `WP-023`, `WP-030`, `WP-082`, `WP-143` |
+| WP-145 | `WP-083`, `WP-100`, `WP-144` |
+| WP-146 | `WP-012`, `WP-026`, `WP-030`, `WP-075`, `WP-077`, `WP-144` |
+| WP-147 | `WP-003`, `WP-007`, `WP-013`, `WP-046`, `WP-047`, `WP-086` (+1 more) |
+| WP-148 | `WP-007`, `WP-013`, `WP-046`, `WP-047`, `WP-147` |
+| WP-149 | `WP-013`, `WP-015`, `WP-046`, `WP-047`, `WP-148` |
+| WP-150 | `WP-096`, `WP-100`, `WP-149` |
+| WP-151 | `WP-146`, `WP-150` |
+| WP-152 | `WP-082`, `WP-096`, `WP-128`, `WP-148` |
+| WP-153 | `WP-100`, `WP-145`, `WP-150` |
+| WP-154 | `WP-023`, `WP-047`, `WP-081`, `WP-107` |
+| WP-155 | `WP-044`, `WP-087`, `WP-126` |
+| WP-156 | `WP-004`, `WP-038`, `WP-093` |
+| WP-157 | `WP-019`, `WP-084`, `WP-085` |
+| WP-158 | `WP-043`, `WP-057`, `WP-115`, `WP-149` |
+| WP-159 | `WP-024`, `WP-027`, `WP-059`, `WP-141` |
 
 ---
 
@@ -183,7 +202,7 @@ V1 is complete when `10_go_live_checklist.md`'s entry conditions hold. Two of th
 | Condition | Now |
 |---|---|
 | WP-001–119 `COMMISSIONED` | 0 of 119 |
-| Packages accepted, all workstreams | 0 of 141 |
+| Packages accepted, all workstreams | 0 of 160 |
 | `PRE_GO_LIVE` scenarios passing on one release candidate | not run |
 | Open critical findings | not tracked mechanically yet |
 

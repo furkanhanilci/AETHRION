@@ -73,3 +73,50 @@ rubber-stamping.
 
 Schedule pressure cannot be used to defer target capabilities. If something has
 to move, the production date moves, not the scope.
+
+## What baseline v1.2.0 added to the estimate
+
+Seven packages, effort mix **0 S · 2 M · 5 L** —
+against a programme mix of 9 S · 51 M · 88 L.
+Five of the seven are **L**, which is the honest signal: this is not a trim of
+supporting work, and estimating it as one is how the production date moves later
+without anyone deciding that it should.
+
+Three properties of this wave affect capacity in ways the effort class alone does
+not carry:
+
+- **WP-141 gates the rest.** Assimilation governance after assimilation is
+  documentation rather than control, so it cannot be parallelised behind the
+  packages that depend on the mechanisms it governs.
+- **Half of every test table in this wave is a refusal case.** A refusal case
+  needs a working system *and* a way to make it fail, which costs more fixture
+  work than a happy-path case and is routinely estimated as if it did not.
+- **The Assurance and Metascience pools carry more of it than the effort class
+  suggests** — verifier qualification, control injection and error-correlation
+  measurement are the pools the WIP limits above already protect from delivery
+  pressure, and this wave increases the demand on both.
+
+## What baseline v1.3.0 added to the estimate
+
+Twelve packages, effort mix **0 S · 2 M · 10 L**. Ten of the
+twelve are **L**, which is a heavier wave than the one before it and is not an
+estimation artefact — most of these packages deliver a control *and* the
+injection suite that proves it fires.
+
+Three properties that change capacity beyond what the effort class carries:
+
+- **WP-148 gates the wave.** A communication optimiser built before the cohort it
+  optimises has no quality guard to anchor against, and a budget controller built
+  before the ledger has nothing to degrade.
+- **Two runnable arms, not one.** Every efficiency claim here is measured against
+  a naive fully-connected baseline that must also be built, run and maintained.
+  The baseline is not a fixture — it is a second execution path.
+- **Most cases are injections.** A refusal case needs a working system *and* a
+  way to make it fail; a split-brain case needs a way to kill a publisher
+  mid-commit. That is materially more fixture work than a happy-path case and is
+  routinely estimated as if it were not.
+
+The pools this lands on are the two the WIP limits already protect from delivery
+pressure: **Assurance/Eval** and **Metascience**. Between v1.2.0 and v1.3.0 the
+demand on both roughly doubled while neither gained capacity, which is a
+scheduling fact rather than a risk to be mitigated later.

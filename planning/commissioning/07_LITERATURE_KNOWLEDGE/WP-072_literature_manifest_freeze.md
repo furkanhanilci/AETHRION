@@ -74,6 +74,25 @@ A new manifest version is a new set. Anything synthesised from the old one is no
 automatically valid against the new one, and the invalidation has to be explicit —
 otherwise a set update silently changes what a published claim rests on.
 
+### Baseline v1.3.0 — source status, retrieval budget and what survives a pruned context
+
+Two additions and one guarantee.
+
+**Material-delta detection for G10.** A citation-count change is not a material
+event. A retraction, a major correction, strong contradictory evidence, a
+reproduction failure or a dependency drift that invalidates a result is. The
+distinction is what keeps G10 from becoming a notification nobody reads —
+alert fatigue is a failure mode of a monitoring system, not a nuisance.
+
+**Search and retrieval budget.** Literature retrieval draws on the same
+`ResearchBudgetContract` as everything else, and its stopping rule stays
+distinct from the communication stopping rule — the two answer different
+questions and sharing a threshold would couple them wrongly.
+
+**The guarantee:** source and literature records stay canonical **even when the
+blackboard and the context projections are pruned**. A source that only exists in
+an agent's context is not a source, and pruning must never be able to lose one.
+
 ## Out of scope
 
 - The internal implementation of any dependent package
@@ -102,7 +121,7 @@ otherwise a set update silently changes what a published claim rests on.
 
 ### Full prerequisite closure
 
-**62 of 141 packages (44%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
+**62 of 160 packages (39%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
 
 | Level | Packages |
 |---:|---|
@@ -141,7 +160,7 @@ otherwise a set update silently changes what a published claim rests on.
 ### What acceptance of this package releases
 
 - **Directly unblocked:** 7 — `WP-073` · `WP-074` · `WP-080` · `WP-090` · `WP-094` · `WP-103` · `WP-125`
-- **Transitively reachable:** **42 of 141 packages (30%)** cannot be accepted until this one is.
+- **Transitively reachable:** **53 of 160 packages (33%)** cannot be accepted until this one is.
 
 The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
 
@@ -194,6 +213,8 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `DatasetManifest schema` | `WP-014` | `python3 scripts/progress.py show WP-014` |
 | `Environment reference schema` | `WP-014` | `python3 scripts/progress.py show WP-014` |
 | `Immutability lifecycle` | `WP-014` | `python3 scripts/progress.py show WP-014` |
+| `Ordered parent lineage` | `WP-014` | `python3 scripts/progress.py show WP-014` |
+| `Digest normalisation and migration` | `WP-014` | `python3 scripts/progress.py show WP-014` |
 | `Literature schema bundle` | `WP-017` | `python3 scripts/progress.py show WP-017` |
 | `Status lifecycle` | `WP-017` | `python3 scripts/progress.py show WP-017` |
 | `Sample manifests` | `WP-017` | `python3 scripts/progress.py show WP-017` |

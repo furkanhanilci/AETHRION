@@ -130,17 +130,18 @@ ISO/IEC/IEEE 29119-3 §8.3.2. A coverage item is something the tests must reach.
 | C03 | `CapabilityProfile update` | Mandatory deliverable | *(name the test case)* |
 | C04 | `Regression schedule` | Mandatory deliverable | *(name the test case)* |
 | C05 | `Ejection procedure` | Mandatory deliverable | *(name the test case)* |
-| C06 | Resolve the qualification request against an immutable model snapshot | WP-044-T01 | *(name the test case)* |
-| C07 | Run the role evaluation, safety, latency and cost batches | WP-044-T02 | *(name the test case)* |
-| C08 | Compute the baseline comparison and the incremental value | WP-044-T03 | *(name the test case)* |
-| C09 | Verify the data and provider contract and its retention terms | WP-044-T04 | *(name the test case)* |
-| C10 | Write the Admission Board decision workflow and the profile expiry | WP-044-T05 | *(name the test case)* |
-| C11 | Bind the regression/drift schedule to the revocation path | WP-044-T06 | *(name the test case)* |
-| C12 | Primary Model Provider Outage | [ACC-10](../12_ACCEPTANCE_SCENARIOS/acc_10_provider_outage.md) — High | *(name the test case)* |
-| C13 | Model Snapshot Drift | [ACC-36](../12_ACCEPTANCE_SCENARIOS/acc_36_model_snapshot_drift.md) — Critical | *(name the test case)* |
-| C14 | Evaluation Set Contamination | [ACC-37](../12_ACCEPTANCE_SCENARIOS/acc_37_eval_contamination.md) — Critical | *(name the test case)* |
+| C06 | `Fingerprint and abstention scope on qualification records` | Mandatory deliverable | *(name the test case)* |
+| C07 | Resolve the qualification request against an immutable model snapshot | WP-044-T01 | *(name the test case)* |
+| C08 | Run the role evaluation, safety, latency and cost batches | WP-044-T02 | *(name the test case)* |
+| C09 | Compute the baseline comparison and the incremental value | WP-044-T03 | *(name the test case)* |
+| C10 | Verify the data and provider contract and its retention terms | WP-044-T04 | *(name the test case)* |
+| C11 | Write the Admission Board decision workflow and the profile expiry | WP-044-T05 | *(name the test case)* |
+| C12 | Bind the regression/drift schedule to the revocation path | WP-044-T06 | *(name the test case)* |
+| C13 | Primary Model Provider Outage | [ACC-10](../12_ACCEPTANCE_SCENARIOS/acc_10_provider_outage.md) — High | *(name the test case)* |
+| C14 | Model Snapshot Drift | [ACC-36](../12_ACCEPTANCE_SCENARIOS/acc_36_model_snapshot_drift.md) — Critical | *(name the test case)* |
+| C15 | Evaluation Set Contamination | [ACC-37](../12_ACCEPTANCE_SCENARIOS/acc_37_eval_contamination.md) — Critical | *(name the test case)* |
 
-**14 coverage items.** Every one must appear in the *Covered by* column of at least one test case below before this package can reach `TECH_COMPLETE`.
+**15 coverage items.** Every one must appear in the *Covered by* column of at least one test case below before this package can reach `TECH_COMPLETE`.
 
 <!-- /generated:coverage -->
 

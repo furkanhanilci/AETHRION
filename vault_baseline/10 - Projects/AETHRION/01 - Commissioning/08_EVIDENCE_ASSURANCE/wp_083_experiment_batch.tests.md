@@ -132,17 +132,20 @@ ISO/IEC/IEEE 29119-3 §8.3.2. A coverage item is something the tests must reach.
 | C03 | `Parameter manifest` | Mandatory deliverable | *(name the test case)* |
 | C04 | `Checkpoint/recovery logic` | Mandatory deliverable | *(name the test case)* |
 | C05 | `Batch report` | Mandatory deliverable | *(name the test case)* |
-| C06 | Write the `ExperimentBatch` workflow and the batch/item state model | WP-083-T01 | *(name the test case)* |
-| C07 | Establish the staged compute promotion checks | WP-083-T02 | *(name the test case)* |
-| C08 | Apply the parameter/seed matrix and fan-out caps | WP-083-T03 | *(name the test case)* |
-| C09 | Add checkpointing, preemption, resume and partial-result behaviour | WP-083-T04 | *(name the test case)* |
-| C10 | Bind budget reservation, release and cost attribution | WP-083-T05 | *(name the test case)* |
-| C11 | Implement the stop / pivot / negative-result decision | WP-083-T06 | *(name the test case)* |
-| C12 | Budget Hard Stop | [ACC-09](../12_ACCEPTANCE_SCENARIOS/acc_09_budget_hard_stop.md) — Critical | *(name the test case)* |
-| C13 | Kueue Preemption | [ACC-33](../12_ACCEPTANCE_SCENARIOS/acc_33_kueue_preemption.md) — High | *(name the test case)* |
-| C14 | Negative Research Result | [ACC-39](../12_ACCEPTANCE_SCENARIOS/acc_39_negative_result.md) — Medium | *(name the test case)* |
+| C06 | `ExperimentPromotionRecord` | Mandatory deliverable | *(name the test case)* |
+| C07 | `ResearchCampaignGovernor` | Mandatory deliverable | *(name the test case)* |
+| C08 | `CampaignStopRecord` | Mandatory deliverable | *(name the test case)* |
+| C09 | Write the `ExperimentBatch` workflow and the batch/item state model | WP-083-T01 | *(name the test case)* |
+| C10 | Establish the staged compute promotion checks | WP-083-T02 | *(name the test case)* |
+| C11 | Apply the parameter/seed matrix and fan-out caps | WP-083-T03 | *(name the test case)* |
+| C12 | Add checkpointing, preemption, resume and partial-result behaviour | WP-083-T04 | *(name the test case)* |
+| C13 | Bind budget reservation, release and cost attribution | WP-083-T05 | *(name the test case)* |
+| C14 | Implement the stop / pivot / negative-result decision | WP-083-T06 | *(name the test case)* |
+| C15 | Budget Hard Stop | [ACC-09](../12_ACCEPTANCE_SCENARIOS/acc_09_budget_hard_stop.md) — Critical | *(name the test case)* |
+| C16 | Kueue Preemption | [ACC-33](../12_ACCEPTANCE_SCENARIOS/acc_33_kueue_preemption.md) — High | *(name the test case)* |
+| C17 | Negative Research Result | [ACC-39](../12_ACCEPTANCE_SCENARIOS/acc_39_negative_result.md) — Medium | *(name the test case)* |
 
-**14 coverage items.** Every one must appear in the *Covered by* column of at least one test case below before this package can reach `TECH_COMPLETE`.
+**17 coverage items.** Every one must appear in the *Covered by* column of at least one test case below before this package can reach `TECH_COMPLETE`.
 
 <!-- /generated:coverage -->
 

@@ -64,6 +64,27 @@ nobody can attribute — and a controlled serial run is slower and interpretable
 `00_PROGRAM/06`: a critical finding cannot be closed as *probably a false positive*
 — a reproducer result is required. Six of these eight scenarios are Critical.
 
+### Baseline v1.3.0 — the slices exercise the cohort, and the regression injects faults
+
+The vertical slices and the cutover path grow to cover what this baseline adds,
+and one package changes character.
+
+**WP-107 becomes the engineering completion slice.** Requirement and
+specification → worktree → TDD → code review → CI → supply-chain attestation →
+signed artifact → **eligibility to produce scientific evidence**. That last arrow
+is the junction between the two disciplines, and before this baseline nothing
+proved it end to end.
+
+**The other slices exercise the collaboration plane**: a compiled cohort, sealed
+initial positions, typed delta exchange over a sparse topology, an adaptive
+assurance route, a fingerprinted reproduction and a firewalled benchmark run.
+
+**The regression suite gains injections rather than cases.** Faulty agent,
+malicious agent, split brain, duplicate and out-of-order events, communication
+degradation under budget pressure, and benchmark contamination. These are
+failures that are invisible in a healthy run and obvious only in a post-mortem,
+which is why they are caused deliberately rather than waited for.
+
 ## Out of scope
 
 - The internal implementation of any dependent package
@@ -84,11 +105,11 @@ nobody can attribute — and a controlled serial run is slower and interpretable
 | [WP-105 — Vertical Slice 4 — Blind Review, Arbitration and Clean-Room](../10_INTEGRATION_CUTOVER/WP-105_vertical_slice_review_repro.md) | `Review/repro vertical dossier` · `ReviewRecords/DisagreementCase` · `ReproductionReport` · `Gate histories` |
 | [WP-106 — Vertical Slice 5 — Human Decision, Publish and Monitor](../10_INTEGRATION_CUTOVER/WP-106_vertical_slice_decision_publish_monitor.md) | `Decision/publish/monitor dossier` · `DecisionRecord` · `PublicationPackage` · `ImpactCase/Supersession` |
 | [WP-108 — Retraction, Drift and Supersession Vertical Slice](../10_INTEGRATION_CUTOVER/WP-108_retraction_drift_vertical_slice.md) | `Impact vertical dossier` · `ImpactCase set` · `Affected-object accuracy report` · `Supersession/re-evaluation records` |
-| [WP-109 — Forty Acceptance Scenario Registry and Harness](../10_INTEGRATION_CUTOVER/WP-109_acceptance_registry.md) | `Acceptance Registry` · `Scenario runner` · `Fixture catalog` · `Evidence capture/signing` |
+| [WP-109 — Acceptance Scenario Registry and Harness](../10_INTEGRATION_CUTOVER/WP-109_acceptance_registry.md) | `Acceptance Registry` · `Scenario runner` · `Fixture catalog` · `Evidence capture/signing` |
 
 ### Full prerequisite closure
 
-**109 of 141 packages (77%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
+**109 of 160 packages (68%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
 
 | Level | Packages |
 |---:|---|
@@ -142,7 +163,7 @@ nobody can attribute — and a controlled serial run is slower and interpretable
 ### What acceptance of this package releases
 
 - **Directly unblocked:** 1 — `WP-115`
-- **Transitively reachable:** **16 of 141 packages (11%)** cannot be accepted until this one is.
+- **Transitively reachable:** **19 of 160 packages (12%)** cannot be accepted until this one is.
 
 The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
 
@@ -172,7 +193,7 @@ The transitive figure is the leverage number. It does not appear anywhere else i
 
 ## Preconditions — Definition of Ready
 
-- Dependencies accepted: [WP-103 — Vertical Slice 2 — Two-Way Literature and Set Freeze](../10_INTEGRATION_CUTOVER/WP-103_vertical_slice_literature.md), [WP-104 — Vertical Slice 3 — Baseline through Run to Claim/Evidence](../10_INTEGRATION_CUTOVER/WP-104_vertical_slice_run_claim.md), [WP-105 — Vertical Slice 4 — Blind Review, Arbitration and Clean-Room](../10_INTEGRATION_CUTOVER/WP-105_vertical_slice_review_repro.md), [WP-106 — Vertical Slice 5 — Human Decision, Publish and Monitor](../10_INTEGRATION_CUTOVER/WP-106_vertical_slice_decision_publish_monitor.md), [WP-108 — Retraction, Drift and Supersession Vertical Slice](../10_INTEGRATION_CUTOVER/WP-108_retraction_drift_vertical_slice.md), [WP-109 — Forty Acceptance Scenario Registry and Harness](../10_INTEGRATION_CUTOVER/WP-109_acceptance_registry.md)
+- Dependencies accepted: [WP-103 — Vertical Slice 2 — Two-Way Literature and Set Freeze](../10_INTEGRATION_CUTOVER/WP-103_vertical_slice_literature.md), [WP-104 — Vertical Slice 3 — Baseline through Run to Claim/Evidence](../10_INTEGRATION_CUTOVER/WP-104_vertical_slice_run_claim.md), [WP-105 — Vertical Slice 4 — Blind Review, Arbitration and Clean-Room](../10_INTEGRATION_CUTOVER/WP-105_vertical_slice_review_repro.md), [WP-106 — Vertical Slice 5 — Human Decision, Publish and Monitor](../10_INTEGRATION_CUTOVER/WP-106_vertical_slice_decision_publish_monitor.md), [WP-108 — Retraction, Drift and Supersession Vertical Slice](../10_INTEGRATION_CUTOVER/WP-108_retraction_drift_vertical_slice.md), [WP-109 — Acceptance Scenario Registry and Harness](../10_INTEGRATION_CUTOVER/WP-109_acceptance_registry.md)
 - A named owner, a named implementer, and a verifier **independent of the producer** are assigned.
 - Affected canonical records, interfaces and ADRs have been linked during refinement.
 - `DataClass`, `CodeTrust`, `ToolEffect` and the network/credential scope are classified.

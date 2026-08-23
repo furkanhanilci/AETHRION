@@ -67,6 +67,28 @@ The trigger is unusual and worth keeping: two material failures of the same cont
 means the design is wrong, not the operation. That reopens an ADR or a policy rather
 than producing a third remediation.
 
+### Baseline v1.3.0 — Day-2 measures what this baseline added
+
+The recurring rhythms gain six subjects, each of which is a number that only
+means something when tracked over time:
+
+- **Multi-agent efficiency** — coordination overhead against the naive
+  fully-connected baseline, and whether the optimisation still holds.
+- **Verifier calibration** — precision, recall, **abstention rate** and error
+  correlation between verifier families, requalified on a schedule.
+- **Source and upstream drift** — pinned mechanisms whose upstream moved, and
+  sources whose status changed.
+- **Supply-chain posture** — OSV and Scorecard findings, and residual risks that
+  reached their expiry.
+- **Failure taxonomy distribution** — including how often attribution returned
+  `UNKNOWN`, which is a system-health signal rather than a defect count.
+- **The Pareto frontier** — quality against cost, so an optimisation that stopped
+  paying is visible.
+
+Incident learning consumes the typed `FailureAssessment` and retains negative
+results. A failed approach that is deleted is a lesson the next campaign pays for
+again.
+
 ## Out of scope
 
 - The internal implementation of any dependent package
@@ -83,14 +105,14 @@ than producing a third remediation.
 | Package | Supplies to this package |
 |---|---|
 | [WP-009 — Control Catalogue, Exceptions and Non-Waivable Blockers](../01_GOVERNANCE/WP-009_control_exception_catalog.md) | `Control Catalog` · `ExceptionPolicy` · `NonWaivableBlocker registry` · `Control-test mapping` |
-| [WP-056 — OPA Policy Platform and Bundle Distribution](../06_EXECUTION_SECURITY/WP-056_opa_policy_platform.md) | `OPA platform` · `Policy bundle v1` · `Policy test suite` · `Bundle promotion pipeline` |
+| [WP-056 — Policy Decision Point and Bundle Distribution](../06_EXECUTION_SECURITY/WP-056_opa_policy_platform.md) | `Policy decision point` · `PolicyDecision interface conformance suite` · `Policy bundle v1` · `Policy test suite` |
 | [WP-060 — Agentic Security Attack Suite and Red-Team Acceptance](../06_EXECUTION_SECURITY/WP-060_security_attack_suite.md) | `Agentic attack suite` · `Malicious fixture corpus` · `Red-team report template` · `Security regression schedule` |
 | [WP-112 — Security and Privacy Acceptance Package](../10_INTEGRATION_CUTOVER/WP-112_security_privacy_acceptance.md) | `Security scenario results` · `Red-team report` · `Forensic evidence` · `Security acceptance statement` |
 | [WP-121 — Hypercare, Stabilisation and Programme Closure](../10_INTEGRATION_CUTOVER/WP-121_hypercare_stabilization.md) | `Hypercare log` · `Incident/finding summary` · `Production KPI baseline` · `Day-2 handoff` |
 
 ### Full prerequisite closure
 
-**121 of 141 packages (86%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
+**121 of 160 packages (76%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
 
 | Level | Packages |
 |---:|---|
@@ -151,7 +173,7 @@ than producing a third remediation.
 ### What acceptance of this package releases
 
 - **Directly unblocked:** 1 — `WP-130`
-- **Transitively reachable:** **1 of 141 packages (1%)** cannot be accepted until this one is.
+- **Transitively reachable:** **1 of 160 packages (1%)** cannot be accepted until this one is.
 
 The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
 
@@ -199,7 +221,10 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `ExceptionPolicy` | `WP-009` | `python3 scripts/progress.py show WP-009` |
 | `NonWaivableBlocker registry` | `WP-009` | `python3 scripts/progress.py show WP-009` |
 | `Control-test mapping` | `WP-009` | `python3 scripts/progress.py show WP-009` |
-| `OPA platform` | `WP-056` | `python3 scripts/progress.py show WP-056` |
+| `Non-waivable additions for the epistemic layer` | `WP-009` | `python3 scripts/progress.py show WP-009` |
+| `Non-waivable additions for the reliability layer` | `WP-009` | `python3 scripts/progress.py show WP-009` |
+| `Policy decision point` | `WP-056` | `python3 scripts/progress.py show WP-056` |
+| `PolicyDecision interface conformance suite` | `WP-056` | `python3 scripts/progress.py show WP-056` |
 | `Policy bundle v1` | `WP-056` | `python3 scripts/progress.py show WP-056` |
 | `Policy test suite` | `WP-056` | `python3 scripts/progress.py show WP-056` |
 | `Bundle promotion pipeline` | `WP-056` | `python3 scripts/progress.py show WP-056` |
@@ -208,6 +233,8 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `Malicious fixture corpus` | `WP-060` | `python3 scripts/progress.py show WP-060` |
 | `Red-team report template` | `WP-060` | `python3 scripts/progress.py show WP-060` |
 | `Security regression schedule` | `WP-060` | `python3 scripts/progress.py show WP-060` |
+| `ASB and WASP external regression` | `WP-060` | `python3 scripts/progress.py show WP-060` |
+| `Memory poisoning and evaluator exfiltration fixtures` | `WP-060` | `python3 scripts/progress.py show WP-060` |
 | `Security scenario results` | `WP-112` | `python3 scripts/progress.py show WP-112` |
 | `Red-team report` | `WP-112` | `python3 scripts/progress.py show WP-112` |
 | `Forensic evidence` | `WP-112` | `python3 scripts/progress.py show WP-112` |

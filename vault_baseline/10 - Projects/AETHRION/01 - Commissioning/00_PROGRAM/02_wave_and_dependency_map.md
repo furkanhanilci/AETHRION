@@ -33,15 +33,41 @@ means a defined set of integration evidence exists.
 | W3 — Control and runtime | Run the workflow, agent, model, broker and sandbox | WP-032–060 | Replay, route, tool and sandbox tests |
 | W4 — Knowledge and evidence | Literature, Source Registry, Claim Ledger, experiment and review path | WP-061–090 | Source→claim→run→review lineage pass |
 | W5 — Human and visibility | Cockpit, decision queue, graphs, telemetry and FinOps | WP-091–101 | Human decision and end-to-end correlation pass |
-| W6 — Vertical integration | Integrate the G0–G10 and engineering flows | WP-102–115 | Vertical slices and 51 acceptance tests |
+| W6 — Vertical integration | Integrate the G0–G10 and engineering flows | WP-102–115 | Vertical slices and every `PRE_GO_LIVE` acceptance test |
 | W7 — Commissioning | Security, resilience, DR, capacity, audit and pilot | WP-116–119 | Commissioning dossier; zero critical findings |
 | W8 — Cutover | Rehearsal, production opening and hypercare | WP-120–121 | Go-live `DecisionRecord` and stabilisation |
 | W9 — Day-2 | Continuous assurance and operation | WP-122–130 | Periodic control-effectiveness records |
 | **W-T — Tooling** | **Notification, communication, external records, evidence sealing, liveness** | **WP-131–140** | **Broker policy tests; channel ceiling enforcement; timestamp verification by a third party** |
+| **W-R — Reliability and efficiency** | **How a cohort collaborates without talking itself broke, what happens when one of them is wrong, and what makes a number believable at the end** | **WP-148–159** | **A cohort that refuses a single-agent downgrade; coordination cost measured against a runnable fully-connected baseline; an unattributable failure classified `UNKNOWN` rather than guessed; a benchmark score that carries the conditions it was produced under** |
+| **W-S — Scientific intelligence** | **Study mode and ideation; hypothesis and principle evolution; the discovery search graph, its allocation and its stopping conditions; the six epistemic memories; specialist cognition** | **WP-141–147** | **A bounded search campaign that terminates on its own controls with complete candidate lineage; typed memory queries that return only what the requesting role may read; no priority score reachable from any claim assessment** |
 
 The tooling wave is deliberately not numbered in sequence. Several of its
 packages — evidence timestamping (WP-139) and service liveness (WP-140) — are
 useful from W0 onward and do not need to wait for the platform backbone.
+
+**The scientific-intelligence wave is not numbered either, for the opposite
+reason.** Its packages do not slot between two existing waves: WP-141 is usable
+from W2, while WP-144–146 cannot start until the evidence and run registries of
+W4 exist, and everything in it must be complete before the W6 vertical slices can
+exercise a search campaign end to end. Numbering it would imply a single position
+in the sequence that none of its packages actually share. What binds it is the
+dependency graph, which `expand_packages.py` derives per package and
+`validate_commissioning_plan.py` checks for cycles — not the wave label.
+
+**The reliability wave is not numbered either, and depends on the scientific one
+being real.** WP-148's cohort compiles cognitive functions that WP-147 defines;
+WP-150's context projection reads the memories WP-146 types; WP-153's budget
+extends WP-145's campaign governor. Sequencing it by wave number would invert
+those dependencies, which is why the graph decides and the label does not.
+
+One ordering rule inside each is worth stating explicitly, because getting it
+backwards is the natural mistake: **WP-141 comes first** in W-S, and **WP-148
+comes first** in W-R — a communication optimiser built before the cohort it
+optimises has nothing to anchor its quality guard against. Every other package in
+this wave describes a mechanism that another project solved first, and taking one
+without a pin, a licence read at the source and a characterisation suite written
+before the code moves is the thing WP-141 exists to prevent. Assimilation
+governance after assimilation is documentation, not control.
 
 ## Critical path
 

@@ -58,7 +58,7 @@ ISO/IEC/IEEE 29119-3 §8.6 requires each environment item to name a description,
 | `WP-052` accepted output | Kubernetes Cluster and Node Pool Baseline | Platform Infrastructure Lead | Before the first test case runs |
 | `WP-099` accepted output | WORM Audit Ledger and Independent Export | Internal Audit Platform Lead | Before the first test case runs |
 | `WP-101` accepted output | Service Catalogue, SLOs and Alert/Runbook Binding | SRE Lead | Before the first test case runs |
-| `WP-109` accepted output | Forty Acceptance Scenario Registry and Harness | Platform Assurance Lead | Before the first test case runs |
+| `WP-109` accepted output | Acceptance Scenario Registry and Harness | Platform Assurance Lead | Before the first test case runs |
 
 ### Environment readiness report — §8.8
 

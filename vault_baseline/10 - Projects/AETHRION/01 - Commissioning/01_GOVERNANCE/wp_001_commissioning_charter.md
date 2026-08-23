@@ -100,6 +100,31 @@ make the KPIs safe to optimise: G10 reversal rate, acceptance-despite-adversaria
 -rejection rate, and median human decision time are the three that detect a
 programme gaming itself.
 
+### Baseline v1.3.0 — the invariants a cost optimiser must not be able to reach
+
+Three additions, and they share a shape: each names something that an
+efficiency argument would otherwise be free to trade away.
+
+**The cohort is not a lever.** `ADR-011` fixes that substantial scientific
+execution requires at least two epistemically independent cognitive
+contributions. Independence is a five-dimension profile, not a count — several
+instances of one model on one context are one contribution. Governance language
+here must make that an invariant rather than a default, because the pressure to
+relax it will arrive as a budget conversation.
+
+**Two disciplines, composable, neither collapsed.** `ADR-012`. A passing test is
+not a confirmed hypothesis and a preregistered analysis is not correct code. The
+four pairs that get conflated — TDD against preregistration, code review against
+scientific review, debugging against anomaly investigation, parallel agents
+against parallel analysts — stay distinct in the role, risk and control language.
+
+**What budget may and may not degrade.** Communication verbosity degrades; the
+cohort and the assurance route do not. A task that cannot afford its required
+assurance is `BLOCKED`, never quietly completed more cheaply. The new
+non-waivable controls follow from that: cohort integrity, assurance-route
+integrity, human preliminary judgment before recommendation, and specification
+conformance for confirmatory work.
+
 ## Out of scope
 
 - Technology selection
@@ -122,7 +147,7 @@ programme gaming itself.
 ### What acceptance of this package releases
 
 - **Directly unblocked:** 4 — `WP-002` · `WP-003` · `WP-005` · `WP-021`
-- **Transitively reachable:** **139 of 141 packages (99%)** cannot be accepted until this one is.
+- **Transitively reachable:** **158 of 160 packages (99%)** cannot be accepted until this one is.
 
 The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
 

@@ -98,6 +98,31 @@ acceptance criteria, and the programme loses the ability to close anything
 objectively. This is the highest-leverage document package in the programme for
 that reason.
 
+### Baseline v1.3.0 — the invariants a cost optimiser must not be able to reach
+
+Three additions, and they share a shape: each names something that an
+efficiency argument would otherwise be free to trade away.
+
+**The cohort is not a lever.** `ADR-011` fixes that substantial scientific
+execution requires at least two epistemically independent cognitive
+contributions. Independence is a five-dimension profile, not a count — several
+instances of one model on one context are one contribution. Governance language
+here must make that an invariant rather than a default, because the pressure to
+relax it will arrive as a budget conversation.
+
+**Two disciplines, composable, neither collapsed.** `ADR-012`. A passing test is
+not a confirmed hypothesis and a preregistered analysis is not correct code. The
+four pairs that get conflated — TDD against preregistration, code review against
+scientific review, debugging against anomaly investigation, parallel agents
+against parallel analysts — stay distinct in the role, risk and control language.
+
+**What budget may and may not degrade.** Communication verbosity degrades; the
+cohort and the assurance route do not. A task that cannot afford its required
+assurance is `BLOCKED`, never quietly completed more cheaply. The new
+non-waivable controls follow from that: cohort integrity, assurance-route
+integrity, human preliminary judgment before recommendation, and specification
+conformance for confirmatory work.
+
 ## Out of scope
 
 - The internal implementation of any dependent package
@@ -117,7 +142,7 @@ that reason.
 
 ### Full prerequisite closure
 
-**1 of 141 packages (1%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
+**1 of 160 packages (1%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
 
 | Level | Packages |
 |---:|---|
@@ -126,7 +151,7 @@ that reason.
 ### What acceptance of this package releases
 
 - **Directly unblocked:** 7 — `WP-003` · `WP-005` · `WP-006` · `WP-010` · `WP-091` · `WP-101` · `WP-109`
-- **Transitively reachable:** **138 of 141 packages (98%)** cannot be accepted until this one is.
+- **Transitively reachable:** **157 of 160 packages (98%)** cannot be accepted until this one is.
 
 The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
 

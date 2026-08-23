@@ -71,6 +71,49 @@ R3 stops the lab; one that classifies too little makes ADR-001's protection
 vacuous. That trade-off is the thing to get right, and it cannot be gotten right
 without measuring — which is why WP-007 and the metascience gap sit beside it.
 
+### Baseline v1.2.0 — study mode is a second axis, not a fifth dimension
+
+The four dimensions here produce an assurance class. A separate classification
+produces a **claim ceiling**, and collapsing them loses information in both
+directions.
+
+Assurance class answers *how much scrutiny must this work survive*. `StudyMode` —
+`FEASIBILITY`, `EXPLORATORY`, `CONFIRMATORY` — answers *what kind of statement
+may this work produce at all*. A feasibility pilot can be R3 and still be unable
+to license a confirmatory claim; an R1 confirmatory study can license one.
+
+The rule that makes the mode worth recording: **the ceiling moves one way.** It
+can be lowered by record at any time and can never be raised on the same data,
+because once an outcome has been seen no subsequent writing makes the analysis
+confirmatory. The mode is declared with an external timestamp before the first
+result exists, and a mode change creates a successor plus a deviation record —
+ACC-56, WP-142.
+
+### Baseline v1.3.0 — the invariants a cost optimiser must not be able to reach
+
+Three additions, and they share a shape: each names something that an
+efficiency argument would otherwise be free to trade away.
+
+**The cohort is not a lever.** `ADR-011` fixes that substantial scientific
+execution requires at least two epistemically independent cognitive
+contributions. Independence is a five-dimension profile, not a count — several
+instances of one model on one context are one contribution. Governance language
+here must make that an invariant rather than a default, because the pressure to
+relax it will arrive as a budget conversation.
+
+**Two disciplines, composable, neither collapsed.** `ADR-012`. A passing test is
+not a confirmed hypothesis and a preregistered analysis is not correct code. The
+four pairs that get conflated — TDD against preregistration, code review against
+scientific review, debugging against anomaly investigation, parallel agents
+against parallel analysts — stay distinct in the role, risk and control language.
+
+**What budget may and may not degrade.** Communication verbosity degrades; the
+cohort and the assurance route do not. A task that cannot afford its required
+assurance is `BLOCKED`, never quietly completed more cheaply. The new
+non-waivable controls follow from that: cohort integrity, assurance-route
+integrity, human preliminary judgment before recommendation, and specification
+conformance for confirmatory work.
+
 ## Out of scope
 
 - The internal implementation of any dependent package
@@ -91,7 +134,7 @@ without measuring — which is why WP-007 and the metascience gap sit beside it.
 
 ### Full prerequisite closure
 
-**2 of 141 packages (1%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
+**2 of 160 packages (1%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
 
 | Level | Packages |
 |---:|---|
@@ -100,8 +143,8 @@ without measuring — which is why WP-007 and the metascience gap sit beside it.
 
 ### What acceptance of this package releases
 
-- **Directly unblocked:** 12 — `WP-007` · `WP-008` · `WP-009` · `WP-010` · `WP-013` · `WP-034` · `WP-042` · `WP-045` · `WP-056` · `WP-077` · `WP-079` · `WP-085`
-- **Transitively reachable:** **134 of 141 packages (95%)** cannot be accepted until this one is.
+- **Directly unblocked:** 13 — `WP-007` · `WP-008` · `WP-009` · `WP-010` · `WP-013` · `WP-034` · `WP-042` · `WP-045` · `WP-056` · `WP-077` · `WP-079` · `WP-085` · `WP-142`
+- **Transitively reachable:** **153 of 160 packages (96%)** cannot be accepted until this one is.
 
 The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
 
@@ -200,6 +243,8 @@ A package whose evidence cannot be produced is not `READY`, however complete its
 - `AssuranceClass decision tables`
 - `Promotion rules`
 - `Worked examples`
+- `StudyMode decision table`
+- `Substantiality threshold for the multi-agent invariant`
 - An updated runbook or operations note, plus the service/contract ownership record
 - A signed `EvidenceManifest`
 

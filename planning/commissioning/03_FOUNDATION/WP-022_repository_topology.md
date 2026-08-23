@@ -74,6 +74,24 @@ was silently reverted on the next run. Separating generated, migration and
 fixture areas is what lets a check say *you edited an output* instead of a human
 noticing later.
 
+### Baseline v1.3.0 — modular monolith first, and a projection that can be destroyed
+
+The collaboration plane, the conformance checker and the release assurance work
+land as **modules**, not as services. A logical plane is an ownership boundary;
+turning each into a deployment unit before there is a consumer buys operational
+cost and no assurance.
+
+Two guarantees the foundation now owes:
+
+**Every derived projection is destroyable.** The graph, the vector index and the
+search index are rebuilt from canonical stores as a routine, tested operation —
+ACC-119. A rebuild path that is an emergency procedure will not work on the day
+it is needed.
+
+**Release artifacts carry provenance.** SLSA provenance, Sigstore signatures, an
+SBOM and its scan result, and the upstream register accounting for every adapted
+file. `ADR-019`, delivered by WP-159 and admitted against by WP-024's CI.
+
 ## Out of scope
 
 - The internal implementation of any dependent package
@@ -94,7 +112,7 @@ noticing later.
 
 ### Full prerequisite closure
 
-**20 of 141 packages (14%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
+**20 of 160 packages (12%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
 
 | Level | Packages |
 |---:|---|
@@ -115,8 +133,8 @@ noticing later.
 
 ### What acceptance of this package releases
 
-- **Directly unblocked:** 5 — `WP-023` · `WP-024` · `WP-027` · `WP-073` · `WP-101`
-- **Transitively reachable:** **106 of 141 packages (75%)** cannot be accepted until this one is.
+- **Directly unblocked:** 6 — `WP-023` · `WP-024` · `WP-027` · `WP-073` · `WP-101` · `WP-141`
+- **Transitively reachable:** **125 of 160 packages (78%)** cannot be accepted until this one is.
 
 The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
 

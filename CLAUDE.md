@@ -13,7 +13,7 @@ here, because two copies of a rule become two versions of it.
 ## Start of session
 
 ```bash
-uv run python scripts/write_status.py    # must print 15/15
+uv run python scripts/write_status.py    # must print 16/16
 python3 scripts/ready_queue.py
 git log --oneline -5
 ```
@@ -38,6 +38,28 @@ from working.
 Do not rewrite the vendored eleven. They keep upstream attribution, their licence
 and their pinned commit; changes belong upstream or in a native skill that
 records `airl.derived_from`.
+
+## Taking a mechanism from elsewhere
+
+Much of what this system needs was solved somewhere else first, and adapting a
+mechanism is expected rather than exceptional. Two rules make it auditable, and
+both live in [`ADR-004`](docs/architecture/ADR-004_mechanism_assimilation.md):
+
+**A mechanism may be taken; an architecture may not.** No external project is a
+runtime module, directory, backend, class name or configuration key here. If you
+are about to write `src/third_party/<name>`, that is the signal to stop.
+
+**Nothing moves without a register entry.** `provenance/upstreams.json`, checked
+by `python3 scripts/check_upstream_lineage.py`. Direct adaptation needs a
+permissive licence read at the source, a pinned commit, a named file list and a
+characterisation suite written *before* the code moves. Reimplementation needs a
+mechanism specification and must name **no** source files. Every entry states
+what the mechanism may never decide.
+
+The Bash tool here has **no network access**, so a commit cannot be pinned from
+this session. Leave `pinned_commit` as `null` and the status as `PROPOSED` rather
+than inventing a digest — the checker will refuse the entry the moment anyone
+tries to move code under it, which is the intended behaviour.
 
 ## Model assignment
 

@@ -6,14 +6,15 @@
 | Source | `github.com/obra/superpowers` (14 skills, all read) |
 | Target | `AIRL-OS-Architecture.md` v1.0 — *historical name; current identity **AETHRION**, current reference [`AETHRION_ARCHITECTURE.md`](AETHRION_ARCHITECTURE.md)* |
 | Sibling documents | `AETHRION_ARCHITECTURE.md` (system overview + diagrams) · `AETHRION_IDEAL_STRUCTURE.md` (roles, review mechanisms, metascience) · `AETHRION_EXTERNAL_STANDARDS.md` (what is adopted) |
-| Date | 2026-08-22 |
-| Status | Proposal — awaiting a human decision, **except Section 14, which is decided** |
+| Date | 2026-08-23 |
+| Status | Proposal — awaiting a human decision, **except Sections 14 and 15, which are decided** |
 
 **In one paragraph.** A `RoleContract` says who an agent is; nothing said how it works, and that gap was filled by the prompt — an unversioned, untested, unauditable layer. This report analyses `obra/superpowers` and derives the skill layer that closes it. Sections 2–13 record the original analysis; **§14 is the decided correction**: research skills extend their engineering counterparts rather than replacing them, both families live in one registry in the Agent Skills open format, and provenance to upstream is pinned per skill.
 
 > **Read Section 14 first.** It overrules the "convert each engineering skill into
 > a research skill" reading that runs through Sections 2–13, and fixes the format
-> the skills are written in.
+> the skills are written in. **Section 15** records the 2026-08-23 overlap audit
+> against a second upstream methodology, and the one gap it found.
 
 ---
 
@@ -1077,3 +1078,100 @@ asymmetry, independent review, mechanical verification, human authority.** That
 two designs arrived independently at the same conclusions — the gate ceremony
 flexes while the record does not; fresh context; a timeout is not an
 auto-approval — is evidence that your architecture is on the right axis.
+
+---
+
+## 15. Overlap audit, 2026-08-23 — a second methodology, and one real gap
+
+### Why the audit happened
+
+`obra/superpowers` is a **software engineering** methodology, and §14 records how
+this registry took its discipline and layered research semantics on top. In 2026
+a second upstream appeared that solves the nearer problem directly:
+**K-Dense Science Superpowers**, MIT-licensed, sixteen skills, adapting the same
+architecture to computational science with **pre-registration in place of
+test-driven development** — the same substitution `preregistration-discipline`
+makes here, arrived at independently.
+
+Two paths were open. Import it as a parallel family, which produces two skills
+for every procedure and a router that has to choose between them. Or audit
+skill-by-skill and keep one local skill per procedure. **The second, and the
+audit is below** so the conclusion is checkable rather than asserted.
+
+### The mapping
+
+| Upstream skill | Local counterpart | Verdict |
+|---|---|---|
+| `framing-research-questions` | `framing-research` | covered |
+| `surveying-prior-work` | `searching-literature` + `screening-sources` | covered, and split finer here |
+| `establishing-feasibility-first` | — | **gap** — see below |
+| `designing-the-analysis` | `writing-analysis-plans` | covered |
+| `preregistering-analysis` | `preregistration-discipline` | covered; the local iron law is stricter |
+| `subagent-driven-analysis` | `agent-driven-research` | covered |
+| `executing-analysis` | `executing-experiments` | covered |
+| `dispatching-parallel-investigations` | `dispatching-parallel-analysts` | covered |
+| `investigating-anomalous-results` | `investigating-anomalies` | covered |
+| `verifying-results-before-claiming` | `verification-before-completion` + `evidence-before-claim` | covered, and split finer here |
+| `requesting-red-team-review` | `requesting-review` + `adversarial-reviewing` | covered, and split finer here |
+| `receiving-critical-review` | `receiving-review` | covered |
+| `setting-up-reproducible-analysis` | `using-isolated-environments` | covered |
+| `reporting-and-archiving-findings` | `reporting-results` + `finishing-a-project` | covered, and split finer here |
+| `writing-science-skills` | `writing-skills` | covered |
+| `using-science-superpowers` | `using-aethrion` | covered |
+
+**Fifteen of sixteen already had a counterpart.** That is the audit's main
+result, and it is worth stating plainly because the opposite result was the
+expected one: two projects solving the same problem converged on nearly the same
+procedure list.
+
+### The gap: feasibility as its own mode
+
+`establishing-feasibility-first` had no counterpart, and the reason it matters
+is not that a procedure was missing. It is that **feasibility was being treated
+here as a kind of exploratory work**, and the two have different claim ceilings.
+
+A feasibility run answers *does this execute*. It routinely also produces a
+number — real, yours, and predicted by nothing. The most common way a research
+record goes wrong is that this number is written up afterwards as though it had
+been. Exploratory work can be reported as exploratory; feasibility work
+producing a headline result is a category error that only becomes visible if the
+mode was named beforehand.
+
+### What was done, and what was deliberately not
+
+**Not done: a fifty-third skill.** Skill count is not a success metric, and the
+first question for any new procedure is whether an existing skill can absorb it.
+This one could.
+
+**Done:** `framing-research` now classifies on two axes rather than one —
+assurance class (*how much scrutiny*) and study mode (*what may be claimed*) —
+with `FEASIBILITY` as its own mode, a `StudyModeRecord` emitted before the first
+result exists, and the rule that the claim ceiling moves one way only.
+`preregistration-discipline` carries the matching rule at the other end: a
+feasibility outcome may inform a confirmatory protocol and can never be the
+outcome that protocol confirms. WP-142 makes it a contract; ACC-56 tests it.
+
+### What the audit did *not* do, and why
+
+**No local skill was relabelled as derived from this upstream.** These skills
+were written independently, and `ADR-004` forbids claiming a derivation without
+a pinned commit — there is no network access in this environment to pin one, and
+inventing a digest to satisfy a metadata field is exactly the failure the field
+exists to prevent. `airl.derived_from` therefore still names only
+`obra/superpowers`, which is genuinely where the eleven vendored skills came
+from and where the pin is real.
+
+**The domain catalogue was not imported.** The same organisation publishes 161
+scientific skills across eighteen domains. Its repository licence is MIT while
+each skill declares its own licence in its `SKILL.md`, so a repository-level
+assumption would be wrong per file. It is recorded as `DEFER` in
+`provenance/upstreams.json`: importing a bioinformatics skill before there is a
+bioinformatics project adds surface without adding capability, and when one is
+imported the licence in that skill's own file governs.
+
+### What this audit does not establish
+
+That any of these skills works. Fifteen counterparts existing is a statement
+about coverage, not about behaviour — **none of the 52 has a behaviour
+baseline**, which is WP-043's job and is not started. An audit that finds good
+coverage of untested procedures has found good coverage of untested procedures.

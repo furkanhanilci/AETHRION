@@ -113,6 +113,33 @@ A human's Zotero annotation is evidence of what a human thought, not a claim the
 system may assert. Naming it an *observation* keeps that boundary in the type
 system rather than in a convention.
 
+### Baseline v1.3.0 — new records, and the authority typing that keeps them honest
+
+The contract surface gains the records this baseline's capabilities need, and
+one field that matters more than any of them.
+
+**New canonical records:** `AgentCohortRecord`, `CognitiveDiversityProfile`,
+`CommunicationEdgePolicy`, `BlackboardEntry`, `TypedAgentMessage`,
+`CommunicationUtilityRecord`, `ContextProjectionRecord`,
+`MemoryInterventionRecord`, `ResearchBudgetContract`, `TokenLedgerEntry`,
+`SpecificationConformanceRecord`, `HumanPreliminaryAssessment`, `DecisionDelta`,
+`ModelExecutionFingerprint`, `BenchmarkRunPolicy`, `ContaminationFinding`,
+`UpstreamAssimilationRecord`.
+
+**Explicit authority typing.** Every record carries what it may never become. The
+three conversions this baseline forbids are all of the same kind, and each has
+already been attempted somewhere in the field:
+
+| Forbidden conversion | Why it is tempting |
+|---|---|
+| A blackboard entry into evidence | It is where the interesting sentences appear |
+| A communication or search utility score into a claim confidence | It is a number, and it correlates with something |
+| An event payload into gate authority | It is the fastest path and it usually works |
+
+The rule that makes them checkable rather than remembered: **events, blackboard
+entries and derived read models cannot masquerade as canonical scientific
+state**, and the schema is where that is enforced.
+
 ## Out of scope
 
 - The internal implementation of any dependent package
@@ -134,7 +161,7 @@ system rather than in a convention.
 
 ### Full prerequisite closure
 
-**13 of 141 packages (9%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
+**13 of 160 packages (8%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
 
 | Level | Packages |
 |---:|---|
@@ -152,7 +179,7 @@ system rather than in a convention.
 ### What acceptance of this package releases
 
 - **Directly unblocked:** 19 — `WP-018` · `WP-020` · `WP-030` · `WP-035` · `WP-037` · `WP-058` · `WP-061` · `WP-062` · `WP-063` · `WP-064` · `WP-065` · `WP-066` · `WP-068` · `WP-069` · `WP-071` · `WP-072` · `WP-073` · `WP-076` · `WP-079`
-- **Transitively reachable:** **123 of 141 packages (87%)** cannot be accepted until this one is.
+- **Transitively reachable:** **142 of 160 packages (89%)** cannot be accepted until this one is.
 
 The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
 
@@ -208,6 +235,8 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `DatasetManifest schema` | `WP-014` | `python3 scripts/progress.py show WP-014` |
 | `Environment reference schema` | `WP-014` | `python3 scripts/progress.py show WP-014` |
 | `Immutability lifecycle` | `WP-014` | `python3 scripts/progress.py show WP-014` |
+| `Ordered parent lineage` | `WP-014` | `python3 scripts/progress.py show WP-014` |
+| `Digest normalisation and migration` | `WP-014` | `python3 scripts/progress.py show WP-014` |
 
 ### Classification that must be recorded before work begins
 

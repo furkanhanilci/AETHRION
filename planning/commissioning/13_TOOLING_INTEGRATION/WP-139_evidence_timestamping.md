@@ -91,6 +91,22 @@ most.
 A stamp nobody can verify is decoration. The command has to work for someone with
 the manifest, the stamp file and no access to this system.
 
+### Baseline v1.3.0 — the messaging layer inherits the same two refusals
+
+Nothing changes about what these packages own. Two rules from this baseline
+apply to all of them, and both are restatements of things that erode first at the
+edges of a system:
+
+**No message and no timeout becomes authority.** An inbound message is never an
+instruction; a notification is never an authorisation; an expired SLA escalates
+and pages and never approves.
+
+**Alignment with the new paths.** The capability gate governs any action an
+inbound message might trigger. Evidence-delta priority drives the decision
+queue. The human preliminary flow means a notification announcing a decision may
+not carry the recommendation. Every intervention writes an immutable audit
+record atomically with the change it describes.
+
 ## Out of scope
 
 - The manifest content itself (WP-014)
@@ -111,7 +127,7 @@ the manifest, the stamp file and no access to this system.
 
 ### Full prerequisite closure
 
-**22 of 141 packages (16%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
+**22 of 160 packages (14%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
 
 | Level | Packages |
 |---:|---|
@@ -181,6 +197,8 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `DatasetManifest schema` | `WP-014` | `python3 scripts/progress.py show WP-014` |
 | `Environment reference schema` | `WP-014` | `python3 scripts/progress.py show WP-014` |
 | `Immutability lifecycle` | `WP-014` | `python3 scripts/progress.py show WP-014` |
+| `Ordered parent lineage` | `WP-014` | `python3 scripts/progress.py show WP-014` |
+| `Digest normalisation and migration` | `WP-014` | `python3 scripts/progress.py show WP-014` |
 | `Object storage IaC` | `WP-026` | `python3 scripts/progress.py show WP-026` |
 | `Object address service` | `WP-026` | `python3 scripts/progress.py show WP-026` |
 | `Retention matrix` | `WP-026` | `python3 scripts/progress.py show WP-026` |
@@ -256,6 +274,14 @@ The programme-level conditions are below. The package-specific, measurable crite
 - [ ] All mandatory tests passed on the same target revision.
 - [ ] No open Critical or High findings.
 - [ ] The independent verifier has accepted the evidence package.
+
+## Acceptance evidence package
+
+- Test results captured on the same target revision/digest
+- An `EvidenceManifest` recording the environment, schema, policy and dependency versions
+- The independent verifier's `ReviewRecord` or `VerificationRecord`
+- The rollback/compensation trial and its result reference
+- The list of open findings and residual risks with owners and expiry dates
 
 ## Risks and control points
 

@@ -73,6 +73,27 @@ Every step of this slice, verifiable from the standalone verifier with no access
 the running system. If the chain cannot be checked from outside, the system's
 central claim is unverified by anyone but itself.
 
+### Baseline v1.3.0 — the slices exercise the cohort, and the regression injects faults
+
+The vertical slices and the cutover path grow to cover what this baseline adds,
+and one package changes character.
+
+**WP-107 becomes the engineering completion slice.** Requirement and
+specification → worktree → TDD → code review → CI → supply-chain attestation →
+signed artifact → **eligibility to produce scientific evidence**. That last arrow
+is the junction between the two disciplines, and before this baseline nothing
+proved it end to end.
+
+**The other slices exercise the collaboration plane**: a compiled cohort, sealed
+initial positions, typed delta exchange over a sparse topology, an adaptive
+assurance route, a fingerprinted reproduction and a firewalled benchmark run.
+
+**The regression suite gains injections rather than cases.** Faulty agent,
+malicious agent, split brain, duplicate and out-of-order events, communication
+degradation under budget pressure, and benchmark contamination. These are
+failures that are invisible in a healthy run and obvious only in a post-mortem,
+which is why they are caused deliberately rather than waited for.
+
 ## Out of scope
 
 - The internal implementation of any dependent package
@@ -102,7 +123,7 @@ central claim is unverified by anyone but itself.
 
 ### Full prerequisite closure
 
-**94 of 141 packages (67%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
+**94 of 160 packages (59%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
 
 | Level | Packages |
 |---:|---|
@@ -153,7 +174,7 @@ central claim is unverified by anyone but itself.
 ### What acceptance of this package releases
 
 - **Directly unblocked:** 3 — `WP-108` · `WP-109` · `WP-110`
-- **Transitively reachable:** **23 of 141 packages (16%)** cannot be accepted until this one is.
+- **Transitively reachable:** **26 of 160 packages (16%)** cannot be accepted until this one is.
 
 The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
 
@@ -221,11 +242,16 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `Audit rubric` | `WP-080` | `python3 scripts/progress.py show WP-080` |
 | `Mechanical locator checker` | `WP-080` | `python3 scripts/progress.py show WP-080` |
 | `Audit report/scorecard` | `WP-080` | `python3 scripts/progress.py show WP-080` |
+| `Decomposed citation audit with per-question verification class` | `WP-080` | `python3 scripts/progress.py show WP-080` |
 | `Verification pipeline` | `WP-085` | `python3 scripts/progress.py show WP-085` |
 | `Type-specific protocols` | `WP-085` | `python3 scripts/progress.py show WP-085` |
 | `Robustness matrix` | `WP-085` | `python3 scripts/progress.py show WP-085` |
 | `Reproduction certificates` | `WP-085` | `python3 scripts/progress.py show WP-085` |
 | `Failure taxonomy` | `WP-085` | `python3 scripts/progress.py show WP-085` |
+| `AlgorithmUnderstandingRecord` | `WP-085` | `python3 scripts/progress.py show WP-085` |
+| `ReproductionPackage` | `WP-085` | `python3 scripts/progress.py show WP-085` |
+| `ClaimConsistencyReport` | `WP-085` | `python3 scripts/progress.py show WP-085` |
+| `Five-level reproduction taxonomy` | `WP-085` | `python3 scripts/progress.py show WP-085` |
 | `Disagreement service` | `WP-089` | `python3 scripts/progress.py show WP-089` |
 | `Arbitration rubric` | `WP-089` | `python3 scripts/progress.py show WP-089` |
 | `Disposition workflow` | `WP-089` | `python3 scripts/progress.py show WP-089` |
@@ -235,11 +261,17 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `Signed publication package` | `WP-090` | `python3 scripts/progress.py show WP-090` |
 | `Release checklist` | `WP-090` | `python3 scripts/progress.py show WP-090` |
 | `Supersession record` | `WP-090` | `python3 scripts/progress.py show WP-090` |
+| `Publication compiler` | `WP-090` | `python3 scripts/progress.py show WP-090` |
+| `Assertion and value binding checks` | `WP-090` | `python3 scripts/progress.py show WP-090` |
 | `Decision Queue UI` | `WP-093` | `python3 scripts/progress.py show WP-093` |
 | `Evidence-delta component` | `WP-093` | `python3 scripts/progress.py show WP-093` |
 | `Rationale forms` | `WP-093` | `python3 scripts/progress.py show WP-093` |
 | `Delegation/escalation views` | `WP-093` | `python3 scripts/progress.py show WP-093` |
 | `Decision audit export` | `WP-093` | `python3 scripts/progress.py show WP-093` |
+| `HumanAttentionScore` | `WP-093` | `python3 scripts/progress.py show WP-093` |
+| `Evidence delta view` | `WP-093` | `python3 scripts/progress.py show WP-093` |
+| `Human preliminary flow` | `WP-093` | `python3 scripts/progress.py show WP-093` |
+| `Friction symmetry measurement` | `WP-093` | `python3 scripts/progress.py show WP-093` |
 | `Claim Explorer` | `WP-095` | `python3 scripts/progress.py show WP-095` |
 | `Evidence preview` | `WP-095` | `python3 scripts/progress.py show WP-095` |
 | `Provenance graph` | `WP-095` | `python3 scripts/progress.py show WP-095` |

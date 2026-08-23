@@ -71,6 +71,25 @@ A URL rots. The question is what the system does with an evidence span anchored 
 bytes it can no longer fetch — and the answer has to distinguish *we no longer have
 it* from *it never said that*. The hash is what preserves the distinction.
 
+### Baseline v1.3.0 — source status, retrieval budget and what survives a pruned context
+
+Two additions and one guarantee.
+
+**Material-delta detection for G10.** A citation-count change is not a material
+event. A retraction, a major correction, strong contradictory evidence, a
+reproduction failure or a dependency drift that invalidates a result is. The
+distinction is what keeps G10 from becoming a notification nobody reads —
+alert fatigue is a failure mode of a monitoring system, not a nuisance.
+
+**Search and retrieval budget.** Literature retrieval draws on the same
+`ResearchBudgetContract` as everything else, and its stopping rule stays
+distinct from the communication stopping rule — the two answer different
+questions and sharing a threshold would couple them wrongly.
+
+**The guarantee:** source and literature records stay canonical **even when the
+blackboard and the context projections are pruned**. A source that only exists in
+an agent's context is not a source, and pruning must never be able to lose one.
+
 ## Out of scope
 
 - The internal implementation of any dependent package
@@ -97,7 +116,7 @@ it* from *it never said that*. The hash is what preserves the distinction.
 
 ### Full prerequisite closure
 
-**50 of 141 packages (35%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
+**50 of 160 packages (31%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
 
 | Level | Packages |
 |---:|---|
@@ -133,7 +152,7 @@ it* from *it never said that*. The hash is what preserves the distinction.
 ### What acceptance of this package releases
 
 - **Directly unblocked:** 10 — `WP-068` · `WP-072` · `WP-076` · `WP-078` · `WP-079` · `WP-094` · `WP-103` · `WP-108` · `WP-125` · `WP-137`
-- **Transitively reachable:** **50 of 141 packages (35%)** cannot be accepted until this one is.
+- **Transitively reachable:** **63 of 160 packages (39%)** cannot be accepted until this one is.
 
 The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
 
@@ -183,6 +202,8 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `DatasetManifest schema` | `WP-014` | `python3 scripts/progress.py show WP-014` |
 | `Environment reference schema` | `WP-014` | `python3 scripts/progress.py show WP-014` |
 | `Immutability lifecycle` | `WP-014` | `python3 scripts/progress.py show WP-014` |
+| `Ordered parent lineage` | `WP-014` | `python3 scripts/progress.py show WP-014` |
+| `Digest normalisation and migration` | `WP-014` | `python3 scripts/progress.py show WP-014` |
 | `Literature schema bundle` | `WP-017` | `python3 scripts/progress.py show WP-017` |
 | `Status lifecycle` | `WP-017` | `python3 scripts/progress.py show WP-017` |
 | `Sample manifests` | `WP-017` | `python3 scripts/progress.py show WP-017` |
@@ -205,6 +226,7 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `ContentSafetyRecord` | `WP-058` | `python3 scripts/progress.py show WP-058` |
 | `Injection detector` | `WP-058` | `python3 scripts/progress.py show WP-058` |
 | `Quarantine UI/API` | `WP-058` | `python3 scripts/progress.py show WP-058` |
+| `Capability gate for untrusted content` | `WP-058` | `python3 scripts/progress.py show WP-058` |
 | `Source Registry service` | `WP-061` | `python3 scripts/progress.py show WP-061` |
 | `Database migrations` | `WP-061` | `python3 scripts/progress.py show WP-061` |
 | `API/OpenAPI` | `WP-061` | `python3 scripts/progress.py show WP-061` |

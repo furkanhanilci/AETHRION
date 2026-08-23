@@ -72,6 +72,53 @@ Refusing a new deployment is easy. Deciding what happens to the pods already
 running a now-revoked image is the real question, and *nothing* is a legitimate
 answer only if it is a **recorded** one with an owner.
 
+### Baseline v1.2.0 — adapted source is a supply-chain input
+
+The supply chain covers dependencies that are installed. It must also cover code
+that is **adapted** — copied from another project and refactored into this one —
+because such code has no package manager entry, no version and no upgrade path,
+and is therefore invisible to every other control here.
+
+Admission requires: a permissive licence read at the source, a pinned upstream
+commit, a named source-file list, SPDX headers, a `NOTICE` entry and a
+characterisation suite written **before** the code moved. A file introduced
+without them fails CI before merge — ACC-74.
+
+Drift is monitored rather than merged. When upstream moves past a pin, the
+checker reports the divergence and opens a review item; the characterisation
+suite reruns and the pin moves through a recorded decision, never automatically
+— ACC-73.
+
+The register is `provenance/upstreams.json`, validated by
+`scripts/check_upstream_lineage.py`, whose `--self-test` injects a defect per
+rule and fails if any rule stays silent. WP-141 owns it; this package binds it to
+admission.
+
+### Baseline v1.3.0 — four zones, a capability gate, and a benchmark firewall
+
+The isolation story gains a fourth zone and two new attack surfaces.
+
+**Four zones, not three.** Producer, evaluator, reproducer and independent
+grader, separated in secrets, cache and workspace. The leakage paths that matter
+are the quiet ones — a shared cache, an inherited credential, a warm container
+layer — and none of them looks like a boundary violation in a log. Each is tested
+explicitly rather than inferred from the zone configuration (ACC-113).
+
+**Security is a capability, not a prompt.** *Prompt says safe* is not security;
+*the capability is unavailable unless policy grants it* is. External content —
+PDF, web page, tool result, reviewer comment — is quarantined into a data object,
+and the agent's tool intent passes a policy gate before any credential is
+injected (ACC-117).
+
+**A benchmark firewall.** An evaluation run freezes its dataset manifest, network
+mode, allowed domains, known identifiers and evaluator isolation before it
+starts, and audits every retrieval. Gold answers, private rubrics, hidden tests
+and grader prompts are unreachable from the agent environment (ACC-118).
+
+The attack suite gains ASB and WASP as external regressions, alongside internal
+fixtures for source-PDF injection, malicious citation text, tool-result
+injection, memory poisoning and credential exfiltration.
+
 ## Out of scope
 
 - The internal implementation of any dependent package
@@ -90,11 +137,11 @@ answer only if it is a **recorded** one with an owner.
 | [WP-027 — Git, OCI Registry and Build Provenance Foundation](../03_FOUNDATION/WP-027_git_oci_supply_chain.md) | `OCI registry` · `Build/promotion pipeline` · `SBOM/provenance artifacts` · `Signature policy seed` |
 | [WP-052 — Kubernetes Cluster and Node Pool Baseline](../06_EXECUTION_SECURITY/WP-052_kubernetes_cluster.md) | `Kubernetes clusters` · `Node pool catalog` · `Namespace/security baseline` · `Upgrade/restore runbook` |
 | [WP-054 — gVisor Sandbox and Execution Cell Lifecycle](../06_EXECUTION_SECURITY/WP-054_gvisor_sandbox.md) | `Sandbox profiles` · `Execution Cell controller` · `SandboxAttestation` · `Capture/destroy workflow` |
-| [WP-056 — OPA Policy Platform and Bundle Distribution](../06_EXECUTION_SECURITY/WP-056_opa_policy_platform.md) | `OPA platform` · `Policy bundle v1` · `Policy test suite` · `Bundle promotion pipeline` |
+| [WP-056 — Policy Decision Point and Bundle Distribution](../06_EXECUTION_SECURITY/WP-056_opa_policy_platform.md) | `Policy decision point` · `PolicyDecision interface conformance suite` · `Policy bundle v1` · `Policy test suite` |
 
 ### Full prerequisite closure
 
-**44 of 141 packages (31%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
+**44 of 160 packages (28%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
 
 | Level | Packages |
 |---:|---|
@@ -126,8 +173,8 @@ answer only if it is a **recorded** one with an owner.
 
 ### What acceptance of this package releases
 
-- **Directly unblocked:** 5 — `WP-060` · `WP-084` · `WP-099` · `WP-107` · `WP-129`
-- **Transitively reachable:** **38 of 141 packages (27%)** cannot be accepted until this one is.
+- **Directly unblocked:** 7 — `WP-060` · `WP-084` · `WP-099` · `WP-107` · `WP-129` · `WP-141` · `WP-159`
+- **Transitively reachable:** **56 of 160 packages (35%)** cannot be accepted until this one is.
 
 The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
 
@@ -187,7 +234,9 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `SandboxAttestation` | `WP-054` | `python3 scripts/progress.py show WP-054` |
 | `Capture/destroy workflow` | `WP-054` | `python3 scripts/progress.py show WP-054` |
 | `Red-team tests` | `WP-054` | `python3 scripts/progress.py show WP-054` |
-| `OPA platform` | `WP-056` | `python3 scripts/progress.py show WP-056` |
+| `Four-zone isolation profiles` | `WP-054` | `python3 scripts/progress.py show WP-054` |
+| `Policy decision point` | `WP-056` | `python3 scripts/progress.py show WP-056` |
+| `PolicyDecision interface conformance suite` | `WP-056` | `python3 scripts/progress.py show WP-056` |
 | `Policy bundle v1` | `WP-056` | `python3 scripts/progress.py show WP-056` |
 | `Policy test suite` | `WP-056` | `python3 scripts/progress.py show WP-056` |
 | `Bundle promotion pipeline` | `WP-056` | `python3 scripts/progress.py show WP-056` |
@@ -240,6 +289,7 @@ A package whose evidence cannot be produced is not `READY`, however complete its
 - `Trust root management`
 - `CVE/exception workflow`
 - `Revocation/impact runbook`
+- `Adapted-source admission control`
 - An updated runbook or operations note, plus the service/contract ownership record
 - A signed `EvidenceManifest`
 

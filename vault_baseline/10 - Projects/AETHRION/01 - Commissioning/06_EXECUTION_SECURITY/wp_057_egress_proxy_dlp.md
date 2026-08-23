@@ -99,6 +99,31 @@ control. Volume against a baseline is the only thing that sees it.
 An emergency control first used during an emergency is a control being tested
 during an incident.
 
+### Baseline v1.3.0 — four zones, a capability gate, and a benchmark firewall
+
+The isolation story gains a fourth zone and two new attack surfaces.
+
+**Four zones, not three.** Producer, evaluator, reproducer and independent
+grader, separated in secrets, cache and workspace. The leakage paths that matter
+are the quiet ones — a shared cache, an inherited credential, a warm container
+layer — and none of them looks like a boundary violation in a log. Each is tested
+explicitly rather than inferred from the zone configuration (ACC-113).
+
+**Security is a capability, not a prompt.** *Prompt says safe* is not security;
+*the capability is unavailable unless policy grants it* is. External content —
+PDF, web page, tool result, reviewer comment — is quarantined into a data object,
+and the agent's tool intent passes a policy gate before any credential is
+injected (ACC-117).
+
+**A benchmark firewall.** An evaluation run freezes its dataset manifest, network
+mode, allowed domains, known identifiers and evaluator isolation before it
+starts, and audits every retrieval. Gold answers, private rubrics, hidden tests
+and grader prompts are unreachable from the agent environment (ACC-118).
+
+The attack suite gains ASB and WASP as external regressions, alongside internal
+fixtures for source-PDF injection, malicious citation text, tool-result
+injection, memory poisoning and credential exfiltration.
+
 ## Out of scope
 
 - The internal implementation of any dependent package
@@ -119,11 +144,11 @@ during an incident.
 | [WP-049 — Tool Registry and Tool Broker Core](../05_MODEL_AGENT_TOOL/wp_049_tool_registry_broker.md) | `Tool Registry` · `Tool Broker service` · `Invocation/Receipt persistence` · `Connector SDK` |
 | [WP-051 — Four Trust Zones and Network Segmentation](../06_EXECUTION_SECURITY/wp_051_trust_zone_network.md) | `Trust zone diagram/data flows` · `Network IaC` · `Boundary policy` · `Threat-test suite` |
 | [WP-055 — SPIFFE/SPIRE Workload Identity and Vault](../06_EXECUTION_SECURITY/wp_055_spiffe_vault_identity.md) | `SPIRE/Vault deployments` · `Identity registry mapping` · `Lease policies` · `Break-glass procedure` |
-| [WP-056 — OPA Policy Platform and Bundle Distribution](../06_EXECUTION_SECURITY/wp_056_opa_policy_platform.md) | `OPA platform` · `Policy bundle v1` · `Policy test suite` · `Bundle promotion pipeline` |
+| [WP-056 — Policy Decision Point and Bundle Distribution](../06_EXECUTION_SECURITY/wp_056_opa_policy_platform.md) | `Policy decision point` · `PolicyDecision interface conformance suite` · `Policy bundle v1` · `Policy test suite` |
 
 ### Full prerequisite closure
 
-**42 of 141 packages (30%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
+**42 of 160 packages (26%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
 
 | Level | Packages |
 |---:|---|
@@ -155,8 +180,8 @@ during an incident.
 
 ### What acceptance of this package releases
 
-- **Directly unblocked:** 4 — `WP-058` · `WP-060` · `WP-096` · `WP-097`
-- **Transitively reachable:** **68 of 141 packages (48%)** cannot be accepted until this one is.
+- **Directly unblocked:** 5 — `WP-058` · `WP-060` · `WP-096` · `WP-097` · `WP-158`
+- **Transitively reachable:** **82 of 160 packages (51%)** cannot be accepted until this one is.
 
 The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
 
@@ -208,6 +233,8 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `Route/control decision tables` | `WP-006` | `python3 scripts/progress.py show WP-006` |
 | `Enforcement map` | `WP-006` | `python3 scripts/progress.py show WP-006` |
 | `Negative examples` | `WP-006` | `python3 scripts/progress.py show WP-006` |
+| `Producer and evaluator zone profiles` | `WP-006` | `python3 scripts/progress.py show WP-006` |
+| `MutationPolicy` | `WP-006` | `python3 scripts/progress.py show WP-006` |
 | `Environment topology` | `WP-021` | `python3 scripts/progress.py show WP-021` |
 | `Account/network IaC` | `WP-021` | `python3 scripts/progress.py show WP-021` |
 | `Access baseline` | `WP-021` | `python3 scripts/progress.py show WP-021` |
@@ -217,6 +244,8 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `Invocation/Receipt persistence` | `WP-049` | `python3 scripts/progress.py show WP-049` |
 | `Connector SDK` | `WP-049` | `python3 scripts/progress.py show WP-049` |
 | `Audit events` | `WP-049` | `python3 scripts/progress.py show WP-049` |
+| `Capability gate` | `WP-049` | `python3 scripts/progress.py show WP-049` |
+| `Tool-result reuse with recorded provenance` | `WP-049` | `python3 scripts/progress.py show WP-049` |
 | `Trust zone diagram/data flows` | `WP-051` | `python3 scripts/progress.py show WP-051` |
 | `Network IaC` | `WP-051` | `python3 scripts/progress.py show WP-051` |
 | `Boundary policy` | `WP-051` | `python3 scripts/progress.py show WP-051` |
@@ -226,7 +255,8 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `Lease policies` | `WP-055` | `python3 scripts/progress.py show WP-055` |
 | `Break-glass procedure` | `WP-055` | `python3 scripts/progress.py show WP-055` |
 | `Identity audit dashboard` | `WP-055` | `python3 scripts/progress.py show WP-055` |
-| `OPA platform` | `WP-056` | `python3 scripts/progress.py show WP-056` |
+| `Policy decision point` | `WP-056` | `python3 scripts/progress.py show WP-056` |
+| `PolicyDecision interface conformance suite` | `WP-056` | `python3 scripts/progress.py show WP-056` |
 | `Policy bundle v1` | `WP-056` | `python3 scripts/progress.py show WP-056` |
 | `Policy test suite` | `WP-056` | `python3 scripts/progress.py show WP-056` |
 | `Bundle promotion pipeline` | `WP-056` | `python3 scripts/progress.py show WP-056` |

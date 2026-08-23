@@ -80,6 +80,59 @@ A validator can drift into passing everything. Each one needs a **known-bad
 fixture** it must fail — the repository's own rule, applied to the checkers
 themselves.
 
+### Baseline v1.2.0 — four classes, and what the word 'mechanical' now means
+
+This package's title and scope change from *mechanical verification* to a
+verification engine that **routes by class and records which class answered**:
+V0 deterministic · V1 computational or statistical · V2 model-mediated semantic ·
+V3 human judgement.
+
+The reason is not vocabulary hygiene. The gate rule — *a mechanical check runs
+first and cannot be overridden by a model* — is correct for V0 and V1 and absurd
+when applied to V2, where it says a model's judgement cannot be overridden by a
+model. Splitting the word repairs the rule: V0 and V1 failures are absolute; a V2
+result is a finding with a measured error rate, routed to review.
+
+**The class is assigned by the verifier service from the procedure that ran**,
+never by the caller. A model-mediated result submitted as V0 is refused and
+audited — ACC-62. A V2 verdict without a current `VerifierQualificationRecord`
+for that task type at that threshold cannot satisfy a required verification; the
+gate reports `INCONCLUSIVE` rather than passing or failing on an unmeasured
+judgement — ACC-61.
+
+Every critical verifier carries a known-positive that must fail and a
+known-negative that must pass, and **the suite fails if a planted control stays
+silent**. A detector reports "no findings" and "no detector" in identical words.
+
+### Baseline v1.3.0 — the assurance layer stops using one word for two things
+
+Three changes, and the first is a vocabulary correction with real consequences.
+
+**"Mechanical verifier" is retired as a broad term.** It becomes V0 deterministic
+· V1 computational · V2 qualified semantic · V3 human (`ADR-008`), and the class
+is assigned by the verifier service from the procedure that actually ran — never
+by the caller. The reason is that the gate rule *a mechanical check cannot be
+overridden by a model* is correct for V0 and V1 and absurd at V2, where it says a
+model's judgement cannot be overridden by a model.
+
+**Assurance becomes routed** (`ADR-015`): by consequence and uncertainty rather
+than uniformly, with a cascade to a stronger independent verifier or to a human,
+and with `ABSTAIN` as a valid verdict that escalates. A route cannot be lowered
+because the queue is long or the budget is tight.
+
+**Three hard bindings** into the evidence and publication path:
+
+- **Specification conformance** — the frozen method and the running code are
+  compared, and an unapproved `SCIENTIFIC_MAJOR` deviation cannot carry a
+  confirmatory package forward (`ADR-018`, ACC-104).
+- **Model execution fingerprint** — every invocation contributing to a result
+  records what actually executed, retry and fallback history included, and a
+  hosted black-box model does not yield an `EXACT` reproduction claim
+  (ACC-115, ACC-116).
+- **Publication compiler** — no prose without a claim, no number without a
+  `VerifiedValue`, and a complete evidence chain checked link by link
+  (ACC-105, ACC-106).
+
 ## Out of scope
 
 - The internal implementation of any dependent package
@@ -108,7 +161,7 @@ themselves.
 
 ### Full prerequisite closure
 
-**74 of 141 packages (52%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
+**74 of 160 packages (46%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
 
 | Level | Packages |
 |---:|---|
@@ -151,8 +204,8 @@ themselves.
 
 ### What acceptance of this package releases
 
-- **Directly unblocked:** 8 — `WP-088` · `WP-089` · `WP-090` · `WP-095` · `WP-105` · `WP-107` · `WP-113` · `WP-126`
-- **Transitively reachable:** **35 of 141 packages (25%)** cannot be accepted until this one is.
+- **Directly unblocked:** 9 — `WP-088` · `WP-089` · `WP-090` · `WP-095` · `WP-105` · `WP-107` · `WP-113` · `WP-126` · `WP-155`
+- **Transitively reachable:** **40 of 160 packages (25%)** cannot be accepted until this one is.
 
 The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
 
@@ -210,6 +263,7 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `Verification summary schema adapter` | `WP-024` | `python3 scripts/progress.py show WP-024` |
 | `Test ownership registry` | `WP-024` | `python3 scripts/progress.py show WP-024` |
 | `Flake policy` | `WP-024` | `python3 scripts/progress.py show WP-024` |
+| `SPDX/REUSE and OSV admission checks` | `WP-024` | `python3 scripts/progress.py show WP-024` |
 | `Object storage IaC` | `WP-026` | `python3 scripts/progress.py show WP-026` |
 | `Object address service` | `WP-026` | `python3 scripts/progress.py show WP-026` |
 | `Retention matrix` | `WP-026` | `python3 scripts/progress.py show WP-026` |
@@ -232,15 +286,22 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `Audit rubric` | `WP-080` | `python3 scripts/progress.py show WP-080` |
 | `Mechanical locator checker` | `WP-080` | `python3 scripts/progress.py show WP-080` |
 | `Audit report/scorecard` | `WP-080` | `python3 scripts/progress.py show WP-080` |
+| `Decomposed citation audit with per-question verification class` | `WP-080` | `python3 scripts/progress.py show WP-080` |
 | `Method Registry` | `WP-081` | `python3 scripts/progress.py show WP-081` |
 | `Protocol validators` | `WP-081` | `python3 scripts/progress.py show WP-081` |
 | `Amendment workflow` | `WP-081` | `python3 scripts/progress.py show WP-081` |
 | `Post-hoc change detector` | `WP-081` | `python3 scripts/progress.py show WP-081` |
+| `SpecificationConformanceRecord binding` | `WP-081` | `python3 scripts/progress.py show WP-081` |
 | `Run Registry` | `WP-082` | `python3 scripts/progress.py show WP-082` |
 | `Preflight validator` | `WP-082` | `python3 scripts/progress.py show WP-082` |
 | `MLflow integration` | `WP-082` | `python3 scripts/progress.py show WP-082` |
 | `Run lineage queries` | `WP-082` | `python3 scripts/progress.py show WP-082` |
 | `Run lifecycle dashboard` | `WP-082` | `python3 scripts/progress.py show WP-082` |
+| `RawEvaluatorArtifact` | `WP-082` | `python3 scripts/progress.py show WP-082` |
+| `VerifiedValue` | `WP-082` | `python3 scripts/progress.py show WP-082` |
+| `PredictionRecord` | `WP-082` | `python3 scripts/progress.py show WP-082` |
+| `FailureAssessment` | `WP-082` | `python3 scripts/progress.py show WP-082` |
+| `ModelExecutionFingerprint` | `WP-082` | `python3 scripts/progress.py show WP-082` |
 | `Review Package Builder` | `WP-086` | `python3 scripts/progress.py show WP-086` |
 | `Blind/redaction rules` | `WP-086` | `python3 scripts/progress.py show WP-086` |
 | `Package manifests` | `WP-086` | `python3 scripts/progress.py show WP-086` |
@@ -293,6 +354,11 @@ A package whose evidence cannot be produced is not `READY`, however complete its
 - `Validator catalog`
 - `VerificationRecord service`
 - `Regression fixtures`
+- `V0-V3 verification routing`
+- `VerifierQualificationRecord`
+- `Positive and negative control suite`
+- `Adaptive assurance routing`
+- `Abstention verdicts`
 - An updated runbook or operations note, plus the service/contract ownership record
 - A signed `EvidenceManifest`
 

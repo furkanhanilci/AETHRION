@@ -404,11 +404,11 @@ def block_nonwaivable(package: dict) -> list[str]:
 def load_scenarios() -> dict[str, dict]:
     out = {}
     for path in sorted(SCENARIOS.glob("ACC-*.md")):
-        m = re.match(r"^ACC-\d{2}", path.name)
+        m = re.match(r"^ACC-\d{2,3}", path.name)
         if not m:
             continue
         text = path.read_text(encoding="utf-8")
-        title = re.search(r"^# ACC-\d{2} — (.+)$", text, re.M)
+        title = re.search(r"^# ACC-\d{2,3} — (.+)$", text, re.M)
         severity = re.search(r"\|\s*Severity\s*\|\s*\*\*(.+?)\*\*", text)
         then = re.search(r"\*\*Then:\*\* (.+?)\n", text)
         out[m.group(0)] = {

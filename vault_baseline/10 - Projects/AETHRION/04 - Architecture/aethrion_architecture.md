@@ -162,6 +162,81 @@ Two properties matter more than the chain itself:
 2. **The loop closes.** A claim is never permanently true. Monitoring feeds back
    into the claim, and `VERIFIED` is explicitly *not* an irreversible state.
 
+### 3.1 Where a number comes from
+
+The chain above is drawn at the level of *kinds of thing*. Two of its links are
+where a research system is most easily fooled, and both were under-specified
+until `ADR-007` and `ADR-009`.
+
+The first is a **number**. A result in a paper is normally a string somebody
+typed, and a string is exactly as convincing whether it was measured or invented.
+So a number is a record with a lineage:
+
+```mermaid
+flowchart LR
+    CC["candidate<br/><i>producer zone</i>"] -->|signed commit| EV["frozen evaluator<br/><i>evaluator zone</i>"]
+    EV --> RAW["RawEvaluatorArtifact<br/><i>immutable, stored before<br/>any agent reads it</i>"]
+    RAW --> VV["VerifiedValue<br/><i>metric, aggregation, seeds,<br/>uncertainty, scope</i>"]
+    VV --> PA["PublicationAssertion"]
+
+    style RAW fill:#F7E2D6,stroke:#D55E00,color:#000
+    style VV fill:#F7E2D6,stroke:#D55E00,color:#000
+```
+
+Two properties carry it. The producer has **no read or write path** into the
+evaluator zone — not to the evaluator source, not to hidden material, not to the
+official metric. And the evaluator's raw output is stored **before any agent
+interprets it**, so what persists is bytes rather than an interested party's
+paraphrase.
+
+A boundary breach invalidates the run rather than lowering its score: a candidate
+that reached the evaluator zone produced a result of unknown provenance, and
+scoring it low would record it as a bad result rather than as no result.
+
+*See also Figure 10 —* [`aethrion_discovery.svg`](figures/aethrion_discovery.svg).
+
+### 3.2 Where a sentence comes from
+
+The second is a **sentence**. The natural way to produce a paper from a research
+system is to hand a model the results and ask it to write; that produces good
+prose and an unfalsifiable document, in which a fabricated number sits beside a
+measured one in the same typeface.
+
+So the document is a **projection** of canonical state, and the compiler's job is
+to refuse:
+
+| Refusal | Test |
+|---|---|
+| A factual sentence with no `ClaimVersion` | ACC-52 |
+| A number the `VerifiedValue` registry does not carry | ACC-53 |
+| A real citation that does not support the sentence | ACC-76 |
+| A V2 verdict from a verifier with no current qualification | ACC-61 |
+
+Structural and editorial text carries a `text_role` and passes, so the check
+discriminates rather than blocking all prose. An `EvidenceTag` binds an
+assertion to its evidence with a support relation drawn from **CiTO**, rather
+than an enum invented here.
+
+### 3.3 What is remembered, and where
+
+The chain says what becomes knowledge. A separate question is what the system
+*remembers* along the way, and the default answer — one long-term store,
+retrieved by similarity — is wrong here for a reason unrelated to retrieval
+quality: a raw evaluator output, a failed experiment, a debugging lesson and a
+working scientific principle do not have the same standing.
+
+There are **six** memories: Evidence · Finding · Search Experience · Procedural ·
+Principle · Human Intervention. **Only Evidence may support a claim.** Evidence
+never decays, because a claim anchored to a retracted source has to stay
+traversable *after* the retraction. Procedural memory must decay, because "this
+library needs that flag" is true about a version on a date and goes stale
+silently.
+
+Memory is also an independence question: a reviewer able to query the producer's
+search experience inherits the producer's dead ends, and the review is anchored
+while the record still says independent. `ADR-005`; Figure 11 —
+[`aethrion_memory.svg`](figures/aethrion_memory.svg).
+
 ---
 
 ## 4. The plane architecture
@@ -274,7 +349,7 @@ flowchart TD
         U1["Paper full text · tool and API output<br/>web pages · reviewer comments"]
     end
     U1 -->|"content crosses:<br/>quoted, attributed, <b>never obeyed</b>"| T1
-    T1 --> PDP{"Cedar policy decision point<br/>permit or forbid?"}
+    T1 --> PDP{"policy decision point<br/>permit or forbid?"}
     PDP -->|"permit"| ACT["Tool call executes;<br/>the decision is recorded with the run"]
     PDP -->|"forbid — and forbid is the default"| DENY["Denied.<br/>An anomaly is a denial, not a warning"]
     style TRUST fill:#DDEAF4,stroke:#0072B2,color:#000
@@ -286,10 +361,10 @@ flowchart TD
 A retrieved sentence may change what the agent *knows*. It may never change what
 the agent is *allowed to do*, because the request it would provoke is evaluated
 against policy that no retrieved text can author. This is the CaMeL pattern,
-adopted as a `PATTERN` rather than reimplemented, with Cedar as the policy-engine
+adopted as a `PATTERN` rather than reimplemented, with the policy-engine
 `DEPENDENCY` and AgentDojo named as the `BENCHMARK` that would falsify it.
 
-**Nothing here has been exercised.** No Cedar policy set is authored in this
+**Nothing here has been exercised.** No policy set is authored in this
 repository and no adversarial benchmark has been run against it, so the cut in
 Figure 7 is a decision on paper. It is a *testable* decision — which is the whole
 reason a benchmark was named alongside it — and it has not been tested.
@@ -322,7 +397,7 @@ flowchart TD
     G7A["<b>G7a Reproduction</b><br/>same manifest, same seed<br/><b>deterministic, no model</b>"]
     G7B["<b>G7b Replication</b><br/>different implementation<br/><i>distribution test</i>"]
     G8["<b>G8 Decision</b><br/>DecisionRecord<br/><b>HUMAN ONLY, under quota</b>"]
-    G9["<b>G9 Publish</b><br/>PublicationPackage<br/><i>scope conformance is mechanical</i>"]
+    G9["<b>G9 Publish</b><br/>PublicationPackage<br/><i>claim binding V0 · scope V2</i>"]
     G10["<b>G10 Monitor</b><br/>retraction · citation · CVE · conflict<br/><i>a living review</i>"]
 
     G0 --> G1 --> G2 --> MODE{"research_mode?"}
@@ -372,6 +447,28 @@ flowchart TD
 >
 > The classification itself is fail-closed: absent or ambiguous, it resolves to
 > `confirmatory`, which is the heaviest path.
+
+### 5.1.1 Inside G4 and G5 — the discovery search graph
+
+Where G5 runs computational discovery, it is not an agent loop with a transcript.
+It is a typed candidate graph in which two distinctions are load-bearing:
+
+- **`DEBUG` is a different node state from `IMPROVE`.** A candidate that failed
+  to compile has said nothing about the hypothesis. Recorded as "tried a
+  different approach", an implementation defect becomes evidence about a
+  scientific question, and the record cannot be told from one where the idea
+  genuinely failed. ACC-64 makes the conversion impossible.
+- **`PRIMARY_PARENT` is a different edge from `REFERENCE`.** One is the ancestry
+  and credit path that reproduction depends on; the other lets a branch read a
+  sibling without changing its ancestry.
+
+Everything the graph computes is a **priority for spending compute**. Writing a
+selection score, a normalised rank or a tournament position into a
+`ClaimVersion`, a `VerifiedValue` or a `GateRecord` is refused by schema and by
+policy. A campaign that stops on budget produces a `CampaignStopRecord` that
+satisfies no gate — running out of money demonstrates nothing.
+
+`ADR-006`; WP-144 and WP-145.
 
 ### 5.2 In-principle acceptance — why it is in the flow
 
@@ -813,15 +910,15 @@ This is the section that governs how every other section should be read.
 ```mermaid
 flowchart LR
     subgraph WORKING["RUNNING — verified locally"]
-        W["Zotero read-only client<br/>SQLite source registry<br/>Obsidian projection<br/>Hermes MCP · 5 tools<br/>systemd units · 46 tests<br/>plan seal · 15 status checks<br/>signed evidence manifest<br/>9 generated figures"]
+        W["Zotero read-only client<br/>SQLite source registry<br/>Obsidian projection<br/>Hermes MCP · 5 tools<br/>systemd units · 57 tests<br/>plan seal · 16 status checks<br/>signed evidence manifest<br/>12 generated figures"]
     end
     subgraph WRITTEN["WRITTEN — never executed"]
-        S["52 skills, none behaviour-tested<br/>141 package documents<br/>51 acceptance scenarios<br/>role→model assignment rules<br/>4 authoring profiles"]
+        S["52 skills, none behaviour-tested<br/>148 package documents<br/>80 acceptance scenarios<br/>role→model assignment rules<br/>4 authoring profiles"]
     end
     subgraph DESIGNED["DESIGNED — no code"]
-        D["Temporal · LangGraph · NATS<br/>Tool Broker · Execution Broker<br/>Claim/Evidence Ledger · Run Registry<br/>Model Gateway · G0–G10 engine<br/>review pipeline · Cedar policy set<br/>metascience plane"]
+        D["Temporal · LangGraph · NATS<br/>Tool Broker · Execution Broker<br/>Claim/Evidence Ledger · Run Registry<br/>Model Gateway · G0–G10 engine<br/>review pipeline · policy set<br/>metascience plane<br/>discovery graph · evaluator zone<br/>six memories · publication compiler"]
     end
-    WORKING -->|"one work package<br/>of 141"| WRITTEN
+    WORKING -->|"one work package<br/>of 148"| WRITTEN
     WRITTEN -->|"the distance is<br/><b>much larger</b> than the<br/>page count implies"| DESIGNED
     style WORKING fill:#E0F3EC,stroke:#009E73,color:#000
     style WRITTEN fill:#F5E4EE,stroke:#CC79A7,color:#000
@@ -838,7 +935,7 @@ flowchart LR
 | Document authoring subsystem — router, 12 modules, 4 profiles | Written; one specimen **authored and resolution-checked**, **never rendered** — no toolchain is installed |
 | G0–G10 contracts, roles, gates | Designed |
 | Temporal · LangGraph · NATS · brokers · ledgers · Model Gateway | Planned |
-| Cedar policy set, ADR-003 enforcement | Decided, **not authored** |
+| Policy set, ADR-003 enforcement | Decided; the engine is deferred to the ADR-010 bake-off and **no policy set is authored** |
 | Metascience plane · role→model assignment | Proposal |
 | Production | **No** |
 
@@ -1013,6 +1110,25 @@ an approval.
 9. **A frozen artefact changes only through a recorded supersession.**
 10. **`VERIFIED` is not a permanent state** — G10 can revise anything.
 
+The following were added at baseline v1.2.0 with `ADR-004` to `ADR-010`. They are
+the same kind of statement as the ten above — things that must hold whatever else
+changes — and each names the scenario that tests it.
+
+11. **No prose without a claim.** A factual publication assertion with no `ClaimVersion` behind it does not enter a package — ACC-52.
+12. **No number without a `VerifiedValue`**, and no `VerifiedValue` without an immutable evaluator output under it — ACC-53, ACC-77.
+13. **No evaluator controlled by its producer.** The producer cannot read, write or override the evaluator, the hidden material or the official metric — ACC-54, ACC-55.
+14. **No confirmatory result without a plan frozen before it.** The claim ceiling lowers by record and never rises on the same data — ACC-56.
+15. **No reproduction in the producer's environment** — ACC-65.
+16. **No qualifying verdict from an unqualified verifier**, and "mechanical" means V0 and V1 only — ACC-61, ACC-62.
+17. **No failed experiment without a recorded outcome**, and an implementation failure never refutes a hypothesis — ACC-63, ACC-64.
+18. **No hypothesis or principle mutated in place** — a change is a new version naming its parent and its operator — ACC-57.
+19. **No human intervention without an audit record**, and no timeout, learned preference or inbound message creates an approval — ACC-68, ACC-69.
+20. **No adapted mechanism without lineage** — a pinned commit, a licence read at the source, a characterisation suite, and a statement of what it may never decide — ACC-73, ACC-74.
+
+> **These are constraints on what may be believed, not on what may be tried.**
+> Every one of them permits the work and refuses the *record* of the work when
+> the record would claim more than the work established.
+
 ---
 
 ## 13. Where to go next
@@ -1026,4 +1142,8 @@ an approval.
 | How do agents work? | `AETHRION_SKILL_LAYER.md` — **§14 first** — and `skills/` |
 | Who executes what? | `AETHRION_ROLE_MODEL_ASSIGNMENT.md` |
 | What is adopted rather than invented? | `AETHRION_EXTERNAL_STANDARDS.md` |
+| Which mechanism was taken from which project, and what may it never decide? | `../../provenance/README.md` · `AETHRION_COMPONENT_REUSE.md` §9.2 · `ADR-004` |
+| Where does a published number come from? | `ADR-007` · Figure 10 |
+| What does "verify" mean here? | `ADR-008` · Figure 12 |
+| What is remembered, and which store may support a claim? | `ADR-005` · Figure 11 |
 | The plan itself | `planning/commissioning/` — canonical, hash-sealed |

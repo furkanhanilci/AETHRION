@@ -70,6 +70,27 @@ match.
 An alert that fires to nobody, or a runbook nobody can follow under pressure, is
 discovered here or during an incident. `PR-13`'s shape applies beyond backups.
 
+### Baseline v1.3.0 — the slices exercise the cohort, and the regression injects faults
+
+The vertical slices and the cutover path grow to cover what this baseline adds,
+and one package changes character.
+
+**WP-107 becomes the engineering completion slice.** Requirement and
+specification → worktree → TDD → code review → CI → supply-chain attestation →
+signed artifact → **eligibility to produce scientific evidence**. That last arrow
+is the junction between the two disciplines, and before this baseline nothing
+proved it end to end.
+
+**The other slices exercise the collaboration plane**: a compiled cohort, sealed
+initial positions, typed delta exchange over a sparse topology, an adaptive
+assurance route, a fingerprinted reproduction and a firewalled benchmark run.
+
+**The regression suite gains injections rather than cases.** Faulty agent,
+malicious agent, split brain, duplicate and out-of-order events, communication
+degradation under budget pressure, and benchmark contamination. These are
+failures that are invisible in a healthy run and obvious only in a post-mortem,
+which is why they are caused deliberately rather than waited for.
+
 ## Out of scope
 
 - The internal implementation of any dependent package
@@ -89,11 +110,11 @@ discovered here or during an incident. `PR-13`'s shape applies beyond backups.
 | [WP-053 — Kueue Queue, Quota and Priority Policy](../06_EXECUTION_SECURITY/WP-053_kueue_quota.md) | `Kueue configuration` · `Quota/priority policy` · `Budget admission adapter` · `Queue dashboard` |
 | [WP-083 — ExperimentBatch and Staged Execution](../08_EVIDENCE_ASSURANCE/WP-083_experiment_batch.md) | `ExperimentBatch workflow` · `Staging policy` · `Parameter manifest` · `Checkpoint/recovery logic` |
 | [WP-100 — Cost Ledger, Budget Envelopes and FinOps](../09_EXPERIENCE_OBSERVABILITY/WP-100_cost_ledger_finops.md) | `Cost Ledger` · `Budget service` · `Cost adapters` · `Invoice reconciliation` |
-| [WP-109 — Forty Acceptance Scenario Registry and Harness](../10_INTEGRATION_CUTOVER/WP-109_acceptance_registry.md) | `Acceptance Registry` · `Scenario runner` · `Fixture catalog` · `Evidence capture/signing` |
+| [WP-109 — Acceptance Scenario Registry and Harness](../10_INTEGRATION_CUTOVER/WP-109_acceptance_registry.md) | `Acceptance Registry` · `Scenario runner` · `Fixture catalog` · `Evidence capture/signing` |
 
 ### Full prerequisite closure
 
-**109 of 141 packages (77%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
+**109 of 160 packages (68%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
 
 | Level | Packages |
 |---:|---|
@@ -147,7 +168,7 @@ discovered here or during an incident. `PR-13`'s shape applies beyond backups.
 ### What acceptance of this package releases
 
 - **Directly unblocked:** 2 — `WP-115` · `WP-116`
-- **Transitively reachable:** **16 of 141 packages (11%)** cannot be accepted until this one is.
+- **Transitively reachable:** **19 of 160 packages (12%)** cannot be accepted until this one is.
 
 The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
 
@@ -178,7 +199,7 @@ The transitive figure is the leverage number. It does not appear anywhere else i
 
 ## Preconditions — Definition of Ready
 
-- Dependencies accepted: [WP-040 — Workflow Replay, Versioning and Failure Test Suite](../04_CONTROL_EVENT/WP-040_workflow_replay_failure_suite.md), [WP-053 — Kueue Queue, Quota and Priority Policy](../06_EXECUTION_SECURITY/WP-053_kueue_quota.md), [WP-083 — ExperimentBatch and Staged Execution](../08_EVIDENCE_ASSURANCE/WP-083_experiment_batch.md), [WP-100 — Cost Ledger, Budget Envelopes and FinOps](../09_EXPERIENCE_OBSERVABILITY/WP-100_cost_ledger_finops.md), [WP-109 — Forty Acceptance Scenario Registry and Harness](../10_INTEGRATION_CUTOVER/WP-109_acceptance_registry.md)
+- Dependencies accepted: [WP-040 — Workflow Replay, Versioning and Failure Test Suite](../04_CONTROL_EVENT/WP-040_workflow_replay_failure_suite.md), [WP-053 — Kueue Queue, Quota and Priority Policy](../06_EXECUTION_SECURITY/WP-053_kueue_quota.md), [WP-083 — ExperimentBatch and Staged Execution](../08_EVIDENCE_ASSURANCE/WP-083_experiment_batch.md), [WP-100 — Cost Ledger, Budget Envelopes and FinOps](../09_EXPERIENCE_OBSERVABILITY/WP-100_cost_ledger_finops.md), [WP-109 — Acceptance Scenario Registry and Harness](../10_INTEGRATION_CUTOVER/WP-109_acceptance_registry.md)
 - A named owner, a named implementer, and a verifier **independent of the producer** are assigned.
 - Affected canonical records, interfaces and ADRs have been linked during refinement.
 - `DataClass`, `CodeTrust`, `ToolEffect` and the network/credential scope are classified.
@@ -199,6 +220,7 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `Golden histories` | `WP-040` | `python3 scripts/progress.py show WP-040` |
 | `Fault-injection harness` | `WP-040` | `python3 scripts/progress.py show WP-040` |
 | `Workflow compatibility report` | `WP-040` | `python3 scripts/progress.py show WP-040` |
+| `Split-brain injection suite` | `WP-040` | `python3 scripts/progress.py show WP-040` |
 | `Kueue configuration` | `WP-053` | `python3 scripts/progress.py show WP-053` |
 | `Quota/priority policy` | `WP-053` | `python3 scripts/progress.py show WP-053` |
 | `Budget admission adapter` | `WP-053` | `python3 scripts/progress.py show WP-053` |
@@ -208,11 +230,15 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `Parameter manifest` | `WP-083` | `python3 scripts/progress.py show WP-083` |
 | `Checkpoint/recovery logic` | `WP-083` | `python3 scripts/progress.py show WP-083` |
 | `Batch report` | `WP-083` | `python3 scripts/progress.py show WP-083` |
+| `ExperimentPromotionRecord` | `WP-083` | `python3 scripts/progress.py show WP-083` |
+| `ResearchCampaignGovernor` | `WP-083` | `python3 scripts/progress.py show WP-083` |
+| `CampaignStopRecord` | `WP-083` | `python3 scripts/progress.py show WP-083` |
 | `Cost Ledger` | `WP-100` | `python3 scripts/progress.py show WP-100` |
 | `Budget service` | `WP-100` | `python3 scripts/progress.py show WP-100` |
 | `Cost adapters` | `WP-100` | `python3 scripts/progress.py show WP-100` |
 | `Invoice reconciliation` | `WP-100` | `python3 scripts/progress.py show WP-100` |
 | `FinOps dashboard/runbook` | `WP-100` | `python3 scripts/progress.py show WP-100` |
+| `Token ledger categories` | `WP-100` | `python3 scripts/progress.py show WP-100` |
 | `Acceptance Registry` | `WP-109` | `python3 scripts/progress.py show WP-109` |
 | `Scenario runner` | `WP-109` | `python3 scripts/progress.py show WP-109` |
 | `Fixture catalog` | `WP-109` | `python3 scripts/progress.py show WP-109` |

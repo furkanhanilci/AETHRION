@@ -75,7 +75,7 @@ ISO/IEC/IEEE 29119-3 §8.6 requires each environment item to name a description,
 | Isolated workspace | A worktree or container separate from the producer's | Implementation owner | For the whole run |
 | Evidence sink | Somewhere `EvidenceManifest` can be issued and verified | Independent Red Team / Privacy Reviewer | At completion |
 | `WP-060` accepted output | Agentic Security Attack Suite and Red-Team Acceptance | Red Team Lead | Before the first test case runs |
-| `WP-109` accepted output | Forty Acceptance Scenario Registry and Harness | Platform Assurance Lead | Before the first test case runs |
+| `WP-109` accepted output | Acceptance Scenario Registry and Harness | Platform Assurance Lead | Before the first test case runs |
 
 ### Environment readiness report — §8.8
 

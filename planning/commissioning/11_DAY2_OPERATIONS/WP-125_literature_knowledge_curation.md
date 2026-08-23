@@ -67,6 +67,47 @@ Group membership, library permissions and source licences all change without
 notice. `PR-14` — source licences violated — is the risk, and a quarterly review is
 the control.
 
+### Baseline v1.2.0 — curation may expire a procedure and may not touch evidence
+
+Curation now operates over six typed stores rather than one corpus, and the
+constraint is which of them it may reach.
+
+**Never:** the evidence store and the human-intervention audit. Both are
+immutable, and a retention job with a path to either is a defect regardless of
+whether it has ever been observed to use it.
+
+**Yes, with revalidation:** procedural memory. A method lesson is true about a
+version on a date and goes stale silently, so it expires and is revalidated
+rather than accumulating as permanent advice.
+
+The run must **report its exclusions** — which immutable classes it refused to
+touch and why. ACC-79 runs it against a deliberately mixed record set with a
+planted evidence control that must survive and a planted stale procedure that
+must not, because a job that touches nothing and a job that is correctly bounded
+produce the same log otherwise.
+
+### Baseline v1.3.0 — Day-2 measures what this baseline added
+
+The recurring rhythms gain six subjects, each of which is a number that only
+means something when tracked over time:
+
+- **Multi-agent efficiency** — coordination overhead against the naive
+  fully-connected baseline, and whether the optimisation still holds.
+- **Verifier calibration** — precision, recall, **abstention rate** and error
+  correlation between verifier families, requalified on a schedule.
+- **Source and upstream drift** — pinned mechanisms whose upstream moved, and
+  sources whose status changed.
+- **Supply-chain posture** — OSV and Scorecard findings, and residual risks that
+  reached their expiry.
+- **Failure taxonomy distribution** — including how often attribution returned
+  `UNKNOWN`, which is a system-health signal rather than a defect count.
+- **The Pareto frontier** — quality against cost, so an optimisation that stopped
+  paying is visible.
+
+Incident learning consumes the typed `FailureAssessment` and retains negative
+results. A failed approach that is deleted is a lesson the next campaign pays for
+again.
+
 ## Out of scope
 
 - The internal implementation of any dependent package
@@ -100,7 +141,7 @@ the control.
 
 ### Full prerequisite closure
 
-**121 of 141 packages (86%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
+**121 of 160 packages (76%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
 
 | Level | Packages |
 |---:|---|
@@ -161,7 +202,7 @@ the control.
 ### What acceptance of this package releases
 
 - **Directly unblocked:** 1 — `WP-130`
-- **Transitively reachable:** **1 of 141 packages (1%)** cannot be accepted until this one is.
+- **Transitively reachable:** **1 of 160 packages (1%)** cannot be accepted until this one is.
 
 The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
 

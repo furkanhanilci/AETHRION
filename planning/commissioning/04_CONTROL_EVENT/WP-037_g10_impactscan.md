@@ -74,6 +74,30 @@ A monitoring feed with no disposition path floods the queue, and a flooded queue
 is ignored. Every `ImpactCase` reaches a terminal state — the same rule
 `00_PROGRAM/06` applies to findings — and a dismissed case records why.
 
+### Baseline v1.3.0 — new policies at the gates, without moving authority
+
+G0–G10 consumes the collaboration, conformance, assurance and reproduction
+policies this baseline adds. **None of that moves authority.** Temporal still
+owns lifecycle transitions and LangGraph still owns bounded cognition inside one
+task, and a checkpoint in the second cannot transition a gate in the first.
+
+Three concrete additions:
+
+- **G5 and G6** consume the cohort, the topology, the specification conformance
+  result and the assurance route.
+- **G7** consumes the model execution fingerprint and the reproduction level it
+  supports — a hosted black-box model does not yield `EXACT`.
+- **G8** runs the human preliminary flow: the recommendation is unreachable
+  until the human assessment is sealed, through **every** interface rather than
+  only the UI.
+
+And the write path becomes explicit: a canonical transaction and its outbox
+record commit atomically, the publisher reads the outbox afterwards, and a
+consumer validates identity and version rather than trusting a payload. The
+failure suite gains the injections that make split brain visible — publisher
+crash, duplicate delivery, out-of-order delivery, a cancelled task's late
+result, and two concurrent gate transitions.
+
 ## Out of scope
 
 - The internal implementation of any dependent package
@@ -98,7 +122,7 @@ is ignored. Every `ImpactCase` reaches a terminal state — the same rule
 
 ### Full prerequisite closure
 
-**30 of 141 packages (21%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
+**30 of 160 packages (19%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
 
 | Level | Packages |
 |---:|---|
@@ -126,7 +150,7 @@ is ignored. Every `ImpactCase` reaches a terminal state — the same rule
 ### What acceptance of this package releases
 
 - **Directly unblocked:** 7 — `WP-040` · `WP-063` · `WP-092` · `WP-106` · `WP-108` · `WP-128` · `WP-137`
-- **Transitively reachable:** **53 of 141 packages (38%)** cannot be accepted until this one is.
+- **Transitively reachable:** **66 of 160 packages (41%)** cannot be accepted until this one is.
 
 The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
 
@@ -182,6 +206,7 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `Event Catalog seed` | `WP-015` | `python3 scripts/progress.py show WP-015` |
 | `Subject/retention table` | `WP-015` | `python3 scripts/progress.py show WP-015` |
 | `Consumer contract` | `WP-015` | `python3 scripts/progress.py show WP-015` |
+| `Post-commit event taxonomy for the collaboration plane` | `WP-015` | `python3 scripts/progress.py show WP-015` |
 | `Literature schema bundle` | `WP-017` | `python3 scripts/progress.py show WP-017` |
 | `Status lifecycle` | `WP-017` | `python3 scripts/progress.py show WP-017` |
 | `Sample manifests` | `WP-017` | `python3 scripts/progress.py show WP-017` |
@@ -190,6 +215,10 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `Claim state machine` | `WP-018` | `python3 scripts/progress.py show WP-018` |
 | `Review/disagreement schemas` | `WP-018` | `python3 scripts/progress.py show WP-018` |
 | `Decision schema fixtures` | `WP-018` | `python3 scripts/progress.py show WP-018` |
+| `PublicationAssertion` | `WP-018` | `python3 scripts/progress.py show WP-018` |
+| `EvidenceTag` | `WP-018` | `python3 scripts/progress.py show WP-018` |
+| `FindingRecord` | `WP-018` | `python3 scripts/progress.py show WP-018` |
+| `Authority typing on every scientific record` | `WP-018` | `python3 scripts/progress.py show WP-018` |
 | `Temporal platform` | `WP-031` | `python3 scripts/progress.py show WP-031` |
 | `Namespace/queue catalog` | `WP-031` | `python3 scripts/progress.py show WP-031` |
 | `Worker identity policy` | `WP-031` | `python3 scripts/progress.py show WP-031` |

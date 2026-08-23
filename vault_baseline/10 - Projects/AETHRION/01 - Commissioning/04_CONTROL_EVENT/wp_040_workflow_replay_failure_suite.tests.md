@@ -135,19 +135,20 @@ ISO/IEC/IEEE 29119-3 §8.3.2. A coverage item is something the tests must reach.
 | C02 | `Golden histories` | Mandatory deliverable | *(name the test case)* |
 | C03 | `Fault-injection harness` | Mandatory deliverable | *(name the test case)* |
 | C04 | `Workflow compatibility report` | Mandatory deliverable | *(name the test case)* |
-| C05 | Create the golden event histories | WP-040-T01 | *(name the test case)* |
-| C06 | Add deterministic replay CI to every workflow build | WP-040-T02 | *(name the test case)* |
-| C07 | Write worker-kill and activity-timeout fault injection | WP-040-T03 | *(name the test case)* |
-| C08 | Build the database, NATS and provider outage scenarios | WP-040-T04 | *(name the test case)* |
-| C09 | Add patch/version-marker and Continue-as-New tests | WP-040-T05 | *(name the test case)* |
-| C10 | Produce the state, artifact and integrity comparison report | WP-040-T06 | *(name the test case)* |
-| C11 | Primary Model Provider Outage | [ACC-10](../12_ACCEPTANCE_SCENARIOS/acc_10_provider_outage.md) — High | *(name the test case)* |
-| C12 | No Eligible Fallback | [ACC-11](../12_ACCEPTANCE_SCENARIOS/acc_11_no_eligible_fallback.md) — Critical | *(name the test case)* |
-| C13 | Temporal Worker Crash | [ACC-13](../12_ACCEPTANCE_SCENARIOS/acc_13_temporal_worker_crash.md) — Critical | *(name the test case)* |
-| C14 | Workflow Code Deployment and Replay | [ACC-14](../12_ACCEPTANCE_SCENARIOS/acc_14_workflow_code_deploy.md) — Critical | *(name the test case)* |
-| C15 | Tool Partial Failure | [ACC-35](../12_ACCEPTANCE_SCENARIOS/acc_35_tool_partial_failure.md) — Critical | *(name the test case)* |
+| C05 | `Split-brain injection suite` | Mandatory deliverable | *(name the test case)* |
+| C06 | Create the golden event histories | WP-040-T01 | *(name the test case)* |
+| C07 | Add deterministic replay CI to every workflow build | WP-040-T02 | *(name the test case)* |
+| C08 | Write worker-kill and activity-timeout fault injection | WP-040-T03 | *(name the test case)* |
+| C09 | Build the database, NATS and provider outage scenarios | WP-040-T04 | *(name the test case)* |
+| C10 | Add patch/version-marker and Continue-as-New tests | WP-040-T05 | *(name the test case)* |
+| C11 | Produce the state, artifact and integrity comparison report | WP-040-T06 | *(name the test case)* |
+| C12 | Primary Model Provider Outage | [ACC-10](../12_ACCEPTANCE_SCENARIOS/acc_10_provider_outage.md) — High | *(name the test case)* |
+| C13 | No Eligible Fallback | [ACC-11](../12_ACCEPTANCE_SCENARIOS/acc_11_no_eligible_fallback.md) — Critical | *(name the test case)* |
+| C14 | Temporal Worker Crash | [ACC-13](../12_ACCEPTANCE_SCENARIOS/acc_13_temporal_worker_crash.md) — Critical | *(name the test case)* |
+| C15 | Workflow Code Deployment and Replay | [ACC-14](../12_ACCEPTANCE_SCENARIOS/acc_14_workflow_code_deploy.md) — Critical | *(name the test case)* |
+| C16 | Tool Partial Failure | [ACC-35](../12_ACCEPTANCE_SCENARIOS/acc_35_tool_partial_failure.md) — Critical | *(name the test case)* |
 
-**15 coverage items.** Every one must appear in the *Covered by* column of at least one test case below before this package can reach `TECH_COMPLETE`.
+**16 coverage items.** Every one must appear in the *Covered by* column of at least one test case below before this package can reach `TECH_COMPLETE`.
 
 <!-- /generated:coverage -->
 

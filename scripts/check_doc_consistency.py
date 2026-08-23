@@ -58,7 +58,7 @@ def derive() -> dict[str, int]:
     packages = [p for p in all_wp
                 if p not in test_procedures and p not in acceptance_criteria]
     scenarios = [p for p in (PLAN / "12_ACCEPTANCE_SCENARIOS").glob("ACC-*.md")
-                 if re.match(r"^ACC-\d{2}_", p.name)]
+                 if re.match(r"^ACC-\d{2,3}_", p.name)]
     skills = [d for d in (ROOT / "skills").iterdir()
               if d.is_dir() and not d.name.startswith("_") and (d / "SKILL.md").exists()]
     seal = (PLAN / "00_PROGRAM" / "SHA256SUMS.txt").read_text().strip().splitlines()
@@ -89,7 +89,8 @@ def derive() -> dict[str, int]:
         "sealed": len(seal),
         "plan_markdown": len(markdown),
         "figures": len(figures),
-        "highest_scenario": max(int(p.name[4:6]) for p in scenarios),
+        "highest_scenario": max(int(re.match(r"^ACC-(\d{2,3})_", p.name).group(1))
+                               for p in scenarios),
     }
 
 

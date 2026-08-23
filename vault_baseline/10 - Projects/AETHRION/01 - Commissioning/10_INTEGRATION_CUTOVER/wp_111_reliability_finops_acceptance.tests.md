@@ -78,7 +78,7 @@ ISO/IEC/IEEE 29119-3 §8.6 requires each environment item to name a description,
 | `WP-053` accepted output | Kueue Queue, Quota and Priority Policy | Compute Platform Lead | Before the first test case runs |
 | `WP-083` accepted output | ExperimentBatch and Staged Execution | Scientific Engineering Lead | Before the first test case runs |
 | `WP-100` accepted output | Cost Ledger, Budget Envelopes and FinOps | FinOps Lead | Before the first test case runs |
-| `WP-109` accepted output | Forty Acceptance Scenario Registry and Harness | Platform Assurance Lead | Before the first test case runs |
+| `WP-109` accepted output | Acceptance Scenario Registry and Harness | Platform Assurance Lead | Before the first test case runs |
 
 ### Environment readiness report — §8.8
 

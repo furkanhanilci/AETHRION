@@ -93,6 +93,27 @@ found an external one or broken the constraint.
 Different bytes at the same content address must be refused **at the storage layer**
 — `PR-08`, rated critical.
 
+### Baseline v1.3.0 — the slices exercise the cohort, and the regression injects faults
+
+The vertical slices and the cutover path grow to cover what this baseline adds,
+and one package changes character.
+
+**WP-107 becomes the engineering completion slice.** Requirement and
+specification → worktree → TDD → code review → CI → supply-chain attestation →
+signed artifact → **eligibility to produce scientific evidence**. That last arrow
+is the junction between the two disciplines, and before this baseline nothing
+proved it end to end.
+
+**The other slices exercise the collaboration plane**: a compiled cohort, sealed
+initial positions, typed delta exchange over a sparse topology, an adaptive
+assurance route, a fingerprinted reproduction and a firewalled benchmark run.
+
+**The regression suite gains injections rather than cases.** Faulty agent,
+malicious agent, split brain, duplicate and out-of-order events, communication
+degradation under budget pressure, and benchmark contamination. These are
+failures that are invisible in a healthy run and obvious only in a post-mortem,
+which is why they are caused deliberately rather than waited for.
+
 ## Out of scope
 
 - The internal implementation of any dependent package
@@ -113,11 +134,11 @@ Different bytes at the same content address must be refused **at the storage lay
 | [WP-088 — Blind, Cross-Family and Adversarial Review](../08_EVIDENCE_ASSURANCE/wp_088_blind_cross_family_review.md) | `Review service` · `Assignment/eligibility engine` · `Review rubrics` · `ReviewRecord storage` |
 | [WP-089 — DisagreementCase and Evidence-Weighted Arbitration](../08_EVIDENCE_ASSURANCE/wp_089_disagreement_arbitration.md) | `Disagreement service` · `Arbitration rubric` · `Disposition workflow` · `Appeal/decision integration` |
 | [WP-090 — PublicationPackage, RO-Crate and Provenance Export](../08_EVIDENCE_ASSURANCE/wp_090_publication_package.md) | `Publication builder` · `RO-Crate profile` · `Signed publication package` · `Release checklist` |
-| [WP-109 — Forty Acceptance Scenario Registry and Harness](../10_INTEGRATION_CUTOVER/wp_109_acceptance_registry.md) | `Acceptance Registry` · `Scenario runner` · `Fixture catalog` · `Evidence capture/signing` |
+| [WP-109 — Acceptance Scenario Registry and Harness](../10_INTEGRATION_CUTOVER/wp_109_acceptance_registry.md) | `Acceptance Registry` · `Scenario runner` · `Fixture catalog` · `Evidence capture/signing` |
 
 ### Full prerequisite closure
 
-**109 of 141 packages (77%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
+**109 of 160 packages (68%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
 
 | Level | Packages |
 |---:|---|
@@ -171,7 +192,7 @@ Different bytes at the same content address must be refused **at the storage lay
 ### What acceptance of this package releases
 
 - **Directly unblocked:** 2 — `WP-115` · `WP-126`
-- **Transitively reachable:** **16 of 141 packages (11%)** cannot be accepted until this one is.
+- **Transitively reachable:** **19 of 160 packages (12%)** cannot be accepted until this one is.
 
 The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
 
@@ -204,7 +225,7 @@ The transitive figure is the leverage number. It does not appear anywhere else i
 
 ## Preconditions — Definition of Ready
 
-- Dependencies accepted: [WP-085 — Repeatability, Reproducibility, Robustness and Replication Pipeline](../08_EVIDENCE_ASSURANCE/wp_085_repro_robustness_replication.md), [WP-087 — Mechanical Verification Engine](../08_EVIDENCE_ASSURANCE/wp_087_mechanical_verifier.md), [WP-088 — Blind, Cross-Family and Adversarial Review](../08_EVIDENCE_ASSURANCE/wp_088_blind_cross_family_review.md), [WP-089 — DisagreementCase and Evidence-Weighted Arbitration](../08_EVIDENCE_ASSURANCE/wp_089_disagreement_arbitration.md), [WP-090 — PublicationPackage, RO-Crate and Provenance Export](../08_EVIDENCE_ASSURANCE/wp_090_publication_package.md), [WP-109 — Forty Acceptance Scenario Registry and Harness](../10_INTEGRATION_CUTOVER/wp_109_acceptance_registry.md)
+- Dependencies accepted: [WP-085 — Repeatability, Reproducibility, Robustness and Replication Pipeline](../08_EVIDENCE_ASSURANCE/wp_085_repro_robustness_replication.md), [WP-087 — Mechanical Verification Engine](../08_EVIDENCE_ASSURANCE/wp_087_mechanical_verifier.md), [WP-088 — Blind, Cross-Family and Adversarial Review](../08_EVIDENCE_ASSURANCE/wp_088_blind_cross_family_review.md), [WP-089 — DisagreementCase and Evidence-Weighted Arbitration](../08_EVIDENCE_ASSURANCE/wp_089_disagreement_arbitration.md), [WP-090 — PublicationPackage, RO-Crate and Provenance Export](../08_EVIDENCE_ASSURANCE/wp_090_publication_package.md), [WP-109 — Acceptance Scenario Registry and Harness](../10_INTEGRATION_CUTOVER/wp_109_acceptance_registry.md)
 - A named owner, a named implementer, and a verifier **independent of the producer** are assigned.
 - Affected canonical records, interfaces and ADRs have been linked during refinement.
 - `DataClass`, `CodeTrust`, `ToolEffect` and the network/credential scope are classified.
@@ -226,10 +247,19 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `Robustness matrix` | `WP-085` | `python3 scripts/progress.py show WP-085` |
 | `Reproduction certificates` | `WP-085` | `python3 scripts/progress.py show WP-085` |
 | `Failure taxonomy` | `WP-085` | `python3 scripts/progress.py show WP-085` |
+| `AlgorithmUnderstandingRecord` | `WP-085` | `python3 scripts/progress.py show WP-085` |
+| `ReproductionPackage` | `WP-085` | `python3 scripts/progress.py show WP-085` |
+| `ClaimConsistencyReport` | `WP-085` | `python3 scripts/progress.py show WP-085` |
+| `Five-level reproduction taxonomy` | `WP-085` | `python3 scripts/progress.py show WP-085` |
 | `Verification Engine` | `WP-087` | `python3 scripts/progress.py show WP-087` |
 | `Validator catalog` | `WP-087` | `python3 scripts/progress.py show WP-087` |
 | `VerificationRecord service` | `WP-087` | `python3 scripts/progress.py show WP-087` |
 | `Regression fixtures` | `WP-087` | `python3 scripts/progress.py show WP-087` |
+| `V0-V3 verification routing` | `WP-087` | `python3 scripts/progress.py show WP-087` |
+| `VerifierQualificationRecord` | `WP-087` | `python3 scripts/progress.py show WP-087` |
+| `Positive and negative control suite` | `WP-087` | `python3 scripts/progress.py show WP-087` |
+| `Adaptive assurance routing` | `WP-087` | `python3 scripts/progress.py show WP-087` |
+| `Abstention verdicts` | `WP-087` | `python3 scripts/progress.py show WP-087` |
 | `Review service` | `WP-088` | `python3 scripts/progress.py show WP-088` |
 | `Assignment/eligibility engine` | `WP-088` | `python3 scripts/progress.py show WP-088` |
 | `Review rubrics` | `WP-088` | `python3 scripts/progress.py show WP-088` |
@@ -244,6 +274,8 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `Signed publication package` | `WP-090` | `python3 scripts/progress.py show WP-090` |
 | `Release checklist` | `WP-090` | `python3 scripts/progress.py show WP-090` |
 | `Supersession record` | `WP-090` | `python3 scripts/progress.py show WP-090` |
+| `Publication compiler` | `WP-090` | `python3 scripts/progress.py show WP-090` |
+| `Assertion and value binding checks` | `WP-090` | `python3 scripts/progress.py show WP-090` |
 | `Acceptance Registry` | `WP-109` | `python3 scripts/progress.py show WP-109` |
 | `Scenario runner` | `WP-109` | `python3 scripts/progress.py show WP-109` |
 | `Fixture catalog` | `WP-109` | `python3 scripts/progress.py show WP-109` |

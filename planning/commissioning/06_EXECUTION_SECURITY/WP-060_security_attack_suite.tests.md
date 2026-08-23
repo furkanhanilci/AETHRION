@@ -57,7 +57,7 @@ ISO/IEC/IEEE 29119-3 §8.6 requires each environment item to name a description,
 | `WP-053` accepted output | Kueue Queue, Quota and Priority Policy | Compute Platform Lead | Before the first test case runs |
 | `WP-054` accepted output | gVisor Sandbox and Execution Cell Lifecycle | Execution Security Lead | Before the first test case runs |
 | `WP-055` accepted output | SPIFFE/SPIRE Workload Identity and Vault | Identity Platform Lead | Before the first test case runs |
-| `WP-056` accepted output | OPA Policy Platform and Bundle Distribution | Policy Platform Lead | Before the first test case runs |
+| `WP-056` accepted output | Policy Decision Point and Bundle Distribution | Policy Platform Lead | Before the first test case runs |
 | `WP-057` accepted output | Default-Deny Egress Proxy, DLP and Allowlist | Network Security Lead | Before the first test case runs |
 | `WP-058` accepted output | Untrusted Content Quarantine and Prompt-Injection Firewall | Content Security Lead | Before the first test case runs |
 | `WP-059` accepted output | Supply-Chain Admission, Sigstore and SLSA Policy | Supply Chain Security Lead | Before the first test case runs |
@@ -111,24 +111,26 @@ ISO/IEC/IEEE 29119-3 §8.3.2. A coverage item is something the tests must reach.
 | C02 | `Malicious fixture corpus` | Mandatory deliverable | *(name the test case)* |
 | C03 | `Red-team report template` | Mandatory deliverable | *(name the test case)* |
 | C04 | `Security regression schedule` | Mandatory deliverable | *(name the test case)* |
-| C05 | Derive the attack cases from the threat-to-control map | WP-060-T01 | *(name the test case)* |
-| C06 | Prepare canary secrets and malicious PDF, repository and tool fixtures | WP-060-T02 | *(name the test case)* |
-| C07 | Write confused-deputy and target-scope tests against the Tool Broker | WP-060-T03 | *(name the test case)* |
-| C08 | Add sandbox, kernel, network, cost and audit attacks | WP-060-T04 | *(name the test case)* |
-| C09 | Define the expected deny / contain / detect / respond evidence for each case | WP-060-T05 | *(name the test case)* |
-| C10 | Bind the regression schedule and the finding pipeline | WP-060-T06 | *(name the test case)* |
-| C11 | Prompt-Injection PDF | [ACC-05](../12_ACCEPTANCE_SCENARIOS/ACC-05_prompt_injection_pdf.md) — Critical | *(name the test case)* |
-| C12 | Planner Self-Approval Attempt | [ACC-06](../12_ACCEPTANCE_SCENARIOS/ACC-06_plan_self_approval.md) — Critical | *(name the test case)* |
-| C13 | Budget Hard Stop | [ACC-09](../12_ACCEPTANCE_SCENARIOS/ACC-09_budget_hard_stop.md) — Critical | *(name the test case)* |
-| C14 | Sandbox Escape Attempt | [ACC-15](../12_ACCEPTANCE_SCENARIOS/ACC-15_sandbox_escape.md) — Critical | *(name the test case)* |
-| C15 | Egress Exfiltration Attempt | [ACC-16](../12_ACCEPTANCE_SCENARIOS/ACC-16_egress_exfiltration.md) — Critical | *(name the test case)* |
-| C16 | Unsigned or Mutable Image | [ACC-17](../12_ACCEPTANCE_SCENARIOS/ACC-17_unsigned_image.md) — Critical | *(name the test case)* |
-| C17 | D3 Data to a Public Provider | [ACC-18](../12_ACCEPTANCE_SCENARIOS/ACC-18_d3_public_route.md) — Critical | *(name the test case)* |
-| C18 | Human Approval Forgery | [ACC-25](../12_ACCEPTANCE_SCENARIOS/ACC-25_human_approval_forgery.md) — Critical | *(name the test case)* |
-| C19 | Secret in Prompt or Trace | [ACC-32](../12_ACCEPTANCE_SCENARIOS/ACC-32_secret_in_trace.md) — Critical | *(name the test case)* |
-| C20 | Evaluation Set Contamination | [ACC-37](../12_ACCEPTANCE_SCENARIOS/ACC-37_eval_contamination.md) — Critical | *(name the test case)* |
+| C05 | `ASB and WASP external regression` | Mandatory deliverable | *(name the test case)* |
+| C06 | `Memory poisoning and evaluator exfiltration fixtures` | Mandatory deliverable | *(name the test case)* |
+| C07 | Derive the attack cases from the threat-to-control map | WP-060-T01 | *(name the test case)* |
+| C08 | Prepare canary secrets and malicious PDF, repository and tool fixtures | WP-060-T02 | *(name the test case)* |
+| C09 | Write confused-deputy and target-scope tests against the Tool Broker | WP-060-T03 | *(name the test case)* |
+| C10 | Add sandbox, kernel, network, cost and audit attacks | WP-060-T04 | *(name the test case)* |
+| C11 | Define the expected deny / contain / detect / respond evidence for each case | WP-060-T05 | *(name the test case)* |
+| C12 | Bind the regression schedule and the finding pipeline | WP-060-T06 | *(name the test case)* |
+| C13 | Prompt-Injection PDF | [ACC-05](../12_ACCEPTANCE_SCENARIOS/ACC-05_prompt_injection_pdf.md) — Critical | *(name the test case)* |
+| C14 | Planner Self-Approval Attempt | [ACC-06](../12_ACCEPTANCE_SCENARIOS/ACC-06_plan_self_approval.md) — Critical | *(name the test case)* |
+| C15 | Budget Hard Stop | [ACC-09](../12_ACCEPTANCE_SCENARIOS/ACC-09_budget_hard_stop.md) — Critical | *(name the test case)* |
+| C16 | Sandbox Escape Attempt | [ACC-15](../12_ACCEPTANCE_SCENARIOS/ACC-15_sandbox_escape.md) — Critical | *(name the test case)* |
+| C17 | Egress Exfiltration Attempt | [ACC-16](../12_ACCEPTANCE_SCENARIOS/ACC-16_egress_exfiltration.md) — Critical | *(name the test case)* |
+| C18 | Unsigned or Mutable Image | [ACC-17](../12_ACCEPTANCE_SCENARIOS/ACC-17_unsigned_image.md) — Critical | *(name the test case)* |
+| C19 | D3 Data to a Public Provider | [ACC-18](../12_ACCEPTANCE_SCENARIOS/ACC-18_d3_public_route.md) — Critical | *(name the test case)* |
+| C20 | Human Approval Forgery | [ACC-25](../12_ACCEPTANCE_SCENARIOS/ACC-25_human_approval_forgery.md) — Critical | *(name the test case)* |
+| C21 | Secret in Prompt or Trace | [ACC-32](../12_ACCEPTANCE_SCENARIOS/ACC-32_secret_in_trace.md) — Critical | *(name the test case)* |
+| C22 | Evaluation Set Contamination | [ACC-37](../12_ACCEPTANCE_SCENARIOS/ACC-37_eval_contamination.md) — Critical | *(name the test case)* |
 
-**20 coverage items.** Every one must appear in the *Covered by* column of at least one test case below before this package can reach `TECH_COMPLETE`.
+**22 coverage items.** Every one must appear in the *Covered by* column of at least one test case below before this package can reach `TECH_COMPLETE`.
 
 <!-- /generated:coverage -->
 

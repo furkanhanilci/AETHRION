@@ -99,6 +99,21 @@ system must distinguish that from a source that was never there, and from one th
 became unreadable because a permission changed — three states with three correct
 responses, and finding **H2** is what happens when they are not distinguished.
 
+### Baseline v1.3.0 — unchanged ownership, new cross-cutting obligations
+
+No semantic ownership changes here. What changes is what these packages must
+remain compatible with:
+
+- the **trace and correlation** fields every plane now carries, so a divergence
+  is traceable to a cause;
+- **context projection**, so that a record's canonical status does not depend on
+  whether it happened to be in an agent's context;
+- **provenance rules** for anything adapted from an upstream source.
+
+Generated counts, indexes and the new cross-cutting acceptance references must
+stay consistent — which is a mechanical obligation, and the one most likely to be
+skipped because nothing in the package's own subject matter changed.
+
 ## Out of scope
 
 - The internal implementation of any dependent package
@@ -123,7 +138,7 @@ responses, and finding **H2** is what happens when they are not distinguished.
 
 ### Full prerequisite closure
 
-**50 of 141 packages (35%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
+**50 of 160 packages (31%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
 
 | Level | Packages |
 |---:|---|
@@ -159,7 +174,7 @@ responses, and finding **H2** is what happens when they are not distinguished.
 ### What acceptance of this package releases
 
 - **Directly unblocked:** 6 — `WP-067` · `WP-068` · `WP-070` · `WP-094` · `WP-103` · `WP-125`
-- **Transitively reachable:** **52 of 141 packages (37%)** cannot be accepted until this one is.
+- **Transitively reachable:** **65 of 160 packages (41%)** cannot be accepted until this one is.
 
 The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
 
@@ -214,6 +229,8 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `Invocation/Receipt persistence` | `WP-049` | `python3 scripts/progress.py show WP-049` |
 | `Connector SDK` | `WP-049` | `python3 scripts/progress.py show WP-049` |
 | `Audit events` | `WP-049` | `python3 scripts/progress.py show WP-049` |
+| `Capability gate` | `WP-049` | `python3 scripts/progress.py show WP-049` |
+| `Tool-result reuse with recorded provenance` | `WP-049` | `python3 scripts/progress.py show WP-049` |
 | `Versioned connectors` | `WP-050` | `python3 scripts/progress.py show WP-050` |
 | `Connector permission profiles` | `WP-050` | `python3 scripts/progress.py show WP-050` |
 | `Connector contract tests` | `WP-050` | `python3 scripts/progress.py show WP-050` |

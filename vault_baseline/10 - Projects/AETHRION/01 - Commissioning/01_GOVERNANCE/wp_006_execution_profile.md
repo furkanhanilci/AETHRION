@@ -101,6 +101,47 @@ lowering restriction requires an approval that is recorded and expires, while
 raising it requires none — and that the default for an unclassified task is the
 **most** restrictive tier, not the most convenient.
 
+### Baseline v1.2.0 — the producer and the evaluator are different zones
+
+`ExecutionProfile` currently routes on data class, code trust, tool effect and
+network scope. A fifth distinction is needed wherever a candidate is scored:
+**which zone is this running in.**
+
+The producer zone holds candidate code and editable configuration. The evaluator
+zone holds the official evaluator, the metric definition, hidden validation
+material and the signing identity. The producer has no read or write path into
+the second, under its own identity and its own policy — not a stricter setting on
+the same profile, a different zone.
+
+The `MutationPolicy` naming editable, read-only and forbidden paths is part of
+the profile rather than a convention in a runbook, because a path allowlist that
+lives in prose is not enforced. ADR-007; ACC-54, ACC-55.
+
+### Baseline v1.3.0 — the invariants a cost optimiser must not be able to reach
+
+Three additions, and they share a shape: each names something that an
+efficiency argument would otherwise be free to trade away.
+
+**The cohort is not a lever.** `ADR-011` fixes that substantial scientific
+execution requires at least two epistemically independent cognitive
+contributions. Independence is a five-dimension profile, not a count — several
+instances of one model on one context are one contribution. Governance language
+here must make that an invariant rather than a default, because the pressure to
+relax it will arrive as a budget conversation.
+
+**Two disciplines, composable, neither collapsed.** `ADR-012`. A passing test is
+not a confirmed hypothesis and a preregistered analysis is not correct code. The
+four pairs that get conflated — TDD against preregistration, code review against
+scientific review, debugging against anomaly investigation, parallel agents
+against parallel analysts — stay distinct in the role, risk and control language.
+
+**What budget may and may not degrade.** Communication verbosity degrades; the
+cohort and the assurance route do not. A task that cannot afford its required
+assurance is `BLOCKED`, never quietly completed more cheaply. The new
+non-waivable controls follow from that: cohort integrity, assurance-route
+integrity, human preliminary judgment before recommendation, and specification
+conformance for confirmatory work.
+
 ## Out of scope
 
 - The internal implementation of any dependent package
@@ -120,7 +161,7 @@ raising it requires none — and that the default for an unclassified task is th
 
 ### Full prerequisite closure
 
-**2 of 141 packages (1%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
+**2 of 160 packages (1%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
 
 | Level | Packages |
 |---:|---|
@@ -130,7 +171,7 @@ raising it requires none — and that the default for an unclassified task is th
 ### What acceptance of this package releases
 
 - **Directly unblocked:** 17 — `WP-009` · `WP-010` · `WP-013` · `WP-016` · `WP-021` · `WP-034` · `WP-041` · `WP-042` · `WP-045` · `WP-049` · `WP-051` · `WP-053` · `WP-054` · `WP-056` · `WP-057` · `WP-097` · `WP-132`
-- **Transitively reachable:** **132 of 141 packages (94%)** cannot be accepted until this one is.
+- **Transitively reachable:** **151 of 160 packages (94%)** cannot be accepted until this one is.
 
 The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
 
@@ -228,6 +269,8 @@ A package whose evidence cannot be produced is not `READY`, however complete its
 - `Route/control decision tables`
 - `Enforcement map`
 - `Negative examples`
+- `Producer and evaluator zone profiles`
+- `MutationPolicy`
 - An updated runbook or operations note, plus the service/contract ownership record
 - A signed `EvidenceManifest`
 

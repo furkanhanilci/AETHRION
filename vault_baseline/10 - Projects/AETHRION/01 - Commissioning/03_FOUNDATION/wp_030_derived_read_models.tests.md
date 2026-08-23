@@ -131,15 +131,16 @@ ISO/IEC/IEEE 29119-3 §8.3.2. A coverage item is something the tests must reach.
 | C02 | `Graph/vector/search indexes` | Mandatory deliverable | *(name the test case)* |
 | C03 | `Rebuild jobs` | Mandatory deliverable | *(name the test case)* |
 | C04 | `Integrity/lag dashboard` | Mandatory deliverable | *(name the test case)* |
-| C05 | Define the projection schemas and their source events | WP-030-T01 | *(name the test case)* |
-| C06 | Build the Neo4j claim/source/run/review graph projection | WP-030-T02 | *(name the test case)* |
-| C07 | Add the embedding model and version metadata to pgvector | WP-030-T03 | *(name the test case)* |
-| C08 | Establish the OpenSearch index, retention and data-class policy | WP-030-T04 | *(name the test case)* |
-| C09 | Add projection checkpoints and lag telemetry | WP-030-T05 | *(name the test case)* |
-| C10 | Write the full rebuild and index-swap procedure | WP-030-T06 | *(name the test case)* |
-| C11 | Derived Graph Corruption and Rebuild | [ACC-21](../12_ACCEPTANCE_SCENARIOS/acc_21_graph_corruption.md) — High | *(name the test case)* |
+| C05 | `Destructive projection rebuild proof` | Mandatory deliverable | *(name the test case)* |
+| C06 | Define the projection schemas and their source events | WP-030-T01 | *(name the test case)* |
+| C07 | Build the Neo4j claim/source/run/review graph projection | WP-030-T02 | *(name the test case)* |
+| C08 | Add the embedding model and version metadata to pgvector | WP-030-T03 | *(name the test case)* |
+| C09 | Establish the OpenSearch index, retention and data-class policy | WP-030-T04 | *(name the test case)* |
+| C10 | Add projection checkpoints and lag telemetry | WP-030-T05 | *(name the test case)* |
+| C11 | Write the full rebuild and index-swap procedure | WP-030-T06 | *(name the test case)* |
+| C12 | Derived Graph Corruption and Rebuild | [ACC-21](../12_ACCEPTANCE_SCENARIOS/acc_21_graph_corruption.md) — High | *(name the test case)* |
 
-**11 coverage items.** Every one must appear in the *Covered by* column of at least one test case below before this package can reach `TECH_COMPLETE`.
+**12 coverage items.** Every one must appear in the *Covered by* column of at least one test case below before this package can reach `TECH_COMPLETE`.
 
 <!-- /generated:coverage -->
 

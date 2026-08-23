@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1238" width="100%" role="img">
+<defs>
+  <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+    <path d="M 0 1 L 9 5 L 0 9 z" fill="context-stroke"/>
+  </marker>
+  <marker id="arrowsm" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5.5" markerHeight="5.5" orient="auto-start-reverse">
+    <path d="M 0 1.5 L 9 5 L 0 8.5 z" fill="context-stroke"/>
+  </marker>
+  <pattern id="hatch" width="7" height="7" patternTransform="rotate(45)" patternUnits="userSpaceOnUse">
+    <line x1="0" y1="0" x2="0" y2="7" stroke="#C8C8C8" stroke-width="2.2"/>
+  </pattern>
+</defs>
+<rect width="1200" height="1238" fill="#FFFFFF"/>
+<text x="24.0" y="48.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="30" font-weight="700" font-style="normal" fill="#1A1A1A" text-anchor="start">Six memories, and only one of them may support a claim</text>
+<text x="24.0" y="80.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="18" font-weight="400" font-style="normal" fill="#63666A" text-anchor="start">A raw evaluator output, a failed experiment, a debugging lesson and a working scientific principle do not have the same standing. They differ</text>
+<text x="24.0" y="104.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="18" font-weight="400" font-style="normal" fill="#63666A" text-anchor="start">on whether they may support a claim, whether they may change, whether they may expire and who may read them. One store cannot hold</text>
+<text x="24.0" y="128.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="18" font-weight="400" font-style="normal" fill="#63666A" text-anchor="start">four regimes, and the failure it ends in is a stale note being cited as evidence.</text>
+<text x="24.0" y="168.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="17" font-weight="700" font-style="normal" fill="#1A1A1A" text-anchor="start">Store</text>
+<text x="244.0" y="168.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="17" font-weight="700" font-style="normal" fill="#1A1A1A" text-anchor="start">What it holds</text>
+<text x="626.0" y="168.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="17" font-weight="700" font-style="normal" fill="#63666A" text-anchor="start">Immutable</text>
+<text x="768.0" y="168.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="17" font-weight="700" font-style="normal" fill="#63666A" text-anchor="start">Decays</text>
+<text x="928.0" y="168.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="17" font-weight="700" font-style="normal" fill="#E69F00" text-anchor="start">May support a claim</text>
+<path d="M 24 180 L 1176 180" fill="none" stroke="#1A1A1A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="24.0" y="202.0" width="5.0" height="52.0" rx="2" fill="#E69F00" stroke="none" stroke-width="0"/>
+<text x="40.0" y="224.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="18" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="start">Evidence</text>
+<text x="244.0" y="220.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="start">raw source representations, evaluator outputs,</text>
+<text x="244.0" y="240.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="start">exact spans, signed manifests</text>
+<text x="626.0" y="224.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#1A1A1A" text-anchor="start">yes</text>
+<text x="768.0" y="224.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#1A1A1A" text-anchor="start">never</text>
+<text x="928.0" y="220.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="700" font-style="normal" fill="#E69F00" text-anchor="start">YES — subject to admissibility</text>
+<rect x="24.0" y="272.0" width="1152.0" height="70.0" rx="4" fill="#f7f7f8" stroke="none" stroke-width="0"/>
+<rect x="24.0" y="280.0" width="5.0" height="52.0" rx="2" fill="#009E73" stroke="none" stroke-width="0"/>
+<text x="40.0" y="302.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="18" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="start">Finding</text>
+<text x="244.0" y="298.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="start">what a set of evidence was interpreted to mean:</text>
+<text x="244.0" y="318.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="start">supported, refuted, inconclusive</text>
+<text x="626.0" y="302.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#1A1A1A" text-anchor="start">versioned</text>
+<text x="768.0" y="302.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#1A1A1A" text-anchor="start">no</text>
+<text x="928.0" y="298.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="start">indirectly — a claim is drafted</text>
+<text x="928.0" y="318.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="start">from it</text>
+<rect x="24.0" y="358.0" width="5.0" height="52.0" rx="2" fill="#0072B2" stroke="none" stroke-width="0"/>
+<text x="40.0" y="380.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="18" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="start">Search experience</text>
+<text x="244.0" y="376.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="start">plan, code, metric, parent edges, mechanism</text>
+<text x="244.0" y="396.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="start">tags, outcome of each candidate</text>
+<text x="626.0" y="380.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#1A1A1A" text-anchor="start">append</text>
+<text x="768.0" y="380.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#1A1A1A" text-anchor="start">yes, archivable</text>
+<text x="928.0" y="376.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="start">no</text>
+<rect x="24.0" y="428.0" width="1152.0" height="70.0" rx="4" fill="#f7f7f8" stroke="none" stroke-width="0"/>
+<rect x="24.0" y="436.0" width="5.0" height="52.0" rx="2" fill="#56B4E9" stroke="none" stroke-width="0"/>
+<text x="40.0" y="458.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="18" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="start">Procedural</text>
+<text x="244.0" y="454.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="start">reusable method and debugging lessons, and</text>
+<text x="244.0" y="474.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="start">why an approach could not be applied</text>
+<text x="626.0" y="458.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#1A1A1A" text-anchor="start">versioned</text>
+<text x="768.0" y="458.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#1A1A1A" text-anchor="start">yes, revalidated</text>
+<text x="928.0" y="454.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="start">no</text>
+<rect x="24.0" y="514.0" width="5.0" height="52.0" rx="2" fill="#CC79A7" stroke="none" stroke-width="0"/>
+<text x="40.0" y="536.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="18" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="start">Principle</text>
+<text x="244.0" y="532.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="start">the working beliefs beneath a hypothesis, and</text>
+<text x="244.0" y="552.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="start">the evidence challenging them</text>
+<text x="626.0" y="536.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#1A1A1A" text-anchor="start">versioned</text>
+<text x="768.0" y="536.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#1A1A1A" text-anchor="start">supersedable</text>
+<text x="928.0" y="532.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="start">no — a belief is not a claim</text>
+<rect x="24.0" y="584.0" width="1152.0" height="70.0" rx="4" fill="#f7f7f8" stroke="none" stroke-width="0"/>
+<rect x="24.0" y="592.0" width="5.0" height="52.0" rx="2" fill="#D55E00" stroke="none" stroke-width="0"/>
+<text x="40.0" y="614.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="18" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="start">Human intervention</text>
+<text x="244.0" y="610.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="start">every approve, reject, edit, guidance, rollback</text>
+<text x="244.0" y="630.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="start">and abort, with before and after</text>
+<text x="626.0" y="614.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#1A1A1A" text-anchor="start">yes</text>
+<text x="768.0" y="614.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#1A1A1A" text-anchor="start">never</text>
+<text x="928.0" y="610.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="start">as decision evidence only</text>
+<path d="M 24 666 L 1176 666" fill="none" stroke="#1A1A1A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="24.0" y="696.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="21" font-weight="700" font-style="normal" fill="#1A1A1A" text-anchor="start">The two extremes are what force the split</text>
+<rect x="24.0" y="718.0" width="563.0" height="132.0" rx="4" fill="#fcf3de" stroke="#E69F00" stroke-width="1.6"/>
+<text x="305.5" y="748.1" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="19" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="middle">Evidence never decays</text>
+<text x="305.5" y="773.1" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">A source can be retracted and its status changes; the bytes do not. That</text>
+<text x="305.5" y="792.1" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">is not conservatism — a claim anchored to a retracted source has to stay</text>
+<text x="305.5" y="811.1" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">traversable after the retraction, or the G10 impact scan has nothing to</text>
+<text x="305.5" y="830.1" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">walk.</text>
+<rect x="613.0" y="718.0" width="563.0" height="132.0" rx="4" fill="#e9f5fc" stroke="#56B4E9" stroke-width="1.6"/>
+<text x="894.5" y="757.6" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="19" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="middle">Procedural memory must</text>
+<text x="894.5" y="782.6" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">“This library needs that flag” is true about a version on a date, and it</text>
+<text x="894.5" y="801.6" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">goes stale silently — no error, no signal, just advice that stopped</text>
+<text x="894.5" y="820.6" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">applying. It is versioned, it expires and it is revalidated.</text>
+<rect x="24.0" y="884.0" width="1152.0" height="96.0" rx="4" fill="#fbefe6" stroke="#D55E00" stroke-width="2.0"/>
+<text x="42.0" y="912.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="19" font-weight="700" font-style="normal" fill="#D55E00" text-anchor="start">Memory is an independence question, not only a retrieval one</text>
+<text x="42.0" y="936.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="17" font-weight="400" font-style="normal" fill="#1A1A1A" text-anchor="start">Independence is usually asked as who reviews. It is also what the reviewer can read. A reviewer able to query the producer&#x27;s search experience</text>
+<text x="42.0" y="958.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="17" font-weight="400" font-style="normal" fill="#1A1A1A" text-anchor="start">inherits the producer&#x27;s dead ends and framing — the review is anchored, and nothing in the record shows it, because the actor really is different.</text>
+<text x="42.0" y="980.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="17" font-weight="400" font-style="normal" fill="#1A1A1A" text-anchor="start">So blind review excludes the producer&#x27;s search and procedural memory by default. ACC-72 and ACC-79.</text>
+<text x="24.0" y="1012.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="19" font-weight="700" font-style="normal" fill="#1A1A1A" text-anchor="start">Derived, and therefore droppable</text>
+<text x="24.0" y="1036.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="17" font-weight="400" font-style="normal" fill="#63666A" text-anchor="start">Vector indexes, the graph projection and the research map are read models over the canonical stores. They make retrieval fast; nothing lives in</text>
+<text x="24.0" y="1058.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="17" font-weight="400" font-style="normal" fill="#63666A" text-anchor="start">them, and any of them can be dropped and rebuilt — ACC-71 requires exactly that rebuild to be lossless. An embedding index that cannot be</text>
+<text x="24.0" y="1080.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="17" font-weight="400" font-style="normal" fill="#63666A" text-anchor="start">regenerated from PostgreSQL and the object store is a defect, not a store.</text>
+<text x="24.0" y="1150.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="italic" fill="#63666A" text-anchor="start">Status: no store is implemented. WP-146 specifies the taxonomy; the evidence store&#x27;s first slice depends on WP-026, which does not exist either.</text>
+</svg>

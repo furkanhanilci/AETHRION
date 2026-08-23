@@ -69,6 +69,31 @@ naming the eligibility query, the candidates, the ordering and the chosen one
 answers it. Without it, the answer is "the router chose it", which is not an
 answer.
 
+### Baseline v1.3.0 — the Task Compiler stops emitting a skill list
+
+This is the largest change in the model and agent layer, and it is a change of
+kind rather than of size. The compiler's output was a skill bundle and a model
+choice. It becomes the full execution shape of a task:
+
+`AgentCohortRecord` · `CognitiveDiversityProfile` · skill bundles **by family** ·
+`CommunicationTopology` · `ContextProjectionPolicy` · `ResearchBudgetContract` ·
+`AssuranceRoute` · `ExecutionProfile` · `IndependenceProfile`.
+
+A coding-science task compiles **both** skill families — preregistration
+discipline beside test-driven development, scientific review beside code review
+— without either aliasing the other (`ADR-012`).
+
+Two other bindings:
+
+- **Qualification records gain scope.** A verifier's qualification is keyed by
+  verifier, version, task class, domain profile *and* threshold, and now also
+  carries a model execution fingerprint and an abstention rate.
+- **The Tool Broker gains a capability gate.** An action is unavailable unless
+  policy grants it — not available-but-discouraged. Untrusted content can supply
+  values and can never create an action, which is `ADR-003` enforced at the tool
+  boundary rather than asserted at the prompt. Deterministic tool results are
+  reusable within a declared freshness window and are marked as reused.
+
 ## Out of scope
 
 - The internal implementation of any dependent package
@@ -95,7 +120,7 @@ answer.
 
 ### Full prerequisite closure
 
-**28 of 141 packages (20%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
+**28 of 160 packages (18%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
 
 | Level | Packages |
 |---:|---|
@@ -123,7 +148,7 @@ answer.
 ### What acceptance of this package releases
 
 - **Directly unblocked:** 9 — `WP-046` · `WP-047` · `WP-070` · `WP-078` · `WP-083` · `WP-088` · `WP-100` · `WP-107` · `WP-124`
-- **Transitively reachable:** **91 of 141 packages (65%)** cannot be accepted until this one is.
+- **Transitively reachable:** **110 of 160 packages (69%)** cannot be accepted until this one is.
 
 The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
 
@@ -177,14 +202,20 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `AssuranceClass decision tables` | `WP-005` | `python3 scripts/progress.py show WP-005` |
 | `Promotion rules` | `WP-005` | `python3 scripts/progress.py show WP-005` |
 | `Worked examples` | `WP-005` | `python3 scripts/progress.py show WP-005` |
+| `StudyMode decision table` | `WP-005` | `python3 scripts/progress.py show WP-005` |
+| `Substantiality threshold for the multi-agent invariant` | `WP-005` | `python3 scripts/progress.py show WP-005` |
 | `ExecutionProfile semantics` | `WP-006` | `python3 scripts/progress.py show WP-006` |
 | `Route/control decision tables` | `WP-006` | `python3 scripts/progress.py show WP-006` |
 | `Enforcement map` | `WP-006` | `python3 scripts/progress.py show WP-006` |
 | `Negative examples` | `WP-006` | `python3 scripts/progress.py show WP-006` |
+| `Producer and evaluator zone profiles` | `WP-006` | `python3 scripts/progress.py show WP-006` |
+| `MutationPolicy` | `WP-006` | `python3 scripts/progress.py show WP-006` |
 | `IndependenceProfile rubric` | `WP-007` | `python3 scripts/progress.py show WP-007` |
 | `Eligibility matrix` | `WP-007` | `python3 scripts/progress.py show WP-007` |
 | `Conflict-of-interest declaration` | `WP-007` | `python3 scripts/progress.py show WP-007` |
 | `Violation response` | `WP-007` | `python3 scripts/progress.py show WP-007` |
+| `Evaluator and memory-context independence constraints` | `WP-007` | `python3 scripts/progress.py show WP-007` |
+| `Cohort independence dimensions` | `WP-007` | `python3 scripts/progress.py show WP-007` |
 | `ProjectContract schemas` | `WP-013` | `python3 scripts/progress.py show WP-013` |
 | `TaskContract schema` | `WP-013` | `python3 scripts/progress.py show WP-013` |
 | `RoleContract schema` | `WP-013` | `python3 scripts/progress.py show WP-013` |
@@ -208,6 +239,7 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `CapabilityProfile update` | `WP-044` | `python3 scripts/progress.py show WP-044` |
 | `Regression schedule` | `WP-044` | `python3 scripts/progress.py show WP-044` |
 | `Ejection procedure` | `WP-044` | `python3 scripts/progress.py show WP-044` |
+| `Fingerprint and abstention scope on qualification records` | `WP-044` | `python3 scripts/progress.py show WP-044` |
 
 ### Classification that must be recorded before work begins
 

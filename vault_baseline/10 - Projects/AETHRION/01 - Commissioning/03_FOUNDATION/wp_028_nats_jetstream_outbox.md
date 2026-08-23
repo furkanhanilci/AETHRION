@@ -97,6 +97,24 @@ keeps a rebuild from re-firing external side effects.
 events, and the first anyone hears of it is a missing downstream record months
 later.
 
+### Baseline v1.3.0 — modular monolith first, and a projection that can be destroyed
+
+The collaboration plane, the conformance checker and the release assurance work
+land as **modules**, not as services. A logical plane is an ownership boundary;
+turning each into a deployment unit before there is a consumer buys operational
+cost and no assurance.
+
+Two guarantees the foundation now owes:
+
+**Every derived projection is destroyable.** The graph, the vector index and the
+search index are rebuilt from canonical stores as a routine, tested operation —
+ACC-119. A rebuild path that is an emergency procedure will not work on the day
+it is needed.
+
+**Release artifacts carry provenance.** SLSA provenance, Sigstore signatures, an
+SBOM and its scan result, and the upstream register accounting for every adapted
+file. `ADR-019`, delivered by WP-159 and admitted against by WP-024's CI.
+
 ## Out of scope
 
 - The internal implementation of any dependent package
@@ -118,7 +136,7 @@ later.
 
 ### Full prerequisite closure
 
-**22 of 141 packages (16%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
+**22 of 160 packages (14%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
 
 | Level | Packages |
 |---:|---|
@@ -142,7 +160,7 @@ later.
 ### What acceptance of this package releases
 
 - **Directly unblocked:** 12 — `WP-030` · `WP-031` · `WP-039` · `WP-049` · `WP-061` · `WP-074` · `WP-075` · `WP-096` · `WP-099` · `WP-100` · `WP-101` · `WP-114`
-- **Transitively reachable:** **102 of 141 packages (72%)** cannot be accepted until this one is.
+- **Transitively reachable:** **121 of 160 packages (76%)** cannot be accepted until this one is.
 
 The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
 
@@ -193,6 +211,7 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `Event Catalog seed` | `WP-015` | `python3 scripts/progress.py show WP-015` |
 | `Subject/retention table` | `WP-015` | `python3 scripts/progress.py show WP-015` |
 | `Consumer contract` | `WP-015` | `python3 scripts/progress.py show WP-015` |
+| `Post-commit event taxonomy for the collaboration plane` | `WP-015` | `python3 scripts/progress.py show WP-015` |
 | `Environment topology` | `WP-021` | `python3 scripts/progress.py show WP-021` |
 | `Account/network IaC` | `WP-021` | `python3 scripts/progress.py show WP-021` |
 | `Access baseline` | `WP-021` | `python3 scripts/progress.py show WP-021` |

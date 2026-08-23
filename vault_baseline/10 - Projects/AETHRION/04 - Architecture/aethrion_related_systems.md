@@ -21,11 +21,11 @@ tags:
 
 | Field | Value |
 |---|---|
-| Document type | Architecture reference — comparative positioning |
+| Document type | Architecture reference — comparative positioning, and the mechanism assimilation register |
 | Scope | What comparable systems do, what AETHRION does differently, and what it does **not** do better |
-| Sibling documents | `AETHRION_ARCHITECTURE.md` · `AETHRION_EXTERNAL_STANDARDS.md` |
+| Sibling documents | `AETHRION_ARCHITECTURE.md` · `AETHRION_EXTERNAL_STANDARDS.md` · `AETHRION_COMPONENT_REUSE.md` §9.2 · `ADR-004` · `../../provenance/README.md` |
 | Status | `SPECIFIED` — the comparison is documented; **no head-to-head evaluation has been run** |
-| Date | 2026-08-22 |
+| Date | 2026-08-23 |
 
 **In one paragraph.** The idea that every claim must carry a traceable chain back
 to its evidence is **not original to this project**, and a reader who assumes
@@ -60,6 +60,28 @@ keeping it.
 | **PaperQA2** (FutureHouse) | Retrieval and evidence-gathering over scientific literature with in-text citations | A far more mature literature subsystem than G3 will be for a long time |
 | **AI co-scientist** (Google DeepMind) | Multi-agent hypothesis generation with explicit ranking | Hypothesis generation and tournament ranking |
 | **LangGraph / AutoGen research agents** | General multi-agent orchestration | Maturity, adoption, ecosystem |
+
+Six of these predate this repository. The following were surveyed at baseline
+v1.2.0, when the question changed from *how does AETHRION compare* to *which
+mechanism should AETHRION take from each* — §5.1.
+
+| System | What it is | Where it is ahead of AETHRION |
+|---|---|---|
+| **MLEvolve / InternAgent** | Self-evolving ML algorithm discovery with progressive graph search, cross-branch fusion and retrospective memory | It leads MLE-bench. Its search is genuinely better than anything designed here |
+| **ERA** (Google Research) | LLM plus tree search generating and scoring empirical software against an objective metric | A published, working search implementation with a compact reference codebase |
+| **AIDE** | Candidate solution tree for ML engineering | The state model this project's search graph is built on |
+| **Curie** | Automated experimentation with explicit rigor modules | It publishes a benchmark (EXP-Bench) showing how hard the problem is |
+| **CORAL** | Isolated per-agent git worktrees with a private grader zone | A hardened, real implementation of the boundary `ADR-007` describes |
+| **DeepScientist** | Long-running local-first research studio with findings memory and preserved failed routes | Keeping failed routes as assets is a working feature there and a contract here |
+| **ScienceClaw** | Decentralised investigation with an immutable artifact DAG and broadcast information needs | The artifact lineage graph exists and runs |
+| **Scholar Loop** | Read → gap → experiment → reflect → write, with a fidelity funnel and a deterministic governor | Small, pure, testable outer-loop mechanisms with a deterministic test path |
+| **PiEvo** | Discovery as Bayesian optimisation over an *expanding principle space* | It treats the principles under a hypothesis as revisable, which nothing else here does |
+| **ResearchStudio-Idea** (Microsoft) | Research direction into a reviewer-defensible idea card | Structured ideation that produces a reviewable artifact |
+| **Virtual Lab** (Stanford) | Human-led council of specialist agents; produced a *Nature*-published nanobody design | A real wet-lab outcome |
+| **ResearchTown** | Researcher agents in finite-state review, rebuttal and discussion environments | Explicit review state machines rather than chat |
+| **OpenScholar** | Scientific retrieval with a self-feedback sufficiency loop | A purpose-built scientific retriever over tens of millions of papers |
+| **AutoResearchClaw** | End-to-end research pipeline with explicit human-in-the-loop actions | A worked HITL interaction vocabulary and a large user base |
+| **K-Dense Science Superpowers** | Computational-science methodology as agent skills, centred on pre-registration | The same methodology this project's scientific skills describe, published and iterated |
 
 ---
 
@@ -133,6 +155,63 @@ The honest one-line positioning:
 
 ---
 
+## 5.1 The mechanism assimilation register
+
+The table above was written when the question was *what should we learn from
+these systems*. At baseline v1.2.0 it became a harder question — *which specific
+mechanism is taken from each, by what method, and what is it forbidden to
+decide* — and the answer became a machine-checked register rather than prose:
+**[`provenance/README.md`](upstream_lineage_register.md)**, generated from
+`provenance/upstreams.json` and validated by `scripts/check_upstream_lineage.py`.
+
+What follows is the summary. The register is authoritative, and `ADR-004` fixes
+the terms.
+
+| From | Mechanism taken | Method | Lands in |
+|---|---|---|---|
+| ScientistOne | Evidence tags · claim–evidence correctness · raw evidence before interpretation · the four CoE checks | reimplement | Evidence core · G6 · G9 |
+| Scholar Loop | Campaign governor · predict-then-verify calibration · SMOKE/VERIFY/FULL funnel | adapt · adapt · reimplement | WP-083 · WP-100 · WP-126 |
+| ScienceClaw | Immutable artifact DAG with ordered parents · information need as a typed gap | adapt · reimplement | WP-014 · WP-075 |
+| AIDE | `DRAFT` / `DEBUG` / `IMPROVE` candidate states | adapt | WP-144 |
+| ERA | Scorable task as a frozen `EvaluationContract` · selection that may revisit interior nodes | adapt | WP-013 · WP-145 |
+| MLEvolve | Primary versus reference edges · cross-branch fusion · stagnation control · retrospective search memory | reimplement | WP-144 · WP-145 · WP-146 |
+| Curie | Intra-agent rigor · inter-agent transition guards | reimplement | WP-047 · WP-083 |
+| CORAL | Isolated candidate worktrees · a private evaluator zone the producer cannot reach | pattern | WP-054 · WP-084 |
+| ResearchStudio-Idea | Structured idea card · multi-axis prior-art collision | reimplement | WP-142 |
+| AI co-scientist | Hypothesis proximity · tournament ranking as *allocation* · evolution operators | reimplement | WP-143 · WP-147 |
+| PiEvo | Versioned principles beneath hypotheses · anomaly-driven revision | reimplement | WP-143 |
+| Virtual Lab | Task-specific specialist council producing recommendations | reimplement | WP-147 |
+| ResearchTown | Review and rebuttal as an explicit finite-state machine | reimplement | WP-088 · WP-089 |
+| PaperQA2 · OpenScholar | Iterative query expansion · citation traversal · evidence sufficiency as *advice* | adapt | WP-069 · WP-071 |
+| DeepScientist | Findings memory · failed routes as assets · the research map | reimplement | WP-077 · WP-095 · WP-146 |
+| PaperBench · Artisan · SciReplicate · REPRO-Bench | Producer/reproducer/grader separation · the standalone package · understanding before coding · claim-versus-result consistency | pattern + benchmark | WP-084 · WP-085 |
+| AutoResearchClaw | Human intervention action vocabulary · attention prioritisation | reimplement | WP-004 · WP-093 |
+| K-Dense Science Superpowers | Computational-science methodology skills | adapt and merge | WP-047 |
+
+### The three things this register makes visible
+
+**What was refused.** Every entry names what was deliberately not taken, and four
+of them record a capability being narrowed rather than copied — an automatic
+need-fulfilment loop, a model-decided stopping rule, an
+`auto_proceed_on_timeout` flag, and a search score with unbounded reach. Those
+are the places where adopting a mechanism as-is would have handed authority to
+something that should not have it.
+
+**Where the licence position came from.** Each entry records the licence and the
+date it was read at the source. Where a licence could not be confirmed, the
+decision is `DEFER` — not adoption on an assumption.
+
+**That nothing has been taken yet.** Every entry is `PROPOSED`, `pinned_commit`
+is `null`, and no code has moved. A register of intentions is worth having
+precisely because it says so.
+
+> **None of these systems appears in the runtime architecture.** There is no
+> directory, module, backend or configuration key named after any of them. That
+> is the difference between assimilating a mechanism and integrating a product,
+> and `ADR-004` is where the difference is enforced rather than promised.
+
+---
+
 ## 6. Where AETHRION is behind, without qualification
 
 - **No end-to-end run.** Not one research question has travelled G0 → G10.
@@ -170,4 +249,19 @@ result.
 - ScientistOne — <https://arxiv.org/abs/2605.26340> · Science One Framework — <https://research.google/blog/science-one-framework-a-verifiable-autonomous-research-framework-via-chain-of-evidence/>
 - The AI Scientist v2 — <https://github.com/SakanaAI/AI-Scientist-v2>
 - Robin — <https://www.futurehouse.org/research/demonstrating-end-to-end-scientific-discovery-with-robin-a-multi-agent-system>
-- PaperQA2 — <https://github.com/Future-House/paper-qa>
+- PaperQA2 — <https://github.com/Future-House/paper-qa> · OpenScholar — <https://github.com/AkariAsai/OpenScholar>
+- MLEvolve — <https://github.com/InternScience/MLEvolve> · <https://arxiv.org/abs/2606.06473>
+- ERA — <https://github.com/google-research/era> · <https://arxiv.org/abs/2509.06503>
+- AIDE — <https://github.com/WecoAI/aideml> · Curie — <https://github.com/Just-Curieous/Curie>
+- CORAL — <https://github.com/Human-Agent-Society/Coral> · ScienceClaw — <https://github.com/lamm-mit/scienceclaw>
+- Scholar Loop — <https://github.com/renee-jia/scholar-loop> · DeepScientist — <https://github.com/ResearAI/DeepScientist>
+- PiEvo — <https://github.com/amair-lab/PiEvo> · ResearchStudio — <https://github.com/microsoft/ResearchStudio>
+- Virtual Lab — <https://github.com/zou-group/virtual-lab> · ResearchTown — <https://github.com/ulab-uiuc/research-town>
+- AutoResearchClaw — <https://github.com/aiming-lab/AutoResearchClaw>
+- K-Dense Science Superpowers — <https://github.com/K-Dense-AI/science-superpowers>
+- **The per-mechanism register, with licences and authority boundaries: [`provenance/README.md`](upstream_lineage_register.md)**
+
+> Every URL above was resolved on 2026-08-23 and its licence read at the source.
+> Where a repository was reached through a fork or a secondary reference, the
+> register records the canonical upstream instead — `PiEvo` is the example, and
+> a fork is not a provenance anchor.

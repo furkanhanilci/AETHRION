@@ -111,6 +111,22 @@ low-materiality misjudgement silently drops a real impact.
 A model changed behind a stable name is a requalification trigger. This is the feed
 that notices.
 
+### Baseline v1.3.0 — the messaging layer inherits the same two refusals
+
+Nothing changes about what these packages own. Two rules from this baseline
+apply to all of them, and both are restatements of things that erode first at the
+edges of a system:
+
+**No message and no timeout becomes authority.** An inbound message is never an
+instruction; a notification is never an authorisation; an expired SLA escalates
+and pages and never approves.
+
+**Alignment with the new paths.** The capability gate governs any action an
+inbound message might trigger. Evidence-delta priority drives the decision
+queue. The human preliminary flow means a notification announcing a decision may
+not carry the recommendation. Every intervention writes an immutable audit
+record atomically with the change it describes.
+
 ## Out of scope
 
 - The `ImpactCase` resolution decision itself (WP-108)
@@ -131,7 +147,7 @@ that notices.
 
 ### Full prerequisite closure
 
-**54 of 141 packages (38%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
+**54 of 160 packages (34%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
 
 | Level | Packages |
 |---:|---|
@@ -290,6 +306,14 @@ The programme-level conditions are below. The package-specific, measurable crite
 - [ ] All mandatory tests passed on the same target revision.
 - [ ] No open Critical or High findings.
 - [ ] The independent verifier has accepted the evidence package.
+
+## Acceptance evidence package
+
+- Test results captured on the same target revision/digest
+- An `EvidenceManifest` recording the environment, schema, policy and dependency versions
+- The independent verifier's `ReviewRecord` or `VerificationRecord`
+- The rollback/compensation trial and its result reference
+- The list of open findings and residual risks with owners and expiry dates
 
 ## Risks and control points
 

@@ -128,14 +128,15 @@ ISO/IEC/IEEE 29119-3 §8.3.2. A coverage item is something the tests must reach.
 | C02 | `Verification summary schema adapter` | Mandatory deliverable | *(name the test case)* |
 | C03 | `Test ownership registry` | Mandatory deliverable | *(name the test case)* |
 | C04 | `Flake policy` | Mandatory deliverable | *(name the test case)* |
-| C05 | Define the CI job taxonomy and pin the target revision | WP-024-T01 | *(name the test case)* |
-| C06 | Add the schema, policy and architecture linters | WP-024-T02 | *(name the test case)* |
-| C07 | Emit test results as machine-readable artifacts | WP-024-T03 | *(name the test case)* |
-| C08 | Establish the split between fail-fast checks and the full suite | WP-024-T04 | *(name the test case)* |
-| C09 | Define flaky-test quarantine and the owner SLA for clearing it | WP-024-T05 | *(name the test case)* |
-| C10 | Trigger signed build provenance | WP-024-T06 | *(name the test case)* |
+| C05 | `SPDX/REUSE and OSV admission checks` | Mandatory deliverable | *(name the test case)* |
+| C06 | Define the CI job taxonomy and pin the target revision | WP-024-T01 | *(name the test case)* |
+| C07 | Add the schema, policy and architecture linters | WP-024-T02 | *(name the test case)* |
+| C08 | Emit test results as machine-readable artifacts | WP-024-T03 | *(name the test case)* |
+| C09 | Establish the split between fail-fast checks and the full suite | WP-024-T04 | *(name the test case)* |
+| C10 | Define flaky-test quarantine and the owner SLA for clearing it | WP-024-T05 | *(name the test case)* |
+| C11 | Trigger signed build provenance | WP-024-T06 | *(name the test case)* |
 
-**10 coverage items.** Every one must appear in the *Covered by* column of at least one test case below before this package can reach `TECH_COMPLETE`.
+**11 coverage items.** Every one must appear in the *Covered by* column of at least one test case below before this package can reach `TECH_COMPLETE`.
 
 <!-- /generated:coverage -->
 

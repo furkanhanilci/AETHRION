@@ -64,6 +64,31 @@ checkpoint contract is not.
 requests* — shows up here first, as queue wait on the assurance queue. By the time
 it shows up as a bypass request, the pressure has already been applied to a human.
 
+### Baseline v1.3.0 — four zones, a capability gate, and a benchmark firewall
+
+The isolation story gains a fourth zone and two new attack surfaces.
+
+**Four zones, not three.** Producer, evaluator, reproducer and independent
+grader, separated in secrets, cache and workspace. The leakage paths that matter
+are the quiet ones — a shared cache, an inherited credential, a warm container
+layer — and none of them looks like a boundary violation in a log. Each is tested
+explicitly rather than inferred from the zone configuration (ACC-113).
+
+**Security is a capability, not a prompt.** *Prompt says safe* is not security;
+*the capability is unavailable unless policy grants it* is. External content —
+PDF, web page, tool result, reviewer comment — is quarantined into a data object,
+and the agent's tool intent passes a policy gate before any credential is
+injected (ACC-117).
+
+**A benchmark firewall.** An evaluation run freezes its dataset manifest, network
+mode, allowed domains, known identifiers and evaluator isolation before it
+starts, and audits every retrieval. Gold answers, private rubrics, hidden tests
+and grader prompts are unreachable from the agent environment (ACC-118).
+
+The attack suite gains ASB and WASP as external regressions, alongside internal
+fixtures for source-PDF injection, malicious citation text, tool-result
+injection, memory poisoning and credential exfiltration.
+
 ## Out of scope
 
 - The internal implementation of any dependent package
@@ -84,7 +109,7 @@ it shows up as a bypass request, the pressure has already been applied to a huma
 
 ### Full prerequisite closure
 
-**28 of 141 packages (20%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
+**28 of 160 packages (18%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
 
 | Level | Packages |
 |---:|---|
@@ -111,7 +136,7 @@ it shows up as a bypass request, the pressure has already been applied to a huma
 ### What acceptance of this package releases
 
 - **Directly unblocked:** 7 — `WP-054` · `WP-060` · `WP-083` · `WP-084` · `WP-100` · `WP-111` · `WP-117`
-- **Transitively reachable:** **69 of 141 packages (49%)** cannot be accepted until this one is.
+- **Transitively reachable:** **88 of 160 packages (55%)** cannot be accepted until this one is.
 
 The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
 
@@ -162,6 +187,8 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `Route/control decision tables` | `WP-006` | `python3 scripts/progress.py show WP-006` |
 | `Enforcement map` | `WP-006` | `python3 scripts/progress.py show WP-006` |
 | `Negative examples` | `WP-006` | `python3 scripts/progress.py show WP-006` |
+| `Producer and evaluator zone profiles` | `WP-006` | `python3 scripts/progress.py show WP-006` |
+| `MutationPolicy` | `WP-006` | `python3 scripts/progress.py show WP-006` |
 | `Kubernetes clusters` | `WP-052` | `python3 scripts/progress.py show WP-052` |
 | `Node pool catalog` | `WP-052` | `python3 scripts/progress.py show WP-052` |
 | `Namespace/security baseline` | `WP-052` | `python3 scripts/progress.py show WP-052` |

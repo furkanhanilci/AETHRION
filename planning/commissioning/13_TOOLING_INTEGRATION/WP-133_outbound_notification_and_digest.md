@@ -82,6 +82,22 @@ It is assembled from projections that lag. A digest that does not say when its d
 was current invites a decision against stale numbers, which is the same failure
 WP-091's freshness indicator prevents on the cockpit.
 
+### Baseline v1.3.0 — the messaging layer inherits the same two refusals
+
+Nothing changes about what these packages own. Two rules from this baseline
+apply to all of them, and both are restatements of things that erode first at the
+edges of a system:
+
+**No message and no timeout becomes authority.** An inbound message is never an
+instruction; a notification is never an authorisation; an expired SLA escalates
+and pages and never approves.
+
+**Alignment with the new paths.** The capability gate governs any action an
+inbound message might trigger. Evidence-delta priority drives the decision
+queue. The human preliminary flow means a notification announcing a decision may
+not carry the recommendation. Every intervention writes an immutable audit
+record atomically with the change it describes.
+
 ## Out of scope
 
 - The metascience measurements themselves (separate workstream)
@@ -102,7 +118,7 @@ WP-091's freshness indicator prevents on the cockpit.
 
 ### Full prerequisite closure
 
-**40 of 141 packages (28%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
+**40 of 160 packages (25%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
 
 | Level | Packages |
 |---:|---|
@@ -241,6 +257,14 @@ The programme-level conditions are below. The package-specific, measurable crite
 - [ ] All mandatory tests passed on the same target revision.
 - [ ] No open Critical or High findings.
 - [ ] The independent verifier has accepted the evidence package.
+
+## Acceptance evidence package
+
+- Test results captured on the same target revision/digest
+- An `EvidenceManifest` recording the environment, schema, policy and dependency versions
+- The independent verifier's `ReviewRecord` or `VerificationRecord`
+- The rollback/compensation trial and its result reference
+- The list of open findings and residual risks with owners and expiry dates
 
 ## Risks and control points
 

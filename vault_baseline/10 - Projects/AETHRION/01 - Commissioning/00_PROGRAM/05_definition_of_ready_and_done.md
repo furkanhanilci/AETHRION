@@ -95,3 +95,25 @@ candidate**. A `SKIPPED` scenario on a critical package does not count as a pass
 - A test passing against a mock presented as a real integration test.
 - A happy-path demonstration only.
 - A confidence number with no measurement behind it.
+
+Added by baseline v1.2.0, each because it is a form of evidence that looks
+complete and establishes nothing:
+
+- **A clean detector report from a suite whose planted control stayed silent.**
+  "No findings" and "no detector" are the same sentence otherwise.
+- **A published number that does not resolve to an immutable evaluator output.**
+  A figure typed into prose is not a measurement, however accurate it happens to
+  be.
+- **A semantic verdict from a verifier with no current qualification** for that
+  task type at that threshold. A judge that has never been measured is an opinion
+  with institutional weight.
+- **A reproduction run in the producer's environment**, or by an agent that also
+  produced the result. That reproduces the environment, not the finding.
+- **A hypothesis marked refuted by a run that failed to execute.** Only a validly
+  executed run under the frozen plan can support a `HYPOTHESIS` failure class.
+- **A confirmatory claim whose analysis plan was sealed after its first
+  outcome**, whatever the plan says.
+- **Adapted upstream code with no pinned commit and no characterisation suite.**
+  Nothing distinguishes it from a mechanism that was misunderstood.
+- **A checker that has never been observed to fail.** Every control in the
+  bundle is expected to be demonstrable in both directions.

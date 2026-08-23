@@ -62,6 +62,9 @@ jobs:
       - name: Reporting register is auditable
         run: uv run python scripts/check_reporting_registry.py
 
+      - name: Upstream lineage
+        run: uv run python scripts/check_upstream_lineage.py
+
       - name: Workstream indexes match their packages
         run: uv run python scripts/make_plan_indexes.py --check
 

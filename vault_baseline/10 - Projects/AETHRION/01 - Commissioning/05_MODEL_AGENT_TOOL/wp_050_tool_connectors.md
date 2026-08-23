@@ -104,6 +104,31 @@ It is the one that reaches arbitrary untrusted content, and its output flows int
 agent context. Allowlist, egress proxy, quarantine, provenance — and `ACC-05`
 applies here as much as to PDFs.
 
+### Baseline v1.3.0 — the Task Compiler stops emitting a skill list
+
+This is the largest change in the model and agent layer, and it is a change of
+kind rather than of size. The compiler's output was a skill bundle and a model
+choice. It becomes the full execution shape of a task:
+
+`AgentCohortRecord` · `CognitiveDiversityProfile` · skill bundles **by family** ·
+`CommunicationTopology` · `ContextProjectionPolicy` · `ResearchBudgetContract` ·
+`AssuranceRoute` · `ExecutionProfile` · `IndependenceProfile`.
+
+A coding-science task compiles **both** skill families — preregistration
+discipline beside test-driven development, scientific review beside code review
+— without either aliasing the other (`ADR-012`).
+
+Two other bindings:
+
+- **Qualification records gain scope.** A verifier's qualification is keyed by
+  verifier, version, task class, domain profile *and* threshold, and now also
+  carries a model execution fingerprint and an abstention rate.
+- **The Tool Broker gains a capability gate.** An action is unavailable unless
+  policy grants it — not available-but-discouraged. Untrusted content can supply
+  values and can never create an action, which is `ADR-003` enforced at the tool
+  boundary rather than asserted at the prompt. Deterministic tool results are
+  reusable within a declared freshness window and are marked as reused.
+
 ## Out of scope
 
 - The internal implementation of any dependent package
@@ -123,7 +148,7 @@ applies here as much as to PDFs.
 
 ### Full prerequisite closure
 
-**38 of 141 packages (27%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
+**38 of 160 packages (24%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
 
 | Level | Packages |
 |---:|---|
@@ -154,7 +179,7 @@ applies here as much as to PDFs.
 ### What acceptance of this package releases
 
 - **Directly unblocked:** 8 — `WP-058` · `WP-060` · `WP-062` · `WP-063` · `WP-064` · `WP-065` · `WP-066` · `WP-069`
-- **Transitively reachable:** **62 of 141 packages (44%)** cannot be accepted until this one is.
+- **Transitively reachable:** **75 of 160 packages (47%)** cannot be accepted until this one is.
 
 The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
 
@@ -208,6 +233,8 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `Invocation/Receipt persistence` | `WP-049` | `python3 scripts/progress.py show WP-049` |
 | `Connector SDK` | `WP-049` | `python3 scripts/progress.py show WP-049` |
 | `Audit events` | `WP-049` | `python3 scripts/progress.py show WP-049` |
+| `Capability gate` | `WP-049` | `python3 scripts/progress.py show WP-049` |
+| `Tool-result reuse with recorded provenance` | `WP-049` | `python3 scripts/progress.py show WP-049` |
 
 ### Classification that must be recorded before work begins
 

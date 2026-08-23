@@ -67,6 +67,31 @@ what detects drift between expiries, and the ejection procedure is what makes a
 negative result actionable rather than a note. `PR-15`'s contamination is one
 trigger; a provider silently changing a model behind a stable name is another.
 
+### Baseline v1.3.0 — the Task Compiler stops emitting a skill list
+
+This is the largest change in the model and agent layer, and it is a change of
+kind rather than of size. The compiler's output was a skill bundle and a model
+choice. It becomes the full execution shape of a task:
+
+`AgentCohortRecord` · `CognitiveDiversityProfile` · skill bundles **by family** ·
+`CommunicationTopology` · `ContextProjectionPolicy` · `ResearchBudgetContract` ·
+`AssuranceRoute` · `ExecutionProfile` · `IndependenceProfile`.
+
+A coding-science task compiles **both** skill families — preregistration
+discipline beside test-driven development, scientific review beside code review
+— without either aliasing the other (`ADR-012`).
+
+Two other bindings:
+
+- **Qualification records gain scope.** A verifier's qualification is keyed by
+  verifier, version, task class, domain profile *and* threshold, and now also
+  carries a model execution fingerprint and an abstention rate.
+- **The Tool Broker gains a capability gate.** An action is unavailable unless
+  policy grants it — not available-but-discouraged. Untrusted content can supply
+  values and can never create an action, which is `ADR-003` enforced at the tool
+  boundary rather than asserted at the prompt. Deterministic tool results are
+  reusable within a declared freshness window and are marked as reused.
+
 ## Out of scope
 
 - The internal implementation of any dependent package
@@ -88,7 +113,7 @@ trigger; a provider silently changing a model behind a stable name is another.
 
 ### Full prerequisite closure
 
-**27 of 141 packages (19%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
+**27 of 160 packages (17%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
 
 | Level | Packages |
 |---:|---|
@@ -114,8 +139,8 @@ trigger; a provider silently changing a model behind a stable name is another.
 
 ### What acceptance of this package releases
 
-- **Directly unblocked:** 4 — `WP-045` · `WP-088` · `WP-108` · `WP-124`
-- **Transitively reachable:** **92 of 141 packages (65%)** cannot be accepted until this one is.
+- **Directly unblocked:** 5 — `WP-045` · `WP-088` · `WP-108` · `WP-124` · `WP-155`
+- **Transitively reachable:** **111 of 160 packages (69%)** cannot be accepted until this one is.
 
 The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
 
@@ -227,6 +252,7 @@ A package whose evidence cannot be produced is not `READY`, however complete its
 - `CapabilityProfile update`
 - `Regression schedule`
 - `Ejection procedure`
+- `Fingerprint and abstention scope on qualification records`
 - An updated runbook or operations note, plus the service/contract ownership record
 - A signed `EvidenceManifest`
 

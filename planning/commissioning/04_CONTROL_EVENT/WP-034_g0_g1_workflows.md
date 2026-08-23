@@ -61,6 +61,30 @@ must not permit is re-submission of the same content until a different evaluatio
 happens — gates are deterministic (WP-033), so identical input yields an identical
 verdict, and any loop that appears to break that is a defect.
 
+### Baseline v1.3.0 — new policies at the gates, without moving authority
+
+G0–G10 consumes the collaboration, conformance, assurance and reproduction
+policies this baseline adds. **None of that moves authority.** Temporal still
+owns lifecycle transitions and LangGraph still owns bounded cognition inside one
+task, and a checkpoint in the second cannot transition a gate in the first.
+
+Three concrete additions:
+
+- **G5 and G6** consume the cohort, the topology, the specification conformance
+  result and the assurance route.
+- **G7** consumes the model execution fingerprint and the reproduction level it
+  supports — a hosted black-box model does not yield `EXACT`.
+- **G8** runs the human preliminary flow: the recommendation is unreachable
+  until the human assessment is sealed, through **every** interface rather than
+  only the UI.
+
+And the write path becomes explicit: a canonical transaction and its outbox
+record commit atomically, the publisher reads the outbox afterwards, and a
+consumer validates identity and version rather than trusting a payload. The
+failure suite gains the injections that make split brain visible — publisher
+crash, duplicate delivery, out-of-order delivery, a cancelled task's late
+result, and two concurrent gate transitions.
+
 ## Out of scope
 
 - The internal implementation of any dependent package
@@ -85,7 +109,7 @@ verdict, and any loop that appears to break that is a defect.
 
 ### Full prerequisite closure
 
-**31 of 141 packages (22%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
+**31 of 160 packages (19%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
 
 | Level | Packages |
 |---:|---|
@@ -113,8 +137,8 @@ verdict, and any loop that appears to break that is a defect.
 
 ### What acceptance of this package releases
 
-- **Directly unblocked:** 4 — `WP-035` · `WP-040` · `WP-092` · `WP-102`
-- **Transitively reachable:** **62 of 141 packages (44%)** cannot be accepted until this one is.
+- **Directly unblocked:** 5 — `WP-035` · `WP-040` · `WP-092` · `WP-102` · `WP-142`
+- **Transitively reachable:** **79 of 160 packages (49%)** cannot be accepted until this one is.
 
 The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
 
@@ -162,14 +186,20 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `SLA/escalation table` | `WP-004` | `python3 scripts/progress.py show WP-004` |
 | `Delegation matrix` | `WP-004` | `python3 scripts/progress.py show WP-004` |
 | `Decision rationale rubric` | `WP-004` | `python3 scripts/progress.py show WP-004` |
+| `Human intervention vocabulary` | `WP-004` | `python3 scripts/progress.py show WP-004` |
+| `Timeout escalation path with no approval branch` | `WP-004` | `python3 scripts/progress.py show WP-004` |
 | `RiskProfile schema semantics` | `WP-005` | `python3 scripts/progress.py show WP-005` |
 | `AssuranceClass decision tables` | `WP-005` | `python3 scripts/progress.py show WP-005` |
 | `Promotion rules` | `WP-005` | `python3 scripts/progress.py show WP-005` |
 | `Worked examples` | `WP-005` | `python3 scripts/progress.py show WP-005` |
+| `StudyMode decision table` | `WP-005` | `python3 scripts/progress.py show WP-005` |
+| `Substantiality threshold for the multi-agent invariant` | `WP-005` | `python3 scripts/progress.py show WP-005` |
 | `ExecutionProfile semantics` | `WP-006` | `python3 scripts/progress.py show WP-006` |
 | `Route/control decision tables` | `WP-006` | `python3 scripts/progress.py show WP-006` |
 | `Enforcement map` | `WP-006` | `python3 scripts/progress.py show WP-006` |
 | `Negative examples` | `WP-006` | `python3 scripts/progress.py show WP-006` |
+| `Producer and evaluator zone profiles` | `WP-006` | `python3 scripts/progress.py show WP-006` |
+| `MutationPolicy` | `WP-006` | `python3 scripts/progress.py show WP-006` |
 | `ProjectContract schemas` | `WP-013` | `python3 scripts/progress.py show WP-013` |
 | `TaskContract schema` | `WP-013` | `python3 scripts/progress.py show WP-013` |
 | `RoleContract schema` | `WP-013` | `python3 scripts/progress.py show WP-013` |

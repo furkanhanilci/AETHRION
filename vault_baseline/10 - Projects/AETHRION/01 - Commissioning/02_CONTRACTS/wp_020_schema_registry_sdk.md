@@ -122,6 +122,33 @@ warning attached. The process needs a consumer inventory, a migration window and
 a hard cutoff — and the registry has to be able to answer *who still consumes v1*,
 which means consumer registration is part of publishing.
 
+### Baseline v1.3.0 — new records, and the authority typing that keeps them honest
+
+The contract surface gains the records this baseline's capabilities need, and
+one field that matters more than any of them.
+
+**New canonical records:** `AgentCohortRecord`, `CognitiveDiversityProfile`,
+`CommunicationEdgePolicy`, `BlackboardEntry`, `TypedAgentMessage`,
+`CommunicationUtilityRecord`, `ContextProjectionRecord`,
+`MemoryInterventionRecord`, `ResearchBudgetContract`, `TokenLedgerEntry`,
+`SpecificationConformanceRecord`, `HumanPreliminaryAssessment`, `DecisionDelta`,
+`ModelExecutionFingerprint`, `BenchmarkRunPolicy`, `ContaminationFinding`,
+`UpstreamAssimilationRecord`.
+
+**Explicit authority typing.** Every record carries what it may never become. The
+three conversions this baseline forbids are all of the same kind, and each has
+already been attempted somewhere in the field:
+
+| Forbidden conversion | Why it is tempting |
+|---|---|
+| A blackboard entry into evidence | It is where the interesting sentences appear |
+| A communication or search utility score into a claim confidence | It is a number, and it correlates with something |
+| An event payload into gate authority | It is the fastest path and it usually works |
+
+The rule that makes them checkable rather than remembered: **events, blackboard
+entries and derived read models cannot masquerade as canonical scientific
+state**, and the schema is where that is enforced.
+
 ## Out of scope
 
 - The internal implementation of any dependent package
@@ -148,7 +175,7 @@ which means consumer registration is part of publishing.
 
 ### Full prerequisite closure
 
-**19 of 141 packages (13%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
+**19 of 160 packages (12%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
 
 | Level | Packages |
 |---:|---|
@@ -168,8 +195,8 @@ which means consumer registration is part of publishing.
 
 ### What acceptance of this package releases
 
-- **Directly unblocked:** 20 — `WP-021` · `WP-022` · `WP-024` · `WP-025` · `WP-032` · `WP-039` · `WP-041` · `WP-042` · `WP-043` · `WP-046` · `WP-047` · `WP-049` · `WP-056` · `WP-061` · `WP-075` · `WP-087` · `WP-091` · `WP-096` · `WP-097` · `WP-109`
-- **Transitively reachable:** **120 of 141 packages (85%)** cannot be accepted until this one is.
+- **Directly unblocked:** 21 — `WP-021` · `WP-022` · `WP-024` · `WP-025` · `WP-032` · `WP-039` · `WP-041` · `WP-042` · `WP-043` · `WP-046` · `WP-047` · `WP-049` · `WP-056` · `WP-061` · `WP-075` · `WP-087` · `WP-091` · `WP-096` · `WP-097` · `WP-109` · `WP-143`
+- **Transitively reachable:** **139 of 160 packages (87%)** cannot be accepted until this one is.
 
 The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
 
@@ -226,10 +253,13 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `DatasetManifest schema` | `WP-014` | `python3 scripts/progress.py show WP-014` |
 | `Environment reference schema` | `WP-014` | `python3 scripts/progress.py show WP-014` |
 | `Immutability lifecycle` | `WP-014` | `python3 scripts/progress.py show WP-014` |
+| `Ordered parent lineage` | `WP-014` | `python3 scripts/progress.py show WP-014` |
+| `Digest normalisation and migration` | `WP-014` | `python3 scripts/progress.py show WP-014` |
 | `EventEnvelope schema` | `WP-015` | `python3 scripts/progress.py show WP-015` |
 | `Event Catalog seed` | `WP-015` | `python3 scripts/progress.py show WP-015` |
 | `Subject/retention table` | `WP-015` | `python3 scripts/progress.py show WP-015` |
 | `Consumer contract` | `WP-015` | `python3 scripts/progress.py show WP-015` |
+| `Post-commit event taxonomy for the collaboration plane` | `WP-015` | `python3 scripts/progress.py show WP-015` |
 | `PolicyDecision schema` | `WP-016` | `python3 scripts/progress.py show WP-016` |
 | `ControlRecord schema` | `WP-016` | `python3 scripts/progress.py show WP-016` |
 | `ExceptionRecord schema` | `WP-016` | `python3 scripts/progress.py show WP-016` |
@@ -242,10 +272,17 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `Claim state machine` | `WP-018` | `python3 scripts/progress.py show WP-018` |
 | `Review/disagreement schemas` | `WP-018` | `python3 scripts/progress.py show WP-018` |
 | `Decision schema fixtures` | `WP-018` | `python3 scripts/progress.py show WP-018` |
+| `PublicationAssertion` | `WP-018` | `python3 scripts/progress.py show WP-018` |
+| `EvidenceTag` | `WP-018` | `python3 scripts/progress.py show WP-018` |
+| `FindingRecord` | `WP-018` | `python3 scripts/progress.py show WP-018` |
+| `Authority typing on every scientific record` | `WP-018` | `python3 scripts/progress.py show WP-018` |
 | `Run schema bundle` | `WP-019` | `python3 scripts/progress.py show WP-019` |
 | `EnvironmentManifest` | `WP-019` | `python3 scripts/progress.py show WP-019` |
 | `ReproductionReport` | `WP-019` | `python3 scripts/progress.py show WP-019` |
 | `Tolerance policy examples` | `WP-019` | `python3 scripts/progress.py show WP-019` |
+| `CandidateWorkspace` | `WP-019` | `python3 scripts/progress.py show WP-019` |
+| `ReproductionPackage` | `WP-019` | `python3 scripts/progress.py show WP-019` |
+| `ClaimConsistencyReport` | `WP-019` | `python3 scripts/progress.py show WP-019` |
 
 ### Classification that must be recorded before work begins
 

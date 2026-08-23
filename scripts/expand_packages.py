@@ -132,7 +132,7 @@ def load_deliverables(documents: dict[str, Path]) -> dict[str, list[str]]:
 def load_scenarios() -> dict[str, dict]:
     out = {}
     for path in sorted(SCENARIOS.glob("ACC-*.md")):
-        match = re.match(r"^ACC-\d{2}", path.name)
+        match = re.match(r"^ACC-\d{2,3}", path.name)
         if not match:
             continue
         text = path.read_text(encoding="utf-8")
@@ -141,7 +141,7 @@ def load_scenarios() -> dict[str, dict]:
             return found.group(1).strip() if found else default
         out[match.group(0)] = {
             "id": match.group(0),
-            "title": field(r"^# ACC-\d{2} — (.+)$", "").strip(),
+            "title": field(r"^# ACC-\d{2,3} — (.+)$", "").strip(),
             "severity": field(r"\| Severity \| \*\*(.+?)\*\* \|"),
             "category": field(r"\| Category \| (.+?) \|"),
             "phase": field(r"\| Acceptance phase \| `(.+?)`"),

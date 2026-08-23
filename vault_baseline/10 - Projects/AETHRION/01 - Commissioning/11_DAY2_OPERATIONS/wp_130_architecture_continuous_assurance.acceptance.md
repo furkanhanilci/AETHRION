@@ -112,7 +112,7 @@ From `00_PROGRAM/05_definition_of_ready_and_done.md`, instantiated for this pack
 - [ ] `WP-030` — Neo4j, pgvector and OpenSearch Derived Read Models — is `ACCEPTED` (not `TECH_COMPLETE`).
 - [ ] `WP-040` — Workflow Replay, Versioning and Failure Test Suite — is `ACCEPTED` (not `TECH_COMPLETE`).
 - [ ] `WP-060` — Agentic Security Attack Suite and Red-Team Acceptance — is `ACCEPTED` (not `TECH_COMPLETE`).
-- [ ] `WP-109` — Forty Acceptance Scenario Registry and Harness — is `ACCEPTED` (not `TECH_COMPLETE`).
+- [ ] `WP-109` — Acceptance Scenario Registry and Harness — is `ACCEPTED` (not `TECH_COMPLETE`).
 - [ ] `WP-115` — Full System Regression and Commissioning Dossier — is `ACCEPTED` (not `TECH_COMPLETE`).
 - [ ] `WP-121` — Hypercare, Stabilisation and Programme Closure — is `ACCEPTED` (not `TECH_COMPLETE`).
 - [ ] `WP-123` — Control Effectiveness and Policy Regression Rhythm — is `ACCEPTED` (not `TECH_COMPLETE`).

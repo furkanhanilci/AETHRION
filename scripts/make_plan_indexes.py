@@ -2,8 +2,8 @@
 """Generate a README for every commissioning workstream, from the packages in it.
 
 Responsibility
-    Fourteen directories hold 141 work-package documents and 51 acceptance
-    scenarios with no way in. This writes each directory's index **from the files
+    Fifteen directories hold every work-package document and acceptance scenario
+    with no way in. This writes each directory's index **from the files
     it contains**, so a reader arriving at a folder learns what it is for, what
     is in it, what each package depends on, and what is adopted rather than
     built.
@@ -11,7 +11,8 @@ Responsibility
 Invariant
     These indexes are derived. Editing one by hand is a defect: the next run
     overwrites it, and `--check` fails the build in the meantime. That is
-    deliberate — a hand-maintained index of 141 packages drifts within a week.
+    deliberate — a hand-maintained index of this many packages drifts within a
+    week.
 
 Audit findings
     Written after a structural audit found that no workstream directory had an
@@ -74,6 +75,21 @@ PURPOSE = {
     "13_TOOLING_INTEGRATION": ("Tooling and external integration", "Notification, escalation, "
                                "decision routing, inbound quarantine, external feeds, "
                                "persistent identifiers, timestamping and liveness."),
+    "14_SCIENTIFIC_INTELLIGENCE": ("Scientific intelligence", "Study mode, bottlenecks and "
+                                   "ideas; hypothesis and principle evolution; the discovery "
+                                   "search graph and how it is allocated and stopped; the six "
+                                   "epistemic memories; specialist cognition. **Everything "
+                                   "here proposes. None of it decides** — a search score is "
+                                   "never a claim confidence, and a recommendation is never a "
+                                   "verdict. Added to V1 at baseline v1.2.0, and governed by the "
+                                   "assimilation rules of WP-141."),
+    "15_RELIABILITY_EFFICIENCY": ("Reliability and efficiency", "How a cohort of agents "
+                                  "collaborates without talking itself broke, what happens "
+                                  "when one of them is wrong, and what makes a number "
+                                  "believable at the end. **Optimisation here targets the "
+                                  "conversation, the context and the verification route — "
+                                  "never the cohort.** Added to V1 at baseline v1.3.0, and "
+                                  "bound by ADR-011 through ADR-019."),
 }
 FIELD = lambda name, text: (re.search(rf"^\| {name} \| (.+?) \|\s*$", text, re.M) or [None, "—"])[1]
 
@@ -134,11 +150,14 @@ def build(directory: Path) -> str:
         out.append("")
 
     if scenarios:
+        # Numeric, not lexical: ACC-100 must follow ACC-99 rather than ACC-1.
+        scenarios.sort(key=lambda row: int(re.match(r"^ACC-(\d+)_", row[0]).group(1)))
         out += ["---", "", f"## Acceptance scenarios ({len(scenarios)})", "",
                 "| Scenario | Title | Severity | Phase |", "|---|---|---|---|"]
         for filename, heading, severity, phase in scenarios:
             short = heading.split("—", 1)[-1].strip()
-            out.append(f"| [{filename[:6]}]({filename}) | {short} | "
+            label = filename.split("_")[0]
+            out.append(f"| [{label}]({filename}) | {short} | "
                        f"{severity.replace('**','')} | {phase.replace('`','')} |")
         out += ["", "`PRE_GO_LIVE` scenarios must pass before cutover. `DAY2_CONTINUOUS` "
                 "scenarios are armed at cutover and exercised afterwards.", ""]

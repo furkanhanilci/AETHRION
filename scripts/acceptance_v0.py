@@ -111,10 +111,21 @@ def main() -> int:
     if manifest_path.is_file():
         manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
         generated_files = manifest["generated_files"]
+        # The manifest holds one note per source **plus the dashboards**, which
+        # finding I3 deliberately moved inside it: a generated file outside the
+        # manifest is one the projector creates and can never clean up again.
+        # This check compared the whole manifest against the source count and so
+        # failed by exactly the number of dashboards from the moment I3 landed —
+        # a check reporting a defect that was in the check. Counted separately,
+        # both halves stay meaningful.
+        dashboard_files = [rel for rel in generated_files
+                           if rel.startswith("00 - Control Dashboard/")]
+        source_notes = [rel for rel in generated_files if rel not in dashboard_files]
         check(
             "manifest_matches_registry_count",
-            len(generated_files) == ready["source_count"],
-            f"manifest={len(generated_files)} registry={ready['source_count']}",
+            len(source_notes) == ready["source_count"],
+            f"manifest source notes={len(source_notes)} registry={ready['source_count']} "
+            f"(+{len(dashboard_files)} dashboards, recorded per finding I3)",
         )
         missing = [rel for rel in generated_files if not (generated / rel).is_file()]
         check("every_projected_file_exists", not missing,

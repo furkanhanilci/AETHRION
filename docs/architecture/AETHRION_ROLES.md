@@ -65,6 +65,37 @@ exists:**
 > cannot reach `ACCEPTED` here, which is a consequence of the decision rather
 > than the absence of one.
 
+### 1.1 Four things that are not the same kind of thing
+
+Adopting deliberation patterns from published research systems creates a
+predictable defect: their **cognitive** roles — hypothesis generator, skeptic,
+statistician, methodologist — get written into architecture documents as though
+they were governance roles, and a catalogue of fourteen accountabilities silently
+becomes twenty-one.
+
+They are four independent axes:
+
+| Concept | Answers | Example | Carries authority? |
+|---|---|---|---|
+| **Governance role** | Who is accountable, and what may they never do? | Evidence Lead · Human Decision Authority | **yes** — this document |
+| **Cognitive function** | What way of thinking is being applied to this problem? | methodologist · statistician · skeptic · experimentalist | **no** — recommendations only |
+| **Runtime actor** | What executes the work? | a LangGraph task worker · a Temporal activity · deterministic code | no |
+| **Model profile** | Which model, at which snapshot, with which parameters? | a named profile with a qualification record | no |
+
+A `RoleBinding` binds a governance role to an actor. A `CognitiveFunction`
+profile is selected per task by the task compiler and binds to nothing here.
+
+**Fourteen governance functions do not become twenty-one because a council has
+seven seats.** A `ScientificCouncilSession` emits a `Recommendation`; it cannot
+write a `GateRecord`, a `ClaimVersion`, an `EvidenceSpan` or a `ReviewVerdict`,
+and that is enforced by the authority matrix rather than expected of the reader.
+
+One consequence is worth stating because it is the case people get wrong: **a
+council that helped design a protocol at G2 is not a candidate reviewer for its
+result at G6.** Reusing the same function or model profile for both would let the
+design's own assumptions grade the design's own output — the same principle
+ACC-06 already applies to a planner approving its own plan. WP-147; ACC-72.
+
 ---
 
 ## 2. Authority tiers
@@ -228,9 +259,12 @@ discipline exists for: choosing the criterion after seeing the outcome.
 | **Escalates when** | A publication requires a claim the evidence does not carry |
 | **Combination** | May combine with Knowledge Steward |
 
-Scope conformance is **mechanical first**: every publication sentence must
-resolve to a claim, and claim scope bounds sentence scope. The role adjudicates
-what the check cannot.
+Scope conformance runs **cheapest-first, and the classes are not interchangeable**
+(`ADR-008`). That every publication sentence resolves to a claim is **V0** — a
+reference either exists or it does not. Whether the claim's scope actually bounds
+the sentence's is **V2**: a model-mediated judgement with an error rate, needing a
+qualified verifier before it can satisfy anything. The role adjudicates what
+neither can, and is the reason a V2 finding is routed rather than final.
 
 ### 3.13 Knowledge Steward · Tier IV
 

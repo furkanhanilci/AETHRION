@@ -41,10 +41,12 @@ ACC_DIR = PLAN / "12_ACCEPTANCE_SCENARIOS"
 WP_FILE = re.compile(r"^WP-(\d{3})_(?!.*\.(?:tests|acceptance)\.md$).+\.md$")
 WP_TESTS = re.compile(r"^WP-(\d{3})_.+\.tests\.md$")
 WP_ACCEPT = re.compile(r"^WP-(\d{3})_.+\.acceptance\.md$")
-ACC_FILE = re.compile(r"^ACC-(\d{2})_.+\.md$")
+# Scenario ids were two digits until the set passed ACC-99. They are two or
+# three digits now, and never renumbered: ACC-07 is ACC-07 forever.
+ACC_FILE = re.compile(r"^ACC-(\d{2,3})_.+\.md$")
 FIELD = lambda name: re.compile(rf"^\| {name} \| (.+?) \|\s*$", re.M)
 WP_REF = re.compile(r"WP-(\d{3})")
-ACC_REF = re.compile(r"ACC-(\d{2})")
+ACC_REF = re.compile(r"ACC-(\d{2,3})")
 DAY2_RANGE = range(122, 131)
 PHASES = {"PRE_GO_LIVE", "DAY2_CONTINUOUS"}
 
@@ -159,7 +161,7 @@ def main() -> int:
 
     # 7. stale ranges -------------------------------------------------------
     highest = max(int(s.split("-")[1]) for s in scenarios)
-    stale = re.compile(r"ACC-01\s*[–-]\s*ACC-(\d{2})")
+    stale = re.compile(r"ACC-01\s*[–-]\s*ACC-(\d{2,3})")
     for path in PLAN.rglob("*.md"):
         for match in stale.finditer(path.read_text(encoding="utf-8")):
             if int(match.group(1)) != highest:

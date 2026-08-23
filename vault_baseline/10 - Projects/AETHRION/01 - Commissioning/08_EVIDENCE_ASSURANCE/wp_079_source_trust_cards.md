@@ -94,6 +94,35 @@ agreement number is the only way to know.
 
 `measuring-agreement` is the skill; this is where it produces a number.
 
+### Baseline v1.3.0 — the assurance layer stops using one word for two things
+
+Three changes, and the first is a vocabulary correction with real consequences.
+
+**"Mechanical verifier" is retired as a broad term.** It becomes V0 deterministic
+· V1 computational · V2 qualified semantic · V3 human (`ADR-008`), and the class
+is assigned by the verifier service from the procedure that actually ran — never
+by the caller. The reason is that the gate rule *a mechanical check cannot be
+overridden by a model* is correct for V0 and V1 and absurd at V2, where it says a
+model's judgement cannot be overridden by a model.
+
+**Assurance becomes routed** (`ADR-015`): by consequence and uncertainty rather
+than uniformly, with a cascade to a stronger independent verifier or to a human,
+and with `ABSTAIN` as a valid verdict that escalates. A route cannot be lowered
+because the queue is long or the budget is tight.
+
+**Three hard bindings** into the evidence and publication path:
+
+- **Specification conformance** — the frozen method and the running code are
+  compared, and an unapproved `SCIENTIFIC_MAJOR` deviation cannot carry a
+  confirmatory package forward (`ADR-018`, ACC-104).
+- **Model execution fingerprint** — every invocation contributing to a result
+  records what actually executed, retry and fallback history included, and a
+  hosted black-box model does not yield an `EXACT` reproduction claim
+  (ACC-115, ACC-116).
+- **Publication compiler** — no prose without a claim, no number without a
+  `VerifiedValue`, and a complete evidence chain checked link by link
+  (ACC-105, ACC-106).
+
 ## Out of scope
 
 - The internal implementation of any dependent package
@@ -118,7 +147,7 @@ agreement number is the only way to know.
 
 ### Full prerequisite closure
 
-**61 of 141 packages (43%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
+**61 of 160 packages (38%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
 
 | Level | Packages |
 |---:|---|
@@ -159,7 +188,7 @@ agreement number is the only way to know.
 ### What acceptance of this package releases
 
 - **Directly unblocked:** 3 — `WP-080` · `WP-095` · `WP-104`
-- **Transitively reachable:** **38 of 141 packages (27%)** cannot be accepted until this one is.
+- **Transitively reachable:** **49 of 160 packages (31%)** cannot be accepted until this one is.
 
 The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
 
@@ -207,6 +236,8 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `AssuranceClass decision tables` | `WP-005` | `python3 scripts/progress.py show WP-005` |
 | `Promotion rules` | `WP-005` | `python3 scripts/progress.py show WP-005` |
 | `Worked examples` | `WP-005` | `python3 scripts/progress.py show WP-005` |
+| `StudyMode decision table` | `WP-005` | `python3 scripts/progress.py show WP-005` |
+| `Substantiality threshold for the multi-agent invariant` | `WP-005` | `python3 scripts/progress.py show WP-005` |
 | `Literature schema bundle` | `WP-017` | `python3 scripts/progress.py show WP-017` |
 | `Status lifecycle` | `WP-017` | `python3 scripts/progress.py show WP-017` |
 | `Sample manifests` | `WP-017` | `python3 scripts/progress.py show WP-017` |

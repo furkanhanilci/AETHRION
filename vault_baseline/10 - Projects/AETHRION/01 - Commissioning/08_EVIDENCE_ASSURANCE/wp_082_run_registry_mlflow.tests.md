@@ -133,15 +133,20 @@ ISO/IEC/IEEE 29119-3 §8.3.2. A coverage item is something the tests must reach.
 | C03 | `MLflow integration` | Mandatory deliverable | *(name the test case)* |
 | C04 | `Run lineage queries` | Mandatory deliverable | *(name the test case)* |
 | C05 | `Run lifecycle dashboard` | Mandatory deliverable | *(name the test case)* |
-| C06 | Establish the Run Registry state model and API | WP-082-T01 | *(name the test case)* |
-| C07 | Write the pre-run manifest completeness and admission checks | WP-082-T02 | *(name the test case)* |
-| C08 | Bind Temporal, execution and MLflow correlation | WP-082-T03 | *(name the test case)* |
-| C09 | Add metric, artifact and result ingestion with hash validation | WP-082-T04 | *(name the test case)* |
-| C10 | Define the failed, cancelled and negative run lifecycle | WP-082-T05 | *(name the test case)* |
-| C11 | Add run comparison, query APIs and outbox events | WP-082-T06 | *(name the test case)* |
-| C12 | Negative Research Result | [ACC-39](../12_ACCEPTANCE_SCENARIOS/acc_39_negative_result.md) — Medium | *(name the test case)* |
+| C06 | `RawEvaluatorArtifact` | Mandatory deliverable | *(name the test case)* |
+| C07 | `VerifiedValue` | Mandatory deliverable | *(name the test case)* |
+| C08 | `PredictionRecord` | Mandatory deliverable | *(name the test case)* |
+| C09 | `FailureAssessment` | Mandatory deliverable | *(name the test case)* |
+| C10 | `ModelExecutionFingerprint` | Mandatory deliverable | *(name the test case)* |
+| C11 | Establish the Run Registry state model and API | WP-082-T01 | *(name the test case)* |
+| C12 | Write the pre-run manifest completeness and admission checks | WP-082-T02 | *(name the test case)* |
+| C13 | Bind Temporal, execution and MLflow correlation | WP-082-T03 | *(name the test case)* |
+| C14 | Add metric, artifact and result ingestion with hash validation | WP-082-T04 | *(name the test case)* |
+| C15 | Define the failed, cancelled and negative run lifecycle | WP-082-T05 | *(name the test case)* |
+| C16 | Add run comparison, query APIs and outbox events | WP-082-T06 | *(name the test case)* |
+| C17 | Negative Research Result | [ACC-39](../12_ACCEPTANCE_SCENARIOS/acc_39_negative_result.md) — Medium | *(name the test case)* |
 
-**12 coverage items.** Every one must appear in the *Covered by* column of at least one test case below before this package can reach `TECH_COMPLETE`.
+**17 coverage items.** Every one must appear in the *Covered by* column of at least one test case below before this package can reach `TECH_COMPLETE`.
 
 <!-- /generated:coverage -->
 

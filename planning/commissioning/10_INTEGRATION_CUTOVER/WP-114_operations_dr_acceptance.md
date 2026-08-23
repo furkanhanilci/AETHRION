@@ -70,6 +70,27 @@ On-call response, incident command, communication and decision latency. `PR-13`'
 paper-restore failure has a human half: a technically perfect restore that took six
 hours to start because nobody knew who could authorise it.
 
+### Baseline v1.3.0 — the slices exercise the cohort, and the regression injects faults
+
+The vertical slices and the cutover path grow to cover what this baseline adds,
+and one package changes character.
+
+**WP-107 becomes the engineering completion slice.** Requirement and
+specification → worktree → TDD → code review → CI → supply-chain attestation →
+signed artifact → **eligibility to produce scientific evidence**. That last arrow
+is the junction between the two disciplines, and before this baseline nothing
+proved it end to end.
+
+**The other slices exercise the collaboration plane**: a compiled cohort, sealed
+initial positions, typed delta exchange over a sparse topology, an adaptive
+assurance route, a fingerprinted reproduction and a firewalled benchmark run.
+
+**The regression suite gains injections rather than cases.** Faulty agent,
+malicious agent, split brain, duplicate and out-of-order events, communication
+degradation under budget pressure, and benchmark contamination. These are
+failures that are invisible in a healthy run and obvious only in a post-mortem,
+which is why they are caused deliberately rather than waited for.
+
 ## Out of scope
 
 - The internal implementation of any dependent package
@@ -93,11 +114,11 @@ hours to start because nobody knew who could authorise it.
 | [WP-052 — Kubernetes Cluster and Node Pool Baseline](../06_EXECUTION_SECURITY/WP-052_kubernetes_cluster.md) | `Kubernetes clusters` · `Node pool catalog` · `Namespace/security baseline` · `Upgrade/restore runbook` |
 | [WP-099 — WORM Audit Ledger and Independent Export](../09_EXPERIENCE_OBSERVABILITY/WP-099_audit_worm_export.md) | `Audit Ledger` · `Hash-chain service` · `Audit export/verify tooling` · `Retention/access policy` |
 | [WP-101 — Service Catalogue, SLOs and Alert/Runbook Binding](../09_EXPERIENCE_OBSERVABILITY/WP-101_service_slo_alerting.md) | `Service Catalog` · `SLO catalog` · `Error-budget policy` · `Alert-runbook link checker` |
-| [WP-109 — Forty Acceptance Scenario Registry and Harness](../10_INTEGRATION_CUTOVER/WP-109_acceptance_registry.md) | `Acceptance Registry` · `Scenario runner` · `Fixture catalog` · `Evidence capture/signing` |
+| [WP-109 — Acceptance Scenario Registry and Harness](../10_INTEGRATION_CUTOVER/WP-109_acceptance_registry.md) | `Acceptance Registry` · `Scenario runner` · `Fixture catalog` · `Evidence capture/signing` |
 
 ### Full prerequisite closure
 
-**109 of 141 packages (77%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
+**109 of 160 packages (68%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
 
 | Level | Packages |
 |---:|---|
@@ -151,7 +172,7 @@ hours to start because nobody knew who could authorise it.
 ### What acceptance of this package releases
 
 - **Directly unblocked:** 4 — `WP-115` · `WP-116` · `WP-118` · `WP-129`
-- **Transitively reachable:** **16 of 141 packages (11%)** cannot be accepted until this one is.
+- **Transitively reachable:** **19 of 160 packages (12%)** cannot be accepted until this one is.
 
 The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
 
@@ -183,7 +204,7 @@ The transitive figure is the leverage number. It does not appear anywhere else i
 
 ## Preconditions — Definition of Ready
 
-- Dependencies accepted: [WP-025 — PostgreSQL HA and Registry Data Foundation](../03_FOUNDATION/WP-025_postgres_ha_foundation.md), [WP-026 — Content-Addressed Object Store and WORM](../03_FOUNDATION/WP-026_object_store_worm.md), [WP-028 — NATS JetStream and Transactional Outbox Foundation](../03_FOUNDATION/WP-028_nats_jetstream_outbox.md), [WP-030 — Neo4j, pgvector and OpenSearch Derived Read Models](../03_FOUNDATION/WP-030_derived_read_models.md), [WP-031 — Temporal Platform, Namespaces and HA](../04_CONTROL_EVENT/WP-031_temporal_platform.md), [WP-052 — Kubernetes Cluster and Node Pool Baseline](../06_EXECUTION_SECURITY/WP-052_kubernetes_cluster.md), [WP-099 — WORM Audit Ledger and Independent Export](../09_EXPERIENCE_OBSERVABILITY/WP-099_audit_worm_export.md), [WP-101 — Service Catalogue, SLOs and Alert/Runbook Binding](../09_EXPERIENCE_OBSERVABILITY/WP-101_service_slo_alerting.md), [WP-109 — Forty Acceptance Scenario Registry and Harness](../10_INTEGRATION_CUTOVER/WP-109_acceptance_registry.md)
+- Dependencies accepted: [WP-025 — PostgreSQL HA and Registry Data Foundation](../03_FOUNDATION/WP-025_postgres_ha_foundation.md), [WP-026 — Content-Addressed Object Store and WORM](../03_FOUNDATION/WP-026_object_store_worm.md), [WP-028 — NATS JetStream and Transactional Outbox Foundation](../03_FOUNDATION/WP-028_nats_jetstream_outbox.md), [WP-030 — Neo4j, pgvector and OpenSearch Derived Read Models](../03_FOUNDATION/WP-030_derived_read_models.md), [WP-031 — Temporal Platform, Namespaces and HA](../04_CONTROL_EVENT/WP-031_temporal_platform.md), [WP-052 — Kubernetes Cluster and Node Pool Baseline](../06_EXECUTION_SECURITY/WP-052_kubernetes_cluster.md), [WP-099 — WORM Audit Ledger and Independent Export](../09_EXPERIENCE_OBSERVABILITY/WP-099_audit_worm_export.md), [WP-101 — Service Catalogue, SLOs and Alert/Runbook Binding](../09_EXPERIENCE_OBSERVABILITY/WP-101_service_slo_alerting.md), [WP-109 — Acceptance Scenario Registry and Harness](../10_INTEGRATION_CUTOVER/WP-109_acceptance_registry.md)
 - A named owner, a named implementer, and a verifier **independent of the producer** are assigned.
 - Affected canonical records, interfaces and ADRs have been linked during refinement.
 - `DataClass`, `CodeTrust`, `ToolEffect` and the network/credential scope are classified.
@@ -219,6 +240,7 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `Graph/vector/search indexes` | `WP-030` | `python3 scripts/progress.py show WP-030` |
 | `Rebuild jobs` | `WP-030` | `python3 scripts/progress.py show WP-030` |
 | `Integrity/lag dashboard` | `WP-030` | `python3 scripts/progress.py show WP-030` |
+| `Destructive projection rebuild proof` | `WP-030` | `python3 scripts/progress.py show WP-030` |
 | `Temporal platform` | `WP-031` | `python3 scripts/progress.py show WP-031` |
 | `Namespace/queue catalog` | `WP-031` | `python3 scripts/progress.py show WP-031` |
 | `Worker identity policy` | `WP-031` | `python3 scripts/progress.py show WP-031` |
@@ -238,6 +260,7 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `Error-budget policy` | `WP-101` | `python3 scripts/progress.py show WP-101` |
 | `Alert-runbook link checker` | `WP-101` | `python3 scripts/progress.py show WP-101` |
 | `Ownership dashboard` | `WP-101` | `python3 scripts/progress.py show WP-101` |
+| `Coordination overhead and Pareto SLOs` | `WP-101` | `python3 scripts/progress.py show WP-101` |
 | `Acceptance Registry` | `WP-109` | `python3 scripts/progress.py show WP-109` |
 | `Scenario runner` | `WP-109` | `python3 scripts/progress.py show WP-109` |
 | `Fixture catalog` | `WP-109` | `python3 scripts/progress.py show WP-109` |

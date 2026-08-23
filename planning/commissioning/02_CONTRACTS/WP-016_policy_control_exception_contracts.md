@@ -81,10 +81,37 @@ decisions.
 
 ### The adoption boundary
 
-`AETHRION_COMPONENT_REUSE.md` adopts **Cedar** as the policy decision point.
+`AETHRION_COMPONENT_REUSE.md` §6 commissions the **`PolicyDecision` interface**; the engine behind it is chosen by the `ADR-010` bake-off, which has not run.
 Adopted, not invented — this package defines the *record*, not the language. The
-`authority_boundary` on that adoption is what stops Cedar's semantics from
+`authority_boundary` on that adoption is what stops an engine's semantics from
 becoming the canonical semantics.
+
+### Baseline v1.3.0 — new records, and the authority typing that keeps them honest
+
+The contract surface gains the records this baseline's capabilities need, and
+one field that matters more than any of them.
+
+**New canonical records:** `AgentCohortRecord`, `CognitiveDiversityProfile`,
+`CommunicationEdgePolicy`, `BlackboardEntry`, `TypedAgentMessage`,
+`CommunicationUtilityRecord`, `ContextProjectionRecord`,
+`MemoryInterventionRecord`, `ResearchBudgetContract`, `TokenLedgerEntry`,
+`SpecificationConformanceRecord`, `HumanPreliminaryAssessment`, `DecisionDelta`,
+`ModelExecutionFingerprint`, `BenchmarkRunPolicy`, `ContaminationFinding`,
+`UpstreamAssimilationRecord`.
+
+**Explicit authority typing.** Every record carries what it may never become. The
+three conversions this baseline forbids are all of the same kind, and each has
+already been attempted somewhere in the field:
+
+| Forbidden conversion | Why it is tempting |
+|---|---|
+| A blackboard entry into evidence | It is where the interesting sentences appear |
+| A communication or search utility score into a claim confidence | It is a number, and it correlates with something |
+| An event payload into gate authority | It is the fastest path and it usually works |
+
+The rule that makes them checkable rather than remembered: **events, blackboard
+entries and derived read models cannot masquerade as canonical scientific
+state**, and the schema is where that is enforced.
 
 ## Out of scope
 
@@ -107,7 +134,7 @@ becoming the canonical semantics.
 
 ### Full prerequisite closure
 
-**11 of 141 packages (8%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
+**11 of 160 packages (7%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
 
 | Level | Packages |
 |---:|---|
@@ -123,7 +150,7 @@ becoming the canonical semantics.
 ### What acceptance of this package releases
 
 - **Directly unblocked:** 13 — `WP-018` · `WP-020` · `WP-033` · `WP-038` · `WP-041` · `WP-042` · `WP-045` · `WP-049` · `WP-055` · `WP-056` · `WP-099` · `WP-100` · `WP-131`
-- **Transitively reachable:** **123 of 141 packages (87%)** cannot be accepted until this one is.
+- **Transitively reachable:** **142 of 160 packages (89%)** cannot be accepted until this one is.
 
 The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
 
@@ -171,10 +198,14 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `Route/control decision tables` | `WP-006` | `python3 scripts/progress.py show WP-006` |
 | `Enforcement map` | `WP-006` | `python3 scripts/progress.py show WP-006` |
 | `Negative examples` | `WP-006` | `python3 scripts/progress.py show WP-006` |
+| `Producer and evaluator zone profiles` | `WP-006` | `python3 scripts/progress.py show WP-006` |
+| `MutationPolicy` | `WP-006` | `python3 scripts/progress.py show WP-006` |
 | `Control Catalog` | `WP-009` | `python3 scripts/progress.py show WP-009` |
 | `ExceptionPolicy` | `WP-009` | `python3 scripts/progress.py show WP-009` |
 | `NonWaivableBlocker registry` | `WP-009` | `python3 scripts/progress.py show WP-009` |
 | `Control-test mapping` | `WP-009` | `python3 scripts/progress.py show WP-009` |
+| `Non-waivable additions for the epistemic layer` | `WP-009` | `python3 scripts/progress.py show WP-009` |
+| `Non-waivable additions for the reliability layer` | `WP-009` | `python3 scripts/progress.py show WP-009` |
 | `Identifier Standard` | `WP-011` | `python3 scripts/progress.py show WP-011` |
 | `Correlation envelope` | `WP-011` | `python3 scripts/progress.py show WP-011` |
 | `ID library contract` | `WP-011` | `python3 scripts/progress.py show WP-011` |

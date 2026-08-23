@@ -109,7 +109,7 @@ From `00_PROGRAM/05_definition_of_ready_and_done.md`, instantiated for this pack
 - [ ] `WP-105` — Vertical Slice 4 — Blind Review, Arbitration and Clean-Room — is `ACCEPTED` (not `TECH_COMPLETE`).
 - [ ] `WP-106` — Vertical Slice 5 — Human Decision, Publish and Monitor — is `ACCEPTED` (not `TECH_COMPLETE`).
 - [ ] `WP-108` — Retraction, Drift and Supersession Vertical Slice — is `ACCEPTED` (not `TECH_COMPLETE`).
-- [ ] `WP-109` — Forty Acceptance Scenario Registry and Harness — is `ACCEPTED` (not `TECH_COMPLETE`).
+- [ ] `WP-109` — Acceptance Scenario Registry and Harness — is `ACCEPTED` (not `TECH_COMPLETE`).
 - [ ] `DataClass`, `CodeTrust`, `ToolEffect` and the network/credential scope are classified — all four, with no `UNKNOWN`.
 - [ ] Acceptance criteria name **a number, a threshold or a command**. `00_PROGRAM/05` states that the generic template criteria are not measurable in the sense meant here; refinement is where that is fixed.
 - [ ] Migration, rollback or compensation behaviour is defined.

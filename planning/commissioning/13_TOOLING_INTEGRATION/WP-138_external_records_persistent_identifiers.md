@@ -90,6 +90,15 @@ initiate most actions.
 Author identity that resolves outside the system, so authorship is not a string in
 a database.
 
+### Baseline v1.3.0 — unchanged flow, added preconditions
+
+External persistent identifiers and record submission are semantically unchanged.
+What is added is what must already hold before a submission goes out: the
+publication compiler's checks have passed, provenance is attached, and the
+artifact is signed. An external record is an independent witness, and submitting
+one for an artifact that has not cleared its own compiler witnesses the wrong
+thing — irreversibly.
+
 ## Out of scope
 
 - Preprint submission cannot be fully automated (arXiv requires a human step)
@@ -111,7 +120,7 @@ a database.
 
 ### Full prerequisite closure
 
-**83 of 141 packages (59%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
+**83 of 160 packages (52%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
 
 | Level | Packages |
 |---:|---|
@@ -205,11 +214,15 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `DatasetManifest schema` | `WP-014` | `python3 scripts/progress.py show WP-014` |
 | `Environment reference schema` | `WP-014` | `python3 scripts/progress.py show WP-014` |
 | `Immutability lifecycle` | `WP-014` | `python3 scripts/progress.py show WP-014` |
+| `Ordered parent lineage` | `WP-014` | `python3 scripts/progress.py show WP-014` |
+| `Digest normalisation and migration` | `WP-014` | `python3 scripts/progress.py show WP-014` |
 | `Publication builder` | `WP-090` | `python3 scripts/progress.py show WP-090` |
 | `RO-Crate profile` | `WP-090` | `python3 scripts/progress.py show WP-090` |
 | `Signed publication package` | `WP-090` | `python3 scripts/progress.py show WP-090` |
 | `Release checklist` | `WP-090` | `python3 scripts/progress.py show WP-090` |
 | `Supersession record` | `WP-090` | `python3 scripts/progress.py show WP-090` |
+| `Publication compiler` | `WP-090` | `python3 scripts/progress.py show WP-090` |
+| `Assertion and value binding checks` | `WP-090` | `python3 scripts/progress.py show WP-090` |
 
 ### Classification that must be recorded before work begins
 
@@ -280,6 +293,14 @@ The programme-level conditions are below. The package-specific, measurable crite
 - [ ] All mandatory tests passed on the same target revision.
 - [ ] No open Critical or High findings.
 - [ ] The independent verifier has accepted the evidence package.
+
+## Acceptance evidence package
+
+- Test results captured on the same target revision/digest
+- An `EvidenceManifest` recording the environment, schema, policy and dependency versions
+- The independent verifier's `ReviewRecord` or `VerificationRecord`
+- The rollback/compensation trial and its result reference
+- The list of open findings and residual risks with owners and expiry dates
 
 ## Risks and control points
 

@@ -30,7 +30,7 @@ survives only as a technical term. See §7.5 — do not "finish the rename".
 | | What | State |
 |---|---|---|
 | 1 | A target architecture | Designed; largely unbuilt |
-| 2 | A sealed commissioning plan — **this is V1** | 141 packages, 51 scenarios, sealed |
+| 2 | A sealed commissioning plan — **this is V1** | 160 packages, 120 scenarios, sealed |
 | 3 | One vertical slice that runs | Zotero → SQLite → Obsidian + read-only MCP |
 
 **The distance between (1) and (3) is large, and every document states it rather
@@ -43,12 +43,12 @@ that document is the defect.
 
 ```bash
 cd /home/otonom/Desktop/FH/AETHRION
-uv run python scripts/write_status.py    # runs the 15-check bundle, rewrites docs/STATUS.md
+uv run python scripts/write_status.py    # runs the 16-check bundle, rewrites docs/STATUS.md
 python3 scripts/ready_queue.py           # rewrites docs/READY.md
 git log --oneline -5
 ```
 
-`write_status.py` must print **15/15**. If it does not, fix that before doing
+`write_status.py` must print **16/16**. If it does not, fix that before doing
 anything else — a session that starts on a red bundle cannot tell its own
 breakage from the breakage it inherited.
 
@@ -74,16 +74,17 @@ learn a number a script prints is how a session starts with a stale fact.
 | `src/airl_bridge/` | The working slice: Zotero client, SQLite registry, FastAPI, Obsidian projection, MCP server | no |
 | `src/airl_framework/` | Shared contract core. **Zero production consumers** — finding H4 | no |
 | `tests/` | 35 tests | no |
-| `scripts/` | Verification, generation and execution tooling — 37 scripts | no |
-| `planning/commissioning/` | The V1 plan: WP-000–140, ACC-01–51. **503 files, hash-sealed** | indexes only |
+| `scripts/` | Verification, generation and execution tooling — 41 scripts | no |
+| `planning/commissioning/` | The V1 plan: WP-000–159, ACC-01–120. **631 files, hash-sealed** | indexes only |
 | `docs/architecture/` | Target design, three ADRs, positioning | no |
-| `docs/figures/` | 9 SVG figures | **yes** — from `scripts/fig_*.py` |
+| `docs/figures/` | 12 SVG figures | **yes** — from `scripts/fig_*.py` |
 | `docs/STATUS.md`, `docs/READY.md` | Live state | **yes** |
 | `docs/review/` | Dated, frozen audit reports | no — and never updated |
 | `delivery/` | Evidence packages, signing keys, measurements, the progress ledger | partly |
 | `deploy/` | systemd units, the staged CI workflow | no |
 | `skills/` | 52 Agent Skills — 11 vendored from `obra/superpowers`, 41 native | no |
 | `schemas/` | Shared contract schemas | no |
+| `provenance/` | Which mechanism came from which project, its licence, and what it may never decide | `provenance/README.md` **yes** — generated from `provenance/upstreams.json` |
 | `vault_baseline/` | Versioned snapshot of the Obsidian vault — linted by `check_vault.py` | **mostly** |
 | `docs/assets/branding/` | The canonical logo | no |
 
@@ -96,12 +97,20 @@ learn a number a script prints is how a session starts with a stale fact.
 ```
 Source → SourceRepresentation → EvidenceSpan → ClaimVersion → ExperimentRun
        → Review → Reproduction → DecisionRecord → Publication → Monitoring
+
+candidate → frozen evaluator → RawEvaluatorArtifact → VerifiedValue → PublicationAssertion
 ```
 
 Two properties matter more than the chain: it is **traversable in both
 directions** (published sentence → source span; retracted source → every
 dependent claim), and **the loop closes** — `VERIFIED` is explicitly not a
 permanent state. **One of the ten links is implemented.**
+
+The second line is where a *number* comes from, and it is not optional: no
+number reaches a publication without a `VerifiedValue`, and no `VerifiedValue`
+exists without an immutable evaluator output under it. The producer has no read
+or write path into the evaluator zone. **None of that line is implemented** —
+ADR-007.
 
 ### 4.2 The G0–G10 lifecycle
 
@@ -126,7 +135,8 @@ Evidence and Operations · Metascience (proposed). **None is built.**
 Trusted control plane holds the goal and every privilege. Untrusted data plane
 holds everything an outsider can write: paper full text, tool output, web pages,
 reviewer comments. **Content crosses; authority does not.** A retrieved sentence
-may change what the agent knows, never what it may do. Cedar is the policy
+may change what the agent knows, never what it may do. A formally-analysable
+policy engine behind the `PolicyDecision` interface is the policy
 decision point; default deny; an anomaly is a denial, not a warning. **No policy
 set is authored and no adversarial benchmark has been run.**
 
@@ -141,15 +151,58 @@ independence profile · **R3 `BLOCKED`**, declared rather than waived.
 ### 4.6 What is adopted rather than invented
 
 Components carry an adoption type — `DEPENDENCY`, `ADAPTER`, `STANDARD`,
-`BENCHMARK`, `PATTERN`, `OPTIONAL_BACKEND`, `REJECTED` — each with a mandatory
+`BENCHMARK`, `PATTERN`, `OPTIONAL_BACKEND`, `DIRECT_ADAPT`,
+`ADAPTIVE_REIMPLEMENT`, `DEFER`, `REJECTED` — each with a mandatory
 `authority_boundary`. Adopted: Inspect AI, GROBID + Pub2TEI, PaperQA2, ASReview,
-Cedar, the CaMeL pattern, OSF Registries, Workflow Run RO-Crate, SEPIO + LinkML,
+the CaMeL pattern, OSF Registries, Workflow Run RO-Crate, SEPIO + LinkML, CiTO,
 Croissant, SWHID, MLflow + OpenTelemetry, sigstore, Crossref/OpenAlex/arXiv.
 Register: `docs/architecture/AETHRION_COMPONENT_REUSE.md`.
 
 **Do not write a PDF parser, a policy language, a sandbox or an experiment
 tracker here.** The value is which evidence, through which control, licenses
 which claim.
+
+### 4.6.1 Substantial scientific work is multi-agent, and that is not a cost lever
+
+`ADR-011`. At least two **epistemically independent** cognitive contributions
+before synthesis — independence being a five-dimension profile (cognitive
+function, evidence exposure, peer visibility, model profile, prompt perspective),
+**not a count**. Several instances of one model on one context are one
+contribution.
+
+Optimisation targets the **conversation**: typed delta-only messages over a
+compiled sparse topology, context projection, memory masking, adaptive assurance
+routing. Never the cohort. Budget pressure degrades verbosity; a task that cannot
+afford its required assurance is `BLOCKED`, not completed more cheaply.
+
+If you are about to reduce a cohort to save tokens, that is the decision
+`ADR-011` exists to refuse. **None of this is implemented** — WP-148–159 specify
+it and there is no collaboration plane.
+
+### 4.7 Taking a mechanism from another project
+
+A **mechanism** may be taken; an **architecture** may not. No external project
+appears here as a runtime module, directory, backend, class name or config key —
+if you are about to create `src/third_party/<name>`, stop and read `ADR-004`.
+
+The register is `provenance/upstreams.json`, checked by
+`python3 scripts/check_upstream_lineage.py`. Before any code moves:
+
+| Decision | What it requires |
+|---|---|
+| `DIRECT_ADAPT` | permissive licence **read at the source** · pinned commit · named file list · characterisation suite written **before** the code moves · SPDX and `NOTICE` |
+| `ADAPTIVE_REIMPLEMENT` | a written mechanism specification first. **No source files** — an entry naming files is refused, because if files were copied the decision was direct adaptation |
+| `DEPENDENCY` | version pin, upgrade path, failure semantics |
+
+Every entry states **what the mechanism may never decide.** That field is
+required, and the checker refuses an entry without one. Run
+`--self-test` to confirm the rules still fire; a checker that has never been
+seen to fail reports "no findings" and "no detector" identically.
+
+**No entry has reached `ADAPTING`.** Everything in the register is a decision on
+paper and `pinned_commit` is `null` throughout. There is no network access from
+the sandboxed shell here, so pinning a commit is work for a session that has one
+— do not invent a digest to satisfy the field.
 
 ---
 
@@ -159,12 +212,15 @@ which claim.
 |---|---|
 | Zotero → SQLite → Obsidian bridge, read-only MCP (5 tools) | **Working**, 35 tests |
 | Evidence issuance/verification, signed, tamper-rejecting | **Working** — `TECH_COMPLETE`, not `ACCEPTED` |
-| Plan seal, figure generators, mirrors, 15-check bundle | **Working** |
+| Plan seal, figure generators, mirrors, 16-check bundle | **Working** |
+| Upstream lineage register and its checker, 11 firing controls | **Working** — the register is decisions, not adapted code |
 | Reference verification (Crossref/OpenAlex/arXiv) | **Working** — 27 of 33 corroborated |
 | Source monitoring (first slice of G10) | **Working** — positive control fires |
 | 52 skills | Format-conformant; **none behaviour-tested** |
 | Contract core | Prototype, **zero consumers**, digest format conflicts with the bridge |
-| Temporal · LangGraph · NATS · brokers · ledgers · Model Gateway · G0–G10 runtime · Cedar policy set | **No code** |
+| Temporal · LangGraph · NATS · brokers · ledgers · Model Gateway · G0–G10 runtime · policy set | **No code** |
+| Discovery search graph · frozen evaluator zone · six memories · V0–V3 verifier engine · publication compiler | **No code** — specified at v1.2.0 by ADR-004–010 and WP-141–147 |
+| Collaboration plane · sparse topology · communication governor · memory mask · failure taxonomy · budget ledger · spec conformance · assurance router · human preliminary flow · model fingerprint · benchmark firewall | **No code** — specified at v1.3.0 by ADR-011–019 and WP-148–159 |
 | Notification channels (ntfy · Telegram · Discord/Slack · WhatsApp) | **Planned** — specified, nothing connected, nothing sends |
 | CI (BVC-01) | **Staged, never run** — needs a workflow-scoped token |
 
@@ -194,7 +250,7 @@ end to end.
 
 ### 7.1 Generated files are never hand-edited
 
-`docs/STATUS.md` · `docs/READY.md` · `docs/figures/*.svg` · the 14 workstream
+`docs/STATUS.md` · `docs/READY.md` · `docs/figures/*.svg` · the 16 workstream
 `README.md` files under `planning/commissioning/` · everything under
 every page under `vault_baseline/10 - Projects/AETHRION/` whose frontmatter says
 `generated: true` — the mirrors write those and refuse to touch any other.
@@ -204,7 +260,7 @@ the bundle runs them.
 
 ### 7.2 The plan is sealed
 
-`planning/commissioning/` is 503 hash-sealed files. Verify:
+`planning/commissioning/` is 631 hash-sealed files. Verify:
 
 ```bash
 (cd planning/commissioning && sha256sum -c 00_PROGRAM/SHA256SUMS.txt)
@@ -289,7 +345,7 @@ keep upstream attribution and their pinned commit — do not rewrite them.
 ## 9. Before you finish anything
 
 ```bash
-uv run python scripts/write_status.py                                    # must print 15/15
+uv run python scripts/write_status.py                                    # must print 16/16
 python3 scripts/mirror_vault.py "vault_baseline/10 - Projects/AETHRION"
 python3 scripts/mirror_plan.py "vault_baseline/10 - Projects/AETHRION/01 - Commissioning"
 python3 scripts/mirror_vault.py "/home/otonom/Documents/Obsidian Vault/10 - Projects/AETHRION"

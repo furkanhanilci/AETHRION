@@ -71,6 +71,21 @@ Zotero group libraries belong to an organisation account. A solo laboratory's
 organisation has one owner, and the continuity plan is the honest acknowledgement
 that this is a single point of failure — the same shape as ADR-001's declared gap.
 
+### Baseline v1.3.0 — unchanged ownership, new cross-cutting obligations
+
+No semantic ownership changes here. What changes is what these packages must
+remain compatible with:
+
+- the **trace and correlation** fields every plane now carries, so a divergence
+  is traceable to a cause;
+- **context projection**, so that a record's canonical status does not depend on
+  whether it happened to be in an agent's context;
+- **provenance rules** for anything adapted from an upstream source.
+
+Generated counts, indexes and the new cross-cutting acceptance references must
+stay consistent — which is a mechanical obligation, and the one most likely to be
+skipped because nothing in the package's own subject matter changed.
+
 ## Out of scope
 
 - The internal implementation of any dependent package
@@ -95,7 +110,7 @@ that this is a single point of failure — the same shape as ADR-001's declared 
 
 ### Full prerequisite closure
 
-**44 of 141 packages (31%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
+**44 of 160 packages (28%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
 
 | Level | Packages |
 |---:|---|
@@ -129,7 +144,7 @@ that this is a single point of failure — the same shape as ADR-001's declared 
 ### What acceptance of this package releases
 
 - **Directly unblocked:** 6 — `WP-065` · `WP-066` · `WP-067` · `WP-094` · `WP-103` · `WP-125`
-- **Transitively reachable:** **54 of 141 packages (38%)** cannot be accepted until this one is.
+- **Transitively reachable:** **67 of 160 packages (42%)** cannot be accepted until this one is.
 
 The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
 
@@ -180,6 +195,8 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `SLA/escalation table` | `WP-004` | `python3 scripts/progress.py show WP-004` |
 | `Delegation matrix` | `WP-004` | `python3 scripts/progress.py show WP-004` |
 | `Decision rationale rubric` | `WP-004` | `python3 scripts/progress.py show WP-004` |
+| `Human intervention vocabulary` | `WP-004` | `python3 scripts/progress.py show WP-004` |
+| `Timeout escalation path with no approval branch` | `WP-004` | `python3 scripts/progress.py show WP-004` |
 | `Canonical Ownership Matrix` | `WP-012` | `python3 scripts/progress.py show WP-012` |
 | `Field Authority Table` | `WP-012` | `python3 scripts/progress.py show WP-012` |
 | `Sync direction map` | `WP-012` | `python3 scripts/progress.py show WP-012` |
@@ -193,6 +210,8 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `Invocation/Receipt persistence` | `WP-049` | `python3 scripts/progress.py show WP-049` |
 | `Connector SDK` | `WP-049` | `python3 scripts/progress.py show WP-049` |
 | `Audit events` | `WP-049` | `python3 scripts/progress.py show WP-049` |
+| `Capability gate` | `WP-049` | `python3 scripts/progress.py show WP-049` |
+| `Tool-result reuse with recorded provenance` | `WP-049` | `python3 scripts/progress.py show WP-049` |
 | `Versioned connectors` | `WP-050` | `python3 scripts/progress.py show WP-050` |
 | `Connector permission profiles` | `WP-050` | `python3 scripts/progress.py show WP-050` |
 | `Connector contract tests` | `WP-050` | `python3 scripts/progress.py show WP-050` |

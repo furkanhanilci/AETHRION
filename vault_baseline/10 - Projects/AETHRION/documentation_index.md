@@ -66,6 +66,7 @@ actually runs, read `STATUS.md`.
 | `AETHRION_RELATED_SYSTEMS.md` | How this compares to Science One, PaperQA2, AI Scientist | Positioning |
 | `FOUNDATION.md` | The contract and platform substrate | Reference |
 | `ADR-001` · `ADR-002` · `ADR-003` | Independence · verification control · trusted control and policy | **Accepted decisions** |
+| `ADR-004` – `ADR-010` | The epistemic layer: how a mechanism is taken from another project · what is remembered where · what a search score may never become · where a published number comes from · what "verify" means · what a document may assert · which engine decides policy | **Accepted decisions**, 2026-08-23 |
 
 **The distinction that matters:** a *proposal* argues for something; a *decision
 record* fixes it and says who decided; a *reference* describes what was decided

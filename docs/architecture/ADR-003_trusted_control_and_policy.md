@@ -4,7 +4,7 @@
 |---|---|
 | Document type | Architecture decision record |
 | Scope | How untrusted content is prevented from acquiring authority, and what evaluates policy |
-| Sibling documents | `AETHRION_COMPONENT_REUSE.md` §6 · WP-049 · WP-136 · ACC-44 |
+| Sibling documents | `AETHRION_COMPONENT_REUSE.md` §6 · `ADR-010_policy_backend.md` · WP-049 · WP-056 · WP-136 · ACC-44 |
 | Status | **ACCEPTED — 2026-08-22.** Architecture decided; neither component is built |
 | Date | 2026-08-22 |
 
@@ -21,8 +21,8 @@ semantics rather than to bespoke code.
 ## 1. The decision
 
 > **Untrusted content is data. Control flow comes only from trusted intent.
-> Policy is evaluated by Cedar, not by hand-written conditionals, and any
-> evaluation anomaly fails closed.**
+> Policy is evaluated by a policy engine with formal semantics, not by
+> hand-written conditionals, and any evaluation anomaly fails closed.**
 
 ---
 
@@ -60,18 +60,23 @@ boundary* for exactly this reason.
 model through `get_source` — recorded as ACC-44 — and the only thing bounding it
 now is that no tool can write.
 
-## 3. Why Cedar
+## 3. Why a policy engine with formal semantics
 
-| Requirement | Cedar |
+| Requirement | What it demands of the engine |
 |---|---|
 | Matches the domain | `principal · action · resource · context` is already the shape of `TaskContract` |
 | Deny wins | `forbid` overrides `permit`, so a prohibition cannot be out-voted by a permission |
 | Analysable | Formal semantics and schema validation, rather than a pile of conditionals |
 | Auditable | The decision, the policy that produced it and its inputs are all recordable |
 
-**OPA/Rego** stays the recorded alternative, and the choice is fixed only after a
-bake-off over the same 50 AIRL policies, scored on expressivity, readability,
-failure semantics, static validation, audit output and integration cost.
+**Which engine** — Cedar or OPA/Rego — is deliberately not decided here. Both
+satisfy the table above on paper; neither has been run against this system's
+policy set, because no policy set is authored. The choice is fixed by the bake-off
+recorded in **[`ADR-010`](ADR-010_policy_backend.md)**, and until it runs, the
+commissioned deliverable is the `PolicyDecision` interface rather than an engine.
+
+> This paragraph previously named Cedar as the decision point while `WP-056` was
+> titled *OPA Policy Platform*. ADR-010 closes that contradiction.
 
 ### 3.1 The wrapper rule
 
@@ -81,9 +86,9 @@ failure semantics, static validation, audit output and integration cost.
 An authorisation layer whose failure mode is *allow* is not an authorisation
 layer. This is the same fail-closed principle the assurance classes already use.
 
-### 3.2 What Cedar does not decide
+### 3.2 What a policy engine does not decide
 
-Cedar decides whether an **action is permitted**. It does not decide whether a
+A policy engine decides whether an **action is permitted**. It does not decide whether a
 claim is **accepted**. Gate semantics stay in AETHRION, and a policy engine must
 never become an acceptance authority.
 
@@ -94,7 +99,7 @@ never become an acceptance authority.
 | Test harness | **Inspect AI** | Runs the scenarios |
 | Hostile scenarios | **AgentDojo** | Supplies attacks written by someone else |
 | Security architecture | **CaMeL pattern** | What is being tested |
-| Enforcement | **Cedar** | What refuses |
+| Enforcement | **Policy decision point** | What refuses |
 | Acceptance | **AETHRION** | What the refusal means for a gate |
 
 Measuring the boundary against **someone else's** attack suite is the point.
@@ -105,14 +110,14 @@ A system evaluated only against attacks it imagined is measuring its imagination
 | Package | Change |
 |---|---|
 | **WP-136** | From *inbound content quarantine and injection detection* to **trusted control / untrusted data architecture** |
-| **WP-049** | From *build a policy evaluator* to **integrate Cedar**, with the bake-off recorded |
+| **WP-049** | From *build a policy evaluator* to **integrate a policy engine behind the `PolicyDecision` interface**, with the bake-off recorded in ADR-010 |
 | **ACC-44** | Extends: an authenticated structured `CommandIntent` must still succeed, so the boundary separates persuasion from authentication rather than inbound from outbound |
 
 ## 6. Decision
 
 | Field | Value |
 |---|---|
-| Decision | **CaMeL-style control/data separation as the boundary; Cedar as the first-candidate policy engine; any evaluation anomaly denies** |
+| Decision | **CaMeL-style control/data separation as the boundary; a formally-analysable policy engine behind the `PolicyDecision` interface, chosen by the ADR-010 bake-off; any evaluation anomaly denies** |
 | Decided by | Platform Security Lead · Engineering Owner |
 | Date | 2026-08-22 |
 

@@ -102,6 +102,21 @@ Obsidian has no version control of its own. The Git history is what makes a huma
 note's evolution reconstructable, and it is what a G6 reviewer needs when asking
 *what did the researcher believe, and when*.
 
+### Baseline v1.3.0 — unchanged ownership, new cross-cutting obligations
+
+No semantic ownership changes here. What changes is what these packages must
+remain compatible with:
+
+- the **trace and correlation** fields every plane now carries, so a divergence
+  is traceable to a cause;
+- **context projection**, so that a record's canonical status does not depend on
+  whether it happened to be in an agent's context;
+- **provenance rules** for anything adapted from an upstream source.
+
+Generated counts, indexes and the new cross-cutting acceptance references must
+stay consistent — which is a mechanical obligation, and the one most likely to be
+skipped because nothing in the package's own subject matter changed.
+
 ## Out of scope
 
 - The internal implementation of any dependent package
@@ -125,7 +140,7 @@ note's evolution reconstructable, and it is what a G6 reviewer needs when asking
 
 ### Full prerequisite closure
 
-**63 of 141 packages (45%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
+**63 of 160 packages (39%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
 
 | Level | Packages |
 |---:|---|
@@ -165,7 +180,7 @@ note's evolution reconstructable, and it is what a G6 reviewer needs when asking
 ### What acceptance of this package releases
 
 - **Directly unblocked:** 2 — `WP-074` · `WP-125`
-- **Transitively reachable:** **25 of 141 packages (18%)** cannot be accepted until this one is.
+- **Transitively reachable:** **28 of 160 packages (18%)** cannot be accepted until this one is.
 
 The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
 

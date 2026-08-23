@@ -136,16 +136,17 @@ ISO/IEC/IEEE 29119-3 §8.3.2. A coverage item is something the tests must reach.
 | C03 | `Environment resolver` | Mandatory deliverable | *(name the test case)* |
 | C04 | `Isolation attestation` | Mandatory deliverable | *(name the test case)* |
 | C05 | `Repro runbook` | Mandatory deliverable | *(name the test case)* |
-| C06 | Establish the dedicated reproduction queue, nodes, namespace and identity | WP-084-T01 | *(name the test case)* |
-| C07 | Write the frozen package resolver and the image/data/code fetch verification | WP-084-T02 | *(name the test case)* |
-| C08 | Block access to the producer's cache, workspace and credentials | WP-084-T03 | *(name the test case)* |
-| C09 | Apply seed and hardware tolerance and capture the environment | WP-084-T04 | *(name the test case)* |
-| C10 | Bind the network/offline policy and output capture | WP-084-T05 | *(name the test case)* |
-| C11 | Write environment destruction and forensic retention | WP-084-T06 | *(name the test case)* |
-| C12 | Clean-Room Reproduction Pass | [ACC-19](../12_ACCEPTANCE_SCENARIOS/acc_19_clean_room_pass.md) — High | *(name the test case)* |
-| C13 | Clean-Room Reproduction Failure | [ACC-20](../12_ACCEPTANCE_SCENARIOS/acc_20_clean_room_fail.md) — Critical | *(name the test case)* |
+| C06 | `Three-zone clean room profiles` | Mandatory deliverable | *(name the test case)* |
+| C07 | Establish the dedicated reproduction queue, nodes, namespace and identity | WP-084-T01 | *(name the test case)* |
+| C08 | Write the frozen package resolver and the image/data/code fetch verification | WP-084-T02 | *(name the test case)* |
+| C09 | Block access to the producer's cache, workspace and credentials | WP-084-T03 | *(name the test case)* |
+| C10 | Apply seed and hardware tolerance and capture the environment | WP-084-T04 | *(name the test case)* |
+| C11 | Bind the network/offline policy and output capture | WP-084-T05 | *(name the test case)* |
+| C12 | Write environment destruction and forensic retention | WP-084-T06 | *(name the test case)* |
+| C13 | Clean-Room Reproduction Pass | [ACC-19](../12_ACCEPTANCE_SCENARIOS/acc_19_clean_room_pass.md) — High | *(name the test case)* |
+| C14 | Clean-Room Reproduction Failure | [ACC-20](../12_ACCEPTANCE_SCENARIOS/acc_20_clean_room_fail.md) — Critical | *(name the test case)* |
 
-**13 coverage items.** Every one must appear in the *Covered by* column of at least one test case below before this package can reach `TECH_COMPLETE`.
+**14 coverage items.** Every one must appear in the *Covered by* column of at least one test case below before this package can reach `TECH_COMPLETE`.
 
 <!-- /generated:coverage -->
 

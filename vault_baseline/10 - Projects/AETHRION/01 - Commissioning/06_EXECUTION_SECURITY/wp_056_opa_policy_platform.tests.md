@@ -1,5 +1,5 @@
 ---
-title: "WP-056 — OPA Policy Platform and Bundle Distribution — Test Procedures"
+title: "WP-056 — Policy Decision Point and Bundle Distribution — Test Procedures"
 aliases:
   - "WP-056 tests"
 cssclasses:
@@ -23,7 +23,7 @@ tags:
   - aethrion/authoring/authored
 ---
 
-# WP-056 — OPA Policy Platform and Bundle Distribution — Test Procedures
+# WP-056 — Policy Decision Point and Bundle Distribution — Test Procedures
 
 ## Document identity
 
@@ -32,7 +32,7 @@ tags:
 | Field | Value |
 |---|---|
 | Unique identifier | `TP-WP-056` |
-| Work package | [`WP-056` — OPA Policy Platform and Bundle Distribution](wp_056_opa_policy_platform.md) |
+| Work package | [`WP-056` — Policy Decision Point and Bundle Distribution](wp_056_opa_policy_platform.md) |
 | Companion | [acceptance criteria](wp_056_opa_policy_platform.acceptance.md) |
 | Workstream | `06_EXECUTION_SECURITY` |
 | Approval authority | **Safety / Security / Internal Audit** — the independent verifier |
@@ -129,23 +129,24 @@ ISO/IEC/IEEE 29119-3 §8.3.2. A coverage item is something the tests must reach.
 
 | # | Coverage item | Source | Covered by |
 |---:|---|---|---|
-| C01 | `OPA platform` | Mandatory deliverable | *(name the test case)* |
-| C02 | `Policy bundle v1` | Mandatory deliverable | *(name the test case)* |
-| C03 | `Policy test suite` | Mandatory deliverable | *(name the test case)* |
-| C04 | `Bundle promotion pipeline` | Mandatory deliverable | *(name the test case)* |
-| C05 | `Decision log pipeline` | Mandatory deliverable | *(name the test case)* |
-| C06 | Establish the policy repository and its module boundaries | WP-056-T01 | *(name the test case)* |
-| C07 | Apply the input-document and decision API standard | WP-056-T02 | *(name the test case)* |
-| C08 | Write the unit, negative and property test harness | WP-056-T03 | *(name the test case)* |
-| C09 | Establish signed bundle build, promotion and rollback | WP-056-T04 | *(name the test case)* |
-| C10 | Bind decision-log redaction and WORM export | WP-056-T05 | *(name the test case)* |
-| C11 | Add shadow evaluation with drift and coverage telemetry | WP-056-T06 | *(name the test case)* |
-| C12 | Planner Self-Approval Attempt | [ACC-06](../12_ACCEPTANCE_SCENARIOS/acc_06_plan_self_approval.md) — Critical | *(name the test case)* |
-| C13 | D3 Data to a Public Provider | [ACC-18](../12_ACCEPTANCE_SCENARIOS/acc_18_d3_public_route.md) — Critical | *(name the test case)* |
-| C14 | Policy Bundle Rollback | [ACC-24](../12_ACCEPTANCE_SCENARIOS/acc_24_policy_bundle_rollback.md) — High | *(name the test case)* |
-| C15 | Approval, Delegation and Exception Expiry | [ACC-26](../12_ACCEPTANCE_SCENARIOS/acc_26_approval_expiry.md) — Critical | *(name the test case)* |
+| C01 | `Policy decision point` | Mandatory deliverable | *(name the test case)* |
+| C02 | `PolicyDecision interface conformance suite` | Mandatory deliverable | *(name the test case)* |
+| C03 | `Policy bundle v1` | Mandatory deliverable | *(name the test case)* |
+| C04 | `Policy test suite` | Mandatory deliverable | *(name the test case)* |
+| C05 | `Bundle promotion pipeline` | Mandatory deliverable | *(name the test case)* |
+| C06 | `Decision log pipeline` | Mandatory deliverable | *(name the test case)* |
+| C07 | Establish the policy repository and its module boundaries | WP-056-T01 | *(name the test case)* |
+| C08 | Apply the input-document and decision API standard | WP-056-T02 | *(name the test case)* |
+| C09 | Write the unit, negative and property test harness | WP-056-T03 | *(name the test case)* |
+| C10 | Establish signed bundle build, promotion and rollback | WP-056-T04 | *(name the test case)* |
+| C11 | Bind decision-log redaction and WORM export | WP-056-T05 | *(name the test case)* |
+| C12 | Add shadow evaluation with drift and coverage telemetry | WP-056-T06 | *(name the test case)* |
+| C13 | Planner Self-Approval Attempt | [ACC-06](../12_ACCEPTANCE_SCENARIOS/acc_06_plan_self_approval.md) — Critical | *(name the test case)* |
+| C14 | D3 Data to a Public Provider | [ACC-18](../12_ACCEPTANCE_SCENARIOS/acc_18_d3_public_route.md) — Critical | *(name the test case)* |
+| C15 | Policy Bundle Rollback | [ACC-24](../12_ACCEPTANCE_SCENARIOS/acc_24_policy_bundle_rollback.md) — High | *(name the test case)* |
+| C16 | Approval, Delegation and Exception Expiry | [ACC-26](../12_ACCEPTANCE_SCENARIOS/acc_26_approval_expiry.md) — Critical | *(name the test case)* |
 
-**15 coverage items.** Every one must appear in the *Covered by* column of at least one test case below before this package can reach `TECH_COMPLETE`.
+**16 coverage items.** Every one must appear in the *Covered by* column of at least one test case below before this package can reach `TECH_COMPLETE`.
 
 <!-- /generated:coverage -->
 

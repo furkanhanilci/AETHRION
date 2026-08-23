@@ -57,7 +57,7 @@ ISO/IEC/IEEE 29119-3 §8.6 requires each environment item to name a description,
 | `WP-050` accepted output | Initial Tool Connector Package | Tool Platform Lead | Before the first test case runs |
 | `WP-051` accepted output | Four Trust Zones and Network Segmentation | Security Architecture Lead | Before the first test case runs |
 | `WP-054` accepted output | gVisor Sandbox and Execution Cell Lifecycle | Execution Security Lead | Before the first test case runs |
-| `WP-056` accepted output | OPA Policy Platform and Bundle Distribution | Policy Platform Lead | Before the first test case runs |
+| `WP-056` accepted output | Policy Decision Point and Bundle Distribution | Policy Platform Lead | Before the first test case runs |
 | `WP-057` accepted output | Default-Deny Egress Proxy, DLP and Allowlist | Network Security Lead | Before the first test case runs |
 
 ### Environment readiness report — §8.8
@@ -110,16 +110,17 @@ ISO/IEC/IEEE 29119-3 §8.3.2. A coverage item is something the tests must reach.
 | C03 | `ContentSafetyRecord` | Mandatory deliverable | *(name the test case)* |
 | C04 | `Injection detector` | Mandatory deliverable | *(name the test case)* |
 | C05 | `Quarantine UI/API` | Mandatory deliverable | *(name the test case)* |
-| C06 | Establish the quarantine bucket and the ingest gateway | WP-058-T01 | *(name the test case)* |
-| C07 | Apply MIME, malware, archive-bomb, size and licence scanning | WP-058-T02 | *(name the test case)* |
-| C08 | Run the PDF/HTML/OCR parser inside an isolated cell | WP-058-T03 | *(name the test case)* |
-| C09 | Separate the text, metadata, link, script and instruction channels | WP-058-T04 | *(name the test case)* |
-| C10 | Tag instruction-like segments as untrusted quoted data | WP-058-T05 | *(name the test case)* |
-| C11 | Restrict the extraction tool profile to T0/T1 read-only | WP-058-T06 | *(name the test case)* |
-| C12 | Add security events and quarantine disposition | WP-058-T07 | *(name the test case)* |
-| C13 | Prompt-Injection PDF | [ACC-05](../12_ACCEPTANCE_SCENARIOS/ACC-05_prompt_injection_pdf.md) — Critical | *(name the test case)* |
+| C06 | `Capability gate for untrusted content` | Mandatory deliverable | *(name the test case)* |
+| C07 | Establish the quarantine bucket and the ingest gateway | WP-058-T01 | *(name the test case)* |
+| C08 | Apply MIME, malware, archive-bomb, size and licence scanning | WP-058-T02 | *(name the test case)* |
+| C09 | Run the PDF/HTML/OCR parser inside an isolated cell | WP-058-T03 | *(name the test case)* |
+| C10 | Separate the text, metadata, link, script and instruction channels | WP-058-T04 | *(name the test case)* |
+| C11 | Tag instruction-like segments as untrusted quoted data | WP-058-T05 | *(name the test case)* |
+| C12 | Restrict the extraction tool profile to T0/T1 read-only | WP-058-T06 | *(name the test case)* |
+| C13 | Add security events and quarantine disposition | WP-058-T07 | *(name the test case)* |
+| C14 | Prompt-Injection PDF | [ACC-05](../12_ACCEPTANCE_SCENARIOS/ACC-05_prompt_injection_pdf.md) — Critical | *(name the test case)* |
 
-**13 coverage items.** Every one must appear in the *Covered by* column of at least one test case below before this package can reach `TECH_COMPLETE`.
+**14 coverage items.** Every one must appear in the *Covered by* column of at least one test case below before this package can reach `TECH_COMPLETE`.
 
 <!-- /generated:coverage -->
 

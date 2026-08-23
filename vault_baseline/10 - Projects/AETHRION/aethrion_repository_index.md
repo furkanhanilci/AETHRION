@@ -74,7 +74,7 @@ implied.
 | Skill registry (52 skills, two families) | ✅ Format-conformant · ⚠️ wired for Claude Code only · 📐 behaviour **not yet tested** | `skills/` |
 | Obsidian information architecture | ✅ V0 ready | `vault_baseline/` |
 | Target architecture and skill layer | 📐 Designed, awaiting decision | `docs/architecture/` |
-| Commissioning programme — **baseline v1.0.5** | ⬜ Planned, not started; 141 package documents, 51 scenarios | `planning/commissioning/` |
+| Commissioning programme — **baseline v1.3.0** | ⬜ Planned, not started; 160 package documents, 120 scenarios | `planning/commissioning/` |
 | Interim evidence policy (WP-000) | ✅ `TECH_COMPLETE` — tooling implemented, specimen issued and verified | `scripts/evidence_manifest.py` · `delivery/WP-000/` |
 | Verification on push (BVC-01) | 📐 Decided and written, **not yet active** — needs a workflow-scoped token | `deploy/bvc-01-verify.yml` |
 | Human notification channels (ntfy · Telegram · Discord/Slack · WhatsApp) | ⬜ **Planned** — WP-132/135 specify a channel registry with a per-channel data-class ceiling; three skills written, **nothing connected, nothing sends** | `planning/commissioning/13_TOOLING_INTEGRATION/` |
@@ -88,10 +88,11 @@ implied.
 src/          Bridge component and the shared contract core
 tests/        Test suite
 skills/       52 skills — HOW agents work; engineering + scientific + shared
-planning/     WP-000, WP-001..140, ACC-01..51 (hash-sealed canonical plan, baseline v1.0.5)
+planning/     WP-000, WP-001..159, ACC-01..120 (hash-sealed canonical plan, baseline v1.3.0)
 docs/         Architecture, review, branding and operations documents
 docs/assets/  Branding assets — the logo, and the rules that keep it canonical
 schemas/      Shared contract schemas
+provenance/   Which mechanism came from which project, its licence, and what it may never decide
 delivery/     Per-package evidence packages — signed manifests and anchors
 deploy/       systemd unit files
 scripts/      Acceptance, smoke, skill-validation, figure and mirror generation
@@ -241,6 +242,62 @@ And **the loop closes**: a claim is never permanently true, and `VERIFIED` is
 explicitly not an irreversible state. Monitoring runs after publication precisely
 so that the arrow above can be drawn years later.
 
+### 2.1 Two links where a research system is most easily fooled
+
+The chain above is drawn at the level of *kinds of thing*. Two of its links carry
+the failures this project is actually built against, and both are specified in
+`ADR-007` and `ADR-009`.
+
+**A number.** A result in a paper is normally a string somebody typed, and a
+string is exactly as convincing whether it was measured or invented. So a number
+has a lineage: a candidate is executed against an evaluator the producer **cannot
+reach**, the evaluator's raw output is stored immutably *before any agent
+interprets it*, and the published figure is a `VerifiedValue` bound to that
+output. A number the registry does not carry fails the build, regardless of how
+good the prose around it is.
+
+**A sentence.** Handing a model the results and asking it to write produces good
+prose and an unfalsifiable document. So the document is a **projection** of the
+claim graph and the compiler's job is to refuse: a factual sentence with no
+`ClaimVersion`, a number with no `VerifiedValue`, a real citation that does not
+support the sentence built on it.
+
+The checks must **discriminate**, not merely block — headings and transitions
+carry a `text_role` and pass, and a declared rounding of a registered value
+passes and records its transform. A compiler that blocks all prose has
+demonstrated nothing except that it can block.
+
+![What "verify" means, and what a document may assert](docs/figures/aethrion_assurance.svg)
+
+*Figure 12 — Four verification classes. The line between V1 and V2 is the whole
+argument: above it a check is certain, below it a check has an error rate, and
+calling both "mechanical" lends the certainty of the first to the fallibility of
+the second.*
+
+### 2.2 What is remembered, and where
+
+A separate question from what becomes knowledge is what the system *remembers*
+along the way. The default answer — one long-term store, retrieved by similarity
+— is wrong here for a reason unrelated to retrieval quality: a raw evaluator
+output, a failed experiment, a debugging lesson and a working scientific
+principle do not have the same standing.
+
+There are **six** memories, and **only Evidence may support a claim.** Evidence
+never decays, because a claim anchored to a retracted source has to stay
+traversable *after* the retraction. Procedural memory must decay, because "this
+library needs that flag" is true about a version on a date and goes stale
+silently, with no error and no signal.
+
+It is also an independence question: a reviewer who can query the producer's
+search-experience memory inherits the producer's dead ends and framing, and the
+review is anchored while the record still says independent.
+
+![Six memories, and only one of them may support a claim](docs/figures/aethrion_memory.svg)
+
+*Figure 11 — The columns are the properties that decide authority. Six boxes in a
+row would make six stores look like six of the same thing, which is the
+misreading the figure exists to prevent.*
+
 ## 3. The G0–G10 research lifecycle
 
 The spine of the system. Each gate has a frozen output that does not change
@@ -338,6 +395,30 @@ then can "what exactly did the reviewer see?" be answered afterwards. The
 adversarial reviewer is scored on **the quality of its refutation**, not on
 approval speed.
 
+### 3.1 Inside G4 and G5 — the discovery search graph
+
+Where G5 runs computational discovery, it is not an agent loop with a transcript.
+Two distinctions in it are load-bearing, and both look like implementation
+details until something goes wrong:
+
+**Repairing an implementation is a different node state from changing a
+mechanism.** A candidate that failed to compile has said nothing about the
+hypothesis. Recorded as "tried a different approach", an implementation defect
+becomes evidence about a scientific question, and afterwards the record cannot be
+told apart from one where the idea genuinely failed.
+
+**A search score is not a confidence.** Everything the graph computes — selection
+scores, normalised ranks, tournament positions — is a priority for spending
+compute. Writing one into a claim, a value or a gate is refused by schema and by
+policy. A campaign that stops on budget produces a record that satisfies no gate:
+running out of money demonstrates nothing.
+
+![The discovery search graph, and where its numbers stop](docs/figures/aethrion_discovery.svg)
+
+*Figure 10 — The vertical boundary is the point of the figure. Everything left of
+it belongs to the producer; nothing left of it can write a result. Generated by
+`scripts/fig_discovery.py`.*
+
 ## 4. The planes
 
 ```mermaid
@@ -396,7 +477,7 @@ flowchart TD
     end
     U1 -->|"content crosses:<br/>quoted, attributed, never obeyed"| T1
     U1 -.->|"authority never crosses"| BLOCK[["no such edge exists"]]
-    T1 --> PDP{"Cedar<br/>permit or forbid?"}
+    T1 --> PDP{"policy decision point<br/>permit or forbid?"}
     PDP -->|"permit"| ACT["Tool call executes,<br/>decision recorded with the run"]
     PDP -->|"forbid, and by default"| DENY["Denied.<br/>An anomaly is a denial, not a warning"]
     style TRUST fill:#DDEAF4,stroke:#0072B2,color:#000
@@ -407,8 +488,10 @@ flowchart TD
 ```
 
 The design is borrowed rather than invented: it is the CaMeL pattern, adopted as
-a `PATTERN` under the adoption taxonomy, with Cedar as the policy engine
-`DEPENDENCY` and AgentDojo named as the `BENCHMARK` that would falsify it.
+a `PATTERN` under the adoption taxonomy, with the policy decision point as the
+commissioned interface — the engine behind it is deferred to a recorded bake-off
+([`ADR-010`](04 - Architecture/adr_010_policy_backend.md)) — and AgentDojo named
+as the `BENCHMARK` that would falsify it.
 **None of it has been run here** — no policy set is authored in this repository.
 The cut in Figure 7 is a decision on paper, and the figure says so.
 
@@ -659,6 +742,50 @@ in [`AETHRION_COMPONENT_REUSE.md`](04 - Architecture/aethrion_component_reuse.md
 > contribution is the layer above them: which evidence, having passed which
 > gate, permits which claim to be accepted.
 
+### 8.1 Mechanisms, taken without their architectures
+
+The stack above is about components that are **installed and called**. A second
+kind of reuse runs alongside it, and it needed its own rules: much of what a
+research system does was solved somewhere else first, and the mechanism can be
+taken without the project it came from.
+
+The distinction is not pedantic. GROBID parses a PDF and the parsing happens *in*
+GROBID. An assimilated mechanism runs as this system's own code — nothing to
+install, nothing to call, and no runtime trace of where it came from. That is
+exactly why it needs a register.
+
+> **A mechanism may be taken; an architecture may not.** No external project
+> appears here as a runtime module, a directory, a backend, a class name or a
+> configuration key. What arrives is a mechanism re-expressed in this system's
+> vocabulary — a candidate node becomes a `SearchNode` bound to an
+> `ArtifactRecord`, a scalar score becomes a `VerifiedValue` bound to an
+> immutable evaluator output, a budget counter becomes a stop record that
+> explicitly satisfies no gate.
+
+Every entry in [`provenance/README.md`](04 - Architecture/upstream_lineage_register.md) states its upstream,
+its licence and the date that licence was read at the source, what was
+deliberately **not** taken, and **what the mechanism may never decide**. That
+last field is required, because the recurring failure of adoption is not a
+component behaving badly — it is a component quietly acquiring authority.
+
+Four entries record a capability being narrowed rather than copied: an automatic
+need-fulfilment loop that would have started work without a gate; a model-decided
+stopping rule that would have let a confirmatory campaign stop when the evidence
+turned favourable; an `auto_proceed_on_timeout` flag, absent here rather than
+defaulted off; and a search score whose reach would have extended into claim
+confidence.
+
+**Nothing has been taken yet.** Every entry is a decision on paper,
+`pinned_commit` is `null` throughout, and `scripts/check_upstream_lineage.py`
+starts demanding a pin, a file list and a characterisation suite the moment the
+first line of code moves. Its `--self-test` injects a defect per rule and fails
+if any rule stays silent — a checker that has never been observed to fail reports
+"no findings" and "no detector" in identical words.
+
+Rules: [`ADR-004`](04 - Architecture/adr_004_mechanism_assimilation.md). Which
+mechanism came from where:
+[`AETHRION_RELATED_SYSTEMS.md`](04 - Architecture/aethrion_related_systems.md) §5.1.
+
 ## 9. How evidence is signed
 
 Acceptance requires a signed `EvidenceManifest` in an immutable store — and that
@@ -697,15 +824,15 @@ the section to read first if you are deciding whether to trust anything else.
 ```mermaid
 flowchart LR
     subgraph WORKING["RUNNING - verified locally"]
-        W["Zotero read-only client<br/>SQLite source registry<br/>Obsidian projection<br/>Hermes MCP, 5 tools<br/>systemd units · 46 tests<br/>plan seal · 15 status checks<br/>signed evidence manifest<br/>9 generated figures"]
+        W["Zotero read-only client<br/>SQLite source registry<br/>Obsidian projection<br/>Hermes MCP, 5 tools<br/>systemd units · 57 tests<br/>plan seal · 16 status checks<br/>signed evidence manifest<br/>12 generated figures<br/>upstream lineage register + checker"]
     end
     subgraph WRITTEN["WRITTEN - never executed"]
-        S["52 skills, none behaviour-tested<br/>141 package documents<br/>51 acceptance scenarios<br/>role-to-model assignment rules<br/>4 authoring profiles"]
+        S["52 skills, none behaviour-tested<br/>160 package documents<br/>120 acceptance scenarios<br/>role-to-model assignment rules<br/>4 authoring profiles"]
     end
     subgraph DESIGNED["DESIGNED - no code"]
-        D["Temporal · LangGraph · NATS<br/>Tool Broker · Execution Broker<br/>Claim and Evidence Ledger<br/>Run Registry · Model Gateway<br/>G0-G10 engine · review pipeline<br/>Cedar policy set · metascience plane"]
+        D["Temporal · LangGraph · NATS<br/>Tool Broker · Execution Broker<br/>Claim and Evidence Ledger<br/>Run Registry · Model Gateway<br/>G0-G10 engine · review pipeline<br/>policy set · metascience plane<br/>discovery search graph<br/>frozen evaluator zone<br/>six epistemic memories<br/>publication compiler"]
     end
-    WORKING -->|"one work package<br/>of 141"| WRITTEN
+    WORKING -->|"one work package<br/>of 160"| WRITTEN
     WRITTEN -->|"the distance is much larger<br/>than the page count implies"| DESIGNED
     style WORKING fill:#E0F3EC,stroke:#009E73,color:#000
     style WRITTEN fill:#F5E4EE,stroke:#CC79A7,color:#000
@@ -819,7 +946,7 @@ branch and are regenerated from the canonical registry. Human synthesis stays in
 ### Verify
 
 ```bash
-uv run pytest                          # 46 tests
+uv run pytest                          # 57 tests
 uv run python scripts/mcp_smoke.py     # asserts the five-tool boundary; exits 1 on failure
 uv run python scripts/acceptance_v0.py # data-independent structural acceptance
 python3 scripts/validate_skills.py     # Agent Skills format + AIRL metadata contract
@@ -908,7 +1035,7 @@ the laboratory does not claim independence it does not have.
 
 ![What each check proves, and what it cannot see](docs/figures/aethrion_verification.svg)
 
-*Figure 8 — One command runs all fifteen. Each row states the claim the check earns
+*Figure 8 — One command runs all sixteen. Each row states the claim the check earns
 and, beside it, the claim it does not — because a bundle that reports only green
 teaches its reader to trust it for things it never examined. Generated by
 `scripts/fig_verification.py`.*
@@ -926,7 +1053,7 @@ flowchart LR
 ```
 
 ```
-46/46 tests pass · plan seal 503/503 OK · plan semantics OK · service and timer active
+57/57 tests pass · plan seal 631/631 OK · plan semantics OK · service and timer active
 WP-000 attestation: signature OK, 9 subject digests OK, tamper rejected
 MCP smoke: 5 read-only tools, exits 1 when the Bridge is down
 Acceptance: 11 structural checks pass, data-independent
@@ -934,7 +1061,7 @@ Skills: 52/52 conform to the Agent Skills format and the AIRL metadata contract
 Documents: declared counts match the repository; no decision record contradicts itself
 References: 27/33 registry sources corroborated against Crossref, OpenAlex and arXiv
 Monitoring: G10 sweep clean over 15 DOI-bearing sources; positive control fired
-Figures: 9/9 match their generators; 0 text overflows out of their boxes
+Figures: 12/12 match their generators; 0 text overflows out of their boxes
 Mirror drift: 0 across the plan mirror and the vault mirror
 Obsidian baseline and vault identical
 ```

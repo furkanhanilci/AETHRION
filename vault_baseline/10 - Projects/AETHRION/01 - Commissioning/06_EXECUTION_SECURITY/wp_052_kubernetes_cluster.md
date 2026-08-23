@@ -85,6 +85,31 @@ A cluster is upgraded on someone else's schedule. Without a rehearsed runbook, t
 upgrade either does not happen — accumulating CVEs the admission controller will
 eventually block — or happens under pressure. Both are worse than a rehearsal.
 
+### Baseline v1.3.0 — four zones, a capability gate, and a benchmark firewall
+
+The isolation story gains a fourth zone and two new attack surfaces.
+
+**Four zones, not three.** Producer, evaluator, reproducer and independent
+grader, separated in secrets, cache and workspace. The leakage paths that matter
+are the quiet ones — a shared cache, an inherited credential, a warm container
+layer — and none of them looks like a boundary violation in a log. Each is tested
+explicitly rather than inferred from the zone configuration (ACC-113).
+
+**Security is a capability, not a prompt.** *Prompt says safe* is not security;
+*the capability is unavailable unless policy grants it* is. External content —
+PDF, web page, tool result, reviewer comment — is quarantined into a data object,
+and the agent's tool intent passes a policy gate before any credential is
+injected (ACC-117).
+
+**A benchmark firewall.** An evaluation run freezes its dataset manifest, network
+mode, allowed domains, known identifiers and evaluator isolation before it
+starts, and audits every retrieval. Gold answers, private rubrics, hidden tests
+and grader prompts are unreachable from the agent environment (ACC-118).
+
+The attack suite gains ASB and WASP as external regressions, alongside internal
+fixtures for source-PDF injection, malicious citation text, tool-result
+injection, memory poisoning and credential exfiltration.
+
 ## Out of scope
 
 - The internal implementation of any dependent package
@@ -106,7 +131,7 @@ eventually block — or happens under pressure. Both are worse than a rehearsal.
 
 ### Full prerequisite closure
 
-**27 of 141 packages (19%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
+**27 of 160 packages (17%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
 
 | Level | Packages |
 |---:|---|
@@ -132,7 +157,7 @@ eventually block — or happens under pressure. Both are worse than a rehearsal.
 ### What acceptance of this package releases
 
 - **Directly unblocked:** 10 — `WP-053` · `WP-054` · `WP-055` · `WP-059` · `WP-060` · `WP-084` · `WP-096` · `WP-100` · `WP-101` · `WP-114`
-- **Transitively reachable:** **83 of 141 packages (59%)** cannot be accepted until this one is.
+- **Transitively reachable:** **102 of 160 packages (64%)** cannot be accepted until this one is.
 
 The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
 

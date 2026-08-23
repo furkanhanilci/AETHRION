@@ -62,6 +62,32 @@ acceptance column is a capability nobody will ever be asked to demonstrate.
 | **Inbound content and external feeds** | **WP-136–137** | **ACC-04, ACC-05, ACC-31, ACC-36, ACC-44** |
 | **External records and evidence sealing** | **WP-138–139** | **ACC-23, ACC-30, ACC-40, ACC-45** |
 | **Service liveness** | **WP-140** | **ACC-43** |
+| **Upstream assimilation and lineage** | **WP-141**, WP-059 | **ACC-73, ACC-74** |
+| **Study mode, bottleneck and idea framing** | **WP-142**, WP-005, WP-034 | **ACC-56** |
+| **Hypothesis and principle evolution** | **WP-143**, WP-018 | **ACC-57** |
+| **Discovery search graph and candidate lifecycle** | **WP-144**, WP-082 | **ACC-58, ACC-64** |
+| **Search allocation, fusion and stopping** | **WP-145**, WP-083, WP-100 | **ACC-09, ACC-59** |
+| **Epistemic memory taxonomy and retention** | **WP-146**, WP-026, WP-125 | **ACC-70, ACC-79** |
+| **Specialist cognition without authority** | **WP-147**, WP-007, WP-086 | **ACC-06, ACC-72** |
+| **Frozen evaluator and verified values** | **WP-082–084** | **ACC-53, ACC-54, ACC-55, ACC-60, ACC-77** |
+| **Verification taxonomy and verifier qualification** | **WP-087**, WP-044, WP-126 | **ACC-61, ACC-62, ACC-76** |
+| **Standalone reproduction and claim consistency** | **WP-085** | **ACC-65, ACC-66, ACC-67** |
+| **Publication compiler and assertion binding** | **WP-090**, WP-080 | **ACC-52, ACC-76** |
+| **Human intervention audit and attention priority** | **WP-004**, WP-038, WP-093 | **ACC-68, ACC-69** |
+
+| **Multi-agent cohort integrity** | **WP-148**, WP-007, WP-047 | **ACC-081, ACC-082, ACC-089, ACC-090** |
+| **Sparse topology and the scientific blackboard** | **WP-149**, WP-015 | **ACC-083, ACC-084, ACC-085, ACC-086** |
+| **Communication governance and context projection** | **WP-150**, WP-096, WP-100 | **ACC-086, ACC-087, ACC-088** |
+| **Memory masking and proactive intervention** | **WP-151**, WP-146 | **ACC-096, ACC-097, ACC-098** |
+| **Failure taxonomy, attribution and resilience** | **WP-152**, WP-082, WP-128 | **ACC-091, ACC-092, ACC-094, ACC-095** |
+| **Research budget, token ledger and efficiency** | **WP-153**, WP-100, WP-145 | **ACC-099, ACC-100, ACC-101, ACC-102** |
+| **Engineering discipline and spec conformance** | **WP-154**, WP-107, WP-081 | **ACC-103, ACC-104** |
+| **Adaptive assurance and escalation** | **WP-155**, WP-087, WP-126 | **ACC-107, ACC-108, ACC-109** |
+| **Human oversight debiasing** | **WP-156**, WP-004, WP-093 | **ACC-110, ACC-111, ACC-112** |
+| **Reproduction determinism and model fingerprint** | **WP-157**, WP-084, WP-085 | **ACC-113, ACC-114, ACC-115, ACC-116** |
+| **Benchmark firewall and evaluation isolation** | **WP-158**, WP-043, WP-057 | **ACC-118** |
+| **Supply chain, upstream drift and cross-plane integrity** | **WP-159**, WP-024, WP-059, WP-141 | **ACC-119, ACC-120** |
+| **Prompt injection and the capability gate** | **WP-058**, WP-060, WP-136 | **ACC-005, ACC-044, ACC-117** |
 
 ## Areas identified by the audit as not yet covered
 
@@ -77,6 +103,28 @@ area that is unnamed is an accident.
 | Control injection (positive and negative) | The lab's own false-positive and false-negative rates are unknown | Metascience plane |
 | Attention-budget telemetry | Human decision capacity is the binding constraint and is untracked | Alongside WP-004 / WP-091 |
 | Skill bundle governance | The skills in the registry change agent behaviour and are not under configuration control | Alongside WP-047 |
+
+### Closed by baseline v1.2.0
+
+Three rows left this table when the scientific-intelligence workstream opened.
+They are recorded here rather than deleted, because a row that quietly disappears
+and a row that was addressed look identical afterwards.
+
+| Area | Now covered by |
+|---|---|
+| Assimilation of external mechanisms — previously ad hoc, with no register and no licence position per file | **WP-141**, `provenance/upstreams.json`, ADR-004, ACC-73–74 |
+| What the system remembers, and which store may support a claim — previously one undifferentiated notion of memory | **WP-146**, ADR-005, ACC-70, ACC-79 |
+| The meaning of "verify" where the verifier is a model — previously one word covering a hash comparison and a semantic judgement | **WP-087** revised, ADR-008, ACC-61–62, ACC-76 |
+
+### Closed by baseline v1.3.0
+
+| Area | Now covered by |
+|---|---|
+| How a cohort of agents collaborates — previously an unmodelled assumption that more agents was better | **WP-148–150**, ADR-011, ADR-013, ACC-081–090 |
+| What happens when an agent is wrong, faulty or adversarial — previously handled only as an ordinary task failure | **WP-152**, ACC-091–095 |
+| Whether the implementation still matches the frozen method — previously assumed, and checked by neither reviewer | **WP-154**, ADR-018, ACC-103–104 |
+| Whether a benchmark score means anything — previously reported without the conditions it was produced under | **WP-158**, ADR-017, ACC-118 |
+| Whether a human decision was a judgement or a ratification — previously unmeasurable | **WP-156**, ADR-016, ACC-110–112 |
 
 ## Completeness rule
 

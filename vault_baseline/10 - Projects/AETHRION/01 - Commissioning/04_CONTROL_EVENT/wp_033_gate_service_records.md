@@ -89,6 +89,30 @@ the verdict goes into Temporal history and gets replayed. A gate that consults a
 live registry mid-evaluation will replay differently and corrupt the history.
 Inputs are snapshotted (T05), then evaluated.
 
+### Baseline v1.3.0 — new policies at the gates, without moving authority
+
+G0–G10 consumes the collaboration, conformance, assurance and reproduction
+policies this baseline adds. **None of that moves authority.** Temporal still
+owns lifecycle transitions and LangGraph still owns bounded cognition inside one
+task, and a checkpoint in the second cannot transition a gate in the first.
+
+Three concrete additions:
+
+- **G5 and G6** consume the cohort, the topology, the specification conformance
+  result and the assurance route.
+- **G7** consumes the model execution fingerprint and the reproduction level it
+  supports — a hosted black-box model does not yield `EXACT`.
+- **G8** runs the human preliminary flow: the recommendation is unreachable
+  until the human assessment is sealed, through **every** interface rather than
+  only the UI.
+
+And the write path becomes explicit: a canonical transaction and its outbox
+record commit atomically, the publisher reads the outbox afterwards, and a
+consumer validates identity and version rather than trusting a payload. The
+failure suite gains the injections that make split brain visible — publisher
+crash, duplicate delivery, out-of-order delivery, a cancelled task's late
+result, and two concurrent gate transitions.
+
 ## Out of scope
 
 - The internal implementation of any dependent package
@@ -111,7 +135,7 @@ Inputs are snapshotted (T05), then evaluated.
 
 ### Full prerequisite closure
 
-**30 of 141 packages (21%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
+**30 of 160 packages (19%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
 
 | Level | Packages |
 |---:|---|
@@ -139,7 +163,7 @@ Inputs are snapshotted (T05), then evaluated.
 ### What acceptance of this package releases
 
 - **Directly unblocked:** 7 — `WP-034` · `WP-035` · `WP-036` · `WP-038` · `WP-040` · `WP-091` · `WP-092`
-- **Transitively reachable:** **65 of 141 packages (46%)** cannot be accepted until this one is.
+- **Transitively reachable:** **82 of 160 packages (51%)** cannot be accepted until this one is.
 
 The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
 
@@ -195,6 +219,10 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `Claim state machine` | `WP-018` | `python3 scripts/progress.py show WP-018` |
 | `Review/disagreement schemas` | `WP-018` | `python3 scripts/progress.py show WP-018` |
 | `Decision schema fixtures` | `WP-018` | `python3 scripts/progress.py show WP-018` |
+| `PublicationAssertion` | `WP-018` | `python3 scripts/progress.py show WP-018` |
+| `EvidenceTag` | `WP-018` | `python3 scripts/progress.py show WP-018` |
+| `FindingRecord` | `WP-018` | `python3 scripts/progress.py show WP-018` |
+| `Authority typing on every scientific record` | `WP-018` | `python3 scripts/progress.py show WP-018` |
 | `ProjectWorkflow implementation` | `WP-032` | `python3 scripts/progress.py show WP-032` |
 | `State transition table` | `WP-032` | `python3 scripts/progress.py show WP-032` |
 | `Workflow API` | `WP-032` | `python3 scripts/progress.py show WP-032` |

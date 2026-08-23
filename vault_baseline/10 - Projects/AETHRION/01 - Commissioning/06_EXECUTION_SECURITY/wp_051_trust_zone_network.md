@@ -95,6 +95,31 @@ A zone model with no attempted crossings is an assertion. Each declared boundary
 needs a test that tries to cross it and is refused — which is `PR-06` and
 `00_PROGRAM/07`'s rule that identity and data-routing failures cannot be waived.
 
+### Baseline v1.3.0 — four zones, a capability gate, and a benchmark firewall
+
+The isolation story gains a fourth zone and two new attack surfaces.
+
+**Four zones, not three.** Producer, evaluator, reproducer and independent
+grader, separated in secrets, cache and workspace. The leakage paths that matter
+are the quiet ones — a shared cache, an inherited credential, a warm container
+layer — and none of them looks like a boundary violation in a log. Each is tested
+explicitly rather than inferred from the zone configuration (ACC-113).
+
+**Security is a capability, not a prompt.** *Prompt says safe* is not security;
+*the capability is unavailable unless policy grants it* is. External content —
+PDF, web page, tool result, reviewer comment — is quarantined into a data object,
+and the agent's tool intent passes a policy gate before any credential is
+injected (ACC-117).
+
+**A benchmark firewall.** An evaluation run freezes its dataset manifest, network
+mode, allowed domains, known identifiers and evaluator isolation before it
+starts, and audits every retrieval. Gold answers, private rubrics, hidden tests
+and grader prompts are unreachable from the agent environment (ACC-118).
+
+The attack suite gains ASB and WASP as external regressions, alongside internal
+fixtures for source-PDF injection, malicious citation text, tool-result
+injection, memory poisoning and credential exfiltration.
+
 ## Out of scope
 
 - The internal implementation of any dependent package
@@ -116,7 +141,7 @@ needs a test that tries to cross it and is refused — which is `PR-06` and
 
 ### Full prerequisite closure
 
-**21 of 141 packages (15%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
+**21 of 160 packages (13%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
 
 | Level | Packages |
 |---:|---|
@@ -139,7 +164,7 @@ needs a test that tries to cross it and is refused — which is `PR-06` and
 ### What acceptance of this package releases
 
 - **Directly unblocked:** 5 — `WP-052` · `WP-055` · `WP-057` · `WP-058` · `WP-060`
-- **Transitively reachable:** **84 of 141 packages (60%)** cannot be accepted until this one is.
+- **Transitively reachable:** **103 of 160 packages (64%)** cannot be accepted until this one is.
 
 The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
 
@@ -190,6 +215,8 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `Route/control decision tables` | `WP-006` | `python3 scripts/progress.py show WP-006` |
 | `Enforcement map` | `WP-006` | `python3 scripts/progress.py show WP-006` |
 | `Negative examples` | `WP-006` | `python3 scripts/progress.py show WP-006` |
+| `Producer and evaluator zone profiles` | `WP-006` | `python3 scripts/progress.py show WP-006` |
+| `MutationPolicy` | `WP-006` | `python3 scripts/progress.py show WP-006` |
 | `Signed ADR bundle` | `WP-010` | `python3 scripts/progress.py show WP-010` |
 | `Rejected alternatives register` | `WP-010` | `python3 scripts/progress.py show WP-010` |
 | `Reopen trigger register` | `WP-010` | `python3 scripts/progress.py show WP-010` |

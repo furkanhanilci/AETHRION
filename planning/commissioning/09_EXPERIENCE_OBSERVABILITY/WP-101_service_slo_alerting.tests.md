@@ -60,7 +60,7 @@ ISO/IEC/IEEE 29119-3 §8.6 requires each environment item to name a description,
 | `WP-049` accepted output | Tool Registry and Tool Broker Core | Tool Platform Lead | Before the first test case runs |
 | `WP-052` accepted output | Kubernetes Cluster and Node Pool Baseline | Platform Infrastructure Lead | Before the first test case runs |
 | `WP-055` accepted output | SPIFFE/SPIRE Workload Identity and Vault | Identity Platform Lead | Before the first test case runs |
-| `WP-056` accepted output | OPA Policy Platform and Bundle Distribution | Policy Platform Lead | Before the first test case runs |
+| `WP-056` accepted output | Policy Decision Point and Bundle Distribution | Policy Platform Lead | Before the first test case runs |
 | `WP-061` accepted output | Canonical Source Registry Service | Knowledge Platform Lead | Before the first test case runs |
 | `WP-075` accepted output | Canonical Claim/Evidence Ledger Service | Evidence Platform Lead | Before the first test case runs |
 | `WP-096` accepted output | OpenTelemetry End-to-End Correlation Spine | Observability Lead | Before the first test case runs |
@@ -118,14 +118,15 @@ ISO/IEC/IEEE 29119-3 §8.3.2. A coverage item is something the tests must reach.
 | C03 | `Error-budget policy` | Mandatory deliverable | *(name the test case)* |
 | C04 | `Alert-runbook link checker` | Mandatory deliverable | *(name the test case)* |
 | C05 | `Ownership dashboard` | Mandatory deliverable | *(name the test case)* |
-| C06 | Establish the Service Catalogue schema and registry | WP-101-T01 | *(name the test case)* |
-| C07 | Map service tiers onto the critical user journeys | WP-101-T02 | *(name the test case)* |
-| C08 | Define the availability, latency, correctness, freshness and durability SLIs | WP-101-T03 | *(name the test case)* |
-| C09 | Write the error-budget and release-freeze rules | WP-101-T04 | *(name the test case)* |
-| C10 | Add the alert owner, escalation and runbook link checker | WP-101-T05 | *(name the test case)* |
-| C11 | Establish dependency/SLO roll-up and a quarterly review | WP-101-T06 | *(name the test case)* |
+| C06 | `Coordination overhead and Pareto SLOs` | Mandatory deliverable | *(name the test case)* |
+| C07 | Establish the Service Catalogue schema and registry | WP-101-T01 | *(name the test case)* |
+| C08 | Map service tiers onto the critical user journeys | WP-101-T02 | *(name the test case)* |
+| C09 | Define the availability, latency, correctness, freshness and durability SLIs | WP-101-T03 | *(name the test case)* |
+| C10 | Write the error-budget and release-freeze rules | WP-101-T04 | *(name the test case)* |
+| C11 | Add the alert owner, escalation and runbook link checker | WP-101-T05 | *(name the test case)* |
+| C12 | Establish dependency/SLO roll-up and a quarterly review | WP-101-T06 | *(name the test case)* |
 
-**11 coverage items.** Every one must appear in the *Covered by* column of at least one test case below before this package can reach `TECH_COMPLETE`.
+**12 coverage items.** Every one must appear in the *Covered by* column of at least one test case below before this package can reach `TECH_COMPLETE`.
 
 <!-- /generated:coverage -->
 

@@ -1,5 +1,5 @@
 ---
-title: "WP-056 — OPA Policy Platform and Bundle Distribution — Acceptance Criteria"
+title: "WP-056 — Policy Decision Point and Bundle Distribution — Acceptance Criteria"
 aliases:
   - "WP-056 acceptance"
 cssclasses:
@@ -23,7 +23,7 @@ tags:
   - aethrion/authoring/authored
 ---
 
-# WP-056 — OPA Policy Platform and Bundle Distribution — Acceptance Criteria
+# WP-056 — Policy Decision Point and Bundle Distribution — Acceptance Criteria
 
 ## Document identity
 
@@ -32,7 +32,7 @@ tags:
 | Field | Value |
 |---|---|
 | Unique identifier | `AC-WP-056` |
-| Work package | [`WP-056` — OPA Policy Platform and Bundle Distribution](wp_056_opa_policy_platform.md) |
+| Work package | [`WP-056` — Policy Decision Point and Bundle Distribution](wp_056_opa_policy_platform.md) |
 | Companion | [test procedures](wp_056_opa_policy_platform.tests.md) |
 | Workstream | `06_EXECUTION_SECURITY` |
 | Approval authority | **Safety / Security / Internal Audit** — the independent verifier |

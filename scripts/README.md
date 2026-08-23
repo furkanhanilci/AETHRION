@@ -28,6 +28,7 @@ defect rather than a shortcut.
 | `check_figures.py` | no text escapes the box it was drawn in, re-measured from the rendered SVG | whether a figure communicates |
 | `check_document.py` | placeholders, citation resolution, cross-reference resolution in a document source | whether a citation *supports* its sentence |
 | `check_reporting_registry.py` | every adopted component has a type, a source, a retrieval date and an **authority boundary** | whether the adoption was wise |
+| `check_upstream_lineage.py` | every assimilated mechanism names its upstream, its licence and what it may never decide; direct adaptation cannot reach `ADAPTING` without a pinned commit, a file list and a characterisation suite. **`--self-test` injects a defect per rule and fails if any rule stays silent** | whether the mechanism was worth taking, and whether the upstream code is correct |
 
 ## 2. Generators — output is derived, never hand-edited
 
@@ -36,13 +37,15 @@ defect rather than a shortcut.
 | `check_agent_guide.py` | every path, command and count in `AGENTS.md` and `CLAUDE.md` resolves against this repository | — |
 | `ready_queue.py` | which packages can be started today, from plan dependencies plus the unsealed ledger | `--check` |
 | `progress.py` | moves a package between states and **refuses** what the plan forbids, citing the document that forbids it | — |
-| `make_figures.py` | all nine figures, then runs containment | `--check` |
+| `make_figures.py` | all twelve figures, then runs containment | `--check` |
 | `fig_lifecycle.py` · `fig_roles.py` · `fig_evidence.py` · `fig_stack.py` · `fig_reporting.py` | one figure each — lifecycle, roles, evidence chain, stack, reporting | via `make_figures.py` |
 | `fig_waves.py` · `fig_trust.py` · `fig_verification.py` · `fig_topology.py` | one figure each — commissioning waves, ADR-003 trust boundary, the verification bundle, repository/vault topology | via `make_figures.py` |
+| `fig_discovery.py` · `fig_memory.py` · `fig_assurance.py` | one figure each — the discovery search graph and the evaluator boundary, the six epistemic memories, the V0–V3 verification classes | via `make_figures.py` |
 | `figure_kit.py` | *(library)* SVG primitives with real text metrics; **fails the build** rather than clipping text | — |
-| `make_plan_indexes.py` | a README for each of the 14 commissioning workstreams | `--check` |
+| `make_plan_indexes.py` | a README for each of the 15 commissioning workstreams | `--check` |
 | `mirror_plan.py` · `mirror_vault.py` | the generated areas of the Obsidian vault | `--check` |
 | `write_status.py` | `docs/STATUS.md` by running the bundle | `--check` |
+| `check_upstream_lineage.py --write` | `provenance/README.md` from `provenance/upstreams.json` | default run fails on drift |
 
 ## 3. Working tooling
 
@@ -60,6 +63,7 @@ defect rather than a shortcut.
 BVC-01 (deploy/bvc-01-verify.yml, written but not active)
     pytest · validate_skills · validate_commissioning_plan
     check_doc_consistency · check_stale_claims · check_reporting_registry
+    check_upstream_lineage
     sha256sum -c · make_figures --check
 
 Manual, because they need something CI does not have

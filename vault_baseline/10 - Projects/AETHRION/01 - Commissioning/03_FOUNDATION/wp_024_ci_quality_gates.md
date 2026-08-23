@@ -97,6 +97,24 @@ It matters here because the expensive resource is the developer's attention
 between push and feedback, and a suite that takes twenty minutes to tell you
 about a formatting error trains people to stop watching it.
 
+### Baseline v1.3.0 — modular monolith first, and a projection that can be destroyed
+
+The collaboration plane, the conformance checker and the release assurance work
+land as **modules**, not as services. A logical plane is an ownership boundary;
+turning each into a deployment unit before there is a consumer buys operational
+cost and no assurance.
+
+Two guarantees the foundation now owes:
+
+**Every derived projection is destroyable.** The graph, the vector index and the
+search index are rebuilt from canonical stores as a routine, tested operation —
+ACC-119. A rebuild path that is an emergency procedure will not work on the day
+it is needed.
+
+**Release artifacts carry provenance.** SLSA provenance, Sigstore signatures, an
+SBOM and its scan result, and the upstream register accounting for every adapted
+file. `ADR-019`, delivered by WP-159 and admitted against by WP-024's CI.
+
 ## Out of scope
 
 - The internal implementation of any dependent package
@@ -118,7 +136,7 @@ about a formatting error trains people to stop watching it.
 
 ### Full prerequisite closure
 
-**22 of 141 packages (16%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
+**22 of 160 packages (14%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
 
 | Level | Packages |
 |---:|---|
@@ -141,8 +159,8 @@ about a formatting error trains people to stop watching it.
 
 ### What acceptance of this package releases
 
-- **Directly unblocked:** 5 — `WP-027` · `WP-040` · `WP-087` · `WP-107` · `WP-109`
-- **Transitively reachable:** **104 of 141 packages (74%)** cannot be accepted until this one is.
+- **Directly unblocked:** 7 — `WP-027` · `WP-040` · `WP-087` · `WP-107` · `WP-109` · `WP-141` · `WP-159`
+- **Transitively reachable:** **123 of 160 packages (77%)** cannot be accepted until this one is.
 
 The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
 
@@ -247,6 +265,7 @@ A package whose evidence cannot be produced is not `READY`, however complete its
 - `Verification summary schema adapter`
 - `Test ownership registry`
 - `Flake policy`
+- `SPDX/REUSE and OSV admission checks`
 - An updated runbook or operations note, plus the service/contract ownership record
 - A signed `EvidenceManifest`
 

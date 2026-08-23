@@ -108,6 +108,22 @@ work must not report the same status as one that did all of it.
 An alarm that reaches nobody is the same as no alarm. This binds to WP-134's chain,
 which promotes on non-acknowledgement.
 
+### Baseline v1.3.0 — the messaging layer inherits the same two refusals
+
+Nothing changes about what these packages own. Two rules from this baseline
+apply to all of them, and both are restatements of things that erode first at the
+edges of a system:
+
+**No message and no timeout becomes authority.** An inbound message is never an
+instruction; a notification is never an authorisation; an expired SLA escalates
+and pages and never approves.
+
+**Alignment with the new paths.** The capability gate governs any action an
+inbound message might trigger. Evidence-delta priority drives the decision
+queue. The human preliminary flow means a notification announcing a decision may
+not carry the recommendation. Every intervention writes an immutable audit
+record atomically with the change it describes.
+
 ## Out of scope
 
 - The internal correctness of the job itself (owned by the relevant package)
@@ -128,7 +144,7 @@ which promotes on non-acknowledgement.
 
 ### Full prerequisite closure
 
-**64 of 141 packages (45%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
+**64 of 160 packages (40%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
 
 | Level | Packages |
 |---:|---|
@@ -215,6 +231,7 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `Error-budget policy` | `WP-101` | `python3 scripts/progress.py show WP-101` |
 | `Alert-runbook link checker` | `WP-101` | `python3 scripts/progress.py show WP-101` |
 | `Ownership dashboard` | `WP-101` | `python3 scripts/progress.py show WP-101` |
+| `Coordination overhead and Pareto SLOs` | `WP-101` | `python3 scripts/progress.py show WP-101` |
 
 ### Classification that must be recorded before work begins
 
@@ -284,6 +301,14 @@ The programme-level conditions are below. The package-specific, measurable crite
 - [ ] All mandatory tests passed on the same target revision.
 - [ ] No open Critical or High findings.
 - [ ] The independent verifier has accepted the evidence package.
+
+## Acceptance evidence package
+
+- Test results captured on the same target revision/digest
+- An `EvidenceManifest` recording the environment, schema, policy and dependency versions
+- The independent verifier's `ReviewRecord` or `VerificationRecord`
+- The rollback/compensation trial and its result reference
+- The list of open findings and residual risks with owners and expiry dates
 
 ## Risks and control points
 

@@ -134,18 +134,23 @@ ISO/IEC/IEEE 29119-3 §8.3.2. A coverage item is something the tests must reach.
 | C02 | `Validator catalog` | Mandatory deliverable | *(name the test case)* |
 | C03 | `VerificationRecord service` | Mandatory deliverable | *(name the test case)* |
 | C04 | `Regression fixtures` | Mandatory deliverable | *(name the test case)* |
-| C05 | Establish the validator plugin interface and registry | WP-087-T01 | *(name the test case)* |
-| C06 | Add the schema, hash, signature, SBOM and policy validators | WP-087-T02 | *(name the test case)* |
-| C07 | Bind the test/CI, run, manifest, locator and lineage validators | WP-087-T03 | *(name the test case)* |
-| C08 | Write structural validation of findings and the target revision check | WP-087-T04 | *(name the test case)* |
-| C09 | Produce the `VerificationRecord` and its evidence map | WP-087-T05 | *(name the test case)* |
-| C10 | Establish validator versioning, calibration and regression | WP-087-T06 | *(name the test case)* |
-| C11 | Strong Counter-Test | [ACC-08](../12_ACCEPTANCE_SCENARIOS/acc_08_strong_counter_test.md) — Critical | *(name the test case)* |
-| C12 | Unsigned or Mutable Image | [ACC-17](../12_ACCEPTANCE_SCENARIOS/acc_17_unsigned_image.md) — Critical | *(name the test case)* |
-| C13 | Artifact Overwrite Attempt | [ACC-23](../12_ACCEPTANCE_SCENARIOS/acc_23_artifact_overwrite.md) — Critical | *(name the test case)* |
-| C14 | Publication Completeness | [ACC-30](../12_ACCEPTANCE_SCENARIOS/acc_30_publication_completeness.md) — Critical | *(name the test case)* |
+| C05 | `V0-V3 verification routing` | Mandatory deliverable | *(name the test case)* |
+| C06 | `VerifierQualificationRecord` | Mandatory deliverable | *(name the test case)* |
+| C07 | `Positive and negative control suite` | Mandatory deliverable | *(name the test case)* |
+| C08 | `Adaptive assurance routing` | Mandatory deliverable | *(name the test case)* |
+| C09 | `Abstention verdicts` | Mandatory deliverable | *(name the test case)* |
+| C10 | Establish the validator plugin interface and registry | WP-087-T01 | *(name the test case)* |
+| C11 | Add the schema, hash, signature, SBOM and policy validators | WP-087-T02 | *(name the test case)* |
+| C12 | Bind the test/CI, run, manifest, locator and lineage validators | WP-087-T03 | *(name the test case)* |
+| C13 | Write structural validation of findings and the target revision check | WP-087-T04 | *(name the test case)* |
+| C14 | Produce the `VerificationRecord` and its evidence map | WP-087-T05 | *(name the test case)* |
+| C15 | Establish validator versioning, calibration and regression | WP-087-T06 | *(name the test case)* |
+| C16 | Strong Counter-Test | [ACC-08](../12_ACCEPTANCE_SCENARIOS/acc_08_strong_counter_test.md) — Critical | *(name the test case)* |
+| C17 | Unsigned or Mutable Image | [ACC-17](../12_ACCEPTANCE_SCENARIOS/acc_17_unsigned_image.md) — Critical | *(name the test case)* |
+| C18 | Artifact Overwrite Attempt | [ACC-23](../12_ACCEPTANCE_SCENARIOS/acc_23_artifact_overwrite.md) — Critical | *(name the test case)* |
+| C19 | Publication Completeness | [ACC-30](../12_ACCEPTANCE_SCENARIOS/acc_30_publication_completeness.md) — Critical | *(name the test case)* |
 
-**14 coverage items.** Every one must appear in the *Covered by* column of at least one test case below before this package can reach `TECH_COMPLETE`.
+**19 coverage items.** Every one must appear in the *Covered by* column of at least one test case below before this package can reach `TECH_COMPLETE`.
 
 <!-- /generated:coverage -->
 

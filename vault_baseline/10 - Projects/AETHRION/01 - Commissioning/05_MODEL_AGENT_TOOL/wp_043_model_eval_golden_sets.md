@@ -112,6 +112,31 @@ undetectable in the output.
 not capability, and the metric improves — which is why nobody investigates. The
 canary is what makes contamination detectable rather than assumed absent.
 
+### Baseline v1.3.0 — the Task Compiler stops emitting a skill list
+
+This is the largest change in the model and agent layer, and it is a change of
+kind rather than of size. The compiler's output was a skill bundle and a model
+choice. It becomes the full execution shape of a task:
+
+`AgentCohortRecord` · `CognitiveDiversityProfile` · skill bundles **by family** ·
+`CommunicationTopology` · `ContextProjectionPolicy` · `ResearchBudgetContract` ·
+`AssuranceRoute` · `ExecutionProfile` · `IndependenceProfile`.
+
+A coding-science task compiles **both** skill families — preregistration
+discipline beside test-driven development, scientific review beside code review
+— without either aliasing the other (`ADR-012`).
+
+Two other bindings:
+
+- **Qualification records gain scope.** A verifier's qualification is keyed by
+  verifier, version, task class, domain profile *and* threshold, and now also
+  carries a model execution fingerprint and an abstention rate.
+- **The Tool Broker gains a capability gate.** An action is unavailable unless
+  policy grants it — not available-but-discouraged. Untrusted content can supply
+  values and can never create an action, which is `ADR-003` enforced at the tool
+  boundary rather than asserted at the prompt. Deterministic tool results are
+  reusable within a declared freshness window and are marked as reused.
+
 ## Out of scope
 
 - The internal implementation of any dependent package
@@ -137,7 +162,7 @@ canary is what makes contamination detectable rather than assumed absent.
 
 ### Full prerequisite closure
 
-**26 of 141 packages (18%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
+**26 of 160 packages (16%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
 
 | Level | Packages |
 |---:|---|
@@ -162,8 +187,8 @@ canary is what makes contamination detectable rather than assumed absent.
 
 ### What acceptance of this package releases
 
-- **Directly unblocked:** 4 — `WP-044` · `WP-088` · `WP-124` · `WP-126`
-- **Transitively reachable:** **93 of 141 packages (66%)** cannot be accepted until this one is.
+- **Directly unblocked:** 5 — `WP-044` · `WP-088` · `WP-124` · `WP-126` · `WP-158`
+- **Transitively reachable:** **112 of 160 packages (70%)** cannot be accepted until this one is.
 
 The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
 
@@ -214,18 +239,29 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `Eligibility matrix` | `WP-007` | `python3 scripts/progress.py show WP-007` |
 | `Conflict-of-interest declaration` | `WP-007` | `python3 scripts/progress.py show WP-007` |
 | `Violation response` | `WP-007` | `python3 scripts/progress.py show WP-007` |
+| `Evaluator and memory-context independence constraints` | `WP-007` | `python3 scripts/progress.py show WP-007` |
+| `Cohort independence dimensions` | `WP-007` | `python3 scripts/progress.py show WP-007` |
 | `ArtifactRecord schema` | `WP-014` | `python3 scripts/progress.py show WP-014` |
 | `DatasetManifest schema` | `WP-014` | `python3 scripts/progress.py show WP-014` |
 | `Environment reference schema` | `WP-014` | `python3 scripts/progress.py show WP-014` |
 | `Immutability lifecycle` | `WP-014` | `python3 scripts/progress.py show WP-014` |
+| `Ordered parent lineage` | `WP-014` | `python3 scripts/progress.py show WP-014` |
+| `Digest normalisation and migration` | `WP-014` | `python3 scripts/progress.py show WP-014` |
 | `Evidence contract bundle` | `WP-018` | `python3 scripts/progress.py show WP-018` |
 | `Claim state machine` | `WP-018` | `python3 scripts/progress.py show WP-018` |
 | `Review/disagreement schemas` | `WP-018` | `python3 scripts/progress.py show WP-018` |
 | `Decision schema fixtures` | `WP-018` | `python3 scripts/progress.py show WP-018` |
+| `PublicationAssertion` | `WP-018` | `python3 scripts/progress.py show WP-018` |
+| `EvidenceTag` | `WP-018` | `python3 scripts/progress.py show WP-018` |
+| `FindingRecord` | `WP-018` | `python3 scripts/progress.py show WP-018` |
+| `Authority typing on every scientific record` | `WP-018` | `python3 scripts/progress.py show WP-018` |
 | `Run schema bundle` | `WP-019` | `python3 scripts/progress.py show WP-019` |
 | `EnvironmentManifest` | `WP-019` | `python3 scripts/progress.py show WP-019` |
 | `ReproductionReport` | `WP-019` | `python3 scripts/progress.py show WP-019` |
 | `Tolerance policy examples` | `WP-019` | `python3 scripts/progress.py show WP-019` |
+| `CandidateWorkspace` | `WP-019` | `python3 scripts/progress.py show WP-019` |
+| `ReproductionPackage` | `WP-019` | `python3 scripts/progress.py show WP-019` |
+| `ClaimConsistencyReport` | `WP-019` | `python3 scripts/progress.py show WP-019` |
 | `Schema Registry v1` | `WP-020` | `python3 scripts/progress.py show WP-020` |
 | `Generated SDKs` | `WP-020` | `python3 scripts/progress.py show WP-020` |
 | `Compatibility CI` | `WP-020` | `python3 scripts/progress.py show WP-020` |

@@ -74,6 +74,30 @@ whether publishing this reveals something the trust boundary was protecting —
 a dataset locator, an internal identifier, a prompt that exposes an unpublished
 capability.
 
+### Baseline v1.3.0 — new policies at the gates, without moving authority
+
+G0–G10 consumes the collaboration, conformance, assurance and reproduction
+policies this baseline adds. **None of that moves authority.** Temporal still
+owns lifecycle transitions and LangGraph still owns bounded cognition inside one
+task, and a checkpoint in the second cannot transition a gate in the first.
+
+Three concrete additions:
+
+- **G5 and G6** consume the cohort, the topology, the specification conformance
+  result and the assurance route.
+- **G7** consumes the model execution fingerprint and the reproduction level it
+  supports — a hosted black-box model does not yield `EXACT`.
+- **G8** runs the human preliminary flow: the recommendation is unreachable
+  until the human assessment is sealed, through **every** interface rather than
+  only the UI.
+
+And the write path becomes explicit: a canonical transaction and its outbox
+record commit atomically, the publisher reads the outbox afterwards, and a
+consumer validates identity and version rather than trusting a payload. The
+failure suite gains the injections that make split brain visible — publisher
+crash, duplicate delivery, out-of-order delivery, a cancelled task's late
+result, and two concurrent gate transitions.
+
 ## Out of scope
 
 - The internal implementation of any dependent package
@@ -99,7 +123,7 @@ capability.
 
 ### Full prerequisite closure
 
-**33 of 141 packages (23%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
+**33 of 160 packages (21%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
 
 | Level | Packages |
 |---:|---|
@@ -130,7 +154,7 @@ capability.
 ### What acceptance of this package releases
 
 - **Directly unblocked:** 2 — `WP-040` · `WP-092`
-- **Transitively reachable:** **25 of 141 packages (18%)** cannot be accepted until this one is.
+- **Transitively reachable:** **28 of 160 packages (18%)** cannot be accepted until this one is.
 
 The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
 
@@ -183,10 +207,14 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `SLA/escalation table` | `WP-004` | `python3 scripts/progress.py show WP-004` |
 | `Delegation matrix` | `WP-004` | `python3 scripts/progress.py show WP-004` |
 | `Decision rationale rubric` | `WP-004` | `python3 scripts/progress.py show WP-004` |
+| `Human intervention vocabulary` | `WP-004` | `python3 scripts/progress.py show WP-004` |
+| `Timeout escalation path with no approval branch` | `WP-004` | `python3 scripts/progress.py show WP-004` |
 | `IndependenceProfile rubric` | `WP-007` | `python3 scripts/progress.py show WP-007` |
 | `Eligibility matrix` | `WP-007` | `python3 scripts/progress.py show WP-007` |
 | `Conflict-of-interest declaration` | `WP-007` | `python3 scripts/progress.py show WP-007` |
 | `Violation response` | `WP-007` | `python3 scripts/progress.py show WP-007` |
+| `Evaluator and memory-context independence constraints` | `WP-007` | `python3 scripts/progress.py show WP-007` |
+| `Cohort independence dimensions` | `WP-007` | `python3 scripts/progress.py show WP-007` |
 | `Gate Policy v1` | `WP-008` | `python3 scripts/progress.py show WP-008` |
 | `Gate artifact matrix` | `WP-008` | `python3 scripts/progress.py show WP-008` |
 | `Reopen/return transition table` | `WP-008` | `python3 scripts/progress.py show WP-008` |
@@ -195,6 +223,9 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `EnvironmentManifest` | `WP-019` | `python3 scripts/progress.py show WP-019` |
 | `ReproductionReport` | `WP-019` | `python3 scripts/progress.py show WP-019` |
 | `Tolerance policy examples` | `WP-019` | `python3 scripts/progress.py show WP-019` |
+| `CandidateWorkspace` | `WP-019` | `python3 scripts/progress.py show WP-019` |
+| `ReproductionPackage` | `WP-019` | `python3 scripts/progress.py show WP-019` |
+| `ClaimConsistencyReport` | `WP-019` | `python3 scripts/progress.py show WP-019` |
 | `ProjectWorkflow implementation` | `WP-032` | `python3 scripts/progress.py show WP-032` |
 | `State transition table` | `WP-032` | `python3 scripts/progress.py show WP-032` |
 | `Workflow API` | `WP-032` | `python3 scripts/progress.py show WP-032` |
@@ -255,6 +286,7 @@ A package whose evidence cannot be produced is not `READY`, however complete its
 - `Review/repro integration contracts`
 - `Decision update flow`
 - `Publication transition`
+- `Gate consumption of collaboration and assurance policies`
 - An updated runbook or operations note, plus the service/contract ownership record
 - A signed `EvidenceManifest`
 

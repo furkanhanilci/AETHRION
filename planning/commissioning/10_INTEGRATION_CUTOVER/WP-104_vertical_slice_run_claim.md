@@ -65,6 +65,27 @@ is re-argued at the last gate.
 Cockpit, graph and audit ledger must all return the same chain. Three views, one
 answer — and any divergence is a canonical-ownership defect (`PR-03`).
 
+### Baseline v1.3.0 — the slices exercise the cohort, and the regression injects faults
+
+The vertical slices and the cutover path grow to cover what this baseline adds,
+and one package changes character.
+
+**WP-107 becomes the engineering completion slice.** Requirement and
+specification → worktree → TDD → code review → CI → supply-chain attestation →
+signed artifact → **eligibility to produce scientific evidence**. That last arrow
+is the junction between the two disciplines, and before this baseline nothing
+proved it end to end.
+
+**The other slices exercise the collaboration plane**: a compiled cohort, sealed
+initial positions, typed delta exchange over a sparse topology, an adaptive
+assurance route, a fingerprinted reproduction and a firewalled benchmark run.
+
+**The regression suite gains injections rather than cases.** Faulty agent,
+malicious agent, split brain, duplicate and out-of-order events, communication
+degradation under budget pressure, and benchmark contamination. These are
+failures that are invisible in a healthy run and obvious only in a post-mortem,
+which is why they are caused deliberately rather than waited for.
+
 ## Out of scope
 
 - The internal implementation of any dependent package
@@ -98,7 +119,7 @@ answer — and any divergence is a canonical-ownership defect (`PR-03`).
 
 ### Full prerequisite closure
 
-**87 of 141 packages (62%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
+**87 of 160 packages (54%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
 
 | Level | Packages |
 |---:|---|
@@ -147,7 +168,7 @@ answer — and any divergence is a canonical-ownership defect (`PR-03`).
 ### What acceptance of this package releases
 
 - **Directly unblocked:** 3 — `WP-105` · `WP-109` · `WP-110`
-- **Transitively reachable:** **25 of 141 packages (18%)** cannot be accepted until this one is.
+- **Transitively reachable:** **28 of 160 packages (18%)** cannot be accepted until this one is.
 
 The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
 
@@ -206,6 +227,7 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `SandboxAttestation` | `WP-054` | `python3 scripts/progress.py show WP-054` |
 | `Capture/destroy workflow` | `WP-054` | `python3 scripts/progress.py show WP-054` |
 | `Red-team tests` | `WP-054` | `python3 scripts/progress.py show WP-054` |
+| `Four-zone isolation profiles` | `WP-054` | `python3 scripts/progress.py show WP-054` |
 | `Claim Ledger service` | `WP-075` | `python3 scripts/progress.py show WP-075` |
 | `Migrations/API` | `WP-075` | `python3 scripts/progress.py show WP-075` |
 | `State transition engine` | `WP-075` | `python3 scripts/progress.py show WP-075` |
@@ -232,20 +254,30 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `Audit rubric` | `WP-080` | `python3 scripts/progress.py show WP-080` |
 | `Mechanical locator checker` | `WP-080` | `python3 scripts/progress.py show WP-080` |
 | `Audit report/scorecard` | `WP-080` | `python3 scripts/progress.py show WP-080` |
+| `Decomposed citation audit with per-question verification class` | `WP-080` | `python3 scripts/progress.py show WP-080` |
 | `Method Registry` | `WP-081` | `python3 scripts/progress.py show WP-081` |
 | `Protocol validators` | `WP-081` | `python3 scripts/progress.py show WP-081` |
 | `Amendment workflow` | `WP-081` | `python3 scripts/progress.py show WP-081` |
 | `Post-hoc change detector` | `WP-081` | `python3 scripts/progress.py show WP-081` |
+| `SpecificationConformanceRecord binding` | `WP-081` | `python3 scripts/progress.py show WP-081` |
 | `Run Registry` | `WP-082` | `python3 scripts/progress.py show WP-082` |
 | `Preflight validator` | `WP-082` | `python3 scripts/progress.py show WP-082` |
 | `MLflow integration` | `WP-082` | `python3 scripts/progress.py show WP-082` |
 | `Run lineage queries` | `WP-082` | `python3 scripts/progress.py show WP-082` |
 | `Run lifecycle dashboard` | `WP-082` | `python3 scripts/progress.py show WP-082` |
+| `RawEvaluatorArtifact` | `WP-082` | `python3 scripts/progress.py show WP-082` |
+| `VerifiedValue` | `WP-082` | `python3 scripts/progress.py show WP-082` |
+| `PredictionRecord` | `WP-082` | `python3 scripts/progress.py show WP-082` |
+| `FailureAssessment` | `WP-082` | `python3 scripts/progress.py show WP-082` |
+| `ModelExecutionFingerprint` | `WP-082` | `python3 scripts/progress.py show WP-082` |
 | `ExperimentBatch workflow` | `WP-083` | `python3 scripts/progress.py show WP-083` |
 | `Staging policy` | `WP-083` | `python3 scripts/progress.py show WP-083` |
 | `Parameter manifest` | `WP-083` | `python3 scripts/progress.py show WP-083` |
 | `Checkpoint/recovery logic` | `WP-083` | `python3 scripts/progress.py show WP-083` |
 | `Batch report` | `WP-083` | `python3 scripts/progress.py show WP-083` |
+| `ExperimentPromotionRecord` | `WP-083` | `python3 scripts/progress.py show WP-083` |
+| `ResearchCampaignGovernor` | `WP-083` | `python3 scripts/progress.py show WP-083` |
+| `CampaignStopRecord` | `WP-083` | `python3 scripts/progress.py show WP-083` |
 | `Claim Explorer` | `WP-095` | `python3 scripts/progress.py show WP-095` |
 | `Evidence preview` | `WP-095` | `python3 scripts/progress.py show WP-095` |
 | `Provenance graph` | `WP-095` | `python3 scripts/progress.py show WP-095` |
@@ -265,6 +297,7 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `Cost adapters` | `WP-100` | `python3 scripts/progress.py show WP-100` |
 | `Invoice reconciliation` | `WP-100` | `python3 scripts/progress.py show WP-100` |
 | `FinOps dashboard/runbook` | `WP-100` | `python3 scripts/progress.py show WP-100` |
+| `Token ledger categories` | `WP-100` | `python3 scripts/progress.py show WP-100` |
 
 ### Classification that must be recorded before work begins
 

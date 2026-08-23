@@ -92,6 +92,31 @@ the same warning applies: an empty list is cheap to return and reads as *no
 assumptions* rather than *not implemented*. The conformance suite measures the
 non-empty rate on real tasks, not the field's presence.
 
+### Baseline v1.3.0 — the Task Compiler stops emitting a skill list
+
+This is the largest change in the model and agent layer, and it is a change of
+kind rather than of size. The compiler's output was a skill bundle and a model
+choice. It becomes the full execution shape of a task:
+
+`AgentCohortRecord` · `CognitiveDiversityProfile` · skill bundles **by family** ·
+`CommunicationTopology` · `ContextProjectionPolicy` · `ResearchBudgetContract` ·
+`AssuranceRoute` · `ExecutionProfile` · `IndependenceProfile`.
+
+A coding-science task compiles **both** skill families — preregistration
+discipline beside test-driven development, scientific review beside code review
+— without either aliasing the other (`ADR-012`).
+
+Two other bindings:
+
+- **Qualification records gain scope.** A verifier's qualification is keyed by
+  verifier, version, task class, domain profile *and* threshold, and now also
+  carries a model execution fingerprint and an abstention rate.
+- **The Tool Broker gains a capability gate.** An action is unavailable unless
+  policy grants it — not available-but-discouraged. Untrusted content can supply
+  values and can never create an action, which is `ADR-003` enforced at the tool
+  boundary rather than asserted at the prompt. Deterministic tool results are
+  reusable within a declared freshness window and are marked as reused.
+
 ## Out of scope
 
 - The internal implementation of any dependent package
@@ -116,7 +141,7 @@ non-empty rate on real tasks, not the field's presence.
 
 ### Full prerequisite closure
 
-**36 of 141 packages (26%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
+**36 of 160 packages (22%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
 
 | Level | Packages |
 |---:|---|
@@ -144,8 +169,8 @@ non-empty rate on real tasks, not the field's presence.
 
 ### What acceptance of this package releases
 
-- **Directly unblocked:** 6 — `WP-047` · `WP-048` · `WP-049` · `WP-069` · `WP-096` · `WP-097`
-- **Transitively reachable:** **90 of 141 packages (64%)** cannot be accepted until this one is.
+- **Directly unblocked:** 9 — `WP-047` · `WP-048` · `WP-049` · `WP-069` · `WP-096` · `WP-097` · `WP-147` · `WP-148` · `WP-149`
+- **Transitively reachable:** **109 of 160 packages (68%)** cannot be accepted until this one is.
 
 The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
 

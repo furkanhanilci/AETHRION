@@ -86,6 +86,28 @@ WP-101 made them SLIs precisely so they would appear here. A monthly report show
 99.9% availability over a system returning stale projections has reported the least
 interesting thing it knows.
 
+### Baseline v1.3.0 — Day-2 measures what this baseline added
+
+The recurring rhythms gain six subjects, each of which is a number that only
+means something when tracked over time:
+
+- **Multi-agent efficiency** — coordination overhead against the naive
+  fully-connected baseline, and whether the optimisation still holds.
+- **Verifier calibration** — precision, recall, **abstention rate** and error
+  correlation between verifier families, requalified on a schedule.
+- **Source and upstream drift** — pinned mechanisms whose upstream moved, and
+  sources whose status changed.
+- **Supply-chain posture** — OSV and Scorecard findings, and residual risks that
+  reached their expiry.
+- **Failure taxonomy distribution** — including how often attribution returned
+  `UNKNOWN`, which is a system-health signal rather than a defect count.
+- **The Pareto frontier** — quality against cost, so an optimisation that stopped
+  paying is visible.
+
+Incident learning consumes the typed `FailureAssessment` and retains negative
+results. A failed approach that is deleted is a lesson the next campaign pays for
+again.
+
 ## Out of scope
 
 - The internal implementation of any dependent package
@@ -106,7 +128,7 @@ interesting thing it knows.
 
 ### Full prerequisite closure
 
-**121 of 141 packages (86%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
+**121 of 160 packages (76%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
 
 | Level | Packages |
 |---:|---|
@@ -213,6 +235,7 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `Error-budget policy` | `WP-101` | `python3 scripts/progress.py show WP-101` |
 | `Alert-runbook link checker` | `WP-101` | `python3 scripts/progress.py show WP-101` |
 | `Ownership dashboard` | `WP-101` | `python3 scripts/progress.py show WP-101` |
+| `Coordination overhead and Pareto SLOs` | `WP-101` | `python3 scripts/progress.py show WP-101` |
 | `Hypercare log` | `WP-121` | `python3 scripts/progress.py show WP-121` |
 | `Incident/finding summary` | `WP-121` | `python3 scripts/progress.py show WP-121` |
 | `Production KPI baseline` | `WP-121` | `python3 scripts/progress.py show WP-121` |

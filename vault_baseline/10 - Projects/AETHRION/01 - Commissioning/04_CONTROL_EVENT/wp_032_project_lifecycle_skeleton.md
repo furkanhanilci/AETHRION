@@ -90,6 +90,30 @@ The budget hard limit pauses the workflow **without losing state**
 degrades (`00_PROGRAM/08`). Both need a pause that is a first-class state, not a
 cancelled workflow that someone restarts.
 
+### Baseline v1.3.0 — new policies at the gates, without moving authority
+
+G0–G10 consumes the collaboration, conformance, assurance and reproduction
+policies this baseline adds. **None of that moves authority.** Temporal still
+owns lifecycle transitions and LangGraph still owns bounded cognition inside one
+task, and a checkpoint in the second cannot transition a gate in the first.
+
+Three concrete additions:
+
+- **G5 and G6** consume the cohort, the topology, the specification conformance
+  result and the assurance route.
+- **G7** consumes the model execution fingerprint and the reproduction level it
+  supports — a hosted black-box model does not yield `EXACT`.
+- **G8** runs the human preliminary flow: the recommendation is unreachable
+  until the human assessment is sealed, through **every** interface rather than
+  only the UI.
+
+And the write path becomes explicit: a canonical transaction and its outbox
+record commit atomically, the publisher reads the outbox afterwards, and a
+consumer validates identity and version rather than trusting a payload. The
+failure suite gains the injections that make split brain visible — publisher
+crash, duplicate delivery, out-of-order delivery, a cancelled task's late
+result, and two concurrent gate transitions.
+
 ## Out of scope
 
 - The internal implementation of any dependent package
@@ -113,7 +137,7 @@ cancelled workflow that someone restarts.
 
 ### Full prerequisite closure
 
-**29 of 141 packages (21%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
+**29 of 160 packages (18%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
 
 | Level | Packages |
 |---:|---|
@@ -140,7 +164,7 @@ cancelled workflow that someone restarts.
 ### What acceptance of this package releases
 
 - **Directly unblocked:** 15 — `WP-033` · `WP-034` · `WP-035` · `WP-036` · `WP-037` · `WP-038` · `WP-039` · `WP-040` · `WP-046` · `WP-069` · `WP-082` · `WP-083` · `WP-091` · `WP-092` · `WP-107`
-- **Transitively reachable:** **99 of 141 packages (70%)** cannot be accepted until this one is.
+- **Transitively reachable:** **118 of 160 packages (74%)** cannot be accepted until this one is.
 
 The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
 
@@ -200,6 +224,7 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `Event Catalog seed` | `WP-015` | `python3 scripts/progress.py show WP-015` |
 | `Subject/retention table` | `WP-015` | `python3 scripts/progress.py show WP-015` |
 | `Consumer contract` | `WP-015` | `python3 scripts/progress.py show WP-015` |
+| `Post-commit event taxonomy for the collaboration plane` | `WP-015` | `python3 scripts/progress.py show WP-015` |
 | `Schema Registry v1` | `WP-020` | `python3 scripts/progress.py show WP-020` |
 | `Generated SDKs` | `WP-020` | `python3 scripts/progress.py show WP-020` |
 | `Compatibility CI` | `WP-020` | `python3 scripts/progress.py show WP-020` |

@@ -31,6 +31,9 @@ MODULES = (
     "fig_trust",
     "fig_verification",
     "fig_topology",
+    "fig_discovery",
+    "fig_memory",
+    "fig_assurance",
 )
 MIN_FONT_UNITS = 16          # ≈ 6.8 pt when the figure is set 180 mm wide
 

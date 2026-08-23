@@ -67,6 +67,51 @@ say which applies.
 Same rule as WP-054: an environment destroyed on failure leaves nothing to
 diagnose. The snapshot is taken when the reproduction fails, before teardown.
 
+### Baseline v1.2.0 — three zones, and the isolation that has to be per candidate
+
+The clean room becomes three zones with three identities: the **producer**
+workspace, the **evaluator** zone holding the official evaluator and hidden
+material, and the **grader** environment where outputs are compared. No shared
+mutable state between any pair.
+
+Isolation is **per candidate**, not per campaign. Each candidate gets its own
+worktree and commit lineage under its own `MutationPolicy`, so a diff is
+attributable and a parallel population cannot contaminate itself.
+
+A boundary breach **invalidates the run** rather than lowering its score. A
+candidate that reached the evaluator zone produced a result of unknown
+provenance, and scoring it low would record it as a bad result rather than as no
+result. ACC-54, ACC-55; ADR-007.
+
+### Baseline v1.3.0 — the assurance layer stops using one word for two things
+
+Three changes, and the first is a vocabulary correction with real consequences.
+
+**"Mechanical verifier" is retired as a broad term.** It becomes V0 deterministic
+· V1 computational · V2 qualified semantic · V3 human (`ADR-008`), and the class
+is assigned by the verifier service from the procedure that actually ran — never
+by the caller. The reason is that the gate rule *a mechanical check cannot be
+overridden by a model* is correct for V0 and V1 and absurd at V2, where it says a
+model's judgement cannot be overridden by a model.
+
+**Assurance becomes routed** (`ADR-015`): by consequence and uncertainty rather
+than uniformly, with a cascade to a stronger independent verifier or to a human,
+and with `ABSTAIN` as a valid verdict that escalates. A route cannot be lowered
+because the queue is long or the budget is tight.
+
+**Three hard bindings** into the evidence and publication path:
+
+- **Specification conformance** — the frozen method and the running code are
+  compared, and an unapproved `SCIENTIFIC_MAJOR` deviation cannot carry a
+  confirmatory package forward (`ADR-018`, ACC-104).
+- **Model execution fingerprint** — every invocation contributing to a result
+  records what actually executed, retry and fallback history included, and a
+  hosted black-box model does not yield an `EXACT` reproduction claim
+  (ACC-115, ACC-116).
+- **Publication compiler** — no prose without a claim, no number without a
+  `VerifiedValue`, and a complete evidence chain checked link by link
+  (ACC-105, ACC-106).
+
 ## Out of scope
 
 - The internal implementation of any dependent package
@@ -96,7 +141,7 @@ diagnose. The snapshot is taken when the reproduction fails, before teardown.
 
 ### Full prerequisite closure
 
-**53 of 141 packages (38%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
+**53 of 160 packages (33%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
 
 | Level | Packages |
 |---:|---|
@@ -132,8 +177,8 @@ diagnose. The snapshot is taken when the reproduction fails, before teardown.
 
 ### What acceptance of this package releases
 
-- **Directly unblocked:** 2 — `WP-085` · `WP-105`
-- **Transitively reachable:** **31 of 141 packages (22%)** cannot be accepted until this one is.
+- **Directly unblocked:** 3 — `WP-085` · `WP-105` · `WP-157`
+- **Transitively reachable:** **36 of 160 packages (22%)** cannot be accepted until this one is.
 
 The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
 
@@ -184,14 +229,21 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `Eligibility matrix` | `WP-007` | `python3 scripts/progress.py show WP-007` |
 | `Conflict-of-interest declaration` | `WP-007` | `python3 scripts/progress.py show WP-007` |
 | `Violation response` | `WP-007` | `python3 scripts/progress.py show WP-007` |
+| `Evaluator and memory-context independence constraints` | `WP-007` | `python3 scripts/progress.py show WP-007` |
+| `Cohort independence dimensions` | `WP-007` | `python3 scripts/progress.py show WP-007` |
 | `ArtifactRecord schema` | `WP-014` | `python3 scripts/progress.py show WP-014` |
 | `DatasetManifest schema` | `WP-014` | `python3 scripts/progress.py show WP-014` |
 | `Environment reference schema` | `WP-014` | `python3 scripts/progress.py show WP-014` |
 | `Immutability lifecycle` | `WP-014` | `python3 scripts/progress.py show WP-014` |
+| `Ordered parent lineage` | `WP-014` | `python3 scripts/progress.py show WP-014` |
+| `Digest normalisation and migration` | `WP-014` | `python3 scripts/progress.py show WP-014` |
 | `Run schema bundle` | `WP-019` | `python3 scripts/progress.py show WP-019` |
 | `EnvironmentManifest` | `WP-019` | `python3 scripts/progress.py show WP-019` |
 | `ReproductionReport` | `WP-019` | `python3 scripts/progress.py show WP-019` |
 | `Tolerance policy examples` | `WP-019` | `python3 scripts/progress.py show WP-019` |
+| `CandidateWorkspace` | `WP-019` | `python3 scripts/progress.py show WP-019` |
+| `ReproductionPackage` | `WP-019` | `python3 scripts/progress.py show WP-019` |
+| `ClaimConsistencyReport` | `WP-019` | `python3 scripts/progress.py show WP-019` |
 | `Object storage IaC` | `WP-026` | `python3 scripts/progress.py show WP-026` |
 | `Object address service` | `WP-026` | `python3 scripts/progress.py show WP-026` |
 | `Retention matrix` | `WP-026` | `python3 scripts/progress.py show WP-026` |
@@ -214,6 +266,7 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `SandboxAttestation` | `WP-054` | `python3 scripts/progress.py show WP-054` |
 | `Capture/destroy workflow` | `WP-054` | `python3 scripts/progress.py show WP-054` |
 | `Red-team tests` | `WP-054` | `python3 scripts/progress.py show WP-054` |
+| `Four-zone isolation profiles` | `WP-054` | `python3 scripts/progress.py show WP-054` |
 | `SPIRE/Vault deployments` | `WP-055` | `python3 scripts/progress.py show WP-055` |
 | `Identity registry mapping` | `WP-055` | `python3 scripts/progress.py show WP-055` |
 | `Lease policies` | `WP-055` | `python3 scripts/progress.py show WP-055` |
@@ -223,11 +276,17 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `Trust root management` | `WP-059` | `python3 scripts/progress.py show WP-059` |
 | `CVE/exception workflow` | `WP-059` | `python3 scripts/progress.py show WP-059` |
 | `Revocation/impact runbook` | `WP-059` | `python3 scripts/progress.py show WP-059` |
+| `Adapted-source admission control` | `WP-059` | `python3 scripts/progress.py show WP-059` |
 | `Run Registry` | `WP-082` | `python3 scripts/progress.py show WP-082` |
 | `Preflight validator` | `WP-082` | `python3 scripts/progress.py show WP-082` |
 | `MLflow integration` | `WP-082` | `python3 scripts/progress.py show WP-082` |
 | `Run lineage queries` | `WP-082` | `python3 scripts/progress.py show WP-082` |
 | `Run lifecycle dashboard` | `WP-082` | `python3 scripts/progress.py show WP-082` |
+| `RawEvaluatorArtifact` | `WP-082` | `python3 scripts/progress.py show WP-082` |
+| `VerifiedValue` | `WP-082` | `python3 scripts/progress.py show WP-082` |
+| `PredictionRecord` | `WP-082` | `python3 scripts/progress.py show WP-082` |
+| `FailureAssessment` | `WP-082` | `python3 scripts/progress.py show WP-082` |
+| `ModelExecutionFingerprint` | `WP-082` | `python3 scripts/progress.py show WP-082` |
 
 ### Classification that must be recorded before work begins
 
@@ -277,6 +336,7 @@ A package whose evidence cannot be produced is not `READY`, however complete its
 - `Environment resolver`
 - `Isolation attestation`
 - `Repro runbook`
+- `Three-zone clean room profiles`
 - An updated runbook or operations note, plus the service/contract ownership record
 - A signed `EvidenceManifest`
 

@@ -133,16 +133,20 @@ ISO/IEC/IEEE 29119-3 §8.3.2. A coverage item is something the tests must reach.
 | C03 | `Robustness matrix` | Mandatory deliverable | *(name the test case)* |
 | C04 | `Reproduction certificates` | Mandatory deliverable | *(name the test case)* |
 | C05 | `Failure taxonomy` | Mandatory deliverable | *(name the test case)* |
-| C06 | Write the verification type selector and its policy | WP-085-T01 | *(name the test case)* |
-| C07 | Establish the same-code, same-environment repeatability job | WP-085-T02 | *(name the test case)* |
-| C08 | Establish the independent-environment reproducibility job | WP-085-T03 | *(name the test case)* |
-| C09 | Apply the seed, parameter and data-slice robustness matrix | WP-085-T04 | *(name the test case)* |
-| C10 | Write the independent data/method replication request lifecycle | WP-085-T05 | *(name the test case)* |
-| C11 | Produce tolerance, pre-registration, root-cause, disposition and certificate records | WP-085-T06 | *(name the test case)* |
-| C12 | Clean-Room Reproduction Pass | [ACC-19](../12_ACCEPTANCE_SCENARIOS/acc_19_clean_room_pass.md) — High | *(name the test case)* |
-| C13 | Clean-Room Reproduction Failure | [ACC-20](../12_ACCEPTANCE_SCENARIOS/acc_20_clean_room_fail.md) — Critical | *(name the test case)* |
+| C06 | `AlgorithmUnderstandingRecord` | Mandatory deliverable | *(name the test case)* |
+| C07 | `ReproductionPackage` | Mandatory deliverable | *(name the test case)* |
+| C08 | `ClaimConsistencyReport` | Mandatory deliverable | *(name the test case)* |
+| C09 | `Five-level reproduction taxonomy` | Mandatory deliverable | *(name the test case)* |
+| C10 | Write the verification type selector and its policy | WP-085-T01 | *(name the test case)* |
+| C11 | Establish the same-code, same-environment repeatability job | WP-085-T02 | *(name the test case)* |
+| C12 | Establish the independent-environment reproducibility job | WP-085-T03 | *(name the test case)* |
+| C13 | Apply the seed, parameter and data-slice robustness matrix | WP-085-T04 | *(name the test case)* |
+| C14 | Write the independent data/method replication request lifecycle | WP-085-T05 | *(name the test case)* |
+| C15 | Produce tolerance, pre-registration, root-cause, disposition and certificate records | WP-085-T06 | *(name the test case)* |
+| C16 | Clean-Room Reproduction Pass | [ACC-19](../12_ACCEPTANCE_SCENARIOS/acc_19_clean_room_pass.md) — High | *(name the test case)* |
+| C17 | Clean-Room Reproduction Failure | [ACC-20](../12_ACCEPTANCE_SCENARIOS/acc_20_clean_room_fail.md) — Critical | *(name the test case)* |
 
-**13 coverage items.** Every one must appear in the *Covered by* column of at least one test case below before this package can reach `TECH_COMPLETE`.
+**17 coverage items.** Every one must appear in the *Covered by* column of at least one test case below before this package can reach `TECH_COMPLETE`.
 
 <!-- /generated:coverage -->
 

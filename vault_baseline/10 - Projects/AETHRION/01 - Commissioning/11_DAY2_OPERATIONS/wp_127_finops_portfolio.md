@@ -98,6 +98,28 @@ control; this is the cadence.
 Queue wait, headroom and the human attention quota. A forecast that grows
 throughput without growing decision capacity has forecast a `PR-04`.
 
+### Baseline v1.3.0 — Day-2 measures what this baseline added
+
+The recurring rhythms gain six subjects, each of which is a number that only
+means something when tracked over time:
+
+- **Multi-agent efficiency** — coordination overhead against the naive
+  fully-connected baseline, and whether the optimisation still holds.
+- **Verifier calibration** — precision, recall, **abstention rate** and error
+  correlation between verifier families, requalified on a schedule.
+- **Source and upstream drift** — pinned mechanisms whose upstream moved, and
+  sources whose status changed.
+- **Supply-chain posture** — OSV and Scorecard findings, and residual risks that
+  reached their expiry.
+- **Failure taxonomy distribution** — including how often attribution returned
+  `UNKNOWN`, which is a system-health signal rather than a defect count.
+- **The Pareto frontier** — quality against cost, so an optimisation that stopped
+  paying is visible.
+
+Incident learning consumes the typed `FailureAssessment` and retains negative
+results. A failed approach that is deleted is a lesson the next campaign pays for
+again.
+
 ## Out of scope
 
 - The internal implementation of any dependent package
@@ -119,7 +141,7 @@ throughput without growing decision capacity has forecast a `PR-04`.
 
 ### Full prerequisite closure
 
-**121 of 141 packages (86%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
+**121 of 160 packages (76%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
 
 | Level | Packages |
 |---:|---|
@@ -180,7 +202,7 @@ throughput without growing decision capacity has forecast a `PR-04`.
 ### What acceptance of this package releases
 
 - **Directly unblocked:** 1 — `WP-130`
-- **Transitively reachable:** **1 of 141 packages (1%)** cannot be accepted until this one is.
+- **Transitively reachable:** **1 of 160 packages (1%)** cannot be accepted until this one is.
 
 The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
 
@@ -232,6 +254,7 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `Cost adapters` | `WP-100` | `python3 scripts/progress.py show WP-100` |
 | `Invoice reconciliation` | `WP-100` | `python3 scripts/progress.py show WP-100` |
 | `FinOps dashboard/runbook` | `WP-100` | `python3 scripts/progress.py show WP-100` |
+| `Token ledger categories` | `WP-100` | `python3 scripts/progress.py show WP-100` |
 | `Load test suite/results` | `WP-117` | `python3 scripts/progress.py show WP-117` |
 | `Capacity model` | `WP-117` | `python3 scripts/progress.py show WP-117` |
 | `Bottleneck/tuning report` | `WP-117` | `python3 scripts/progress.py show WP-117` |

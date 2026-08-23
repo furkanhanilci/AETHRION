@@ -103,6 +103,48 @@ that mutated production state, a monitor covering less than half its sources. Ev
 one of those was found by looking rather than by a check — and this package is where
 that looking becomes scheduled.
 
+### Baseline v1.2.0 — assimilation drift is an architecture control
+
+Continuous assurance gains two subjects.
+
+**Upstream drift.** Every adapted mechanism has a pinned commit and a
+characterisation suite. When upstream moves, the divergence is reported and a
+review item opens; nothing is auto-merged, and the suite reruns before a pin
+moves — ACC-73.
+
+**Control effectiveness for the epistemic layer.** The controls added at this
+baseline are only worth their cost if they catch something, which is measurable
+by ablation: run the governed configuration with a control disabled and count
+what gets through. Injected controls — a false citation, a manipulated score, a
+method–code mismatch, a planted implementation bug, an unsupported sentence —
+give the detector sensitivity and the false-positive rate that the ablation is
+read against.
+
+A control that has never caught anything and has never been shown to be able to
+is not evidence of a clean system.
+
+### Baseline v1.3.0 — Day-2 measures what this baseline added
+
+The recurring rhythms gain six subjects, each of which is a number that only
+means something when tracked over time:
+
+- **Multi-agent efficiency** — coordination overhead against the naive
+  fully-connected baseline, and whether the optimisation still holds.
+- **Verifier calibration** — precision, recall, **abstention rate** and error
+  correlation between verifier families, requalified on a schedule.
+- **Source and upstream drift** — pinned mechanisms whose upstream moved, and
+  sources whose status changed.
+- **Supply-chain posture** — OSV and Scorecard findings, and residual risks that
+  reached their expiry.
+- **Failure taxonomy distribution** — including how often attribution returned
+  `UNKNOWN`, which is a system-health signal rather than a defect count.
+- **The Pareto frontier** — quality against cost, so an optimisation that stopped
+  paying is visible.
+
+Incident learning consumes the typed `FailureAssessment` and retains negative
+results. A failed approach that is deleted is a lesson the next campaign pays for
+again.
+
 ## Out of scope
 
 - The internal implementation of any dependent package
@@ -122,7 +164,7 @@ that looking becomes scheduled.
 | [WP-030 — Neo4j, pgvector and OpenSearch Derived Read Models](../03_FOUNDATION/wp_030_derived_read_models.md) | `Projection services` · `Graph/vector/search indexes` · `Rebuild jobs` · `Integrity/lag dashboard` |
 | [WP-040 — Workflow Replay, Versioning and Failure Test Suite](../04_CONTROL_EVENT/wp_040_workflow_replay_failure_suite.md) | `Replay test suite` · `Golden histories` · `Fault-injection harness` · `Workflow compatibility report` |
 | [WP-060 — Agentic Security Attack Suite and Red-Team Acceptance](../06_EXECUTION_SECURITY/wp_060_security_attack_suite.md) | `Agentic attack suite` · `Malicious fixture corpus` · `Red-team report template` · `Security regression schedule` |
-| [WP-109 — Forty Acceptance Scenario Registry and Harness](../10_INTEGRATION_CUTOVER/wp_109_acceptance_registry.md) | `Acceptance Registry` · `Scenario runner` · `Fixture catalog` · `Evidence capture/signing` |
+| [WP-109 — Acceptance Scenario Registry and Harness](../10_INTEGRATION_CUTOVER/wp_109_acceptance_registry.md) | `Acceptance Registry` · `Scenario runner` · `Fixture catalog` · `Evidence capture/signing` |
 | [WP-115 — Full System Regression and Commissioning Dossier](../10_INTEGRATION_CUTOVER/wp_115_full_system_regression.md) | `Commissioning Dossier` · `RC evidence manifest` · `Finding/risk register snapshot` · `Readiness scorecard` |
 | [WP-121 — Hypercare, Stabilisation and Programme Closure](../10_INTEGRATION_CUTOVER/wp_121_hypercare_stabilization.md) | `Hypercare log` · `Incident/finding summary` · `Production KPI baseline` · `Day-2 handoff` |
 | [WP-123 — Control Effectiveness and Policy Regression Rhythm](../11_DAY2_OPERATIONS/wp_123_control_effectiveness.md) | `Control effectiveness reports` · `Policy regression results` · `Exception audit` · `Control improvement backlog` |
@@ -135,7 +177,7 @@ that looking becomes scheduled.
 
 ### Full prerequisite closure
 
-**128 of 141 packages (91%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
+**128 of 160 packages (80%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
 
 | Level | Packages |
 |---:|---|
@@ -221,7 +263,7 @@ that looking becomes scheduled.
 
 ## Preconditions — Definition of Ready
 
-- Dependencies accepted: [WP-010 — Architecture Decision and Rejected-Alternatives Baseline](../01_GOVERNANCE/wp_010_adr_baseline.md), [WP-030 — Neo4j, pgvector and OpenSearch Derived Read Models](../03_FOUNDATION/wp_030_derived_read_models.md), [WP-040 — Workflow Replay, Versioning and Failure Test Suite](../04_CONTROL_EVENT/wp_040_workflow_replay_failure_suite.md), [WP-060 — Agentic Security Attack Suite and Red-Team Acceptance](../06_EXECUTION_SECURITY/wp_060_security_attack_suite.md), [WP-109 — Forty Acceptance Scenario Registry and Harness](../10_INTEGRATION_CUTOVER/wp_109_acceptance_registry.md), [WP-115 — Full System Regression and Commissioning Dossier](../10_INTEGRATION_CUTOVER/wp_115_full_system_regression.md), [WP-121 — Hypercare, Stabilisation and Programme Closure](../10_INTEGRATION_CUTOVER/wp_121_hypercare_stabilization.md), [WP-123 — Control Effectiveness and Policy Regression Rhythm](../11_DAY2_OPERATIONS/wp_123_control_effectiveness.md), [WP-124 — Model Requalification, Drift and Ejection Rhythm](../11_DAY2_OPERATIONS/wp_124_model_requalification_drift.md), [WP-125 — Literature, Zotero and Obsidian Curation Rhythm](../11_DAY2_OPERATIONS/wp_125_literature_knowledge_curation.md), [WP-126 — Reviewer, Judge and Reproducer Calibration](../11_DAY2_OPERATIONS/wp_126_assurance_calibration.md), [WP-127 — FinOps, Capacity and Portfolio Review Rhythm](../11_DAY2_OPERATIONS/wp_127_finops_portfolio.md), [WP-128 — Incident, Postmortem and Learning Closure](../11_DAY2_OPERATIONS/wp_128_incident_learning.md), [WP-129 — Quarterly DR, Supply-Chain and Audit Drill](../11_DAY2_OPERATIONS/wp_129_quarterly_dr_supply_chain.md)
+- Dependencies accepted: [WP-010 — Architecture Decision and Rejected-Alternatives Baseline](../01_GOVERNANCE/wp_010_adr_baseline.md), [WP-030 — Neo4j, pgvector and OpenSearch Derived Read Models](../03_FOUNDATION/wp_030_derived_read_models.md), [WP-040 — Workflow Replay, Versioning and Failure Test Suite](../04_CONTROL_EVENT/wp_040_workflow_replay_failure_suite.md), [WP-060 — Agentic Security Attack Suite and Red-Team Acceptance](../06_EXECUTION_SECURITY/wp_060_security_attack_suite.md), [WP-109 — Acceptance Scenario Registry and Harness](../10_INTEGRATION_CUTOVER/wp_109_acceptance_registry.md), [WP-115 — Full System Regression and Commissioning Dossier](../10_INTEGRATION_CUTOVER/wp_115_full_system_regression.md), [WP-121 — Hypercare, Stabilisation and Programme Closure](../10_INTEGRATION_CUTOVER/wp_121_hypercare_stabilization.md), [WP-123 — Control Effectiveness and Policy Regression Rhythm](../11_DAY2_OPERATIONS/wp_123_control_effectiveness.md), [WP-124 — Model Requalification, Drift and Ejection Rhythm](../11_DAY2_OPERATIONS/wp_124_model_requalification_drift.md), [WP-125 — Literature, Zotero and Obsidian Curation Rhythm](../11_DAY2_OPERATIONS/wp_125_literature_knowledge_curation.md), [WP-126 — Reviewer, Judge and Reproducer Calibration](../11_DAY2_OPERATIONS/wp_126_assurance_calibration.md), [WP-127 — FinOps, Capacity and Portfolio Review Rhythm](../11_DAY2_OPERATIONS/wp_127_finops_portfolio.md), [WP-128 — Incident, Postmortem and Learning Closure](../11_DAY2_OPERATIONS/wp_128_incident_learning.md), [WP-129 — Quarterly DR, Supply-Chain and Audit Drill](../11_DAY2_OPERATIONS/wp_129_quarterly_dr_supply_chain.md)
 - A named owner, a named implementer, and a verifier **independent of the producer** are assigned.
 - Affected canonical records, interfaces and ADRs have been linked during refinement.
 - `DataClass`, `CodeTrust`, `ToolEffect` and the network/credential scope are classified.
@@ -246,14 +288,18 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `Graph/vector/search indexes` | `WP-030` | `python3 scripts/progress.py show WP-030` |
 | `Rebuild jobs` | `WP-030` | `python3 scripts/progress.py show WP-030` |
 | `Integrity/lag dashboard` | `WP-030` | `python3 scripts/progress.py show WP-030` |
+| `Destructive projection rebuild proof` | `WP-030` | `python3 scripts/progress.py show WP-030` |
 | `Replay test suite` | `WP-040` | `python3 scripts/progress.py show WP-040` |
 | `Golden histories` | `WP-040` | `python3 scripts/progress.py show WP-040` |
 | `Fault-injection harness` | `WP-040` | `python3 scripts/progress.py show WP-040` |
 | `Workflow compatibility report` | `WP-040` | `python3 scripts/progress.py show WP-040` |
+| `Split-brain injection suite` | `WP-040` | `python3 scripts/progress.py show WP-040` |
 | `Agentic attack suite` | `WP-060` | `python3 scripts/progress.py show WP-060` |
 | `Malicious fixture corpus` | `WP-060` | `python3 scripts/progress.py show WP-060` |
 | `Red-team report template` | `WP-060` | `python3 scripts/progress.py show WP-060` |
 | `Security regression schedule` | `WP-060` | `python3 scripts/progress.py show WP-060` |
+| `ASB and WASP external regression` | `WP-060` | `python3 scripts/progress.py show WP-060` |
+| `Memory poisoning and evaluator exfiltration fixtures` | `WP-060` | `python3 scripts/progress.py show WP-060` |
 | `Acceptance Registry` | `WP-109` | `python3 scripts/progress.py show WP-109` |
 | `Scenario runner` | `WP-109` | `python3 scripts/progress.py show WP-109` |
 | `Fixture catalog` | `WP-109` | `python3 scripts/progress.py show WP-109` |
@@ -264,6 +310,7 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `Finding/risk register snapshot` | `WP-115` | `python3 scripts/progress.py show WP-115` |
 | `Readiness scorecard` | `WP-115` | `python3 scripts/progress.py show WP-115` |
 | `Board verdict` | `WP-115` | `python3 scripts/progress.py show WP-115` |
+| `Faulty-agent, split-brain and contamination regression` | `WP-115` | `python3 scripts/progress.py show WP-115` |
 | `Hypercare log` | `WP-121` | `python3 scripts/progress.py show WP-121` |
 | `Incident/finding summary` | `WP-121` | `python3 scripts/progress.py show WP-121` |
 | `Production KPI baseline` | `WP-121` | `python3 scripts/progress.py show WP-121` |
@@ -285,6 +332,9 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `Reviewer capability decisions` | `WP-126` | `python3 scripts/progress.py show WP-126` |
 | `Bias/quality dashboard` | `WP-126` | `python3 scripts/progress.py show WP-126` |
 | `Improvement actions` | `WP-126` | `python3 scripts/progress.py show WP-126` |
+| `VerifierQualificationRecord` | `WP-126` | `python3 scripts/progress.py show WP-126` |
+| `Verifier and reviewer error correlation measurement` | `WP-126` | `python3 scripts/progress.py show WP-126` |
+| `Abstention-rate and error-correlation calibration` | `WP-126` | `python3 scripts/progress.py show WP-126` |
 | `Monthly FinOps report` | `WP-127` | `python3 scripts/progress.py show WP-127` |
 | `Invoice cases` | `WP-127` | `python3 scripts/progress.py show WP-127` |
 | `Portfolio decision records` | `WP-127` | `python3 scripts/progress.py show WP-127` |
@@ -348,6 +398,7 @@ A package whose evidence cannot be produced is not `READY`, however complete its
 - `Golden-path results`
 - `ADR/retirement decisions`
 - `Assurance backlog`
+- `MAS efficiency and Pareto frontier assurance`
 - An updated runbook or operations note, plus the service/contract ownership record
 - A signed `EvidenceManifest`
 

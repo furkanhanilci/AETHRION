@@ -98,6 +98,27 @@ skill that governs how a producer responds.
 A B-class change and a C-class change should take visibly different paths. If they
 do not, the risk classification is decoration.
 
+### Baseline v1.3.0 — the slices exercise the cohort, and the regression injects faults
+
+The vertical slices and the cutover path grow to cover what this baseline adds,
+and one package changes character.
+
+**WP-107 becomes the engineering completion slice.** Requirement and
+specification → worktree → TDD → code review → CI → supply-chain attestation →
+signed artifact → **eligibility to produce scientific evidence**. That last arrow
+is the junction between the two disciplines, and before this baseline nothing
+proved it end to end.
+
+**The other slices exercise the collaboration plane**: a compiled cohort, sealed
+initial positions, typed delta exchange over a sparse topology, an adaptive
+assurance route, a fingerprinted reproduction and a firewalled benchmark run.
+
+**The regression suite gains injections rather than cases.** Faulty agent,
+malicious agent, split brain, duplicate and out-of-order events, communication
+degradation under budget pressure, and benchmark contamination. These are
+failures that are invisible in a healthy run and obvious only in a post-mortem,
+which is why they are caused deliberately rather than waited for.
+
 ## Out of scope
 
 - The internal implementation of any dependent package
@@ -118,7 +139,7 @@ do not, the risk classification is decoration.
 | [WP-027 — Git, OCI Registry and Build Provenance Foundation](../03_FOUNDATION/wp_027_git_oci_supply_chain.md) | `OCI registry` · `Build/promotion pipeline` · `SBOM/provenance artifacts` · `Signature policy seed` |
 | [WP-032 — ProjectLifecycle Workflow Skeleton](../04_CONTROL_EVENT/wp_032_project_lifecycle_skeleton.md) | `ProjectWorkflow implementation` · `State transition table` · `Workflow API` · `Replay fixtures` |
 | [WP-045 — Policy Router and Minimum-Sufficient Model Package](../05_MODEL_AGENT_TOOL/wp_045_policy_router_budget.md) | `Policy Router` · `RouteDecision service` · `Fan-out/budget rules` · `Routing conformance suite` |
-| [WP-047 — Role and Skill Registries, and the Task Compiler](../05_MODEL_AGENT_TOOL/wp_047_role_bundle_registry.md) | `Role Bundle Registry` · `Core role bundles` · `Bundle conformance tests` |
+| [WP-047 — Role and Skill Registries, and the Task Compiler](../05_MODEL_AGENT_TOOL/wp_047_role_bundle_registry.md) | `Role Bundle Registry` · `Core role bundles` · `Bundle conformance tests` · `Cohort, topology, projection and assurance-route compilation` |
 | [WP-048 — Harness Runtime Adapters: Claude Code, Codex, OpenCode, Hermes and Direct Worker](../05_MODEL_AGENT_TOOL/wp_048_codex_opencode_adapters.md) | `Runtime adapter SDK` · `Codex adapter` · `OpenCode adapter` · `Direct worker adapter` |
 | [WP-049 — Tool Registry and Tool Broker Core](../05_MODEL_AGENT_TOOL/wp_049_tool_registry_broker.md) | `Tool Registry` · `Tool Broker service` · `Invocation/Receipt persistence` · `Connector SDK` |
 | [WP-054 — gVisor Sandbox and Execution Cell Lifecycle](../06_EXECUTION_SECURITY/wp_054_gvisor_sandbox.md) | `Sandbox profiles` · `Execution Cell controller` · `SandboxAttestation` · `Capture/destroy workflow` |
@@ -132,7 +153,7 @@ do not, the risk classification is decoration.
 
 ### Full prerequisite closure
 
-**84 of 141 packages (60%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
+**84 of 160 packages (52%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
 
 | Level | Packages |
 |---:|---|
@@ -179,8 +200,8 @@ do not, the risk classification is decoration.
 
 ### What acceptance of this package releases
 
-- **Directly unblocked:** 1 — `WP-109`
-- **Transitively reachable:** **22 of 141 packages (16%)** cannot be accepted until this one is.
+- **Directly unblocked:** 2 — `WP-109` · `WP-154`
+- **Transitively reachable:** **26 of 160 packages (16%)** cannot be accepted until this one is.
 
 The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
 
@@ -236,6 +257,7 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `Verification summary schema adapter` | `WP-024` | `python3 scripts/progress.py show WP-024` |
 | `Test ownership registry` | `WP-024` | `python3 scripts/progress.py show WP-024` |
 | `Flake policy` | `WP-024` | `python3 scripts/progress.py show WP-024` |
+| `SPDX/REUSE and OSV admission checks` | `WP-024` | `python3 scripts/progress.py show WP-024` |
 | `OCI registry` | `WP-027` | `python3 scripts/progress.py show WP-027` |
 | `Build/promotion pipeline` | `WP-027` | `python3 scripts/progress.py show WP-027` |
 | `SBOM/provenance artifacts` | `WP-027` | `python3 scripts/progress.py show WP-027` |
@@ -251,6 +273,7 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `Role Bundle Registry` | `WP-047` | `python3 scripts/progress.py show WP-047` |
 | `Core role bundles` | `WP-047` | `python3 scripts/progress.py show WP-047` |
 | `Bundle conformance tests` | `WP-047` | `python3 scripts/progress.py show WP-047` |
+| `Cohort, topology, projection and assurance-route compilation` | `WP-047` | `python3 scripts/progress.py show WP-047` |
 | `Runtime adapter SDK` | `WP-048` | `python3 scripts/progress.py show WP-048` |
 | `Codex adapter` | `WP-048` | `python3 scripts/progress.py show WP-048` |
 | `OpenCode adapter` | `WP-048` | `python3 scripts/progress.py show WP-048` |
@@ -261,20 +284,29 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `Invocation/Receipt persistence` | `WP-049` | `python3 scripts/progress.py show WP-049` |
 | `Connector SDK` | `WP-049` | `python3 scripts/progress.py show WP-049` |
 | `Audit events` | `WP-049` | `python3 scripts/progress.py show WP-049` |
+| `Capability gate` | `WP-049` | `python3 scripts/progress.py show WP-049` |
+| `Tool-result reuse with recorded provenance` | `WP-049` | `python3 scripts/progress.py show WP-049` |
 | `Sandbox profiles` | `WP-054` | `python3 scripts/progress.py show WP-054` |
 | `Execution Cell controller` | `WP-054` | `python3 scripts/progress.py show WP-054` |
 | `SandboxAttestation` | `WP-054` | `python3 scripts/progress.py show WP-054` |
 | `Capture/destroy workflow` | `WP-054` | `python3 scripts/progress.py show WP-054` |
 | `Red-team tests` | `WP-054` | `python3 scripts/progress.py show WP-054` |
+| `Four-zone isolation profiles` | `WP-054` | `python3 scripts/progress.py show WP-054` |
 | `Admission policies` | `WP-059` | `python3 scripts/progress.py show WP-059` |
 | `Trust root management` | `WP-059` | `python3 scripts/progress.py show WP-059` |
 | `CVE/exception workflow` | `WP-059` | `python3 scripts/progress.py show WP-059` |
 | `Revocation/impact runbook` | `WP-059` | `python3 scripts/progress.py show WP-059` |
+| `Adapted-source admission control` | `WP-059` | `python3 scripts/progress.py show WP-059` |
 | `Run Registry` | `WP-082` | `python3 scripts/progress.py show WP-082` |
 | `Preflight validator` | `WP-082` | `python3 scripts/progress.py show WP-082` |
 | `MLflow integration` | `WP-082` | `python3 scripts/progress.py show WP-082` |
 | `Run lineage queries` | `WP-082` | `python3 scripts/progress.py show WP-082` |
 | `Run lifecycle dashboard` | `WP-082` | `python3 scripts/progress.py show WP-082` |
+| `RawEvaluatorArtifact` | `WP-082` | `python3 scripts/progress.py show WP-082` |
+| `VerifiedValue` | `WP-082` | `python3 scripts/progress.py show WP-082` |
+| `PredictionRecord` | `WP-082` | `python3 scripts/progress.py show WP-082` |
+| `FailureAssessment` | `WP-082` | `python3 scripts/progress.py show WP-082` |
+| `ModelExecutionFingerprint` | `WP-082` | `python3 scripts/progress.py show WP-082` |
 | `Review Package Builder` | `WP-086` | `python3 scripts/progress.py show WP-086` |
 | `Blind/redaction rules` | `WP-086` | `python3 scripts/progress.py show WP-086` |
 | `Package manifests` | `WP-086` | `python3 scripts/progress.py show WP-086` |
@@ -283,6 +315,11 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `Validator catalog` | `WP-087` | `python3 scripts/progress.py show WP-087` |
 | `VerificationRecord service` | `WP-087` | `python3 scripts/progress.py show WP-087` |
 | `Regression fixtures` | `WP-087` | `python3 scripts/progress.py show WP-087` |
+| `V0-V3 verification routing` | `WP-087` | `python3 scripts/progress.py show WP-087` |
+| `VerifierQualificationRecord` | `WP-087` | `python3 scripts/progress.py show WP-087` |
+| `Positive and negative control suite` | `WP-087` | `python3 scripts/progress.py show WP-087` |
+| `Adaptive assurance routing` | `WP-087` | `python3 scripts/progress.py show WP-087` |
+| `Abstention verdicts` | `WP-087` | `python3 scripts/progress.py show WP-087` |
 | `Disagreement service` | `WP-089` | `python3 scripts/progress.py show WP-089` |
 | `Arbitration rubric` | `WP-089` | `python3 scripts/progress.py show WP-089` |
 | `Disposition workflow` | `WP-089` | `python3 scripts/progress.py show WP-089` |
@@ -292,6 +329,8 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `Signed publication package` | `WP-090` | `python3 scripts/progress.py show WP-090` |
 | `Release checklist` | `WP-090` | `python3 scripts/progress.py show WP-090` |
 | `Supersession record` | `WP-090` | `python3 scripts/progress.py show WP-090` |
+| `Publication compiler` | `WP-090` | `python3 scripts/progress.py show WP-090` |
+| `Assertion and value binding checks` | `WP-090` | `python3 scripts/progress.py show WP-090` |
 | `OTel platform` | `WP-096` | `python3 scripts/progress.py show WP-096` |
 | `Semantic conventions` | `WP-096` | `python3 scripts/progress.py show WP-096` |
 | `Instrumentation libraries` | `WP-096` | `python3 scripts/progress.py show WP-096` |
@@ -345,6 +384,7 @@ A package whose evidence cannot be produced is not `READY`, however complete its
 - `Validated findings`
 - `Signed OCI/release`
 - `Merge DecisionRecord`
+- `Engineering completion slice with attestation and eligibility`
 - An updated runbook or operations note, plus the service/contract ownership record
 - A signed `EvidenceManifest`
 

@@ -79,6 +79,31 @@ has ever blocked anything. The counter-control is that the package must
 demonstrate each **hard blocker actually blocking** — not that the gate can run,
 but that it can refuse.
 
+### Baseline v1.3.0 — the invariants a cost optimiser must not be able to reach
+
+Three additions, and they share a shape: each names something that an
+efficiency argument would otherwise be free to trade away.
+
+**The cohort is not a lever.** `ADR-011` fixes that substantial scientific
+execution requires at least two epistemically independent cognitive
+contributions. Independence is a five-dimension profile, not a count — several
+instances of one model on one context are one contribution. Governance language
+here must make that an invariant rather than a default, because the pressure to
+relax it will arrive as a budget conversation.
+
+**Two disciplines, composable, neither collapsed.** `ADR-012`. A passing test is
+not a confirmed hypothesis and a preregistered analysis is not correct code. The
+four pairs that get conflated — TDD against preregistration, code review against
+scientific review, debugging against anomaly investigation, parallel agents
+against parallel analysts — stay distinct in the role, risk and control language.
+
+**What budget may and may not degrade.** Communication verbosity degrades; the
+cohort and the assurance route do not. A task that cannot afford its required
+assurance is `BLOCKED`, never quietly completed more cheaply. The new
+non-waivable controls follow from that: cohort integrity, assurance-route
+integrity, human preliminary judgment before recommendation, and specification
+conformance for confirmatory work.
+
 ## Out of scope
 
 - The internal implementation of any dependent package
@@ -100,7 +125,7 @@ but that it can refuse.
 
 ### Full prerequisite closure
 
-**6 of 141 packages (4%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
+**6 of 160 packages (4%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
 
 | Level | Packages |
 |---:|---|
@@ -111,8 +136,8 @@ but that it can refuse.
 
 ### What acceptance of this package releases
 
-- **Directly unblocked:** 9 — `WP-009` · `WP-010` · `WP-032` · `WP-033` · `WP-035` · `WP-036` · `WP-037` · `WP-081` · `WP-092`
-- **Transitively reachable:** **132 of 141 packages (94%)** cannot be accepted until this one is.
+- **Directly unblocked:** 10 — `WP-009` · `WP-010` · `WP-032` · `WP-033` · `WP-035` · `WP-036` · `WP-037` · `WP-081` · `WP-092` · `WP-142`
+- **Transitively reachable:** **151 of 160 packages (94%)** cannot be accepted until this one is.
 
 The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
 
@@ -160,14 +185,20 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `SLA/escalation table` | `WP-004` | `python3 scripts/progress.py show WP-004` |
 | `Delegation matrix` | `WP-004` | `python3 scripts/progress.py show WP-004` |
 | `Decision rationale rubric` | `WP-004` | `python3 scripts/progress.py show WP-004` |
+| `Human intervention vocabulary` | `WP-004` | `python3 scripts/progress.py show WP-004` |
+| `Timeout escalation path with no approval branch` | `WP-004` | `python3 scripts/progress.py show WP-004` |
 | `RiskProfile schema semantics` | `WP-005` | `python3 scripts/progress.py show WP-005` |
 | `AssuranceClass decision tables` | `WP-005` | `python3 scripts/progress.py show WP-005` |
 | `Promotion rules` | `WP-005` | `python3 scripts/progress.py show WP-005` |
 | `Worked examples` | `WP-005` | `python3 scripts/progress.py show WP-005` |
+| `StudyMode decision table` | `WP-005` | `python3 scripts/progress.py show WP-005` |
+| `Substantiality threshold for the multi-agent invariant` | `WP-005` | `python3 scripts/progress.py show WP-005` |
 | `IndependenceProfile rubric` | `WP-007` | `python3 scripts/progress.py show WP-007` |
 | `Eligibility matrix` | `WP-007` | `python3 scripts/progress.py show WP-007` |
 | `Conflict-of-interest declaration` | `WP-007` | `python3 scripts/progress.py show WP-007` |
 | `Violation response` | `WP-007` | `python3 scripts/progress.py show WP-007` |
+| `Evaluator and memory-context independence constraints` | `WP-007` | `python3 scripts/progress.py show WP-007` |
+| `Cohort independence dimensions` | `WP-007` | `python3 scripts/progress.py show WP-007` |
 
 ### Classification that must be recorded before work begins
 

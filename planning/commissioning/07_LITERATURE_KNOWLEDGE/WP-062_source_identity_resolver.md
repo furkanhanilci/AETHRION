@@ -73,6 +73,21 @@ One record turning out to be two is rarer and messier: prior citations become
 ambiguous rather than wrong. The honest resolution is a **disambiguation state**
 that a reader must resolve, not an arbitrary reassignment.
 
+### Baseline v1.3.0 — unchanged ownership, new cross-cutting obligations
+
+No semantic ownership changes here. What changes is what these packages must
+remain compatible with:
+
+- the **trace and correlation** fields every plane now carries, so a divergence
+  is traceable to a cause;
+- **context projection**, so that a record's canonical status does not depend on
+  whether it happened to be in an agent's context;
+- **provenance rules** for anything adapted from an upstream source.
+
+Generated counts, indexes and the new cross-cutting acceptance references must
+stay consistent — which is a mechanical obligation, and the one most likely to be
+skipped because nothing in the package's own subject matter changed.
+
 ## Out of scope
 
 - The internal implementation of any dependent package
@@ -95,7 +110,7 @@ that a reader must resolve, not an arbitrary reassignment.
 
 ### Full prerequisite closure
 
-**48 of 141 packages (34%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
+**48 of 160 packages (30%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
 
 | Level | Packages |
 |---:|---|
@@ -130,7 +145,7 @@ that a reader must resolve, not an arbitrary reassignment.
 ### What acceptance of this package releases
 
 - **Directly unblocked:** 11 — `WP-063` · `WP-065` · `WP-066` · `WP-067` · `WP-069` · `WP-070` · `WP-071` · `WP-072` · `WP-094` · `WP-103` · `WP-125`
-- **Transitively reachable:** **57 of 141 packages (40%)** cannot be accepted until this one is.
+- **Transitively reachable:** **70 of 160 packages (44%)** cannot be accepted until this one is.
 
 The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
 
@@ -190,6 +205,7 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `ContentSafetyRecord` | `WP-058` | `python3 scripts/progress.py show WP-058` |
 | `Injection detector` | `WP-058` | `python3 scripts/progress.py show WP-058` |
 | `Quarantine UI/API` | `WP-058` | `python3 scripts/progress.py show WP-058` |
+| `Capability gate for untrusted content` | `WP-058` | `python3 scripts/progress.py show WP-058` |
 | `Source Registry service` | `WP-061` | `python3 scripts/progress.py show WP-061` |
 | `Database migrations` | `WP-061` | `python3 scripts/progress.py show WP-061` |
 | `API/OpenAPI` | `WP-061` | `python3 scripts/progress.py show WP-061` |

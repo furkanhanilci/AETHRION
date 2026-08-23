@@ -71,6 +71,24 @@ catch a false claim produces no evidence when it passes.
 `exploratory`, and is reported as such in the same document rather than in a
 footnote.
 
+## Feasibility results are not a shortcut into a plan
+
+A feasibility run answers *does this execute*. It routinely also produces a
+number, and that number is the most dangerous artifact in the project: it is
+real, it is yours, and nothing about it was predicted.
+
+Two rules follow, and both are checked at the gate rather than remembered:
+
+- A feasibility outcome may **inform** a later confirmatory protocol — what to
+  measure, what the variance looks like, what will break.
+- It may **never** be the outcome that protocol confirms. Answering the question
+  requires data nobody has looked at, which means a new run under the frozen
+  plan.
+
+If the analysis plan's external timestamp is later than the first official
+outcome, the gate refuses a confirmatory `ClaimVersion` — ACC-56. The work can
+be relabelled downward by explicit record; it cannot be relabelled upward at all.
+
 ## Exploratory is not a lesser status
 
 Exploratory work is how hypotheses are generated and is genuinely valuable. The

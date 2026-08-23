@@ -62,6 +62,8 @@ PROSE = {
                            "typography, not meaning", BLUE),
     "Reporting register": ("check_reporting_registry.py", "every external claim has a type, a source and a retrieval date",
                            "whether the source actually says it", GREEN),
+    "Upstream lineage": ("check_upstream_lineage.py", "every assimilated mechanism names its upstream, its licence and what it may never decide",
+                         "whether the mechanism was worth taking; its --self-test proves the rules can fire", ORANGE),
     "Obsidian vault": ("check_vault.py", "every vault link resolves, every projected page names its source, every tag is in the vocabulary",
                        "whether any note in it is worth reading", ORANGE),
     "Package analysis blocks": ("expand_packages.py --check", "each package states its true prerequisite closure and what its acceptance releases",

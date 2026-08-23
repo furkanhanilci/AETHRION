@@ -76,6 +76,21 @@ Object lock prevents deliberate overwrite. It does not prevent silent corruption
 and a store nobody re-hashes is a store whose integrity claim ages without being
 tested. The scan is cheap and its absence is invisible until a restore fails.
 
+### Baseline v1.3.0 — new record classes, no new database
+
+**No new storage technology.** What changes is the schema and retention surface:
+
+- the canonical records this baseline adds, in PostgreSQL;
+- **immutable evaluator outputs and model execution fingerprints** in the object
+  store, under WORM retention — a fingerprint that can be edited is not a
+  fingerprint;
+- retention classes for the collaboration plane, which is deliberately *not*
+  permanent: a blackboard entry expires, and `ADR-013` requires that expiry to
+  lose nothing canonical.
+
+Migration tests cover every new record, including the round trip that proves a
+restore reproduces it exactly.
+
 ## Out of scope
 
 - The internal implementation of any dependent package
@@ -96,7 +111,7 @@ tested. The scan is cheap and its absence is invisible until a restore fails.
 
 ### Full prerequisite closure
 
-**21 of 141 packages (15%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
+**21 of 160 packages (13%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
 
 | Level | Packages |
 |---:|---|
@@ -118,8 +133,8 @@ tested. The scan is cheap and its absence is invisible until a restore fails.
 
 ### What acceptance of this package releases
 
-- **Directly unblocked:** 22 — `WP-027` · `WP-029` · `WP-030` · `WP-031` · `WP-049` · `WP-058` · `WP-061` · `WP-063` · `WP-072` · `WP-075` · `WP-076` · `WP-081` · `WP-082` · `WP-084` · `WP-086` · `WP-087` · `WP-090` · `WP-097` · `WP-099` · `WP-101` · `WP-114` · `WP-139`
-- **Transitively reachable:** **110 of 141 packages (78%)** cannot be accepted until this one is.
+- **Directly unblocked:** 23 — `WP-027` · `WP-029` · `WP-030` · `WP-031` · `WP-049` · `WP-058` · `WP-061` · `WP-063` · `WP-072` · `WP-075` · `WP-076` · `WP-081` · `WP-082` · `WP-084` · `WP-086` · `WP-087` · `WP-090` · `WP-097` · `WP-099` · `WP-101` · `WP-114` · `WP-139` · `WP-146`
+- **Transitively reachable:** **129 of 160 packages (81%)** cannot be accepted until this one is.
 
 The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
 
@@ -174,6 +189,8 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `DatasetManifest schema` | `WP-014` | `python3 scripts/progress.py show WP-014` |
 | `Environment reference schema` | `WP-014` | `python3 scripts/progress.py show WP-014` |
 | `Immutability lifecycle` | `WP-014` | `python3 scripts/progress.py show WP-014` |
+| `Ordered parent lineage` | `WP-014` | `python3 scripts/progress.py show WP-014` |
+| `Digest normalisation and migration` | `WP-014` | `python3 scripts/progress.py show WP-014` |
 
 ### Classification that must be recorded before work begins
 

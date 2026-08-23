@@ -1,8 +1,8 @@
 ---
-title: "WP-109 — Forty Acceptance Scenario Registry and Harness"
+title: "WP-109 — Acceptance Scenario Registry and Harness"
 aliases:
   - "WP-109"
-  - "WP-109 — Forty Acceptance Scenario Registry and Harness"
+  - "WP-109 — Acceptance Scenario Registry and Harness"
 cssclasses:
   - aethrion-work-package
 type: work-package
@@ -22,7 +22,7 @@ tags:
   - aethrion/state/not-started
 ---
 
-# WP-109 — Forty Acceptance Scenario Registry and Harness
+# WP-109 — Acceptance Scenario Registry and Harness
 
 ## Package card
 
@@ -95,6 +95,44 @@ A scenario that passes on retry has told you something. Recording the flake rate
 treating a flaky critical scenario as a finding is what stops retries from becoming
 a way to pass.
 
+### Baseline v1.2.0 — the registry is count-neutral by construction
+
+This package was titled *Forty Acceptance Scenario Registry and Harness* while the
+plan held fifty-one scenarios, and now holds eighty. The number in the title was
+wrong twice for the same reason, and the second time it was wrong in a document
+whose job is to know how many scenarios there are.
+
+The title is now count-neutral, and the harness derives its scenario set from the
+scenario files rather than from a list. Any number written into prose here is a
+number that will be stale again.
+
+The registry must also carry the two `DAY2_CONTINUOUS` scenarios distinctly:
+armed at cutover, not passed before it. `validate_commissioning_plan.py` rule 6
+already refuses a `PRE_GO_LIVE` scenario that depends on a Day-2 package, and the
+harness must not quietly re-create that cycle by treating every scenario as a
+go-live precondition.
+
+### Baseline v1.3.0 — the slices exercise the cohort, and the regression injects faults
+
+The vertical slices and the cutover path grow to cover what this baseline adds,
+and one package changes character.
+
+**WP-107 becomes the engineering completion slice.** Requirement and
+specification → worktree → TDD → code review → CI → supply-chain attestation →
+signed artifact → **eligibility to produce scientific evidence**. That last arrow
+is the junction between the two disciplines, and before this baseline nothing
+proved it end to end.
+
+**The other slices exercise the collaboration plane**: a compiled cohort, sealed
+initial positions, typed delta exchange over a sparse topology, an adaptive
+assurance route, a fingerprinted reproduction and a firewalled benchmark run.
+
+**The regression suite gains injections rather than cases.** Faulty agent,
+malicious agent, split brain, duplicate and out-of-order events, communication
+degradation under budget pressure, and benchmark contamination. These are
+failures that are invisible in a healthy run and obvious only in a post-mortem,
+which is why they are caused deliberately rather than waited for.
+
 ## Out of scope
 
 - The internal implementation of any dependent package
@@ -128,7 +166,7 @@ a way to pass.
 
 ### Full prerequisite closure
 
-**108 of 141 packages (77%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
+**108 of 160 packages (68%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
 
 | Level | Packages |
 |---:|---|
@@ -181,7 +219,7 @@ a way to pass.
 ### What acceptance of this package releases
 
 - **Directly unblocked:** 6 — `WP-110` · `WP-111` · `WP-112` · `WP-113` · `WP-114` · `WP-130`
-- **Transitively reachable:** **21 of 141 packages (15%)** cannot be accepted until this one is.
+- **Transitively reachable:** **24 of 160 packages (15%)** cannot be accepted until this one is.
 
 The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
 
@@ -233,6 +271,8 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `ExceptionPolicy` | `WP-009` | `python3 scripts/progress.py show WP-009` |
 | `NonWaivableBlocker registry` | `WP-009` | `python3 scripts/progress.py show WP-009` |
 | `Control-test mapping` | `WP-009` | `python3 scripts/progress.py show WP-009` |
+| `Non-waivable additions for the epistemic layer` | `WP-009` | `python3 scripts/progress.py show WP-009` |
+| `Non-waivable additions for the reliability layer` | `WP-009` | `python3 scripts/progress.py show WP-009` |
 | `Schema Registry v1` | `WP-020` | `python3 scripts/progress.py show WP-020` |
 | `Generated SDKs` | `WP-020` | `python3 scripts/progress.py show WP-020` |
 | `Compatibility CI` | `WP-020` | `python3 scripts/progress.py show WP-020` |
@@ -242,19 +282,25 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `Verification summary schema adapter` | `WP-024` | `python3 scripts/progress.py show WP-024` |
 | `Test ownership registry` | `WP-024` | `python3 scripts/progress.py show WP-024` |
 | `Flake policy` | `WP-024` | `python3 scripts/progress.py show WP-024` |
+| `SPDX/REUSE and OSV admission checks` | `WP-024` | `python3 scripts/progress.py show WP-024` |
 | `Replay test suite` | `WP-040` | `python3 scripts/progress.py show WP-040` |
 | `Golden histories` | `WP-040` | `python3 scripts/progress.py show WP-040` |
 | `Fault-injection harness` | `WP-040` | `python3 scripts/progress.py show WP-040` |
 | `Workflow compatibility report` | `WP-040` | `python3 scripts/progress.py show WP-040` |
+| `Split-brain injection suite` | `WP-040` | `python3 scripts/progress.py show WP-040` |
 | `Agentic attack suite` | `WP-060` | `python3 scripts/progress.py show WP-060` |
 | `Malicious fixture corpus` | `WP-060` | `python3 scripts/progress.py show WP-060` |
 | `Red-team report template` | `WP-060` | `python3 scripts/progress.py show WP-060` |
 | `Security regression schedule` | `WP-060` | `python3 scripts/progress.py show WP-060` |
+| `ASB and WASP external regression` | `WP-060` | `python3 scripts/progress.py show WP-060` |
+| `Memory poisoning and evaluator exfiltration fixtures` | `WP-060` | `python3 scripts/progress.py show WP-060` |
 | `Publication builder` | `WP-090` | `python3 scripts/progress.py show WP-090` |
 | `RO-Crate profile` | `WP-090` | `python3 scripts/progress.py show WP-090` |
 | `Signed publication package` | `WP-090` | `python3 scripts/progress.py show WP-090` |
 | `Release checklist` | `WP-090` | `python3 scripts/progress.py show WP-090` |
 | `Supersession record` | `WP-090` | `python3 scripts/progress.py show WP-090` |
+| `Publication compiler` | `WP-090` | `python3 scripts/progress.py show WP-090` |
+| `Assertion and value binding checks` | `WP-090` | `python3 scripts/progress.py show WP-090` |
 | `Audit Ledger` | `WP-099` | `python3 scripts/progress.py show WP-099` |
 | `Hash-chain service` | `WP-099` | `python3 scripts/progress.py show WP-099` |
 | `Audit export/verify tooling` | `WP-099` | `python3 scripts/progress.py show WP-099` |
@@ -286,6 +332,7 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `Validated findings` | `WP-107` | `python3 scripts/progress.py show WP-107` |
 | `Signed OCI/release` | `WP-107` | `python3 scripts/progress.py show WP-107` |
 | `Merge DecisionRecord` | `WP-107` | `python3 scripts/progress.py show WP-107` |
+| `Engineering completion slice with attestation and eligibility` | `WP-107` | `python3 scripts/progress.py show WP-107` |
 | `Impact vertical dossier` | `WP-108` | `python3 scripts/progress.py show WP-108` |
 | `ImpactCase set` | `WP-108` | `python3 scripts/progress.py show WP-108` |
 | `Affected-object accuracy report` | `WP-108` | `python3 scripts/progress.py show WP-108` |

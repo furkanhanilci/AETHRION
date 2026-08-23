@@ -105,15 +105,19 @@ ISO/IEC/IEEE 29119-3 §8.3.2. A coverage item is something the tests must reach.
 | C02 | `Claim state machine` | Mandatory deliverable | *(name the test case)* |
 | C03 | `Review/disagreement schemas` | Mandatory deliverable | *(name the test case)* |
 | C04 | `Decision schema fixtures` | Mandatory deliverable | *(name the test case)* |
-| C05 | Write the `ClaimRecord` type, status and validity conditions | WP-018-T01 | *(name the test case)* |
-| C06 | Define the evidence anchor as hash + structural locator + text fingerprint | WP-018-T02 | *(name the test case)* |
-| C07 | Add the `ClaimDependency` supports / contradicts / derived-from relations | WP-018-T03 | *(name the test case)* |
-| C08 | Write the `ReviewRecord`, `Verdict`, `Finding` and `Disposition` schemas | WP-018-T04 | *(name the test case)* |
-| C09 | Complete the `DisagreementCase`, `DecisionRecord` and supersession fields | WP-018-T05 | *(name the test case)* |
-| C10 | Strong Counter-Test | [ACC-08](../12_ACCEPTANCE_SCENARIOS/ACC-08_strong_counter_test.md) — Critical | *(name the test case)* |
-| C11 | Publication Completeness | [ACC-30](../12_ACCEPTANCE_SCENARIOS/ACC-30_publication_completeness.md) — Critical | *(name the test case)* |
+| C05 | `PublicationAssertion` | Mandatory deliverable | *(name the test case)* |
+| C06 | `EvidenceTag` | Mandatory deliverable | *(name the test case)* |
+| C07 | `FindingRecord` | Mandatory deliverable | *(name the test case)* |
+| C08 | `Authority typing on every scientific record` | Mandatory deliverable | *(name the test case)* |
+| C09 | Write the `ClaimRecord` type, status and validity conditions | WP-018-T01 | *(name the test case)* |
+| C10 | Define the evidence anchor as hash + structural locator + text fingerprint | WP-018-T02 | *(name the test case)* |
+| C11 | Add the `ClaimDependency` supports / contradicts / derived-from relations | WP-018-T03 | *(name the test case)* |
+| C12 | Write the `ReviewRecord`, `Verdict`, `Finding` and `Disposition` schemas | WP-018-T04 | *(name the test case)* |
+| C13 | Complete the `DisagreementCase`, `DecisionRecord` and supersession fields | WP-018-T05 | *(name the test case)* |
+| C14 | Strong Counter-Test | [ACC-08](../12_ACCEPTANCE_SCENARIOS/ACC-08_strong_counter_test.md) — Critical | *(name the test case)* |
+| C15 | Publication Completeness | [ACC-30](../12_ACCEPTANCE_SCENARIOS/ACC-30_publication_completeness.md) — Critical | *(name the test case)* |
 
-**11 coverage items.** Every one must appear in the *Covered by* column of at least one test case below before this package can reach `TECH_COMPLETE`.
+**15 coverage items.** Every one must appear in the *Covered by* column of at least one test case below before this package can reach `TECH_COMPLETE`.
 
 <!-- /generated:coverage -->
 

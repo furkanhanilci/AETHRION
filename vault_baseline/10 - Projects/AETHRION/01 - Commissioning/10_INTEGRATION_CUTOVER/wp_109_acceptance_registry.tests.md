@@ -1,5 +1,5 @@
 ---
-title: "WP-109 — Forty Acceptance Scenario Registry and Harness — Test Procedures"
+title: "WP-109 — Acceptance Scenario Registry and Harness — Test Procedures"
 aliases:
   - "WP-109 tests"
 cssclasses:
@@ -22,7 +22,7 @@ tags:
   - aethrion/authoring/authored
 ---
 
-# WP-109 — Forty Acceptance Scenario Registry and Harness — Test Procedures
+# WP-109 — Acceptance Scenario Registry and Harness — Test Procedures
 
 ## Document identity
 
@@ -31,7 +31,7 @@ tags:
 | Field | Value |
 |---|---|
 | Unique identifier | `TP-WP-109` |
-| Work package | [`WP-109` — Forty Acceptance Scenario Registry and Harness](wp_109_acceptance_registry.md) |
+| Work package | [`WP-109` — Acceptance Scenario Registry and Harness](wp_109_acceptance_registry.md) |
 | Companion | [acceptance criteria](wp_109_acceptance_registry.acceptance.md) |
 | Workstream | `10_INTEGRATION_CUTOVER` |
 | Approval authority | **Commissioning Board** — the independent verifier |

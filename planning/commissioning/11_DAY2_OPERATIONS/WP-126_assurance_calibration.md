@@ -77,6 +77,50 @@ Same discipline as model admission. A reviewer qualified once stays qualified
 unless something forces re-examination, and reviewers drift for the same reasons
 models do.
 
+### Baseline v1.2.0 — verifiers are calibrated too, and separately
+
+This package covers reviewers, judges and reproducers. **Verifiers** are added,
+and their record is deliberately a different one.
+
+A reviewer is a scientific role, measured on agreement, decision accuracy against
+controls, confidence calibration and order effects. A verifier is a bounded check,
+measured on precision, recall, specificity and false positive and negative rates
+against a labelled evaluation set. The same model may serve both; the records stay
+separate because they answer different questions.
+
+`VerifierQualificationRecord` is keyed by **verifier + version + task type +
+domain profile + threshold**. All five: citation entailment, method–code alignment
+and novelty grading are different tasks, and a threshold change on the same
+version invalidates the qualification, because the threshold is part of what was
+measured.
+
+**Independence is measured, not configured.** Two verifiers from different
+providers may share training sources, prompt ancestry, retrieved evidence or a
+misreading of a specification. Error correlation between verifier families is
+tracked on shared control sets rather than inferred from the provider name.
+
+### Baseline v1.3.0 — Day-2 measures what this baseline added
+
+The recurring rhythms gain six subjects, each of which is a number that only
+means something when tracked over time:
+
+- **Multi-agent efficiency** — coordination overhead against the naive
+  fully-connected baseline, and whether the optimisation still holds.
+- **Verifier calibration** — precision, recall, **abstention rate** and error
+  correlation between verifier families, requalified on a schedule.
+- **Source and upstream drift** — pinned mechanisms whose upstream moved, and
+  sources whose status changed.
+- **Supply-chain posture** — OSV and Scorecard findings, and residual risks that
+  reached their expiry.
+- **Failure taxonomy distribution** — including how often attribution returned
+  `UNKNOWN`, which is a system-health signal rather than a defect count.
+- **The Pareto frontier** — quality against cost, so an optimisation that stopped
+  paying is visible.
+
+Incident learning consumes the typed `FailureAssessment` and retains negative
+results. A failed approach that is deleted is a lesson the next campaign pays for
+again.
+
 ## Out of scope
 
 - The internal implementation of any dependent package
@@ -104,7 +148,7 @@ models do.
 
 ### Full prerequisite closure
 
-**121 of 141 packages (86%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
+**121 of 160 packages (76%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
 
 | Level | Packages |
 |---:|---|
@@ -164,8 +208,8 @@ models do.
 
 ### What acceptance of this package releases
 
-- **Directly unblocked:** 1 — `WP-130`
-- **Transitively reachable:** **1 of 141 packages (1%)** cannot be accepted until this one is.
+- **Directly unblocked:** 2 — `WP-130` · `WP-155`
+- **Transitively reachable:** **2 of 160 packages (1%)** cannot be accepted until this one is.
 
 The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
 
@@ -217,6 +261,8 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `Eligibility matrix` | `WP-007` | `python3 scripts/progress.py show WP-007` |
 | `Conflict-of-interest declaration` | `WP-007` | `python3 scripts/progress.py show WP-007` |
 | `Violation response` | `WP-007` | `python3 scripts/progress.py show WP-007` |
+| `Evaluator and memory-context independence constraints` | `WP-007` | `python3 scripts/progress.py show WP-007` |
+| `Cohort independence dimensions` | `WP-007` | `python3 scripts/progress.py show WP-007` |
 | `Eval dataset manifests` | `WP-043` | `python3 scripts/progress.py show WP-043` |
 | `Role eval harness` | `WP-043` | `python3 scripts/progress.py show WP-043` |
 | `Grader/rubric bundle` | `WP-043` | `python3 scripts/progress.py show WP-043` |
@@ -228,6 +274,10 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `Robustness matrix` | `WP-085` | `python3 scripts/progress.py show WP-085` |
 | `Reproduction certificates` | `WP-085` | `python3 scripts/progress.py show WP-085` |
 | `Failure taxonomy` | `WP-085` | `python3 scripts/progress.py show WP-085` |
+| `AlgorithmUnderstandingRecord` | `WP-085` | `python3 scripts/progress.py show WP-085` |
+| `ReproductionPackage` | `WP-085` | `python3 scripts/progress.py show WP-085` |
+| `ClaimConsistencyReport` | `WP-085` | `python3 scripts/progress.py show WP-085` |
+| `Five-level reproduction taxonomy` | `WP-085` | `python3 scripts/progress.py show WP-085` |
 | `Review Package Builder` | `WP-086` | `python3 scripts/progress.py show WP-086` |
 | `Blind/redaction rules` | `WP-086` | `python3 scripts/progress.py show WP-086` |
 | `Package manifests` | `WP-086` | `python3 scripts/progress.py show WP-086` |
@@ -236,6 +286,11 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `Validator catalog` | `WP-087` | `python3 scripts/progress.py show WP-087` |
 | `VerificationRecord service` | `WP-087` | `python3 scripts/progress.py show WP-087` |
 | `Regression fixtures` | `WP-087` | `python3 scripts/progress.py show WP-087` |
+| `V0-V3 verification routing` | `WP-087` | `python3 scripts/progress.py show WP-087` |
+| `VerifierQualificationRecord` | `WP-087` | `python3 scripts/progress.py show WP-087` |
+| `Positive and negative control suite` | `WP-087` | `python3 scripts/progress.py show WP-087` |
+| `Adaptive assurance routing` | `WP-087` | `python3 scripts/progress.py show WP-087` |
+| `Abstention verdicts` | `WP-087` | `python3 scripts/progress.py show WP-087` |
 | `Review service` | `WP-088` | `python3 scripts/progress.py show WP-088` |
 | `Assignment/eligibility engine` | `WP-088` | `python3 scripts/progress.py show WP-088` |
 | `Review rubrics` | `WP-088` | `python3 scripts/progress.py show WP-088` |
@@ -301,6 +356,9 @@ A package whose evidence cannot be produced is not `READY`, however complete its
 - `Reviewer capability decisions`
 - `Bias/quality dashboard`
 - `Improvement actions`
+- `VerifierQualificationRecord`
+- `Verifier and reviewer error correlation measurement`
+- `Abstention-rate and error-correlation calibration`
 - An updated runbook or operations note, plus the service/contract ownership record
 - A signed `EvidenceManifest`
 

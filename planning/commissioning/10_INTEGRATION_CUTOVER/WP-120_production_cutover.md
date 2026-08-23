@@ -12,7 +12,7 @@
 | Hard dependencies | WP-115, WP-116, WP-117, WP-118, WP-119 |
 | Related gates | Cutover |
 | Related controls | All controls |
-| Related acceptance scenarios | every scenario whose `Acceptance phase` is `PRE_GO_LIVE` (ACC-01 – ACC-51 excluding the Day-2 set) |
+| Related acceptance scenarios | every scenario whose `Acceptance phase` is `PRE_GO_LIVE`; the set is derived, never enumerated here, because an enumeration drifts the moment a scenario is added |
 | Status at baseline | `NOT_STARTED` |
 
 ## Package documents
@@ -70,6 +70,27 @@ open together; the *traffic* arrives in a controlled order.
 A hash-chained snapshot immediately after cutover is the baseline every later
 integrity check compares against.
 
+### Baseline v1.3.0 — the slices exercise the cohort, and the regression injects faults
+
+The vertical slices and the cutover path grow to cover what this baseline adds,
+and one package changes character.
+
+**WP-107 becomes the engineering completion slice.** Requirement and
+specification → worktree → TDD → code review → CI → supply-chain attestation →
+signed artifact → **eligibility to produce scientific evidence**. That last arrow
+is the junction between the two disciplines, and before this baseline nothing
+proved it end to end.
+
+**The other slices exercise the collaboration plane**: a compiled cohort, sealed
+initial positions, typed delta exchange over a sparse topology, an adaptive
+assurance route, a fingerprinted reproduction and a firewalled benchmark run.
+
+**The regression suite gains injections rather than cases.** Faulty agent,
+malicious agent, split brain, duplicate and out-of-order events, communication
+degradation under budget pressure, and benchmark contamination. These are
+failures that are invisible in a healthy run and obvious only in a post-mortem,
+which is why they are caused deliberately rather than waited for.
+
 ## Out of scope
 
 - The internal implementation of any dependent package
@@ -93,7 +114,7 @@ integrity check compares against.
 
 ### Full prerequisite closure
 
-**119 of 141 packages (84%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
+**119 of 160 packages (74%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
 
 | Level | Packages |
 |---:|---|
@@ -152,7 +173,7 @@ integrity check compares against.
 ### What acceptance of this package releases
 
 - **Directly unblocked:** 1 — `WP-121`
-- **Transitively reachable:** **10 of 141 packages (7%)** cannot be accepted until this one is.
+- **Transitively reachable:** **12 of 160 packages (8%)** cannot be accepted until this one is.
 
 The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
 
@@ -204,6 +225,7 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `Finding/risk register snapshot` | `WP-115` | `python3 scripts/progress.py show WP-115` |
 | `Readiness scorecard` | `WP-115` | `python3 scripts/progress.py show WP-115` |
 | `Board verdict` | `WP-115` | `python3 scripts/progress.py show WP-115` |
+| `Faulty-agent, split-brain and contamination regression` | `WP-115` | `python3 scripts/progress.py show WP-115` |
 | `Chaos test suite/results` | `WP-116` | `python3 scripts/progress.py show WP-116` |
 | `Steady-state hypotheses` | `WP-116` | `python3 scripts/progress.py show WP-116` |
 | `Recovery/integrity report` | `WP-116` | `python3 scripts/progress.py show WP-116` |

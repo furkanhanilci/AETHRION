@@ -93,6 +93,21 @@ self.connect()` is a transaction context manager, not a closer, and every reques
 leaks one until garbage collection. The V0 registry tolerates it. A pooled
 PostgreSQL foundation will not, and the pattern must not be carried across.
 
+### Baseline v1.3.0 — new record classes, no new database
+
+**No new storage technology.** What changes is the schema and retention surface:
+
+- the canonical records this baseline adds, in PostgreSQL;
+- **immutable evaluator outputs and model execution fingerprints** in the object
+  store, under WORM retention — a fingerprint that can be edited is not a
+  fingerprint;
+- retention classes for the collaboration plane, which is deliberately *not*
+  permanent: a blackboard entry expires, and `ADR-013` requires that expiry to
+  lose nothing canonical.
+
+Migration tests cover every new record, including the round trip that proves a
+restore reproduces it exactly.
+
 ## Out of scope
 
 - The internal implementation of any dependent package
@@ -113,7 +128,7 @@ PostgreSQL foundation will not, and the pattern must not be carried across.
 
 ### Full prerequisite closure
 
-**21 of 141 packages (15%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
+**21 of 160 packages (13%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
 
 | Level | Packages |
 |---:|---|
@@ -136,7 +151,7 @@ PostgreSQL foundation will not, and the pattern must not be carried across.
 ### What acceptance of this package releases
 
 - **Directly unblocked:** 19 — `WP-028` · `WP-029` · `WP-030` · `WP-031` · `WP-041` · `WP-042` · `WP-049` · `WP-055` · `WP-061` · `WP-075` · `WP-081` · `WP-082` · `WP-091` · `WP-096` · `WP-097` · `WP-099` · `WP-100` · `WP-101` · `WP-114`
-- **Transitively reachable:** **109 of 141 packages (77%)** cannot be accepted until this one is.
+- **Transitively reachable:** **128 of 160 packages (80%)** cannot be accepted until this one is.
 
 The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
 

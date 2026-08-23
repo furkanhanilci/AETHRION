@@ -73,6 +73,62 @@ A batch that can only succeed will always find a way to.
 moved mid-batch because the result looks wrong is the failure, and the workflow
 stops rather than adjusts.
 
+### Baseline v1.2.0 — a population and a funnel, not a batch
+
+This package grows from *run a batch of experiments* into the fidelity funnel and
+its governor, which is the largest single change in this baseline.
+
+**`DRAFT → SMOKE → VERIFY → FULL`**, with each promotion producing an
+`ExperimentPromotionRecord` carrying the criteria snapshot, the values that
+decided it and whether the decision was `MECHANICAL_POLICY` or `HUMAN`. Where the
+criterion is computable, the decision is computed — a model may recommend and may
+not promote past a threshold that refused (ACC-60). Under `CONFIRMATORY` study
+mode the rule is non-waivable.
+
+**Seed counts are a domain profile, not a constant.** Multiple independent seeds
+at VERIFY and the preregistered official evaluator at FULL are requirements; the
+specific numbers are an initial profile to calibrate.
+
+**The governor** stops on cost, rounds, experiment count, compute or convergence
+patience and emits a `CampaignStopRecord`. `STOPPED_BY_BUDGET` satisfies no gate:
+a campaign that ran out of money has demonstrated nothing. Budget reserved for
+VERIFY, FULL and G7 reproduction is unreachable from exploration, because a
+campaign that spends its reproduction budget on search produces results nobody
+can check.
+
+**Intra-agent rigor and inter-agent transition guards** run at each handoff, so
+that agent B cannot infer A succeeded from A's confident prose. Every check that
+can be deterministic is.
+
+### Baseline v1.3.0 — the assurance layer stops using one word for two things
+
+Three changes, and the first is a vocabulary correction with real consequences.
+
+**"Mechanical verifier" is retired as a broad term.** It becomes V0 deterministic
+· V1 computational · V2 qualified semantic · V3 human (`ADR-008`), and the class
+is assigned by the verifier service from the procedure that actually ran — never
+by the caller. The reason is that the gate rule *a mechanical check cannot be
+overridden by a model* is correct for V0 and V1 and absurd at V2, where it says a
+model's judgement cannot be overridden by a model.
+
+**Assurance becomes routed** (`ADR-015`): by consequence and uncertainty rather
+than uniformly, with a cascade to a stronger independent verifier or to a human,
+and with `ABSTAIN` as a valid verdict that escalates. A route cannot be lowered
+because the queue is long or the budget is tight.
+
+**Three hard bindings** into the evidence and publication path:
+
+- **Specification conformance** — the frozen method and the running code are
+  compared, and an unapproved `SCIENTIFIC_MAJOR` deviation cannot carry a
+  confirmatory package forward (`ADR-018`, ACC-104).
+- **Model execution fingerprint** — every invocation contributing to a result
+  records what actually executed, retry and fallback history included, and a
+  hosted black-box model does not yield an `EXACT` reproduction claim
+  (ACC-115, ACC-116).
+- **Publication compiler** — no prose without a claim, no number without a
+  `VerifiedValue`, and a complete evidence chain checked link by link
+  (ACC-105, ACC-106).
+
 ## Out of scope
 
 - The internal implementation of any dependent package
@@ -97,7 +153,7 @@ stops rather than adjusts.
 
 ### Full prerequisite closure
 
-**52 of 141 packages (37%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
+**52 of 160 packages (32%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
 
 | Level | Packages |
 |---:|---|
@@ -133,8 +189,8 @@ stops rather than adjusts.
 
 ### What acceptance of this package releases
 
-- **Directly unblocked:** 3 — `WP-085` · `WP-104` · `WP-111`
-- **Transitively reachable:** **31 of 141 packages (22%)** cannot be accepted until this one is.
+- **Directly unblocked:** 4 — `WP-085` · `WP-104` · `WP-111` · `WP-145`
+- **Transitively reachable:** **38 of 160 packages (24%)** cannot be accepted until this one is.
 
 The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
 
@@ -203,11 +259,17 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `SandboxAttestation` | `WP-054` | `python3 scripts/progress.py show WP-054` |
 | `Capture/destroy workflow` | `WP-054` | `python3 scripts/progress.py show WP-054` |
 | `Red-team tests` | `WP-054` | `python3 scripts/progress.py show WP-054` |
+| `Four-zone isolation profiles` | `WP-054` | `python3 scripts/progress.py show WP-054` |
 | `Run Registry` | `WP-082` | `python3 scripts/progress.py show WP-082` |
 | `Preflight validator` | `WP-082` | `python3 scripts/progress.py show WP-082` |
 | `MLflow integration` | `WP-082` | `python3 scripts/progress.py show WP-082` |
 | `Run lineage queries` | `WP-082` | `python3 scripts/progress.py show WP-082` |
 | `Run lifecycle dashboard` | `WP-082` | `python3 scripts/progress.py show WP-082` |
+| `RawEvaluatorArtifact` | `WP-082` | `python3 scripts/progress.py show WP-082` |
+| `VerifiedValue` | `WP-082` | `python3 scripts/progress.py show WP-082` |
+| `PredictionRecord` | `WP-082` | `python3 scripts/progress.py show WP-082` |
+| `FailureAssessment` | `WP-082` | `python3 scripts/progress.py show WP-082` |
+| `ModelExecutionFingerprint` | `WP-082` | `python3 scripts/progress.py show WP-082` |
 
 ### Classification that must be recorded before work begins
 
@@ -257,6 +319,9 @@ A package whose evidence cannot be produced is not `READY`, however complete its
 - `Parameter manifest`
 - `Checkpoint/recovery logic`
 - `Batch report`
+- `ExperimentPromotionRecord`
+- `ResearchCampaignGovernor`
+- `CampaignStopRecord`
 - An updated runbook or operations note, plus the service/contract ownership record
 - A signed `EvidenceManifest`
 

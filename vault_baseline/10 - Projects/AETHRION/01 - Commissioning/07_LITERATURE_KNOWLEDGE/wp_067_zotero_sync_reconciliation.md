@@ -97,6 +97,21 @@ A `ConflictCase` with no deadline sits in a queue. `00_PROGRAM/06`'s rule applie
 every finding reaches a terminal state, and one neither closed nor explicitly
 parked has been forgotten.
 
+### Baseline v1.3.0 — unchanged ownership, new cross-cutting obligations
+
+No semantic ownership changes here. What changes is what these packages must
+remain compatible with:
+
+- the **trace and correlation** fields every plane now carries, so a divergence
+  is traceable to a cause;
+- **context projection**, so that a record's canonical status does not depend on
+  whether it happened to be in an agent's context;
+- **provenance rules** for anything adapted from an upstream source.
+
+Generated counts, indexes and the new cross-cutting acceptance references must
+stay consistent — which is a mechanical obligation, and the one most likely to be
+skipped because nothing in the package's own subject matter changed.
+
 ## Out of scope
 
 - The internal implementation of any dependent package
@@ -120,7 +135,7 @@ parked has been forgotten.
 
 ### Full prerequisite closure
 
-**52 of 141 packages (37%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
+**52 of 160 packages (32%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
 
 | Level | Packages |
 |---:|---|
@@ -157,7 +172,7 @@ parked has been forgotten.
 ### What acceptance of this package releases
 
 - **Directly unblocked:** 5 — `WP-068` · `WP-072` · `WP-094` · `WP-103` · `WP-125`
-- **Transitively reachable:** **49 of 141 packages (35%)** cannot be accepted until this one is.
+- **Transitively reachable:** **62 of 160 packages (39%)** cannot be accepted until this one is.
 
 The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
 

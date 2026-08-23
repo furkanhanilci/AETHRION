@@ -12,7 +12,7 @@
 
 ---
 
-## Acceptance scenarios (51)
+## Acceptance scenarios (120)
 
 | Scenario | Title | Severity | Phase |
 |---|---|---|---|
@@ -67,6 +67,75 @@
 | [ACC-49](ACC-49_skill_ignored_under_pressure.md) | Non-Waivable Skill Ignored Under Pressure | Critical | PRE_GO_LIVE |
 | [ACC-50](ACC-50_skill_lost_on_compaction.md) | Procedure Lost to Context Compaction or Restart | High | PRE_GO_LIVE |
 | [ACC-51](ACC-51_upstream_skill_drift.md) | Upstream Change Invalidates a Derived Skill | High | PRE_GO_LIVE |
+| [ACC-52](ACC-52_claimless_publication_assertion.md) | Claimless Publication Assertion | Critical | PRE_GO_LIVE |
+| [ACC-53](ACC-53_unverified_numeric_result.md) | Unverified Numeric Result | Critical | PRE_GO_LIVE |
+| [ACC-54](ACC-54_evaluator_mutation_attempt.md) | Producer Attempts Evaluator Mutation | Critical | PRE_GO_LIVE |
+| [ACC-55](ACC-55_hidden_evaluation_data_access.md) | Hidden Evaluation Data Access Attempt | Critical | PRE_GO_LIVE |
+| [ACC-56](ACC-56_confirmatory_without_frozen_plan.md) | Confirmatory Result Without a Frozen Analysis Plan | Critical | PRE_GO_LIVE |
+| [ACC-57](ACC-57_hypothesis_in_place_mutation.md) | Hypothesis In-Place Mutation Attempt | High | PRE_GO_LIVE |
+| [ACC-58](ACC-58_cross_branch_fusion_lineage.md) | Cross-Branch Fusion Lineage | High | PRE_GO_LIVE |
+| [ACC-59](ACC-59_discovery_search_stagnation.md) | Discovery Search Stagnation | High | PRE_GO_LIVE |
+| [ACC-60](ACC-60_failed_smoke_promotion.md) | Failed Smoke Candidate Promotion Attempt | Critical | PRE_GO_LIVE |
+| [ACC-61](ACC-61_unqualified_semantic_verifier.md) | Unqualified Semantic Verifier | Critical | PRE_GO_LIVE |
+| [ACC-62](ACC-62_verifier_class_misdeclaration.md) | Semantic Verifier Recorded as Mechanical | High | PRE_GO_LIVE |
+| [ACC-63](ACC-63_failed_experiment_recorded.md) | Failed Experiment Must Be Recorded | High | PRE_GO_LIVE |
+| [ACC-64](ACC-64_implementation_failure_not_refutation.md) | Implementation Failure Must Not Refute a Hypothesis | Critical | PRE_GO_LIVE |
+| [ACC-65](ACC-65_reproduction_in_producer_environment.md) | Reproduction in the Producer Environment | Critical | PRE_GO_LIVE |
+| [ACC-66](ACC-66_standalone_reproduction_package.md) | Standalone Reproduction Package | Critical | PRE_GO_LIVE |
+| [ACC-67](ACC-67_claim_code_result_consistency.md) | Claim–Code–Result Consistency Failure | Critical | PRE_GO_LIVE |
+| [ACC-68](ACC-68_human_intervention_audit.md) | Human Intervention Without an Audit Record | Critical | PRE_GO_LIVE |
+| [ACC-69](ACC-69_decision_timeout_no_autoapproval.md) | Human Decision Timeout Must Not Auto-Approve | Critical | PRE_GO_LIVE |
+| [ACC-70](ACC-70_evidence_gap_lifecycle.md) | EvidenceGap Lifecycle | High | PRE_GO_LIVE |
+| [ACC-71](ACC-71_artifact_multi_parent_lineage.md) | Multi-Parent Artifact Lineage | Critical | PRE_GO_LIVE |
+| [ACC-72](ACC-72_reviewer_isolation_before_lock.md) | Reviewer Isolation Before Review Lock | Critical | PRE_GO_LIVE |
+| [ACC-73](ACC-73_upstream_assimilation_drift.md) | Upstream Assimilation Drift | High | DAY2_CONTINUOUS |
+| [ACC-74](ACC-74_missing_upstream_lineage.md) | Missing Upstream Lineage or Licence | High | PRE_GO_LIVE |
+| [ACC-75](ACC-75_retrieval_budget_and_stopping_rule.md) | Literature Retrieval Budget and Stopping Rule | High | PRE_GO_LIVE |
+| [ACC-76](ACC-76_unsupported_publication_sentence.md) | Unsupported Publication Sentence | Critical | PRE_GO_LIVE |
+| [ACC-77](ACC-77_verified_value_rebinding.md) | VerifiedValue Rebinding Attempt | Critical | PRE_GO_LIVE |
+| [ACC-78](ACC-78_raw_evidence_versus_interpretation.md) | Raw Evidence Versus Interpretation | Critical | PRE_GO_LIVE |
+| [ACC-79](ACC-79_memory_retention_violation.md) | Epistemic Memory Retention Violation | High | PRE_GO_LIVE |
+| [ACC-80](ACC-80_governed_versus_ungoverned_harness.md) | Governed Versus Ungoverned Research Harness | Medium | DAY2_CONTINUOUS |
+| [ACC-081](ACC-081_multi_agent_cohort_required.md) | Multi-Agent Cohort Required | Critical | PRE_GO_LIVE |
+| [ACC-082](ACC-082_independent_first_embargo.md) | Independent-First Embargo | Critical | PRE_GO_LIVE |
+| [ACC-083](ACC-083_typed_inter_agent_message.md) | Typed Inter-Agent Message | High | PRE_GO_LIVE |
+| [ACC-084](ACC-084_delta_only_communication.md) | Delta-Only Communication | High | PRE_GO_LIVE |
+| [ACC-085](ACC-085_blackboard_entry_is_not_evidence.md) | A Blackboard Entry Is Not Evidence | Critical | PRE_GO_LIVE |
+| [ACC-086](ACC-086_sparse_topology_quality_preservation.md) | Sparse Topology Preserves Quality | High | PRE_GO_LIVE |
+| [ACC-087](ACC-087_communication_optimization_rollback.md) | Communication Optimisation Rollback | High | PRE_GO_LIVE |
+| [ACC-088](ACC-088_strategic_silence_never_silences_a_blocker.md) | Strategic Silence Never Silences a Blocker | Critical | PRE_GO_LIVE |
+| [ACC-089](ACC-089_sycophancy_anchor_attack.md) | Sycophancy Anchor Attack | Critical | PRE_GO_LIVE |
+| [ACC-090](ACC-090_false_consensus.md) | False Consensus Cannot Close a Challenge | Critical | PRE_GO_LIVE |
+| [ACC-091](ACC-091_faulty_agent_challenge.md) | Faulty Agent Output Does Not Propagate | Critical | PRE_GO_LIVE |
+| [ACC-092](ACC-092_inspector_high_consequence_review.md) | Inspector Reviews High-Consequence Output | High | PRE_GO_LIVE |
+| [ACC-093](ACC-093_malicious_agent_cannot_bind_authority.md) | A Malicious Agent Cannot Bind Authority | Critical | PRE_GO_LIVE |
+| [ACC-094](ACC-094_failure_cause_unknown.md) | An Unattributable Failure Is `UNKNOWN` | High | PRE_GO_LIVE |
+| [ACC-095](ACC-095_failure_taxonomy_routing.md) | Failure Taxonomy Routing | High | PRE_GO_LIVE |
+| [ACC-096](ACC-096_refuted_memory_mask.md) | A Refuted Memory Does Not Re-Enter Reasoning | High | PRE_GO_LIVE |
+| [ACC-097](ACC-097_proactive_frozen_constraint_reminder.md) | Proactive Reminder of a Frozen Constraint | High | PRE_GO_LIVE |
+| [ACC-098](ACC-098_memory_poisoning_attempt.md) | Memory Poisoning Attempt | Critical | PRE_GO_LIVE |
+| [ACC-099](ACC-099_communication_budget_degradation.md) | Budget Degrades Communication, Not the Cohort | Critical | PRE_GO_LIVE |
+| [ACC-100](ACC-100_token_ledger_classification.md) | Token Ledger Classification | High | PRE_GO_LIVE |
+| [ACC-101](ACC-101_budget_hard_stop_reserved_assurance.md) | Reserved Assurance Budget Is Unreachable | Critical | PRE_GO_LIVE |
+| [ACC-102](ACC-102_tool_result_reuse.md) | Deterministic Tool-Result Reuse | Medium | PRE_GO_LIVE |
+| [ACC-103](ACC-103_scientific_minor_spec_drift.md) | Minor Specification Drift Is Recorded | High | PRE_GO_LIVE |
+| [ACC-104](ACC-104_scientific_major_spec_drift.md) | Major Specification Drift Blocks Confirmatory Status | Critical | PRE_GO_LIVE |
+| [ACC-105](ACC-105_claim_without_evidence_chain.md) | A Claim Without a Complete Evidence Chain | Critical | PRE_GO_LIVE |
+| [ACC-106](ACC-106_numeric_value_without_verifiedvalue.md) | A Number Without a VerifiedValue | Critical | PRE_GO_LIVE |
+| [ACC-107](ACC-107_expired_verifier_qualification.md) | Expired Verifier Qualification | Critical | PRE_GO_LIVE |
+| [ACC-108](ACC-108_selective_verifier_escalation.md) | Escalation Is Not Selective Enforcement | Critical | PRE_GO_LIVE |
+| [ACC-109](ACC-109_verifier_abstention_is_valid.md) | Verifier Abstention Is a Valid Result | High | PRE_GO_LIVE |
+| [ACC-110](ACC-110_human_preliminary_assessment.md) | Human Preliminary Assessment Precedes the Recommendation | Critical | PRE_GO_LIVE |
+| [ACC-111](ACC-111_human_insufficient_basis.md) | Insufficient Basis Is Reachable | High | PRE_GO_LIVE |
+| [ACC-112](ACC-112_correction_friction_symmetry.md) | Correction Friction Symmetry | High | PRE_GO_LIVE |
+| [ACC-113](ACC-113_producer_evaluator_leakage.md) | Producer to Evaluator Leakage | Critical | PRE_GO_LIVE |
+| [ACC-114](ACC-114_reproduction_in_producer_environment_hardened.md) | Reproduction Environment Lineage | Critical | PRE_GO_LIVE |
+| [ACC-115](ACC-115_missing_model_execution_fingerprint.md) | Missing Model Execution Fingerprint | Critical | PRE_GO_LIVE |
+| [ACC-116](ACC-116_distributional_hosted_model_reproduction.md) | Distributional Reproduction for a Hosted Model | High | PRE_GO_LIVE |
+| [ACC-117](ACC-117_prompt_injection_capability_gate.md) | Prompt Injection Meets a Capability Gate | Critical | PRE_GO_LIVE |
+| [ACC-118](ACC-118_benchmark_search_time_contamination.md) | Search-Time Benchmark Contamination | Critical | PRE_GO_LIVE |
+| [ACC-119](ACC-119_derived_projection_destructive_rebuild.md) | Destructive Projection Rebuild | Critical | PRE_GO_LIVE |
+| [ACC-120](ACC-120_missing_upstream_license_provenance.md) | Missing Upstream Licence or Provenance | High | PRE_GO_LIVE |
 
 `PRE_GO_LIVE` scenarios must pass before cutover. `DAY2_CONTINUOUS` scenarios are armed at cutover and exercised afterwards.
 

@@ -79,6 +79,33 @@ do, escalation and the combination matrix — are in
 **The two rows that bite in a one-person operation:** the Assurance Lead and the
 Metascience Lead cannot be the producer. ADR-001 decides what follows.
 
+### A cognitive function is not a governance function
+
+Baseline v1.2.0 introduced task-specific specialist cognition — a methodologist,
+a statistician, an experimentalist, a skeptic convened for one design problem
+(WP-147). Those are **not** entries in the table above, and keeping them out of
+it is the point.
+
+Four independent axes, and the predictable defect is collapsing the first two:
+
+| Concept | Answers | Carries authority? |
+|---|---|---|
+| **Governance function** | Who is accountable, and what may they never do? | **yes** — the table above |
+| **Cognitive function** | What way of thinking is applied to this problem? | no — recommendations only |
+| **Runtime actor** | What executes the work? | no |
+| **Model profile** | Which model, at which snapshot, with which parameters? | no |
+
+A `ScientificCouncilSession` emits a `Recommendation`. It cannot write a
+`GateRecord`, a `ClaimVersion`, an `EvidenceSpan` or a `ReviewVerdict`, and that
+is enforced by the authority matrix (WP-012) rather than expected of the reader.
+**Seven council seats do not make twenty-one governance functions.**
+
+One consequence is the case people get wrong: a council that shaped a protocol at
+G2 is not a candidate reviewer for its result at G6. Reusing the function or the
+model profile would let the design's own assumptions grade the design's own
+output — the same principle ACC-06 applies to a planner approving its own plan,
+and ACC-72 tests it here.
+
 ## Combining roles in a small team
 
 The same person may wear several hats, provided the required independence

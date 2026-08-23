@@ -1,4 +1,4 @@
-# WP-056 — OPA Policy Platform and Bundle Distribution
+# WP-056 — Policy Decision Point and Bundle Distribution
 
 ## Package card
 
@@ -27,7 +27,20 @@ This package is described by three documents. They are separate because they hav
 
 ## Purpose and expected outcome
 
-Role, data, tool, model, environment, gate, exception and budget decisions are distributed to every enforcement point as tested, signed, explainable OPA bundles.
+Role, data, tool, model, environment, gate, exception and budget decisions are distributed to every enforcement point as tested, signed, explainable policy bundles, through a `PolicyDecision` interface that survives replacing the engine behind it.
+
+> **The engine is not decided here — [`ADR-010`](../../../docs/architecture/ADR-010_policy_backend.md).**
+> This package previously named OPA in its own title while `ADR-003` named Cedar
+> and deferred the choice to a bake-off. Neither is built, so nothing was
+> broken; but a reader could cite whichever document supported what they were
+> about to do. What this package commissions is the **decision point and its
+> distribution against the interface**. The backend is named in configuration,
+> and is chosen by the bake-off recorded in ADR-010 §5, which has not run
+> because no policy set is authored yet.
+
+> **The filename still says `opa`.** Renaming it would break cross-references
+> and re-seal the plan for no gain, and a filename is not a decision — the same
+> rule that keeps `airl_*` where it is technical (`docs/branding.md`).
 
 
 ## Analysis
@@ -74,6 +87,31 @@ Decision logs contain the inputs — which include the content being judged. The
 are simultaneously the audit trail and a data-class hazard, and they need
 redaction on the way in and immutability once written.
 
+### Baseline v1.3.0 — four zones, a capability gate, and a benchmark firewall
+
+The isolation story gains a fourth zone and two new attack surfaces.
+
+**Four zones, not three.** Producer, evaluator, reproducer and independent
+grader, separated in secrets, cache and workspace. The leakage paths that matter
+are the quiet ones — a shared cache, an inherited credential, a warm container
+layer — and none of them looks like a boundary violation in a log. Each is tested
+explicitly rather than inferred from the zone configuration (ACC-113).
+
+**Security is a capability, not a prompt.** *Prompt says safe* is not security;
+*the capability is unavailable unless policy grants it* is. External content —
+PDF, web page, tool result, reviewer comment — is quarantined into a data object,
+and the agent's tool intent passes a policy gate before any credential is
+injected (ACC-117).
+
+**A benchmark firewall.** An evaluation run freezes its dataset manifest, network
+mode, allowed domains, known identifiers and evaluator isolation before it
+starts, and audits every retrieval. Gold answers, private rubrics, hidden tests
+and grader prompts are unreachable from the agent environment (ACC-118).
+
+The attack suite gains ASB and WASP as external regressions, alongside internal
+fixtures for source-PDF injection, malicious citation text, tool-result
+injection, memory poisoning and credential exfiltration.
+
 ## Out of scope
 
 - The internal implementation of any dependent package
@@ -100,7 +138,7 @@ redaction on the way in and immutability once written.
 
 ### Full prerequisite closure
 
-**41 of 141 packages (29%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
+**41 of 160 packages (26%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
 
 | Level | Packages |
 |---:|---|
@@ -132,7 +170,7 @@ redaction on the way in and immutability once written.
 ### What acceptance of this package releases
 
 - **Directly unblocked:** 11 — `WP-057` · `WP-058` · `WP-059` · `WP-060` · `WP-061` · `WP-075` · `WP-097` · `WP-099` · `WP-101` · `WP-102` · `WP-123`
-- **Transitively reachable:** **77 of 141 packages (55%)** cannot be accepted until this one is.
+- **Transitively reachable:** **96 of 160 packages (60%)** cannot be accepted until this one is.
 
 The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
 
@@ -185,18 +223,26 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `AssuranceClass decision tables` | `WP-005` | `python3 scripts/progress.py show WP-005` |
 | `Promotion rules` | `WP-005` | `python3 scripts/progress.py show WP-005` |
 | `Worked examples` | `WP-005` | `python3 scripts/progress.py show WP-005` |
+| `StudyMode decision table` | `WP-005` | `python3 scripts/progress.py show WP-005` |
+| `Substantiality threshold for the multi-agent invariant` | `WP-005` | `python3 scripts/progress.py show WP-005` |
 | `ExecutionProfile semantics` | `WP-006` | `python3 scripts/progress.py show WP-006` |
 | `Route/control decision tables` | `WP-006` | `python3 scripts/progress.py show WP-006` |
 | `Enforcement map` | `WP-006` | `python3 scripts/progress.py show WP-006` |
 | `Negative examples` | `WP-006` | `python3 scripts/progress.py show WP-006` |
+| `Producer and evaluator zone profiles` | `WP-006` | `python3 scripts/progress.py show WP-006` |
+| `MutationPolicy` | `WP-006` | `python3 scripts/progress.py show WP-006` |
 | `IndependenceProfile rubric` | `WP-007` | `python3 scripts/progress.py show WP-007` |
 | `Eligibility matrix` | `WP-007` | `python3 scripts/progress.py show WP-007` |
 | `Conflict-of-interest declaration` | `WP-007` | `python3 scripts/progress.py show WP-007` |
 | `Violation response` | `WP-007` | `python3 scripts/progress.py show WP-007` |
+| `Evaluator and memory-context independence constraints` | `WP-007` | `python3 scripts/progress.py show WP-007` |
+| `Cohort independence dimensions` | `WP-007` | `python3 scripts/progress.py show WP-007` |
 | `Control Catalog` | `WP-009` | `python3 scripts/progress.py show WP-009` |
 | `ExceptionPolicy` | `WP-009` | `python3 scripts/progress.py show WP-009` |
 | `NonWaivableBlocker registry` | `WP-009` | `python3 scripts/progress.py show WP-009` |
 | `Control-test mapping` | `WP-009` | `python3 scripts/progress.py show WP-009` |
+| `Non-waivable additions for the epistemic layer` | `WP-009` | `python3 scripts/progress.py show WP-009` |
+| `Non-waivable additions for the reliability layer` | `WP-009` | `python3 scripts/progress.py show WP-009` |
 | `PolicyDecision schema` | `WP-016` | `python3 scripts/progress.py show WP-016` |
 | `ControlRecord schema` | `WP-016` | `python3 scripts/progress.py show WP-016` |
 | `ExceptionRecord schema` | `WP-016` | `python3 scripts/progress.py show WP-016` |
@@ -259,7 +305,8 @@ A package whose evidence cannot be produced is not `READY`, however complete its
 
 ## Mandatory deliverables
 
-- `OPA platform`
+- `Policy decision point`
+- `PolicyDecision interface conformance suite`
 - `Policy bundle v1`
 - `Policy test suite`
 - `Bundle promotion pipeline`

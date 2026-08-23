@@ -69,6 +69,25 @@ The `LiteratureCampaign` dispatches scouts as **bounded** tasks — a budget, a
 scope, a stop condition. An unbounded scout is `PR-09`'s cost runaway with a
 research justification attached.
 
+### Baseline v1.3.0 — source status, retrieval budget and what survives a pruned context
+
+Two additions and one guarantee.
+
+**Material-delta detection for G10.** A citation-count change is not a material
+event. A retraction, a major correction, strong contradictory evidence, a
+reproduction failure or a dependency drift that invalidates a result is. The
+distinction is what keeps G10 from becoming a notification nobody reads —
+alert fatigue is a failure mode of a monitoring system, not a nuisance.
+
+**Search and retrieval budget.** Literature retrieval draws on the same
+`ResearchBudgetContract` as everything else, and its stopping rule stays
+distinct from the communication stopping rule — the two answer different
+questions and sharing a threshold would couple them wrongly.
+
+**The guarantee:** source and literature records stay canonical **even when the
+blackboard and the context projections are pruned**. A source that only exists in
+an agent's context is not a source, and pruning must never be able to lose one.
+
 ## Out of scope
 
 - The internal implementation of any dependent package
@@ -89,7 +108,7 @@ research justification attached.
 | [WP-032 — ProjectLifecycle Workflow Skeleton](../04_CONTROL_EVENT/WP-032_project_lifecycle_skeleton.md) | `ProjectWorkflow implementation` · `State transition table` · `Workflow API` · `Replay fixtures` |
 | [WP-035 — G2 Protocol, G3 Literature and G4 Baseline Workflows](../04_CONTROL_EVENT/WP-035_g2_g4_workflows.md) | `G2–G4 workflows` · `Protocol amendment flow` · `Literature freeze integration` · `Compute-open decision` |
 | [WP-046 — LangGraph Bounded Cognition Runtime](../05_MODEL_AGENT_TOOL/WP-046_langgraph_runtime.md) | `LangGraph runtime` · `Temporal adapter` · `Checkpoint policy` · `Agent graph SDK` |
-| [WP-047 — Role and Skill Registries, and the Task Compiler](../05_MODEL_AGENT_TOOL/WP-047_role_bundle_registry.md) | `Role Bundle Registry` · `Core role bundles` · `Bundle conformance tests` |
+| [WP-047 — Role and Skill Registries, and the Task Compiler](../05_MODEL_AGENT_TOOL/WP-047_role_bundle_registry.md) | `Role Bundle Registry` · `Core role bundles` · `Bundle conformance tests` · `Cohort, topology, projection and assurance-route compilation` |
 | [WP-049 — Tool Registry and Tool Broker Core](../05_MODEL_AGENT_TOOL/WP-049_tool_registry_broker.md) | `Tool Registry` · `Tool Broker service` · `Invocation/Receipt persistence` · `Connector SDK` |
 | [WP-050 — Initial Tool Connector Package](../05_MODEL_AGENT_TOOL/WP-050_tool_connectors.md) | `Versioned connectors` · `Connector permission profiles` · `Connector contract tests` · `Compensation/reconciliation playbooks` |
 | [WP-061 — Canonical Source Registry Service](../07_LITERATURE_KNOWLEDGE/WP-061_source_registry_service.md) | `Source Registry service` · `Database migrations` · `API/OpenAPI` · `Outbox events` |
@@ -97,7 +116,7 @@ research justification attached.
 
 ### Full prerequisite closure
 
-**53 of 141 packages (38%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
+**53 of 160 packages (33%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
 
 | Level | Packages |
 |---:|---|
@@ -133,7 +152,7 @@ research justification attached.
 ### What acceptance of this package releases
 
 - **Directly unblocked:** 6 — `WP-070` · `WP-071` · `WP-072` · `WP-094` · `WP-103` · `WP-125`
-- **Transitively reachable:** **45 of 141 packages (32%)** cannot be accepted until this one is.
+- **Transitively reachable:** **56 of 160 packages (35%)** cannot be accepted until this one is.
 
 The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
 
@@ -202,11 +221,14 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `Role Bundle Registry` | `WP-047` | `python3 scripts/progress.py show WP-047` |
 | `Core role bundles` | `WP-047` | `python3 scripts/progress.py show WP-047` |
 | `Bundle conformance tests` | `WP-047` | `python3 scripts/progress.py show WP-047` |
+| `Cohort, topology, projection and assurance-route compilation` | `WP-047` | `python3 scripts/progress.py show WP-047` |
 | `Tool Registry` | `WP-049` | `python3 scripts/progress.py show WP-049` |
 | `Tool Broker service` | `WP-049` | `python3 scripts/progress.py show WP-049` |
 | `Invocation/Receipt persistence` | `WP-049` | `python3 scripts/progress.py show WP-049` |
 | `Connector SDK` | `WP-049` | `python3 scripts/progress.py show WP-049` |
 | `Audit events` | `WP-049` | `python3 scripts/progress.py show WP-049` |
+| `Capability gate` | `WP-049` | `python3 scripts/progress.py show WP-049` |
+| `Tool-result reuse with recorded provenance` | `WP-049` | `python3 scripts/progress.py show WP-049` |
 | `Versioned connectors` | `WP-050` | `python3 scripts/progress.py show WP-050` |
 | `Connector permission profiles` | `WP-050` | `python3 scripts/progress.py show WP-050` |
 | `Connector contract tests` | `WP-050` | `python3 scripts/progress.py show WP-050` |

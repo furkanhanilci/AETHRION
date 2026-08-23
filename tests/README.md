@@ -3,12 +3,12 @@
 | Field | Value |
 |---|---|
 | Document type | Index — what is tested, and what is deliberately not |
-| Scope | The 46 tests that run today |
+| Scope | The 57 tests that run today |
 | Sibling documents | `../scripts/README.md` · `../docs/OPERATIONS.md` |
-| Status | `WORKING` — 46 passing; coverage is narrow and honestly so |
+| Status | `WORKING` — 57 passing; coverage is narrow and honestly so |
 | Date | 2026-08-22 |
 
-**In one paragraph.** Forty-six tests cover the components that exist: the
+**In one paragraph.** Fifty-seven tests cover the components that exist: the
 bridge's database, projection, API and MCP boundary, the shared contract core,
 and the evidence attestation tooling. They do not cover the target architecture,
 because it is not built, and they do not cover agent behaviour, because no
@@ -24,6 +24,10 @@ behaves; it does not mean the framework works.
 | `test_contracts.py` | identity, manifest, event envelope, schema registry | rejects malformed digests and duplicate schema registration |
 | `test_mirrors.py` | the Obsidian mirrors | a mirror writes what changed and **preserves the inode** of everything else — a running editor watches inodes, and a tree that is deleted and recreated breaks every watch it holds | It also refuses to write over a page whose frontmatter says `generated: false`, because a projection may replace its own pages and nobody else's.
 | `test_evidence_manifest.py` | issuing and verifying attestations | **the tamper cases are the point**: an altered payload, an altered covered file and a forged signature each fail |
+| `test_zotero.py` | source identity and normalisation | `airl_id` derives from the Zotero binding and **not** from the title, so renaming a source does not mint a new identity |
+| `test_progress_cli.py` | the execution loop's refusals | the ledger is a ledger, not a file anyone can type into: an unmet dependency, an unverified manifest and an R3 acceptance are each refused, and the refusal names the document that forbids it |
+| `test_stale_claim_checker.py` | the checker that catches stale prose | it plants the two defects an external review found in a corpus whose status page reported none — a checker narrower than the sentence it prints is the failure this test stops recurring |
+| `test_upstream_lineage.py` | the assimilation register and its checker | **every rule must be demonstrable in both directions**: the committed register passes, and each ADR-004 obligation — pin, characterisation suite, no source files on a reimplementation, a stated authority boundary — can be made to fail on demand |
 
 ## What is not tested
 
@@ -44,6 +48,6 @@ behaves; it does not mean the framework works.
   gates.
 
 ```bash
-uv run pytest          # all 46
+uv run pytest          # all 57
 uv run pytest -k mcp   # one area
 ```

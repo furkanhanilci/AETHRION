@@ -126,14 +126,16 @@ ISO/IEC/IEEE 29119-3 §8.3.2. A coverage item is something the tests must reach.
 | C02 | `DatasetManifest schema` | Mandatory deliverable | *(name the test case)* |
 | C03 | `Environment reference schema` | Mandatory deliverable | *(name the test case)* |
 | C04 | `Immutability lifecycle` | Mandatory deliverable | *(name the test case)* |
-| C05 | Write the `ArtifactRecord` and `ContentAddress` schema | WP-014-T01 | *(name the test case)* |
-| C06 | Add the split, lineage and licence fields to `DatasetManifest` | WP-014-T02 | *(name the test case)* |
-| C07 | Define the environment, OCI and SBOM references | WP-014-T03 | *(name the test case)* |
-| C08 | Write new-version and `INVALIDATED` semantics in place of overwrite | WP-014-T04 | *(name the test case)* |
-| C09 | Add object-lock, retention and legal-hold metadata | WP-014-T05 | *(name the test case)* |
-| C10 | Artifact Overwrite Attempt | [ACC-23](../12_ACCEPTANCE_SCENARIOS/acc_23_artifact_overwrite.md) — Critical | *(name the test case)* |
+| C05 | `Ordered parent lineage` | Mandatory deliverable | *(name the test case)* |
+| C06 | `Digest normalisation and migration` | Mandatory deliverable | *(name the test case)* |
+| C07 | Write the `ArtifactRecord` and `ContentAddress` schema | WP-014-T01 | *(name the test case)* |
+| C08 | Add the split, lineage and licence fields to `DatasetManifest` | WP-014-T02 | *(name the test case)* |
+| C09 | Define the environment, OCI and SBOM references | WP-014-T03 | *(name the test case)* |
+| C10 | Write new-version and `INVALIDATED` semantics in place of overwrite | WP-014-T04 | *(name the test case)* |
+| C11 | Add object-lock, retention and legal-hold metadata | WP-014-T05 | *(name the test case)* |
+| C12 | Artifact Overwrite Attempt | [ACC-23](../12_ACCEPTANCE_SCENARIOS/acc_23_artifact_overwrite.md) — Critical | *(name the test case)* |
 
-**10 coverage items.** Every one must appear in the *Covered by* column of at least one test case below before this package can reach `TECH_COMPLETE`.
+**12 coverage items.** Every one must appear in the *Covered by* column of at least one test case below before this package can reach `TECH_COMPLETE`.
 
 <!-- /generated:coverage -->
 

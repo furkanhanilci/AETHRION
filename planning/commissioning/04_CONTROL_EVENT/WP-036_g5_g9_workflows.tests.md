@@ -107,18 +107,19 @@ ISO/IEC/IEEE 29119-3 §8.3.2. A coverage item is something the tests must reach.
 | C02 | `Review/repro integration contracts` | Mandatory deliverable | *(name the test case)* |
 | C03 | `Decision update flow` | Mandatory deliverable | *(name the test case)* |
 | C04 | `Publication transition` | Mandatory deliverable | *(name the test case)* |
-| C05 | Write the G5 `RunBatch` dispatch, checkpoint and stop flow | WP-036-T01 | *(name the test case)* |
-| C06 | Bind the G6 frozen review package and its dispositions | WP-036-T02 | *(name the test case)* |
-| C07 | Establish the G7 reproduction request, result and reopen flow | WP-036-T03 | *(name the test case)* |
-| C08 | Apply the G8 evidence-delta human decision update | WP-036-T04 | *(name the test case)* |
-| C09 | Bind the G9 citation, provenance and security release checklist | WP-036-T05 | *(name the test case)* |
-| C10 | Add cancellation, compensation and supersession | WP-036-T06 | *(name the test case)* |
-| C11 | Strong Counter-Test | [ACC-08](../12_ACCEPTANCE_SCENARIOS/ACC-08_strong_counter_test.md) — Critical | *(name the test case)* |
-| C12 | Clean-Room Reproduction Pass | [ACC-19](../12_ACCEPTANCE_SCENARIOS/ACC-19_clean_room_pass.md) — High | *(name the test case)* |
-| C13 | Clean-Room Reproduction Failure | [ACC-20](../12_ACCEPTANCE_SCENARIOS/ACC-20_clean_room_fail.md) — Critical | *(name the test case)* |
-| C14 | Publication Completeness | [ACC-30](../12_ACCEPTANCE_SCENARIOS/ACC-30_publication_completeness.md) — Critical | *(name the test case)* |
+| C05 | `Gate consumption of collaboration and assurance policies` | Mandatory deliverable | *(name the test case)* |
+| C06 | Write the G5 `RunBatch` dispatch, checkpoint and stop flow | WP-036-T01 | *(name the test case)* |
+| C07 | Bind the G6 frozen review package and its dispositions | WP-036-T02 | *(name the test case)* |
+| C08 | Establish the G7 reproduction request, result and reopen flow | WP-036-T03 | *(name the test case)* |
+| C09 | Apply the G8 evidence-delta human decision update | WP-036-T04 | *(name the test case)* |
+| C10 | Bind the G9 citation, provenance and security release checklist | WP-036-T05 | *(name the test case)* |
+| C11 | Add cancellation, compensation and supersession | WP-036-T06 | *(name the test case)* |
+| C12 | Strong Counter-Test | [ACC-08](../12_ACCEPTANCE_SCENARIOS/ACC-08_strong_counter_test.md) — Critical | *(name the test case)* |
+| C13 | Clean-Room Reproduction Pass | [ACC-19](../12_ACCEPTANCE_SCENARIOS/ACC-19_clean_room_pass.md) — High | *(name the test case)* |
+| C14 | Clean-Room Reproduction Failure | [ACC-20](../12_ACCEPTANCE_SCENARIOS/ACC-20_clean_room_fail.md) — Critical | *(name the test case)* |
+| C15 | Publication Completeness | [ACC-30](../12_ACCEPTANCE_SCENARIOS/ACC-30_publication_completeness.md) — Critical | *(name the test case)* |
 
-**14 coverage items.** Every one must appear in the *Covered by* column of at least one test case below before this package can reach `TECH_COMPLETE`.
+**15 coverage items.** Every one must appear in the *Covered by* column of at least one test case below before this package can reach `TECH_COMPLETE`.
 
 <!-- /generated:coverage -->
 

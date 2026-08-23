@@ -4,7 +4,7 @@ cssclasses:
   - aethrion-reference
 type: reference
 category: architecture
-summary: "V1 is the sealed commissioning baseline: WP-000–140, ACC-01–51, completed when the go-live checklist's entry conditions hold."
+summary: "V1 is the sealed commissioning baseline: WP-000–147, ACC-01–80, completed when the go-live checklist's entry conditions hold."
 source: "docs/V2_CANDIDATES.md"
 generated: true
 provenance: mirror_vault.py
@@ -24,9 +24,9 @@ tags:
 | Scope | Things worth doing that are **not** part of V1, and why they are parked |
 | Sibling documents | `../planning/commissioning/README.md` (what V1 is) · `../planning/commissioning/00_PROGRAM/09_change_and_configuration_control.md` (how a change is recorded) |
 | Status | Register — appended to, never used as authority |
-| Date | 2026-08-22 |
+| Date | 2026-08-23 |
 
-**In one paragraph.** V1 is the sealed commissioning baseline: WP-000–140, ACC-01–51, completed when the go-live checklist's entry conditions hold. Anything that is not in that baseline is not V1, and this file is where it waits. The register exists so that "should we also add…" has somewhere to go other than the sealed plan — an idea written down here costs nothing, while the same idea written into `planning/` costs a re-seal and quietly moves the finish line.
+**In one paragraph.** V1 is the sealed commissioning baseline: WP-000–147, ACC-01–80, completed when the go-live checklist's entry conditions hold. Anything that is not in that baseline is not V1, and this file is where it waits. The register exists so that "should we also add…" has somewhere to go other than the sealed plan — an idea written down here costs nothing, while the same idea written into `planning/` costs a re-seal and quietly moves the finish line.
 
 > **This file is deliberately outside the hash seal.** Putting V2 candidates
 > inside the V1 baseline would contradict the thing the baseline is for. Nothing
@@ -40,11 +40,34 @@ An idea arrives during V1 work. Three outcomes, and only three:
 
 | Outcome | When | What happens |
 |---|---|---|
-| **Fix in V1** | It corrects a defect in the sealed plan — a wrong number, a false claim, a broken reference | Edit the plan, regenerate the seal, bump the baseline, record the reason. Two such changes have happened: v1.0.2 and v1.0.3, both naming and claims only |
+| **Fix in V1** | It corrects a defect in the sealed plan — a wrong number, a false claim, a broken reference | Edit the plan, regenerate the seal, bump the baseline, record the reason. v1.0.2 and v1.0.3 were both naming and claims only |
 | **Park as V2** | It adds capability, changes a requirement, or reshapes scope | Append a row below. Do not touch `planning/` |
 | **Drop** | It does not survive being written down | Nothing. Not writing it down is also an answer |
 
 The distinction that matters: **a correction keeps the finish line where it is; an addition moves it.** V1 is finishable only if the second kind is refused for the duration.
+
+> ### The exception, recorded rather than quietly taken
+>
+> **Baseline v1.2.0 moved the finish line.** It added
+> `14_SCIENTIFIC_INTELLIGENCE` — WP-141–147 — and ACC-52–80. By the rule above
+> that is an addition, and it was taken into V1 rather than parked here.
+>
+> The reason is specific, and it is the only kind of reason that should do this.
+> The earlier baseline tested the **platform** thoroughly and did not test the
+> **epistemic path**: nothing in ACC-01–51 refused a publication sentence with no
+> claim behind it, a number with no verified value under it, a producer editing
+> the evaluator that scores it, a compile error recorded as a refuted hypothesis,
+> or a reproduction run in the environment that produced the result. V1 could
+> have completed in full, every scenario passing, without one of those being
+> caught — and a baseline whose completion would not demonstrate the thing it was
+> built for is not finishable in any useful sense.
+>
+> It was also the cheapest moment it could have happened: nothing `ACCEPTED`, one
+> package `READY`, no work done against the old line.
+>
+> **The rule is unchanged for the next proposal.** Moving the finish line happens
+> with a version bump, a tag and a stated reason — not twice, and not quietly.
+> Everything below is still parked.
 
 Leaving happens exactly once — when V1 reaches go-live and a V2 baseline is opened. Until then this file only grows.
 

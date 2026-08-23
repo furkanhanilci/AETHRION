@@ -3,12 +3,12 @@
 | Field | Value |
 |---|---|
 | Document type | Convention — figure inventory and design specification |
-| Scope | The nine generated figures, their design system and their guarantees |
+| Scope | The twelve generated figures, their design system and their guarantees |
 | Sibling documents | `../DOCUMENT_STANDARD.md` · `../architecture/AETHRION_ARCHITECTURE.md` · `../../skills/scientific-figures/SKILL.md` |
 | Status | `WORKING` — figures are generated and mechanically checked |
-| Date | 2026-08-22 |
+| Date | 2026-08-23 |
 
-**In one paragraph.** Figures here are generated artifacts, not drawings: the corpus is the source, the generator is version-controlled, and the SVG is reproducible from a clean checkout. There are nine of them rather than one per document, because a figure earns its place only by carrying a mechanism prose carries badly. Every string is measured against the box it sits in, and a figure that cannot be laid out honestly fails the build.
+**In one paragraph.** Figures here are generated artifacts, not drawings: the corpus is the source, the generator is version-controlled, and the SVG is reproducible from a clean checkout. There are twelve of them rather than one per document, because a figure earns its place only by carrying a mechanism prose carries badly. Every string is measured against the box it sits in, and a figure that cannot be laid out honestly fails the build.
 
 Figures here are **generated artifacts**, like the Obsidian mirrors and the
 package catalogue. The canonical source is the architecture corpus; the
@@ -37,7 +37,7 @@ Two mechanisms now make it impossible:
    against the box's **inner** width: it wraps first, then shrinks toward the
    16-unit floor, and **raises** if the text still will not fit. A figure that
    cannot be laid out honestly fails the build instead of shipping clipped.
-   The floor does not bend: three of the nine figures below were re-laid out
+   The floor does not bend: three of the figures below were re-laid out
    during authoring because the kit refused a 15-unit label.
 2. **`check_figures.py` re-measures the rendered SVG.** It parses the output,
    finds the tightest box enclosing each text anchor, and reports any string
@@ -48,7 +48,7 @@ Two mechanisms now make it impossible:
 
 ---
 
-## 1. Why there are nine figures and not thirty
+## 1. Why there are twelve figures and not thirty
 
 The temptation with a corpus this size is to put a diagram on every document.
 That would produce exactly the failure mode a scientific-figure discipline warns
@@ -70,10 +70,23 @@ carries a **mechanism** that prose carries badly:
 | 7 | `aethrion_trust.svg` | Where an injected instruction stops, and on whose authority | A policy paragraph that never names the attack |
 | 8 | `aethrion_verification.svg` | What each check proves *and* what it cannot see | A green dashboard, which is the failure mode |
 | 9 | `aethrion_topology.svg` | Direction on every edge between repository, vault and the outside world | A prose claim that the mirror is one-way |
+| 10 | `aethrion_discovery.svg` | Node states, edge classes and the vertical boundary the producer cannot cross | A description of a loop, which hides both the lineage and the authority question |
+| 11 | `aethrion_memory.svg` | Six stores on the axes that decide authority, and the one that may support a claim | A list of six memories, which makes them look like six of the same thing |
+| 12 | `aethrion_assurance.svg` | The V1/V2 break between a check that is certain and a check with an error rate | A taxonomy paragraph, which is exactly how the two got conflated in the first place |
 
 Figures 6–9 were added after the ADRs, the adoption matrix and the reporting
 subsystem landed. Their absence was itself a defect: the corpus had grown four
 structures that only prose described, and prose describes none of them well.
+
+**Figures 10–12 were added at baseline v1.2.0**, with ADR-004 to ADR-010, for the
+same reason and about the same failure. Each carries a distinction that reads as
+a detail in prose and is the whole point in a picture: that repairing an
+implementation is not the same node state as changing a mechanism; that six
+memories differ on whether they may support a claim; and that the boundary
+between V1 and V2 separates a check that is certain from a check that has an
+error rate. All three are distinctions a reader skims past in a paragraph and
+cannot skim past in a diagram — which is the only reason a figure earns its
+place here.
 
 Everything else in the corpus uses inline Mermaid, which is editable in place,
 renders in both GitHub and Obsidian, and does not need a build step. The rule:
@@ -85,7 +98,7 @@ renders in both GitHub and Obsidian, and does not need a build step. The rule:
 
 ## 2. Design specification
 
-Applied identically to all nine figures.
+Applied identically to all twelve figures.
 
 ### Communication objective
 
@@ -101,12 +114,15 @@ generator module. If a reader takes away only that sentence, the figure worked.
 | 5 | A document is produced evidence-first and rendered last, and publication remains a human decision |
 | 6 | 141 packages run in eleven waves behind one bootstrap package, and today exactly one of them has produced anything |
 | 7 | A paper is data, never an instruction; the plane that can act never reads the plane a stranger can write |
-| 8 | Ten checks keep the corpus honest about its own state; none of them can tell you whether the research is any good |
+| 8 | The bundle keeps the corpus honest about its own state; none of them can tell you whether the research is any good |
 | 9 | The repository is the only place anything is authored; the vault is a one-way mirror; the outside world is read-only |
+| 10 | Search proposes candidates and spends compute; it never decides anything, and the only door into the evidence path runs through an evaluator the producer cannot reach |
+| 11 | There is no such thing as "the memory" — what is remembered splits six ways by epistemic status, and only one of the six may stand behind a claim |
+| 12 | "Verify" was one word doing two incompatible jobs; split into four classes, the non-waivable rule becomes coherent |
 
 ### Archetype selection
 
-None of the nine is a generic left-to-right pipeline, because none of the
+None of the twelve is a generic left-to-right pipeline, because none of the
 underlying structures is one.
 
 - **Figure 1** is a **matrix**: gates on the vertical axis (time), actor class on
@@ -133,6 +149,17 @@ underlying structures is one.
 - **Figure 9** is a **source-of-truth topology with direction on every edge**.
   Direction is the content: a two-way sync would create a second place to be
   wrong in.
+- **Figure 10** is a **state machine over a funnel, split by a hard vertical
+  boundary**. Everything left of the boundary belongs to the producer, and
+  nothing left of it can write a result — which is a claim about authority, not
+  about layout, and is the reason the boundary is drawn rather than described.
+- **Figure 11** is a **comparison table whose columns are the properties that
+  decide authority**. Deliberately not six boxes in a row: six boxes make six
+  stores look like six of the same thing, which is the misreading the figure
+  exists to prevent.
+- **Figure 12** is a **ladder with one rule drawn across it**. The line between
+  V1 and V2 is the only mark on the figure that carries an argument; everything
+  above it is certain and everything below it has an error rate.
 
 ### Visual encoding
 

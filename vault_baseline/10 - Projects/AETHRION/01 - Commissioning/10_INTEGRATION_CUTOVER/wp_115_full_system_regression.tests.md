@@ -130,16 +130,17 @@ ISO/IEC/IEEE 29119-3 §8.3.2. A coverage item is something the tests must reach.
 | C03 | `Finding/risk register snapshot` | Mandatory deliverable | *(name the test case)* |
 | C04 | `Readiness scorecard` | Mandatory deliverable | *(name the test case)* |
 | C05 | `Board verdict` | Mandatory deliverable | *(name the test case)* |
-| C06 | Freeze the RC digest and every bundle version | WP-115-T01 | *(name the test case)* |
-| C07 | Verify that every `PRE_GO_LIVE` scenario result comes from the same RC | WP-115-T02 | *(name the test case)* |
-| C08 | Consolidate the contract, replay, security, reproduction, DR, cost and trace evidence manifests | WP-115-T03 | *(name the test case)* |
-| C09 | Sweep for open findings, risks, exceptions and expiries | WP-115-T04 | *(name the test case)* |
-| C10 | Produce the KPI, SLO, capacity and owner readiness scorecard | WP-115-T05 | *(name the test case)* |
-| C11 | Hold the independent board review and record the BLOCKED/READY verdict | WP-115-T06 | *(name the test case)* |
-| C12 | Human Seed Literature | [ACC-01](../12_ACCEPTANCE_SCENARIOS/acc_01_human_seed_literature.md) — Critical | *(name the test case)* |
-| C13 | Complete Project Audit Export | [ACC-40](../12_ACCEPTANCE_SCENARIOS/acc_40_audit_export.md) — Critical | *(name the test case)* |
+| C06 | `Faulty-agent, split-brain and contamination regression` | Mandatory deliverable | *(name the test case)* |
+| C07 | Freeze the RC digest and every bundle version | WP-115-T01 | *(name the test case)* |
+| C08 | Verify that every `PRE_GO_LIVE` scenario result comes from the same RC | WP-115-T02 | *(name the test case)* |
+| C09 | Consolidate the contract, replay, security, reproduction, DR, cost and trace evidence manifests | WP-115-T03 | *(name the test case)* |
+| C10 | Sweep for open findings, risks, exceptions and expiries | WP-115-T04 | *(name the test case)* |
+| C11 | Produce the KPI, SLO, capacity and owner readiness scorecard | WP-115-T05 | *(name the test case)* |
+| C12 | Hold the independent board review and record the BLOCKED/READY verdict | WP-115-T06 | *(name the test case)* |
+| C13 | Human Seed Literature | [ACC-01](../12_ACCEPTANCE_SCENARIOS/acc_01_human_seed_literature.md) — Critical | *(name the test case)* |
+| C14 | Complete Project Audit Export | [ACC-40](../12_ACCEPTANCE_SCENARIOS/acc_40_audit_export.md) — Critical | *(name the test case)* |
 
-**13 coverage items.** Every one must appear in the *Covered by* column of at least one test case below before this package can reach `TECH_COMPLETE`.
+**14 coverage items.** Every one must appear in the *Covered by* column of at least one test case below before this package can reach `TECH_COMPLETE`.
 
 <!-- /generated:coverage -->
 

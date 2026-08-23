@@ -78,6 +78,48 @@ Accept, reject, revise, **defer**. A queue that offers only the first three forc
 a decision from someone who has correctly concluded they cannot yet make one — and
 `00_PROGRAM/08`'s quota model requires waiting to be a legitimate state.
 
+### Baseline v1.2.0 — priority without authority, and the delta a human actually needs
+
+Two additions, and the second is the one that changes what the queue is for.
+
+**`HumanAttentionScore`** orders the queue from gate criticality, verifier
+confidence and calibration, novelty, unresolved findings, risk class and
+correction history. It carries **no authority**: a mandatory gate at the bottom
+of the queue still blocks, and no score, timeout or learned preference produces a
+`DecisionRecord` — ACC-69.
+
+**The evidence delta.** A decision surface that shows the full state on every
+visit trains its reader to skim. What a returning human needs is what changed
+since the last decision: new and removed evidence, changed claim scope, new
+failures, reviewer disagreement, reproduction status, and which publication
+assertions are affected.
+
+Every edit made here produces a `HumanInterventionRecord` atomically with the
+change. If the audit write fails, the edit fails — ACC-68.
+
+### Baseline v1.3.0 — showing the cost of collaboration, and the shape of a decision
+
+The experience and observability layer gains three things it could not
+previously display, because they did not exist to be displayed.
+
+**Collaboration cost.** Coordination overhead ratio, redundant message rate,
+useful challenge rate, rounds, and the token ledger's seven categories. A single
+cost total says a campaign was expensive; the categories say whether it was
+expensive because it did science or because it held a meeting.
+
+**The human decision surface, reordered.** Evidence first, recommendation second,
+and a `DecisionDelta` when the second changes the first (`ADR-016`). The queue
+uses evidence-delta priority — what changed since the last decision, not the full
+state every time. **Attention priority orders and never authorises**, and no
+timeout or learned preference produces an approval.
+
+**Verifier abstention, surfaced.** An `ABSTAIN` is an escalation signal and has to
+look like one in the interface. A surface that renders it as a soft pass has
+undone `ADR-015`.
+
+New SLOs: coordination overhead, challenge rate, contamination and security
+findings, and the quality/cost Pareto frontier.
+
 ## Out of scope
 
 - The internal implementation of any dependent package
@@ -103,7 +145,7 @@ a decision from someone who has correctly concluded they cannot yet make one —
 
 ### Full prerequisite closure
 
-**79 of 141 packages (56%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
+**79 of 160 packages (49%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
 
 | Level | Packages |
 |---:|---|
@@ -149,8 +191,8 @@ a decision from someone who has correctly concluded they cannot yet make one —
 
 ### What acceptance of this package releases
 
-- **Directly unblocked:** 4 — `WP-102` · `WP-105` · `WP-106` · `WP-135`
-- **Transitively reachable:** **27 of 141 packages (19%)** cannot be accepted until this one is.
+- **Directly unblocked:** 5 — `WP-102` · `WP-105` · `WP-106` · `WP-135` · `WP-156`
+- **Transitively reachable:** **31 of 160 packages (19%)** cannot be accepted until this one is.
 
 The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
 
@@ -201,10 +243,16 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `SLA/escalation table` | `WP-004` | `python3 scripts/progress.py show WP-004` |
 | `Delegation matrix` | `WP-004` | `python3 scripts/progress.py show WP-004` |
 | `Decision rationale rubric` | `WP-004` | `python3 scripts/progress.py show WP-004` |
+| `Human intervention vocabulary` | `WP-004` | `python3 scripts/progress.py show WP-004` |
+| `Timeout escalation path with no approval branch` | `WP-004` | `python3 scripts/progress.py show WP-004` |
 | `Evidence contract bundle` | `WP-018` | `python3 scripts/progress.py show WP-018` |
 | `Claim state machine` | `WP-018` | `python3 scripts/progress.py show WP-018` |
 | `Review/disagreement schemas` | `WP-018` | `python3 scripts/progress.py show WP-018` |
 | `Decision schema fixtures` | `WP-018` | `python3 scripts/progress.py show WP-018` |
+| `PublicationAssertion` | `WP-018` | `python3 scripts/progress.py show WP-018` |
+| `EvidenceTag` | `WP-018` | `python3 scripts/progress.py show WP-018` |
+| `FindingRecord` | `WP-018` | `python3 scripts/progress.py show WP-018` |
+| `Authority typing on every scientific record` | `WP-018` | `python3 scripts/progress.py show WP-018` |
 | `Human Update API` | `WP-038` | `python3 scripts/progress.py show WP-038` |
 | `Cancellation contract` | `WP-038` | `python3 scripts/progress.py show WP-038` |
 | `Compensation registry` | `WP-038` | `python3 scripts/progress.py show WP-038` |
@@ -276,6 +324,10 @@ A package whose evidence cannot be produced is not `READY`, however complete its
 - `Rationale forms`
 - `Delegation/escalation views`
 - `Decision audit export`
+- `HumanAttentionScore`
+- `Evidence delta view`
+- `Human preliminary flow`
+- `Friction symmetry measurement`
 - An updated runbook or operations note, plus the service/contract ownership record
 - A signed `EvidenceManifest`
 

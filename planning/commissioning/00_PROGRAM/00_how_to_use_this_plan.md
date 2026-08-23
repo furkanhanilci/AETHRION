@@ -2,7 +2,7 @@
 
 ## Purpose
 
-This file defines how 140 work packages are managed as a single programme. The
+This file defines how 159 work packages are managed as a single programme. The
 packages are deliberately small, but a small package does not mean an
 independent architectural decision. Every package realises one invariant of the
 target architecture and is bound to the dependency graph.
@@ -99,7 +99,8 @@ validity, **go-live feasibility**, stale ranges and catalogue parity.
 ## Adopted components
 
 Ten packages carry an **Adopted component** section naming what they stand on —
-Inspect AI, GROBID/Pub2TEI, Cedar, the CaMeL pattern, OSF Registries, Workflow
+Inspect AI, GROBID/Pub2TEI, a policy engine behind the `PolicyDecision`
+interface, the CaMeL pattern, OSF Registries, Workflow
 Run RO-Crate, SEPIO/LinkML, object-lock storage, the Quarto authoring stack.
 
 Their job is therefore *integrate this component under our contract and verify it

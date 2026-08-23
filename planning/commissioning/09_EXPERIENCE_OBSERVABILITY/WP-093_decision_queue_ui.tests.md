@@ -108,16 +108,20 @@ ISO/IEC/IEEE 29119-3 §8.3.2. A coverage item is something the tests must reach.
 | C03 | `Rationale forms` | Mandatory deliverable | *(name the test case)* |
 | C04 | `Delegation/escalation views` | Mandatory deliverable | *(name the test case)* |
 | C05 | `Decision audit export` | Mandatory deliverable | *(name the test case)* |
-| C06 | Write the decision inbox, filters, escalation and ownership views | WP-093-T01 | *(name the test case)* |
-| C07 | Design the frozen evidence snapshot, delta and dissent summary | WP-093-T02 | *(name the test case)* |
-| C08 | Apply the rationale rubric and required-field validation | WP-093-T03 | *(name the test case)* |
-| C09 | Add delegation scope and expiry plus the non-delegable banner | WP-093-T04 | *(name the test case)* |
-| C10 | Bind MFA re-authentication, signing and update idempotency | WP-093-T05 | *(name the test case)* |
-| C11 | Write the decision history, revoke and supersede views | WP-093-T06 | *(name the test case)* |
-| C12 | Human Approval Forgery | [ACC-25](../12_ACCEPTANCE_SCENARIOS/ACC-25_human_approval_forgery.md) — Critical | *(name the test case)* |
-| C13 | Approval, Delegation and Exception Expiry | [ACC-26](../12_ACCEPTANCE_SCENARIOS/ACC-26_approval_expiry.md) — Critical | *(name the test case)* |
+| C06 | `HumanAttentionScore` | Mandatory deliverable | *(name the test case)* |
+| C07 | `Evidence delta view` | Mandatory deliverable | *(name the test case)* |
+| C08 | `Human preliminary flow` | Mandatory deliverable | *(name the test case)* |
+| C09 | `Friction symmetry measurement` | Mandatory deliverable | *(name the test case)* |
+| C10 | Write the decision inbox, filters, escalation and ownership views | WP-093-T01 | *(name the test case)* |
+| C11 | Design the frozen evidence snapshot, delta and dissent summary | WP-093-T02 | *(name the test case)* |
+| C12 | Apply the rationale rubric and required-field validation | WP-093-T03 | *(name the test case)* |
+| C13 | Add delegation scope and expiry plus the non-delegable banner | WP-093-T04 | *(name the test case)* |
+| C14 | Bind MFA re-authentication, signing and update idempotency | WP-093-T05 | *(name the test case)* |
+| C15 | Write the decision history, revoke and supersede views | WP-093-T06 | *(name the test case)* |
+| C16 | Human Approval Forgery | [ACC-25](../12_ACCEPTANCE_SCENARIOS/ACC-25_human_approval_forgery.md) — Critical | *(name the test case)* |
+| C17 | Approval, Delegation and Exception Expiry | [ACC-26](../12_ACCEPTANCE_SCENARIOS/ACC-26_approval_expiry.md) — Critical | *(name the test case)* |
 
-**13 coverage items.** Every one must appear in the *Covered by* column of at least one test case below before this package can reach `TECH_COMPLETE`.
+**17 coverage items.** Every one must appear in the *Covered by* column of at least one test case below before this package can reach `TECH_COMPLETE`.
 
 <!-- /generated:coverage -->
 

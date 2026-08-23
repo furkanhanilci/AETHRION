@@ -86,6 +86,63 @@ what WP-080's audit checks.
 A DOI, a persistent identifier, and an access statement. WP-138/WP-139 own the
 deposit and the timestamp; this package produces what they deposit.
 
+### Baseline v1.2.0 — the compiler's job is to refuse
+
+The publication package becomes a **compiler over canonical state**. The document
+is a projection of the claim, evidence and value graph; a language model may draft
+wording and is never the source of what the document asserts.
+
+Four refusals, each with a scenario:
+
+| Refusal | Test |
+|---|---|
+| A factual sentence with no `ClaimVersion` | ACC-52 |
+| A number the `VerifiedValue` registry does not carry | ACC-53 |
+| A real citation that does not support the sentence | ACC-76 |
+| A V2 verdict with no current qualification | ACC-61 |
+
+The check must **discriminate**: structural and editorial text carries a
+`text_role` and passes, and a declared rounding of a registered value passes and
+records its display transform. A compiler that blocks all prose has demonstrated
+nothing except that it can block.
+
+Method sections are rendered from the executed protocol, code and configuration.
+Hand-editing the prose invalidates the method–code alignment result, which was
+about a specific pair of texts.
+
+The scope verifier proposes a bounded restatement and does not apply one. A system
+that silently rewrites its own claims to make them pass has replaced one integrity
+problem with a worse one.
+
+### Baseline v1.3.0 — the assurance layer stops using one word for two things
+
+Three changes, and the first is a vocabulary correction with real consequences.
+
+**"Mechanical verifier" is retired as a broad term.** It becomes V0 deterministic
+· V1 computational · V2 qualified semantic · V3 human (`ADR-008`), and the class
+is assigned by the verifier service from the procedure that actually ran — never
+by the caller. The reason is that the gate rule *a mechanical check cannot be
+overridden by a model* is correct for V0 and V1 and absurd at V2, where it says a
+model's judgement cannot be overridden by a model.
+
+**Assurance becomes routed** (`ADR-015`): by consequence and uncertainty rather
+than uniformly, with a cascade to a stronger independent verifier or to a human,
+and with `ABSTAIN` as a valid verdict that escalates. A route cannot be lowered
+because the queue is long or the budget is tight.
+
+**Three hard bindings** into the evidence and publication path:
+
+- **Specification conformance** — the frozen method and the running code are
+  compared, and an unapproved `SCIENTIFIC_MAJOR` deviation cannot carry a
+  confirmatory package forward (`ADR-018`, ACC-104).
+- **Model execution fingerprint** — every invocation contributing to a result
+  records what actually executed, retry and fallback history included, and a
+  hosted black-box model does not yield an `EXACT` reproduction claim
+  (ACC-115, ACC-116).
+- **Publication compiler** — no prose without a claim, no number without a
+  `VerifiedValue`, and a complete evidence chain checked link by link
+  (ACC-105, ACC-106).
+
 ## Out of scope
 
 - The internal implementation of any dependent package
@@ -117,7 +174,7 @@ deposit and the timestamp; this package produces what they deposit.
 
 ### Full prerequisite closure
 
-**81 of 141 packages (57%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
+**81 of 160 packages (51%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
 
 | Level | Packages |
 |---:|---|
@@ -164,7 +221,7 @@ deposit and the timestamp; this package produces what they deposit.
 ### What acceptance of this package releases
 
 - **Directly unblocked:** 7 — `WP-095` · `WP-106` · `WP-107` · `WP-108` · `WP-109` · `WP-113` · `WP-138`
-- **Transitively reachable:** **29 of 141 packages (21%)** cannot be accepted until this one is.
+- **Transitively reachable:** **33 of 160 packages (21%)** cannot be accepted until this one is.
 
 The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
 
@@ -216,10 +273,16 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `DatasetManifest schema` | `WP-014` | `python3 scripts/progress.py show WP-014` |
 | `Environment reference schema` | `WP-014` | `python3 scripts/progress.py show WP-014` |
 | `Immutability lifecycle` | `WP-014` | `python3 scripts/progress.py show WP-014` |
+| `Ordered parent lineage` | `WP-014` | `python3 scripts/progress.py show WP-014` |
+| `Digest normalisation and migration` | `WP-014` | `python3 scripts/progress.py show WP-014` |
 | `Evidence contract bundle` | `WP-018` | `python3 scripts/progress.py show WP-018` |
 | `Claim state machine` | `WP-018` | `python3 scripts/progress.py show WP-018` |
 | `Review/disagreement schemas` | `WP-018` | `python3 scripts/progress.py show WP-018` |
 | `Decision schema fixtures` | `WP-018` | `python3 scripts/progress.py show WP-018` |
+| `PublicationAssertion` | `WP-018` | `python3 scripts/progress.py show WP-018` |
+| `EvidenceTag` | `WP-018` | `python3 scripts/progress.py show WP-018` |
+| `FindingRecord` | `WP-018` | `python3 scripts/progress.py show WP-018` |
+| `Authority typing on every scientific record` | `WP-018` | `python3 scripts/progress.py show WP-018` |
 | `Object storage IaC` | `WP-026` | `python3 scripts/progress.py show WP-026` |
 | `Object address service` | `WP-026` | `python3 scripts/progress.py show WP-026` |
 | `Retention matrix` | `WP-026` | `python3 scripts/progress.py show WP-026` |
@@ -243,24 +306,40 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `Audit rubric` | `WP-080` | `python3 scripts/progress.py show WP-080` |
 | `Mechanical locator checker` | `WP-080` | `python3 scripts/progress.py show WP-080` |
 | `Audit report/scorecard` | `WP-080` | `python3 scripts/progress.py show WP-080` |
+| `Decomposed citation audit with per-question verification class` | `WP-080` | `python3 scripts/progress.py show WP-080` |
 | `Method Registry` | `WP-081` | `python3 scripts/progress.py show WP-081` |
 | `Protocol validators` | `WP-081` | `python3 scripts/progress.py show WP-081` |
 | `Amendment workflow` | `WP-081` | `python3 scripts/progress.py show WP-081` |
 | `Post-hoc change detector` | `WP-081` | `python3 scripts/progress.py show WP-081` |
+| `SpecificationConformanceRecord binding` | `WP-081` | `python3 scripts/progress.py show WP-081` |
 | `Run Registry` | `WP-082` | `python3 scripts/progress.py show WP-082` |
 | `Preflight validator` | `WP-082` | `python3 scripts/progress.py show WP-082` |
 | `MLflow integration` | `WP-082` | `python3 scripts/progress.py show WP-082` |
 | `Run lineage queries` | `WP-082` | `python3 scripts/progress.py show WP-082` |
 | `Run lifecycle dashboard` | `WP-082` | `python3 scripts/progress.py show WP-082` |
+| `RawEvaluatorArtifact` | `WP-082` | `python3 scripts/progress.py show WP-082` |
+| `VerifiedValue` | `WP-082` | `python3 scripts/progress.py show WP-082` |
+| `PredictionRecord` | `WP-082` | `python3 scripts/progress.py show WP-082` |
+| `FailureAssessment` | `WP-082` | `python3 scripts/progress.py show WP-082` |
+| `ModelExecutionFingerprint` | `WP-082` | `python3 scripts/progress.py show WP-082` |
 | `Verification pipeline` | `WP-085` | `python3 scripts/progress.py show WP-085` |
 | `Type-specific protocols` | `WP-085` | `python3 scripts/progress.py show WP-085` |
 | `Robustness matrix` | `WP-085` | `python3 scripts/progress.py show WP-085` |
 | `Reproduction certificates` | `WP-085` | `python3 scripts/progress.py show WP-085` |
 | `Failure taxonomy` | `WP-085` | `python3 scripts/progress.py show WP-085` |
+| `AlgorithmUnderstandingRecord` | `WP-085` | `python3 scripts/progress.py show WP-085` |
+| `ReproductionPackage` | `WP-085` | `python3 scripts/progress.py show WP-085` |
+| `ClaimConsistencyReport` | `WP-085` | `python3 scripts/progress.py show WP-085` |
+| `Five-level reproduction taxonomy` | `WP-085` | `python3 scripts/progress.py show WP-085` |
 | `Verification Engine` | `WP-087` | `python3 scripts/progress.py show WP-087` |
 | `Validator catalog` | `WP-087` | `python3 scripts/progress.py show WP-087` |
 | `VerificationRecord service` | `WP-087` | `python3 scripts/progress.py show WP-087` |
 | `Regression fixtures` | `WP-087` | `python3 scripts/progress.py show WP-087` |
+| `V0-V3 verification routing` | `WP-087` | `python3 scripts/progress.py show WP-087` |
+| `VerifierQualificationRecord` | `WP-087` | `python3 scripts/progress.py show WP-087` |
+| `Positive and negative control suite` | `WP-087` | `python3 scripts/progress.py show WP-087` |
+| `Adaptive assurance routing` | `WP-087` | `python3 scripts/progress.py show WP-087` |
+| `Abstention verdicts` | `WP-087` | `python3 scripts/progress.py show WP-087` |
 | `Review service` | `WP-088` | `python3 scripts/progress.py show WP-088` |
 | `Assignment/eligibility engine` | `WP-088` | `python3 scripts/progress.py show WP-088` |
 | `Review rubrics` | `WP-088` | `python3 scripts/progress.py show WP-088` |
@@ -319,6 +398,8 @@ A package whose evidence cannot be produced is not `READY`, however complete its
 - `Signed publication package`
 - `Release checklist`
 - `Supersession record`
+- `Publication compiler`
+- `Assertion and value binding checks`
 - An updated runbook or operations note, plus the service/contract ownership record
 - A signed `EvidenceManifest`
 

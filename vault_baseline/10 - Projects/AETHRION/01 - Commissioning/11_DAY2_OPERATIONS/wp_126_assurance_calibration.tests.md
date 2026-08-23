@@ -135,16 +135,19 @@ ISO/IEC/IEEE 29119-3 §8.3.2. A coverage item is something the tests must reach.
 | C02 | `Reviewer capability decisions` | Mandatory deliverable | *(name the test case)* |
 | C03 | `Bias/quality dashboard` | Mandatory deliverable | *(name the test case)* |
 | C04 | `Improvement actions` | Mandatory deliverable | *(name the test case)* |
-| C05 | Run the calibration set and hidden counter-tests periodically | WP-126-T01 | *(name the test case)* |
-| C06 | Audit order swaps and blind/unblind leakage | WP-126-T02 | *(name the test case)* |
-| C07 | Compute validated precision and recall, disagreement rates and triage time | WP-126-T03 | *(name the test case)* |
-| C08 | Establish reviewer and reproducer profile expiry and suspension | WP-126-T04 | *(name the test case)* |
-| C09 | Correct rubrics, training and bundles, then requalify | WP-126-T05 | *(name the test case)* |
-| C10 | Reviewer Order Bias | [ACC-07](../12_ACCEPTANCE_SCENARIOS/acc_07_reviewer_order_bias.md) — High | *(name the test case)* |
-| C11 | Strong Counter-Test | [ACC-08](../12_ACCEPTANCE_SCENARIOS/acc_08_strong_counter_test.md) — Critical | *(name the test case)* |
-| C12 | Critical Reviewer Unavailable | [ACC-38](../12_ACCEPTANCE_SCENARIOS/acc_38_reviewer_unavailable.md) — High | *(name the test case)* |
+| C05 | `VerifierQualificationRecord` | Mandatory deliverable | *(name the test case)* |
+| C06 | `Verifier and reviewer error correlation measurement` | Mandatory deliverable | *(name the test case)* |
+| C07 | `Abstention-rate and error-correlation calibration` | Mandatory deliverable | *(name the test case)* |
+| C08 | Run the calibration set and hidden counter-tests periodically | WP-126-T01 | *(name the test case)* |
+| C09 | Audit order swaps and blind/unblind leakage | WP-126-T02 | *(name the test case)* |
+| C10 | Compute validated precision and recall, disagreement rates and triage time | WP-126-T03 | *(name the test case)* |
+| C11 | Establish reviewer and reproducer profile expiry and suspension | WP-126-T04 | *(name the test case)* |
+| C12 | Correct rubrics, training and bundles, then requalify | WP-126-T05 | *(name the test case)* |
+| C13 | Reviewer Order Bias | [ACC-07](../12_ACCEPTANCE_SCENARIOS/acc_07_reviewer_order_bias.md) — High | *(name the test case)* |
+| C14 | Strong Counter-Test | [ACC-08](../12_ACCEPTANCE_SCENARIOS/acc_08_strong_counter_test.md) — Critical | *(name the test case)* |
+| C15 | Critical Reviewer Unavailable | [ACC-38](../12_ACCEPTANCE_SCENARIOS/acc_38_reviewer_unavailable.md) — High | *(name the test case)* |
 
-**12 coverage items.** Every one must appear in the *Covered by* column of at least one test case below before this package can reach `TECH_COMPLETE`.
+**15 coverage items.** Every one must appear in the *Covered by* column of at least one test case below before this package can reach `TECH_COMPLETE`.
 
 <!-- /generated:coverage -->
 

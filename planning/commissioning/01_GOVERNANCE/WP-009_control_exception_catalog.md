@@ -79,6 +79,49 @@ applied to every control means the cheap ones are under-run and the expensive on
 are theatre. Frequency should follow consequence: a control whose failure is
 silent needs a shorter interval than one whose failure is loud.
 
+### Baseline v1.2.0 — five additions to the non-waivable set
+
+A control is non-waivable when no review finding, human narrative or exceptional
+circumstance may pass it. Five are added, each because the failure it prevents is
+invisible in the artifact that results:
+
+| Control | Why it cannot be waived |
+|---|---|
+| Raw evaluator integrity | A tampered evaluator output makes every number downstream unverifiable, and the number still looks like a number |
+| Analysis plan frozen before the first outcome | Post-hoc confirmatory labelling is undetectable in the finished document |
+| Reproduction environment independence | A reproduction in the producer's environment reproduces the environment |
+| Verifier qualification for a V2 verdict | An unmeasured judge is an opinion with institutional weight |
+| Publication assertion and value bindings | A sentence with nothing behind it is indistinguishable from one with everything behind it |
+
+A V0 or V1 failure remains absolute. A V2 finding is routed to review — that
+distinction is `ADR-008`, and it is what keeps the non-waivable rule coherent
+rather than absurd.
+
+### Baseline v1.3.0 — the invariants a cost optimiser must not be able to reach
+
+Three additions, and they share a shape: each names something that an
+efficiency argument would otherwise be free to trade away.
+
+**The cohort is not a lever.** `ADR-011` fixes that substantial scientific
+execution requires at least two epistemically independent cognitive
+contributions. Independence is a five-dimension profile, not a count — several
+instances of one model on one context are one contribution. Governance language
+here must make that an invariant rather than a default, because the pressure to
+relax it will arrive as a budget conversation.
+
+**Two disciplines, composable, neither collapsed.** `ADR-012`. A passing test is
+not a confirmed hypothesis and a preregistered analysis is not correct code. The
+four pairs that get conflated — TDD against preregistration, code review against
+scientific review, debugging against anomaly investigation, parallel agents
+against parallel analysts — stay distinct in the role, risk and control language.
+
+**What budget may and may not degrade.** Communication verbosity degrades; the
+cohort and the assurance route do not. A task that cannot afford its required
+assurance is `BLOCKED`, never quietly completed more cheaply. The new
+non-waivable controls follow from that: cohort integrity, assurance-route
+integrity, human preliminary judgment before recommendation, and specification
+conformance for confirmatory work.
+
 ## Out of scope
 
 - The internal implementation of any dependent package
@@ -101,7 +144,7 @@ silent needs a shorter interval than one whose failure is loud.
 
 ### Full prerequisite closure
 
-**8 of 141 packages (6%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
+**8 of 160 packages (5%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
 
 | Level | Packages |
 |---:|---|
@@ -114,7 +157,7 @@ silent needs a shorter interval than one whose failure is loud.
 ### What acceptance of this package releases
 
 - **Directly unblocked:** 5 — `WP-010` · `WP-016` · `WP-056` · `WP-109` · `WP-123`
-- **Transitively reachable:** **131 of 141 packages (93%)** cannot be accepted until this one is.
+- **Transitively reachable:** **150 of 160 packages (94%)** cannot be accepted until this one is.
 
 The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
 
@@ -165,14 +208,20 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `AssuranceClass decision tables` | `WP-005` | `python3 scripts/progress.py show WP-005` |
 | `Promotion rules` | `WP-005` | `python3 scripts/progress.py show WP-005` |
 | `Worked examples` | `WP-005` | `python3 scripts/progress.py show WP-005` |
+| `StudyMode decision table` | `WP-005` | `python3 scripts/progress.py show WP-005` |
+| `Substantiality threshold for the multi-agent invariant` | `WP-005` | `python3 scripts/progress.py show WP-005` |
 | `ExecutionProfile semantics` | `WP-006` | `python3 scripts/progress.py show WP-006` |
 | `Route/control decision tables` | `WP-006` | `python3 scripts/progress.py show WP-006` |
 | `Enforcement map` | `WP-006` | `python3 scripts/progress.py show WP-006` |
 | `Negative examples` | `WP-006` | `python3 scripts/progress.py show WP-006` |
+| `Producer and evaluator zone profiles` | `WP-006` | `python3 scripts/progress.py show WP-006` |
+| `MutationPolicy` | `WP-006` | `python3 scripts/progress.py show WP-006` |
 | `IndependenceProfile rubric` | `WP-007` | `python3 scripts/progress.py show WP-007` |
 | `Eligibility matrix` | `WP-007` | `python3 scripts/progress.py show WP-007` |
 | `Conflict-of-interest declaration` | `WP-007` | `python3 scripts/progress.py show WP-007` |
 | `Violation response` | `WP-007` | `python3 scripts/progress.py show WP-007` |
+| `Evaluator and memory-context independence constraints` | `WP-007` | `python3 scripts/progress.py show WP-007` |
+| `Cohort independence dimensions` | `WP-007` | `python3 scripts/progress.py show WP-007` |
 | `Gate Policy v1` | `WP-008` | `python3 scripts/progress.py show WP-008` |
 | `Gate artifact matrix` | `WP-008` | `python3 scripts/progress.py show WP-008` |
 | `Reopen/return transition table` | `WP-008` | `python3 scripts/progress.py show WP-008` |
@@ -224,6 +273,8 @@ A package whose evidence cannot be produced is not `READY`, however complete its
 - `ExceptionPolicy`
 - `NonWaivableBlocker registry`
 - `Control-test mapping`
+- `Non-waivable additions for the epistemic layer`
+- `Non-waivable additions for the reliability layer`
 - An updated runbook or operations note, plus the service/contract ownership record
 - A signed `EvidenceManifest`
 

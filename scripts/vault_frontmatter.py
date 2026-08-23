@@ -50,6 +50,7 @@ _WAVES = [
     ("w4", set(range(61, 91))), ("w5", set(range(91, 102))),
     ("w6", set(range(102, 116))), ("w7", set(range(116, 120))),
     ("w8", {120, 121}), ("w9", set(range(122, 131))), ("wt", set(range(131, 141))),
+    ("ws", set(range(141, 148))), ("wr", set(range(148, 160))),
 ]
 
 

@@ -101,6 +101,27 @@ Running a project forward through G0→G2 is the demonstration. Running it backw
 — a `REVISE` at G1, a `BLOCKED` at G2, a reopen after a protocol change — is the
 test.
 
+### Baseline v1.3.0 — the slices exercise the cohort, and the regression injects faults
+
+The vertical slices and the cutover path grow to cover what this baseline adds,
+and one package changes character.
+
+**WP-107 becomes the engineering completion slice.** Requirement and
+specification → worktree → TDD → code review → CI → supply-chain attestation →
+signed artifact → **eligibility to produce scientific evidence**. That last arrow
+is the junction between the two disciplines, and before this baseline nothing
+proved it end to end.
+
+**The other slices exercise the collaboration plane**: a compiled cohort, sealed
+initial positions, typed delta exchange over a sparse topology, an adaptive
+assurance route, a fingerprinted reproduction and a firewalled benchmark run.
+
+**The regression suite gains injections rather than cases.** Faulty agent,
+malicious agent, split brain, duplicate and out-of-order events, communication
+degradation under budget pressure, and benchmark contamination. These are
+failures that are invisible in a healthy run and obvious only in a post-mortem,
+which is why they are caused deliberately rather than waited for.
+
 ## Out of scope
 
 - The internal implementation of any dependent package
@@ -118,7 +139,7 @@ test.
 |---|---|
 | [WP-034 — G0 Intake and G1 Charter Workflows](../04_CONTROL_EVENT/wp_034_g0_g1_workflows.md) | `G0/G1 workflows` · `Intake/Charter UI API contract` · `ControlPlan generation` · `Gate fixtures` |
 | [WP-035 — G2 Protocol, G3 Literature and G4 Baseline Workflows](../04_CONTROL_EVENT/wp_035_g2_g4_workflows.md) | `G2–G4 workflows` · `Protocol amendment flow` · `Literature freeze integration` · `Compute-open decision` |
-| [WP-056 — OPA Policy Platform and Bundle Distribution](../06_EXECUTION_SECURITY/wp_056_opa_policy_platform.md) | `OPA platform` · `Policy bundle v1` · `Policy test suite` · `Bundle promotion pipeline` |
+| [WP-056 — Policy Decision Point and Bundle Distribution](../06_EXECUTION_SECURITY/wp_056_opa_policy_platform.md) | `Policy decision point` · `PolicyDecision interface conformance suite` · `Policy bundle v1` · `Policy test suite` |
 | [WP-091 — Lab Cockpit Information Architecture and Application Shell](../09_EXPERIENCE_OBSERVABILITY/wp_091_lab_cockpit_shell.md) | `Cockpit application shell` · `Navigation/IA` · `BFF/read APIs` · `RBAC matrix` |
 | [WP-092 — Project Workspace and G0–G10 Gate Timeline](../09_EXPERIENCE_OBSERVABILITY/wp_092_project_gate_timeline.md) | `Project Workspace` · `Gate Timeline` · `Artifact/evidence panels` · `Command/update forms` |
 | [WP-093 — Human Decision Queue and Evidence-Delta UI](../09_EXPERIENCE_OBSERVABILITY/wp_093_decision_queue_ui.md) | `Decision Queue UI` · `Evidence-delta component` · `Rationale forms` · `Delegation/escalation views` |
@@ -127,7 +148,7 @@ test.
 
 ### Full prerequisite closure
 
-**89 of 141 packages (63%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
+**89 of 160 packages (56%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
 
 | Level | Packages |
 |---:|---|
@@ -175,7 +196,7 @@ test.
 ### What acceptance of this package releases
 
 - **Directly unblocked:** 1 — `WP-109`
-- **Transitively reachable:** **22 of 141 packages (16%)** cannot be accepted until this one is.
+- **Transitively reachable:** **25 of 160 packages (16%)** cannot be accepted until this one is.
 
 The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
 
@@ -231,7 +252,8 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `Protocol amendment flow` | `WP-035` | `python3 scripts/progress.py show WP-035` |
 | `Literature freeze integration` | `WP-035` | `python3 scripts/progress.py show WP-035` |
 | `Compute-open decision` | `WP-035` | `python3 scripts/progress.py show WP-035` |
-| `OPA platform` | `WP-056` | `python3 scripts/progress.py show WP-056` |
+| `Policy decision point` | `WP-056` | `python3 scripts/progress.py show WP-056` |
+| `PolicyDecision interface conformance suite` | `WP-056` | `python3 scripts/progress.py show WP-056` |
 | `Policy bundle v1` | `WP-056` | `python3 scripts/progress.py show WP-056` |
 | `Policy test suite` | `WP-056` | `python3 scripts/progress.py show WP-056` |
 | `Bundle promotion pipeline` | `WP-056` | `python3 scripts/progress.py show WP-056` |
@@ -250,16 +272,22 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `Rationale forms` | `WP-093` | `python3 scripts/progress.py show WP-093` |
 | `Delegation/escalation views` | `WP-093` | `python3 scripts/progress.py show WP-093` |
 | `Decision audit export` | `WP-093` | `python3 scripts/progress.py show WP-093` |
+| `HumanAttentionScore` | `WP-093` | `python3 scripts/progress.py show WP-093` |
+| `Evidence delta view` | `WP-093` | `python3 scripts/progress.py show WP-093` |
+| `Human preliminary flow` | `WP-093` | `python3 scripts/progress.py show WP-093` |
+| `Friction symmetry measurement` | `WP-093` | `python3 scripts/progress.py show WP-093` |
 | `Cost Ledger` | `WP-100` | `python3 scripts/progress.py show WP-100` |
 | `Budget service` | `WP-100` | `python3 scripts/progress.py show WP-100` |
 | `Cost adapters` | `WP-100` | `python3 scripts/progress.py show WP-100` |
 | `Invoice reconciliation` | `WP-100` | `python3 scripts/progress.py show WP-100` |
 | `FinOps dashboard/runbook` | `WP-100` | `python3 scripts/progress.py show WP-100` |
+| `Token ledger categories` | `WP-100` | `python3 scripts/progress.py show WP-100` |
 | `Service Catalog` | `WP-101` | `python3 scripts/progress.py show WP-101` |
 | `SLO catalog` | `WP-101` | `python3 scripts/progress.py show WP-101` |
 | `Error-budget policy` | `WP-101` | `python3 scripts/progress.py show WP-101` |
 | `Alert-runbook link checker` | `WP-101` | `python3 scripts/progress.py show WP-101` |
 | `Ownership dashboard` | `WP-101` | `python3 scripts/progress.py show WP-101` |
+| `Coordination overhead and Pareto SLOs` | `WP-101` | `python3 scripts/progress.py show WP-101` |
 
 ### Classification that must be recorded before work begins
 

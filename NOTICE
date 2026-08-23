@@ -28,6 +28,28 @@ rather than a claim in prose.
 **Do not edit vendored content.** Changes belong upstream, or in an AIRL-native
 skill that records `airl.derived_from`.
 
+### Mechanisms adapted from other projects
+
+Beyond the vendored skills above, this architecture takes **mechanisms** — not
+code — from a number of open research systems. The full register, with the
+upstream, the licence, the date the licence was read at the source, what was
+deliberately not taken and what each mechanism may never decide, is
+[`provenance/README.md`](provenance/README.md), generated from
+`provenance/upstreams.json` and validated by
+`scripts/check_upstream_lineage.py`.
+
+**No source file from any of those projects is currently present in this
+repository.** Every register entry is a decision on paper: `pinned_commit` is
+`null` throughout and no entry has reached `ADAPTING`. Where code is later taken
+directly, the register requires a permissive licence, a pinned commit and a
+named file list before it may reach that state, and the licence notice is
+reproduced here and in the adapted file's SPDX header at that point.
+
+Where a mechanism is reimplemented from a paper or a published description
+rather than copied, no licence obligation arises. The lineage is recorded anyway,
+because knowing where an idea came from is engineering hygiene independent of
+whether it is a legal requirement.
+
 ### Adopted external standards
 
 The framework conforms to public specifications — the Agent Skills format,

@@ -67,6 +67,30 @@ that only kills workers has tested the easiest case.
 integrity-query results are a claim. This is the same distinction as WP-025's
 restore: the service starting is not the test.
 
+### Baseline v1.3.0 — new policies at the gates, without moving authority
+
+G0–G10 consumes the collaboration, conformance, assurance and reproduction
+policies this baseline adds. **None of that moves authority.** Temporal still
+owns lifecycle transitions and LangGraph still owns bounded cognition inside one
+task, and a checkpoint in the second cannot transition a gate in the first.
+
+Three concrete additions:
+
+- **G5 and G6** consume the cohort, the topology, the specification conformance
+  result and the assurance route.
+- **G7** consumes the model execution fingerprint and the reproduction level it
+  supports — a hosted black-box model does not yield `EXACT`.
+- **G8** runs the human preliminary flow: the recommendation is unreachable
+  until the human assessment is sealed, through **every** interface rather than
+  only the UI.
+
+And the write path becomes explicit: a canonical transaction and its outbox
+record commit atomically, the publisher reads the outbox afterwards, and a
+consumer validates identity and version rather than trusting a payload. The
+failure suite gains the injections that make split brain visible — publisher
+crash, duplicate delivery, out-of-order delivery, a cancelled task's late
+result, and two concurrent gate transitions.
+
 ## Out of scope
 
 - The internal implementation of any dependent package
@@ -95,7 +119,7 @@ restore: the service starting is not the test.
 
 ### Full prerequisite closure
 
-**37 of 141 packages (26%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
+**37 of 160 packages (23%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
 
 | Level | Packages |
 |---:|---|
@@ -127,7 +151,7 @@ restore: the service starting is not the test.
 ### What acceptance of this package releases
 
 - **Directly unblocked:** 4 — `WP-109` · `WP-111` · `WP-116` · `WP-130`
-- **Transitively reachable:** **22 of 141 packages (16%)** cannot be accepted until this one is.
+- **Transitively reachable:** **25 of 160 packages (16%)** cannot be accepted until this one is.
 
 The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
 
@@ -181,6 +205,7 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `Verification summary schema adapter` | `WP-024` | `python3 scripts/progress.py show WP-024` |
 | `Test ownership registry` | `WP-024` | `python3 scripts/progress.py show WP-024` |
 | `Flake policy` | `WP-024` | `python3 scripts/progress.py show WP-024` |
+| `SPDX/REUSE and OSV admission checks` | `WP-024` | `python3 scripts/progress.py show WP-024` |
 | `Temporal platform` | `WP-031` | `python3 scripts/progress.py show WP-031` |
 | `Namespace/queue catalog` | `WP-031` | `python3 scripts/progress.py show WP-031` |
 | `Worker identity policy` | `WP-031` | `python3 scripts/progress.py show WP-031` |
@@ -206,6 +231,7 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `Review/repro integration contracts` | `WP-036` | `python3 scripts/progress.py show WP-036` |
 | `Decision update flow` | `WP-036` | `python3 scripts/progress.py show WP-036` |
 | `Publication transition` | `WP-036` | `python3 scripts/progress.py show WP-036` |
+| `Gate consumption of collaboration and assurance policies` | `WP-036` | `python3 scripts/progress.py show WP-036` |
 | `ImpactScan workflow` | `WP-037` | `python3 scripts/progress.py show WP-037` |
 | `Schedule registry` | `WP-037` | `python3 scripts/progress.py show WP-037` |
 | `ImpactCase service contract` | `WP-037` | `python3 scripts/progress.py show WP-037` |
@@ -266,6 +292,7 @@ A package whose evidence cannot be produced is not `READY`, however complete its
 - `Golden histories`
 - `Fault-injection harness`
 - `Workflow compatibility report`
+- `Split-brain injection suite`
 - An updated runbook or operations note, plus the service/contract ownership record
 - A signed `EvidenceManifest`
 

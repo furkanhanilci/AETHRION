@@ -94,6 +94,29 @@ A claim's sentences and their audit verdicts, in one place — so a reader can s
 that a claim is supported *and* that the sentences asserting it were checked
 against their spans.
 
+### Baseline v1.3.0 — showing the cost of collaboration, and the shape of a decision
+
+The experience and observability layer gains three things it could not
+previously display, because they did not exist to be displayed.
+
+**Collaboration cost.** Coordination overhead ratio, redundant message rate,
+useful challenge rate, rounds, and the token ledger's seven categories. A single
+cost total says a campaign was expensive; the categories say whether it was
+expensive because it did science or because it held a meeting.
+
+**The human decision surface, reordered.** Evidence first, recommendation second,
+and a `DecisionDelta` when the second changes the first (`ADR-016`). The queue
+uses evidence-delta priority — what changed since the last decision, not the full
+state every time. **Attention priority orders and never authorises**, and no
+timeout or learned preference produces an approval.
+
+**Verifier abstention, surfaced.** An `ABSTAIN` is an escalation signal and has to
+look like one in the interface. A surface that renders it as a soft pass has
+undone `ADR-015`.
+
+New SLOs: coordination overhead, challenge rate, contamination and security
+findings, and the quality/cost Pareto frontier.
+
 ## Out of scope
 
 - The internal implementation of any dependent package
@@ -126,7 +149,7 @@ against their spans.
 
 ### Full prerequisite closure
 
-**83 of 141 packages (59%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
+**83 of 160 packages (52%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
 
 | Level | Packages |
 |---:|---|
@@ -174,7 +197,7 @@ against their spans.
 ### What acceptance of this package releases
 
 - **Directly unblocked:** 4 — `WP-104` · `WP-105` · `WP-106` · `WP-108`
-- **Transitively reachable:** **26 of 141 packages (18%)** cannot be accepted until this one is.
+- **Transitively reachable:** **29 of 160 packages (18%)** cannot be accepted until this one is.
 
 The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
 
@@ -228,6 +251,7 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `Graph/vector/search indexes` | `WP-030` | `python3 scripts/progress.py show WP-030` |
 | `Rebuild jobs` | `WP-030` | `python3 scripts/progress.py show WP-030` |
 | `Integrity/lag dashboard` | `WP-030` | `python3 scripts/progress.py show WP-030` |
+| `Destructive projection rebuild proof` | `WP-030` | `python3 scripts/progress.py show WP-030` |
 | `Claim Ledger service` | `WP-075` | `python3 scripts/progress.py show WP-075` |
 | `Migrations/API` | `WP-075` | `python3 scripts/progress.py show WP-075` |
 | `State transition engine` | `WP-075` | `python3 scripts/progress.py show WP-075` |
@@ -254,20 +278,35 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `Audit rubric` | `WP-080` | `python3 scripts/progress.py show WP-080` |
 | `Mechanical locator checker` | `WP-080` | `python3 scripts/progress.py show WP-080` |
 | `Audit report/scorecard` | `WP-080` | `python3 scripts/progress.py show WP-080` |
+| `Decomposed citation audit with per-question verification class` | `WP-080` | `python3 scripts/progress.py show WP-080` |
 | `Run Registry` | `WP-082` | `python3 scripts/progress.py show WP-082` |
 | `Preflight validator` | `WP-082` | `python3 scripts/progress.py show WP-082` |
 | `MLflow integration` | `WP-082` | `python3 scripts/progress.py show WP-082` |
 | `Run lineage queries` | `WP-082` | `python3 scripts/progress.py show WP-082` |
 | `Run lifecycle dashboard` | `WP-082` | `python3 scripts/progress.py show WP-082` |
+| `RawEvaluatorArtifact` | `WP-082` | `python3 scripts/progress.py show WP-082` |
+| `VerifiedValue` | `WP-082` | `python3 scripts/progress.py show WP-082` |
+| `PredictionRecord` | `WP-082` | `python3 scripts/progress.py show WP-082` |
+| `FailureAssessment` | `WP-082` | `python3 scripts/progress.py show WP-082` |
+| `ModelExecutionFingerprint` | `WP-082` | `python3 scripts/progress.py show WP-082` |
 | `Verification pipeline` | `WP-085` | `python3 scripts/progress.py show WP-085` |
 | `Type-specific protocols` | `WP-085` | `python3 scripts/progress.py show WP-085` |
 | `Robustness matrix` | `WP-085` | `python3 scripts/progress.py show WP-085` |
 | `Reproduction certificates` | `WP-085` | `python3 scripts/progress.py show WP-085` |
 | `Failure taxonomy` | `WP-085` | `python3 scripts/progress.py show WP-085` |
+| `AlgorithmUnderstandingRecord` | `WP-085` | `python3 scripts/progress.py show WP-085` |
+| `ReproductionPackage` | `WP-085` | `python3 scripts/progress.py show WP-085` |
+| `ClaimConsistencyReport` | `WP-085` | `python3 scripts/progress.py show WP-085` |
+| `Five-level reproduction taxonomy` | `WP-085` | `python3 scripts/progress.py show WP-085` |
 | `Verification Engine` | `WP-087` | `python3 scripts/progress.py show WP-087` |
 | `Validator catalog` | `WP-087` | `python3 scripts/progress.py show WP-087` |
 | `VerificationRecord service` | `WP-087` | `python3 scripts/progress.py show WP-087` |
 | `Regression fixtures` | `WP-087` | `python3 scripts/progress.py show WP-087` |
+| `V0-V3 verification routing` | `WP-087` | `python3 scripts/progress.py show WP-087` |
+| `VerifierQualificationRecord` | `WP-087` | `python3 scripts/progress.py show WP-087` |
+| `Positive and negative control suite` | `WP-087` | `python3 scripts/progress.py show WP-087` |
+| `Adaptive assurance routing` | `WP-087` | `python3 scripts/progress.py show WP-087` |
+| `Abstention verdicts` | `WP-087` | `python3 scripts/progress.py show WP-087` |
 | `Review service` | `WP-088` | `python3 scripts/progress.py show WP-088` |
 | `Assignment/eligibility engine` | `WP-088` | `python3 scripts/progress.py show WP-088` |
 | `Review rubrics` | `WP-088` | `python3 scripts/progress.py show WP-088` |
@@ -282,6 +321,8 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `Signed publication package` | `WP-090` | `python3 scripts/progress.py show WP-090` |
 | `Release checklist` | `WP-090` | `python3 scripts/progress.py show WP-090` |
 | `Supersession record` | `WP-090` | `python3 scripts/progress.py show WP-090` |
+| `Publication compiler` | `WP-090` | `python3 scripts/progress.py show WP-090` |
+| `Assertion and value binding checks` | `WP-090` | `python3 scripts/progress.py show WP-090` |
 | `Cockpit application shell` | `WP-091` | `python3 scripts/progress.py show WP-091` |
 | `Navigation/IA` | `WP-091` | `python3 scripts/progress.py show WP-091` |
 | `BFF/read APIs` | `WP-091` | `python3 scripts/progress.py show WP-091` |

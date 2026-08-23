@@ -1,4 +1,4 @@
-# WP-056 — OPA Policy Platform and Bundle Distribution — Acceptance Criteria
+# WP-056 — Policy Decision Point and Bundle Distribution — Acceptance Criteria
 
 ## Document identity
 
@@ -7,7 +7,7 @@
 | Field | Value |
 |---|---|
 | Unique identifier | `AC-WP-056` |
-| Work package | [`WP-056` — OPA Policy Platform and Bundle Distribution](WP-056_opa_policy_platform.md) |
+| Work package | [`WP-056` — Policy Decision Point and Bundle Distribution](WP-056_opa_policy_platform.md) |
 | Companion | [test procedures](WP-056_opa_policy_platform.tests.md) |
 | Workstream | `06_EXECUTION_SECURITY` |
 | Approval authority | **Safety / Security / Internal Audit** — the independent verifier |

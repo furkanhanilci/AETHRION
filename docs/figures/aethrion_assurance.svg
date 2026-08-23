@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1400" width="100%" role="img">
+<defs>
+  <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+    <path d="M 0 1 L 9 5 L 0 9 z" fill="context-stroke"/>
+  </marker>
+  <marker id="arrowsm" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5.5" markerHeight="5.5" orient="auto-start-reverse">
+    <path d="M 0 1.5 L 9 5 L 0 8.5 z" fill="context-stroke"/>
+  </marker>
+  <pattern id="hatch" width="7" height="7" patternTransform="rotate(45)" patternUnits="userSpaceOnUse">
+    <line x1="0" y1="0" x2="0" y2="7" stroke="#C8C8C8" stroke-width="2.2"/>
+  </pattern>
+</defs>
+<rect width="1200" height="1400" fill="#FFFFFF"/>
+<text x="24.0" y="48.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="30" font-weight="700" font-style="normal" fill="#1A1A1A" text-anchor="start">What “machines verify” means, and what a document may assert</text>
+<text x="24.0" y="80.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="18" font-weight="400" font-style="normal" fill="#63666A" text-anchor="start">One word was carrying two jobs: a hash comparison that is either right or wrong, and a language model deciding whether a cited passage</text>
+<text x="24.0" y="104.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="18" font-weight="400" font-style="normal" fill="#63666A" text-anchor="start">supports a sentence. Calling both mechanical manufactures confidence. Four classes separate them, and the boundary that matters is</text>
+<text x="24.0" y="128.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="18" font-weight="400" font-style="normal" fill="#63666A" text-anchor="start">between V1 and V2.</text>
+<rect x="24.0" y="166.0" width="1152.0" height="106.0" rx="4" fill="#ebf7f4" stroke="#009E73" stroke-width="1.8"/>
+<rect x="24.0" y="166.0" width="78.0" height="106.0" rx="4" fill="#b2e2d5" stroke="#009E73" stroke-width="1.8"/>
+<text x="63.0" y="210.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="27" font-weight="700" font-style="normal" fill="#1A1A1A" text-anchor="middle">V0</text>
+<text x="120.0" y="196.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="20" font-weight="700" font-style="normal" fill="#1A1A1A" text-anchor="start">Deterministic</text>
+<text x="120.0" y="220.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="start">digest comparison · schema validation · signature · reference resolution · artifact existence</text>
+<text x="120.0" y="258.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#1A1A1A" text-anchor="start">Same input, same answer, always. Never invokes a model</text>
+<text x="896.0" y="196.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="17" font-weight="700" font-style="normal" fill="#009E73" text-anchor="start">non-waivable</text>
+<rect x="24.0" y="284.0" width="1152.0" height="106.0" rx="4" fill="#ebf7f4" stroke="#009E73" stroke-width="1.8"/>
+<rect x="24.0" y="284.0" width="78.0" height="106.0" rx="4" fill="#b2e2d5" stroke="#009E73" stroke-width="1.8"/>
+<text x="63.0" y="328.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="27" font-weight="700" font-style="normal" fill="#1A1A1A" text-anchor="middle">V1</text>
+<text x="120.0" y="314.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="20" font-weight="700" font-style="normal" fill="#1A1A1A" text-anchor="start">Computational or statistical</text>
+<text x="120.0" y="338.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="start">score recomputation · statistical test · GRIM and statcheck consistency · tolerance comparison</text>
+<text x="120.0" y="376.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#1A1A1A" text-anchor="start">Deterministic given pinned software and configuration</text>
+<text x="896.0" y="314.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="17" font-weight="700" font-style="normal" fill="#009E73" text-anchor="start">non-waivable</text>
+<path d="M 24 396 L 1176 396" fill="none" stroke="#D55E00" stroke-width="3.0" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="1176.0" y="416.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="17" font-weight="700" font-style="normal" fill="#D55E00" text-anchor="end">certain  ·  above this line          has an error rate  ·  below it</text>
+<rect x="24.0" y="402.0" width="1152.0" height="106.0" rx="4" fill="#fdf7eb" stroke="#E69F00" stroke-width="1.8"/>
+<rect x="24.0" y="402.0" width="78.0" height="106.0" rx="4" fill="#f8e2b2" stroke="#E69F00" stroke-width="1.8"/>
+<text x="63.0" y="446.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="27" font-weight="700" font-style="normal" fill="#1A1A1A" text-anchor="middle">V2</text>
+<text x="120.0" y="432.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="20" font-weight="700" font-style="normal" fill="#1A1A1A" text-anchor="start">Model-mediated semantic</text>
+<text x="120.0" y="456.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="start">citation entailment · claim scope and overclaim · method–code alignment · prior-art overlap</text>
+<text x="120.0" y="494.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#1A1A1A" text-anchor="start">A judgement with a false-positive and a false-negative rate, whether or not anyone measured them</text>
+<text x="896.0" y="432.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="17" font-weight="700" font-style="normal" fill="#E69F00" text-anchor="start">requires a current qualification</text>
+<rect x="24.0" y="520.0" width="1152.0" height="106.0" rx="4" fill="#fcf2eb" stroke="#D55E00" stroke-width="1.8"/>
+<rect x="24.0" y="520.0" width="78.0" height="106.0" rx="4" fill="#f2cfb2" stroke="#D55E00" stroke-width="1.8"/>
+<text x="63.0" y="564.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="27" font-weight="700" font-style="normal" fill="#1A1A1A" text-anchor="middle">V3</text>
+<text x="120.0" y="550.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="20" font-weight="700" font-style="normal" fill="#1A1A1A" text-anchor="start">Human scientific judgement</text>
+<text x="120.0" y="574.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="start">residual methodological interpretation · high-risk arbitration · G8 · integrity findings</text>
+<text x="120.0" y="612.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#1A1A1A" text-anchor="start">Authority, not throughput</text>
+<text x="896.0" y="550.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="17" font-weight="700" font-style="normal" fill="#D55E00" text-anchor="start">authority</text>
+<rect x="24.0" y="664.0" width="1152.0" height="92.0" rx="4" fill="#fbefe6" stroke="#D55E00" stroke-width="2.0"/>
+<text x="42.0" y="692.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="19" font-weight="700" font-style="normal" fill="#D55E00" text-anchor="start">Why the split repairs the gate rule rather than weakening it</text>
+<text x="42.0" y="716.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="17" font-weight="400" font-style="normal" fill="#1A1A1A" text-anchor="start">The gate rule is that a mechanical check runs first and cannot be overridden by a model. That is right for V0 and V1. Applied to V2 it says</text>
+<text x="42.0" y="738.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="17" font-weight="400" font-style="normal" fill="#1A1A1A" text-anchor="start">something absurd — that a model&#x27;s judgement cannot be overridden by a model. So “mechanical” now means V0 and V1, a V2 result is a</text>
+<text x="42.0" y="760.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="17" font-weight="400" font-style="normal" fill="#1A1A1A" text-anchor="start">finding routed to review, and only V0 and V1 failures are absolute.</text>
+<text x="24.0" y="790.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="21" font-weight="700" font-style="normal" fill="#1A1A1A" text-anchor="start">One “citation audit” is four questions with three different statuses</text>
+<rect x="24.0" y="814.0" width="219.2" height="116.0" rx="4" fill="#def2ed" stroke="#009E73" stroke-width="1.6"/>
+<text x="133.6" y="855.4" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="20" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="middle">V0</text>
+<text x="133.6" y="881.4" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">Does the reference exist</text>
+<text x="133.6" y="900.4" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">and resolve?</text>
+<rect x="257.2" y="814.0" width="219.2" height="116.0" rx="4" fill="#def2ed" stroke="#009E73" stroke-width="1.6"/>
+<text x="366.8" y="855.4" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="20" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="middle">V0</text>
+<text x="366.8" y="881.4" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">Does the locator resolve</text>
+<text x="366.8" y="900.4" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">in this representation?</text>
+<rect x="490.4" y="814.0" width="219.2" height="116.0" rx="4" fill="#def2ed" stroke="#009E73" stroke-width="1.6"/>
+<text x="600.0" y="855.4" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="20" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="middle">V0/V1</text>
+<text x="600.0" y="881.4" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">Does the quoted span</text>
+<text x="600.0" y="900.4" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">match the source digest?</text>
+<rect x="723.6" y="814.0" width="219.2" height="116.0" rx="4" fill="#fcf3de" stroke="#E69F00" stroke-width="1.6"/>
+<text x="833.2" y="855.4" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="20" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="middle">V2</text>
+<text x="833.2" y="881.4" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">Does the passage</text>
+<text x="833.2" y="900.4" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">support the sentence?</text>
+<rect x="956.8" y="814.0" width="219.2" height="116.0" rx="4" fill="#fcf3de" stroke="#E69F00" stroke-width="1.6"/>
+<text x="1066.4" y="855.4" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="20" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="middle">V2</text>
+<text x="1066.4" y="881.4" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">Does the sentence claim</text>
+<text x="1066.4" y="900.4" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">more than it supports?</text>
+<text x="24.0" y="942.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="17" font-weight="400" font-style="normal" fill="#63666A" text-anchor="start">Existing is not supporting. The reference-verification measurement already in this repository reports 27 of 33 sources corroborated — that says</text>
+<text x="24.0" y="964.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="17" font-weight="400" font-style="normal" fill="#63666A" text-anchor="start">records exist in public authorities, not that any claim is supported by them. ACC-76 plants a sentence whose citation is real, resolvable and on topic</text>
+<text x="24.0" y="986.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="17" font-weight="400" font-style="normal" fill="#63666A" text-anchor="start">and does not support it: the V0 checks must pass and the V2 checks must fail.</text>
+<text x="24.0" y="1040.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="21" font-weight="700" font-style="normal" fill="#1A1A1A" text-anchor="start">What the publication compiler refuses</text>
+<rect x="24.0" y="1064.0" width="276.0" height="100.0" rx="4" fill="#faeade" stroke="#D55E00" stroke-width="1.6"/>
+<text x="162.0" y="1096.8" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="18" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="middle">no ClaimVersion</text>
+<text x="162.0" y="1120.8" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">a factual sentence with nothing</text>
+<text x="162.0" y="1139.8" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">behind it — ACC-52</text>
+<rect x="316.0" y="1064.0" width="276.0" height="100.0" rx="4" fill="#faeade" stroke="#D55E00" stroke-width="1.6"/>
+<text x="454.0" y="1096.8" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="18" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="middle">no VerifiedValue</text>
+<text x="454.0" y="1120.8" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">a number the value registry does</text>
+<text x="454.0" y="1139.8" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">not carry — ACC-53</text>
+<rect x="608.0" y="1064.0" width="276.0" height="100.0" rx="4" fill="#fcf3de" stroke="#E69F00" stroke-width="1.6"/>
+<text x="746.0" y="1096.8" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="18" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="middle">unsupported</text>
+<text x="746.0" y="1120.8" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">a real citation that does not</text>
+<text x="746.0" y="1139.8" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">support the sentence — ACC-76</text>
+<rect x="900.0" y="1064.0" width="276.0" height="100.0" rx="4" fill="#fcf3de" stroke="#E69F00" stroke-width="1.6"/>
+<text x="1038.0" y="1096.8" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="18" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="middle">unqualified judge</text>
+<text x="1038.0" y="1120.8" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">a V2 verdict with no current</text>
+<text x="1038.0" y="1139.8" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">qualification — ACC-61</text>
+<text x="24.0" y="1178.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="17" font-weight="400" font-style="normal" fill="#1A1A1A" text-anchor="start">Structural and editorial text is marked with a text_role and passes, so the check discriminates rather than blocking all prose. A declared rounding of a</text>
+<text x="24.0" y="1200.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="17" font-weight="400" font-style="normal" fill="#1A1A1A" text-anchor="start">registered value passes and records its display transform. A verifier that fails everything is not a verifier, which is why every critical detector carries a</text>
+<text x="24.0" y="1222.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="17" font-weight="400" font-style="normal" fill="#1A1A1A" text-anchor="start">known-positive that must fail and a known-negative that must pass — and the suite fails if a planted control stays silent.</text>
+<text x="24.0" y="1288.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="start">Status: no verifier is built and none is qualified. The V0 checks that run today — the plan seal, the evidence attestation, the reference resolver — are</text>
+<text x="24.0" y="1309.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="start">reclassified by this taxonomy, not created by it.</text>
+</svg>

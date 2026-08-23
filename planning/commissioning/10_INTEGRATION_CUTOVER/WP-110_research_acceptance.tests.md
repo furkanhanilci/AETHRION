@@ -55,7 +55,7 @@ ISO/IEC/IEEE 29119-3 §8.6 requires each environment item to name a description,
 | `WP-105` accepted output | Vertical Slice 4 — Blind Review, Arbitration and Clean-Room | Assurance Lead | Before the first test case runs |
 | `WP-106` accepted output | Vertical Slice 5 — Human Decision, Publish and Monitor | Project Decision Owner | Before the first test case runs |
 | `WP-108` accepted output | Retraction, Drift and Supersession Vertical Slice | Knowledge Monitoring Lead | Before the first test case runs |
-| `WP-109` accepted output | Forty Acceptance Scenario Registry and Harness | Platform Assurance Lead | Before the first test case runs |
+| `WP-109` accepted output | Acceptance Scenario Registry and Harness | Platform Assurance Lead | Before the first test case runs |
 
 ### Environment readiness report — §8.8
 

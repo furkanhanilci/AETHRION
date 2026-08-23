@@ -73,6 +73,31 @@ has to be taken **at detection**, before teardown, and it is the only artifact
 Whatever the cell produces is Zone 3 content until it has been through WP-058's
 quarantine. Hashing and uploading it is not the same as trusting it.
 
+### Baseline v1.3.0 — four zones, a capability gate, and a benchmark firewall
+
+The isolation story gains a fourth zone and two new attack surfaces.
+
+**Four zones, not three.** Producer, evaluator, reproducer and independent
+grader, separated in secrets, cache and workspace. The leakage paths that matter
+are the quiet ones — a shared cache, an inherited credential, a warm container
+layer — and none of them looks like a boundary violation in a log. Each is tested
+explicitly rather than inferred from the zone configuration (ACC-113).
+
+**Security is a capability, not a prompt.** *Prompt says safe* is not security;
+*the capability is unavailable unless policy grants it* is. External content —
+PDF, web page, tool result, reviewer comment — is quarantined into a data object,
+and the agent's tool intent passes a policy gate before any credential is
+injected (ACC-117).
+
+**A benchmark firewall.** An evaluation run freezes its dataset manifest, network
+mode, allowed domains, known identifiers and evaluator isolation before it
+starts, and audits every retrieval. Gold answers, private rubrics, hidden tests
+and grader prompts are unreachable from the agent environment (ACC-118).
+
+The attack suite gains ASB and WASP as external regressions, alongside internal
+fixtures for source-PDF injection, malicious citation text, tool-result
+injection, memory poisoning and credential exfiltration.
+
 ## Out of scope
 
 - The internal implementation of any dependent package
@@ -97,7 +122,7 @@ quarantine. Hashing and uploading it is not the same as trusting it.
 
 ### Full prerequisite closure
 
-**41 of 141 packages (29%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
+**41 of 160 packages (26%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
 
 | Level | Packages |
 |---:|---|
@@ -128,7 +153,7 @@ quarantine. Hashing and uploading it is not the same as trusting it.
 ### What acceptance of this package releases
 
 - **Directly unblocked:** 7 — `WP-058` · `WP-059` · `WP-060` · `WP-083` · `WP-084` · `WP-104` · `WP-107`
-- **Transitively reachable:** **67 of 141 packages (48%)** cannot be accepted until this one is.
+- **Transitively reachable:** **86 of 160 packages (54%)** cannot be accepted until this one is.
 
 The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
 
@@ -179,10 +204,14 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `Route/control decision tables` | `WP-006` | `python3 scripts/progress.py show WP-006` |
 | `Enforcement map` | `WP-006` | `python3 scripts/progress.py show WP-006` |
 | `Negative examples` | `WP-006` | `python3 scripts/progress.py show WP-006` |
+| `Producer and evaluator zone profiles` | `WP-006` | `python3 scripts/progress.py show WP-006` |
+| `MutationPolicy` | `WP-006` | `python3 scripts/progress.py show WP-006` |
 | `ArtifactRecord schema` | `WP-014` | `python3 scripts/progress.py show WP-014` |
 | `DatasetManifest schema` | `WP-014` | `python3 scripts/progress.py show WP-014` |
 | `Environment reference schema` | `WP-014` | `python3 scripts/progress.py show WP-014` |
 | `Immutability lifecycle` | `WP-014` | `python3 scripts/progress.py show WP-014` |
+| `Ordered parent lineage` | `WP-014` | `python3 scripts/progress.py show WP-014` |
+| `Digest normalisation and migration` | `WP-014` | `python3 scripts/progress.py show WP-014` |
 | `OCI registry` | `WP-027` | `python3 scripts/progress.py show WP-027` |
 | `Build/promotion pipeline` | `WP-027` | `python3 scripts/progress.py show WP-027` |
 | `SBOM/provenance artifacts` | `WP-027` | `python3 scripts/progress.py show WP-027` |
@@ -192,6 +221,8 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `Invocation/Receipt persistence` | `WP-049` | `python3 scripts/progress.py show WP-049` |
 | `Connector SDK` | `WP-049` | `python3 scripts/progress.py show WP-049` |
 | `Audit events` | `WP-049` | `python3 scripts/progress.py show WP-049` |
+| `Capability gate` | `WP-049` | `python3 scripts/progress.py show WP-049` |
+| `Tool-result reuse with recorded provenance` | `WP-049` | `python3 scripts/progress.py show WP-049` |
 | `Kubernetes clusters` | `WP-052` | `python3 scripts/progress.py show WP-052` |
 | `Node pool catalog` | `WP-052` | `python3 scripts/progress.py show WP-052` |
 | `Namespace/security baseline` | `WP-052` | `python3 scripts/progress.py show WP-052` |
@@ -249,6 +280,7 @@ A package whose evidence cannot be produced is not `READY`, however complete its
 - `SandboxAttestation`
 - `Capture/destroy workflow`
 - `Red-team tests`
+- `Four-zone isolation profiles`
 - An updated runbook or operations note, plus the service/contract ownership record
 - A signed `EvidenceManifest`
 

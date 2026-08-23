@@ -93,6 +93,27 @@ against a library that has been edited since — not a clean fixture.
 A runbook rehearsal that finds nothing has usually rehearsed a path someone already
 knew.
 
+### Baseline v1.3.0 — the slices exercise the cohort, and the regression injects faults
+
+The vertical slices and the cutover path grow to cover what this baseline adds,
+and one package changes character.
+
+**WP-107 becomes the engineering completion slice.** Requirement and
+specification → worktree → TDD → code review → CI → supply-chain attestation →
+signed artifact → **eligibility to produce scientific evidence**. That last arrow
+is the junction between the two disciplines, and before this baseline nothing
+proved it end to end.
+
+**The other slices exercise the collaboration plane**: a compiled cohort, sealed
+initial positions, typed delta exchange over a sparse topology, an adaptive
+assurance route, a fingerprinted reproduction and a firewalled benchmark run.
+
+**The regression suite gains injections rather than cases.** Faulty agent,
+malicious agent, split brain, duplicate and out-of-order events, communication
+degradation under budget pressure, and benchmark contamination. These are
+failures that are invisible in a healthy run and obvious only in a post-mortem,
+which is why they are caused deliberately rather than waited for.
+
 ## Out of scope
 
 - The internal implementation of any dependent package
@@ -117,7 +138,7 @@ knew.
 
 ### Full prerequisite closure
 
-**117 of 141 packages (83%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
+**117 of 160 packages (73%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
 
 | Level | Packages |
 |---:|---|
@@ -174,7 +195,7 @@ knew.
 ### What acceptance of this package releases
 
 - **Directly unblocked:** 3 — `WP-119` · `WP-120` · `WP-128`
-- **Transitively reachable:** **12 of 141 packages (9%)** cannot be accepted until this one is.
+- **Transitively reachable:** **14 of 160 packages (9%)** cannot be accepted until this one is.
 
 The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
 
@@ -228,6 +249,7 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `Error-budget policy` | `WP-101` | `python3 scripts/progress.py show WP-101` |
 | `Alert-runbook link checker` | `WP-101` | `python3 scripts/progress.py show WP-101` |
 | `Ownership dashboard` | `WP-101` | `python3 scripts/progress.py show WP-101` |
+| `Coordination overhead and Pareto SLOs` | `WP-101` | `python3 scripts/progress.py show WP-101` |
 | `Two DR drill reports` | `WP-114` | `python3 scripts/progress.py show WP-114` |
 | `Restore manifests` | `WP-114` | `python3 scripts/progress.py show WP-114` |
 | `Integrity query results` | `WP-114` | `python3 scripts/progress.py show WP-114` |
@@ -238,6 +260,7 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `Finding/risk register snapshot` | `WP-115` | `python3 scripts/progress.py show WP-115` |
 | `Readiness scorecard` | `WP-115` | `python3 scripts/progress.py show WP-115` |
 | `Board verdict` | `WP-115` | `python3 scripts/progress.py show WP-115` |
+| `Faulty-agent, split-brain and contamination regression` | `WP-115` | `python3 scripts/progress.py show WP-115` |
 | `Chaos test suite/results` | `WP-116` | `python3 scripts/progress.py show WP-116` |
 | `Steady-state hypotheses` | `WP-116` | `python3 scripts/progress.py show WP-116` |
 | `Recovery/integrity report` | `WP-116` | `python3 scripts/progress.py show WP-116` |

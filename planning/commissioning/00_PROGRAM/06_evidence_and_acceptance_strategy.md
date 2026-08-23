@@ -45,6 +45,39 @@ applicable layers among E0–E5 cannot be waived.
 review costs a reviewer's attention. Running them in the wrong order wastes the
 expensive resource on problems the cheap one would have caught.
 
+### E1 is two things, and baseline v1.2.0 separated them
+
+The layer above reads "mechanical" as one category. For evidence *about the
+repository* — does this file exist, does this digest match, does this policy test
+pass — that is right. For evidence *about research*, the word was covering two
+incompatible kinds of check, and `ADR-008` splits them:
+
+| Class | What it is | Failure semantics |
+|---|---|---|
+| **V0** | Deterministic — digest, schema, signature, reference resolution | **Non-waivable.** Same input, same answer, always |
+| **V1** | Computational or statistical — score recomputation, statistical test, tolerance | **Non-waivable**, given pinned software and configuration |
+| **V2** | Model-mediated semantic — citation entailment, claim scope, method–code alignment | A **finding** with a measured error rate, routed to review. Requires a current qualification |
+| **V3** | Human scientific judgement | Authority, not throughput |
+
+The reason this matters to the evidence strategy rather than only to the
+architecture: the rule *a mechanical check runs first and cannot be overridden by
+a model* is correct for V0 and V1, and absurd at V2, where it says a model's
+judgement cannot be overridden by a model. **A verification result carries its
+class**, assigned by the verifier service from the procedure that actually ran —
+never by the caller.
+
+### A control that has never refused is not evidence
+
+Every critical detector carries a **known-positive that must fail** and a
+**known-negative that must pass**, in the same run that produces its clean
+result. A suite in which a planted control stays silent fails, regardless of what
+it reports.
+
+This is not a new principle here — `scripts/monitor_sources.py` has always exited
+non-zero when its planted retracted DOI went undetected. Baseline v1.2.0
+generalises it to every verifier, and `check_upstream_lineage.py --self-test` is
+the pattern applied to a checker's own rule set.
+
 ## Finding lifecycle
 
 ```text
@@ -67,7 +100,7 @@ forgotten. See the finding-ledger requirement in
 - **Integration Acceptance:** the real interface between two or more services.
 - **Vertical Slice Acceptance:** the business outcome across the relevant portion
   of G0–G10.
-- **System Commissioning:** ACC-01–ACC-51, the attack suite, DR and capacity.
+- **System Commissioning:** ACC-01–ACC-120, the attack suite, DR and capacity.
 - **Human Go-Live Decision:** an authorised decision taken by someone who has
   seen the evidence summary and the residual risk.
 

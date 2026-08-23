@@ -11,7 +11,7 @@ metadata:
   airl.roles: "Scientific Owner,Project Decision Owner,Knowledge Steward"
   airl.assurance_classes: "R1,R2,R3"
   airl.non_waivable: "true"
-  airl.emits: "ResearchOpportunity,ProjectCharter,RiskProfile"
+  airl.emits: "ResearchOpportunity,ProjectCharter,RiskProfile,StudyModeRecord"
   airl.mechanical_checks: "assurance_class_computed_by_policy_engine,duplicate_scan_executed"
 ---
 
@@ -22,16 +22,44 @@ metadata:
 No work starts until what will be done, and what will count as success, is
 written down.
 
-## Classify first
+## Classify first — two axes, not one
 
-| Class | What it is | Output |
+Two independent classifications happen here, and collapsing them is the common
+error. **Assurance class** answers *how much scrutiny must this survive*.
+**Study mode** answers *what kind of statement may this produce at all*. A
+feasibility pilot can be R3 and still be unable to license a confirmatory claim.
+
+### Study mode — the claim ceiling
+
+| Mode | What it is | Claim ceiling |
 |---|---|---|
-| **Exploratory** | Feasibility or discovery; produces no claims | Recommendation plus findings labelled `exploratory` |
+| **Feasibility** | Can this be run at all? Does the metric compute, does the data load, does the pipeline survive one pass? | **No claims.** The outcome informs a future protocol; it never becomes evidence for one |
+| **Exploratory** | Discovery. Analysis choices may change as the data is seen | Findings labelled `exploratory`, with a deviation trace |
 | **Replication** | Re-derivation of an existing result | `ReproductionRecord` |
-| **Confirmatory** | Produces new claims | Full G0–G10 |
+| **Confirmatory** | Produces new claims | Locked protocol · separate analysis plan · preregistration · frozen evaluator · full G0–G10 |
 
-> **When in doubt, take the heavier class.** If you cannot decide between two,
-> choose the heavier one and downgrade later with evidence.
+> **The ceiling moves one way.** It can be lowered by record at any time. It can
+> **never** be raised on the same data — once an outcome has been seen, no
+> subsequent writing makes the analysis confirmatory. Answering that question
+> needs a second study, on data nobody has looked at.
+
+Declare the mode as a `StudyModeRecord` with an external timestamp, before the
+first result exists. A mode change creates a successor record plus a deviation
+record; it never edits the original.
+
+> **When in doubt, take the heavier assurance class and the *lower* claim
+> ceiling.** They move in opposite directions on purpose: more scrutiny is
+> cheap to add later, and a claim ceiling raised later is not a ceiling.
+
+### Why feasibility is its own mode rather than a kind of exploratory
+
+Exploratory work produces findings that may be reported as exploratory.
+Feasibility work produces the answer *the pipeline runs* — and the most common
+way a research record goes wrong is that this answer, plus a number that came
+out of it, gets written up afterwards as though it had been predicted.
+
+Naming the mode makes the temptation visible at the moment it is cheapest to
+refuse: before the run, not after the number.
 
 ## The approval gate never disappears
 
@@ -44,15 +72,18 @@ tasks are where unexamined assumptions cost the most.
 
 ## Procedure
 
-1. **Scan existing work** — duplicate and near-duplicate search via Knowledge
+1. **Declare the study mode** — before anything else that could produce a
+   number. `StudyModeRecord`, externally timestamped, with the claim ceiling and
+   the rationale.
+2. **Scan existing work** — duplicate and near-duplicate search via Knowledge
    Steward. A question already answered is not a research project.
-2. **Ask one question at a time** — purpose, constraints, success criterion.
+3. **Ask one question at a time** — purpose, constraints, success criterion.
    Prefer multiple choice where the option space is known.
-3. **Report scope problems immediately** — if the request spans several
+4. **Report scope problems immediately** — if the request spans several
    independent subsystems, **split it** rather than accepting a compound project.
-4. **Fill the `RiskProfile` vector** (7 dimensions). Leave no field blank.
-5. **The policy engine computes `AssuranceClass`** — not a model, not a person.
-6. **A human writes the decision question.** An agent may draft it; it may not
+5. **Fill the `RiskProfile` vector** (7 dimensions). Leave no field blank.
+6. **The policy engine computes `AssuranceClass`** — not a model, not a person.
+7. **A human writes the decision question.** An agent may draft it; it may not
    own it.
 
 ## Fail-closed classification

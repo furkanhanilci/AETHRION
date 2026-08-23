@@ -111,6 +111,55 @@ basis or be marked `UNCALIBRATED`**. It cannot supply the calibration; that is t
 metascience gap in `00_PROGRAM/11`. What it can do is make an uncalibrated number
 impossible to display as if it were calibrated.
 
+### Baseline v1.2.0 — the records between a claim and a document
+
+Three relations are missing between `ClaimVersion` and a published sentence, and
+their absence is what makes a generated document unfalsifiable.
+
+**`PublicationAssertion`** — a factual sentence as a record, bound to a claim,
+carrying its document location, its scope qualification and its `text_role`.
+Structural and editorial text carries a role and is exempt; a factual assertion
+with no claim reference does not enter a package — ACC-52.
+
+**`EvidenceTag`** — the binding between an assertion and its evidence, with a
+support relation drawn from **CiTO** rather than an enum invented here. The
+relation types exist and are maintained by people closer to the problem, which is
+this programme's own adoption rule.
+
+**`FindingRecord`** — the interpretation layer between evidence and claim.
+Revising a finding must not touch the evidence it interprets, which is only
+expressible if they are different records — ACC-78.
+
+Plus the relations to `HypothesisVersion`, `PrincipleVersion` and
+`HumanInterventionRecord`, none of which existed when this package was written.
+
+### Baseline v1.3.0 — new records, and the authority typing that keeps them honest
+
+The contract surface gains the records this baseline's capabilities need, and
+one field that matters more than any of them.
+
+**New canonical records:** `AgentCohortRecord`, `CognitiveDiversityProfile`,
+`CommunicationEdgePolicy`, `BlackboardEntry`, `TypedAgentMessage`,
+`CommunicationUtilityRecord`, `ContextProjectionRecord`,
+`MemoryInterventionRecord`, `ResearchBudgetContract`, `TokenLedgerEntry`,
+`SpecificationConformanceRecord`, `HumanPreliminaryAssessment`, `DecisionDelta`,
+`ModelExecutionFingerprint`, `BenchmarkRunPolicy`, `ContaminationFinding`,
+`UpstreamAssimilationRecord`.
+
+**Explicit authority typing.** Every record carries what it may never become. The
+three conversions this baseline forbids are all of the same kind, and each has
+already been attempted somewhere in the field:
+
+| Forbidden conversion | Why it is tempting |
+|---|---|
+| A blackboard entry into evidence | It is where the interesting sentences appear |
+| A communication or search utility score into a claim confidence | It is a number, and it correlates with something |
+| An event payload into gate authority | It is the fastest path and it usually works |
+
+The rule that makes them checkable rather than remembered: **events, blackboard
+entries and derived read models cannot masquerade as canonical scientific
+state**, and the schema is where that is enforced.
+
 ## Out of scope
 
 - The internal implementation of any dependent package
@@ -134,7 +183,7 @@ impossible to display as if it were calibrated.
 
 ### Full prerequisite closure
 
-**15 of 141 packages (11%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
+**15 of 160 packages (9%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
 
 | Level | Packages |
 |---:|---|
@@ -152,8 +201,8 @@ impossible to display as if it were calibrated.
 
 ### What acceptance of this package releases
 
-- **Directly unblocked:** 15 — `WP-019` · `WP-020` · `WP-030` · `WP-033` · `WP-037` · `WP-043` · `WP-075` · `WP-076` · `WP-077` · `WP-080` · `WP-086` · `WP-088` · `WP-089` · `WP-090` · `WP-093`
-- **Transitively reachable:** **122 of 141 packages (87%)** cannot be accepted until this one is.
+- **Directly unblocked:** 17 — `WP-019` · `WP-020` · `WP-030` · `WP-033` · `WP-037` · `WP-043` · `WP-075` · `WP-076` · `WP-077` · `WP-080` · `WP-086` · `WP-088` · `WP-089` · `WP-090` · `WP-093` · `WP-142` · `WP-143`
+- **Transitively reachable:** **141 of 160 packages (88%)** cannot be accepted until this one is.
 
 The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
 
@@ -212,6 +261,8 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `DatasetManifest schema` | `WP-014` | `python3 scripts/progress.py show WP-014` |
 | `Environment reference schema` | `WP-014` | `python3 scripts/progress.py show WP-014` |
 | `Immutability lifecycle` | `WP-014` | `python3 scripts/progress.py show WP-014` |
+| `Ordered parent lineage` | `WP-014` | `python3 scripts/progress.py show WP-014` |
+| `Digest normalisation and migration` | `WP-014` | `python3 scripts/progress.py show WP-014` |
 | `PolicyDecision schema` | `WP-016` | `python3 scripts/progress.py show WP-016` |
 | `ControlRecord schema` | `WP-016` | `python3 scripts/progress.py show WP-016` |
 | `ExceptionRecord schema` | `WP-016` | `python3 scripts/progress.py show WP-016` |
@@ -267,6 +318,10 @@ A package whose evidence cannot be produced is not `READY`, however complete its
 - `Claim state machine`
 - `Review/disagreement schemas`
 - `Decision schema fixtures`
+- `PublicationAssertion`
+- `EvidenceTag`
+- `FindingRecord`
+- `Authority typing on every scientific record`
 - An updated runbook or operations note, plus the service/contract ownership record
 - A signed `EvidenceManifest`
 

@@ -132,16 +132,17 @@ ISO/IEC/IEEE 29119-3 §8.3.2. A coverage item is something the tests must reach.
 | C03 | `SandboxAttestation` | Mandatory deliverable | *(name the test case)* |
 | C04 | `Capture/destroy workflow` | Mandatory deliverable | *(name the test case)* |
 | C05 | `Red-team tests` | Mandatory deliverable | *(name the test case)* |
-| C06 | Establish the RuntimeClass/gVisor and seccomp/capability baseline | WP-054-T01 | *(name the test case)* |
-| C07 | Apply the ephemeral workspace, mount and path policy | WP-054-T02 | *(name the test case)* |
-| C08 | Bind the OCI signature and SBOM attestation gate | WP-054-T03 | *(name the test case)* |
-| C09 | Add CPU, memory, wall-clock and process limits | WP-054-T04 | *(name the test case)* |
-| C10 | Write artifact capture, hashing, upload and teardown | WP-054-T05 | *(name the test case)* |
-| C11 | Establish forensic snapshotting and escape detection | WP-054-T06 | *(name the test case)* |
-| C12 | Sandbox Escape Attempt | [ACC-15](../12_ACCEPTANCE_SCENARIOS/acc_15_sandbox_escape.md) — Critical | *(name the test case)* |
-| C13 | Unsigned or Mutable Image | [ACC-17](../12_ACCEPTANCE_SCENARIOS/acc_17_unsigned_image.md) — Critical | *(name the test case)* |
+| C06 | `Four-zone isolation profiles` | Mandatory deliverable | *(name the test case)* |
+| C07 | Establish the RuntimeClass/gVisor and seccomp/capability baseline | WP-054-T01 | *(name the test case)* |
+| C08 | Apply the ephemeral workspace, mount and path policy | WP-054-T02 | *(name the test case)* |
+| C09 | Bind the OCI signature and SBOM attestation gate | WP-054-T03 | *(name the test case)* |
+| C10 | Add CPU, memory, wall-clock and process limits | WP-054-T04 | *(name the test case)* |
+| C11 | Write artifact capture, hashing, upload and teardown | WP-054-T05 | *(name the test case)* |
+| C12 | Establish forensic snapshotting and escape detection | WP-054-T06 | *(name the test case)* |
+| C13 | Sandbox Escape Attempt | [ACC-15](../12_ACCEPTANCE_SCENARIOS/acc_15_sandbox_escape.md) — Critical | *(name the test case)* |
+| C14 | Unsigned or Mutable Image | [ACC-17](../12_ACCEPTANCE_SCENARIOS/acc_17_unsigned_image.md) — Critical | *(name the test case)* |
 
-**13 coverage items.** Every one must appear in the *Covered by* column of at least one test case below before this package can reach `TECH_COMPLETE`.
+**14 coverage items.** Every one must appear in the *Covered by* column of at least one test case below before this package can reach `TECH_COMPLETE`.
 
 <!-- /generated:coverage -->
 

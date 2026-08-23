@@ -71,6 +71,24 @@ A search index over D3 content is D3 content, however it was derived. Indexes ar
 routinely exempted from classification because they feel like metadata, and they
 are the most queryable copy of the data in the system.
 
+### Baseline v1.3.0 — modular monolith first, and a projection that can be destroyed
+
+The collaboration plane, the conformance checker and the release assurance work
+land as **modules**, not as services. A logical plane is an ownership boundary;
+turning each into a deployment unit before there is a consumer buys operational
+cost and no assurance.
+
+Two guarantees the foundation now owes:
+
+**Every derived projection is destroyable.** The graph, the vector index and the
+search index are rebuilt from canonical stores as a routine, tested operation —
+ACC-119. A rebuild path that is an emergency procedure will not work on the day
+it is needed.
+
+**Release artifacts carry provenance.** SLSA provenance, Sigstore signatures, an
+SBOM and its scan result, and the upstream register accounting for every adapted
+file. `ADR-019`, delivered by WP-159 and admitted against by WP-024's CI.
+
 ## Out of scope
 
 - The internal implementation of any dependent package
@@ -95,7 +113,7 @@ are the most queryable copy of the data in the system.
 
 ### Full prerequisite closure
 
-**24 of 141 packages (17%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
+**24 of 160 packages (15%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
 
 | Level | Packages |
 |---:|---|
@@ -119,8 +137,8 @@ are the most queryable copy of the data in the system.
 
 ### What acceptance of this package releases
 
-- **Directly unblocked:** 7 — `WP-074` · `WP-075` · `WP-091` · `WP-095` · `WP-098` · `WP-114` · `WP-130`
-- **Transitively reachable:** **60 of 141 packages (43%)** cannot be accepted until this one is.
+- **Directly unblocked:** 10 — `WP-074` · `WP-075` · `WP-091` · `WP-095` · `WP-098` · `WP-114` · `WP-130` · `WP-143` · `WP-144` · `WP-146`
+- **Transitively reachable:** **76 of 160 packages (48%)** cannot be accepted until this one is.
 
 The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
 
@@ -178,6 +196,10 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `Claim state machine` | `WP-018` | `python3 scripts/progress.py show WP-018` |
 | `Review/disagreement schemas` | `WP-018` | `python3 scripts/progress.py show WP-018` |
 | `Decision schema fixtures` | `WP-018` | `python3 scripts/progress.py show WP-018` |
+| `PublicationAssertion` | `WP-018` | `python3 scripts/progress.py show WP-018` |
+| `EvidenceTag` | `WP-018` | `python3 scripts/progress.py show WP-018` |
+| `FindingRecord` | `WP-018` | `python3 scripts/progress.py show WP-018` |
+| `Authority typing on every scientific record` | `WP-018` | `python3 scripts/progress.py show WP-018` |
 | `PostgreSQL clusters` | `WP-025` | `python3 scripts/progress.py show WP-025` |
 | `DB role matrix` | `WP-025` | `python3 scripts/progress.py show WP-025` |
 | `Migration pipeline` | `WP-025` | `python3 scripts/progress.py show WP-025` |
@@ -241,6 +263,7 @@ A package whose evidence cannot be produced is not `READY`, however complete its
 - `Graph/vector/search indexes`
 - `Rebuild jobs`
 - `Integrity/lag dashboard`
+- `Destructive projection rebuild proof`
 - An updated runbook or operations note, plus the service/contract ownership record
 - A signed `EvidenceManifest`
 

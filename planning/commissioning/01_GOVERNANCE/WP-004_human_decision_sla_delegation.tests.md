@@ -101,15 +101,17 @@ ISO/IEC/IEEE 29119-3 §8.3.2. A coverage item is something the tests must reach.
 | C02 | `SLA/escalation table` | Mandatory deliverable | *(name the test case)* |
 | C03 | `Delegation matrix` | Mandatory deliverable | *(name the test case)* |
 | C04 | `Decision rationale rubric` | Mandatory deliverable | *(name the test case)* |
-| C05 | Classify decision types as material or non-material | WP-004-T01 | *(name the test case)* |
-| C06 | Assign an SLA and an escalation chain to each decision | WP-004-T02 | *(name the test case)* |
-| C07 | Write the scope, duration and role rules for a `DelegationRecord` | WP-004-T03 | *(name the test case)* |
-| C08 | Lock the non-delegable G8, publication, retraction and cutover decisions | WP-004-T04 | *(name the test case)* |
-| C09 | Define approval expiry, revocation and evidence-delta behaviour | WP-004-T05 | *(name the test case)* |
-| C10 | Human Approval Forgery | [ACC-25](../12_ACCEPTANCE_SCENARIOS/ACC-25_human_approval_forgery.md) — Critical | *(name the test case)* |
-| C11 | Approval, Delegation and Exception Expiry | [ACC-26](../12_ACCEPTANCE_SCENARIOS/ACC-26_approval_expiry.md) — Critical | *(name the test case)* |
+| C05 | `Human intervention vocabulary` | Mandatory deliverable | *(name the test case)* |
+| C06 | `Timeout escalation path with no approval branch` | Mandatory deliverable | *(name the test case)* |
+| C07 | Classify decision types as material or non-material | WP-004-T01 | *(name the test case)* |
+| C08 | Assign an SLA and an escalation chain to each decision | WP-004-T02 | *(name the test case)* |
+| C09 | Write the scope, duration and role rules for a `DelegationRecord` | WP-004-T03 | *(name the test case)* |
+| C10 | Lock the non-delegable G8, publication, retraction and cutover decisions | WP-004-T04 | *(name the test case)* |
+| C11 | Define approval expiry, revocation and evidence-delta behaviour | WP-004-T05 | *(name the test case)* |
+| C12 | Human Approval Forgery | [ACC-25](../12_ACCEPTANCE_SCENARIOS/ACC-25_human_approval_forgery.md) — Critical | *(name the test case)* |
+| C13 | Approval, Delegation and Exception Expiry | [ACC-26](../12_ACCEPTANCE_SCENARIOS/ACC-26_approval_expiry.md) — Critical | *(name the test case)* |
 
-**11 coverage items.** Every one must appear in the *Covered by* column of at least one test case below before this package can reach `TECH_COMPLETE`.
+**13 coverage items.** Every one must appear in the *Covered by* column of at least one test case below before this package can reach `TECH_COMPLETE`.
 
 <!-- /generated:coverage -->
 

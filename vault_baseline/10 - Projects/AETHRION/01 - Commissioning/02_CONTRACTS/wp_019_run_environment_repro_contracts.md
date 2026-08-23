@@ -115,6 +115,55 @@ drift, data drift, seed handling, model change, genuine non-determinism, defect 
 the original — each imply a different response, and only one of them means the
 original claim was wrong.
 
+### Baseline v1.2.0 — reproduction is three environments, not one flag
+
+The run and reproduction contracts need to express the three-environment
+separation, because a single `reproduced: true` field cannot distinguish the
+cases that matter:
+
+- **`CandidateWorkspace`** — worktree, base commit, editable, read-only and
+  forbidden paths, sandbox, network and credential profile.
+- **`AlgorithmUnderstandingRecord`** — the target claim interpreted into steps,
+  inputs, outputs and *declared ambiguities*, frozen before code is written. It
+  is what separates "the paper was misread" from "the code was wrong".
+- **`ReproductionPackage`** — entrypoint, source digest, environment spec,
+  dependency lock, inputs, expected outputs, comparison spec. Accepted
+  reproduction is this package running in a fresh environment **with no agent
+  present** — ACC-66.
+- **`ReproductionRun`** and **`ClaimConsistencyReport`** — with method, data and
+  result consistency as separate fields, because exit code 0 is not a
+  reproduction and a right number from the wrong method is not one either.
+
+The four reproduction levels — exact, model-snapshot, distributional, claim
+robustness — are recorded per run rather than collapsed into a boolean.
+
+### Baseline v1.3.0 — new records, and the authority typing that keeps them honest
+
+The contract surface gains the records this baseline's capabilities need, and
+one field that matters more than any of them.
+
+**New canonical records:** `AgentCohortRecord`, `CognitiveDiversityProfile`,
+`CommunicationEdgePolicy`, `BlackboardEntry`, `TypedAgentMessage`,
+`CommunicationUtilityRecord`, `ContextProjectionRecord`,
+`MemoryInterventionRecord`, `ResearchBudgetContract`, `TokenLedgerEntry`,
+`SpecificationConformanceRecord`, `HumanPreliminaryAssessment`, `DecisionDelta`,
+`ModelExecutionFingerprint`, `BenchmarkRunPolicy`, `ContaminationFinding`,
+`UpstreamAssimilationRecord`.
+
+**Explicit authority typing.** Every record carries what it may never become. The
+three conversions this baseline forbids are all of the same kind, and each has
+already been attempted somewhere in the field:
+
+| Forbidden conversion | Why it is tempting |
+|---|---|
+| A blackboard entry into evidence | It is where the interesting sentences appear |
+| A communication or search utility score into a claim confidence | It is a number, and it correlates with something |
+| An event payload into gate authority | It is the fastest path and it usually works |
+
+The rule that makes them checkable rather than remembered: **events, blackboard
+entries and derived read models cannot masquerade as canonical scientific
+state**, and the schema is where that is enforced.
+
 ## Out of scope
 
 - The internal implementation of any dependent package
@@ -136,7 +185,7 @@ original claim was wrong.
 
 ### Full prerequisite closure
 
-**16 of 141 packages (11%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
+**16 of 160 packages (10%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
 
 | Level | Packages |
 |---:|---|
@@ -155,8 +204,8 @@ original claim was wrong.
 
 ### What acceptance of this package releases
 
-- **Directly unblocked:** 8 — `WP-020` · `WP-035` · `WP-036` · `WP-043` · `WP-081` · `WP-082` · `WP-084` · `WP-085`
-- **Transitively reachable:** **121 of 141 packages (86%)** cannot be accepted until this one is.
+- **Directly unblocked:** 10 — `WP-020` · `WP-035` · `WP-036` · `WP-043` · `WP-081` · `WP-082` · `WP-084` · `WP-085` · `WP-144` · `WP-157`
+- **Transitively reachable:** **140 of 160 packages (88%)** cannot be accepted until this one is.
 
 The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
 
@@ -211,10 +260,16 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `DatasetManifest schema` | `WP-014` | `python3 scripts/progress.py show WP-014` |
 | `Environment reference schema` | `WP-014` | `python3 scripts/progress.py show WP-014` |
 | `Immutability lifecycle` | `WP-014` | `python3 scripts/progress.py show WP-014` |
+| `Ordered parent lineage` | `WP-014` | `python3 scripts/progress.py show WP-014` |
+| `Digest normalisation and migration` | `WP-014` | `python3 scripts/progress.py show WP-014` |
 | `Evidence contract bundle` | `WP-018` | `python3 scripts/progress.py show WP-018` |
 | `Claim state machine` | `WP-018` | `python3 scripts/progress.py show WP-018` |
 | `Review/disagreement schemas` | `WP-018` | `python3 scripts/progress.py show WP-018` |
 | `Decision schema fixtures` | `WP-018` | `python3 scripts/progress.py show WP-018` |
+| `PublicationAssertion` | `WP-018` | `python3 scripts/progress.py show WP-018` |
+| `EvidenceTag` | `WP-018` | `python3 scripts/progress.py show WP-018` |
+| `FindingRecord` | `WP-018` | `python3 scripts/progress.py show WP-018` |
+| `Authority typing on every scientific record` | `WP-018` | `python3 scripts/progress.py show WP-018` |
 
 ### Classification that must be recorded before work begins
 
@@ -262,6 +317,9 @@ A package whose evidence cannot be produced is not `READY`, however complete its
 - `EnvironmentManifest`
 - `ReproductionReport`
 - `Tolerance policy examples`
+- `CandidateWorkspace`
+- `ReproductionPackage`
+- `ClaimConsistencyReport`
 - An updated runbook or operations note, plus the service/contract ownership record
 - A signed `EvidenceManifest`
 

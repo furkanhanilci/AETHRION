@@ -129,15 +129,17 @@ ISO/IEC/IEEE 29119-3 §8.3.2. A coverage item is something the tests must reach.
 | C02 | `ExceptionPolicy` | Mandatory deliverable | *(name the test case)* |
 | C03 | `NonWaivableBlocker registry` | Mandatory deliverable | *(name the test case)* |
 | C04 | `Control-test mapping` | Mandatory deliverable | *(name the test case)* |
-| C05 | Identify the governance, epistemic, data, literature, security, operations, observability, cost and model controls | WP-009-T01 | *(name the test case)* |
-| C06 | Establish the control → policy → test → evidence mapping | WP-009-T02 | *(name the test case)* |
-| C07 | Write the request, approval, expiry and auto-revoke semantics for exceptions | WP-009-T03 | *(name the test case)* |
-| C08 | Bind the non-waivable blocker list into policy | WP-009-T04 | *(name the test case)* |
-| C09 | Assign a control-effectiveness review frequency to each control | WP-009-T05 | *(name the test case)* |
-| C10 | Policy Bundle Rollback | [ACC-24](../12_ACCEPTANCE_SCENARIOS/acc_24_policy_bundle_rollback.md) — High | *(name the test case)* |
-| C11 | Approval, Delegation and Exception Expiry | [ACC-26](../12_ACCEPTANCE_SCENARIOS/acc_26_approval_expiry.md) — Critical | *(name the test case)* |
+| C05 | `Non-waivable additions for the epistemic layer` | Mandatory deliverable | *(name the test case)* |
+| C06 | `Non-waivable additions for the reliability layer` | Mandatory deliverable | *(name the test case)* |
+| C07 | Identify the governance, epistemic, data, literature, security, operations, observability, cost and model controls | WP-009-T01 | *(name the test case)* |
+| C08 | Establish the control → policy → test → evidence mapping | WP-009-T02 | *(name the test case)* |
+| C09 | Write the request, approval, expiry and auto-revoke semantics for exceptions | WP-009-T03 | *(name the test case)* |
+| C10 | Bind the non-waivable blocker list into policy | WP-009-T04 | *(name the test case)* |
+| C11 | Assign a control-effectiveness review frequency to each control | WP-009-T05 | *(name the test case)* |
+| C12 | Policy Bundle Rollback | [ACC-24](../12_ACCEPTANCE_SCENARIOS/acc_24_policy_bundle_rollback.md) — High | *(name the test case)* |
+| C13 | Approval, Delegation and Exception Expiry | [ACC-26](../12_ACCEPTANCE_SCENARIOS/acc_26_approval_expiry.md) — Critical | *(name the test case)* |
 
-**11 coverage items.** Every one must appear in the *Covered by* column of at least one test case below before this package can reach `TECH_COMPLETE`.
+**13 coverage items.** Every one must appear in the *Covered by* column of at least one test case below before this package can reach `TECH_COMPLETE`.
 
 <!-- /generated:coverage -->
 

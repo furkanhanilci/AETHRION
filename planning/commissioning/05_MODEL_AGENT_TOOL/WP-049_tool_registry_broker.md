@@ -17,9 +17,9 @@
 
 ## Adopted component
 
-> **Cedar** policy engine — first candidate; **OPA** the recorded alternative
+> **`PolicyDecision` interface** — the commissioned contract; **Cedar** and **OPA/Rego** are optional backends behind it
 
-`principal · action · resource · context` already matches `TaskContract`, `forbid` overrides `permit`, and the language has a formal semantics and schema validation. **Any policy-evaluation anomaly fails closed.** A bake-off over the same 50 policies is recorded before the choice is fixed. See `docs/architecture/ADR-003`.
+The interface, not the engine, is what this package binds to. A policy engine with formal semantics and schema validation, whose `principal · action · resource · context` shape already matches `TaskContract` and in which a prohibition cannot be out-voted by a permission. **Any policy-evaluation anomaly fails closed.** The engine is chosen by the bake-off recorded in `docs/architecture/ADR-010`, which cannot run until a policy set exists — and none is authored. See also `docs/architecture/ADR-003`.
 
 Rationale and adoption type: `docs/architecture/AETHRION_COMPONENT_REUSE.md`.
 
@@ -90,6 +90,31 @@ Every external effect in the system's history should be reconstructable from
 receipts. Without them, "what did this agent actually do" is answered by reading
 logs, which is not an answer.
 
+### Baseline v1.3.0 — the Task Compiler stops emitting a skill list
+
+This is the largest change in the model and agent layer, and it is a change of
+kind rather than of size. The compiler's output was a skill bundle and a model
+choice. It becomes the full execution shape of a task:
+
+`AgentCohortRecord` · `CognitiveDiversityProfile` · skill bundles **by family** ·
+`CommunicationTopology` · `ContextProjectionPolicy` · `ResearchBudgetContract` ·
+`AssuranceRoute` · `ExecutionProfile` · `IndependenceProfile`.
+
+A coding-science task compiles **both** skill families — preregistration
+discipline beside test-driven development, scientific review beside code review
+— without either aliasing the other (`ADR-012`).
+
+Two other bindings:
+
+- **Qualification records gain scope.** A verifier's qualification is keyed by
+  verifier, version, task class, domain profile *and* threshold, and now also
+  carries a model execution fingerprint and an abstention rate.
+- **The Tool Broker gains a capability gate.** An action is unavailable unless
+  policy grants it — not available-but-discouraged. Untrusted content can supply
+  values and can never create an action, which is `ADR-003` enforced at the tool
+  boundary rather than asserted at the prompt. Deterministic tool results are
+  reusable within a declared freshness window and are marked as reused.
+
 ## Out of scope
 
 - The internal implementation of any dependent package
@@ -118,7 +143,7 @@ logs, which is not an answer.
 
 ### Full prerequisite closure
 
-**37 of 141 packages (26%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
+**37 of 160 packages (23%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
 
 | Level | Packages |
 |---:|---|
@@ -148,7 +173,7 @@ logs, which is not an answer.
 ### What acceptance of this package releases
 
 - **Directly unblocked:** 16 — `WP-050` · `WP-054` · `WP-055` · `WP-057` · `WP-058` · `WP-060` · `WP-064` · `WP-065` · `WP-066` · `WP-069` · `WP-096` · `WP-099` · `WP-100` · `WP-101` · `WP-107` · `WP-131`
-- **Transitively reachable:** **87 of 141 packages (62%)** cannot be accepted until this one is.
+- **Transitively reachable:** **106 of 160 packages (66%)** cannot be accepted until this one is.
 
 The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
 
@@ -200,6 +225,8 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `Route/control decision tables` | `WP-006` | `python3 scripts/progress.py show WP-006` |
 | `Enforcement map` | `WP-006` | `python3 scripts/progress.py show WP-006` |
 | `Negative examples` | `WP-006` | `python3 scripts/progress.py show WP-006` |
+| `Producer and evaluator zone profiles` | `WP-006` | `python3 scripts/progress.py show WP-006` |
+| `MutationPolicy` | `WP-006` | `python3 scripts/progress.py show WP-006` |
 | `Identifier Standard` | `WP-011` | `python3 scripts/progress.py show WP-011` |
 | `Correlation envelope` | `WP-011` | `python3 scripts/progress.py show WP-011` |
 | `ID library contract` | `WP-011` | `python3 scripts/progress.py show WP-011` |
@@ -213,6 +240,7 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `Event Catalog seed` | `WP-015` | `python3 scripts/progress.py show WP-015` |
 | `Subject/retention table` | `WP-015` | `python3 scripts/progress.py show WP-015` |
 | `Consumer contract` | `WP-015` | `python3 scripts/progress.py show WP-015` |
+| `Post-commit event taxonomy for the collaboration plane` | `WP-015` | `python3 scripts/progress.py show WP-015` |
 | `PolicyDecision schema` | `WP-016` | `python3 scripts/progress.py show WP-016` |
 | `ControlRecord schema` | `WP-016` | `python3 scripts/progress.py show WP-016` |
 | `ExceptionRecord schema` | `WP-016` | `python3 scripts/progress.py show WP-016` |
@@ -291,6 +319,8 @@ A package whose evidence cannot be produced is not `READY`, however complete its
 - `Invocation/Receipt persistence`
 - `Connector SDK`
 - `Audit events`
+- `Capability gate`
+- `Tool-result reuse with recorded provenance`
 - An updated runbook or operations note, plus the service/contract ownership record
 - A signed `EvidenceManifest`
 

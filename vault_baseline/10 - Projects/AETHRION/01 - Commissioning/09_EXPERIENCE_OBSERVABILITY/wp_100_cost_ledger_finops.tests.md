@@ -141,16 +141,17 @@ ISO/IEC/IEEE 29119-3 §8.3.2. A coverage item is something the tests must reach.
 | C03 | `Cost adapters` | Mandatory deliverable | *(name the test case)* |
 | C04 | `Invoice reconciliation` | Mandatory deliverable | *(name the test case)* |
 | C05 | `FinOps dashboard/runbook` | Mandatory deliverable | *(name the test case)* |
-| C06 | Establish the `BudgetEnvelope`, C0–C4 classes and the reservation API | WP-100-T01 | *(name the test case)* |
-| C07 | Ingest gateway, Kueue, tool, storage and human cost events | WP-100-T02 | *(name the test case)* |
-| C08 | Write estimate → reserve → commit → release plus retry and fan-out attribution | WP-100-T03 | *(name the test case)* |
-| C09 | Integrate the 80% and 100% thresholds with Temporal pause and decision flows | WP-100-T04 | *(name the test case)* |
-| C10 | Add provider invoice reconciliation and variance cases | WP-100-T05 | *(name the test case)* |
-| C11 | Build the quality-adjusted cost/outcome dashboard and forecast | WP-100-T06 | *(name the test case)* |
-| C12 | Budget Hard Stop | [ACC-09](../12_ACCEPTANCE_SCENARIOS/acc_09_budget_hard_stop.md) — Critical | *(name the test case)* |
-| C13 | Provider Invoice Variance | [ACC-29](../12_ACCEPTANCE_SCENARIOS/acc_29_invoice_variance.md) — Medium | *(name the test case)* |
+| C06 | `Token ledger categories` | Mandatory deliverable | *(name the test case)* |
+| C07 | Establish the `BudgetEnvelope`, C0–C4 classes and the reservation API | WP-100-T01 | *(name the test case)* |
+| C08 | Ingest gateway, Kueue, tool, storage and human cost events | WP-100-T02 | *(name the test case)* |
+| C09 | Write estimate → reserve → commit → release plus retry and fan-out attribution | WP-100-T03 | *(name the test case)* |
+| C10 | Integrate the 80% and 100% thresholds with Temporal pause and decision flows | WP-100-T04 | *(name the test case)* |
+| C11 | Add provider invoice reconciliation and variance cases | WP-100-T05 | *(name the test case)* |
+| C12 | Build the quality-adjusted cost/outcome dashboard and forecast | WP-100-T06 | *(name the test case)* |
+| C13 | Budget Hard Stop | [ACC-09](../12_ACCEPTANCE_SCENARIOS/acc_09_budget_hard_stop.md) — Critical | *(name the test case)* |
+| C14 | Provider Invoice Variance | [ACC-29](../12_ACCEPTANCE_SCENARIOS/acc_29_invoice_variance.md) — Medium | *(name the test case)* |
 
-**13 coverage items.** Every one must appear in the *Covered by* column of at least one test case below before this package can reach `TECH_COMPLETE`.
+**14 coverage items.** Every one must appear in the *Covered by* column of at least one test case below before this package can reach `TECH_COMPLETE`.
 
 <!-- /generated:coverage -->
 

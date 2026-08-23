@@ -139,17 +139,19 @@ ISO/IEC/IEEE 29119-3 §8.3.2. A coverage item is something the tests must reach.
 | C03 | `Signed publication package` | Mandatory deliverable | *(name the test case)* |
 | C04 | `Release checklist` | Mandatory deliverable | *(name the test case)* |
 | C05 | `Supersession record` | Mandatory deliverable | *(name the test case)* |
-| C06 | Write the `PublicationPackage` and RO-Crate profile and manifest | WP-090-T01 | *(name the test case)* |
-| C07 | Build the claim narrative → ledger link materialiser | WP-090-T02 | *(name the test case)* |
-| C08 | Bind the CSL citation, locator and audit results | WP-090-T03 | *(name the test case)* |
-| C09 | Add the code, data, environment, run and reproduction artifact references | WP-090-T04 | *(name the test case)* |
-| C10 | Apply the licence, privacy, redaction and release checks | WP-090-T05 | *(name the test case)* |
-| C11 | Produce signature, archive, access, supersession and public landing metadata | WP-090-T06 | *(name the test case)* |
-| C12 | Publication Completeness | [ACC-30](../12_ACCEPTANCE_SCENARIOS/acc_30_publication_completeness.md) — Critical | *(name the test case)* |
-| C13 | Superseded Publication | [ACC-31](../12_ACCEPTANCE_SCENARIOS/acc_31_superseded_publication.md) — High | *(name the test case)* |
-| C14 | Complete Project Audit Export | [ACC-40](../12_ACCEPTANCE_SCENARIOS/acc_40_audit_export.md) — Critical | *(name the test case)* |
+| C06 | `Publication compiler` | Mandatory deliverable | *(name the test case)* |
+| C07 | `Assertion and value binding checks` | Mandatory deliverable | *(name the test case)* |
+| C08 | Write the `PublicationPackage` and RO-Crate profile and manifest | WP-090-T01 | *(name the test case)* |
+| C09 | Build the claim narrative → ledger link materialiser | WP-090-T02 | *(name the test case)* |
+| C10 | Bind the CSL citation, locator and audit results | WP-090-T03 | *(name the test case)* |
+| C11 | Add the code, data, environment, run and reproduction artifact references | WP-090-T04 | *(name the test case)* |
+| C12 | Apply the licence, privacy, redaction and release checks | WP-090-T05 | *(name the test case)* |
+| C13 | Produce signature, archive, access, supersession and public landing metadata | WP-090-T06 | *(name the test case)* |
+| C14 | Publication Completeness | [ACC-30](../12_ACCEPTANCE_SCENARIOS/acc_30_publication_completeness.md) — Critical | *(name the test case)* |
+| C15 | Superseded Publication | [ACC-31](../12_ACCEPTANCE_SCENARIOS/acc_31_superseded_publication.md) — High | *(name the test case)* |
+| C16 | Complete Project Audit Export | [ACC-40](../12_ACCEPTANCE_SCENARIOS/acc_40_audit_export.md) — Critical | *(name the test case)* |
 
-**14 coverage items.** Every one must appear in the *Covered by* column of at least one test case below before this package can reach `TECH_COMPLETE`.
+**16 coverage items.** Every one must appear in the *Covered by* column of at least one test case below before this package can reach `TECH_COMPLETE`.
 
 <!-- /generated:coverage -->
 

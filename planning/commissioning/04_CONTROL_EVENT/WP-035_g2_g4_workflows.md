@@ -69,6 +69,30 @@ only to confirm will confirm. The `FalsificationPlan` names in advance what
 observation would overturn the hypothesis — and `ACC-08`, the strong counter-test,
 is what checks that the plan was real.
 
+### Baseline v1.3.0 — new policies at the gates, without moving authority
+
+G0–G10 consumes the collaboration, conformance, assurance and reproduction
+policies this baseline adds. **None of that moves authority.** Temporal still
+owns lifecycle transitions and LangGraph still owns bounded cognition inside one
+task, and a checkpoint in the second cannot transition a gate in the first.
+
+Three concrete additions:
+
+- **G5 and G6** consume the cohort, the topology, the specification conformance
+  result and the assurance route.
+- **G7** consumes the model execution fingerprint and the reproduction level it
+  supports — a hosted black-box model does not yield `EXACT`.
+- **G8** runs the human preliminary flow: the recommendation is unreachable
+  until the human assessment is sealed, through **every** interface rather than
+  only the UI.
+
+And the write path becomes explicit: a canonical transaction and its outbox
+record commit atomically, the publisher reads the outbox afterwards, and a
+consumer validates identity and version rather than trusting a payload. The
+failure suite gains the injections that make split brain visible — publisher
+crash, duplicate delivery, out-of-order delivery, a cancelled task's late
+result, and two concurrent gate transitions.
+
 ## Out of scope
 
 - The internal implementation of any dependent package
@@ -94,7 +118,7 @@ is what checks that the plan was real.
 
 ### Full prerequisite closure
 
-**32 of 141 packages (23%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
+**32 of 160 packages (20%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
 
 | Level | Packages |
 |---:|---|
@@ -123,8 +147,8 @@ is what checks that the plan was real.
 
 ### What acceptance of this package releases
 
-- **Directly unblocked:** 9 — `WP-036` · `WP-040` · `WP-069` · `WP-081` · `WP-083` · `WP-092` · `WP-102` · `WP-103` · `WP-104`
-- **Transitively reachable:** **61 of 141 packages (43%)** cannot be accepted until this one is.
+- **Directly unblocked:** 10 — `WP-036` · `WP-040` · `WP-069` · `WP-081` · `WP-083` · `WP-092` · `WP-102` · `WP-103` · `WP-104` · `WP-143`
+- **Transitively reachable:** **77 of 160 packages (48%)** cannot be accepted until this one is.
 
 The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
 
@@ -188,6 +212,9 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `EnvironmentManifest` | `WP-019` | `python3 scripts/progress.py show WP-019` |
 | `ReproductionReport` | `WP-019` | `python3 scripts/progress.py show WP-019` |
 | `Tolerance policy examples` | `WP-019` | `python3 scripts/progress.py show WP-019` |
+| `CandidateWorkspace` | `WP-019` | `python3 scripts/progress.py show WP-019` |
+| `ReproductionPackage` | `WP-019` | `python3 scripts/progress.py show WP-019` |
+| `ClaimConsistencyReport` | `WP-019` | `python3 scripts/progress.py show WP-019` |
 | `ProjectWorkflow implementation` | `WP-032` | `python3 scripts/progress.py show WP-032` |
 | `State transition table` | `WP-032` | `python3 scripts/progress.py show WP-032` |
 | `Workflow API` | `WP-032` | `python3 scripts/progress.py show WP-032` |

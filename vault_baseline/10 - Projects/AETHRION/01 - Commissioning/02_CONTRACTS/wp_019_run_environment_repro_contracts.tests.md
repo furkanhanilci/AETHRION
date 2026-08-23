@@ -127,15 +127,18 @@ ISO/IEC/IEEE 29119-3 §8.3.2. A coverage item is something the tests must reach.
 | C02 | `EnvironmentManifest` | Mandatory deliverable | *(name the test case)* |
 | C03 | `ReproductionReport` | Mandatory deliverable | *(name the test case)* |
 | C04 | `Tolerance policy examples` | Mandatory deliverable | *(name the test case)* |
-| C05 | Write the `RunManifest` input, output and lineage fields | WP-019-T01 | *(name the test case)* |
-| C06 | Make the protocol, baseline and analysis-plan references mandatory | WP-019-T02 | *(name the test case)* |
-| C07 | Add the `EnvironmentManifest` hardware, driver, image and SBOM fields | WP-019-T03 | *(name the test case)* |
-| C08 | Separate repeatability, reproducibility, robustness and replication as distinct types | WP-019-T04 | *(name the test case)* |
-| C09 | Write the `ReproductionReport` tolerance and root-cause schema | WP-019-T05 | *(name the test case)* |
-| C10 | Clean-Room Reproduction Pass | [ACC-19](../12_ACCEPTANCE_SCENARIOS/acc_19_clean_room_pass.md) — High | *(name the test case)* |
-| C11 | Clean-Room Reproduction Failure | [ACC-20](../12_ACCEPTANCE_SCENARIOS/acc_20_clean_room_fail.md) — Critical | *(name the test case)* |
+| C05 | `CandidateWorkspace` | Mandatory deliverable | *(name the test case)* |
+| C06 | `ReproductionPackage` | Mandatory deliverable | *(name the test case)* |
+| C07 | `ClaimConsistencyReport` | Mandatory deliverable | *(name the test case)* |
+| C08 | Write the `RunManifest` input, output and lineage fields | WP-019-T01 | *(name the test case)* |
+| C09 | Make the protocol, baseline and analysis-plan references mandatory | WP-019-T02 | *(name the test case)* |
+| C10 | Add the `EnvironmentManifest` hardware, driver, image and SBOM fields | WP-019-T03 | *(name the test case)* |
+| C11 | Separate repeatability, reproducibility, robustness and replication as distinct types | WP-019-T04 | *(name the test case)* |
+| C12 | Write the `ReproductionReport` tolerance and root-cause schema | WP-019-T05 | *(name the test case)* |
+| C13 | Clean-Room Reproduction Pass | [ACC-19](../12_ACCEPTANCE_SCENARIOS/acc_19_clean_room_pass.md) — High | *(name the test case)* |
+| C14 | Clean-Room Reproduction Failure | [ACC-20](../12_ACCEPTANCE_SCENARIOS/acc_20_clean_room_fail.md) — Critical | *(name the test case)* |
 
-**11 coverage items.** Every one must appear in the *Covered by* column of at least one test case below before this package can reach `TECH_COMPLETE`.
+**14 coverage items.** Every one must appear in the *Covered by* column of at least one test case below before this package can reach `TECH_COMPLETE`.
 
 <!-- /generated:coverage -->
 

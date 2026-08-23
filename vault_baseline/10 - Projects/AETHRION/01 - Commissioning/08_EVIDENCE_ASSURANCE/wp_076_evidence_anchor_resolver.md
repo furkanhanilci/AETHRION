@@ -95,6 +95,35 @@ This is where extraction (WP-078) and the entailment audit (WP-080) both bind.
 An anchor that degrades is a claim whose support degraded. It has to reach the
 claim, not sit in a resolver log.
 
+### Baseline v1.3.0 — the assurance layer stops using one word for two things
+
+Three changes, and the first is a vocabulary correction with real consequences.
+
+**"Mechanical verifier" is retired as a broad term.** It becomes V0 deterministic
+· V1 computational · V2 qualified semantic · V3 human (`ADR-008`), and the class
+is assigned by the verifier service from the procedure that actually ran — never
+by the caller. The reason is that the gate rule *a mechanical check cannot be
+overridden by a model* is correct for V0 and V1 and absurd at V2, where it says a
+model's judgement cannot be overridden by a model.
+
+**Assurance becomes routed** (`ADR-015`): by consequence and uncertainty rather
+than uniformly, with a cascade to a stronger independent verifier or to a human,
+and with `ABSTAIN` as a valid verdict that escalates. A route cannot be lowered
+because the queue is long or the budget is tight.
+
+**Three hard bindings** into the evidence and publication path:
+
+- **Specification conformance** — the frozen method and the running code are
+  compared, and an unapproved `SCIENTIFIC_MAJOR` deviation cannot carry a
+  confirmatory package forward (`ADR-018`, ACC-104).
+- **Model execution fingerprint** — every invocation contributing to a result
+  records what actually executed, retry and fallback history included, and a
+  hosted black-box model does not yield an `EXACT` reproduction claim
+  (ACC-115, ACC-116).
+- **Publication compiler** — no prose without a claim, no number without a
+  `VerifiedValue`, and a complete evidence chain checked link by link
+  (ACC-105, ACC-106).
+
 ## Out of scope
 
 - The internal implementation of any dependent package
@@ -121,7 +150,7 @@ claim, not sit in a resolver log.
 
 ### Full prerequisite closure
 
-**58 of 141 packages (41%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
+**58 of 160 packages (36%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
 
 | Level | Packages |
 |---:|---|
@@ -160,7 +189,7 @@ claim, not sit in a resolver log.
 ### What acceptance of this package releases
 
 - **Directly unblocked:** 7 — `WP-077` · `WP-078` · `WP-079` · `WP-080` · `WP-087` · `WP-095` · `WP-104`
-- **Transitively reachable:** **42 of 141 packages (30%)** cannot be accepted until this one is.
+- **Transitively reachable:** **55 of 160 packages (34%)** cannot be accepted until this one is.
 
 The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
 
@@ -211,6 +240,8 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `DatasetManifest schema` | `WP-014` | `python3 scripts/progress.py show WP-014` |
 | `Environment reference schema` | `WP-014` | `python3 scripts/progress.py show WP-014` |
 | `Immutability lifecycle` | `WP-014` | `python3 scripts/progress.py show WP-014` |
+| `Ordered parent lineage` | `WP-014` | `python3 scripts/progress.py show WP-014` |
+| `Digest normalisation and migration` | `WP-014` | `python3 scripts/progress.py show WP-014` |
 | `Literature schema bundle` | `WP-017` | `python3 scripts/progress.py show WP-017` |
 | `Status lifecycle` | `WP-017` | `python3 scripts/progress.py show WP-017` |
 | `Sample manifests` | `WP-017` | `python3 scripts/progress.py show WP-017` |
@@ -219,6 +250,10 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `Claim state machine` | `WP-018` | `python3 scripts/progress.py show WP-018` |
 | `Review/disagreement schemas` | `WP-018` | `python3 scripts/progress.py show WP-018` |
 | `Decision schema fixtures` | `WP-018` | `python3 scripts/progress.py show WP-018` |
+| `PublicationAssertion` | `WP-018` | `python3 scripts/progress.py show WP-018` |
+| `EvidenceTag` | `WP-018` | `python3 scripts/progress.py show WP-018` |
+| `FindingRecord` | `WP-018` | `python3 scripts/progress.py show WP-018` |
+| `Authority typing on every scientific record` | `WP-018` | `python3 scripts/progress.py show WP-018` |
 | `Object storage IaC` | `WP-026` | `python3 scripts/progress.py show WP-026` |
 | `Object address service` | `WP-026` | `python3 scripts/progress.py show WP-026` |
 | `Retention matrix` | `WP-026` | `python3 scripts/progress.py show WP-026` |
@@ -229,6 +264,7 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `ContentSafetyRecord` | `WP-058` | `python3 scripts/progress.py show WP-058` |
 | `Injection detector` | `WP-058` | `python3 scripts/progress.py show WP-058` |
 | `Quarantine UI/API` | `WP-058` | `python3 scripts/progress.py show WP-058` |
+| `Capability gate for untrusted content` | `WP-058` | `python3 scripts/progress.py show WP-058` |
 | `Representation ingest service` | `WP-063` | `python3 scripts/progress.py show WP-063` |
 | `License/status policy` | `WP-063` | `python3 scripts/progress.py show WP-063` |
 | `Status monitor` | `WP-063` | `python3 scripts/progress.py show WP-063` |

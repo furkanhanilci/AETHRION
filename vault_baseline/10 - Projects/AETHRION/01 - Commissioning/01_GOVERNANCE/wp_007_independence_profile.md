@@ -112,6 +112,50 @@ context — through an incident channel, a shared dashboard, or a previous versi
 of the same package. Assignment-time-only checking is the common implementation
 and it is the one that fails silently.
 
+### Baseline v1.2.0 — two independence dimensions that are not about people
+
+The seven dimensions here are about actors. Two more are about **state**, and
+both admit violations that every actor-level check passes.
+
+**Evaluator independence.** A producer that can reach the evaluator has
+influenced its own score without any actor constraint being broken. The
+constraint is a policy zone, not a role assignment.
+
+**Memory-context independence.** A reviewer able to query the producer's
+search-experience or procedural memory inherits the producer's dead ends and
+framing. The review is anchored, and nothing in the record shows it — the actor
+really is different, the profile really does say independent. Blind review
+therefore excludes those stores by default, and the exclusion is a property of
+the packet rather than a habit of the reviewer.
+
+Both are recorded as pair constraints: producer/evaluator, producer/reviewer,
+producer/reproducer, reviewer/reviewer. ACC-65, ACC-72; ADR-005 §6.
+
+### Baseline v1.3.0 — the invariants a cost optimiser must not be able to reach
+
+Three additions, and they share a shape: each names something that an
+efficiency argument would otherwise be free to trade away.
+
+**The cohort is not a lever.** `ADR-011` fixes that substantial scientific
+execution requires at least two epistemically independent cognitive
+contributions. Independence is a five-dimension profile, not a count — several
+instances of one model on one context are one contribution. Governance language
+here must make that an invariant rather than a default, because the pressure to
+relax it will arrive as a budget conversation.
+
+**Two disciplines, composable, neither collapsed.** `ADR-012`. A passing test is
+not a confirmed hypothesis and a preregistered analysis is not correct code. The
+four pairs that get conflated — TDD against preregistration, code review against
+scientific review, debugging against anomaly investigation, parallel agents
+against parallel analysts — stay distinct in the role, risk and control language.
+
+**What budget may and may not degrade.** Communication verbosity degrades; the
+cohort and the assurance route do not. A task that cannot afford its required
+assurance is `BLOCKED`, never quietly completed more cheaply. The new
+non-waivable controls follow from that: cohort integrity, assurance-route
+integrity, human preliminary judgment before recommendation, and specification
+conformance for confirmatory work.
+
 ## Out of scope
 
 - The internal implementation of any dependent package
@@ -132,7 +176,7 @@ and it is the one that fails silently.
 
 ### Full prerequisite closure
 
-**4 of 141 packages (3%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
+**4 of 160 packages (2%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
 
 | Level | Packages |
 |---:|---|
@@ -142,8 +186,8 @@ and it is the one that fails silently.
 
 ### What acceptance of this package releases
 
-- **Directly unblocked:** 19 — `WP-008` · `WP-009` · `WP-010` · `WP-013` · `WP-036` · `WP-042` · `WP-043` · `WP-045` · `WP-047` · `WP-056` · `WP-070` · `WP-071` · `WP-080` · `WP-084` · `WP-085` · `WP-086` · `WP-088` · `WP-089` · `WP-126`
-- **Transitively reachable:** **133 of 141 packages (94%)** cannot be accepted until this one is.
+- **Directly unblocked:** 21 — `WP-008` · `WP-009` · `WP-010` · `WP-013` · `WP-036` · `WP-042` · `WP-043` · `WP-045` · `WP-047` · `WP-056` · `WP-070` · `WP-071` · `WP-080` · `WP-084` · `WP-085` · `WP-086` · `WP-088` · `WP-089` · `WP-126` · `WP-147` · `WP-148`
+- **Transitively reachable:** **152 of 160 packages (95%)** cannot be accepted until this one is.
 
 The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
 
@@ -198,6 +242,8 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `AssuranceClass decision tables` | `WP-005` | `python3 scripts/progress.py show WP-005` |
 | `Promotion rules` | `WP-005` | `python3 scripts/progress.py show WP-005` |
 | `Worked examples` | `WP-005` | `python3 scripts/progress.py show WP-005` |
+| `StudyMode decision table` | `WP-005` | `python3 scripts/progress.py show WP-005` |
+| `Substantiality threshold for the multi-agent invariant` | `WP-005` | `python3 scripts/progress.py show WP-005` |
 
 ### Classification that must be recorded before work begins
 
@@ -245,6 +291,8 @@ A package whose evidence cannot be produced is not `READY`, however complete its
 - `Eligibility matrix`
 - `Conflict-of-interest declaration`
 - `Violation response`
+- `Evaluator and memory-context independence constraints`
+- `Cohort independence dimensions`
 - An updated runbook or operations note, plus the service/contract ownership record
 - A signed `EvidenceManifest`
 

@@ -48,6 +48,7 @@ CHECKS = [
     ("Figures", [sys.executable, "scripts/make_figures.py", "--check"], "drift"),
     ("Figure containment", [sys.executable, "scripts/check_figures.py"], "overflow"),
     ("Reporting register", [sys.executable, "scripts/check_reporting_registry.py"], "auditable"),
+    ("Upstream lineage", [sys.executable, "scripts/check_upstream_lineage.py"], "lineage problems"),
     ("Obsidian vault", [sys.executable, "scripts/check_vault.py"], "well-formed"),
     ("Package analysis blocks", [sys.executable, "scripts/expand_packages.py", "--check"], "drift"),
     ("Package companions", [sys.executable, "scripts/make_package_companions.py", "--check"], "drift"),

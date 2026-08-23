@@ -9,7 +9,7 @@
 | Severity | **Critical** |
 | Accountable owner | FinOps Lead |
 | Independent witness / verifier | Project Decision Owner / SRE |
-| Related packages | `WP-041`, `WP-045`, `WP-053`, `WP-060`, `WP-083`, `WP-100`, `WP-104`, `WP-111` |
+| Related packages | `WP-041`, `WP-045`, `WP-053`, `WP-060`, `WP-083`, `WP-100`, `WP-104`, `WP-111`, `WP-145` |
 | Acceptance phase | `PRE_GO_LIVE` |
 | Production acceptance | A Critical scenario can never be counted as PASS through a SKIP or a waiver |
 

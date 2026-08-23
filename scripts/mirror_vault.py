@@ -98,6 +98,38 @@ DOC_MAP = {
         "architecture/ADR-002_bootstrap_verification_control.md",
     "04 - Architecture/adr_003_trusted_control_and_policy.md":
         "architecture/ADR-003_trusted_control_and_policy.md",
+    "04 - Architecture/adr_004_mechanism_assimilation.md":
+        "architecture/ADR-004_mechanism_assimilation.md",
+    "04 - Architecture/adr_005_epistemic_memory_separation.md":
+        "architecture/ADR-005_epistemic_memory_separation.md",
+    "04 - Architecture/adr_006_discovery_search_graph.md":
+        "architecture/ADR-006_discovery_search_graph.md",
+    "04 - Architecture/adr_007_frozen_evaluator_and_verified_values.md":
+        "architecture/ADR-007_frozen_evaluator_and_verified_values.md",
+    "04 - Architecture/adr_008_verification_taxonomy.md":
+        "architecture/ADR-008_verification_taxonomy.md",
+    "04 - Architecture/adr_009_publication_as_projection.md":
+        "architecture/ADR-009_publication_as_projection.md",
+    "04 - Architecture/adr_010_policy_backend.md":
+        "architecture/ADR-010_policy_backend.md",
+    "04 - Architecture/adr_011_multi_agent_execution_invariant.md":
+        "architecture/ADR-011_multi_agent_execution_invariant.md",
+    "04 - Architecture/adr_012_dual_disciplines.md":
+        "architecture/ADR-012_dual_disciplines.md",
+    "04 - Architecture/adr_013_blackboard_and_sparse_communication.md":
+        "architecture/ADR-013_blackboard_and_sparse_communication.md",
+    "04 - Architecture/adr_014_canonical_authority_and_split_brain.md":
+        "architecture/ADR-014_canonical_authority_and_split_brain.md",
+    "04 - Architecture/adr_015_adaptive_assurance_routing.md":
+        "architecture/ADR-015_adaptive_assurance_routing.md",
+    "04 - Architecture/adr_016_human_preliminary_judgment.md":
+        "architecture/ADR-016_human_preliminary_judgment.md",
+    "04 - Architecture/adr_017_benchmark_isolation.md":
+        "architecture/ADR-017_benchmark_isolation.md",
+    "04 - Architecture/adr_018_specification_to_code_conformance.md":
+        "architecture/ADR-018_specification_to_code_conformance.md",
+    "04 - Architecture/adr_019_supply_chain_and_upstream_standard.md":
+        "architecture/ADR-019_supply_chain_and_upstream_standard.md",
     "05 - Evidence/current_status.md":
         "STATUS.md",
     "04 - Architecture/aethrion_document_standard.md":
@@ -175,6 +207,7 @@ REPO_MAP = {
     "02 - Reviews/review_corpus_index.md": "docs/review/README.md",
     "04 - Architecture/architecture_corpus_index.md": "docs/architecture/README.md",
     "04 - Architecture/schemas_index.md": "schemas/README.md",
+    "04 - Architecture/upstream_lineage_register.md": "provenance/README.md",
     "03 - Implementation/scripts_index.md": "scripts/README.md",
     "03 - Implementation/tests_index.md": "tests/README.md",
     "03 - Implementation/deployment_index.md": "deploy/README.md",

@@ -79,6 +79,46 @@ the abstract; the registry owns whether the source is retracted. Same record, tw
 authorities. A record-level matrix cannot express that, and the system will
 resolve it by whichever sync ran last.
 
+### Baseline v1.2.0 — authority for the records that did not exist when this was written
+
+The matrix must cover every record added by WP-141–147 and, separately, the six
+memory stores. For each: canonical owner, who may read, who may write, whether a
+change creates a version, and — the field that is new — **whether it may support
+a claim.**
+
+Only the evidence store may. Finding memory supports a claim indirectly, by being
+what a claim is drafted from. Search experience, procedural memory and principle
+memory may not, at all, and a retrieval API that lets a caller ask across stores
+by default makes that rule unenforceable. `MemoryQuery` therefore names the
+stores it is asking, and the policy decides from the requesting role. ADR-005.
+
+### Baseline v1.3.0 — new records, and the authority typing that keeps them honest
+
+The contract surface gains the records this baseline's capabilities need, and
+one field that matters more than any of them.
+
+**New canonical records:** `AgentCohortRecord`, `CognitiveDiversityProfile`,
+`CommunicationEdgePolicy`, `BlackboardEntry`, `TypedAgentMessage`,
+`CommunicationUtilityRecord`, `ContextProjectionRecord`,
+`MemoryInterventionRecord`, `ResearchBudgetContract`, `TokenLedgerEntry`,
+`SpecificationConformanceRecord`, `HumanPreliminaryAssessment`, `DecisionDelta`,
+`ModelExecutionFingerprint`, `BenchmarkRunPolicy`, `ContaminationFinding`,
+`UpstreamAssimilationRecord`.
+
+**Explicit authority typing.** Every record carries what it may never become. The
+three conversions this baseline forbids are all of the same kind, and each has
+already been attempted somewhere in the field:
+
+| Forbidden conversion | Why it is tempting |
+|---|---|
+| A blackboard entry into evidence | It is where the interesting sentences appear |
+| A communication or search utility score into a claim confidence | It is a number, and it correlates with something |
+| An event payload into gate authority | It is the fastest path and it usually works |
+
+The rule that makes them checkable rather than remembered: **events, blackboard
+entries and derived read models cannot masquerade as canonical scientific
+state**, and the schema is where that is enforced.
+
 ## Out of scope
 
 - The internal implementation of any dependent package
@@ -99,7 +139,7 @@ resolve it by whichever sync ran last.
 
 ### Full prerequisite closure
 
-**11 of 141 packages (8%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
+**11 of 160 packages (7%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
 
 | Level | Packages |
 |---:|---|
@@ -114,8 +154,8 @@ resolve it by whichever sync ran last.
 
 ### What acceptance of this package releases
 
-- **Directly unblocked:** 10 — `WP-014` · `WP-015` · `WP-017` · `WP-018` · `WP-030` · `WP-061` · `WP-064` · `WP-066` · `WP-073` · `WP-091`
-- **Transitively reachable:** **126 of 141 packages (89%)** cannot be accepted until this one is.
+- **Directly unblocked:** 11 — `WP-014` · `WP-015` · `WP-017` · `WP-018` · `WP-030` · `WP-061` · `WP-064` · `WP-066` · `WP-073` · `WP-091` · `WP-146`
+- **Transitively reachable:** **145 of 160 packages (91%)** cannot be accepted until this one is.
 
 The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
 

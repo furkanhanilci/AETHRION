@@ -104,6 +104,50 @@ be deleted; legal hold says it **may not be**, overriding retention. A system th
 implements retention alone will eventually delete something under hold, and the
 failure is discovered by a lawyer rather than by a check.
 
+### Baseline v1.2.0 — parents, order and the digest that must survive a rebuild
+
+An artifact record needs an **ordered parent list**, because synthesis from three
+inputs is the common case and the order carries meaning. Three properties follow,
+and each has a way of being silently lost:
+
+- **Ordered parents survive export, rebuild and restore.** A lineage that
+  survives an export but not a derived-graph rebuild is not lineage — ACC-71.
+- **The payload is immutable.** Overwriting an existing artifact fails; a changed
+  payload is a new artifact with a new digest.
+- **One digest format.** `sha256:<64 lowercase hex>` everywhere. The bridge
+  currently emits `sha256:<hex>` while `ArtifactManifest` requires a bare digest,
+  which is finding H4 and has to close before more records depend on the format.
+
+Payloads live in the content-addressed object store; metadata lives in
+PostgreSQL. A JSONL index is at most a derived projection and never the record.
+
+### Baseline v1.3.0 — new records, and the authority typing that keeps them honest
+
+The contract surface gains the records this baseline's capabilities need, and
+one field that matters more than any of them.
+
+**New canonical records:** `AgentCohortRecord`, `CognitiveDiversityProfile`,
+`CommunicationEdgePolicy`, `BlackboardEntry`, `TypedAgentMessage`,
+`CommunicationUtilityRecord`, `ContextProjectionRecord`,
+`MemoryInterventionRecord`, `ResearchBudgetContract`, `TokenLedgerEntry`,
+`SpecificationConformanceRecord`, `HumanPreliminaryAssessment`, `DecisionDelta`,
+`ModelExecutionFingerprint`, `BenchmarkRunPolicy`, `ContaminationFinding`,
+`UpstreamAssimilationRecord`.
+
+**Explicit authority typing.** Every record carries what it may never become. The
+three conversions this baseline forbids are all of the same kind, and each has
+already been attempted somewhere in the field:
+
+| Forbidden conversion | Why it is tempting |
+|---|---|
+| A blackboard entry into evidence | It is where the interesting sentences appear |
+| A communication or search utility score into a claim confidence | It is a number, and it correlates with something |
+| An event payload into gate authority | It is the fastest path and it usually works |
+
+The rule that makes them checkable rather than remembered: **events, blackboard
+entries and derived read models cannot masquerade as canonical scientific
+state**, and the schema is where that is enforced.
+
 ## Out of scope
 
 - The internal implementation of any dependent package
@@ -124,7 +168,7 @@ failure is discovered by a lawyer rather than by a check.
 
 ### Full prerequisite closure
 
-**12 of 141 packages (9%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
+**12 of 160 packages (8%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
 
 | Level | Packages |
 |---:|---|
@@ -140,8 +184,8 @@ failure is discovered by a lawyer rather than by a check.
 
 ### What acceptance of this package releases
 
-- **Directly unblocked:** 19 — `WP-015` · `WP-017` · `WP-018` · `WP-019` · `WP-020` · `WP-026` · `WP-043` · `WP-054` · `WP-058` · `WP-063` · `WP-072` · `WP-076` · `WP-081` · `WP-082` · `WP-084` · `WP-086` · `WP-090` · `WP-138` · `WP-139`
-- **Transitively reachable:** **125 of 141 packages (89%)** cannot be accepted until this one is.
+- **Directly unblocked:** 20 — `WP-015` · `WP-017` · `WP-018` · `WP-019` · `WP-020` · `WP-026` · `WP-043` · `WP-054` · `WP-058` · `WP-063` · `WP-072` · `WP-076` · `WP-081` · `WP-082` · `WP-084` · `WP-086` · `WP-090` · `WP-138` · `WP-139` · `WP-144`
+- **Transitively reachable:** **144 of 160 packages (90%)** cannot be accepted until this one is.
 
 The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
 
@@ -242,6 +286,8 @@ A package whose evidence cannot be produced is not `READY`, however complete its
 - `DatasetManifest schema`
 - `Environment reference schema`
 - `Immutability lifecycle`
+- `Ordered parent lineage`
+- `Digest normalisation and migration`
 - An updated runbook or operations note, plus the service/contract ownership record
 - A signed `EvidenceManifest`
 

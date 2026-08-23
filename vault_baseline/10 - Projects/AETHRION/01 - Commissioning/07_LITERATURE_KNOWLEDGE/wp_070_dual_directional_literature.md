@@ -95,6 +95,25 @@ weak sense: they inform which concepts were productive. They must not become an
 automatic filter, which would close the loop and let early decisions determine
 later coverage.
 
+### Baseline v1.3.0 — source status, retrieval budget and what survives a pruned context
+
+Two additions and one guarantee.
+
+**Material-delta detection for G10.** A citation-count change is not a material
+event. A retraction, a major correction, strong contradictory evidence, a
+reproduction failure or a dependency drift that invalidates a result is. The
+distinction is what keeps G10 from becoming a notification nobody reads —
+alert fatigue is a failure mode of a monitoring system, not a nuisance.
+
+**Search and retrieval budget.** Literature retrieval draws on the same
+`ResearchBudgetContract` as everything else, and its stopping rule stays
+distinct from the communication stopping rule — the two answer different
+questions and sharing a threshold would couple them wrongly.
+
+**The guarantee:** source and literature records stay canonical **even when the
+blackboard and the context projections are pruned**. A source that only exists in
+an agent's context is not a source, and pruning must never be able to lose one.
+
 ## Out of scope
 
 - The internal implementation of any dependent package
@@ -112,7 +131,7 @@ later coverage.
 |---|---|
 | [WP-007 — IndependenceProfile and Separation-of-Duties Policy](../01_GOVERNANCE/wp_007_independence_profile.md) | `IndependenceProfile rubric` · `Eligibility matrix` · `Conflict-of-interest declaration` · `Violation response` |
 | [WP-045 — Policy Router and Minimum-Sufficient Model Package](../05_MODEL_AGENT_TOOL/wp_045_policy_router_budget.md) | `Policy Router` · `RouteDecision service` · `Fan-out/budget rules` · `Routing conformance suite` |
-| [WP-047 — Role and Skill Registries, and the Task Compiler](../05_MODEL_AGENT_TOOL/wp_047_role_bundle_registry.md) | `Role Bundle Registry` · `Core role bundles` · `Bundle conformance tests` |
+| [WP-047 — Role and Skill Registries, and the Task Compiler](../05_MODEL_AGENT_TOOL/wp_047_role_bundle_registry.md) | `Role Bundle Registry` · `Core role bundles` · `Bundle conformance tests` · `Cohort, topology, projection and assurance-route compilation` |
 | [WP-062 — Source Identity Resolution, Deduplication and Merge](../07_LITERATURE_KNOWLEDGE/wp_062_source_identity_resolver.md) | `Source Resolver service` · `Match rules/features` · `Conflict queue` · `Known-item/dedup test corpus` |
 | [WP-065 — Personal Zotero Seed Ingest Pipeline](../07_LITERATURE_KNOWLEDGE/wp_065_zotero_seed_ingest.md) | `Personal seed adapter` · `Opt-in configuration` · `Sync state/receipts` · `Seed ingest dashboard` |
 | [WP-066 — Agent Candidate and Used-Source Write-Back](../07_LITERATURE_KNOWLEDGE/wp_066_zotero_agent_writeback.md) | `Zotero write-back service` · `Field mapping` · `Eligibility policy` · `SyncReceipt ledger` |
@@ -120,7 +139,7 @@ later coverage.
 
 ### Full prerequisite closure
 
-**57 of 141 packages (40%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
+**57 of 160 packages (36%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
 
 | Level | Packages |
 |---:|---|
@@ -157,7 +176,7 @@ later coverage.
 ### What acceptance of this package releases
 
 - **Directly unblocked:** 5 — `WP-071` · `WP-072` · `WP-094` · `WP-103` · `WP-125`
-- **Transitively reachable:** **44 of 141 packages (31%)** cannot be accepted until this one is.
+- **Transitively reachable:** **55 of 160 packages (34%)** cannot be accepted until this one is.
 
 The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
 
@@ -208,6 +227,8 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `Eligibility matrix` | `WP-007` | `python3 scripts/progress.py show WP-007` |
 | `Conflict-of-interest declaration` | `WP-007` | `python3 scripts/progress.py show WP-007` |
 | `Violation response` | `WP-007` | `python3 scripts/progress.py show WP-007` |
+| `Evaluator and memory-context independence constraints` | `WP-007` | `python3 scripts/progress.py show WP-007` |
+| `Cohort independence dimensions` | `WP-007` | `python3 scripts/progress.py show WP-007` |
 | `Policy Router` | `WP-045` | `python3 scripts/progress.py show WP-045` |
 | `RouteDecision service` | `WP-045` | `python3 scripts/progress.py show WP-045` |
 | `Fan-out/budget rules` | `WP-045` | `python3 scripts/progress.py show WP-045` |
@@ -215,6 +236,7 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `Role Bundle Registry` | `WP-047` | `python3 scripts/progress.py show WP-047` |
 | `Core role bundles` | `WP-047` | `python3 scripts/progress.py show WP-047` |
 | `Bundle conformance tests` | `WP-047` | `python3 scripts/progress.py show WP-047` |
+| `Cohort, topology, projection and assurance-route compilation` | `WP-047` | `python3 scripts/progress.py show WP-047` |
 | `Source Resolver service` | `WP-062` | `python3 scripts/progress.py show WP-062` |
 | `Match rules/features` | `WP-062` | `python3 scripts/progress.py show WP-062` |
 | `Conflict queue` | `WP-062` | `python3 scripts/progress.py show WP-062` |

@@ -102,15 +102,17 @@ ISO/IEC/IEEE 29119-3 §8.3.2. A coverage item is something the tests must reach.
 | C02 | `Eligibility matrix` | Mandatory deliverable | *(name the test case)* |
 | C03 | `Conflict-of-interest declaration` | Mandatory deliverable | *(name the test case)* |
 | C04 | `Violation response` | Mandatory deliverable | *(name the test case)* |
-| C05 | Define the seven independence dimensions | WP-007-T01 | *(name the test case)* |
-| C06 | Write the minimum required sets for R1, R2 and R3 | WP-007-T02 | *(name the test case)* |
-| C07 | Identify the non-compensable dimensions and their blocker rules | WP-007-T03 | *(name the test case)* |
-| C08 | Define the frozen-package and context-contamination controls | WP-007-T04 | *(name the test case)* |
-| C09 | Design re-evaluation at assignment time and again at gate time | WP-007-T05 | *(name the test case)* |
-| C10 | Planner Self-Approval Attempt | [ACC-06](../12_ACCEPTANCE_SCENARIOS/ACC-06_plan_self_approval.md) — Critical | *(name the test case)* |
-| C11 | Critical Reviewer Unavailable | [ACC-38](../12_ACCEPTANCE_SCENARIOS/ACC-38_reviewer_unavailable.md) — High | *(name the test case)* |
+| C05 | `Evaluator and memory-context independence constraints` | Mandatory deliverable | *(name the test case)* |
+| C06 | `Cohort independence dimensions` | Mandatory deliverable | *(name the test case)* |
+| C07 | Define the seven independence dimensions | WP-007-T01 | *(name the test case)* |
+| C08 | Write the minimum required sets for R1, R2 and R3 | WP-007-T02 | *(name the test case)* |
+| C09 | Identify the non-compensable dimensions and their blocker rules | WP-007-T03 | *(name the test case)* |
+| C10 | Define the frozen-package and context-contamination controls | WP-007-T04 | *(name the test case)* |
+| C11 | Design re-evaluation at assignment time and again at gate time | WP-007-T05 | *(name the test case)* |
+| C12 | Planner Self-Approval Attempt | [ACC-06](../12_ACCEPTANCE_SCENARIOS/ACC-06_plan_self_approval.md) — Critical | *(name the test case)* |
+| C13 | Critical Reviewer Unavailable | [ACC-38](../12_ACCEPTANCE_SCENARIOS/ACC-38_reviewer_unavailable.md) — High | *(name the test case)* |
 
-**11 coverage items.** Every one must appear in the *Covered by* column of at least one test case below before this package can reach `TECH_COMPLETE`.
+**13 coverage items.** Every one must appear in the *Covered by* column of at least one test case below before this package can reach `TECH_COMPLETE`.
 
 <!-- /generated:coverage -->
 

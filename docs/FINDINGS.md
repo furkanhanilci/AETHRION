@@ -6,7 +6,7 @@
 | Scope | Findings raised against this repository, from any source |
 | Sibling documents | `review/` holds the frozen reports that raised them · `STATUS.md` is generated |
 | Status | `WORKING` — maintained by hand; each state below was re-checked against the working tree |
-| Date | 2026-08-22 |
+| Date | 2026-08-23 |
 
 **In one paragraph.** The 2026-08-21 review raised twenty-four findings. Eight of
 them were tracked in prose across `README.md` and `AGENTS.md`; the other sixteen
@@ -84,7 +84,30 @@ that raised them; each names the test or check that would catch a regression.
 
 ---
 
-## 4. What this register does not do
+## 4. Finding raised by the 2026-08-23 baseline v1.2.0 work
+
+One defect surfaced while running the checks the verification bundle does **not**
+cover, and it is recorded in its own namespace for the same reason the 08-22
+inspection is: the earlier reports are frozen evidence and their identifiers
+belong to them.
+
+| # | Finding | Fixed by | Regression guard |
+|---|---|---|---|
+| **J1** | `acceptance_v0.py`'s `manifest_matches_registry_count` compared the **whole** projection manifest against the registry's source count. Finding **I3** had deliberately moved the two dashboards *inside* the manifest — a generated file outside it is one the projector can never clean up again — so from the moment I3 landed the check failed by exactly the number of dashboards, on a correct system. It reported `manifest=35 registry=33` and the defect was in the check | The dashboards and the source notes are counted separately; the manifest check now compares source notes to the registry and reports the dashboard count beside it | `uv run python scripts/acceptance_v0.py` → `"result": "accepted"`, 11 PASS, 0 FAIL |
+
+> **Why this was not caught earlier.** `acceptance_v0.py` needs a live Bridge and
+> the operator's Zotero library, so it is one of the two checks the bundle
+> deliberately excludes — `AGENTS.md` §5 and `docs/OPERATIONS.md` both say so.
+> A check outside the bundle is a check that runs when somebody remembers, and
+> this one had been silently red across at least one release of fixes.
+>
+> The general lesson is the one this register keeps re-learning: **a check that
+> nothing forces to run will eventually be a check nobody has run.** It is
+> recorded here rather than fixed and forgotten.
+
+---
+
+## 5. What this register does not do
 
 It does not rank, schedule or assign. It records what is known to be wrong and
 whether it still is. Two limits are worth stating plainly:

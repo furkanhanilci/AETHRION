@@ -103,7 +103,7 @@ From `00_PROGRAM/05_definition_of_ready_and_done.md`, instantiated for this pack
 - [ ] Out-of-scope items are written down.
 - [ ] **Safety & Governance Owner** is assigned accountable; an implementer is named; **Internal Audit / Red Team** is assigned verifier and is **independent of the producer** under WP-007's profile.
 - [ ] `WP-009` — Control Catalogue, Exceptions and Non-Waivable Blockers — is `ACCEPTED` (not `TECH_COMPLETE`).
-- [ ] `WP-056` — OPA Policy Platform and Bundle Distribution — is `ACCEPTED` (not `TECH_COMPLETE`).
+- [ ] `WP-056` — Policy Decision Point and Bundle Distribution — is `ACCEPTED` (not `TECH_COMPLETE`).
 - [ ] `WP-060` — Agentic Security Attack Suite and Red-Team Acceptance — is `ACCEPTED` (not `TECH_COMPLETE`).
 - [ ] `WP-112` — Security and Privacy Acceptance Package — is `ACCEPTED` (not `TECH_COMPLETE`).
 - [ ] `WP-121` — Hypercare, Stabilisation and Programme Closure — is `ACCEPTED` (not `TECH_COMPLETE`).

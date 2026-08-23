@@ -117,6 +117,121 @@ And one from the role model:
 > **A role is a function, not a person.** Independence is expressed as separation
 > constraints on a `RoleBinding`, never as headcount.
 
+## Invariants added by baseline v1.2.0
+
+The invariants above constrain how the system **acts**. These constrain what may
+be **believed** about what it produced, and they were added because the earlier
+baseline could have been completed in full without any of them being exercised
+once. Each names the scenario that tests it, so the invariant and its evidence
+cannot drift apart.
+
+> **No prose without a claim.** A factual publication assertion with no
+> `ClaimVersion` behind it does not enter a package — ACC-52.
+
+> **No number without a `VerifiedValue`**, and no `VerifiedValue` without an
+> immutable evaluator output beneath it — ACC-53, ACC-77.
+
+> **No evaluator controlled by its producer.** The producer has no read or write
+> path to the evaluator source, the hidden material or the official metric. A
+> boundary breach **invalidates the run** rather than lowering its score —
+> ACC-54, ACC-55.
+
+> **No confirmatory result without a plan frozen before it.** The claim ceiling
+> lowers by record and never rises on the same data — ACC-56.
+
+> **No reproduction in the producer's environment** — ACC-65.
+
+> **No qualifying verdict from an unqualified verifier**, and "mechanical" means
+> V0 and V1 only. A model-mediated result recorded as V0 is refused — ACC-61,
+> ACC-62.
+
+> **No failed experiment without a recorded outcome**, and an implementation,
+> data, infrastructure or policy failure **never** refutes a hypothesis —
+> ACC-63, ACC-64.
+
+> **No hypothesis or principle mutated in place.** A change is a successor
+> version naming its parent and its evolution operator — ACC-57.
+
+> **No human intervention without an audit record**, and no timeout, learned
+> preference, attention score or inbound message creates an approval — ACC-68,
+> ACC-69.
+
+> **No adapted mechanism without lineage** — a pinned commit, a licence read at
+> the source, a characterisation suite written before the code moves, and a
+> statement of what the mechanism may never decide — ACC-73, ACC-74.
+
+> **Nothing the search graph computes is epistemic.** A selection score, a
+> normalised rank or a tournament position allocates compute and can never be
+> written into a claim, a value or a gate. `STOPPED_BY_BUDGET` satisfies no gate.
+
+> **Only the evidence store may support a claim.** Search experience, procedural
+> memory and principle memory may not, and a memory query that names no store is
+> refused rather than silently widened — ACC-79.
+
+**A control that has never been observed to refuse is not a control.** Every
+critical detector in this set carries a known-positive that must fail and a
+known-negative that must pass, and a suite in which a planted control stays
+silent fails — regardless of what its clean result says.
+
+## Invariants added by baseline v1.3.0
+
+The v1.2.0 set constrains what may be **believed**. These constrain **how the
+work is carried out** — and each exists because an efficiency argument would
+otherwise be free to trade it away.
+
+> **Substantial scientific execution stays multi-agent.** At least two
+> epistemically independent cognitive contributions before synthesis, where
+> independence is a five-dimension profile and not a count. Optimisation targets
+> the communication graph, the context and the assurance route — **never the
+> cohort** — ACC-081, `ADR-011`.
+
+> **Peer output is embargoed until initial positions are sealed.** Anchoring is
+> an effect, not a preference, and the seal is what makes independent agreement
+> distinguishable from deference afterwards — ACC-082.
+
+> **A majority cannot close a material challenge.** Convergence requires it
+> answered, explicitly accepted as a limitation, or escalated — ACC-090.
+
+> **The blackboard is deletable.** Inter-agent exchange is typed, delta-only and
+> never canonical: deleting it must lose no scientific record, and no entry may
+> be promoted to evidence or to a claim — ACC-085, `ADR-013`.
+
+> **Budget degrades verbosity, never the cohort and never assurance.** A task
+> that cannot afford its required assurance is `BLOCKED`, not completed more
+> cheaply — ACC-099, ACC-101.
+
+> **A verifier may abstain, and abstention escalates.** It satisfies no
+> requirement, is not a failure, and its rate is a qualification metric. A route
+> is never lowered by queue length or budget — ACC-108, ACC-109, `ADR-015`.
+
+> **The human judges before the machine recommends.** The recommendation is
+> unreachable through **every** interface until the preliminary assessment is
+> sealed, and correcting never costs more effort than approving — ACC-110,
+> ACC-112, `ADR-016`.
+
+> **The frozen specification and the running code must still agree.** An
+> unapproved major deviation cannot carry a confirmatory package forward —
+> ACC-104, `ADR-018`.
+
+> **Every contributing model invocation carries an execution fingerprint**, and a
+> hosted black-box model does not yield an `EXACT` reproduction claim — ACC-115,
+> ACC-116.
+
+> **A benchmark score carries the conditions it was produced under.** A run that
+> could have reached the answers is labelled, never reported clean, and never
+> silently rerun for a cleaner one — ACC-118, `ADR-017`.
+
+> **One canonical owner per kind of state.** Events, blackboard entries and
+> derived projections cannot masquerade as canonical scientific state, and every
+> projection rebuilds losslessly — ACC-119, `ADR-014`.
+
+> **`UNKNOWN` is a legitimate failure classification.** A taxonomy that forces
+> every failure into a named cause produces a register of misattributions —
+> ACC-094.
+
+**Two disciplines stay separate and composable.** A passing test is not a
+confirmed hypothesis; a preregistered analysis is not correct code — `ADR-012`.
+
 ## Success invariants
 
 1. Every material claim links, in a single query, to its source representation,

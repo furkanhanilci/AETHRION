@@ -80,6 +80,35 @@ insiders. A WORM export is what an external auditor reads — and it is the same
 gap `airl-interim-v0.1` declares about itself: tamper-evident, **not externally
 witnessed**.
 
+### Baseline v1.3.0 — the assurance layer stops using one word for two things
+
+Three changes, and the first is a vocabulary correction with real consequences.
+
+**"Mechanical verifier" is retired as a broad term.** It becomes V0 deterministic
+· V1 computational · V2 qualified semantic · V3 human (`ADR-008`), and the class
+is assigned by the verifier service from the procedure that actually ran — never
+by the caller. The reason is that the gate rule *a mechanical check cannot be
+overridden by a model* is correct for V0 and V1 and absurd at V2, where it says a
+model's judgement cannot be overridden by a model.
+
+**Assurance becomes routed** (`ADR-015`): by consequence and uncertainty rather
+than uniformly, with a cascade to a stronger independent verifier or to a human,
+and with `ABSTAIN` as a valid verdict that escalates. A route cannot be lowered
+because the queue is long or the budget is tight.
+
+**Three hard bindings** into the evidence and publication path:
+
+- **Specification conformance** — the frozen method and the running code are
+  compared, and an unapproved `SCIENTIFIC_MAJOR` deviation cannot carry a
+  confirmatory package forward (`ADR-018`, ACC-104).
+- **Model execution fingerprint** — every invocation contributing to a result
+  records what actually executed, retry and fallback history included, and a
+  hosted black-box model does not yield an `EXACT` reproduction claim
+  (ACC-115, ACC-116).
+- **Publication compiler** — no prose without a claim, no number without a
+  `VerifiedValue`, and a complete evidence chain checked link by link
+  (ACC-105, ACC-106).
+
 ## Out of scope
 
 - The internal implementation of any dependent package
@@ -102,12 +131,12 @@ witnessed**.
 | [WP-028 — NATS JetStream and Transactional Outbox Foundation](../03_FOUNDATION/WP-028_nats_jetstream_outbox.md) | `NATS cluster` · `Outbox relay` · `Consumer SDK` · `DLQ/replay runbook` |
 | [WP-030 — Neo4j, pgvector and OpenSearch Derived Read Models](../03_FOUNDATION/WP-030_derived_read_models.md) | `Projection services` · `Graph/vector/search indexes` · `Rebuild jobs` · `Integrity/lag dashboard` |
 | [WP-055 — SPIFFE/SPIRE Workload Identity and Vault](../06_EXECUTION_SECURITY/WP-055_spiffe_vault_identity.md) | `SPIRE/Vault deployments` · `Identity registry mapping` · `Lease policies` · `Break-glass procedure` |
-| [WP-056 — OPA Policy Platform and Bundle Distribution](../06_EXECUTION_SECURITY/WP-056_opa_policy_platform.md) | `OPA platform` · `Policy bundle v1` · `Policy test suite` · `Bundle promotion pipeline` |
+| [WP-056 — Policy Decision Point and Bundle Distribution](../06_EXECUTION_SECURITY/WP-056_opa_policy_platform.md) | `Policy decision point` · `PolicyDecision interface conformance suite` · `Policy bundle v1` · `Policy test suite` |
 | [WP-061 — Canonical Source Registry Service](../07_LITERATURE_KNOWLEDGE/WP-061_source_registry_service.md) | `Source Registry service` · `Database migrations` · `API/OpenAPI` · `Outbox events` |
 
 ### Full prerequisite closure
 
-**44 of 141 packages (31%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
+**44 of 160 packages (28%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
 
 | Level | Packages |
 |---:|---|
@@ -140,8 +169,8 @@ witnessed**.
 
 ### What acceptance of this package releases
 
-- **Directly unblocked:** 16 — `WP-076` · `WP-077` · `WP-078` · `WP-079` · `WP-080` · `WP-081` · `WP-086` · `WP-087` · `WP-089` · `WP-090` · `WP-093` · `WP-095` · `WP-099` · `WP-101` · `WP-104` · `WP-108`
-- **Transitively reachable:** **55 of 141 packages (39%)** cannot be accepted until this one is.
+- **Directly unblocked:** 17 — `WP-076` · `WP-077` · `WP-078` · `WP-079` · `WP-080` · `WP-081` · `WP-086` · `WP-087` · `WP-089` · `WP-090` · `WP-093` · `WP-095` · `WP-099` · `WP-101` · `WP-104` · `WP-108` · `WP-146`
+- **Transitively reachable:** **70 of 160 packages (44%)** cannot be accepted until this one is.
 
 The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
 
@@ -194,6 +223,10 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `Claim state machine` | `WP-018` | `python3 scripts/progress.py show WP-018` |
 | `Review/disagreement schemas` | `WP-018` | `python3 scripts/progress.py show WP-018` |
 | `Decision schema fixtures` | `WP-018` | `python3 scripts/progress.py show WP-018` |
+| `PublicationAssertion` | `WP-018` | `python3 scripts/progress.py show WP-018` |
+| `EvidenceTag` | `WP-018` | `python3 scripts/progress.py show WP-018` |
+| `FindingRecord` | `WP-018` | `python3 scripts/progress.py show WP-018` |
+| `Authority typing on every scientific record` | `WP-018` | `python3 scripts/progress.py show WP-018` |
 | `Schema Registry v1` | `WP-020` | `python3 scripts/progress.py show WP-020` |
 | `Generated SDKs` | `WP-020` | `python3 scripts/progress.py show WP-020` |
 | `Compatibility CI` | `WP-020` | `python3 scripts/progress.py show WP-020` |
@@ -218,12 +251,14 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `Graph/vector/search indexes` | `WP-030` | `python3 scripts/progress.py show WP-030` |
 | `Rebuild jobs` | `WP-030` | `python3 scripts/progress.py show WP-030` |
 | `Integrity/lag dashboard` | `WP-030` | `python3 scripts/progress.py show WP-030` |
+| `Destructive projection rebuild proof` | `WP-030` | `python3 scripts/progress.py show WP-030` |
 | `SPIRE/Vault deployments` | `WP-055` | `python3 scripts/progress.py show WP-055` |
 | `Identity registry mapping` | `WP-055` | `python3 scripts/progress.py show WP-055` |
 | `Lease policies` | `WP-055` | `python3 scripts/progress.py show WP-055` |
 | `Break-glass procedure` | `WP-055` | `python3 scripts/progress.py show WP-055` |
 | `Identity audit dashboard` | `WP-055` | `python3 scripts/progress.py show WP-055` |
-| `OPA platform` | `WP-056` | `python3 scripts/progress.py show WP-056` |
+| `Policy decision point` | `WP-056` | `python3 scripts/progress.py show WP-056` |
+| `PolicyDecision interface conformance suite` | `WP-056` | `python3 scripts/progress.py show WP-056` |
 | `Policy bundle v1` | `WP-056` | `python3 scripts/progress.py show WP-056` |
 | `Policy test suite` | `WP-056` | `python3 scripts/progress.py show WP-056` |
 | `Bundle promotion pipeline` | `WP-056` | `python3 scripts/progress.py show WP-056` |

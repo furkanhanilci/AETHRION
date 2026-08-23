@@ -32,11 +32,22 @@ as if it were a library.
 |---|---|---|
 | **DEPENDENCY** | Runtime component, called directly | Version pinning, upgrade path, failure semantics |
 | **ADAPTER** | External component behind an AIRL contract | The contract must survive replacing it |
+| **DIRECT_ADAPT** | Source code taken and refactored into AETHRION contracts | Permissive licence read at the source · pinned commit · named file list · characterisation suite written **before** the code moves · SPDX and `NOTICE` |
+| **ADAPTIVE_REIMPLEMENT** | The mechanism is specified from paper or implementation, then written natively. No code copied | A written mechanism specification — inputs, outputs, states, invariants, failure conditions, forbidden behaviour — before any implementation |
 | **STANDARD** | A format or model implemented as specified | Conformance testing |
 | **BENCHMARK** | Not part of the system; it **measures** the system | Agreeing to publish the score |
 | **PATTERN** | An architectural idea implemented here, no code taken | Attribution, and honesty about divergence |
 | **OPTIONAL BACKEND** | A deployment choice behind a capability interface | The interface, not the backend, is the contract |
+| **DEFER** | Plausible, examined, not taken now | Recording the reason, so it is not re-examined from scratch |
 | **REJECTED** | Examined and deliberately not taken | Recording why |
+
+The two new types were added at baseline v1.2.0, when the register stopped being
+only about *components called at runtime* and started covering *mechanisms
+implemented here*. The distinction they draw is the one that matters legally and
+architecturally: **DIRECT_ADAPT moves files and therefore moves a licence
+obligation; ADAPTIVE_REIMPLEMENT moves an idea and does not.** A register entry
+that claims the second while naming source files is a defect, and
+`scripts/check_upstream_lineage.py` refuses it — see `ADR-004`.
 
 ---
 
@@ -53,8 +64,13 @@ control exists to catch**:
 4. **Adoption supplies a signal, never authority** — Crossref decides whether a
    record exists; it does not decide whether a package is accepted.
 
+5. **What it may never decide is stated before it is adopted** — every entry
+   carries an `authority_boundary`, because the recurring failure of adoption is
+   not a component behaving badly but a component quietly acquiring authority.
+
 Rule 4 is why this register is separate from gate policy, and why a BENCHMARK
-can never become a gate.
+can never become a gate. Rule 5 is why `provenance/upstreams.json` refuses an
+entry without an authority boundary.
 
 ---
 
@@ -123,7 +139,11 @@ reassurance, and the report says so.
 | **AgentDojo** | **BENCHMARK** | Prompt-injection assurance, WP-136 | A published attack/defence suite. AETHRION's untrusted-content boundary should be measured against someone else's attacks, not its own |
 | **CoE Audit** | **BENCHMARK** | G6-0 · G9 | Adopted in `AETHRION_EXTERNAL_STANDARDS.md` §4.3; check 1 implemented |
 | **PaperBench** | **PATTERN + BENCHMARK** | G7a / G7b | Its three-container separation — the agent builds in one, reproduction runs fresh in a second, grading happens in a third — is the working demonstration of the producer / reproducer / reviewer split this architecture asserts. The pattern is taken; the runtime is not embedded |
-| **ResearchClawBench** | **BENCHMARK** | End-to-end metascience | 40 real research tasks across 10 domains with expert rubrics. It enables the experiment that would make this project's central claim testable — see §11 |
+| **ResearchClawBench** | **BENCHMARK** | End-to-end metascience | 40 real research tasks across 10 domains, each grounded in a real published paper with the target paper hidden and expert-curated weighted rubrics. It enables the experiment that would make this project's central claim testable — see §11 |
+| **AstaBench** | **BENCHMARK** | WP-043 · WP-044 · verifier and actor qualification | Eleven benchmarks and 2,400+ examples across literature search, code execution, data analysis and end-to-end discovery — with **standardised tools and explicit control for model cost and tool access**. That last property is what the rest of this portfolio lacks: without cost normalisation, a governed-versus-ungoverned comparison cannot separate the effect of governance from the effect of spend |
+| **CORE-Bench** | **BENCHMARK** | G7a reproduction | 270 tasks over 90 papers across computer science, social science and medicine, at three difficulty levels including vision-language tasks. The oldest and most-cited of the reproduction benchmarks, and the one covering disciplines the 2026 preprints do not — a reproduction suite made only of recent work measures recent work |
+| **SciReplicate-Bench · Artisan-Bench · REPRO-Bench** | **BENCHMARK + PATTERN** | G7 | Three different questions about reproduction that a single benchmark conflates: can the paper be *understood* before code is written; can the agent emit a package that runs **after the agent is gone**; and does the recomputed output actually match the claim. The patterns are taken into WP-085; the runtimes are not embedded |
+| **ScienceAgentBench · EXP-Bench** | **BENCHMARK** | WP-043 · WP-083 | Scientific coding and analysis capability, and whether an experiment was actually *conducted* rather than well described. EXP-Bench's reported difficulty is why G5 acceptance tests execution rather than the quality of experiment-plan prose |
 
 **WP-043 changes character:** from *build an evaluation engine* to **encode AIRL
 behaviours as Inspect tasks and scorers**. The engine is not the contribution;
@@ -138,6 +158,7 @@ the behaviours and their pass criteria are.
 | **GROBID** | **DEPENDENCY** | `SourceRepresentation` | Scholarly PDF → TEI XML, developed over years against real publisher output. A first-attempt PDF parser makes `EvidenceSpan` unreliable at its foundation |
 | **Pub2TEI** | **DEPENDENCY** | Structured publisher ingestion | Normalises Elsevier, Springer, Wiley, JATS/NLM XML into the *same* TEI representation, so a span means the same thing regardless of where the source came from |
 | **PaperQA2** | **ADAPTER** | G3 retrieval | Far more mature retrieval than this project will build. The contribution is how retrieval binds to provenance and claim scope |
+| **OpenScholar** | **ADAPTER** (second implementation) | G3 retrieval | Kept behind the *same* adapter contract as PaperQA2, deliberately. The two are not ranked here — the choice is settled by measurement on the same questions, the same corpus and the same budget, against source recall, citation correctness, entailment, coverage, unsupported-claim rate, latency and cost. Hard-coding a winner today would be a preference wearing a decision's clothes |
 | **ASReview** | **ADAPTER** | G3 screening | Active-learning screening published in *Nature Machine Intelligence*, pairing directly with the SAFE stopping rule already adopted |
 
 ### 5.1 What canonical representation buys `EvidenceSpan`
@@ -171,8 +192,15 @@ stays bound to the representation that actually supported it.
 
 | Component | Type | Where | Why |
 |---|---|---|---|
-| **Cedar** | **DEPENDENCY** (first candidate) | Tool Broker · Execution Broker | Its `principal · action · resource · context` model already matches `TaskContract`, `forbid` overrides `permit`, and it has a formal semantics and schema validation. See `ADR-003` |
-| **OPA / Rego** | **OPTIONAL BACKEND** | same | The general-purpose alternative, kept as the fallback in a recorded bake-off |
+| **`PolicyDecision` interface** | **the commissioned contract** | Tool Broker · Execution Broker | What WP-056 delivers. The engine behind it is configuration |
+| **Cedar** | **OPTIONAL BACKEND** | same | `principal · action · resource · context` already matches `TaskContract`; `forbid` overrides `permit`; formal semantics and schema validation |
+| **OPA / Rego** | **OPTIONAL BACKEND** | same | General-purpose, mature bundle distribution, large operator familiarity |
+
+> **Neither engine is chosen — [`ADR-010`](ADR-010_policy_backend.md).** This
+> register previously called Cedar a first-candidate dependency while the plan's
+> WP-056 was titled *OPA Policy Platform*. Both are now optional backends behind
+> one interface, and the bake-off that decides between them cannot run until a
+> policy set exists, because there is nothing yet to measure them on.
 | **CaMeL** | **PATTERN** | WP-136 | Control flow comes from *trusted* intent; untrusted content may supply values but can never create actions or expand permissions. Reported 67–77 % of AgentDojo tasks solved with provable security depending on paper version |
 | **Inspect sandboxes · gVisor · E2B** | **OPTIONAL BACKEND** | Execution Broker | AETHRION should own the `ExecutionBackend` interface and the **risk-profile → backend** routing, not the isolation technology |
 
@@ -187,7 +215,7 @@ not a security boundary.
 | Component | Type | Where | Why |
 |---|---|---|---|
 | **Workflow Run RO-Crate** (Process / Workflow / Provenance profiles) | **STANDARD** | G5 `ExperimentRun` · G7 | Machine-actionable, engine-independent, re-execution aware, mapped to W3C PROV. **Priority raised: adopt before the first slice**, so the run format is never forked |
-| **Croissant 1.1** (MLCommons) | **STANDARD** | Dataset records | Adds machine-actionable provenance via PROV-O and structured usage conditions via ODRL/DUO — which connects directly to policy: a dataset's `usagePolicy` becomes a Cedar input |
+| **Croissant 1.1** (MLCommons) | **STANDARD** | Dataset records | Adds machine-actionable provenance via PROV-O and structured usage conditions via ODRL/DUO — which connects directly to policy: a dataset's `usagePolicy` becomes a policy input |
 | **SWHID — ISO/IEC 18670** | **STANDARD** | G7 · G9 software identity | An intrinsic identifier computed from content, verifiable without a registry. Works for private code too, because computing it does not require archiving |
 | **S3 Object Lock semantics** | **OPTIONAL BACKEND** | WP-026 | Compliance-mode WORM that no account, including root, can delete within retention |
 | **lakeFS** | **OPTIONAL BACKEND** | Working datasets | Git-like branching over object storage for *mutable* research data — a different problem from accepted-evidence immutability, and worth keeping separate |
@@ -223,7 +251,8 @@ externally witnessed**, and the Sigstore/Rekor path is what closes it.
 |---|---|---|---|
 | **SEPIO** | **STANDARD** (as an AIRL profile) | `ClaimVersion` · `EvidenceSpan` · review links | Domain-agnostic core model for **assertions, evidence and provenance**, designed to be specialised through profiles. Its shape is the shape AETHRION already has, and its relation types include *challenges* as well as *supports* — which is what adversarial review needs |
 | **LinkML** | **DEPENDENCY** | `SchemaRegistry`, WP-020 | One model generating JSON Schema, Pydantic, JSON-LD, SHACL and SQL DDL. This attacks a real debt: contracts currently risk being defined three times in three shapes, which is how the bridge and the contract core came to disagree about digests |
-| **`nanopub-py`** | **ADAPTER** | Public claim export | A published claim as a FAIR nanopublication — **an export representation, not the operational ledger** |
+| **CiTO — the Citation Typing Ontology** | **STANDARD** | `EvidenceTag.support_relation` | `EvidenceTag` was about to carry an invented three-value enum — supports, challenges, contextualises. CiTO already publishes that vocabulary — `cito:supports`, `cito:disagreesWith`, `cito:usesMethodIn` and the rest — from the same SPAR family as the rest of the scholarly stack. Binding to its IRIs costs nothing now and makes an evidence tag mean the same thing outside this system as inside it. See `ADR-009` §5 |
+| **`nanopub-py`** | **ADAPTER**, deferred | Public claim export | A published claim as a FAIR nanopublication — **an export representation, not the operational ledger**. Its structure (assertion · provenance · publication info) is close to an exact match for `ClaimVersion` + `EvidenceTag` + `DecisionRecord`, so the publication compiler is built so this projection stays addable. Deferred until the compiler exists, because a projection nobody consumes is cost without benefit |
 | **`krippendorff`** · statsmodels · scikit-learn | **DEPENDENCY** | Metascience plane | Standard estimators with known small-sample and missing-data behaviour |
 | **statcheck · `grim` · `pysprite`** | **DEPENDENCY** | G6-0 forensics | Validated implementations of tests whose edge cases — scale granularity, rounding, integer constraints — are exactly where a fresh implementation goes wrong |
 
@@ -263,6 +292,66 @@ Summary:
 > **None of this toolchain is installed here.** Docker is, so the bake-off can be
 > run in pinned containers. Until it is, "this project uses Quarto" states an
 > intention, not a measurement.
+
+## 9.2 Mechanisms assimilated rather than called
+
+The sections above answer *which running implementation does this control stand
+on*. This one answers a different question that the register did not previously
+cover: **which mechanisms are implemented here, having been solved somewhere else
+first.**
+
+The distinction is not pedantic. A DEPENDENCY is installed and called — GROBID
+parses a PDF and the parsing happens in GROBID. An assimilated mechanism runs as
+this system's own code: there is nothing to install, nothing to call, and no
+runtime trace of where it came from. That is exactly why it needs a register of
+its own, and why `ADR-004` makes taking one an auditable act.
+
+**The rule, stated once:** a mechanism may be taken; an architecture may not. No
+external project appears here as a runtime module, a directory, a backend, a
+class name or a configuration key. What arrives is a mechanism re-expressed in
+this system's vocabulary — a candidate node becomes a `SearchNode` bound to an
+`ArtifactRecord`, a scalar score becomes a `VerifiedValue` bound to a
+`RawEvaluatorArtifact`, a budget counter becomes a `CampaignStopRecord` that
+explicitly satisfies no gate.
+
+### Where the register lives
+
+`provenance/upstreams.json` is authoritative; **[`provenance/README.md`](../../provenance/README.md)** is generated
+from it and lists every entry with its upstream, its licence, what was
+deliberately not taken, and what the mechanism may never decide.
+`scripts/check_upstream_lineage.py` validates it and can be made to fail on
+demand — `--self-test` injects a defect per rule and reports any rule that stays
+silent.
+
+Current state: **36 entries** — ADAPTIVE_REIMPLEMENT 14 · BENCHMARK 6 · DEFER 4 · DIRECT_ADAPT 6 · PATTERN 4 · REJECT 1 · STANDARD 1.
+**None has reached `ADAPTING`.** Every row is a decision on paper, `pinned_commit`
+is `null` throughout, and the rules that demand a pin, a file list and a
+characterisation suite begin to bite at the moment the first line of code moves.
+
+### What the register refuses, and why those examples
+
+Four entries record a capability being deliberately narrowed rather than copied.
+They are worth naming here because each one is a place where adopting the
+mechanism as-is would have handed authority to something that should not have it:
+
+| Upstream capability | What was taken | What was refused |
+|---|---|---|
+| Automatic fulfilment of a broadcast information need | The typed `EvidenceGap` with an acceptance condition and a lifecycle | The autonomy. Upstream, an unmet need scored by urgency triggers a peer agent to run a skill. An open gap here authorises nothing; work is created by gate policy |
+| A retrieval loop that stops when the model judges evidence sufficient | `EvidenceSufficiencyAssessment`, advisory | Its authority. A confirmatory campaign's stopping rule is frozen before results are seen, and cannot be changed by the loop that reads them |
+| `auto_proceed_on_timeout`, a boolean defaulting to false | The human-intervention action vocabulary — approve, reject, edit, guidance, request revision, rollback, abort | The flag itself. At G8 and every mandatory human gate the capability is **absent**, not defaulted off, because a setting that can be turned on is a control that will be |
+| A search tree whose node score drives the whole loop | The selection mechanism and its revisit-interior-nodes property | The score's reach. It allocates compute; writing it into a claim assessment is refused by schema and by policy — `ADR-006` |
+
+### An end-to-end paper generator was examined and rejected
+
+One candidate overlapped this system's entire scope — idea, experiment,
+analysis, paper, review. It is recorded as `REJECT` for two independent reasons,
+either of which would suffice: its licence is neither MIT nor Apache and attaches
+conditions to publications produced with it, which is the kind of obligation a
+research system must not acquire silently; and adopting something with that scope
+would be adopting a competing architecture rather than a mechanism. The entry
+exists so the question is not reopened without new information.
+
+---
 
 ## 10. External witnesses
 
@@ -335,7 +424,7 @@ part AETHRION actually contributes.**
 | WP-026 | build a WORM store | integrate and verify an object-lock backend |
 | WP-043 | build an evaluation engine | encode behaviours as **Inspect** tasks and scorers |
 | WP-048 | write per-harness adapters | drive real harnesses through Inspect's agent bridge |
-| WP-049/050 | write a policy evaluator | **Cedar** policies, with a recorded OPA bake-off |
+| WP-049/050 | write a policy evaluator | a policy engine behind the `PolicyDecision` interface; the engine is chosen by the ADR-010 bake-off, which has not run |
 | WP-061-class | build a PDF parser | **GROBID + Pub2TEI** into canonical TEI |
 | WP-068-class | build a screener | **ASReview**, owning the stopping-rule evidence |
 | WP-075 | design a claim model | an **AIRL-SEPIO profile** in LinkML |
@@ -359,4 +448,10 @@ part AETHRION actually contributes.**
 - `sigstore-python` — <https://github.com/sigstore/sigstore-python> · `model-signing` — <https://github.com/sigstore/model-transparency>
 - OSF Registries API — <https://developer.osf.io/> · lakeFS — <https://docs.lakefs.io/> · MLflow tracing — <https://mlflow.org/docs/latest/genai/tracing/opentelemetry/>
 - PaperBench — <https://github.com/openai/preparedness/blob/main/project/paperbench/README.md> · ResearchClawBench — <https://github.com/InternScience/ResearchClawBench>
+- AstaBench — <https://github.com/allenai/asta-bench> · <https://arxiv.org/abs/2510.21652> · CORE-Bench — <https://arxiv.org/abs/2409.11363>
+- ScienceAgentBench — <https://github.com/OSU-NLP-Group/ScienceAgentBench> · EXP-Bench — <https://arxiv.org/abs/2505.24785>
+- SciReplicate-Bench — <https://arxiv.org/abs/2504.00255> · Artisan — <https://arxiv.org/abs/2602.10046> · REPRO-Bench — <https://arxiv.org/abs/2507.18901>
+- OpenScholar — <https://github.com/AkariAsai/OpenScholar> · <https://arxiv.org/abs/2411.14199>
+- CiTO — <https://sparontologies.github.io/cito/current/cito.html> · nanopublications — <https://nanopub.net/>
+- **Assimilated mechanisms and their upstreams: [`provenance/README.md`](../../provenance/README.md)**, generated from `provenance/upstreams.json`
 - statcheck (Python) — <https://github.com/hplisiecki/statcheck_python> · `grim` — <https://pypi.org/project/grim/> · `pysprite` — <https://github.com/QuentinAndre/pysprite> · `krippendorff` — <https://pypi.org/project/krippendorff/>

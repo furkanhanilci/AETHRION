@@ -1,14 +1,15 @@
 {
   "_comment": [
-    "Authoritative execution state for the V1 commissioning programme.",
+    "Authoritative execution state for the AETHRION commissioning programme.",
     "Kept OUTSIDE the plan seal on purpose: the seal proves the specification did",
     "not change, and progress is not the specification. Recording a day's work",
     "must not invalidate the integrity proof of the plan it was work against.",
-    "The 'Status at baseline' field in each WP document is the value frozen at",
-    "v1.0.5 and is historical; this file is what is true now.",
+    "The 'Status at baseline' field in each WP document is the value frozen when",
+    "true now. WP-000-140 were frozen at v1.0.5, WP-141-147 at v1.2.0, WP-148-159 at v1.3.0.",
+    "true now. WP-000-140 were frozen at v1.0.5, WP-141-147 at v2.0.0.",
     "Regenerate the ready queue with: python3 scripts/ready_queue.py"
   ],
-  "baseline": "v1.0.5",
+  "baseline": "v1.3.0",
   "states": [
     "NOT_STARTED",
     "IN_PROGRESS",
@@ -579,6 +580,82 @@
       "note": ""
     },
     "WP-140": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-141": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-142": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-143": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-144": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-145": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-146": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-147": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-148": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-149": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-150": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-151": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-152": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-153": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-154": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-155": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-156": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-157": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-158": {
+      "state": "NOT_STARTED",
+      "note": ""
+    },
+    "WP-159": {
       "state": "NOT_STARTED",
       "note": ""
     }

@@ -117,17 +117,18 @@ ISO/IEC/IEEE 29119-3 §8.3.2. A coverage item is something the tests must reach.
 | C03 | `Validated findings` | Mandatory deliverable | *(name the test case)* |
 | C04 | `Signed OCI/release` | Mandatory deliverable | *(name the test case)* |
 | C05 | `Merge DecisionRecord` | Mandatory deliverable | *(name the test case)* |
-| C06 | Create the B/C risk fixtures and the technical specification | WP-107-T01 | *(name the test case)* |
-| C07 | Open the plan reality check, protected-path check and the worktree | WP-107-T02 | *(name the test case)* |
-| C08 | Run the agent implementation and CI verification | WP-107-T03 | *(name the test case)* |
-| C09 | Perform blind and cross-family review of the frozen diff | WP-107-T04 | *(name the test case)* |
-| C10 | Apply the reproducer and correction loop to HIGH/BLOCKER findings | WP-107-T05 | *(name the test case)* |
-| C11 | Re-freeze, re-review, produce a signed build and take the human merge decision | WP-107-T06 | *(name the test case)* |
-| C12 | Planner Self-Approval Attempt | [ACC-06](../12_ACCEPTANCE_SCENARIOS/ACC-06_plan_self_approval.md) — Critical | *(name the test case)* |
-| C13 | Unsigned or Mutable Image | [ACC-17](../12_ACCEPTANCE_SCENARIOS/ACC-17_unsigned_image.md) — Critical | *(name the test case)* |
-| C14 | Artifact Overwrite Attempt | [ACC-23](../12_ACCEPTANCE_SCENARIOS/ACC-23_artifact_overwrite.md) — Critical | *(name the test case)* |
+| C06 | `Engineering completion slice with attestation and eligibility` | Mandatory deliverable | *(name the test case)* |
+| C07 | Create the B/C risk fixtures and the technical specification | WP-107-T01 | *(name the test case)* |
+| C08 | Open the plan reality check, protected-path check and the worktree | WP-107-T02 | *(name the test case)* |
+| C09 | Run the agent implementation and CI verification | WP-107-T03 | *(name the test case)* |
+| C10 | Perform blind and cross-family review of the frozen diff | WP-107-T04 | *(name the test case)* |
+| C11 | Apply the reproducer and correction loop to HIGH/BLOCKER findings | WP-107-T05 | *(name the test case)* |
+| C12 | Re-freeze, re-review, produce a signed build and take the human merge decision | WP-107-T06 | *(name the test case)* |
+| C13 | Planner Self-Approval Attempt | [ACC-06](../12_ACCEPTANCE_SCENARIOS/ACC-06_plan_self_approval.md) — Critical | *(name the test case)* |
+| C14 | Unsigned or Mutable Image | [ACC-17](../12_ACCEPTANCE_SCENARIOS/ACC-17_unsigned_image.md) — Critical | *(name the test case)* |
+| C15 | Artifact Overwrite Attempt | [ACC-23](../12_ACCEPTANCE_SCENARIOS/ACC-23_artifact_overwrite.md) — Critical | *(name the test case)* |
 
-**14 coverage items.** Every one must appear in the *Covered by* column of at least one test case below before this package can reach `TECH_COMPLETE`.
+**15 coverage items.** Every one must appear in the *Covered by* column of at least one test case below before this package can reach `TECH_COMPLETE`.
 
 <!-- /generated:coverage -->
 

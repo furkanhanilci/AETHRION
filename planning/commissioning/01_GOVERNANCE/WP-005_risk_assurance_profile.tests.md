@@ -102,13 +102,15 @@ ISO/IEC/IEEE 29119-3 §8.3.2. A coverage item is something the tests must reach.
 | C02 | `AssuranceClass decision tables` | Mandatory deliverable | *(name the test case)* |
 | C03 | `Promotion rules` | Mandatory deliverable | *(name the test case)* |
 | C04 | `Worked examples` | Mandatory deliverable | *(name the test case)* |
-| C05 | Define the M/U/X/S dimensions with a 0–3 rubric | WP-005-T01 | *(name the test case)* |
-| C06 | Write the max/precedence rules and the hard-promotion rules | WP-005-T02 | *(name the test case)* |
-| C07 | Define the fail-closed effect of an `UNKNOWN` value | WP-005-T03 | *(name the test case)* |
-| C08 | Map R1/R2/R3 onto review, literature and reproduction depth | WP-005-T04 | *(name the test case)* |
-| C09 | Assign the decision rights for raising and lowering a risk class | WP-005-T05 | *(name the test case)* |
+| C05 | `StudyMode decision table` | Mandatory deliverable | *(name the test case)* |
+| C06 | `Substantiality threshold for the multi-agent invariant` | Mandatory deliverable | *(name the test case)* |
+| C07 | Define the M/U/X/S dimensions with a 0–3 rubric | WP-005-T01 | *(name the test case)* |
+| C08 | Write the max/precedence rules and the hard-promotion rules | WP-005-T02 | *(name the test case)* |
+| C09 | Define the fail-closed effect of an `UNKNOWN` value | WP-005-T03 | *(name the test case)* |
+| C10 | Map R1/R2/R3 onto review, literature and reproduction depth | WP-005-T04 | *(name the test case)* |
+| C11 | Assign the decision rights for raising and lowering a risk class | WP-005-T05 | *(name the test case)* |
 
-**9 coverage items.** Every one must appear in the *Covered by* column of at least one test case below before this package can reach `TECH_COMPLETE`.
+**11 coverage items.** Every one must appear in the *Covered by* column of at least one test case below before this package can reach `TECH_COMPLETE`.
 
 <!-- /generated:coverage -->
 

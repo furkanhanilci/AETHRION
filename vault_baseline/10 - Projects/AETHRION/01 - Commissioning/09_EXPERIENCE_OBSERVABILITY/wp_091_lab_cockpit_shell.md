@@ -94,6 +94,29 @@ A decision-maker who has to navigate four screens to see the evidence delta will
 stop looking. Every object addressable by a stable URL is what makes WP-093's
 evidence-delta view usable at all.
 
+### Baseline v1.3.0 — showing the cost of collaboration, and the shape of a decision
+
+The experience and observability layer gains three things it could not
+previously display, because they did not exist to be displayed.
+
+**Collaboration cost.** Coordination overhead ratio, redundant message rate,
+useful challenge rate, rounds, and the token ledger's seven categories. A single
+cost total says a campaign was expensive; the categories say whether it was
+expensive because it did science or because it held a meeting.
+
+**The human decision surface, reordered.** Evidence first, recommendation second,
+and a `DecisionDelta` when the second changes the first (`ADR-016`). The queue
+uses evidence-delta priority — what changed since the last decision, not the full
+state every time. **Attention priority orders and never authorises**, and no
+timeout or learned preference produces an approval.
+
+**Verifier abstention, surfaced.** An `ABSTAIN` is an escalation signal and has to
+look like one in the interface. A surface that renders it as a soft pass has
+undone `ADR-015`.
+
+New SLOs: coordination overhead, challenge rate, contamination and security
+findings, and the quality/cost Pareto frontier.
+
 ## Out of scope
 
 - The internal implementation of any dependent package
@@ -121,7 +144,7 @@ evidence-delta view usable at all.
 
 ### Full prerequisite closure
 
-**43 of 141 packages (30%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
+**43 of 160 packages (27%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
 
 | Level | Packages |
 |---:|---|
@@ -153,7 +176,7 @@ evidence-delta view usable at all.
 ### What acceptance of this package releases
 
 - **Directly unblocked:** 5 — `WP-092` · `WP-093` · `WP-094` · `WP-095` · `WP-102`
-- **Transitively reachable:** **33 of 141 packages (23%)** cannot be accepted until this one is.
+- **Transitively reachable:** **37 of 160 packages (23%)** cannot be accepted until this one is.
 
 The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
 
@@ -224,6 +247,7 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `Graph/vector/search indexes` | `WP-030` | `python3 scripts/progress.py show WP-030` |
 | `Rebuild jobs` | `WP-030` | `python3 scripts/progress.py show WP-030` |
 | `Integrity/lag dashboard` | `WP-030` | `python3 scripts/progress.py show WP-030` |
+| `Destructive projection rebuild proof` | `WP-030` | `python3 scripts/progress.py show WP-030` |
 | `ProjectWorkflow implementation` | `WP-032` | `python3 scripts/progress.py show WP-032` |
 | `State transition table` | `WP-032` | `python3 scripts/progress.py show WP-032` |
 | `Workflow API` | `WP-032` | `python3 scripts/progress.py show WP-032` |

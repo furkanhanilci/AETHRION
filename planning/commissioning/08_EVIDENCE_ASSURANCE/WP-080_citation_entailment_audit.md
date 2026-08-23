@@ -86,6 +86,58 @@ Every material sentence at R3; a sample at R1. The sampling rate and the sampled
 error rate are both published — a sample with no reported error rate cannot
 support an inference about the unsampled remainder.
 
+### Baseline v1.2.0 — one audit is four questions with three statuses
+
+"Citation audit passed" hides which check actually ran. The four questions have
+different epistemic statuses and must be reported separately:
+
+| Question | Class |
+|---|---|
+| Does the reference exist and resolve? | V0 |
+| Does the locator resolve in this representation version? | V0 |
+| Does the quoted span match the source text digest? | V0/V1 |
+| Does the cited passage **support** the sentence? | **V2** |
+| Does the sentence claim **more** than the passage supports? | **V2** |
+
+The first three are cheap and certain. The last two catch a hallucinated argument
+and are the ones with an error rate — so they need a qualified verifier, and a
+result recording them as V0 or V1 is refused (ACC-62).
+
+**Existence is not support.** This package's reference half already runs and
+reports 27 of 33 sources corroborated; that number says records exist in public
+authorities, not that any claim is supported by them. The scope check is the one
+that catches the hardest case: a real citation, on topic, that does not support
+the sentence built on it — ACC-76.
+
+### Baseline v1.3.0 — the assurance layer stops using one word for two things
+
+Three changes, and the first is a vocabulary correction with real consequences.
+
+**"Mechanical verifier" is retired as a broad term.** It becomes V0 deterministic
+· V1 computational · V2 qualified semantic · V3 human (`ADR-008`), and the class
+is assigned by the verifier service from the procedure that actually ran — never
+by the caller. The reason is that the gate rule *a mechanical check cannot be
+overridden by a model* is correct for V0 and V1 and absurd at V2, where it says a
+model's judgement cannot be overridden by a model.
+
+**Assurance becomes routed** (`ADR-015`): by consequence and uncertainty rather
+than uniformly, with a cascade to a stronger independent verifier or to a human,
+and with `ABSTAIN` as a valid verdict that escalates. A route cannot be lowered
+because the queue is long or the budget is tight.
+
+**Three hard bindings** into the evidence and publication path:
+
+- **Specification conformance** — the frozen method and the running code are
+  compared, and an unapproved `SCIENTIFIC_MAJOR` deviation cannot carry a
+  confirmatory package forward (`ADR-018`, ACC-104).
+- **Model execution fingerprint** — every invocation contributing to a result
+  records what actually executed, retry and fallback history included, and a
+  hosted black-box model does not yield an `EXACT` reproduction claim
+  (ACC-115, ACC-116).
+- **Publication compiler** — no prose without a claim, no number without a
+  `VerifiedValue`, and a complete evidence chain checked link by link
+  (ACC-105, ACC-106).
+
 ## Out of scope
 
 - The internal implementation of any dependent package
@@ -112,7 +164,7 @@ support an inference about the unsampled remainder.
 
 ### Full prerequisite closure
 
-**70 of 141 packages (50%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
+**70 of 160 packages (44%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
 
 | Level | Packages |
 |---:|---|
@@ -154,7 +206,7 @@ support an inference about the unsampled remainder.
 ### What acceptance of this package releases
 
 - **Directly unblocked:** 6 — `WP-086` · `WP-087` · `WP-090` · `WP-095` · `WP-104` · `WP-106`
-- **Transitively reachable:** **37 of 141 packages (26%)** cannot be accepted until this one is.
+- **Transitively reachable:** **48 of 160 packages (30%)** cannot be accepted until this one is.
 
 The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
 
@@ -204,10 +256,16 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `Eligibility matrix` | `WP-007` | `python3 scripts/progress.py show WP-007` |
 | `Conflict-of-interest declaration` | `WP-007` | `python3 scripts/progress.py show WP-007` |
 | `Violation response` | `WP-007` | `python3 scripts/progress.py show WP-007` |
+| `Evaluator and memory-context independence constraints` | `WP-007` | `python3 scripts/progress.py show WP-007` |
+| `Cohort independence dimensions` | `WP-007` | `python3 scripts/progress.py show WP-007` |
 | `Evidence contract bundle` | `WP-018` | `python3 scripts/progress.py show WP-018` |
 | `Claim state machine` | `WP-018` | `python3 scripts/progress.py show WP-018` |
 | `Review/disagreement schemas` | `WP-018` | `python3 scripts/progress.py show WP-018` |
 | `Decision schema fixtures` | `WP-018` | `python3 scripts/progress.py show WP-018` |
+| `PublicationAssertion` | `WP-018` | `python3 scripts/progress.py show WP-018` |
+| `EvidenceTag` | `WP-018` | `python3 scripts/progress.py show WP-018` |
+| `FindingRecord` | `WP-018` | `python3 scripts/progress.py show WP-018` |
+| `Authority typing on every scientific record` | `WP-018` | `python3 scripts/progress.py show WP-018` |
 | `LiteratureSetManifest` | `WP-072` | `python3 scripts/progress.py show WP-072` |
 | `Signed frozen package` | `WP-072` | `python3 scripts/progress.py show WP-072` |
 | `Portable exports` | `WP-072` | `python3 scripts/progress.py show WP-072` |
@@ -283,6 +341,7 @@ A package whose evidence cannot be produced is not `READY`, however complete its
 - `Audit rubric`
 - `Mechanical locator checker`
 - `Audit report/scorecard`
+- `Decomposed citation audit with per-question verification class`
 - An updated runbook or operations note, plus the service/contract ownership record
 - A signed `EvidenceManifest`
 
