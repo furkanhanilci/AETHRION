@@ -2,11 +2,18 @@
 """Figure 14 — one canonical owner per kind of state, and everything else rebuildable.
 
 Five-second message
-    Seven stores, one owner per kind of truth. Split brain does not arrive as a
+    One owner per kind of truth — a rule about ownership, not a number of
+    stores. Split brain does not arrive as a
     crash — it arrives as a projection that is quietly ahead of the store it
     projects, read by something that trusts it.
 
 Why this figure exists
+    The count was the defect. This paragraph said "seven plausible answers" and
+    then listed eight components, and the sentence would have been wrong again
+    the day a ninth arrived — because a reader who memorises "seven stores" has
+    memorised the wrong thing entirely. The invariant is one owner per KIND of
+    state; the number of components is an implementation detail that changes.
+
     An authority matrix written as prose reads as obvious and is violated within
     a sprint, because the violation is always locally reasonable: write to the
     index too, it is faster; trust the event payload, it is right there. Drawn
@@ -53,10 +60,11 @@ def main() -> None:
 
     c.text(L, 48, "One canonical owner per kind of state", size=30, weight="700", anchor="start")
     y = c.para(L, 80,
-               "A system with a workflow engine, a relational store, an object store, an event bus, a graph "
-               "projection, a vector index and two human workspaces has seven plausible answers to “where does "
-               "this live?”. Exactly one is right per kind of state, and everything else must be destroyable "
-               "without loss.",
+               "Ask “where does this live?” of any fact in this system and several components answer "
+               "plausibly — a workflow engine, a relational store, an object store, an event bus, a graph "
+               "projection, a vector index and two human workspaces. The invariant is not how many "
+               "there are; it is that each KIND of state has exactly one owner, and everything else "
+               "is a projection that can be destroyed and rebuilt without loss.",
                tw, size=18, lh=24)
 
     # ------------------------------------------------------------------ table

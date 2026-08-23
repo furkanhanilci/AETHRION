@@ -78,13 +78,15 @@ def main() -> None:
     c.path(f"M {dx + half / 2} {lane_y + lane_h} L {dx + half / 2} {gy}", stroke=ORANGE, sw=2.0)
     c.path(f"M {L + half / 2} {lane_y + lane_h} L {L + half / 2} {gy}", stroke=BLUE, sw=2.0)
     c.rect(L, gy, tw, 96, fill=tint(PURPLE, 0.10), stroke=PURPLE, sw=2.2)
-    c.text(L + 20, gy + 30, "Policy decision point — Cedar", size=20, weight="700",
+    c.text(L + 20, gy + 30, "Policy decision point — PolicyDecision contract", size=20, weight="700",
            anchor="start", fill=PURPLE)
     c.para(L + 20, gy + 54,
            "Every capability request is evaluated against explicit policy before it runs, and the decision is written "
-           "down with the run. Cedar is a DEPENDENCY under the adoption taxonomy: it decides permit or forbid, it "
-           "never decides what is scientifically true. Default deny. An anomaly is a denial, not a warning.",
-           tw - 40, size=17, lh=22, max_lines=3)
+           "down with the run. The decision point is a CONTRACT, not a product — ADR-010 commissions "
+           "PolicyDecision and leaves the engine behind it an open, recorded choice. Whatever answers it decides "
+           "permit or forbid; it never decides what is scientifically true. Default deny. An anomaly is a denial, "
+           "not a warning.",
+           tw - 40, size=17, lh=22, max_lines=4)
 
     # Attack path
     ay = gy + 96 + 30
@@ -109,7 +111,7 @@ def main() -> None:
     c.hrule(L, W - L, ny, sw=1.2)
     c.text(L, ny + 30, "Honest limit", size=18, weight="700", anchor="start", fill=VERM)
     c.para(L + 118, ny + 30,
-           "This is the design, not the deployment. No Cedar policy set is authored in this repository and no "
+           "This is the design, not the deployment. No policy set is authored in this repository and no "
            "AgentDojo run has been executed against it, so the cut drawn above is currently a decision on paper. "
            "The separation is testable — that is the point of choosing a benchmark for it — but it has not been tested.",
            W - L - (L + 118), size=17, fill=INK, lh=23)

@@ -96,10 +96,10 @@ learn a number a script prints is how a session starts with a stale fact.
 | `src/airl_bridge/` | The working slice: Zotero client, SQLite registry, FastAPI, Obsidian projection, MCP server | no |
 | `src/airl_framework/` | Shared contract core. **Zero production consumers** — finding H4 | no |
 | `tests/` | 35 tests | no |
-| `scripts/` | Verification, generation and execution tooling — 48 scripts | no |
+| `scripts/` | Verification, generation and execution tooling — 51 scripts | no |
 | `planning/commissioning/` | The V1 plan: WP-000–159, ACC-01–120. **632 files, hash-sealed** | indexes only |
 | `docs/architecture/` | Target design, three ADRs, positioning | no |
-| `docs/figures/` | 14 SVG figures | **yes** — from `scripts/fig_*.py` |
+| `docs/figures/` | 17 SVG figures | **yes** — from `scripts/fig_*.py` |
 | `docs/STATUS.md`, `docs/READY.md` | Live state | **yes** |
 | `docs/review/` | Dated, frozen audit reports | no — and never updated |
 | `delivery/` | Evidence packages, signing keys, measurements, the progress ledger | partly |

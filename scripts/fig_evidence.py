@@ -52,6 +52,24 @@ CHAIN = [
 ROW_LEN = 5
 
 
+WORDS = {0: "none", 1: "one", 2: "two", 3: "three", 4: "four", 5: "five",
+         6: "six", 7: "seven", 8: "eight", 9: "nine", 10: "ten", 11: "eleven"}
+
+
+def _hollow() -> str:
+    """How many links are still unbuilt, spelled — derived, never typed.
+
+    The sentence beneath this figure said "nine of the ten links" while the
+    chain marked two as working, so eight were hollow. A second link became
+    working and the prose did not move. It is a one-word error that reports the
+    system as one step less built than it is, in the figure whose whole subject
+    is what is built — and no check could see it, because a number inside an SVG
+    is not a number any rule was watching.
+    """
+    n = sum(1 for *_, built in CHAIN if not built)
+    return WORDS.get(n, str(n))
+
+
 def node_xy(i: int, top: float) -> tuple[float, float]:
     row, col = divmod(i, ROW_LEN)
     if row % 2 == 1:                       # serpentine: right to left
@@ -155,7 +173,7 @@ def main() -> None:
                max_lines=1)
         c.para(x + 16, by + 58, body, bw - 32, size=16, fill=INK, max_lines=2, lh=21)
     c.para(L, by + 118,
-           "Both blockers are closed, and nine of the ten links above are still drawn hollow. Closing a blocker "
+           f"Both blockers are closed, and {_hollow()} of the {WORDS[len(CHAIN)]} links above are still drawn hollow. Closing a blocker "
            "removes a reason the chain could not be built; it does not build it. WP-000 is TECH_COMPLETE, and no "
            "package in this repository is ACCEPTED.",
            W - 2 * L, size=16, fill=INK, weight="500", lh=21, max_lines=3)

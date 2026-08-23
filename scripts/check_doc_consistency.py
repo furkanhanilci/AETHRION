@@ -76,7 +76,21 @@ def derive() -> dict[str, int]:
                           .read_text(encoding="utf-8"))
     subjects = len(json.loads(base64.b64decode(envelope["payload"]))["subject"])
 
+    # Per-family skill counts. The router Mermaid in README.md carried
+    # "SCIENTIFIC · 28" against a registry of 31 — a count in a diagram label,
+    # which is the shape of fact this checker exists for and the shape it kept
+    # missing, because a rule has to name the pattern before it can enforce it.
+    families = {"engineering": 0, "scientific-research": 0, "shared": 0}
+    for skill in skills:
+        found = re.search(r'airl\.domain:\s*"([^"]+)"',
+                          (skill / "SKILL.md").read_text(encoding="utf-8"))
+        if found and found.group(1) in families:
+            families[found.group(1)] += 1
+
     return {
+        "skills_engineering": families["engineering"],
+        "skills_scientific": families["scientific-research"],
+        "skills_shared": families["shared"],
         "test_procedures": len(test_procedures),
         "acceptance_criteria": len(acceptance_criteria),
         "tests": tests,
@@ -116,6 +130,9 @@ RULES: list[tuple[str, str, str, str]] = [
     ("README.md", r"plan seal (\d+)/\d+", "sealed", "sealed files"),
     ("README.md", r"Skills: (\d+)/\d+ conform", "skills", "skills"),
     ("README.md", r"Figures: (\d+)/\d+ match", "figures", "figures"),
+    ("README.md", r'ENGINEERING · (\d+)<br/>', "skills_engineering", "engineering skills"),
+    ("README.md", r'SCIENTIFIC · (\d+)<br/>', "skills_scientific", "scientific skills"),
+    ("README.md", r'SHARED · (\d+)<br/>', "skills_shared", "shared skills"),
     ("skills/README.md", r"All (\d+) conform to the Agent Skills", "skills", "skills"),
     ("skills/README.md", r"\| Scope \| All (\d+) skills", "skills", "skills"),
     ("docs/figures/README.md", r"There are (\w+) of them rather than one", "figures", "figures"),

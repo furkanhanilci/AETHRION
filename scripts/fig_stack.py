@@ -42,7 +42,7 @@ LAYERS = [
     ("Research", [("PaperQA2", DEP, False), ("ASReview", DEP, False),
                   ("GROBID", DEP, False), ("Pub2TEI", DEP, False),
                   ("Crossref · OpenAlex · arXiv", DEP, True)]),
-    ("Execution", [("Cedar policy", DEP, False), ("Tool Broker", OWNED, False),
+    ("Execution", [("PolicyDecision", DEP, False), ("Tool Broker", OWNED, False),
                    ("sandbox backend", DEP, False), ("CaMeL control/data split", PAT, False)]),
     ("Assurance", [("Inspect AI", DEP, False), ("AgentDojo", BEN, False),
                    ("CoE Audit", BEN, False), ("statcheck · GRIM · SPRITE", DEP, False),

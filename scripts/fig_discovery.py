@@ -37,7 +37,7 @@ W, L = 1200, 24
 
 
 def main() -> None:
-    H = 1230
+    H = 1420
     c = Canvas(W, H)
     tw = W - 2 * L
 
@@ -57,21 +57,59 @@ def main() -> None:
 
     ny = sy + 22
     bw, bh, gap = 244, 104, 26
-    states = [
-        ("DRAFT", "a new candidate for the question", BLUE),
-        ("DEBUG", "the parent did not run. The mechanism is unchanged", ORANGE),
-        ("IMPROVE", "the parent ran. The mechanism is changed", GREEN),
-        ("FUSE", "mechanisms from two or more branches, each one named", PURPLE),
-    ]
-    for i, (head, body, col) in enumerate(states):
-        bx = L + i * (bw + gap)
-        c.cell(bx, ny, bw, bh, head, body, accent=col,
-               head_size=19, body_size=16, max_body_lines=3)
-        if i:
-            c.path(f"M {bx - gap + 3} {ny + bh / 2} L {bx - 5} {ny + bh / 2}",
-                   stroke=RULE, sw=1.8, marker="arrowsm")
 
-    fy = ny + bh + 18
+    # ADR-006 §2 draws a BRANCH, and this panel used to draw a row:
+    # DRAFT → DEBUG → IMPROVE → FUSE, four cells with arrows between them. That
+    # topology says a candidate passes through every state in order, which is
+    # false and inverts what the states are for. The question "did the parent
+    # execute?" is what selects DEBUG or IMPROVE — they are alternatives, never
+    # successive — and a figure that draws them in a line teaches a reader that
+    # debugging precedes improving.
+    col_x = [L, L + 300, L + 300 + bw + gap]
+    mid = ny + bh + 20
+
+    c.cell(col_x[0], mid, 210, bh, "DRAFT", "a new candidate for the question",
+           accent=BLUE, head_size=19, body_size=16, max_body_lines=3)
+
+    qx = col_x[0] + 210 + 30
+    c.path(f"M {col_x[0] + 210} {mid + bh / 2} L {qx - 4} {mid + bh / 2}",
+           stroke=RULE, sw=1.8, marker="arrowsm")
+    c.text(qx + 26, mid + bh / 2 - 8, "did the parent", size=17, weight="700", fill=INK)
+    c.text(qx + 26, mid + bh / 2 + 12, "execute?", size=17, weight="700", fill=INK)
+
+    branch_x = col_x[1]
+    top_y, bot_y = ny, ny + bh + 40 + bh - 26
+    c.path(f"M {qx + 120} {mid + bh / 2} L {branch_x - 34} {mid + bh / 2} "
+           f"L {branch_x - 34} {top_y + bh / 2} L {branch_x - 5} {top_y + bh / 2}",
+           stroke=ORANGE, sw=1.8, marker="arrowsm")
+    c.text(branch_x - 60, top_y + bh / 2 - 8, "no", size=17, weight="700", fill=ORANGE)
+    c.path(f"M {qx + 120} {mid + bh / 2} L {branch_x - 34} {mid + bh / 2} "
+           f"L {branch_x - 34} {bot_y + bh / 2} L {branch_x - 5} {bot_y + bh / 2}",
+           stroke=GREEN, sw=1.8, marker="arrowsm")
+    c.text(branch_x - 60, bot_y + bh / 2 - 8, "yes", size=17, weight="700", fill=GREEN)
+
+    c.cell(branch_x, top_y, bw, bh, "DEBUG",
+           "the parent did not run. The mechanism is unchanged",
+           accent=ORANGE, head_size=19, body_size=16, max_body_lines=3)
+    c.cell(branch_x, bot_y, bw, bh, "IMPROVE",
+           "the parent ran. The mechanism is changed",
+           accent=GREEN, head_size=19, body_size=16, max_body_lines=3)
+
+    # DEBUG's own exhaustion edge, which the row layout had no room to show.
+    c.path(f"M {branch_x + bw} {top_y + bh / 2} L {col_x[2] - 6} {top_y + bh / 2}",
+           stroke=ORANGE, sw=1.6, dash="5 4", marker="arrowsm")
+    c.cell(col_x[2], top_y, bw, bh, "FailedApproach",
+           "attempts exhausted — classified IMPLEMENTATION",
+           accent=VERM, head_size=19, body_size=16, max_body_lines=3)
+
+    c.path(f"M {branch_x + bw} {bot_y + bh / 2} L {col_x[2] - 6} {bot_y + bh / 2}",
+           stroke=PURPLE, sw=1.8, marker="arrowsm")
+    c.cell(col_x[2], bot_y, bw, bh, "FUSE",
+           "mechanisms from two or more branches, each one named",
+           accent=PURPLE, head_size=19, body_size=16, max_body_lines=3)
+    c.text(col_x[2] + bw / 2, bot_y - 10, "≥ 2 branches", size=16, fill=PURPLE)
+
+    fy = bot_y + bh + 26
     c.rect(L, fy, tw, 62, fill=tint(VERM, 0.10), stroke=VERM, sw=1.6)
     c.text(L + 16, fy + 26, "The distinction this state buys", size=17, weight="700",
            anchor="start", fill=VERM)

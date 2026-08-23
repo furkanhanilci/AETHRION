@@ -115,7 +115,8 @@ def main() -> None:
 
     c.text(L, 48, "The verification bundle, and its blind spots", size=30, weight="700", anchor="start")
     y = c.para(L, 80,
-               "One command runs everything below and refuses to pass on a warning. This is the machine half of "
+               "One command runs everything below, and a check that reports a problem fails the bundle — there is no "
+               "advisory tier for a CHECK. This is the machine half of "
                "“agents produce, machines verify, humans decide”. Each row states the claim the check earns and, "
                "beside it, the claim it does not — because a bundle that reports only green teaches its reader to "
                "trust it for things it never examined.",
@@ -148,7 +149,7 @@ def main() -> None:
     c.text(L, py + 4, "Why it holds: the bundle is not allowed to be optional", size=21, weight="700", anchor="start")
     steps = [("A document changes", "prose, plan, skill or figure", BLUE),
              ("Truth is re-derived", "counts and inventories come from the repository, never from memory", BLUE),
-             ("The bundle runs", "any warning is a failure; there is no advisory tier", PURPLE),
+             ("The bundle runs", "a check that finds a problem fails; a library's own warning does not", PURPLE),
              ("STATUS.md is rewritten", "generated, never hand-edited, and its own --check catches editing", GREEN),
              ("Evidence is reissued", "the manifest is signed again and verifies, or the change does not land", VERM)]
     sy = py + 28

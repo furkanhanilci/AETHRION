@@ -216,6 +216,123 @@ def check_inventory_bijection(facts: dict) -> list[str]:
     return problems
 
 
+
+# ---------------------------------------------------------------------------
+# Cross-source claims — added at the visual-completion pass.
+#
+# The four Claims above compare a rendered NUMBER to a registry. These compare a
+# rendered STATEMENT to the decision record or the code it describes, which is
+# the class the visual audit actually found:
+#
+#   two figures named a policy engine that ADR-010 explicitly does not select;
+#   one said "nine of the ten links" while the chain marked two as working;
+#   one taught a mirror behaviour that finding I10 removed a baseline earlier.
+#
+# None of these is a count drift. Each is a figure teaching something the
+# repository has decided against, which no amount of regenerating fixes.
+# ---------------------------------------------------------------------------
+
+POLICY_BACKENDS = ("Cedar", "OPA", "Rego", "Casbin", "Oso")
+
+
+def check_policy_backend_neutrality() -> list[str]:
+    """No figure may name a policy engine while the ADR declines to select one.
+
+    ADR-010 is ACCEPTED and says the bake-off has not run, no policy set is
+    authored and no engine is deployed. Two figures named Cedar as the decision
+    point anyway — one of them in the box a reader looks at to learn *what
+    enforces this*.
+    """
+    adr = next((p for p in (ROOT / "docs" / "architecture").glob("ADR-010*.md")), None)
+    if adr is None:
+        return []
+    # Whitespace-normalised, because the binding sentence is wrapped and
+    # markdown-bolded: `**The bake-off\nhas not run**`. The first version of this
+    # guard searched the raw text for a contiguous phrase, found nothing, and
+    # concluded the ADR permitted naming an engine — a rule that silently
+    # disabled itself on the exact formatting the file happens to use.
+    text = re.sub(r"\s+", " ", adr.read_text(encoding="utf-8"))
+    binding = ("No document may name a winner" in text
+               or "bake-off has not run" in text)
+    if not binding:
+        return []          # the ADR has been superseded; a backend may now be named
+    problems = []
+    for path in sorted(FIGURES.glob("*.svg")):
+        rendered = rendered_text(path)
+        for backend in POLICY_BACKENDS:
+            if re.search(rf"\b{backend}\b", rendered):
+                problems.append(
+                    f"{path.name}: names {backend} while ADR-010 is ACCEPTED and "
+                    f"states the bake-off has not run — the commissioned contract "
+                    f"is PolicyDecision and the engine behind it is an open, "
+                    f"recorded choice")
+    return problems
+
+
+def check_evidence_chain_is_self_consistent() -> list[str]:
+    """The hollow count in the caption must equal the links not marked working.
+
+    It did not: the caption said "nine of the ten links" while two carried a
+    "working" label, so eight were hollow. A second link became implemented and
+    the sentence stayed where it was — understating the system by one, in the
+    figure whose entire subject is how much of it exists.
+
+    Both halves are read from the rendered SVG, so this cannot be satisfied by
+    the generator agreeing with itself.
+    """
+    path = FIGURES / "aethrion_evidence_chain.svg"
+    if not path.exists():
+        return []
+    words = {"none": 0, "one": 1, "two": 2, "three": 3, "four": 4, "five": 5,
+             "six": 6, "seven": 7, "eight": 8, "nine": 9, "ten": 10, "eleven": 11}
+    rendered = rendered_text(path)
+    stated = re.search(r"(\w+) of the (\w+) links above are still drawn hollow",
+                       rendered)
+    if not stated:
+        return [f"{path.name}: the hollow-link sentence is gone, so this rule can "
+                f"no longer adjudicate it"]
+    hollow, total = words.get(stated.group(1)), words.get(stated.group(2))
+    if hollow is None or total is None:
+        return [f"{path.name}: cannot read {stated.group(0)!r} as numbers"]
+    working = len(re.findall(r">working<", path.read_text(encoding="utf-8")))
+    if hollow + working != total:
+        return [f"{path.name}: says {hollow} of {total} links are hollow, and "
+                f"{working} carry a 'working' label — {hollow} + {working} "
+                f"is not {total}"]
+    return []
+
+
+def check_mirror_description_matches_the_code() -> list[str]:
+    """The topology figure may not describe a mirror behaviour the code refuses.
+
+    It said the mirror "overwrites, so the failure mode of editing the vault is
+    losing that edit". Finding **I10** had already made `mirror_vault.py` refuse
+    to write over any page whose frontmatter says `generated: false` — so the
+    figure was teaching a data-loss behaviour that the code had been changed to
+    prevent, which is worse than a stale count: a reader avoids using a feature
+    that works.
+    """
+    mirror = ROOT / "scripts" / "mirror_vault.py"
+    figure = FIGURES / "aethrion_topology.svg"
+    if not (mirror.exists() and figure.exists()):
+        return []
+    protects = "generated: false" in mirror.read_text(encoding="utf-8")
+    rendered = rendered_text(figure)
+    if not protects:
+        return []
+    problems = []
+    if re.search(r"never edited back\.", rendered):
+        problems.append(
+            f"{figure.name}: says the vault is 'never edited back' without "
+            f"qualification, while mirror_vault.py protects hand-authored pages")
+    if not re.search(r"generated: ?false", rendered):
+        problems.append(
+            f"{figure.name}: mirror_vault.py refuses to overwrite pages marked "
+            f"generated: false, and the figure never says so — a reader is left "
+            f"believing any note in the vault is disposable")
+    return problems
+
+
 def audit(facts: dict | None = None) -> list[str]:
     facts = facts or registry()
     problems: list[str] = []
@@ -230,6 +347,9 @@ def audit(facts: dict | None = None) -> list[str]:
         if result:
             problems.append(result)
     problems += check_wave_coverage(facts)
+    problems += check_policy_backend_neutrality()
+    problems += check_evidence_chain_is_self_consistent()
+    problems += check_mirror_description_matches_the_code()
     problems += check_no_model_consistency()
     problems += check_inventory_bijection(facts)
     return problems
@@ -248,6 +368,23 @@ MUTATIONS = [
 ]
 
 
+# Defects planted in the rendered SVG itself. The registry mutations above ask
+# "what if the repository moved?"; these ask "what if the figure went stale?" —
+# and every one of them is a defect that was actually in the corpus.
+FIGURE_MUTATIONS = [
+    ("a policy engine named while ADR-010 declines to select one",
+     "aethrion_trust.svg", "PolicyDecision contract", "Cedar"),
+    ("the same, in the stack figure's execution row",
+     "aethrion_stack.svg", "PolicyDecision", "Cedar policy"),
+    ("a hollow-link count that no longer matches the working labels",
+     "aethrion_evidence_chain.svg", "eight of the ten links", "nine of the ten links"),
+    ("a mirror described as wholesale disposable after I10 protected human notes",
+     "aethrion_topology.svg",
+     "generated pages are replaced, hand-authored ones are protected and never edited back",
+     "is never edited back."),
+]
+
+
 def self_test() -> int:
     """Each mutation is a historical defect. A rule that stays quiet is not a rule."""
     base = registry()
@@ -257,14 +394,32 @@ def self_test() -> int:
         mutate(facts)
         if not audit(facts):
             silent.append(description)
-    print(f"{len(MUTATIONS)} registry mutations injected · "
-          f"{len(silent)} produced no finding")
+
+    for description, name, good, bad in FIGURE_MUTATIONS:
+        path = FIGURES / name
+        original = path.read_text(encoding="utf-8")
+        if good not in original:
+            silent.append(f"{description} — the mutation anchor is gone, so this "
+                          f"defect can no longer be planted")
+            continue
+        try:
+            path.write_text(original.replace(good, bad), encoding="utf-8")
+            caught = bool(audit(base))
+        finally:
+            path.write_text(original, encoding="utf-8")
+        if not caught:
+            silent.append(description)
+
+    total = len(MUTATIONS) + len(FIGURE_MUTATIONS)
+    print(f"{len(MUTATIONS)} registry mutations and {len(FIGURE_MUTATIONS)} "
+          f"planted figure defects injected · {len(silent)} produced no finding")
     for description in silent:
         print(f"  ✗ nothing detected {description}")
     if silent:
         return 1
     print("every mutation was caught — the figures are compared to the "
-          "repository, not to the code that drew them")
+          "repository and to the decisions they describe, not to the code that "
+          "drew them")
     return 0
 
 

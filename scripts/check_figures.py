@@ -59,9 +59,18 @@ def check(path: Path) -> list[str]:
         left = x if anchor == "start" else (x - width / 2 if anchor == "middle" else x - width)
         right = left + width
 
-        if left < -TOLERANCE or right > canvas_w + TOLERANCE or y > canvas_h:
-            problems.append(f"canvas: {body[:52]!r} spans {left:.0f}..{right:.0f} "
-                            f"(canvas {canvas_w})")
+        # Name the axis that actually failed. This message used to print the
+        # canvas WIDTH for every violation including vertical ones, so a figure
+        # whose content ran off the bottom reported an x-span comfortably inside
+        # a width it was not failing — sending the reader to widen a canvas that
+        # was already wide enough.
+        if left < -TOLERANCE or right > canvas_w + TOLERANCE:
+            problems.append(f"canvas width: {body[:52]!r} spans "
+                            f"{left:.0f}..{right:.0f} (width {canvas_w})")
+            continue
+        if y > canvas_h:
+            problems.append(f"canvas height: {body[:52]!r} sits at y={y:.0f}, "
+                            f"below the bottom edge (height {canvas_h})")
             continue
 
         enclosing = [b for b in boxes

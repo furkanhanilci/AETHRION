@@ -48,7 +48,8 @@ def main() -> None:
     c.text(L, 48, "Where things live, and which way they move", size=30, weight="700", anchor="start")
     y = c.para(L, 80,
                "Three surfaces, and only one of them is authoritative. Everything is written in the Git repository. "
-               "The Obsidian vault is produced from it and is never edited back. External bibliographic services are "
+               "The Obsidian vault is produced from it: generated pages are replaced, hand-authored ones are "
+               "protected and never edited back into the repository. External bibliographic services are "
                "read at verification time and their answers are recorded, never assumed. Every arrow below points "
                "one way, and that is the design, not a simplification of it.",
                tw, size=18, lh=24)
@@ -135,9 +136,10 @@ def main() -> None:
     c.text(L, ny + 30, "Reality", size=18, weight="700", anchor="start", fill=VERM)
     c.para(L + 80, ny + 30,
            "Of 33 registered references, 27 verify against these services and 18 carry no DOI at all, which is why "
-           "the sweep reports coverage rather than a pass. The mirror is one-way by construction, not by convention: "
-           "it overwrites, so the failure mode of editing the vault is losing that edit, not corrupting the source.",
-           W - L - (L + 80), size=17, fill=INK, lh=23)
+           "the sweep reports coverage rather than a pass. The mirror is one-way for GENERATED pages and refuses "
+           "outright on hand-authored ones: a page whose frontmatter says generated: false is never written over. "
+           "So the failure mode of editing a generated page is losing that edit; editing your own note is safe.",
+           W - L - (L + 80), size=17, fill=INK, lh=23, max_lines=4)
 
     out = ROOT / "docs" / "figures" / "aethrion_topology.svg"
     out.write_text(c.render(), encoding="utf-8")

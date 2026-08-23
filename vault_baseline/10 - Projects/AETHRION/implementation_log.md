@@ -160,6 +160,116 @@ quietly skipped.
 
 ---
 
+## Step 024 — The visual architecture completion pass
+
+**Time:** 2026-08-23
+**Scope:** 14 figures audited one by one · 7 repaired · 3 added · every
+contradicting caption and Mermaid repaired with them · three new semantic rules
+
+### What the audit found, and why none of it was visible
+
+An external package audited the figure corpus against `5928ddd` — the same commit
+this repository was on, so nothing had drifted. Seven figures were teaching
+something the repository had **decided against**, and every one of them passed
+every check in a 20/20 bundle:
+
+- two named **Cedar** as the policy decision point while `ADR-010` is ACCEPTED
+  and says the bake-off has not run, no policy set is authored and no engine is
+  deployed;
+- the evidence chain said *"nine of the ten links"* while marking **two** as
+  working, so eight were hollow — a figure whose entire subject is how much
+  exists, understating it by one;
+- the authority figure said *"seven plausible answers"* and then listed **eight**
+  components;
+- the topology figure said the mirror *"overwrites, so the failure mode of
+  editing the vault is losing that edit"* — finding **I10** had made it refuse
+  `generated: false` pages a baseline earlier;
+- the discovery figure drew `DRAFT → DEBUG → IMPROVE → FUSE` as a row of arrows
+  while `ADR-006` §2 draws a **branch**;
+- the verification figure said *"any warning is a failure; there is no advisory
+  tier"* while every green run reports `1 warning` from a library.
+
+The last two are the interesting ones. **The discovery figure contradicted its
+own decision record** — one question, *did the parent execute?*, selects `DEBUG`
+or `IMPROVE` as alternatives, and drawing them in a line teaches a reader that
+debugging precedes improving. And the topology figure was worse than stale: it
+described a **data-loss behaviour the code had been changed to prevent**, so a
+reader would avoid a feature that works.
+
+### Three figures added, each closing a decision record with no visual
+
+The package proposed ten. Seven were rejected against its own test — *do not add
+a figure if it merely repeats prose* — because the corpus already carries their
+mechanism.
+
+| New | Closes | Why prose was failing |
+|---|---|---|
+| `aethrion_disciplines.svg` | `ADR-012` | Its content is a **distinction**, and a distinction in prose reads as a glossary: four ways of being wrong were being read as four synonyms |
+| `aethrion_decision.svg` | `ADR-016` | Its content is an **ordering**, which prose is worst at making binding. "The human decides" was already true and said nothing about *when they were told what* |
+| `aethrion_reproduction.svg` | `WP-157` | Its content is a set of **quiet paths**. A boundary diagram shows the routes an attacker must cross; the leaks that matter never cross one |
+
+`aethrion_disciplines.svg` reads its pairs from `skills/_baseline/routing.json`,
+so the figure and the routing control that enforces them are one fact with two
+projections rather than two copies.
+
+### The eight flow companions: one adopted, five vetoed
+
+Every object name was checked against the corpus first. `CohortExpansionRequest`,
+`ResearchIntent`, `REBUTTAL_OPEN` and `ARBITRATION_REQUIRED` **do not exist
+here.** Importing those flows would have created schema by drawing it, and a
+later reader would have found a state machine in the README with no contract
+behind it and reasonably assumed one existed.
+
+`FLOW08` names only objects that exist and closes a real gap — the lifecycle
+diagram's dashed edge back to G2 skips the judgement in between — so it was
+adapted into `README.md` §3.
+
+The veto of `FLOW05` recorded a genuine gap rather than closing it: **the review
+lifecycle has no named states anywhere in the corpus.** That belongs to
+WP-088/089, not to a figure.
+
+### The guarantee sentence that had to change
+
+`docs/figures/README.md` said Figure 6's counts were *"derived from the plan
+directory at generation time, so the figure cannot disagree with the plan."*
+
+They were genuinely derived — through a wave table ending at `WP-140`, so
+nineteen packages were counted by nothing. **Derived is not the same as true.**
+A generator that asks the wrong question reproduces the wrong answer perfectly.
+
+### The fourth first-draft control with the defect it was built to catch
+
+`check_policy_backend_neutrality` searched the raw ADR for a contiguous phrase.
+The binding sentence is `**The bake-off\nhas not run**` — wrapped and bolded — so
+the search found nothing and the rule concluded the ADR **permitted** naming an
+engine. A rule that silently disables itself on the formatting a file happens to
+use is worse than no rule.
+
+Found by the planted mutation, before the corpus. That is four passes in a row.
+
+### Evidence
+
+```text
+figures               14 → 17, 0 overflows
+figure semantics      4 registry mutations + 4 planted figure defects, 0 silent
+tests                 149
+bundle                20/20
+seal                  632/632
+package seal          206/206 verified
+```
+
+### Limits
+
+**Phase 11 did not run.** The package requires an independent adversarial
+reviewer per figure; `ADR-001` puts R3 out of reach for a solo operator, and a
+second self-review is not a substitute. **No publication projection exists** —
+every figure here is architecture/reference-only, and producing an 89 mm preview
+nothing consumes and no one inspects would be evidence-shaped output rather than
+evidence. The package's own validators need Graphviz `dot`, which is absent;
+recorded as unavailable, not as passing.
+
+---
+
 ## Step 023 — CI approved, and what the approval revealed
 
 **Time:** 2026-08-23

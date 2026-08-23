@@ -22,12 +22,12 @@ tags:
 | Field | Value |
 |---|---|
 | Document type | Convention — figure inventory and design specification |
-| Scope | The fourteen generated figures, their design system and their guarantees |
+| Scope | The seventeen generated figures, their design system and their guarantees |
 | Sibling documents | `../DOCUMENT_STANDARD.md` · `../architecture/AETHRION_ARCHITECTURE.md` · `../../skills/scientific-figures/SKILL.md` |
 | Status | `WORKING` — figures are generated and mechanically checked |
 | Date | 2026-08-23 |
 
-**In one paragraph.** Figures here are generated artifacts, not drawings: the corpus is the source, the generator is version-controlled, and the SVG is reproducible from a clean checkout. There are fourteen of them rather than one per document, because a figure earns its place only by carrying a mechanism prose carries badly. Every string is measured against the box it sits in, and a figure that cannot be laid out honestly fails the build.
+**In one paragraph.** Figures here are generated artifacts, not drawings: the corpus is the source, the generator is version-controlled, and the SVG is reproducible from a clean checkout. There are seventeen of them rather than one per document, because a figure earns its place only by carrying a mechanism prose carries badly. Every string is measured against the box it sits in, and a figure that cannot be laid out honestly fails the build.
 
 Figures here are **generated artifacts**, like the Obsidian mirrors and the
 package catalogue. The canonical source is the architecture corpus; the
@@ -67,7 +67,7 @@ Two mechanisms now make it impossible:
 
 ---
 
-## 1. Why there are fourteen figures and not thirty
+## 1. Why there are seventeen figures and not fifty
 
 The temptation with a corpus this size is to put a diagram on every document.
 That would produce exactly the failure mode a scientific-figure discipline warns
@@ -88,12 +88,23 @@ carries a **mechanism** that prose carries badly:
 | 6 | `aethrion_waves.svg` | Every package in the registry in dependency order, against the one that has produced anything | A wave table that reads as progress |
 | 7 | `aethrion_trust.svg` | Where an injected instruction stops, and on whose authority | A policy paragraph that never names the attack |
 | 8 | `aethrion_verification.svg` | What each check proves *and* what it cannot see | A green dashboard, which is the failure mode |
-| 9 | `aethrion_topology.svg` | Direction on every edge between repository, vault and the outside world | A prose claim that the mirror is one-way |
-| 10 | `aethrion_discovery.svg` | Node states, edge classes and the vertical boundary the producer cannot cross | A description of a loop, which hides both the lineage and the authority question |
+| 9 | `aethrion_topology.svg` | Direction on every edge between repository, vault and the outside world, and which vault pages the mirror will refuse to touch | A prose claim that the mirror is one-way, which is true of generated pages and false of hand-authored ones |
+| 10 | `aethrion_discovery.svg` | The state **branch** — one question selects `DEBUG` or `IMPROVE`, they are never successive — plus edge classes and the vertical boundary the producer cannot cross | A description of a loop, which hides both the lineage and the authority question |
 | 11 | `aethrion_memory.svg` | Six stores on the axes that decide authority, and the one that may support a claim | A list of six memories, which makes them look like six of the same thing |
 | 12 | `aethrion_assurance.svg` | The V1/V2 break between a check that is certain and a check with an error rate | A taxonomy paragraph, which is exactly how the two got conflated in the first place |
 | 13 | `aethrion_collaboration.svg` | The embargo, the edge policy and the degradation floor — that the expensive part and the valuable part of a cohort are different things | A cost argument, which always concludes "fewer agents" |
 | 14 | `aethrion_authority.svg` | One owner per kind of state, with the write path and the injections beside it | A matrix in prose, which reads as obvious and is violated within a sprint |
+| 15 | `aethrion_disciplines.svg` | The four pairs that get conflated, with the failure written between the halves — and the two rules that make it checkable rather than advisory | A glossary, which is exactly how four ways of being wrong become four synonyms |
+| 16 | `aethrion_decision.svg` | That a human decision is an **ordering**: the assessment sealed before any recommendation is reachable, and the delta between them measured | "The human decides", which is already true and says nothing about when they were told what |
+| 17 | `aethrion_reproduction.svg` | Four zones, with the leak paths drawn *underneath* them — a shared cache, an inherited credential, a warm layer | A boundary diagram, which only shows the routes an attacker would have to cross |
+
+**Figures 15–17 were added by the visual-completion pass**, and each closes a
+decision record that had no visual at all. `ADR-012`'s content is a
+*distinction*, `ADR-016`'s is an *ordering*, and `WP-157`'s is a set of *quiet
+paths* — three things prose carries badly and a reader skims. The test applied
+before adding each was the one the visual instructions state: a figure that
+merely repeats a paragraph does not earn its place. These replace paragraphs
+that had already been misread.
 
 Figures 6–9 were added after the ADRs, the adoption matrix and the reporting
 subsystem landed. Their absence was itself a defect: the corpus had grown four
@@ -126,7 +137,7 @@ renders in both GitHub and Obsidian, and does not need a build step. The rule:
 
 ## 2. Design specification
 
-Applied identically to all fourteen figures.
+Applied identically to all seventeen figures.
 
 ### Communication objective
 
@@ -152,7 +163,7 @@ generator module. If a reader takes away only that sentence, the figure worked.
 
 ### Archetype selection
 
-None of the fourteen is a generic left-to-right pipeline, because none of the
+None of the seventeen is a generic left-to-right pipeline, because none of the
 underlying structures is one.
 
 - **Figure 1** is a **matrix**: gates on the vertical axis (time), actor class on

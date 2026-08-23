@@ -55,14 +55,14 @@
 <text x="863.8" y="368.1" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="middle">arXiv</text>
 <rect x="24.0" y="387.0" width="208.0" height="46.0" rx="4" fill="#f5f5f5" stroke="#C8C8C8" stroke-width="1.2"/>
 <text x="36.0" y="416.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="17" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="start">Execution</text>
-<rect x="246.0" y="387.0" width="119.6" height="46.0" rx="4" fill="#edf5fa" stroke="#63666A" stroke-width="1.2" stroke-dasharray="5 4"/>
-<text x="305.8" y="413.1" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">Cedar policy</text>
-<rect x="373.6" y="387.0" width="118.0" height="46.0" rx="4" fill="#fcf4ed" stroke="#63666A" stroke-width="1.2" stroke-dasharray="5 4"/>
-<text x="432.6" y="413.1" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">Tool Broker</text>
-<rect x="499.6" y="387.0" width="157.2" height="46.0" rx="4" fill="#edf5fa" stroke="#63666A" stroke-width="1.2" stroke-dasharray="5 4"/>
-<text x="578.2" y="413.1" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">sandbox backend</text>
-<rect x="664.7" y="387.0" width="205.7" height="46.0" rx="4" fill="#fbf6f9" stroke="#63666A" stroke-width="1.2" stroke-dasharray="5 4"/>
-<text x="767.6" y="413.1" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">CaMeL control/data split</text>
+<rect x="246.0" y="387.0" width="135.1" height="46.0" rx="4" fill="#edf5fa" stroke="#63666A" stroke-width="1.2" stroke-dasharray="5 4"/>
+<text x="313.6" y="413.1" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">PolicyDecision</text>
+<rect x="389.1" y="387.0" width="118.0" height="46.0" rx="4" fill="#fcf4ed" stroke="#63666A" stroke-width="1.2" stroke-dasharray="5 4"/>
+<text x="448.1" y="413.1" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">Tool Broker</text>
+<rect x="515.1" y="387.0" width="157.2" height="46.0" rx="4" fill="#edf5fa" stroke="#63666A" stroke-width="1.2" stroke-dasharray="5 4"/>
+<text x="593.7" y="413.1" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">sandbox backend</text>
+<rect x="680.3" y="387.0" width="205.7" height="46.0" rx="4" fill="#fbf6f9" stroke="#63666A" stroke-width="1.2" stroke-dasharray="5 4"/>
+<text x="783.2" y="413.1" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">CaMeL control/data split</text>
 <rect x="24.0" y="442.0" width="208.0" height="46.0" rx="4" fill="#f5f5f5" stroke="#C8C8C8" stroke-width="1.2"/>
 <text x="36.0" y="471.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="17" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="start">Assurance</text>
 <rect x="246.0" y="442.0" width="118.0" height="46.0" rx="4" fill="#edf5fa" stroke="#63666A" stroke-width="1.2" stroke-dasharray="5 4"/>

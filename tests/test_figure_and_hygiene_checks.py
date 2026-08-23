@@ -127,3 +127,66 @@ def test_the_hygiene_self_test_reports_both_directions() -> None:
     assert result.returncode == 0, result.stdout + result.stderr
     assert "0 undetected" in result.stdout
     assert "0 rule(s) fired on a well-formed document" in result.stdout
+
+
+# --- cross-source claims: a figure teaching something the repo decided against
+
+def test_no_figure_names_a_policy_engine_the_adr_declines_to_select() -> None:
+    """ADR-010 is ACCEPTED and defers the engine. Two figures named Cedar anyway,
+    one of them in the box a reader looks at to learn what enforces this."""
+    assert semantics.check_policy_backend_neutrality() == []
+
+
+def test_the_policy_guard_survives_a_wrapped_bolded_sentence() -> None:
+    """The rule's first guard searched the raw ADR for a contiguous phrase.
+
+    The binding sentence is `**The bake-off\\nhas not run**` — wrapped, with
+    markdown bold around it — so the search found nothing and the rule concluded
+    the ADR permitted naming an engine. A rule that silently disables itself on
+    the formatting a file happens to use is worse than no rule.
+    """
+    adr = next(iter((ROOT / "docs" / "architecture").glob("ADR-010*.md")))
+    raw = adr.read_text(encoding="utf-8")
+    assert "bake-off has not run" not in raw, "guard would pass for the wrong reason"
+    assert semantics.check_policy_backend_neutrality() == []
+
+
+def test_the_evidence_chain_caption_agrees_with_its_own_working_labels() -> None:
+    """It said nine of ten hollow while two links carried a 'working' label."""
+    assert semantics.check_evidence_chain_is_self_consistent() == []
+
+
+def test_the_topology_figure_matches_what_the_mirror_actually_does() -> None:
+    """It taught a data-loss behaviour finding I10 had already removed — worse
+    than a stale count, because a reader avoids a feature that works."""
+    assert semantics.check_mirror_description_matches_the_code() == []
+
+
+def plant(name: str, good: str, bad: str) -> bool:
+    """Swap a correct statement for the historical defect; report whether it was caught.
+
+    Written as a helper with one test per defect rather than a parametrised case,
+    because `check_doc_consistency.py` derives the repository's test count by
+    counting test FUNCTIONS. A parametrised test makes pytest print a number no
+    document is allowed to contain, and the convention here is that the number a
+    reader runs is the number the documents state.
+    """
+    path = ROOT / "docs" / "figures" / name
+    original = path.read_text(encoding="utf-8")
+    assert good in original, f"mutation anchor drifted in {name}"
+    try:
+        path.write_text(original.replace(good, bad), encoding="utf-8")
+        return semantics.audit() != []
+    finally:
+        path.write_text(original, encoding="utf-8")
+
+
+def test_a_planted_stale_policy_backend_is_refused() -> None:
+    """Acceptance criterion 17, the stale-backend half."""
+    assert plant("aethrion_trust.svg", "PolicyDecision contract", "Cedar")
+
+
+def test_a_planted_stale_status_count_is_refused() -> None:
+    """Acceptance criterion 17, the stale-status half."""
+    assert plant("aethrion_evidence_chain.svg",
+                 "eight of the ten links", "nine of the ten links")
