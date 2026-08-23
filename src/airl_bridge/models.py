@@ -3,8 +3,8 @@
 These are **transport models**, not canonical contracts. The canonical contract
 core lives in :mod:`airl_framework.contracts`; today the two are not bound to
 each other (audit finding **H4**), and their ``content_hash`` formats disagree:
-this module produces ``"sha256:<hex>"`` while the contract core expects a bare
-64-character digest.
+this module produces ``"sha256:<hex>"``, and the contract core accepts exactly
+that prefixed form since the H4 reconciliation.
 
 Do not add business rules here. A model that starts validating semantics is a
 contract in disguise, and it belongs in the contract core where it can be
@@ -34,6 +34,11 @@ class SourceRecord(BaseModel):
     tags: list[dict[str, Any]] = Field(default_factory=list)
     content_hash: str
     synced_at: datetime
+    # A withdrawn source is one that is no longer in the library. It is kept
+    # rather than deleted (finding H2): the registry is the system of record for
+    # source identity, and a citation that stops resolving must be answerable
+    # with "withdrawn on this date" rather than with silence.
+    withdrawn_at: datetime | None = None
 
 
 class IngestResult(BaseModel):
@@ -42,6 +47,9 @@ class IngestResult(BaseModel):
     updated: int
     unchanged: int
     skipped: int
+    revived: int = 0
+    withdrawn: int = 0
+    complete: bool = True
 
 
 class ProjectionResult(BaseModel):
@@ -65,7 +73,13 @@ class DuplicateGroup(BaseModel):
 
 class SyncResult(BaseModel):
     ingest: IngestResult
-    projection: ProjectionResult
+    projection: ProjectionResult | None = None
+    # When the projection fails after the ingest has committed, the registry has
+    # advanced and the vault has not. Recording that divergence is finding M6;
+    # the field exists so a caller cannot read a SyncResult and believe both
+    # halves succeeded.
+    projection_error: str | None = None
+    diverged: bool = False
 
 
 class HealthResponse(BaseModel):

@@ -4,11 +4,18 @@ This is the first foundation slice of WP-011/014/015/020: the surface that later
 services (claims, runs, reviews, decisions) are meant to bind to, so that they
 mint compatible identities instead of divergent ones.
 
-⚠️ **It has no production consumer (audit finding H4).** Nothing in
-``src/airl_bridge`` imports this module. Worse, the two already contradict each
-other: ``ArtifactManifest`` requires a bare 64-character digest while the bridge
-produces ``"sha256:<hex>"``. The contract is violated by the only data that
-exists.
+**It has a production consumer, and the digest formats agree (finding H4,
+closed).** ``airl_bridge.zotero`` mints every ``content_hash`` through
+:func:`content_digest` here, so the running system and the contract core cannot
+drift apart without a test failing.
+
+The reconciliation went the bridge's way, deliberately. ``ArtifactManifest`` used
+to demand a bare 64-character hex string while the bridge produced
+``"sha256:<hex>"``, and the contract was therefore violated by the only data that
+existed. The **prefixed** form is the better contract: it names its own algorithm,
+so a future SHA-3 digest is distinguishable from a SHA-256 one instead of being
+64 characters of ambiguity. A bare digest is accepted on read and normalised, so
+nothing already written becomes unreadable.
 
 ⚠️ **``SchemaRegistry`` is an in-process ``dict``.** It records versions and
 refuses redefinition, but it accepts any mapping as a "schema" and validates
@@ -31,6 +38,33 @@ from typing import Any, Mapping
 
 _ID_RE = re.compile(r"^[A-Z][A-Z0-9-]{2,127}$")
 _HASH_RE = re.compile(r"^[0-9a-f]{64}$")
+_PREFIXED_HASH_RE = re.compile(r"^sha256:[0-9a-f]{64}$")
+
+
+def content_digest(payload: bytes) -> str:
+    """The canonical digest form for this system: ``sha256:<64 hex>``.
+
+    One function, so that the bridge and the contract core cannot disagree about
+    what a digest looks like. They did disagree — the contract demanded a bare
+    digest and the bridge produced a prefixed one — and because nothing imported
+    anything, neither side could discover it.
+    """
+    return "sha256:" + hashlib.sha256(payload).hexdigest()
+
+
+def normalize_digest(value: str) -> str:
+    """Accept either form, return the canonical one.
+
+    A bare 64-character digest is legacy data, not an error. Rejecting it would
+    make the contract unable to read the records written before it existed,
+    which is a strange way for a contract to establish authority.
+    """
+    if _PREFIXED_HASH_RE.fullmatch(value):
+        return value
+    if _HASH_RE.fullmatch(value):
+        return f"sha256:{value}"
+    raise ValueError(
+        "digest must be a lowercase SHA-256 digest, bare or 'sha256:'-prefixed")
 
 
 def _required(value: str, field: str) -> str:
@@ -89,8 +123,7 @@ class ArtifactManifest:
     ):
         self.artifact_id = _identity(artifact_id, "artifact_id")
         self.media_type = _required(media_type, "media_type")
-        if not _HASH_RE.fullmatch(sha256):
-            raise ValueError("sha256 must be a lowercase SHA-256 digest")
+        sha256 = normalize_digest(sha256)
         if not isinstance(size_bytes, int) or size_bytes < 0:
             raise ValueError("size_bytes must be a non-negative integer")
         self.sha256 = sha256

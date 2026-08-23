@@ -66,7 +66,15 @@ class ObsidianProjector:
     def __init__(self, settings: Settings):
         self.settings = settings
 
-    def project_sources(self, sources: list[SourceRecord]) -> ProjectionResult:
+    def project_sources(self, sources: list[SourceRecord],
+                        dry_run: bool = False) -> ProjectionResult:
+        """Project every source into the vault, or report what would change.
+
+        `dry_run=True` writes nothing, deletes nothing and returns the same
+        counts a real run would produce — finding M7. Without it the only way to
+        find out what a projection would do to a directory was to let it do it,
+        and the operation is not reversible.
+        """
         vault = self.settings.obsidian_vault.resolve()
         if not vault.is_dir():
             raise ProjectionError(f"Obsidian vault does not exist: {vault}")
@@ -75,6 +83,9 @@ class ObsidianProjector:
             target_dir.relative_to(vault)
         except ValueError as exc:
             raise ProjectionError("generated directory escapes the Obsidian vault") from exc
+        self._refuse_unmanaged_directory(target_dir)
+        if dry_run:
+            return self._plan(target_dir, sources)
         target_dir.mkdir(parents=True, exist_ok=True)
         assignments = self._assign_paths(sources)
         current_paths: set[str] = set()
@@ -148,15 +159,62 @@ class ObsidianProjector:
                 truncated = truncated[:-1]
         return "Untitled Source"
 
-    def _remove_stale(self, target_dir: Path, current_paths: set[str]) -> int:
+    def _refuse_unmanaged_directory(self, target_dir: Path) -> None:
+        """Refuse to adopt a directory this projector did not create — finding M7.
+
+        Projecting into a path takes it under management permanently: from the
+        next run onward `_remove_stale` deletes anything in it that is not in
+        the manifest. Pointing the projector at a folder of hand-written notes
+        therefore destroys them on the *second* run, not the first, which is the
+        worst possible timing — the first run looks like it worked.
+
+        An empty directory, a missing one, or one already carrying a manifest is
+        fine. Anything else is a human's folder until a human says otherwise.
+        """
+        if not target_dir.exists():
+            return
+        if (target_dir / MANIFEST_NAME).exists():
+            return
+        strays = [p for p in target_dir.rglob("*") if p.is_file()]
+        if not strays:
+            return
+        shown = ", ".join(sorted(p.name for p in strays[:5]))
+        raise ProjectionError(
+            f"{target_dir} holds {len(strays)} file(s) this projector did not "
+            f"create and no projection manifest: {shown}"
+            f"{' …' if len(strays) > 5 else ''}. Projecting here would take the "
+            f"directory under management and delete them as stale on the next "
+            f"run. Move them, or point obsidian_generated_dir somewhere else."
+        )
+
+    def _plan(self, target_dir: Path, sources: list[SourceRecord]) -> ProjectionResult:
+        """What a real run would do, computed without touching the filesystem."""
+        assignments = self._assign_paths(sources)
+        would_write = {relative.as_posix() for _, relative, _ in assignments}
+        recorded = self._recorded_paths(target_dir)
+        return ProjectionResult(
+            projected=len(would_write),
+            directory=str(target_dir),
+            removed_stale=len(recorded - would_write),
+            dashboard_directory=None,
+        )
+
+    def _recorded_paths(self, target_dir: Path) -> set[str]:
+        """What the manifest says this projector owns here.
+
+        One reader, shared by `_remove_stale` and `_plan`. The dry run originally
+        parsed the manifest itself and read the wrong key, so it reported zero
+        deletions forever — a planner that cannot see what a real run would
+        delete is worse than no planner, because it is reassuring.
+        """
         manifest = target_dir / MANIFEST_NAME
         if not manifest.is_file():
             # No manifest yet: this directory has never been projected into, so
             # there is nothing this projector owns and nothing to remove.
-            return 0
+            return set()
         try:
             payload = json.loads(manifest.read_text(encoding="utf-8"))
-            previous_paths = set(payload.get("generated_files", []))
+            return set(payload.get("generated_files", []))
         except (OSError, json.JSONDecodeError, TypeError) as exc:
             # Refuse rather than continue. Swallowing this returned 0 and then
             # overwrote the manifest, which permanently orphaned every file the
@@ -168,6 +226,9 @@ class ObsidianProjector:
                 f"{manifest} ({exc}). Inspect it, then either repair it or remove "
                 f"it deliberately to re-adopt this directory."
             ) from exc
+
+    def _remove_stale(self, target_dir: Path, current_paths: set[str]) -> int:
+        previous_paths = self._recorded_paths(target_dir)
         removed = 0
         for relative in sorted(previous_paths - current_paths):
             candidate = (target_dir / relative).resolve()

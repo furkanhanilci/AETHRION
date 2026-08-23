@@ -56,6 +56,12 @@ class Settings:
     zotero_library_id: str
     obsidian_vault: Path
     obsidian_generated_dir: Path
+    # Finding M1. `api_token` gates the three mutating endpoints; `allowed_hosts`
+    # is checked against the request's Host header. Both default to values that
+    # are safe rather than convenient — an unset token means the mutating
+    # endpoints refuse, not that they are open.
+    api_token: str
+    allowed_hosts: tuple[str, ...]
 
     @classmethod
     def from_env(cls) -> "Settings":
@@ -92,4 +98,11 @@ class Settings:
             zotero_library_id=os.getenv("AIRL_ZOTERO_LIBRARY_ID", "0"),
             obsidian_vault=vault,
             obsidian_generated_dir=generated_rel,
+            api_token=os.getenv("AIRL_API_TOKEN", "").strip(),
+            allowed_hosts=tuple(
+                h.strip() for h in os.getenv(
+                    "AIRL_ALLOWED_HOSTS",
+                    "127.0.0.1,localhost,[::1]",
+                ).split(",") if h.strip()
+            ),
         )

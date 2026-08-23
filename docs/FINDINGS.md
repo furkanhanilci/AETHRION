@@ -29,20 +29,56 @@ work belongs, not a commitment to a date.
 
 | # | Finding | Where | Why it is still open |
 |---|---|---|---|
-| **H1** | Zotero ingest is capped at 100 records — no pagination, no `Total-Results`, no `since=` | `src/airl_bridge/zotero.py` | Fix **M9 first.** Pagination without it turns a masked truncation into active data loss |
-| **H2** | A record deleted in Zotero persists in the registry and in Obsidian forever | `src/airl_bridge/database.py` | No tombstone path and the `/deleted` endpoint is never read |
-| **H3** | The read-only boundary has no behavioural test | `src/airl_bridge/zotero.py` · `tests/test_api.py` | `zotero_write_enabled` is a hard-coded constant, so the artifacts that appear to verify it test `False is False`. The fix is a `MockTransport` that raises on any non-`GET`, driven through the whole sync flow |
-| **H4** | The contract core has no production consumer, and contradicts the live system | `src/airl_framework/contracts.py` | Nothing in `src/airl_bridge` imports it; `ArtifactManifest` requires a bare 64-character digest while the bridge produces `sha256:<hex>`. Its only importer is a test. Binding it is WP-020 |
-| **H5** | No continuous integration | `deploy/bvc-01-verify.yml` | The workflow is written and has never run: activation needs a workflow-scoped token. BVC-01 is a temporary control and does **not** close H5, which is the absence of the WP-024 CI platform |
-| **M1** | Mutating endpoints are unauthenticated; no `Host` validation | `src/airl_bridge/main.py` | Loopback narrows this without closing it. Two low-cost fixes: a trusted-host middleware, and an `X-AIRL-Token` header on the mutating endpoints — a custom header alone forces a preflight and closes CSRF |
-| **M6** | No transaction boundary or compensation in `sync` | `src/airl_bridge/service.py` | The ingest commits before the projection runs; if the projection fails the registry has advanced and nothing records the divergence |
-| **M7** | The projection has no dry-run and does not refuse a populated directory | `src/airl_bridge/obsidian.py` | A path projected once is irreversibly taken under management. Partially narrowed by **I4** below, which stops the run when the manifest is unreadable — but adoption of a human folder is still silent |
-| **M8** | SQLite connections are never closed | `src/airl_bridge/database.py` | `with self.connect()` is a *transaction* context manager; it does not close. Every request leaks one until garbage collection |
-| **M9** | Silent truncation at 10,000 rows in the projection | `src/airl_bridge/service.py` | Above that the projection would not see some sources and `_remove_stale` would delete their files as stale. The 100-record ingest cap masks this today |
-| **L2** | `airl_id` is a 64-bit truncated hash with no collision handling | `src/airl_bridge/zotero.py` | Acceptable at 33 sources; it is not a property to discover at scale |
-| **L4** | No test coverage of the security and error paths | `tests/test_api.py` | None of the three `POST` endpoints, the 503 and 422 handlers, the loopback refusal, the path-traversal refusal or `library_type` validation is exercised — which contradicts the plan's own Definition of Done |
+| **H5** | No continuous integration | `deploy/bvc-01-verify.yml` | The workflow is written, covers the whole automatable bundle including every self-test, and **has never run**: activating it means copying it to `.github/workflows/` with a workflow-scoped token, which is an operator action this session cannot perform. BVC-01 is a temporary control and does **not** close H5, which is the absence of the WP-024 CI platform |
+
+> **H5 is the only one left, and it is the one that cannot be closed from
+> inside the repository.** Every other finding in this section was a defect in
+> code or in test coverage. This one is a permission: `gh auth refresh -h
+> github.com -s workflow`, then copy the file. Until then the eleven closures
+> below are proven by a suite somebody has to remember to run, which is the
+> weaker half of the same claim.
 
 ## 2. Closed
+
+### Closed on 2026-08-23 — the bridge findings
+
+Eleven of the twelve open findings closed together, because most of them were
+one property looked at from different angles: **the system did things it could
+not report on.** A partial fetch reported `SUCCEEDED`; a deleted source lived on
+forever; a projection that failed left a registry that had moved; a read-only
+boundary was asserted by a constant.
+
+| # | Finding | Fixed by | Regression guard |
+|---|---|---|---|
+| **H1** | Zotero ingest capped at 100 records — no pagination, no `Total-Results`, no completeness signal | `fetch_top_items` paginates and returns `(items, **complete**)`. `Total-Results` is a cross-check where the server sends it; termination is decided by a short page, because a client that *requires* a header stops working the day the header stops arriving | `test_pagination_walks_past_the_first_hundred` · `test_an_exact_multiple_of_the_page_size_terminates` · `test_a_total_results_disagreement_refuses_rather_than_reconciling` |
+| **H2** | A record deleted in Zotero persisted in the registry and in Obsidian forever | `reconcile_deletions` writes a **tombstone**, not a row deletion. A registry is the system of record for source identity, and an identity that silently vanishes cannot afterwards be told apart from one that never existed — which is the question an audit asks about a citation that no longer resolves | `test_a_source_absent_upstream_is_withdrawn_not_deleted` · `test_a_withdrawn_source_that_returns_keeps_its_identity` |
+| **H3** | The read-only boundary had no behavioural test | A transport that **raises** on any method other than `GET`, driven through the whole ingest — and a test proving that transport can raise. `zotero_write_enabled` is still a constant and is no longer the evidence for anything | `test_a_full_sync_issues_only_gets` · `test_the_read_only_transport_can_actually_fail` |
+| **H4** | The contract core had no production consumer and contradicted the live system | `airl_bridge.zotero` mints every `content_hash` through `airl_framework.contracts.content_digest`. The reconciliation went the **bridge's** way: the prefixed `sha256:<hex>` form names its own algorithm, where a bare digest is 64 characters of ambiguity. Bare digests are normalised on read so nothing already written became unreadable | `test_content_hash_is_minted_through_the_contract_core` · `tests/test_contracts.py` |
+| **M1** | Mutating endpoints unauthenticated; no `Host` validation | **Two** controls, because it was two vulnerabilities. `X-AIRL-Token` on the writes — a custom header is off the CORS safelist, so a cross-site page cannot send it without a preflight it cannot satisfy. A `Host` check on **every** request, including reads, because DNS rebinding makes `GET /v1/sources` same-origin and a token on the writes does nothing about that | `test_a_mutating_endpoint_refuses_without_a_token` · `test_an_unrecognised_host_is_rejected` · `test_an_unconfigured_token_refuses_rather_than_opening` |
+| **M6** | No transaction boundary or compensation in `sync` | The ordering was never the defect — there is no transaction spanning SQLite and a directory of Markdown files. The defect was that a failing projection left the registry advanced and *nothing said so*. `sync` records a `DIVERGED` run and returns a result a caller cannot misread | `tests/test_service_divergence.py`, including the negative control that a healthy sync records nothing |
+| **M7** | The projection had no dry-run and adopted a populated directory silently | It refuses a directory holding files it did not create and carrying no manifest, and `dry_run=True` reports what would change without changing it. The timing is what made this dangerous: a hand-written folder was destroyed on the **second** run, so the first one looked like it worked | `test_a_populated_unmanaged_directory_is_refused` · `test_a_dry_run_writes_nothing_and_reports_what_would_change` |
+| **M8** | SQLite connections never closed | A `session()` context manager that commits, rolls back **and** closes. `with sqlite3.connect(...)` reads like a resource manager and is not one | `test_a_session_closes_its_connection` · `test_a_failing_session_rolls_back_and_still_closes` |
+| **M9** | Silent truncation at 10,000 rows in the projection | `list_sources(limit=None)`. The cap was not merely a ceiling: `_remove_stale` deletes any projected file whose source is absent from the list it was handed, so a truncated read became **deletion** of everything past the cut | `test_a_partial_walk_does_not_reconcile_deletions` |
+| **L2** | `airl_id` is a 64-bit truncated hash with no collision handling | A collision now raises `SourceIdentityCollision` naming both bindings. The width is unchanged and that is deliberate — the point was never 64 bits, it was that a collision must be **detected** rather than discovered later as two merged bibliographies | `test_an_airl_id_collision_is_refused_rather_than_merged` |
+| **L4** | No test coverage of the security and error paths | Every mechanism that exists to refuse something is exercised: both M1 controls, the 503 and 422 handlers, the 404, the loopback refusal, the path-traversal refusal and `library_type` validation. The plan's Definition of Done requires "security, data and policy negative tests have passed", and it was being satisfied by nothing at all | `tests/test_api.py`, sixteen tests |
+
+> **Two of these were fixed in the order the register demanded, and the order
+> mattered.** H1 said *"fix M9 first"* — pagination without it turns a masked
+> truncation into active data loss, because a complete walk authorises the
+> deletion reconciliation and a reconciliation against a partial library
+> withdraws everything it did not reach. `test_a_partial_walk_does_not_reconcile_deletions`
+> is that coupling written down as a test rather than as a warning in a
+> docstring.
+>
+> **And one defect was introduced while fixing another.** The dry run parsed the
+> projection manifest itself and read the wrong key — `files` instead of
+> `generated_files` — so it reported zero deletions forever. A planner that
+> cannot see what a real run would delete is worse than no planner, because it
+> is reassuring. The test caught it, and the parse is now shared with
+> `_remove_stale` rather than duplicated: the same one-owner rule that closed
+> **K3** one baseline earlier, applied two hundred lines lower down.
+
+
 
 | # | Finding | Closed by | Check it |
 |---|---|---|---|

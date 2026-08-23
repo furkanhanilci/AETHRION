@@ -65,6 +65,26 @@ jobs:
       - name: Upstream lineage
         run: uv run python scripts/check_upstream_lineage.py
 
+      - name: The programme graph is executable
+        run: uv run python scripts/check_programme_graph.py
+
+      - name: Figure claims match the registries
+        run: uv run python scripts/check_figure_semantics.py
+
+      - name: Document hygiene
+        run: uv run python scripts/check_document_hygiene.py
+
+      # Every control that can be observed refusing, observed refusing. A check
+      # that has never failed reports "no findings" and "no detector" in
+      # identical words, and CI is where that stops being a matter of trust.
+      - name: Every self-test — the controls must be able to fail
+        run: |
+          uv run python scripts/check_upstream_lineage.py --self-test
+          uv run python scripts/check_stale_claims.py --self-test
+          uv run python scripts/check_programme_graph.py --self-test
+          uv run python scripts/check_figure_semantics.py --self-test
+          uv run python scripts/check_document_hygiene.py --self-test
+
       - name: Workstream indexes match their packages
         run: uv run python scripts/make_plan_indexes.py --check
 

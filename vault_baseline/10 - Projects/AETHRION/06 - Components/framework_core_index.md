@@ -31,7 +31,8 @@ tags:
 **In one paragraph.** This package defines the contracts every later service was
 supposed to bind to, and **nothing binds to it.** `airl_bridge` imports none of
 it, the two disagree about how a digest is written, and `SchemaRegistry` is a
-dictionary rather than a validator. It is recorded here as finding **H4** because
+dictionary rather than a validator. That half of finding **H4** remains open in substance —
+the binding closed, the validation did not — and it is recorded here because
 a contract with no consumer is not a foundation — it is a parallel universe that
 happens to compile.
 

@@ -160,6 +160,123 @@ quietly skipped.
 
 ---
 
+## Step 021 — Closing the bridge findings: eleven of twelve
+
+**Time:** 2026-08-23
+**Scope:** H1 · H2 · H3 · H4 · M1 · M6 · M7 · M8 · M9 · L2 · L4 closed ·
+H5 remains, and cannot be closed from inside the repository
+
+### What these findings had in common
+
+Reading them as a list of twelve unrelated defects misses the pattern. Almost
+all of them were one property seen from different angles: **the system did
+things it could not report on.**
+
+- A fetch capped at 100 records reported the run `SUCCEEDED`.
+- A source deleted upstream lived on in the registry and the vault forever.
+- A projection that failed left the registry advanced and nothing said so.
+- A read-only boundary — *the framework's strongest security claim* — was
+  asserted by a hard-coded constant, so the three artifacts that appeared to
+  verify it were testing `False is False`.
+
+Each of those is silent in exactly the situation where you would want it to
+speak. So the fixes are less about new capability than about making the system
+able to say what it did.
+
+### The order was in the register, and it mattered
+
+H1 said, in the "why it is still open" column, *fix M9 first*. Not a preference:
+pagination without it turns a masked truncation into **active data loss**.
+
+The chain is: a complete walk authorises the deletion reconciliation → a
+reconciliation run against a partial library withdraws every source the fetch
+did not reach → and the 100-record cap was the only thing preventing a partial
+walk from looking complete. Fix pagination alone and you have built a machine
+for deleting three quarters of a library.
+
+`fetch_top_items` therefore returns `(items, **complete**)`, and
+`reconcile_deletions` runs only when `complete` is true. That coupling is now
+`test_a_partial_walk_does_not_reconcile_deletions` rather than a warning in a
+docstring.
+
+### Deletion is a tombstone
+
+`withdrawn_at`, not `DELETE FROM`. A registry is the system of record for source
+identity, and an identity that silently vanishes cannot afterwards be told apart
+from one that never existed — which is precisely the question an audit asks
+about a citation that no longer resolves. A source that comes back keeps its
+`airl_id`, because minting a new one would break every reference made while it
+was withdrawn.
+
+### One vulnerability was two
+
+M1 read as "the mutating endpoints are unauthenticated". It is two distinct
+problems needing two distinct controls:
+
+- **CSRF** — a browser page can issue a preflight-free `POST /v1/sync` whose side
+  effect runs even though the response is unreadable. Fixed by requiring
+  `X-AIRL-Token`: a custom header is not on the CORS safelist, so the preflight
+  the attacker cannot satisfy is forced.
+- **DNS rebinding** — after the page loads, `attacker.example` resolves to
+  `127.0.0.1` and the browser treats `GET /v1/sources` as same-origin. A token on
+  the *writes* does nothing about that, so every request is checked against
+  `allowed_hosts`.
+
+An unset `AIRL_API_TOKEN` returns 503 rather than opening the endpoints. Failing
+open on missing configuration is how a mandatory control becomes optional in
+practice while staying mandatory on paper.
+
+### A defect introduced while fixing one
+
+The dry run added for M7 parsed the projection manifest itself and read the wrong
+key — `files` where the format writes `generated_files` — so it reported **zero
+deletions forever**. A planner that cannot see what a real run would delete is
+worse than no planner, because it is reassuring.
+
+The test caught it, and the parse is now shared with `_remove_stale` rather than
+duplicated. That is the same one-owner rule that closed **K3** in the previous
+baseline, applied two hundred lines further down: two representations of one
+fact, disagreeing.
+
+### The read-only boundary, finally evidenced
+
+`zotero_write_enabled` is still a constant. It is simply no longer the evidence
+for anything. The evidence is a transport that raises on any method other than
+`GET`, driven through the whole ingest — **and a test that proves the transport
+can raise.** Without that second test, the first passes just as happily against a
+transport that checks nothing.
+
+### H5 is the one left, and it is not a code problem
+
+The CI workflow now covers the whole automatable bundle including every
+self-test. It has never run. Activating it means `gh auth refresh -h github.com
+-s workflow` and copying the file into `.github/workflows/` — an operator action
+this session cannot perform.
+
+Which means the eleven closures above are proven by a suite somebody has to
+remember to run. That is the weaker half of the same claim, and it is worth
+naming rather than rounding up.
+
+### Evidence
+
+```text
+tests                 131 passed   (93 → 131)
+bundle                19/19
+plan seal             632/632
+open findings         12 → 1
+```
+
+### Limits
+
+Every closure is a closure **against the check named beside it**, not in general.
+H4 closed the binding — the bridge and the contract core now mint one digest —
+and did **not** close `SchemaRegistry` being an in-process dictionary that
+validates nothing; `src/airl_framework/README.md` says so where a reader will
+find it. And the largest untested claim in the repository is untouched: **no
+skill has a behaviour baseline**, and the runtime for one does not exist.
+
+---
+
 ## Step 020 — Baseline v1.3.1: the plan made executable
 
 **Time:** 2026-08-23

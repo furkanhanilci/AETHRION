@@ -894,7 +894,7 @@ the section to read first if you are deciding whether to trust anything else.
 ```mermaid
 flowchart LR
     subgraph WORKING["RUNNING - verified locally"]
-        W["Zotero read-only client<br/>SQLite source registry<br/>Obsidian projection<br/>Hermes MCP, 5 tools<br/>systemd units · 93 tests<br/>plan seal · 19 status checks<br/>signed evidence manifest<br/>14 generated figures<br/>upstream lineage register + checker"]
+        W["Zotero read-only client<br/>SQLite source registry<br/>Obsidian projection<br/>Hermes MCP, 5 tools<br/>systemd units · 131 tests<br/>plan seal · 19 status checks<br/>signed evidence manifest<br/>14 generated figures<br/>upstream lineage register + checker"]
     end
     subgraph WRITTEN["WRITTEN - never executed"]
         S["52 skills, none behaviour-tested<br/>160 package documents<br/>120 acceptance scenarios<br/>role-to-model assignment rules<br/>4 authoring profiles"]
@@ -1010,13 +1010,14 @@ branch and are regenerated from the canonical registry. Human synthesis stays in
 
 > ⚠️ **Known limitation:** ingest is hard-capped at 100 records; there is no
 > pagination and no `since=` incremental sync. Once the library exceeds 100
-> sources, synchronisation silently becomes partial. See finding **H1** in the
+> sources — closed. `fetch_top_items` paginates and reports whether the walk
+> reached the end. See the closed findings in the
 > audit report.
 
 ### Verify
 
 ```bash
-uv run pytest                          # 93 tests
+uv run pytest                          # 131 tests
 uv run python scripts/mcp_smoke.py     # asserts the five-tool boundary; exits 1 on failure
 uv run python scripts/acceptance_v0.py # data-independent structural acceptance
 python3 scripts/validate_skills.py     # Agent Skills format + AIRL metadata contract
@@ -1123,7 +1124,7 @@ flowchart LR
 ```
 
 ```
-93/93 tests pass · plan seal 632/632 OK · plan semantics OK · service and timer active
+131/131 tests pass · plan seal 632/632 OK · plan semantics OK · service and timer active
 WP-000 attestation: signature OK, 9 subject digests OK, tamper rejected
 MCP smoke: 5 read-only tools, exits 1 when the Bridge is down
 Acceptance: 11 structural checks pass, data-independent

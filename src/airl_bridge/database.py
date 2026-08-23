@@ -23,11 +23,15 @@ Known limitations:
   a source or marks it withdrawn, and the Zotero ``/deleted`` endpoint is never
   read. A source removed in Zotero therefore lives on here — and in Obsidian —
   indefinitely.
-* **Connections are never closed (finding M8).** ``with self.connect()`` is a
-  *transaction* context manager in ``sqlite3``; it does not close the
-  connection. Every request leaks one until garbage collection.
-* **``schema_meta.schema_version`` is written and never read.** There is no
-  migration mechanism.
+* **Deletions are reconciled (finding H2, closed).** ``reconcile_deletions``
+  withdraws sources that are no longer in the library, and the projection stops
+  rendering them. A withdrawal is a **tombstone**, not a row deletion: the
+  registry is the system of record for source identity, and an identity that
+  silently vanishes cannot be distinguished afterwards from one that never
+  existed.
+* **``schema_meta.schema_version`` is read.** ``initialize`` migrates v1 → v2 by
+  adding ``withdrawn_at`` when it is absent. It is the smallest migration
+  mechanism that works, and it is idempotent.
 """
 from __future__ import annotations
 
@@ -35,7 +39,8 @@ import json
 import sqlite3
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any, Iterable
+from contextlib import contextmanager
+from typing import Any, Iterable, Iterator
 
 from .models import SourceRecord
 
@@ -63,9 +68,11 @@ CREATE TABLE IF NOT EXISTS sources (
     raw_json TEXT NOT NULL,
     content_hash TEXT NOT NULL,
     synced_at TEXT NOT NULL,
+    withdrawn_at TEXT,
     UNIQUE (zotero_library_type, zotero_library_id, zotero_key)
 );
 
+CREATE INDEX IF NOT EXISTS idx_sources_withdrawn ON sources(withdrawn_at);
 CREATE INDEX IF NOT EXISTS idx_sources_doi ON sources(doi);
 CREATE INDEX IF NOT EXISTS idx_sources_title ON sources(title);
 
@@ -79,9 +86,16 @@ CREATE TABLE IF NOT EXISTS sync_runs (
     updated INTEGER NOT NULL DEFAULT 0,
     unchanged INTEGER NOT NULL DEFAULT 0,
     skipped INTEGER NOT NULL DEFAULT 0,
+    revived INTEGER NOT NULL DEFAULT 0,
+    withdrawn INTEGER NOT NULL DEFAULT 0,
+    complete INTEGER NOT NULL DEFAULT 1,
     error TEXT
 );
 """
+
+
+class SourceIdentityCollision(RuntimeError):
+    """Two distinct Zotero bindings produced the same `airl_id` — finding L2."""
 
 
 class Database:
@@ -89,6 +103,12 @@ class Database:
         self.path = Path(path)
 
     def connect(self) -> sqlite3.Connection:
+        """Open a configured connection. **The caller must close it.**
+
+        Kept public because tests and `scripts/acceptance_v0.py` open their own
+        read-only connections. Everything inside this module goes through
+        `session()` instead, which is the part that was missing.
+        """
         self.path.parent.mkdir(parents=True, exist_ok=True)
         connection = sqlite3.connect(self.path, timeout=10)
         connection.row_factory = sqlite3.Row
@@ -97,23 +117,63 @@ class Database:
         connection.execute("PRAGMA busy_timeout=5000")
         return connection
 
+    @contextmanager
+    def session(self) -> Iterator[sqlite3.Connection]:
+        """A transaction that is also closed at the end of it — finding M8.
+
+        `with sqlite3.connect(...) as connection:` reads like a resource
+        context manager and is not one. It commits on success and rolls back on
+        an exception, and it never closes anything. Every call in this module
+        used that form, so every request leaked a connection and a file handle
+        until garbage collection happened to run — invisible on a 33-source
+        library and a genuine descriptor exhaustion at any real size.
+
+        Rollback on failure is preserved explicitly rather than inherited, so
+        the behaviour that *was* correct does not quietly change while fixing
+        the part that was not.
+        """
+        connection = self.connect()
+        try:
+            with connection:
+                yield connection
+        finally:
+            connection.close()
+
+    SCHEMA_VERSION = "2"
+
     def initialize(self) -> None:
-        with self.connect() as connection:
+        with self.session() as connection:
             connection.executescript(SCHEMA)
+            # v1 → v2 adds withdrawn_at. `schema_meta.schema_version` was
+            # written and never read, so there was no migration mechanism at
+            # all; this is the smallest one that works and it is idempotent.
+            columns = {row["name"] for row in
+                       connection.execute("PRAGMA table_info(sources)")}
+            if "withdrawn_at" not in columns:
+                connection.execute("ALTER TABLE sources ADD COLUMN withdrawn_at TEXT")
+            run_columns = {row["name"] for row in
+                           connection.execute("PRAGMA table_info(sync_runs)")}
+            for name, ddl in (("revived", "INTEGER NOT NULL DEFAULT 0"),
+                              ("withdrawn", "INTEGER NOT NULL DEFAULT 0"),
+                              ("complete", "INTEGER NOT NULL DEFAULT 1")):
+                if name not in run_columns:
+                    connection.execute(
+                        f"ALTER TABLE sync_runs ADD COLUMN {name} {ddl}")
             connection.execute(
                 "INSERT OR REPLACE INTO schema_meta(key, value) VALUES (?, ?)",
-                ("schema_version", "1"),
+                ("schema_version", self.SCHEMA_VERSION),
             )
 
     def upsert_sources(
         self, sources: Iterable[tuple[SourceRecord, dict[str, Any]]]
     ) -> dict[str, int]:
-        counts = {"inserted": 0, "updated": 0, "unchanged": 0}
-        with self.connect() as connection:
+        counts = {"inserted": 0, "updated": 0, "unchanged": 0, "revived": 0}
+        seen_keys: list[str] = []
+        with self.session() as connection:
             for source, raw in sources:
                 existing = connection.execute(
                     """
-                    SELECT airl_id, content_hash, zotero_version FROM sources
+                    SELECT airl_id, content_hash, zotero_version, withdrawn_at FROM sources
                     WHERE zotero_library_type = ?
                       AND zotero_library_id = ?
                       AND zotero_key = ?
@@ -124,6 +184,7 @@ class Database:
                         source.zotero_key,
                     ),
                 ).fetchone()
+                seen_keys.append(source.zotero_key)
                 values = (
                     source.airl_id,
                     source.zotero_library_type,
@@ -143,6 +204,29 @@ class Database:
                     source.synced_at.isoformat(),
                 )
                 if existing is None:
+                    # Finding L2. `airl_id` is a 64-bit truncated SHA-256 of the
+                    # Zotero binding. A collision would mean two different
+                    # sources sharing one identity, and because `airl_id` is the
+                    # primary key the INSERT would fail with a constraint error
+                    # naming neither source — or, worse, an upsert keyed on
+                    # `airl_id` would silently merge them.
+                    #
+                    # 64 bits is fine at this scale and the point is not to
+                    # widen it: it is that a collision must be *detected* rather
+                    # than discovered later as two merged bibliographies. The
+                    # check costs one indexed lookup per insert.
+                    clash = connection.execute(
+                        "SELECT zotero_key, zotero_library_id FROM sources "
+                        "WHERE airl_id = ?", (source.airl_id,)
+                    ).fetchone()
+                    if clash is not None:
+                        raise SourceIdentityCollision(
+                            f"{source.airl_id} already binds "
+                            f"{clash['zotero_library_id']}:{clash['zotero_key']}; "
+                            f"refusing to bind "
+                            f"{source.zotero_library_id}:{source.zotero_key} to "
+                            f"the same identity. The identifier is a 64-bit "
+                            f"truncation and this is what a collision looks like")
                     connection.execute(
                         """
                         INSERT INTO sources(
@@ -155,6 +239,18 @@ class Database:
                         values,
                     )
                     counts["inserted"] += 1
+                elif existing["withdrawn_at"] is not None:
+                    # It came back. A revived source keeps its airl_id — the
+                    # identity was always derived from the Zotero binding, so
+                    # minting a new one here would break every reference made
+                    # while it was withdrawn.
+                    connection.execute(
+                        "UPDATE sources SET withdrawn_at = NULL, content_hash = ?, "
+                        "synced_at = ?, zotero_version = ? WHERE airl_id = ?",
+                        (source.content_hash, source.synced_at.isoformat(),
+                         source.zotero_version, existing["airl_id"]),
+                    )
+                    counts["revived"] += 1
                 elif existing["content_hash"] == source.content_hash:
                     # An unchanged record is not written. ``synced_at`` is the
                     # time the content last *changed*, not the time it was last
@@ -195,18 +291,66 @@ class Database:
                         ),
                     )
                     counts["updated"] += 1
+        counts["seen_keys"] = seen_keys
         return counts
 
-    def list_sources(self, limit: int = 100, offset: int = 0) -> list[SourceRecord]:
-        with self.connect() as connection:
+    def reconcile_deletions(self, present_keys: Iterable[str], *,
+                            library_type: str, library_id: str) -> list[str]:
+        """Withdraw sources no longer present upstream — finding H2.
+
+        A tombstone rather than a delete. This registry is the system of record
+        for source identity, and an identity that silently disappears cannot
+        afterwards be told apart from one that never existed — which is exactly
+        the question an audit asks about a citation that no longer resolves.
+
+        Called only from a **complete** ingest. A partial fetch would make every
+        unfetched source look deleted, which is why `ingest_zotero` reconciles
+        only when it has walked the whole library. That coupling is the reason
+        finding H1 said to fix M9 first: pagination without it turns a masked
+        truncation into active data loss.
+        """
+        present = set(present_keys)
+        withdrawn_at = datetime.now(timezone.utc).isoformat()
+        withdrawn: list[str] = []
+        with self.session() as connection:
             rows = connection.execute(
-                "SELECT * FROM sources ORDER BY synced_at DESC LIMIT ? OFFSET ?",
-                (limit, offset),
+                "SELECT airl_id, zotero_key FROM sources "
+                "WHERE zotero_library_type = ? AND zotero_library_id = ? "
+                "AND withdrawn_at IS NULL",
+                (library_type, library_id),
             ).fetchall()
+            for row in rows:
+                if row["zotero_key"] in present:
+                    continue
+                connection.execute(
+                    "UPDATE sources SET withdrawn_at = ? WHERE airl_id = ?",
+                    (withdrawn_at, row["airl_id"]),
+                )
+                withdrawn.append(str(row["airl_id"]))
+        return withdrawn
+
+    def list_sources(self, limit: int | None = 100, offset: int = 0,
+                     include_withdrawn: bool = False) -> list[SourceRecord]:
+        """Live sources, newest first. `limit=None` means every one of them.
+
+        The default stays at 100 for the HTTP surface. The projection passes
+        `None`, because a projection that reads *most* sources deletes the rest
+        as stale — finding M9, where the cap was 10,000 and silent.
+        """
+        clause = "" if include_withdrawn else "WHERE withdrawn_at IS NULL"
+        if limit is None:
+            sql = f"SELECT * FROM sources {clause} ORDER BY synced_at DESC"
+            params: tuple = ()
+        else:
+            sql = (f"SELECT * FROM sources {clause} "
+                   f"ORDER BY synced_at DESC LIMIT ? OFFSET ?")
+            params = (limit, offset)
+        with self.session() as connection:
+            rows = connection.execute(sql, params).fetchall()
         return [self._row_to_source(row) for row in rows]
 
     def get_source(self, airl_id: str) -> SourceRecord | None:
-        with self.connect() as connection:
+        with self.session() as connection:
             row = connection.execute(
                 "SELECT * FROM sources WHERE airl_id = ?", (airl_id,)
             ).fetchone()
@@ -216,15 +360,15 @@ class Database:
         escaped = query.casefold().replace("\\", "\\\\")
         escaped = escaped.replace("%", "\\%").replace("_", "\\_")
         pattern = f"%{escaped}%"
-        with self.connect() as connection:
+        with self.session() as connection:
             rows = connection.execute(
                 """
                 SELECT * FROM sources
-                WHERE lower(title) LIKE ? ESCAPE '\\'
+                WHERE withdrawn_at IS NULL AND (lower(title) LIKE ? ESCAPE '\\'
                    OR lower(doi) LIKE ? ESCAPE '\\'
                    OR lower(abstract_note) LIKE ? ESCAPE '\\'
                    OR lower(creators_json) LIKE ? ESCAPE '\\'
-                   OR lower(tags_json) LIKE ? ESCAPE '\\'
+                   OR lower(tags_json) LIKE ? ESCAPE '\\')
                 ORDER BY title COLLATE NOCASE, zotero_key
                 LIMIT ?
                 """,
@@ -233,25 +377,28 @@ class Database:
         return [self._row_to_source(row) for row in rows]
 
     def list_category_counts(self) -> list[tuple[str, int]]:
-        with self.connect() as connection:
+        with self.session() as connection:
             rows = connection.execute(
                 """
                 SELECT item_type, COUNT(*) AS source_count
                 FROM sources
+                WHERE withdrawn_at IS NULL
                 GROUP BY item_type
                 ORDER BY source_count DESC, item_type
                 """
             ).fetchall()
         return [(str(row["item_type"]), int(row["source_count"])) for row in rows]
 
-    def count_sources(self) -> int:
-        with self.connect() as connection:
-            row = connection.execute("SELECT COUNT(*) AS count FROM sources").fetchone()
+    def count_sources(self, include_withdrawn: bool = False) -> int:
+        clause = "" if include_withdrawn else "WHERE withdrawn_at IS NULL"
+        with self.session() as connection:
+            row = connection.execute(
+                f"SELECT COUNT(*) AS count FROM sources {clause}").fetchone()
         return int(row["count"])
 
     def start_sync(self) -> int:
         now = datetime.now(timezone.utc).isoformat()
-        with self.connect() as connection:
+        with self.session() as connection:
             cursor = connection.execute(
                 "INSERT INTO sync_runs(started_at, status) VALUES (?, ?)",
                 (now, "RUNNING"),
@@ -268,15 +415,19 @@ class Database:
         updated: int = 0,
         unchanged: int = 0,
         skipped: int = 0,
+        revived: int = 0,
+        withdrawn: int = 0,
+        complete: bool = True,
         error: str | None = None,
     ) -> None:
         now = datetime.now(timezone.utc).isoformat()
-        with self.connect() as connection:
+        with self.session() as connection:
             connection.execute(
                 """
                 UPDATE sync_runs SET
                     completed_at = ?, status = ?, fetched = ?, inserted = ?,
-                    updated = ?, unchanged = ?, skipped = ?, error = ?
+                    updated = ?, unchanged = ?, skipped = ?, revived = ?,
+                    withdrawn = ?, complete = ?, error = ?
                 WHERE id = ?
                 """,
                 (
@@ -287,10 +438,37 @@ class Database:
                     updated,
                     unchanged,
                     skipped,
+                    revived,
+                    withdrawn,
+                    int(complete),
                     error,
                     run_id,
                 ),
             )
+
+    def record_divergence(self, *, stage: str, detail: str) -> int:
+        """Record that one half of a sync succeeded and the other did not.
+
+        Finding M6. The ingest and the projection write to different stores and
+        cannot be made atomic; what was missing was any record that they had
+        come apart. `sync_runs` held only the ingest counters, so a registry that
+        had advanced past a stale vault looked exactly like a healthy system.
+        """
+        now = datetime.now(timezone.utc).isoformat()
+        with self.session() as connection:
+            cursor = connection.execute(
+                "INSERT INTO sync_runs(started_at, completed_at, status, error) "
+                "VALUES (?, ?, ?, ?)",
+                (now, now, "DIVERGED", f"{stage}: {detail}"),
+            )
+            return int(cursor.lastrowid)
+
+    def last_divergence(self) -> sqlite3.Row | None:
+        with self.session() as connection:
+            return connection.execute(
+                "SELECT * FROM sync_runs WHERE status = 'DIVERGED' "
+                "ORDER BY id DESC LIMIT 1"
+            ).fetchone()
 
     @staticmethod
     def _row_to_source(row: sqlite3.Row) -> SourceRecord:
@@ -310,4 +488,5 @@ class Database:
             tags=json.loads(row["tags_json"]),
             content_hash=row["content_hash"],
             synced_at=row["synced_at"],
+            withdrawn_at=row["withdrawn_at"] if "withdrawn_at" in row.keys() else None,
         )

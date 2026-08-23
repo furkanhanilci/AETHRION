@@ -3,26 +3,33 @@
 Seven ``GET`` endpoints (health, readiness, sources, search, detail, categories,
 duplicates) and three ``POST`` endpoints (ingest, project, sync).
 
-⚠️ **The mutating endpoints are unauthenticated (finding M1).** There is no
-token, no CSRF protection and no ``TrustedHostMiddleware``. Binding to loopback
-narrows but does not close this: a page in the browser can issue a preflight-free
-``POST /v1/sync`` whose side effect still runs, and without ``Host`` validation a
-DNS-rebinding attacker is treated as same-origin and can read the entire registry
-over ``GET /v1/sources``.
+**The mutating endpoints require ``X-AIRL-Token`` and every request must carry a
+known ``Host`` (finding M1, closed).** Loopback binding narrows the surface and
+does not close it, for two distinct reasons that need two distinct fixes:
 
-The two low-cost fixes are a trusted-host middleware and an ``X-AIRL-Token``
-header on the mutating endpoints — a custom header alone forces a preflight and
-closes CSRF.
+* a page in a browser can issue a **preflight-free** ``POST /v1/sync`` whose side
+  effect runs even though the response is unreadable — so the mutating endpoints
+  demand a **custom header**, which is not on the CORS safelist and therefore
+  forces a preflight the attacker's page cannot satisfy;
+* without ``Host`` validation a **DNS-rebinding** attacker is treated as
+  same-origin and can read the whole registry over ``GET /v1/sources`` — so every
+  request, read or write, is checked against ``allowed_hosts``.
 
-⚠️ **``HealthResponse.zotero_write_enabled`` is a constant**, not a measured
-control (finding **H3**). It should either be removed or bound to a computed
-value; as it stands it invites the reader to trust it.
+**An unset ``AIRL_API_TOKEN`` refuses the mutating endpoints rather than opening
+them.** Failing open on missing configuration is how a control becomes optional
+in practice while remaining mandatory on paper.
+
+``HealthResponse.zotero_write_enabled`` is still a constant, and it is now backed
+by a behavioural test (finding **H3**): ``tests/test_zotero.py`` drives the whole
+sync through a transport that raises on any method other than ``GET``.
 """
 from __future__ import annotations
 
 from contextlib import asynccontextmanager
 
-from fastapi import FastAPI, HTTPException, Query, Request
+import hmac
+
+from fastapi import Depends, FastAPI, Header, HTTPException, Query, Request
 from fastapi.responses import JSONResponse
 
 from . import __version__
@@ -68,6 +75,43 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     app.state.database = database
     app.state.zotero = zotero
     app.state.service = service
+
+    @app.middleware("http")
+    async def enforce_known_host(request: Request, call_next):
+        """Reject a request whose Host header is not one we recognise.
+
+        This is the DNS-rebinding defence, and it protects the READ endpoints as
+        much as the writes: rebinding turns `http://attacker.example` into
+        `127.0.0.1` after the page has loaded, and the browser then treats
+        `GET /v1/sources` as same-origin. A token on the mutating endpoints does
+        nothing about that, which is why this is a separate control.
+        """
+        host = (request.headers.get("host") or "").split(":")[0]
+        allowed = {h.split(":")[0].strip("[]") for h in resolved_settings.allowed_hosts}
+        if host.strip("[]") not in allowed:
+            return JSONResponse(
+                status_code=421,
+                content={"detail": f"unrecognised Host {host!r}; "
+                                   f"AIRL_ALLOWED_HOSTS governs this"},
+            )
+        return await call_next(request)
+
+    def require_token(x_airl_token: str = Header(default="")) -> None:
+        """Gate the three mutating endpoints — finding M1.
+
+        A custom header is the whole mechanism. `X-AIRL-Token` is not on the
+        CORS safelist, so a cross-site page cannot send it without a preflight,
+        and the preflight fails. The secret comparison is constant-time because
+        there is no reason for it not to be.
+        """
+        if not resolved_settings.api_token:
+            raise HTTPException(
+                status_code=503,
+                detail="AIRL_API_TOKEN is not configured; the mutating "
+                       "endpoints refuse rather than defaulting to open",
+            )
+        if not hmac.compare_digest(x_airl_token, resolved_settings.api_token):
+            raise HTTPException(status_code=401, detail="invalid or missing X-AIRL-Token")
 
     @app.exception_handler(ZoteroUnavailable)
     async def zotero_unavailable(_: Request, exc: ZoteroUnavailable):
@@ -141,19 +185,30 @@ def create_app(settings: Settings | None = None) -> FastAPI:
             for group in groups
         ]
 
-    @app.post("/v1/ingest/zotero", response_model=IngestResult)
+    @app.post("/v1/ingest/zotero", response_model=IngestResult,
+              dependencies=[Depends(require_token)])
     async def ingest_zotero(
-        limit: int = Query(default=100, ge=1, le=100)
+        limit: int | None = Query(default=None, ge=1)
     ) -> IngestResult:
+        """`limit` defaults to the whole library.
+
+        It used to default to 100 and be capped at 100, so the ordinary call
+        was a partial sync reported as `SUCCEEDED` (finding H1).
+        """
         return await service.ingest_zotero(limit=limit)
 
-    @app.post("/v1/project/obsidian", response_model=ProjectionResult)
-    async def project_obsidian() -> ProjectionResult:
-        return service.project_obsidian()
+    @app.post("/v1/project/obsidian", response_model=ProjectionResult,
+              dependencies=[Depends(require_token)])
+    async def project_obsidian(
+        dry_run: bool = Query(default=False)
+    ) -> ProjectionResult:
+        return service.projector.project_sources(
+            database.list_sources(limit=None), dry_run=dry_run)
 
-    @app.post("/v1/sync", response_model=SyncResult)
+    @app.post("/v1/sync", response_model=SyncResult,
+              dependencies=[Depends(require_token)])
     async def sync(
-        limit: int = Query(default=100, ge=1, le=100)
+        limit: int | None = Query(default=None, ge=1)
     ) -> SyncResult:
         return await service.sync(limit=limit)
 

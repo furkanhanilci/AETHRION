@@ -133,7 +133,11 @@ RULES: list[tuple[str, str, str, str]] = [
     ("docs/architecture/AETHRION_ARCHITECTURE.md", r"plan seal · (\d+) status checks", "bundle_checks", "bundle checks"),
     ("tests/README.md", r"\| Scope \| The (\d+) tests that run today \|", "tests", "tests"),
     ("tests/README.md", r"— (\d+) passing; coverage is narrow", "tests", "tests"),
-    ("tests/README.md", r"\*\*In one paragraph\.\*\* ([A-Za-z-]+) tests cover", "tests", "tests"),
+    # Either a spelled-out number or a digit. The spelled table is generated for
+    # one to ninety-nine (finding I12); past that the spelled form is a phrase
+    # with spaces in it, and demanding one would make the checker refuse a
+    # correct document — which is exactly the defect I12 recorded.
+    ("tests/README.md", r"\*\*In one paragraph\.\*\* ([A-Za-z-]+|\d+) tests cover", "tests", "tests"),
     ("tests/README.md", r"uv run pytest\s+# all (\d+)", "tests", "tests"),
     ("docs/OPERATIONS.md", r"uv run pytest\s+# (\d+) tests", "tests", "tests"),
     ("docs/OPERATIONS.md", r"Expected: `(\d+) passed`", "tests", "tests"),

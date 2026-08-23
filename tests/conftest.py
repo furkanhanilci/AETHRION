@@ -24,6 +24,12 @@ def settings(tmp_path: Path) -> Settings:
         zotero_library_id="0",
         obsidian_vault=vault,
         obsidian_generated_dir=Path("70 - Literature Sets/Zotero Sources"),
+        # Finding M1. A token is configured here so the mutating endpoints are
+        # reachable in tests; `tests/test_api.py` covers both the unset case
+        # (503, refusing rather than defaulting to open) and the wrong-token
+        # case (401).
+        api_token="test-token",
+        allowed_hosts=("127.0.0.1", "localhost", "testserver", "[::1]"),
     )
 
 

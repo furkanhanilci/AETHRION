@@ -24,8 +24,12 @@ This version is split in two:
 **What this check still does not prove.** That no write reaches Zotero. That
 requires a behavioural test — a ``MockTransport`` raising on any method other
 than ``GET``, driven through the whole sync flow — plus a static check in CI.
-Neither exists yet (finding **H3**), so the read-only claim remains verified by
-reading the code, not by evidence.
+That test now exists — ``tests/test_zotero.py`` drives the whole ingest through a
+transport that raises on any non-``GET``, and proves that transport can raise
+(finding **H3**, closed). This script still does not verify it, because it talks
+to a live Bridge over HTTP and cannot see which methods that Bridge issues
+upstream. The distinction is worth keeping: the claim is now evidenced, and it is
+evidenced *somewhere else*.
 
 Requires the Bridge to be running. Exits non-zero on failure.
 
@@ -162,7 +166,9 @@ def main() -> int:
         "checks": _checks,
         "failures": _failures,
         "not_proven_here": [
-            "the Zotero read-only boundary (finding H3 — needs a behavioural test)",
+            "the Zotero read-only boundary — evidenced in tests/test_zotero.py, "
+            "not here: this script sees the Bridge's HTTP surface, not the "
+            "methods the Bridge issues upstream (finding H3, closed there)",
         ],
     }
     print(json.dumps(report, ensure_ascii=False, indent=2))

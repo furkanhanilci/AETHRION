@@ -12,6 +12,8 @@ Two assertions matter more than the rest:
 Not covered: the dry-run and populated-directory refusal that finding **M7**
 asks for — they do not exist yet.
 """
+import pytest
+
 from airl_bridge.obsidian import ObsidianProjector
 from airl_bridge.zotero import normalize_item
 
@@ -195,3 +197,66 @@ def test_projected_note_carries_controlled_obsidian_tags(settings, zotero_item):
     assert "  - aethrion/item-type/journalarticle\n" in note
     assert "  - aethrion/has-doi\n" in note
     assert "\nzotero_tags:\n" in note, "the human's own Zotero keywords stay separate"
+
+
+# --- finding M7: a projection takes a directory under management -----------
+
+def test_a_populated_unmanaged_directory_is_refused(settings, tmp_path):
+    """Projecting into a path takes it over permanently: from the next run
+    onward `_remove_stale` deletes anything in it that is not in the manifest.
+
+    So pointing the projector at a folder of hand-written notes destroys them on
+    the **second** run, not the first — the worst possible timing, because the
+    first run looks like it worked.
+    """
+    from airl_bridge.obsidian import ObsidianProjector, ProjectionError
+
+    target = settings.obsidian_vault / settings.obsidian_generated_dir
+    target.mkdir(parents=True, exist_ok=True)
+    (target / "My reading notes.md").write_text("hand written", encoding="utf-8")
+
+    with pytest.raises(ProjectionError) as caught:
+        ObsidianProjector(settings).project_sources([])
+    assert "did not create" in str(caught.value)
+    assert (target / "My reading notes.md").exists(), "nothing may be touched"
+
+
+def test_an_empty_directory_is_adopted_without_complaint(settings):
+    from airl_bridge.obsidian import ObsidianProjector
+
+    target = settings.obsidian_vault / settings.obsidian_generated_dir
+    target.mkdir(parents=True, exist_ok=True)
+    result = ObsidianProjector(settings).project_sources([])
+    assert result.projected == 0
+
+
+def test_a_directory_with_a_manifest_is_already_ours(settings, zotero_item):
+    """The second run must not be refused by the control that guards the first."""
+    from airl_bridge.obsidian import ObsidianProjector
+    from airl_bridge.zotero import normalize_item
+
+    record, _ = normalize_item(zotero_item, settings)
+    projector = ObsidianProjector(settings)
+    projector.project_sources([record])
+    again = projector.project_sources([record])
+    assert again.projected == 1
+
+
+def test_a_dry_run_writes_nothing_and_reports_what_would_change(settings, zotero_item):
+    """Without this the only way to learn what a projection would do to a
+    directory was to let it do it, and the operation is not reversible."""
+    from airl_bridge.obsidian import ObsidianProjector
+    from airl_bridge.zotero import normalize_item
+
+    record, _ = normalize_item(zotero_item, settings)
+    projector = ObsidianProjector(settings)
+    target = settings.obsidian_vault / settings.obsidian_generated_dir
+
+    planned = projector.project_sources([record], dry_run=True)
+    assert planned.projected == 1
+    assert not target.exists() or not any(target.rglob("*.md"))
+
+    projector.project_sources([record])
+    removal = projector.project_sources([], dry_run=True)
+    assert removal.removed_stale >= 1, "a dry run must foresee deletions too"
+    assert any(target.rglob("*.md")), "and must not perform them"

@@ -39,7 +39,7 @@ features.
 |---|---|---|
 | `zotero.py` | Read-only Zotero local API client | No API key is stored and **no write path exists** |
 | `database.py` · `models.py` | Canonical registry, schema, idempotent upsert | A Zotero item is not an AIRL source; identity is minted here |
-| `service.py` | Sync orchestration, staleness, projection lifecycle | Ingest is capped at 100 records — finding **H1** |
+| `service.py` | Sync orchestration, staleness, projection lifecycle | Walks the whole library and records a `DIVERGED` run when the ingest succeeds and the projection does not |
 | `obsidian.py` | Atomic projection writer | **Manifest-owned deletion**: a human's file in a generated folder is not "stale" |
 | `catalog.py` | Category taxonomy, duplicate heuristics | Surfaces duplicates; never merges them |
 | `mcp_server.py` | Five read-only MCP tools | `sync`, write, delete and merge are **deliberately absent** |

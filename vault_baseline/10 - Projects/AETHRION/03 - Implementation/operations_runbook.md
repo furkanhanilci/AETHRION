@@ -52,7 +52,8 @@ This does not write to Zotero. It updates the SQLite registry and regenerates
 only the `70 - Literature Sets/Zotero Sources` branch.
 
 > ⚠️ `limit` is capped at 100 and there is no pagination. Above 100 sources the
-> synchronisation is silently partial — see finding **H1**.
+> synchronisation walks the whole library and reports whether it finished
+> (finding **H1**, closed).
 
 ## Hermes verification
 
@@ -151,7 +152,7 @@ The live search smoke is optional and reads its query from
 empty library is not a defect in the Bridge.
 
 > **What it does not prove.** That no write reaches Zotero. That claim still rests
-> on reading the code (finding **H3**); proving it needs a `MockTransport` that
+> on a behavioural test — `tests/test_zotero.py` uses a `MockTransport` that
 > raises on any non-`GET` method, driven through the whole sync flow, plus a
 > static check in CI. The script says so in its own output under
 > `not_proven_here`.
@@ -205,7 +206,7 @@ the same commands without `--check`.
 Everything that currently produces real evidence, in one place:
 
 ```bash
-uv run pytest                                              # 93 tests
+uv run pytest                                              # 131 tests
 (cd planning/commissioning && sha256sum -c 00_PROGRAM/SHA256SUMS.txt)
 uv run python scripts/mcp_smoke.py
 uv run python scripts/acceptance_v0.py
@@ -222,7 +223,7 @@ python scripts/mirror_plan.py  "$V/01 - Commissioning" --check
 python scripts/mirror_vault.py "$V" --check
 ```
 
-Expected: `93 passed` · `554` OK · five MCP tools · 11 acceptance checks ·
+Expected: `131 passed` · `554` OK · five MCP tools · 11 acceptance checks ·
 `52 skills` conform · `14 figures, 0 drift, 0 overflow` · `plan semantics OK` ·
 `0 drift entries`
 twice (plan and vault mirrors, 0 drift).
