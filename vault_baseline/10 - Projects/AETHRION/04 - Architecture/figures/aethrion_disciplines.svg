@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1064" width="100%" role="img">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 978" width="100%" role="img">
 <defs>
   <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
     <path d="M 0 1 L 9 5 L 0 9 z" fill="context-stroke"/>
@@ -10,7 +10,7 @@
     <line x1="0" y1="0" x2="0" y2="7" stroke="#C8C8C8" stroke-width="2.2"/>
   </pattern>
 </defs>
-<rect width="1200" height="1064" fill="#FFFFFF"/>
+<rect width="1200" height="978" fill="#FFFFFF"/>
 <text x="24.0" y="48.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="30" font-weight="700" font-style="normal" fill="#1A1A1A" text-anchor="start">Two disciplines, and the four pairs that get conflated</text>
 <text x="24.0" y="80.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="18" font-weight="400" font-style="normal" fill="#63666A" text-anchor="start">A research adaptation EXTENDS its engineering counterpart; it does not replace it. Building the ledger that stores preregistrations is</text>
 <text x="24.0" y="104.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="18" font-weight="400" font-style="normal" fill="#63666A" text-anchor="start">test-driven-development work, however scientific the noun sounds. The four rows below are the places that rule is hardest to hold, because</text>
@@ -27,7 +27,7 @@
 <path d="M 904 231 L 872 231" fill="none" stroke="#C8C8C8" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrowsm)"/>
 <text x="340.0" y="216.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#1A1A1A" text-anchor="start">Passing tests on an analysis reshaped after seeing the data is a</text>
 <text x="340.0" y="236.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#1A1A1A" text-anchor="start">correct implementation of a compromised study.</text>
-<rect x="24.0" y="304.0" width="1152.0" height="108.0" rx="4" fill="#f7f7f8" stroke="none" stroke-width="0"/>
+<rect x="24.0" y="296.0" width="1152.0" height="102.0" rx="4" fill="#f7f7f8" stroke="none" stroke-width="0"/>
 <rect x="24.0" y="310.0" width="268.0" height="74.0" rx="4" fill="#deedf5" stroke="#0072B2" stroke-width="1.6"/>
 <text x="158.0" y="350.4" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="17" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="middle">requesting-code-review</text>
 <rect x="908.0" y="310.0" width="268.0" height="74.0" rx="4" fill="#def2ed" stroke="#009E73" stroke-width="1.6"/>
@@ -44,7 +44,7 @@
 <path d="M 904 463 L 872 463" fill="none" stroke="#C8C8C8" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrowsm)"/>
 <text x="340.0" y="448.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#1A1A1A" text-anchor="start">Debugging assumes the expectation is right. Treating every anomaly</text>
 <text x="340.0" y="468.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#1A1A1A" text-anchor="start">as a bug is how a discovery gets fixed.</text>
-<rect x="24.0" y="536.0" width="1152.0" height="108.0" rx="4" fill="#f7f7f8" stroke="none" stroke-width="0"/>
+<rect x="24.0" y="528.0" width="1152.0" height="102.0" rx="4" fill="#f7f7f8" stroke="none" stroke-width="0"/>
 <rect x="24.0" y="542.0" width="268.0" height="74.0" rx="4" fill="#deedf5" stroke="#0072B2" stroke-width="1.6"/>
 <text x="158.0" y="582.4" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="17" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="middle">dispatching-parallel-agents</text>
 <rect x="908.0" y="542.0" width="268.0" height="74.0" rx="4" fill="#def2ed" stroke="#009E73" stroke-width="1.6"/>
@@ -70,7 +70,7 @@
 <text x="990.0" y="770.3" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">collapse a pair into one family and the rule</text>
 <text x="990.0" y="789.3" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">must refuse — a check nobody has watched</text>
 <text x="990.0" y="808.3" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">fail is not a check</text>
-<rect x="24.0" y="854.0" width="1152.0" height="86.0" rx="4" fill="#fbefe6" stroke="#D55E00" stroke-width="2.2"/>
+<rect x="24.0" y="854.0" width="1152.0" height="102.0" rx="4" fill="#fbefe6" stroke="#D55E00" stroke-width="2.2"/>
 <text x="42.0" y="882.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="19" font-weight="700" font-style="normal" fill="#D55E00" text-anchor="start">The failure this prevented, already once</text>
 <text x="42.0" y="904.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="17" font-weight="400" font-style="normal" fill="#1A1A1A" text-anchor="start">dispatching-parallel-analysts was reachable by no chain of references from the router while dispatching-parallel-agents sat in its table. A task</text>
 <text x="42.0" y="926.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="17" font-weight="400" font-style="normal" fill="#1A1A1A" text-anchor="start">needing independent analyses would have routed to the one that decomposes work with a single right answer — not through a bad judgement,</text>

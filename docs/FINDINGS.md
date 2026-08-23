@@ -253,7 +253,34 @@ rather than in the plan they check.
 
 ---
 
-## 7. What this register does not do
+## 7. Findings from the 2026-08-23 visual completion pass
+
+| # | Finding | Fixed by | Regression guard |
+|---|---|---|---|
+| **L8** | **`check_figures.py` could not see a paragraph that had fallen through the bottom of its own box.** Text below its box has no enclosing box either, so the code treated it as free-standing and `continue`d. Three captions were drawn across the border of the box they belong to, in a corpus reporting zero overflows | a `box bottom` rule requiring **paragraph continuity** — a sibling line one line-height above, inside the box — because the naive version fired on every zebra-striped table | `tests/test_figure_and_hygiene_checks.py`; the rule fires on a planted straddle and stays silent on a striped row |
+| **L9** | **Nothing compared two strings to each other.** Seven collisions were live: a section heading under a boundary label, an edge caption on the node title it pointed at, a command column running into the prose beside it | a `collision` rule on near-identical baselines with overlapping x-ranges | the seven were fixed and the rule now runs on every figure |
+| **L10** | **`text_width` had no monospace mode**, so a monospace column measured with proportional metrics came out too narrow and `must_be_independent_from:` overwrote its own value | `text_width(..., mono=True)`; every glyph in the mono stack advances the same | the roles figure regenerates clean |
+| **L11** | **A count typed into a figure.** `aethrion_assurance.svg` said *"four questions"* beside a list of five — in the figure whose subject is that one word was carrying two jobs | both numbers derived from the list | `check_figure_semantics.py` compares figure claims to registries; this one is now derived at generation |
+| **L12** | **A status overclaim inside a figure.** `aethrion_roles.svg` said the RoleBinding constraint is *"now enforced instead of argued about"*. The engine that would admit or refuse a binding is WP-013 and is not built | the sentence says `SPECIFIED`, and names the package that would build it | — |
+
+> **The pattern under most of them is one line of code appearing twice.** A box
+> height and the offset of whatever follows it were two independent literals.
+> Grow the box to hold a paragraph that got longer, and the heading below it is
+> now underneath it — and nothing notices, because both numbers are individually
+> reasonable. Six figures had this; they now derive the second from the first.
+>
+> **And the finding behind the findings: none of this was reachable by
+> measurement.** Every one was found by rendering the SVG and looking at it.
+> `check_figures.py` measures strings against boxes and cannot see a connector
+> drawn through a heading, a panel placed over a label, a sequence held together
+> by its own numbering, or a column of dead space. `scripts/render_figures.py`
+> makes that pass a command, and is deliberately **not** in the verification
+> bundle — a row reading "figures rendered" would be read as "figures reviewed",
+> and only one of those happened.
+
+---
+
+## 8. What this register does not do
 
 It does not rank, schedule or assign. It records what is known to be wrong and
 whether it still is. Two limits are worth stating plainly:

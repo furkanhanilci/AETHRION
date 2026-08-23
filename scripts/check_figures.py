@@ -36,6 +36,9 @@ TEXT_RE = re.compile(
     r'<text x="([\d.-]+)" y="([\d.-]+)"[^>]*?font-size="([\d.]+)"[^>]*?'
     r'font-weight="([^"]+)"[^>]*?text-anchor="(\w+)"[^>]*?>([^<]*)</text>')
 VIEWBOX_RE = re.compile(r'viewBox="0 0 (\d+) (\d+)"')
+DESCENDER = 0.22         # how far below the baseline a 'g' or a comma reaches
+BELOW_BOX_SLACK = 46      # a line that fell just through its own box
+COLLISION_SLACK = 4       # touching kerning is not a collision
 TOLERANCE = 1.5          # user units; sub-pixel rounding only
 
 
@@ -47,11 +50,13 @@ def check(path: Path) -> list[str]:
     boxes = [r for r in rects if not (r[0] == 0 and r[1] == 0)]
 
     problems: list[str] = []
+    texts: list[tuple] = []
     for m in TEXT_RE.finditer(svg):
         x, y, size, weight, anchor, body = m.groups()
         if "rotate" in m.group(0):
             continue                      # rotated labels are measured on the other axis
         x, y, size = float(x), float(y), float(size)
+        texts.append((x, y, size, anchor, weight, body))
         # The SVG stores XML-escaped text; measuring the escaped form counts
         # "&#x27;" as six characters and reports overflows that do not exist.
         body = html.unescape(body)
@@ -77,12 +82,106 @@ def check(path: Path) -> list[str]:
                      if b[0] - TOLERANCE <= x <= b[0] + b[2] + TOLERANCE
                      and b[1] - TOLERANCE <= y <= b[1] + b[3] + TOLERANCE]
         if not enclosing:
-            continue                      # free-standing text; canvas check already applied
+            continue                      # judged by straddles() once all text is known
         bx, by, bw, bh = min(enclosing, key=lambda b: b[2] * b[3])
         if left < bx - TOLERANCE or right > bx + bw + TOLERANCE:
             problems.append(
                 f"box: {body[:52]!r} spans {left:.0f}..{right:.0f} inside box "
                 f"{bx:.0f}..{bx + bw:.0f}  (overflow {max(bx - left, right - bx - bw):.0f}u)")
+
+    problems += straddles(texts, boxes)
+    problems += collisions(texts)
+    return problems
+
+
+def straddles(texts, boxes) -> list[str]:
+    """A paragraph whose last line has fallen through the bottom of its own box.
+
+    The containment rule could not see this: text below its box has no enclosing
+    box either, so it was treated as free-standing and skipped. Three captions
+    were drawn across the border of the box they belong to, in a corpus
+    reporting zero overflows.
+
+    The test is deliberately narrow, because the naive version fires constantly.
+    A zebra-striped table draws a background rect per row, so every row's text
+    sits just below the previous row's rect and looks like an overflow. What
+    distinguishes a real straddle is CONTINUITY: the offending line must have a
+    sibling — same x-start, same size and weight, one line-height above — that
+    is inside the box. A paragraph with a foot outside and a shoulder inside.
+    """
+    problems: list[str] = []
+    measured = []
+    for x, y, size, anchor, weight, body in texts:
+        clean = html.unescape(body)
+        width = text_width(clean, size, weight)
+        left = x if anchor == "start" else (x - width / 2 if anchor == "middle" else x - width)
+        measured.append((left, left + width, y, size, weight, clean))
+
+    for left, right, y, size, weight, body in measured:
+        for bx, by, bw, bh in boxes:
+            bottom = by + bh
+            if not (left >= bx - TOLERANCE and right <= bx + bw + TOLERANCE):
+                continue
+            # A BASELINE at the box's bottom edge is already an overflow: the
+            # descenders of g, p, y and comma sit below it. The rule compared
+            # baselines and stayed silent on a line whose y was exactly the
+            # border — which is the most likely value for it to have, because
+            # that is what a paragraph one line too tall produces.
+            foot = y + size * DESCENDER
+            if not (by < y and foot > bottom + TOLERANCE
+                    and y - bottom <= BELOW_BOX_SLACK):
+                continue
+            sibling = any(
+                abs(l2 - left) <= 2 and s2 == size and w2 == weight
+                and by < y2 <= bottom and 0 < y - y2 <= size * 2.1
+                for l2, _r2, y2, s2, w2, _b2 in measured)
+            if sibling:
+                problems.append(
+                    f"box bottom: {body[:52]!r} sits at y={y:.0f}, below the box "
+                    f"it belongs to which ends at {bottom:.0f} "
+                    f"(overflow {y - bottom:.0f}u)")
+                break
+    return problems
+
+
+def collisions(texts) -> list[str]:
+    """Text drawn on top of other text.
+
+    The containment rules ask whether a string fits its container. They cannot
+    see two strings occupying the same place — a section heading and a boundary
+    label written at the same height, an edge caption landing on a node title.
+    Both happened, and both rendered as unreadable overlap while every check
+    reported clean.
+
+    Deliberately conservative: only near-identical baselines count, because
+    text at different heights that shares an x-range is ordinary stacked
+    layout, not a collision.
+    """
+    placed = []
+    for x, y, size, anchor, weight, body in texts:
+        body = html.unescape(body).strip()
+        if not body:
+            continue
+        width = text_width(body, size, weight)
+        left = x if anchor == "start" else (x - width / 2 if anchor == "middle" else x - width)
+        placed.append((left, left + width, y, size, body))
+
+    problems = []
+    seen = set()
+    for i, (l1, r1, y1, s1, b1) in enumerate(placed):
+        for l2, r2, y2, s2, b2 in placed[i + 1:]:
+            if abs(y1 - y2) > max(s1, s2) * 0.55:
+                continue                       # different lines, not a collision
+            overlap = min(r1, r2) - max(l1, l2)
+            if overlap <= COLLISION_SLACK:
+                continue
+            key = tuple(sorted((b1[:28], b2[:28])))
+            if key in seen:
+                continue
+            seen.add(key)
+            problems.append(
+                f"collision: {b1[:34]!r} and {b2[:34]!r} overlap by "
+                f"{overlap:.0f}u at y={y1:.0f}")
     return problems
 
 

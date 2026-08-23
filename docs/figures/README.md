@@ -61,7 +61,7 @@ carries a **mechanism** that prose carries badly:
 
 | | Figure | Mechanism it carries | Prose alternative |
 |---|---|---|---|
-| 1 | `aethrion_lifecycle.svg` | Eleven gates × three actor classes, with G5 drawn as two lanes, and the cells where no model is admitted | A table that hides the pattern |
+| 1 | `aethrion_lifecycle.svg` | Eleven gates × three actor classes, with G5 drawn as two lanes, and the cells where a model holds no authority | A table that hides the pattern |
 | 2 | `aethrion_roles.svg` | Authority tiers, and constraint resolution replacing headcount | A list that reads as an org chart |
 | 3 | `aethrion_evidence_chain.svg` | The chain, plus how much of it exists | A status table nobody cross-reads |
 | 4 | `aethrion_stack.svg` | What is built here versus what is adopted, with the obligation each adoption type creates | A register nobody reads end to end |
@@ -127,7 +127,7 @@ generator module. If a reader takes away only that sentence, the figure worked.
 
 | Figure | Five-second message |
 |---|---|
-| 1 | Every gate resolves in the same order — mechanical first and unwaivable, then model production, then human authority — and two rows admit no model at all — `G5·E` and `G7a` |
+| 1 | Every gate resolves in the same order — mechanical first and unwaivable, then model production, then human authority — and one row admits no model at all — `G7a`. `G5·E` admits a model as the **subject** of a measurement and never as its judge |
 | 2 | Fourteen functions ordered by authority; a role is a function, so legality is decided by separation constraints, not headcount |
 | 3 | A claim is admissible only if it resolves back to a source span and forward to a signed attestation — and one link of ten is implemented |
 | 4 | Almost every layer is someone else's component; what this project owns is the control layer, and it is the least built part |

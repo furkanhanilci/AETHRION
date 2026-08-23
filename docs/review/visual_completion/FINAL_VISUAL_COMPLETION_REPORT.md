@@ -107,6 +107,51 @@ python3 scripts/check_document_hygiene.py    748 documents · 0 structural defec
 python3 scripts/check_doc_consistency.py     documents agree with the repository
 ```
 
+## The pass that found what the checker could not
+
+**The figures were rendered and looked at, one by one.** That is the step the
+package's instruction 03 insists on — *a successful generator is not evidence
+that the composition is readable* — and it is the step that produced most of
+what follows. `scripts/render_figures.py` now makes it a command rather than an
+improvisation.
+
+Every defect below passed `check_figures.py` while it reported zero overflows.
+
+| Figure | What the eye found | Why no check saw it |
+|---|---|---|
+| `discovery` | the branch arrows started at an x the DRAFT connector never reached, leaving a stub beside a question label sitting on the box's own border | arrows and text were never compared to each other |
+| `discovery` | the crossing edge dropped through the note beneath it, and the boundary label landed on the cell it labelled | same |
+| `evidence_chain` | the revision loop ran straight through the middle of the `Reproduction` box | a line through an unrelated node is forbidden by the design system and modelled by nothing |
+| `reporting` | arrows ran **within** each row of the 3×3 pipeline and nowhere between them — the sequence was held together by its own numbering | a missing connector is an absence, and absences are invisible to a containment check |
+| `roles` | `must_be_independent_from:` overwrote its own value | `text_width` had no monospace mode, so a mono column measured with proportional metrics came out too narrow |
+| `roles` | the closing line claimed the constraint is *"now enforced"* — the engine is WP-013 and is not built | a status overclaim in prose inside a figure |
+| `assurance` | the heading said **four** questions beside a list of **five** | a count typed into a figure, in the figure about one word carrying two jobs |
+| `topology` | the `no path leads back` strip was drawn **over** the last vault cell; the column caption still said *"anything typed here is lost"* | a panel over a label; and a caption contradicting the same figure's own opening paragraph |
+| `memory`, `authority`, `disciplines`, `verification` | zebra stripes offset below the rows they were striping, reading as separators | a background rect is not text |
+| `trust`, `collaboration`, `assurance` | a section heading sitting on the box above it, after that box was grown | a literal height and a literal next-offset, edited independently |
+
+### Two checks were added because of it
+
+`check_figures.py` gained **`box bottom`** — a paragraph whose last line has
+fallen through its own box — and **`collision`**, two strings occupying the same
+place. Both were absent, and both fire on defects that were in the corpus.
+
+The bottom rule needed two corrections of its own. The naive version fired on
+every zebra-striped table, because each row's text sits just below the previous
+row's background rect; it now requires **paragraph continuity** — a sibling line,
+same x and size, one line-height above and inside the box. And it compared
+*baselines*, so it stayed silent on a line whose baseline was exactly the border
+— which is the most likely value for it to have, and is already an overflow
+because descenders sit below the baseline.
+
+### The pattern underneath most of them
+
+A box height and the offset of whatever follows it were two independent
+literals. Grow the box to hold a paragraph that got longer, and the heading
+below it is now underneath it — and nothing notices, because both numbers are
+individually reasonable. Six figures had this. They now derive the second from
+the first.
+
 ## Final-size classification
 
 Every figure in this corpus is **architecture / reference-only**. None is a

@@ -37,7 +37,7 @@ W, L = 1200, 24
 
 
 def main() -> None:
-    H = 1420
+    H = 1500
     c = Canvas(W, H)
     tw = W - 2 * L
 
@@ -65,28 +65,35 @@ def main() -> None:
     # execute?" is what selects DEBUG or IMPROVE — they are alternatives, never
     # successive — and a figure that draws them in a line teaches a reader that
     # debugging precedes improving.
-    col_x = [L, L + 300, L + 300 + bw + gap]
+    col_x = [L, L + 318, L + 318 + bw + gap]
     mid = ny + bh + 20
+    draft_w = 200
 
-    c.cell(col_x[0], mid, 210, bh, "DRAFT", "a new candidate for the question",
+    c.cell(col_x[0], mid, draft_w, bh, "DRAFT", "a new candidate for the question",
            accent=BLUE, head_size=19, body_size=16, max_body_lines=3)
 
-    qx = col_x[0] + 210 + 30
-    c.path(f"M {col_x[0] + 210} {mid + bh / 2} L {qx - 4} {mid + bh / 2}",
-           stroke=RULE, sw=1.8, marker="arrowsm")
-    c.text(qx + 26, mid + bh / 2 - 8, "did the parent", size=17, weight="700", fill=INK)
-    c.text(qx + 26, mid + bh / 2 + 12, "execute?", size=17, weight="700", fill=INK)
+    # The junction is a real point, and every line meets it. The first version
+    # started the branch lines at an x the DRAFT arrow never reached, so the
+    # figure rendered a disconnected stub beside a question label that sat on
+    # the DRAFT box's own border — a diagram whose arrows did not touch the
+    # things they related.
+    jx = col_x[1] - 46
+    cy = mid + bh / 2
+    c.path(f"M {col_x[0] + draft_w} {cy} L {jx} {cy}", stroke=RULE, sw=1.8)
+
+    # The question labels the junction from ABOVE it, clear of both the box it
+    # leaves and the lines it splits into.
+    c.text(jx, cy - 16, "executed?", size=17, weight="700", fill=INK)
 
     branch_x = col_x[1]
-    top_y, bot_y = ny, ny + bh + 40 + bh - 26
-    c.path(f"M {qx + 120} {mid + bh / 2} L {branch_x - 34} {mid + bh / 2} "
-           f"L {branch_x - 34} {top_y + bh / 2} L {branch_x - 5} {top_y + bh / 2}",
-           stroke=ORANGE, sw=1.8, marker="arrowsm")
-    c.text(branch_x - 60, top_y + bh / 2 - 8, "no", size=17, weight="700", fill=ORANGE)
-    c.path(f"M {qx + 120} {mid + bh / 2} L {branch_x - 34} {mid + bh / 2} "
-           f"L {branch_x - 34} {bot_y + bh / 2} L {branch_x - 5} {bot_y + bh / 2}",
-           stroke=GREEN, sw=1.8, marker="arrowsm")
-    c.text(branch_x - 60, bot_y + bh / 2 - 8, "yes", size=17, weight="700", fill=GREEN)
+    top_y = ny
+    bot_y = ny + bh + 44 + bh - 26
+    for label, colour, target_y in (("no", ORANGE, top_y), ("yes", GREEN, bot_y)):
+        ty = target_y + bh / 2
+        c.path(f"M {jx} {cy} L {jx} {ty} L {branch_x - 6} {ty}",
+               stroke=colour, sw=1.8, marker="arrowsm")
+        c.text(jx + 14, ty - 12, label, size=17, weight="700", fill=colour,
+               anchor="start")
 
     c.cell(branch_x, top_y, bw, bh, "DEBUG",
            "the parent did not run. The mechanism is unchanged",
@@ -110,7 +117,7 @@ def main() -> None:
     c.text(col_x[2] + bw / 2, bot_y - 10, "≥ 2 branches", size=16, fill=PURPLE)
 
     fy = bot_y + bh + 26
-    c.rect(L, fy, tw, 62, fill=tint(VERM, 0.10), stroke=VERM, sw=1.6)
+    c.rect(L, fy, tw, 76, fill=tint(VERM, 0.10), stroke=VERM, sw=1.6)
     c.text(L + 16, fy + 26, "The distinction this state buys", size=17, weight="700",
            anchor="start", fill=VERM)
     c.para(L + 16, fy + 46,
@@ -142,7 +149,7 @@ def main() -> None:
 
     py = uy + 26
     split = L + 660
-    panel_h = 250
+    panel_h = 300
 
     c.rect(L, py, split - L - 22, panel_h, fill=tint(BLUE, 0.06), stroke=BLUE, sw=1.4, dash="6 4")
     c.text(L + 14, py + 24, "PRODUCER ZONE", size=16, weight="700", anchor="start", fill=BLUE)
@@ -153,37 +160,53 @@ def main() -> None:
 
     # the boundary
     c.path(f"M {split} {py - 12} L {split} {py + panel_h + 12}", stroke=VERM, sw=3.0, marker=None)
-    c.text(split, py - 20, "policy and sandbox boundary", size=16, weight="600", fill=VERM)
+    c.text(split, py - 4, "policy and sandbox boundary", size=16, weight="600", fill=VERM)
 
     tiers = [("SMOKE", "cheap subset · does it run at all", GREEN),
              ("VERIFY", "multiple seeds · variance and protocol conformance", GREEN),
              ("FULL", "full resources · the preregistered official evaluator", ORANGE)]
     ty = py + 44
+    tier_h, tier_gap = 56, 12
     tier_w = split - L - 60
     for i, (head, body, col) in enumerate(tiers):
-        c.cell(L + 14 + i * 12, ty + i * 66, tier_w - i * 24, 56, head, body, accent=col,
+        cy_i = ty + i * (tier_h + tier_gap)
+        c.cell(L + 14 + i * 12, cy_i, tier_w - i * 24, tier_h, head, body, accent=col,
                head_size=18, body_size=16, max_body_lines=2)
         if i:
-            c.path(f"M {L + 14 + tier_w / 2} {ty + i * 66 - 10} L {L + 14 + tier_w / 2} {ty + i * 66 - 2}",
+            c.path(f"M {L + 14 + tier_w / 2} {cy_i - tier_gap + 2} "
+                   f"L {L + 14 + tier_w / 2} {cy_i - 4}",
                    stroke=RULE, sw=1.8, marker="arrowsm")
-    c.text(L + 14, ty + 3 * 66 + 4, "a tier a threshold refused is not promoted on a recommendation",
+    tiers_bottom = ty + 3 * tier_h + 2 * tier_gap
+    c.text(L + 14, tiers_bottom + 24,
+           "a tier a threshold refused is not promoted on a recommendation",
            size=16, anchor="start", fill=MUTE, weight="600")
 
     ex, ew2 = split + 36, W - L - split - 50
-    c.cell(ex, py + 44, ew2, 56, "frozen evaluator code",
-           "digest pinned in the EvaluationContract", accent=VERM,
-           head_size=17, body_size=16, max_body_lines=2)
-    c.cell(ex, py + 108, ew2, 56, "hidden material",
-           "no producer read path exists", accent=VERM,
-           head_size=17, body_size=16, max_body_lines=2)
-    c.cell(ex, py + 164, ew2, 62, "RawEvaluatorArtifact  →  VerifiedValue",
-           "stored immutably before any agent reads it", accent=ORANGE,
-           head_size=17, body_size=16, max_body_lines=2)
-    c.path(f"M {split + 6} {py + 190} L {ex - 6} {py + 190}", stroke=VERM, sw=2.0, marker="arrow")
-    c.text(split + 14, py + 182, "signed candidate commit", size=16, anchor="start", fill=VERM)
+    for i, (head, body, col) in enumerate((
+            ("frozen evaluator code", "digest pinned in the EvaluationContract", VERM),
+            ("hidden material", "no producer read path exists", VERM),
+            ("RawEvaluatorArtifact  →  VerifiedValue",
+             "stored immutably before any agent reads it", ORANGE))):
+        c.cell(ex, ty + i * (tier_h + tier_gap), ew2, tier_h, head, body, accent=col,
+               head_size=17, body_size=16, max_body_lines=2)
+
+    # The one edge that crosses. It leaves FULL, runs beneath both zones and
+    # enters the evaluator column from below — drawn outside the zone borders
+    # rather than through them, because a line through a boundary is exactly
+    # what this panel says cannot happen.
+    arrow_y = tiers_bottom + 52
+    fx = L + 14 + 2 * 12 + (tier_w - 48) - 40      # FULL's right shoulder,
+                                                   # clear of the note below
+    gx = ex + ew2 / 2
+    c.path(f"M {fx} {tiers_bottom - 4} L {fx} {arrow_y} L {gx} {arrow_y} "
+           f"L {gx} {tiers_bottom + 4}", stroke=VERM, sw=2.0, marker="arrow")
+
+    c.text(L, py + panel_h + 26,
+           "The only thing that crosses: a signed candidate commit. Nothing returns.",
+           size=17, anchor="start", fill=VERM, weight="600")
 
     # ---------------------------------------------------------------- stops
-    ky = py + panel_h + 40
+    ky = py + panel_h + 72
     c.text(L, ky, "4 · Stopping is a control, and a stop is not an acceptance",
            size=21, weight="700", anchor="start")
     ky2 = ky + 22
@@ -198,7 +221,7 @@ def main() -> None:
 
     # ---------------------------------------------------------------- rule
     fy2 = ky2 + 92 + 34
-    c.rect(L, fy2, tw, 88, fill=tint(VERM, 0.10), stroke=VERM, sw=2.0)
+    c.rect(L, fy2, tw, 102, fill=tint(VERM, 0.10), stroke=VERM, sw=2.0)
     c.text(L + 18, fy2 + 28, "The forbidden conversion", size=19, weight="700",
            anchor="start", fill=VERM)
     c.para(L + 18, fy2 + 50,

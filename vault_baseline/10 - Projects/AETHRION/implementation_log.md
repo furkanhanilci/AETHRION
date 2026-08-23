@@ -160,6 +160,93 @@ quietly skipped.
 
 ---
 
+## Step 025 — Looking at the figures, which is not the same as checking them
+
+**Time:** 2026-08-23
+**Scope:** all 17 figures rendered and inspected · 20 defects fixed · two new
+geometric rules · findings L8–L12
+
+### The gap this step exists to close
+
+`check_figures.py` reported **zero overflows** across the whole corpus. It was
+telling the truth about what it measures: every string fits the box it was drawn
+in. It cannot see a connector drawn through a heading, a panel placed over a
+label, a sequence held together only by its own numbering, or a column of dead
+space — and all four were there.
+
+So the figures were rendered to PNG and looked at, one at a time. That is the
+step the visual package insists on: *a successful generator is not evidence that
+the composition is readable.*
+
+**Twenty defects, none of them reachable by measurement.**
+
+### The four worth naming
+
+**The evidence chain's revision loop ran straight through the `Reproduction`
+box.** The design system forbids a line crossing an unrelated node and nothing
+modelled it. It now routes through the column gap.
+
+**The reporting pipeline had arrows within each row of its 3×3 grid and none
+between them.** The only thing telling a reader that stage 2 leads to stage 3
+was the numbering — a sequence repaired by its own labels. This was in the
+package's audit as *"do not rely on numbers to repair missing connectors"*, and
+it was exactly right.
+
+**`aethrion_assurance.svg` said "four questions" beside a list of five** — in the
+figure whose whole subject is that one word was carrying two jobs.
+
+**`aethrion_roles.svg` said the RoleBinding constraint is "now enforced".** The
+engine that would admit or refuse a binding is WP-013 and is not built.
+
+### The pattern under most of the rest
+
+A box height and the offset of whatever follows it were **two independent
+literals**. Grow the box to hold a paragraph that got longer — which this session
+did repeatedly — and the heading below it is now underneath it. Nothing notices,
+because both numbers are individually reasonable.
+
+Six figures had it. They derive the second from the first now.
+
+### Two rules added, and both needed correcting
+
+`box bottom` catches a paragraph whose last line has fallen through its own box.
+Text below its box has no *enclosing* box either, so the old code treated it as
+free-standing and skipped it entirely.
+
+It was wrong twice. The naive version fired on every zebra-striped table, because
+each row's text sits just below the previous row's background rect — it now
+requires **paragraph continuity**, a sibling line one line-height above and
+inside the box. And it compared baselines, so it stayed silent on a line whose
+baseline was exactly the border. That is the most likely value for it to have,
+and it is already an overflow: descenders sit below the baseline.
+
+`collision` catches two strings in the same place. Seven were live.
+
+### What was NOT added to the bundle, deliberately
+
+`scripts/render_figures.py` renders every SVG and exits. **It is not a check.**
+A bundle row reading "figures rendered" would be read as "figures reviewed", and
+only one of those is a thing a script can do.
+
+### Evidence
+
+```text
+figures               17, 0 overflows, 0 collisions
+defects fixed         20 across 12 figures
+new geometric rules   2 (box bottom, collision)
+tests                 149
+bundle                20/20
+```
+
+### Limits
+
+Rendering makes inspection possible; it does not perform it. Every figure here
+was inspected by the actor that produced it, and `ADR-001` puts an independent
+adversarial pass out of reach. A figure can still draw the wrong arrow, and
+nothing in this step would notice.
+
+---
+
 ## Step 024 — The visual architecture completion pass
 
 **Time:** 2026-08-23

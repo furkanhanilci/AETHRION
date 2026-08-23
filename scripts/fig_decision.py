@@ -42,7 +42,7 @@ W, L = 1200, 24
 
 
 def main() -> None:
-    H = 1180
+    H = 1000
     c = Canvas(W, H)
     tw = W - 2 * L
 
@@ -77,12 +77,12 @@ def main() -> None:
                    stroke=RULE, sw=1.8, marker="arrowsm")
 
     barrier_x = L + 3 * (bw + gap) - gap / 2
-    c.path(f"M {barrier_x} {ly - 14} L {barrier_x} {ly + bh + 14}",
+    c.path(f"M {barrier_x} {ly - 14} L {barrier_x} {ly + bh + 6}",
            stroke=VERM, sw=3.0, marker=None)
     c.text(barrier_x, ly - 22, "nothing to the right is reachable until the seal exists",
            size=16, weight="700", fill=VERM)
 
-    gy = ly + bh + 20
+    gy = ly + bh + 38
     c.para(L, gy,
            "The DecisionDelta is the point of sealing. It is the measured distance between what the human thought "
            "and what the human signed — a quantity that does not exist unless the first was recorded before the "
@@ -126,7 +126,7 @@ def main() -> None:
            accent=MUTE, head_size=19, body_size=16, max_body_lines=5)
 
     by = fy2 + 140 + 20
-    c.rect(L, by, tw, 92, fill=tint(VERM, 0.10), stroke=VERM, sw=2.2)
+    c.rect(L, by, tw, 104, fill=tint(VERM, 0.10), stroke=VERM, sw=2.2)
     c.text(L + 18, by + 28, "The requirement", size=19, weight="700",
            anchor="start", fill=VERM)
     c.para(L + 18, by + 50,

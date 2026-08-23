@@ -80,7 +80,7 @@ def main() -> None:
     for i, (state, owner, rest, col) in enumerate(ROWS):
         ry = top + i * row_h
         if i % 2:
-            c.rect(L, ry, tw, row_h - 6, fill=tint(MUTE, 0.05), stroke="none", sw=0)
+            c.rect(L, ry - 14, tw, row_h - 6, fill=tint(MUTE, 0.05), stroke="none", sw=0)
         c.rect(L, ry + 8, 5, row_h - 24, fill=col, stroke="none", sw=0, rx=2)
         c.para(L + 16, ry + 26, state, c1 - 20, size=17, fill=INK, lh=20, max_lines=2, weight="600")
         c.para(L + c1 + 15, ry + 26, owner, c2 - 15, size=17, fill=col, lh=20, max_lines=2, weight="600")
@@ -113,13 +113,13 @@ def main() -> None:
         if i:
             c.path(f"M {bx - 15} {wy2 + 46} L {bx - 5} {wy2 + 46}",
                    stroke=RULE, sw=1.8, marker="arrowsm")
-    c.para(L, wy2 + 104,
+    c.para(L, wy2 + 124,
            "Getting this backwards is the standard way a distributed system acquires two truths: publish first, "
            "commit second, and a crash between them leaves an event describing something that never happened.",
            tw, size=17, fill=MUTE, lh=22, max_lines=2)
 
     # --------------------------------------------------------- injection suite
-    iy = wy2 + 104 + 2 * 22 + 28
+    iy = wy2 + 124 + 2 * 22 + 28
     c.text(L, iy, "Why it is an injection suite and not a property",
            size=21, weight="700", anchor="start")
     iy2 = iy + 26

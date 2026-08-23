@@ -108,7 +108,7 @@ CHECKS = bundle_rows()
 
 
 def main() -> None:
-    row_h = 62
+    row_h = 96
     H = 300 + len(CHECKS) * row_h + 240
     c = Canvas(W, H)
     tw = W - 2 * L
@@ -123,7 +123,7 @@ def main() -> None:
                tw, size=18, lh=24)
 
     hy = y + 34
-    c1, c2 = 250, 452
+    c1, c2 = 292, 410
     c3 = tw - c1 - c2 - 28
     c.text(L, hy, "Check", size=17, weight="700", anchor="start", fill=INK)
     c.text(L + c1 + 14, hy, "What it proves", size=17, weight="700", anchor="start", fill=GREEN)
@@ -134,12 +134,13 @@ def main() -> None:
     for i, (name, script, proves, blind, colour) in enumerate(CHECKS):
         ry = top + i * row_h
         if i % 2:
-            c.rect(L, ry, tw, row_h - 6, fill=tint(MUTE, 0.05), stroke="none", sw=0)
+            c.rect(L, ry - 12, tw, row_h - 6, fill=tint(MUTE, 0.05), stroke="none", sw=0)
         c.rect(L, ry + 8, 5, row_h - 24, fill=colour, stroke="none", sw=0, rx=2)
         c.text(L + 16, ry + 26, name, size=18, weight="600", anchor="start")
-        c.text(L + 16, ry + 46, script, size=16, anchor="start", fill=MUTE)
-        c.para(L + c1 + 14, ry + 26, proves, c2 - 14, size=17, fill=INK, lh=21, max_lines=2)
-        c.para(L + c1 + c2 + 28, ry + 26, blind, c3, size=17, fill=MUTE, lh=21, max_lines=2)
+        c.para(L + 16, ry + 46, script, c1 - 30, size=16, fill=MUTE,
+               lh=19, max_lines=2)
+        c.para(L + c1 + 14, ry + 26, proves, c2 - 14, size=17, fill=INK, lh=21, max_lines=3)
+        c.para(L + c1 + c2 + 28, ry + 26, blind, c3, size=17, fill=MUTE, lh=21, max_lines=3)
 
     ly = top + len(CHECKS) * row_h + 10
     c.hrule(L, W - L, ly, sw=1.6, stroke=INK)

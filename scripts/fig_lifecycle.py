@@ -4,7 +4,7 @@
 Five-second message
     Every gate resolves in the same order — the mechanical check runs first and
     cannot be overridden, a model may produce but never decide, a human holds
-    authority — and two rows admit no model at all.
+    authority — and the two hatched rows mark where a model holds none.
 
 Archetype
     A matrix, not a pipeline: gates on the vertical axis (time) crossed with
@@ -33,12 +33,12 @@ from figure_kit import (BLUE, FONT, GREEN, INK, MUTE, ORANGE, PURPLE, RULE,
 W = 1200
 L, GUT = 24, 56
 C0 = L + GUT
-COLS = [("Gate", 150), ("Mechanical — runs first, unwaivable", 255),
+COLS = [("Gate", 168), ("Mechanical — runs first, unwaivable", 255),
         ("Model — produces, never decides", 255), ("Human — authority", 185),
         ("Frozen output", 215)]
 GAP = 10
 ROW_H, ROW_GAP = 72, 7
-TOP = 246
+TOP = 246          # replaced at run time by header_top(); see main()
 BRANCH_H = 82
 
 # gate, name, mechanical, model, human, frozen output, note
@@ -76,7 +76,7 @@ ROWS = [
      ("blind + adversarial review", "different provider family"), ("—", ""),
      ("ReviewRecord", "ProducerResponse"), ""),
     ("G7a", "Reproduction", ("same manifest, same seed", "deterministic"),
-     ("NO MODEL", "it reproduces or it does not"), ("—", ""),
+     ("no model in the loop", "it reproduces or it does not"), ("—", ""),
      ("reproduction result", ""), ""),
     ("G7b", "Replication", ("distribution test", ""), ("—", ""),
      ("RSE assigns the badge", ""), ("replication verdict", ""), ""),
@@ -113,12 +113,14 @@ def main() -> None:
     y = c.para(L, y + 26,
                "Reading down the figure is time. Reading across is who may act. The hatched cells are not gaps in the "
                "design — they are the design. G5 is drawn as two lanes because one label could not carry it: bounded "
-               "discovery cognition runs in G5·D, and nothing model-produced becomes evaluator truth in G5·E. "
-               "G5·E and G7a admit no model at all.",
+               "discovery cognition runs in G5·D, and nothing model-produced becomes evaluator truth in G5·E. A "
+               "model may run at G5·E as the SUBJECT of the measurement; what it may never be is the judge of it. "
+               "G7a admits no model at all.",
                text_w, size=18, fill=INK, weight="500", lh=24)
 
     # legend
     ly = y + 34
+    globals()['TOP'] = ly + 34
     x = L
     for colour, label in ((GREEN, "mechanical check"), (BLUE, "model production"),
                           (VERM, "human authority"), (ORANGE, "frozen artifact")):
@@ -127,9 +129,9 @@ def main() -> None:
         from figure_kit import text_width
         x += 34 + text_width(label, 16) + 30
     c.hatch(x, ly - 13, 26, 17)
-    c.text(x + 34, ly, "no model admitted", size=16, anchor="start")
+    c.text(x + 34, ly, "no model authority", size=16, anchor="start")
     from figure_kit import text_width
-    x += 34 + text_width("no model admitted", 16) + 30
+    x += 34 + text_width("no model authority", 16) + 30
     c.path(f"M {x} {ly - 4} L {x + 26} {ly - 4}", stroke=PURPLE, sw=2.0, marker="arrowsm")
     c.text(x + 34, ly, "revision path", size=16, anchor="start")
 
@@ -151,13 +153,21 @@ def main() -> None:
             c.para(col_x(0) + 16, yy + 50,
                    "fail-closed: absent or ambiguous resolves to confirmatory",
                    COLS[0][1] + COLS[1][1] - 24, size=16, max_lines=2)
+            modes = (("exploratory", "skips G2b; may never claim confirmatory"),
+                     ("replication", "locked replication contract"),
+                     ("confirmatory", "G2b + in-principle acceptance"))
+            # Derived, not fixed. These were laid out from a hard-coded offset
+            # with a hard-coded stride, so widening the gate column by 18u
+            # pushed the third label 17u past the right edge — a layout that
+            # only worked at one set of column widths.
             ox = col_x(2) - 40
-            for name, expl in (("exploratory", "skips G2b; may never claim confirmatory"),
-                               ("replication", "locked replication contract"),
-                               ("confirmatory", "G2b + in-principle acceptance")):
-                c.text(ox, yy + 26, name, size=17, weight="600", anchor="start", fill=PURPLE)
-                c.para(ox, yy + 48, expl, 230, size=16, max_lines=2)
-                ox += 246
+            avail = (W - L) - ox
+            stride = avail / len(modes)
+            label_w = stride - 16
+            for i, (name, expl) in enumerate(modes):
+                lx = ox + i * stride
+                c.text(lx, yy + 26, name, size=17, weight="600", anchor="start", fill=PURPLE)
+                c.para(lx, yy + 48, expl, label_w, size=16, max_lines=2)
             yy += BRANCH_H + ROW_GAP
 
         row_y[idx] = yy
@@ -173,8 +183,14 @@ def main() -> None:
             x0, w = col_x(ci), COLS[ci][1]
             head, body = content
             if ci == 2 and idx in NO_MODEL_ROWS:
+                # The row's own label, not a fixed string. This drew
+                # "no model in the loop" over every hatched cell, which
+                # overwrote G5·E's "NO EVALUATOR AUTHORITY" with the exact
+                # wording the split existed to replace — a model MAY run at
+                # G5·E as the subject of the measurement; what it may never be
+                # is the judge of it.
                 c.hatch(x0, yy, w, ROW_H)
-                c.cell(x0, yy, w, ROW_H, "no model in the loop", body, accent=MUTE,
+                c.cell(x0, yy, w, ROW_H, head, body, accent=MUTE,
                        draw_box=False, head_fill=MUTE, head_size=17)
                 continue
             if head == "—":

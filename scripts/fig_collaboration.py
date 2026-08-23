@@ -37,7 +37,7 @@ W, L = 1200, 24
 
 
 def main() -> None:
-    H = 1420
+    H = 1330
     c = Canvas(W, H)
     tw = W - 2 * L
 
@@ -90,11 +90,11 @@ def main() -> None:
         if i:
             c.path(f"M {bx - gap + 3} {py + bh / 2} L {bx - 5} {py + bh / 2}",
                    stroke=RULE, sw=1.8, marker="arrowsm")
-    c.path(f"M {L + 2 * (bw + gap) - 11} {py - 12} L {L + 2 * (bw + gap) - 11} {py + bh + 12}",
+    c.path(f"M {L + 2 * (bw + gap) - 11} {py - 12} L {L + 2 * (bw + gap) - 11} {py + bh + 4}",
            stroke=VERM, sw=3.0, marker=None)
-    c.text(L + 2 * (bw + gap) - 11, py - 20, "embargo lifts here", size=16, weight="700", fill=VERM)
+    c.text(L + 2 * (bw + gap) - 11, py - 6, "embargo lifts here", size=16, weight="700", fill=VERM)
 
-    gy = py + bh + 16
+    gy = py + bh + 34
     c.para(L, gy,
            "Anchoring is an effect, not a preference: an actor shown a confident prior answer converges on it, and "
            "the record afterwards shows two agreeing actors — indistinguishable from two that independently agreed. "
@@ -135,7 +135,8 @@ def main() -> None:
                    stroke=RULE, sw=1.8, marker="arrowsm")
 
     fy2 = ly2 + 58 + 14
-    c.rect(L, fy2, tw, 92, fill=tint(VERM, 0.10), stroke=VERM, sw=2.2)
+    floor_h = 108
+    c.rect(L, fy2, tw, floor_h, fill=tint(VERM, 0.10), stroke=VERM, sw=2.2)
     c.text(L + 18, fy2 + 28, "The floor: what budget may never reach",
            size=19, weight="700", anchor="start", fill=VERM)
     c.para(L + 18, fy2 + 52,
@@ -145,7 +146,7 @@ def main() -> None:
            tw - 36, size=17, fill=INK, lh=22, max_lines=3)
 
     # ------------------------------------------------- 5 · anchored optimisation
-    ay = fy2 + 92 + 30
+    ay = fy2 + floor_h + 36
     c.text(L, ay, "5 · The optimisation is anchored, or it is not an optimisation",
            size=21, weight="700", anchor="start")
     c.para(L, ay + 24,

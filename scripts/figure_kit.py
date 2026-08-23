@@ -69,9 +69,19 @@ for _d in "0123456789":
     _W[_d] = 556
 
 
-def text_width(s: str, size: float, weight: str = "400") -> float:
-    """Advance width of ``s`` in user units, with a small safety margin."""
-    total = sum(_W.get(ch, 600) for ch in s)
+# Every glyph in the mono stack advances the same. The proportional table
+# underestimates it badly for lowercase, which is how a monospace key column
+# measured with the default metrics came out too narrow and its labels ran into
+# their own values.
+MONO_ADVANCE = 600
+
+
+def text_width(s: str, size: float, weight: str = "400", mono: bool = False) -> float:
+    """Advance width of ``s`` in user units, with a small safety margin.
+
+    Pass ``mono=True`` when the string will be drawn in the monospace family.
+    """
+    total = (MONO_ADVANCE * len(s)) if mono else sum(_W.get(ch, 600) for ch in s)
     bold = 1.055 if weight in ("600", "700", "bold") else 1.0
     return total / 1000.0 * size * bold * SAFETY
 

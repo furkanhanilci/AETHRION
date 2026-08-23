@@ -56,7 +56,7 @@ TIERS = [
 ACTOR_COLOUR = {"X": GREEN, "M": BLUE, "H": VERM}
 ACTOR_NAME = {"X": "mechanical", "M": "model", "H": "human"}
 CARD_W, CARD_H, CARD_GAP = 277, 116, 10
-H = 1268
+H = 1300
 
 
 def actor_strip(c: Canvas, x: float, y: float, spec: str) -> float:
@@ -146,7 +146,7 @@ def main() -> None:
             ("can_combine_with", "scientific_owner", GREEN),
             ("cannot_combine_with", "final_independent_verifier", VERM)]
     ry = y + 62
-    key_w = max(text_width(k + ":", 15) for k, _, _ in rows)
+    key_w = max(text_width(k + ":", 15, mono=True) for k, _, _ in rows)
     for key, val, colour in rows:
         c.text(L + 16, ry, key + ":", size=15, anchor="start", fill=MUTE, family=MONO)
         c.text(L + 16 + key_w + 12, ry, val, size=15, anchor="start", fill=colour,
@@ -170,7 +170,8 @@ def main() -> None:
            "Independence stops being a question of how many people exist and becomes one of which combinations remain "
            "admissible. ADR-001 settles what that means for a solo operator: R1 proceeds solo, R2 proceeds and is "
            "declared partial in the record, and R3 is BLOCKED outright rather than waived. The constraint is now "
-           "enforced instead of argued about — and BLOCKED means a class of work this repository cannot accept alone.",
+           "SPECIFIED as a constraint rather than argued about each time — the engine that would admit or refuse a "
+           "binding is WP-013 and is not built. BLOCKED means a class of work this repository cannot accept alone.",
            tw, size=17, fill=INK, lh=23, max_lines=4)
 
     out = Path(__file__).resolve().parent.parent / "docs" / "figures" / "aethrion_roles.svg"

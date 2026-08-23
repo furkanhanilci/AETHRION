@@ -67,7 +67,7 @@ FAILURE = {
 def main() -> None:
     pairs = json.loads(PAIRS_FILE.read_text(encoding="utf-8"))["non_synonym_pairs"]
     row_h = 116
-    H = 300 + len(pairs) * row_h + 300
+    H = 300 + len(pairs) * row_h + 214
     c = Canvas(W, H)
     tw = W - 2 * L
 
@@ -95,7 +95,7 @@ def main() -> None:
     for i, pair in enumerate(pairs):
         ry = top + i * row_h
         if i % 2:
-            c.rect(L, ry - 6, tw, row_h - 8, fill=tint(MUTE, 0.05), stroke="none", sw=0)
+            c.rect(L, ry - 14, tw, 102, fill=tint(MUTE, 0.05), stroke="none", sw=0)
 
         eng = pair["engineering"]
         c.cell(L, ry, col_w, 74, eng, "", accent=BLUE,
@@ -137,7 +137,7 @@ def main() -> None:
                head_size=18, body_size=16, max_head_lines=2, max_body_lines=5)
 
     fy = ny2 + 118 + 22
-    c.rect(L, fy, tw, 86, fill=tint(VERM, 0.10), stroke=VERM, sw=2.2)
+    c.rect(L, fy, tw, 102, fill=tint(VERM, 0.10), stroke=VERM, sw=2.2)
     c.text(L + 18, fy + 28, "The failure this prevented, already once",
            size=19, weight="700", anchor="start", fill=VERM)
     c.para(L + 18, fy + 50,

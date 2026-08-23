@@ -57,7 +57,7 @@ def main() -> None:
     # Column 1: authoring surface
     top = y + 34
     col_w = 330
-    col_h = 396
+    col_h = 456
     c.rect(L, top, col_w, col_h, fill=tint(BLUE, 0.06), stroke=BLUE, sw=2.2)
     c.text(L + 16, top + 30, "Git repository", size=21, weight="700", anchor="start", fill=BLUE)
     c.para(L + 16, top + 52, "The single source of truth. Authored by humans and agents; reviewed as a diff.",
@@ -91,7 +91,7 @@ def main() -> None:
         c.cell(tx, top + 96 + i * 74, t_w, 66, h, b, accent=MUTE, head_size=17, body_size=16,
                max_head_lines=1, max_body_lines=3, dash="5 3")
         ax = L + col_w
-        cy = top + 96 + i * 74 + 33
+        cy = top + 110 + i * 74 + 33
         c.path(f"M {ax + 6} {cy} L {tx - 6} {cy}", stroke=RULE, sw=1.6, marker="arrowsm")
 
     # Column 3: vault
@@ -99,20 +99,21 @@ def main() -> None:
     v_w = W - L - vx
     c.rect(vx, top, v_w, col_h, fill=tint(GREEN, 0.06), stroke=GREEN, sw=2.2, dash="6 4")
     c.text(vx + 16, top + 30, "Obsidian vault", size=21, weight="700", anchor="start", fill=GREEN)
-    c.para(vx + 16, top + 52, "A reading surface. Regenerated wholesale; anything typed here is lost on the next mirror.",
-           v_w - 32, size=16, lh=21, max_lines=2)
+    c.para(vx + 16, top + 52, "A reading surface. Generated pages are replaced on every mirror run; a page marked generated: false is refused, not overwritten.",
+           v_w - 32, size=16, lh=21, max_lines=3)
     groups = [("01–03", "Overview, decisions, implementation notes"),
               ("04", "Architecture, with the figures copied alongside"),
               ("05", "Evidence, including the mirrored status page"),
               ("06–09", "Planning corpus, reporting, reference material")]
     for i, (h, b) in enumerate(groups):
-        c.cell(vx + 16, top + 96 + i * 74, v_w - 32, 66, h, b, accent=GREEN,
+        c.cell(vx + 16, top + 110 + i * 74, v_w - 32, 66, h, b, accent=GREEN,
                head_size=17, body_size=16, max_head_lines=1, max_body_lines=3)
         cy = top + 96 + i * 74 + 33
         c.path(f"M {tx + t_w + 6} {cy} L {vx + 10} {cy}", stroke=GREEN, sw=1.8, marker="arrowsm")
 
-    c.rect(vx + 16, top + col_h - 40, v_w - 32, 28, fill=tint(VERM, 0.12), stroke=VERM, sw=1.4, rx=4)
-    c.text(vx + v_w / 2, top + col_h - 21, "no path leads back", size=17, weight="700", fill=VERM)
+    strip_y = top + 110 + len(groups) * 74 + 6
+    c.rect(vx + 16, strip_y, v_w - 32, 30, fill=tint(VERM, 0.12), stroke=VERM, sw=1.4, rx=4)
+    c.text(vx + v_w / 2, strip_y + 21, "no path leads back", size=17, weight="700", fill=VERM)
 
     # Outside world
     oy = top + col_h + 34

@@ -128,8 +128,13 @@ def main() -> None:
     mx0, my0 = node_xy(9, top)
     cx1, cy1 = node_xy(3, top)
     loop_y = my0 + NH + 30
+    # Routed through the column GAP, not up the column itself. The straight
+    # return ran from Monitoring to ClaimVersion through the middle of the
+    # Reproduction box beneath it — a line crossing an unrelated node, which the
+    # design system forbids and no containment check can see.
+    gap_x = cx1 - NGAP / 2
     c.path(f"M {mx0 + NW / 2} {my0 + NH} L {mx0 + NW / 2} {loop_y} "
-           f"L {cx1 + NW / 2} {loop_y} L {cx1 + NW / 2} {cy1 + NH + 6}",
+           f"L {gap_x} {loop_y} L {gap_x} {cy1 + NH / 2} L {cx1 - 6} {cy1 + NH / 2}",
            stroke=PURPLE, sw=1.8, dash="6 4", marker="arrowsm")
     c.text((mx0 + cx1) / 2 + NW / 2, loop_y - 8,
            "supersede · revise · retract — VERIFIED is not a permanent state",

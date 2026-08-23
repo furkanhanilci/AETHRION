@@ -59,7 +59,7 @@ LEAKS = [
 
 
 def main() -> None:
-    H = 1140
+    H = 900
     c = Canvas(W, H)
     tw = W - 2 * L
 
@@ -93,7 +93,8 @@ def main() -> None:
 
     # -------------------------------------------------------- the leak paths
     ly = zy + zh + 40
-    c.text(L, ly, "The paths ACC-113 plants, none of which is an escape",
+    c.text(L, ly, "The paths ACC-113 plants — each defeats the zones above "
+           "without crossing a boundary",
            size=21, weight="700", anchor="start")
     ly2 = ly + 26
     lw = (tw - 3 * 18) / 4
@@ -102,7 +103,7 @@ def main() -> None:
         c.cell(lx, ly2, lw, 118, head, body, accent=VERM,
                head_size=18, body_size=16, max_head_lines=2, max_body_lines=4)
         # drawn as a dashed path running BENEATH the zone row it defeats
-        c.path(f"M {lx + lw / 2} {ly2 - 6} L {lx + lw / 2} {zy + zh + 10}",
+        c.path(f"M {lx + lw / 2} {ly2 - 6} L {lx + lw / 2} {ly2 - 26}",
                stroke=VERM, sw=1.4, dash="4 4", marker="arrowsm")
 
     # ---------------------------------------------------- what a status means

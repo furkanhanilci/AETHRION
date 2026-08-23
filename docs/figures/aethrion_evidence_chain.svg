@@ -60,7 +60,7 @@
 <path d="M 738 365.0 L 712 365.0" fill="none" stroke="#63666A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="5 4" marker-end="url(#arrow)"/>
 <path d="M 500 365.0 L 474 365.0" fill="none" stroke="#63666A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="5 4" marker-end="url(#arrow)"/>
 <path d="M 262 365.0 L 236 365.0" fill="none" stroke="#63666A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="5 4" marker-end="url(#arrow)"/>
-<path d="M 127.0 402 L 127.0 432 L 841.0 432 L 841.0 256" fill="none" stroke="#CC79A7" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="6 4" marker-end="url(#arrowsm)"/>
+<path d="M 127.0 402 L 127.0 432 L 722.0 432 L 722.0 213.0 L 732 213.0" fill="none" stroke="#CC79A7" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="6 4" marker-end="url(#arrowsm)"/>
 <text x="484.0" y="424.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#CC79A7" text-anchor="middle">supersede · revise · retract — VERIFIED is not a permanent state</text>
 <path d="M 24 486 L 1176 486" fill="none" stroke="#C8C8C8" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
 <text x="24.0" y="516.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="20" font-weight="700" font-style="normal" fill="#1A1A1A" text-anchor="start">What makes a link admissible: the attestation behind every acceptance</text>

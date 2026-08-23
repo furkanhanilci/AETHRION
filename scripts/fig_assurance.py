@@ -89,7 +89,8 @@ def main() -> None:
 
     # ------------------------------------------------------------ the repaired rule
     ry2 = ly + len(CLASSES) * row_h + 26
-    c.rect(L, ry2, tw, 92, fill=tint(VERM, 0.10), stroke=VERM, sw=2.0)
+    rule_h = 104
+    c.rect(L, ry2, tw, rule_h, fill=tint(VERM, 0.10), stroke=VERM, sw=2.0)
     c.text(L + 18, ry2 + 28, "Why the split repairs the gate rule rather than weakening it",
            size=19, weight="700", anchor="start", fill=VERM)
     c.para(L + 18, ry2 + 52,
@@ -100,20 +101,25 @@ def main() -> None:
            tw - 36, size=17, fill=INK, lh=22, max_lines=3)
 
     # --------------------------------------------------------- one check, four classes
-    dy = ry2 + 92 + 34
-    c.text(L, dy, "One “citation audit” is four questions with three different statuses",
-           size=21, weight="700", anchor="start")
-    qy = dy + 24
+    dy = ry2 + rule_h + 38
     qs = [("Does the reference exist and resolve?", "V0", GREEN),
           ("Does the locator resolve in this representation?", "V0", GREEN),
           ("Does the quoted span match the source digest?", "V0/V1", GREEN),
           ("Does the passage support the sentence?", "V2", ORANGE),
           ("Does the sentence claim more than it supports?", "V2", ORANGE)]
+    # Counted, not typed. The heading said "four questions" beside a list of
+    # five — in the figure whose subject is that one word was carrying two jobs.
+    words = {3: "three", 4: "four", 5: "five", 6: "six"}
+    classes = len({cls for _, cls, _ in qs})
+    c.text(L, dy, f"One “citation audit” is {words.get(len(qs), len(qs))} questions "
+                  f"with {words.get(classes, classes)} different statuses",
+           size=21, weight="700", anchor="start")
+    qy = dy + 24
     qw = (tw - 4 * 14) / 5
     for i, (q, cls, col) in enumerate(qs):
         c.cell(L + i * (qw + 14), qy, qw, 116, cls, q, accent=col,
                head_size=20, body_size=16, max_body_lines=4)
-    c.para(L, qy + 128,
+    c.para(L, qy + 148,
            "Existing is not supporting. The reference-verification measurement already in this repository reports "
            "27 of 33 sources corroborated — that says records exist in public authorities, not that any claim is "
            "supported by them. ACC-76 plants a sentence whose citation is real, resolvable and on topic and does "
@@ -121,7 +127,7 @@ def main() -> None:
            tw, size=17, fill=MUTE, lh=22, max_lines=3)
 
     # ------------------------------------------------------------ compiler refusals
-    cy = qy + 128 + 3 * 22 + 32
+    cy = qy + 148 + 3 * 22 + 34
     c.text(L, cy, "What the publication compiler refuses",
            size=21, weight="700", anchor="start")
     cy2 = cy + 24
@@ -133,7 +139,7 @@ def main() -> None:
     for i, (head, body, col) in enumerate(refusals):
         c.cell(L + i * (rw + 16), cy2, rw, 100, head, body, accent=col,
                head_size=18, body_size=16, max_body_lines=3)
-    c.para(L, cy2 + 114,
+    c.para(L, cy2 + 134,
            "Structural and editorial text is marked with a text_role and passes, so the check discriminates "
            "rather than blocking all prose. A declared rounding of a registered value passes and records its "
            "display transform. A verifier that fails everything is not a verifier, which is why every critical "

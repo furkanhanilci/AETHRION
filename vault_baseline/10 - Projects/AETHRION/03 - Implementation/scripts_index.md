@@ -45,7 +45,7 @@ defect rather than a shortcut.
 | `validate_commissioning_plan.py` | identifiers exist · **WP↔ACC references resolve both ways** · the dependency graph is acyclic · acceptance phases are valid · **go-live is feasible** · no stale ranges · catalogue parity | whether the plan is a *good* plan |
 | `check_doc_consistency.py` | every count a document states matches the repository; no decision record contradicts its own status; the scope matrix's `WP-`/`ACC-` references resolve; the progress ledger's baseline equals the canonical one; **and the CI workflow runs every bundle check it can, or declares the resource a runner lacks** | anything outside the declared numbers |
 | `check_stale_claims.py` | no document claims a state the repository has outgrown — while **exempting genuine history** — across three rule families: literal counts, contradictions derived from the repository, and **eight architectural regressions** that invert a decision record. **`--self-test` runs a must-fire and a must-not-fire specimen through every regression rule** | prose that is merely wrong rather than stale, and an affirmative regression written inside a paragraph that refuses something else |
-| `check_figures.py` | no text escapes the box it was drawn in, re-measured from the rendered SVG | whether a figure communicates |
+| `check_figures.py` | no text escapes the box it was drawn in **or falls through its bottom**, no two strings occupy the same place, re-measured from the rendered SVG | a connector drawn through a heading, a panel placed over a label, a column of dead space — geometry it does not model |
 | `check_document.py` | placeholders, citation resolution, cross-reference resolution in a document source | whether a citation *supports* its sentence |
 | `check_reporting_registry.py` | every adopted component has a type, a source, a retrieval date and an **authority boundary** | whether the adoption was wise |
 | `check_upstream_lineage.py` | every assimilated mechanism names its upstream, its licence and what it may never decide; direct adaptation cannot reach `ADAPTING` without a pinned commit, a file list and a characterisation suite. **`--self-test` injects a defect per rule and fails if any rule stays silent** | whether the mechanism was worth taking, and whether the upstream code is correct |
@@ -71,6 +71,7 @@ defect rather than a shortcut.
 | `mirror_plan.py` · `mirror_vault.py` | the generated areas of the Obsidian vault | `--check` |
 | `write_status.py` | `docs/STATUS.md` by running the bundle | `--check` |
 | `check_upstream_lineage.py --write` | `provenance/README.md` from `provenance/upstreams.json` | default run fails on drift |
+| `render_figures.py` | PNG rasters of every committed SVG, for a human to look at | **not a check** — it produces images and exits. Rendering makes inspection possible; inspection is still a human act, and a bundle row saying "figures rendered" would read as "figures reviewed" |
 
 ## 3. Working tooling
 

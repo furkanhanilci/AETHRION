@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1268" width="100%" role="img">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1300" width="100%" role="img">
 <defs>
   <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
     <path d="M 0 1 L 9 5 L 0 9 z" fill="context-stroke"/>
@@ -10,7 +10,7 @@
     <line x1="0" y1="0" x2="0" y2="7" stroke="#C8C8C8" stroke-width="2.2"/>
   </pattern>
 </defs>
-<rect width="1200" height="1268" fill="#FFFFFF"/>
+<rect width="1200" height="1300" fill="#FFFFFF"/>
 <text x="24.0" y="48.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="30" font-weight="700" font-style="normal" fill="#1A1A1A" text-anchor="start">Who is accountable, and why that is not a headcount</text>
 <text x="24.0" y="80.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="18" font-weight="400" font-style="normal" fill="#63666A" text-anchor="start">Fourteen durable functions, ordered by the authority they hold. A role is a function rather than a person: one operator may hold several of</text>
 <text x="24.0" y="104.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="18" font-weight="400" font-style="normal" fill="#63666A" text-anchor="start">them, and which combinations remain independent is decided by constraint rather than by counting people.</text>
@@ -167,15 +167,15 @@
 <rect x="24.0" y="978.0" width="520.0" height="196.0" rx="4" fill="#f8f8f8" stroke="#C8C8C8" stroke-width="1.2"/>
 <text x="40.0" y="1008.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="18" font-weight="700" font-style="normal" fill="#1A1A1A" text-anchor="start">RoleBinding</text>
 <text x="40.0" y="1040.0" font-family="'DejaVu Sans Mono', 'Liberation Mono', Menlo, monospace" font-size="15" font-weight="400" font-style="normal" fill="#63666A" text-anchor="start">role_id:</text>
-<text x="248.7" y="1040.0" font-family="'DejaVu Sans Mono', 'Liberation Mono', Menlo, monospace" font-size="15" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="start">statistical_methods_owner</text>
+<text x="283.8" y="1040.0" font-family="'DejaVu Sans Mono', 'Liberation Mono', Menlo, monospace" font-size="15" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="start">statistical_methods_owner</text>
 <text x="40.0" y="1066.0" font-family="'DejaVu Sans Mono', 'Liberation Mono', Menlo, monospace" font-size="15" font-weight="400" font-style="normal" fill="#63666A" text-anchor="start">actor.human:</text>
-<text x="248.7" y="1066.0" font-family="'DejaVu Sans Mono', 'Liberation Mono', Menlo, monospace" font-size="15" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="start">one operator</text>
+<text x="283.8" y="1066.0" font-family="'DejaVu Sans Mono', 'Liberation Mono', Menlo, monospace" font-size="15" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="start">one operator</text>
 <text x="40.0" y="1092.0" font-family="'DejaVu Sans Mono', 'Liberation Mono', Menlo, monospace" font-size="15" font-weight="400" font-style="normal" fill="#63666A" text-anchor="start">must_be_independent_from:</text>
-<text x="248.7" y="1092.0" font-family="'DejaVu Sans Mono', 'Liberation Mono', Menlo, monospace" font-size="15" font-weight="600" font-style="normal" fill="#CC79A7" text-anchor="start">experiment_analyst</text>
+<text x="283.8" y="1092.0" font-family="'DejaVu Sans Mono', 'Liberation Mono', Menlo, monospace" font-size="15" font-weight="600" font-style="normal" fill="#CC79A7" text-anchor="start">experiment_analyst</text>
 <text x="40.0" y="1118.0" font-family="'DejaVu Sans Mono', 'Liberation Mono', Menlo, monospace" font-size="15" font-weight="400" font-style="normal" fill="#63666A" text-anchor="start">can_combine_with:</text>
-<text x="248.7" y="1118.0" font-family="'DejaVu Sans Mono', 'Liberation Mono', Menlo, monospace" font-size="15" font-weight="600" font-style="normal" fill="#009E73" text-anchor="start">scientific_owner</text>
+<text x="283.8" y="1118.0" font-family="'DejaVu Sans Mono', 'Liberation Mono', Menlo, monospace" font-size="15" font-weight="600" font-style="normal" fill="#009E73" text-anchor="start">scientific_owner</text>
 <text x="40.0" y="1144.0" font-family="'DejaVu Sans Mono', 'Liberation Mono', Menlo, monospace" font-size="15" font-weight="400" font-style="normal" fill="#63666A" text-anchor="start">cannot_combine_with:</text>
-<text x="248.7" y="1144.0" font-family="'DejaVu Sans Mono', 'Liberation Mono', Menlo, monospace" font-size="15" font-weight="600" font-style="normal" fill="#D55E00" text-anchor="start">final_independent_verifier</text>
+<text x="283.8" y="1144.0" font-family="'DejaVu Sans Mono', 'Liberation Mono', Menlo, monospace" font-size="15" font-weight="600" font-style="normal" fill="#D55E00" text-anchor="start">final_independent_verifier</text>
 <rect x="574.0" y="986.0" width="250.0" height="66.0" rx="4" fill="#e1e1e1" stroke="#1A1A1A" stroke-width="1.6"/>
 <text x="699.0" y="1001.8" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="18" font-weight="600" font-style="normal" fill="#1A1A1A" text-anchor="middle">Constraint engine</text>
 <text x="699.0" y="1025.8" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="middle">admits or refuses each</text>
@@ -193,5 +193,6 @@
 <text x="836.0" y="1172.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="16" font-weight="400" font-style="normal" fill="#63666A" text-anchor="start">work</text>
 <text x="24.0" y="1200.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="17" font-weight="400" font-style="normal" fill="#1A1A1A" text-anchor="start">Independence stops being a question of how many people exist and becomes one of which combinations remain admissible. ADR-001 settles what</text>
 <text x="24.0" y="1223.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="17" font-weight="400" font-style="normal" fill="#1A1A1A" text-anchor="start">that means for a solo operator: R1 proceeds solo, R2 proceeds and is declared partial in the record, and R3 is BLOCKED outright rather than</text>
-<text x="24.0" y="1246.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="17" font-weight="400" font-style="normal" fill="#1A1A1A" text-anchor="start">waived. The constraint is now enforced instead of argued about — and BLOCKED means a class of work this repository cannot accept alone.</text>
+<text x="24.0" y="1246.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="17" font-weight="400" font-style="normal" fill="#1A1A1A" text-anchor="start">waived. The constraint is now SPECIFIED as a constraint rather than argued about each time — the engine that would admit or refuse a binding is</text>
+<text x="24.0" y="1269.0" font-family="Helvetica, Arial, 'Liberation Sans', 'DejaVu Sans', sans-serif" font-size="17" font-weight="400" font-style="normal" fill="#1A1A1A" text-anchor="start">WP-013 and is not built. BLOCKED means a class of work this repository cannot accept alone.</text>
 </svg>

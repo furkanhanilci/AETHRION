@@ -81,7 +81,7 @@ def main() -> None:
     for i, (name, holds, imm, dec, claim, col) in enumerate(STORES):
         ry = top + i * row_h
         if i % 2:
-            c.rect(L, ry, tw, row_h - 8, fill=tint(MUTE, 0.05), stroke="none", sw=0)
+            c.rect(L, ry + 8, tw, row_h - 8, fill=tint(MUTE, 0.05), stroke="none", sw=0)
         c.rect(L, ry + 8, 5, row_h - 26, fill=col, stroke="none", sw=0, rx=2)
         c.text(xs[0] + 16, ry + 30, name, size=18, weight="600", anchor="start")
         c.para(xs[1], ry + 26, holds, c2 - 12, size=16, fill=MUTE, lh=20, max_lines=3)
@@ -115,7 +115,8 @@ def main() -> None:
 
     # ---------------------------------------------------------- isolation band
     iy = ey2 + 132 + 34
-    c.rect(L, iy, tw, 96, fill=tint(VERM, 0.10), stroke=VERM, sw=2.0)
+    indep_h = 112
+    c.rect(L, iy, tw, indep_h, fill=tint(VERM, 0.10), stroke=VERM, sw=2.0)
     c.text(L + 18, iy + 28, "Memory is an independence question, not only a retrieval one",
            size=19, weight="700", anchor="start", fill=VERM)
     c.para(L + 18, iy + 52,
@@ -126,7 +127,7 @@ def main() -> None:
            tw - 36, size=17, fill=INK, lh=22, max_lines=3)
 
     # ------------------------------------------------------------ derived note
-    dy = iy + 96 + 32
+    dy = iy + indep_h + 34
     c.text(L, dy, "Derived, and therefore droppable", size=19, weight="700", anchor="start")
     c.para(L, dy + 24,
            "Vector indexes, the graph projection and the research map are read models over the canonical stores. "

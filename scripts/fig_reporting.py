@@ -65,18 +65,32 @@ def main() -> None:
            weight="700", anchor="start")
     y += 18
     cols, gap = 3, 12
+    row_gap = 34          # room for the wrap connector to run in
     cw = (tw - (cols - 1) * gap) / cols
     ch = 74
     for i, (head, body, colour) in enumerate(STAGES):
         row, col = divmod(i, cols)
         x = L + col * (cw + gap)
-        yy = y + row * (ch + gap)
+        yy = y + row * (ch + row_gap)
         c.cell(x, yy, cw, ch, f"{i}. {head}", body, accent=colour, sw=1.6,
                head_size=18, max_body_lines=2)
         if col < cols - 1 and i < len(STAGES) - 1:
             c.path(f"M {x + cw + 1} {yy + ch / 2} L {x + cw + gap - 3} {yy + ch / 2}",
                    stroke=MUTE, sw=1.4, marker="arrowsm")
-    y += 3 * (ch + gap) + 8
+        elif col == cols - 1 and i < len(STAGES) - 1:
+            # The wrap. Without it the grid carried arrows WITHIN each row and
+            # nothing between them, so the only thing telling a reader that
+            # stage 2 leads to stage 3 was the numbering — a sequence repaired
+            # by its own labels. Routed round the right edge and back along the
+            # row gap, clear of every cell.
+            cx_end = x + cw / 2
+            mid = yy + ch + row_gap / 2
+            nx = L + cw / 2
+            c.path(f"M {cx_end} {yy + ch + 1} L {cx_end} {mid} "
+                   f"L {nx} {mid} L {nx} {yy + ch + row_gap - 3}",
+                   stroke=MUTE, sw=1.4, dash="4 3", marker="arrowsm")
+            c.text((cx_end + nx) / 2, mid - 6, "continues", size=15, fill=MUTE)
+    y += 3 * (ch + row_gap) + 4
 
     c.para(L, y,
            "Stages 0 to 2 finish before a renderer is chosen. A document whose first decision was its template has "
