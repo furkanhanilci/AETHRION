@@ -1,0 +1,208 @@
+{
+  "_comment": [
+    "Fixtures for the skill baseline. Read by scripts/check_skill_baseline.py.",
+    "",
+    "Two layers, and the separation is the point. The routing layer runs today and",
+    "measures whether the right skill can be REACHED and told apart from the one it",
+    "is most often confused with. The execution layer measures whether loading a",
+    "skill changes what an agent does, needs a model runtime, and has NEVER RUN.",
+    "",
+    "The harness reports the second as unrun rather than skipping it, because a",
+    "behaviour baseline that printed PASS for work that did not happen would convert",
+    "an honest gap into a false assurance."
+  ],
+  "reachability": {
+    "root": "using-aethrion",
+    "rule": "A skill is reachable if the router names it, or if a reachable skill names it. Seventeen skills were reachable by no chain at all before v1.3.1.",
+    "exempt": {
+      "using-aethrion": "the root itself"
+    }
+  },
+  "content_invariants": {
+    "test-driven-development": {
+      "must_contain": [
+        "RED"
+      ],
+      "must_not_contain": [],
+      "why": "TDD's whole content is that the test fails first. A version of this skill without RED is a skill about writing tests afterwards, which is a different and much weaker practice."
+    },
+    "preregistration-discipline": {
+      "must_contain": [
+        "exploratory"
+      ],
+      "must_not_contain": [],
+      "why": "The rule that makes preregistration binding is the relabelling: a result computed before the plan is locked becomes exploratory. Without that sentence the skill is a suggestion."
+    },
+    "verification-before-completion": {
+      "must_contain": [
+        "fresh"
+      ],
+      "must_not_contain": [],
+      "why": "Not memory, not a prior run, not another agent's report. The word that carries it is 'fresh'."
+    },
+    "evidence-before-claim": {
+      "must_contain": [
+        "Evidence"
+      ],
+      "must_not_contain": [],
+      "why": "Only an Evidence memory may support a claim — ADR-005. A version naming any other store has inverted the rule."
+    },
+    "independence-discipline": {
+      "must_contain": [
+        "independen"
+      ],
+      "must_not_contain": [],
+      "why": "The skill exists to make independence a measured property rather than an assertion."
+    },
+    "systematic-debugging": {
+      "must_contain": [
+        "hypothes"
+      ],
+      "must_not_contain": [],
+      "why": "Debugging here is hypothesis-driven; without that it is guessing with a procedure attached."
+    },
+    "investigating-anomalies": {
+      "must_contain": [
+        "anomal"
+      ],
+      "must_not_contain": [],
+      "why": "The anomaly may be the finding. A version that assumes a defect has become systematic-debugging under another name — ADR-012 §2."
+    },
+    "escalating-and-paging": {
+      "must_contain": [
+        "timeout"
+      ],
+      "must_not_contain": [],
+      "why": "A timeout never becomes an approval. The skill must still say so."
+    }
+  },
+  "non_synonym_pairs": [
+    {
+      "engineering": "test-driven-development",
+      "scientific": [
+        "preregistration-discipline"
+      ],
+      "substitution_fails_because": "A test fixes what the code must do; a preregistration fixes what a result will mean. Passing tests on an analysis reshaped after seeing the data is a correct implementation of a compromised study."
+    },
+    {
+      "engineering": "requesting-code-review",
+      "scientific": [
+        "requesting-review",
+        "adversarial-reviewing"
+      ],
+      "substitution_fails_because": "Code review asks whether this is correct and maintainable. Scientific review asks whether the evidence supports the claim, and what would show it does not. A reviewer who approves the diff has said nothing about the inference."
+    },
+    {
+      "engineering": "systematic-debugging",
+      "scientific": [
+        "investigating-anomalies"
+      ],
+      "substitution_fails_because": "Debugging assumes the system is wrong and the expectation is right. Anomaly investigation cannot assume that — the surprising result may be the finding. Treating every anomaly as a bug is how a discovery gets fixed."
+    },
+    {
+      "engineering": "dispatching-parallel-agents",
+      "scientific": [
+        "dispatching-parallel-analysts"
+      ],
+      "substitution_fails_because": "The first decomposes work that has one right answer. The second runs genuinely independent analyses because the answer is not known, and its output is a spread rather than a merge."
+    }
+  ],
+  "execution_fixtures": {
+    "status": "SPECIFIED — never run",
+    "blocked_by": "No agent behaviour-testing runtime exists. AGENTS.md §11 states this; it is not a scheduling problem, it is an absent capability.",
+    "pass_criterion": "For each fixture: the loaded skill set contains expect_skill, and the produced work carries every marker. A fixture passes only on both.",
+    "fixtures": [
+      {
+        "id": "SBF-01",
+        "task": "A new statistical test needs implementing in the evaluator service.",
+        "expect_family": "engineering",
+        "expect_skill": "test-driven-development",
+        "markers": [
+          "a failing test exists before any implementation"
+        ]
+      },
+      {
+        "id": "SBF-02",
+        "task": "A confirmatory study is about to run against a frozen dataset.",
+        "expect_family": "scientific-research",
+        "expect_skill": "preregistration-discipline",
+        "markers": [
+          "the analysis plan is sealed before any outcome is exposed"
+        ]
+      },
+      {
+        "id": "SBF-03",
+        "task": "The reproduction produced a number nobody predicted.",
+        "expect_family": "scientific-research",
+        "expect_skill": "investigating-anomalies",
+        "markers": [
+          "the anomaly is not assumed to be a defect"
+        ]
+      },
+      {
+        "id": "SBF-04",
+        "task": "The sync job crashes on every third run and nobody knows why.",
+        "expect_family": "engineering",
+        "expect_skill": "systematic-debugging",
+        "markers": [
+          "a hypothesis is stated before a change is made"
+        ]
+      },
+      {
+        "id": "SBF-05",
+        "task": "Four independent analyses of the same dataset are needed.",
+        "expect_family": "scientific-research",
+        "expect_skill": "dispatching-parallel-analysts",
+        "markers": [
+          "the output is a spread, not a merged answer"
+        ]
+      },
+      {
+        "id": "SBF-06",
+        "task": "A pull request is ready and needs someone to look at it.",
+        "expect_family": "engineering",
+        "expect_skill": "requesting-code-review",
+        "markers": [
+          "correctness and maintainability, not inference"
+        ]
+      },
+      {
+        "id": "SBF-07",
+        "task": "A claim is ready and needs someone to try to break it.",
+        "expect_family": "scientific-research",
+        "expect_skill": "adversarial-reviewing",
+        "markers": [
+          "the reviewer attempts refutation rather than approval"
+        ]
+      },
+      {
+        "id": "SBF-08",
+        "task": "Building the Claim Ledger service that stores preregistrations.",
+        "expect_family": "engineering",
+        "expect_skill": "test-driven-development",
+        "markers": [
+          "a research artefact's STORAGE is engineering work"
+        ],
+        "why_hard": "The task names a scientific noun and is engineering work. ADR-012: research adaptations extend their engineering counterparts, they do not replace them."
+      },
+      {
+        "id": "SBF-09",
+        "task": "About to report that the migration is done.",
+        "expect_family": "shared",
+        "expect_skill": "verification-before-completion",
+        "markers": [
+          "fresh verification evidence, not a prior run"
+        ]
+      },
+      {
+        "id": "SBF-10",
+        "task": "A reviewer has not responded for three days and the gate is waiting.",
+        "expect_family": "shared",
+        "expect_skill": "escalating-and-paging",
+        "markers": [
+          "the timeout escalates and never approves"
+        ]
+      }
+    ]
+  }
+}

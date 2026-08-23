@@ -63,16 +63,43 @@ execution_path: spike | bounded | architectural
 |---|---|
 | A new research idea arrives | `framing-research` |
 | Method needs writing | `writing-protocols` → `writing-analysis-plans` |
+| A literature campaign starts | `searching-literature` → `screening-sources` |
+| Sources must be read from or written to Zotero | `curating-zotero` |
+| A claim needs an evidence span | `extracting-evidence` → `anchoring-spans` |
+| Anything touches files, state or compute | `using-isolated-environments` |
 | An experiment is about to run | `preregistration-discipline` → `executing-experiments` |
+| The same data admits more than one defensible analysis | `dispatching-parallel-analysts` |
 | Work is being handed to an agent | `agent-driven-research` |
+| A packet must be frozen for a reviewer | `building-review-packets` |
 | An artifact is ready for review | `requesting-review` |
+| You have been assigned as a reviewer | `blind-reviewing` · `adversarial-reviewing` |
 | A review verdict arrived | `receiving-review` |
+| Verdicts conflict, or a finding will not close | `arbitrating-disagreement` |
+| Reviewer agreement needs measuring | `measuring-agreement` |
+| The lab's own error rate must be measured | `injecting-controls` |
+| A confidence number is produced or displayed | `calibrating-confidence` |
 | A result is unexpected | `investigating-anomalies` |
 | Fabrication or tampering is suspected | `investigating-integrity-concerns` |
+| A result is being written up | `reporting-results` |
+| A document must be planned, drafted or rendered | `authoring-research-documents` |
+| A figure is about to be made | `producing-figures` |
+| A protocol, plan or package needs an external record | `submitting-external-records` |
+| A recurring summary is due | `publishing-digests` |
+| An external feed must be watched | `monitoring-external-feeds` |
 | A human needs to be informed | `notifying-humans` |
 | A human decision is required | `routing-decision-requests` |
 | You are about to say "done" | `verification-before-completion` |
 | A project is closing | `finishing-a-project` |
+
+> **Every skill in the registry appears in one of these tables or in the shared
+> list below, and `scripts/check_skill_baseline.py` fails if one does not.**
+> Seventeen did not, until v1.3.1. A skill nobody can be routed to never loads,
+> so whatever it says is unreachable rather than merely untested — and two of the
+> seventeen were the scientific halves of pairs whose engineering counterparts
+> *were* routable, which meant a task needing `dispatching-parallel-analysts`
+> landed on `dispatching-parallel-agents`. That is the substitution `ADR-012`
+> forbids, arrived at not through a bad judgement but through the correct option
+> being absent from the table.
 
 ## Shared discipline — loaded regardless of family
 

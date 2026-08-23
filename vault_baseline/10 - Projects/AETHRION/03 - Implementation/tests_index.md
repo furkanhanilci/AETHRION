@@ -5,7 +5,7 @@ cssclasses:
 type: index
 category: implementation
 status: WORKING
-summary: "131 tests cover the components that exist: the bridge's database, projection, API and MCP boundary, the shared contract core, and the evidence attestation tooling."
+summary: "140 tests cover the components that exist: the bridge's database, projection, API and MCP boundary, the shared contract core, and the evidence attestation tooling."
 source: "tests/README.md"
 generated: true
 provenance: mirror_vault.py
@@ -23,12 +23,12 @@ tags:
 | Field | Value |
 |---|---|
 | Document type | Index — what is tested, and what is deliberately not |
-| Scope | The 131 tests that run today |
+| Scope | The 140 tests that run today |
 | Sibling documents | `../scripts/README.md` · `../docs/OPERATIONS.md` |
-| Status | `WORKING` — 131 passing; coverage is narrow and honestly so |
+| Status | `WORKING` — 140 passing; coverage is narrow and honestly so |
 | Date | 2026-08-23 |
 
-**In one paragraph.** 131 tests cover the components that exist: the
+**In one paragraph.** 140 tests cover the components that exist: the
 bridge's database, projection, API and MCP boundary, the shared contract core,
 and the evidence attestation tooling. They do not cover the target architecture,
 because it is not built, and they do not cover agent behaviour, because no
@@ -42,6 +42,7 @@ behaves; it does not mean the framework works.
 | `test_api.py` | the `GET` half of the FastAPI surface | **no defensive path is covered here** — see below |
 | `test_mcp_server.py` | the MCP tool set | asserts **exactly five** read-only tools |
 | `test_contracts.py` | identity, manifest, event envelope, schema registry | rejects malformed digests and duplicate schema registration |
+| `test_skill_baseline.py` | that the right skill can be **reached**, and that the unmeasured half says so | "skills conform to a format; none has a behaviour baseline" was two claims wearing one sentence. Seventeen of 52 were reachable by no chain of references at all — including one half of a pair `ADR-012` says must never be substituted, while the other half sat in the router table. The last two tests here check that the execution corpus is reported as **unrun** rather than passing |
 | `test_service_divergence.py` | what a sync reports when half of it works | there is no transaction spanning SQLite and a directory of Markdown files, so the two halves cannot be made atomic. What can be made true is that a caller is never handed a result that looks like both succeeded — plus the negative control that a healthy sync records no divergence |
 | `test_mirrors.py` | the Obsidian mirrors | a mirror writes what changed and **preserves the inode** of everything else — a running editor watches inodes, and a tree that is deleted and recreated breaks every watch it holds | It also refuses to write over a page whose frontmatter says `generated: false`, because a projection may replace its own pages and nobody else's.
 | `test_evidence_manifest.py` | issuing and verifying attestations | **the tamper cases are the point**: an altered payload, an altered covered file and a forged signature each fail |
@@ -65,6 +66,6 @@ behaves; it does not mean the framework works.
   gates.
 
 ```bash
-uv run pytest          # all 131
+uv run pytest          # all 140
 uv run pytest -k mcp   # one area
 ```

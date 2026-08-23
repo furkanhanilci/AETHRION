@@ -160,6 +160,115 @@ quietly skipped.
 
 ---
 
+## Step 022 — The skill baseline, and a blocker tested rather than assumed
+
+**Time:** 2026-08-23
+**Scope:** H5 attempted and refused with evidence · the routing half of the skill
+behaviour baseline closed · finding L6
+
+### H5: attempted, refused, reverted, recorded
+
+The register said activating CI needs a workflow-scoped token. That was an
+assertion, and this repository spent a whole baseline on the principle that a
+control nobody has watched refuse is not evidence. **The same standard applies to
+a blocker.**
+
+So it was attempted: workflow copied to `.github/workflows/verify.yml`,
+committed, pushed. GitHub refused:
+
+```
+! [remote rejected] main -> main (refusing to allow an OAuth App to create
+  or update workflow `.github/workflows/verify.yml` without `workflow` scope)
+```
+
+The commit was reverted and the exact refusal is now in the register. It is
+better documentation than the note it replaced, and it cost two minutes.
+
+### "None has a behaviour baseline" was two claims wearing one sentence
+
+That line has been on the status page since the registry existed, and it was the
+largest untested claim in the corpus. Reading it carefully, it asks two different
+questions:
+
+| | Needs a model runtime? |
+|---|---|
+| Can the right skill be **reached** at all, and told apart from the one it is most confused with? | **No** |
+| Once loaded, does it change what the agent does? | **Yes** |
+
+Only the second was actually blocked. The first had simply never been asked.
+
+### It was broken, and the way it was broken is the interesting part
+
+**Seventeen of fifty-two skills were reachable by no chain of references from
+the router** — not from `using-aethrion` directly, and not from any skill that
+`using-aethrion` reaches.
+
+`validate_skills.py` passed all 52. It was proving they *parse* and carry their
+metadata, which is a different claim that reads like the same one. **"All 52
+skills conform" was true the whole time.**
+
+Two of the seventeen were the *scientific* halves of pairs `ADR-012` §2 says must
+never be substituted — `dispatching-parallel-analysts` and
+`adversarial-reviewing` — while their engineering counterparts sat in the router
+table.
+
+**That is worse than both halves being missing.** With neither routable, a task
+stalls and somebody looks. With one routable it proceeds — plausibly — into the
+wrong discipline, and produces a merged answer where the method required a
+spread. The decision record exists to prevent that substitution, and it was being
+reached not through a bad judgement but through the correct option being absent
+from a table.
+
+### What was built
+
+`scripts/check_skill_baseline.py`, three deterministic rules, each with a
+mutation proving it can fire:
+
+- **R1 reachability** — transitive from the router, so a skill reached only
+  through another still counts.
+- **R2 content invariants** — eight skills carry a phrase their own text must
+  contain. A skill can drift out of the rule it exists to state and still parse.
+- **R3 non-synonym separation** — the four pairs stay in different families, and
+  **both halves stay routable**.
+
+And `skills/_baseline/routing.json`, which also holds ten **execution** fixtures:
+task → expected skill → the discipline markers the output must carry.
+
+### The execution layer is printed as unrun, on every run
+
+It has never been executed and there is no runtime to execute it. The harness
+prints the fixture count, the reason, and the pass criterion for the day a
+runtime exists — and exits on the routing layer alone.
+
+> A behaviour baseline that printed PASS for work that did not happen would
+> convert an honest gap into a false assurance. That is the precise failure this
+> whole system is built against, and it would be worse than having no baseline at
+> all.
+
+Two tests exist solely to hold that property: one asserts the harness reports
+`not run`, the other asserts the corpus still names real skills — because a
+fixture set that cannot run today has nothing else standing between it and quiet
+rot.
+
+### Evidence
+
+```text
+skills reachable      35/52 → 52/52
+tests                 131 → 140
+bundle                19/20 → 20/20
+open findings         1 (H5, blocked by a token scope, now tested)
+```
+
+### Limits
+
+**No skill has an execution baseline.** Routing is a precondition for following a
+procedure, not evidence of having followed one, and the status page now says
+exactly that instead of the sentence it replaced. The distance between "the right
+skill can be reached" and "the skill works" is the whole of WP-043, and nothing
+here shortens it.
+
+---
+
 ## Step 021 — Closing the bridge findings: eleven of twelve
 
 **Time:** 2026-08-23

@@ -31,6 +31,20 @@ work belongs, not a commitment to a date.
 |---|---|---|---|
 | **H5** | No continuous integration | `deploy/bvc-01-verify.yml` | The workflow is written, covers the whole automatable bundle including every self-test, and **has never run**: activating it means copying it to `.github/workflows/` with a workflow-scoped token, which is an operator action this session cannot perform. BVC-01 is a temporary control and does **not** close H5, which is the absence of the WP-024 CI platform |
 
+> **H5's blocker is now tested rather than assumed.** Activation was attempted on
+> 2026-08-23 — the workflow copied to `.github/workflows/verify.yml`, committed
+> and pushed. GitHub refused:
+>
+> ```
+> ! [remote rejected] main -> main (refusing to allow an OAuth App to create
+>   or update workflow `.github/workflows/verify.yml` without `workflow` scope)
+> ```
+>
+> The commit was reverted. That refusal is better documentation than the previous
+> note, which asserted the same thing without having tried it — and this register
+> spent an entire baseline on the principle that a control nobody has watched
+> refuse is not evidence. The same standard applies to a blocker.
+
 > **H5 is the only one left, and it is the one that cannot be closed from
 > inside the repository.** Every other finding in this section was a defect in
 > code or in test coverage. This one is a permission: `gh auth refresh -h
@@ -206,7 +220,33 @@ rather than in the plan they check.
 
 ---
 
-## 6. What this register does not do
+## 6. Finding from the 2026-08-23 skill baseline work
+
+| # | Finding | Fixed by | Regression guard |
+|---|---|---|---|
+| **L6** | **Seventeen of fifty-two skills were reachable by no chain of references from the router.** `validate_skills.py` proved all 52 parse and carry their metadata, and every one of the seventeen passed it. A skill nobody can be routed to never loads, so whatever it says is unreachable rather than merely untested — and the check that appeared to cover the registry was measuring a different property | The router names every skill, and `check_skill_baseline.py` R1 fails when one becomes unreachable — transitively, so a skill reached only through another still counts | `scripts/check_skill_baseline.py --self-test` · `tests/test_skill_baseline.py` — 9 tests |
+
+> **The consequence was not abstract, and it is the part worth keeping.** Two of
+> the seventeen were the *scientific* halves of pairs `ADR-012` §2 says must
+> never be substituted — `dispatching-parallel-analysts` and
+> `adversarial-reviewing` — while their engineering counterparts sat in the
+> router table. So a task needing genuinely independent analyses routed to
+> `dispatching-parallel-agents`, which decomposes work that has one right answer.
+>
+> **That is worse than both halves being missing.** With neither routable the
+> task stalls and somebody looks. With one routable it proceeds, plausibly, into
+> the wrong discipline — and produces a merged answer where the method required a
+> spread. `ADR-012` was written to prevent exactly that substitution, and it was
+> being reached not through a bad judgement but through the correct option being
+> absent from the table.
+>
+> The general shape: **a conformance check and a reachability check are different
+> claims, and the first reads like the second.** "All 52 skills conform" was true
+> the whole time.
+
+---
+
+## 7. What this register does not do
 
 It does not rank, schedule or assign. It records what is known to be wrong and
 whether it still is. Two limits are worth stating plainly:

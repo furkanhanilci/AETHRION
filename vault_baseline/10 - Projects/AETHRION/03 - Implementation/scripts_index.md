@@ -52,6 +52,7 @@ defect rather than a shortcut.
 | `check_programme_graph.py` | the programme is **executable**: package, scenario and aggregation edges combined are acyclic; no pre-go-live or cutover package depends transitively on Day-2 or hypercare work; each declared aggregator's resolved scenario set equals its registry query. **`--self-test` injects each historical defect and fails if the rule written for it stays silent** | whether the execution order it admits is a sensible one, and whether any package is worth doing |
 | `check_figure_semantics.py` | the counts and labels a figure **renders** match the registries — read from the SVG, never through the generator that drew it | anything not mechanically derivable: a wrong arrow, a mislabelled relationship, a mechanism explained incorrectly |
 | `check_document_hygiene.py` | no duplicate heading, broken relative link, unbalanced generated marker or orphaned companion, reported as distinct error codes | whether the prose inside a well-formed document is correct |
+| `check_skill_baseline.py` | every skill is **reachable** from the router transitively, still contains its own core rule, and stays in a different family from its confusable pair. Prints on every run that the *execution* half has a fixture corpus, no runtime, and has never been measured | whether loading a skill changes what an agent does — that is the half this cannot see, and it says so rather than passing quietly |
 
 ## 2. Generators — output is derived, never hand-edited
 
@@ -88,7 +89,7 @@ BVC-01 (deploy/bvc-01-verify.yml, written but not active)
     pytest · validate_skills · validate_commissioning_plan
     check_doc_consistency · check_stale_claims · check_reporting_registry
     check_upstream_lineage · check_programme_graph
-    check_figure_semantics · check_document_hygiene
+    check_figure_semantics · check_document_hygiene · check_skill_baseline
     sha256sum -c · make_figures --check
 
 Manual, because they need something CI does not have

@@ -1232,7 +1232,9 @@ code in agreement (`ADR-018`).
 
 That either family works. The engineering eleven are vendored at a pinned commit
 and are not rewritten here; the scientific thirty-one were audited for coverage
-in §15. **Neither has a behaviour baseline** — that is WP-043's job, extended by
+in §15. **Neither has an execution baseline** — routing is measured since v1.3.1
+by `scripts/check_skill_baseline.py`, but whether loading a skill changes what an
+agent does is still unmeasured, and that is WP-043's job, extended by
 WP-154 to cover engineering discipline under deadline pressure, and it has not
 started. Coverage of untested procedures is still coverage of untested
 procedures.

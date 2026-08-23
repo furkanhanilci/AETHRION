@@ -39,6 +39,12 @@ CHECKS = [
     # -q suppresses the summary line when stdout is not a terminal.
     ("Test suite", ["uv", "run", "pytest"], "passed"),
     ("Skill registry", [sys.executable, "scripts/validate_skills.py"], "conform"),
+    # Added at v1.3.1. validate_skills proves a skill parses; this proves it can
+    # be REACHED, still contains its own core rule, and stays distinguishable
+    # from the skill it is most often confused with. It also prints, on every
+    # run, that the execution half has never been measured.
+    ("Skill routing baseline", [sys.executable, "scripts/check_skill_baseline.py"],
+     "routing baseline"),
     ("Commissioning plan semantics", [sys.executable, "scripts/validate_commissioning_plan.py"], "OK"),
     # Added at v1.3.1. The three below are the checks whose absence let the
     # v1.3.0 baseline pass 16/16 while its plan could not be executed: nothing
@@ -136,7 +142,9 @@ def main() -> int:
         "## What these checks do not establish",
         "",
         "- **No acceptance.** No work package is `ACCEPTED`; issuance is not acceptance.",
-        "- **No behaviour testing.** Skills conform to a format; none has a behaviour baseline.",
+        "- **No behaviour testing.** Skill *routing* has a baseline — every skill is "
+        "reachable, still carries its own core rule, and stays apart from its confusable "
+        "pair. Skill *execution* has a fixture corpus and no runtime, and has never run.",
         "- **No end-to-end run.** No research question has travelled G0 → G10.",
         "- **No rendering.** No authoring toolchain is installed, so no document has been rendered.",
         "- **Two checks need a live Bridge** (`mcp_smoke`, `acceptance_v0`) and two need the",

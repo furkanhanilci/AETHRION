@@ -40,6 +40,11 @@ PROSE = {
                    "the tests were written by the same author as the code", GREEN),
     "Skill registry": ("validate_skills.py", "every skill parses and carries the AIRL metadata contract",
                        "no skill has been run against a task and scored", BLUE),
+    "Skill routing baseline": ("check_skill_baseline.py",
+                               "every skill is reachable from the router, still contains its own "
+                               "core rule, and stays apart from its confusable pair",
+                               "whether loading one changes what an agent does — the execution "
+                               "half has no runtime and has never run", GREEN),
     "Commissioning plan seal": ("sha256sum -c 00_PROGRAM/SHA256SUMS.txt",
                                 "every sealed planning file is byte-identical to the baseline",
                                 "a sealed document can still be wrong", PURPLE),
