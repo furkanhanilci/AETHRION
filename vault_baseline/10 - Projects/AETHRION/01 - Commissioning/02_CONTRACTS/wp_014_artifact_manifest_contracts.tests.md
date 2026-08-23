@@ -54,7 +54,7 @@ The evidence layers this package must satisfy, derived from the gates it touches
 | **E0** Structural | Does the file, schema or reference exist? | **yes** | never optional — the artifact must exist and behave |
 | **E1** Mechanical | Is the behaviour correct under a deterministic test? | **yes** | never optional — the artifact must exist and behave |
 | **E2** Security | Is the forbidden path actually blocked? | **yes** | never optional — a control that has not been observed refusing is prose |
-| **E3** Independent review | Did an actor outside the producer examine the semantics? | **yes** | bound to 1 acceptance scenario(s) |
+| **E3** Independent review | Did an actor outside the producer examine the semantics? | **yes** | bound to 3 acceptance scenario(s) |
 | **E4** Reproduction | Does the same package run again in a clean environment? | no | no execution or reproduction gate |
 | **E5** Operations | Are failure, restore and observability correct? | no | no platform or day-2 gate |
 
@@ -134,8 +134,10 @@ ISO/IEC/IEEE 29119-3 §8.3.2. A coverage item is something the tests must reach.
 | C10 | Write new-version and `INVALIDATED` semantics in place of overwrite | WP-014-T04 | *(name the test case)* |
 | C11 | Add object-lock, retention and legal-hold metadata | WP-014-T05 | *(name the test case)* |
 | C12 | Artifact Overwrite Attempt | [ACC-23](../12_ACCEPTANCE_SCENARIOS/acc_23_artifact_overwrite.md) — Critical | *(name the test case)* |
+| C13 | Cross-Branch Fusion Lineage | [ACC-58](../12_ACCEPTANCE_SCENARIOS/acc_58_cross_branch_fusion_lineage.md) — High | *(name the test case)* |
+| C14 | Multi-Parent Artifact Lineage | [ACC-71](../12_ACCEPTANCE_SCENARIOS/acc_71_artifact_multi_parent_lineage.md) — Critical | *(name the test case)* |
 
-**12 coverage items.** Every one must appear in the *Covered by* column of at least one test case below before this package can reach `TECH_COMPLETE`.
+**14 coverage items.** Every one must appear in the *Covered by* column of at least one test case below before this package can reach `TECH_COMPLETE`.
 
 <!-- /generated:coverage -->
 

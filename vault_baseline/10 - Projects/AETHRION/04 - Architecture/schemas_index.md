@@ -73,6 +73,7 @@ before there was more than one actor.
 | `model-fingerprint.json` | WP-157 | `ModelExecutionFingerprint` — provider, snapshot, API version, sampling parameters, and every retry and fallback. A silent failover mid-run is drift |
 | `benchmark-policy.json` | WP-158 | `BenchmarkRunPolicy` — the frozen network mode, allowed domains and retrieval audit for a benchmark run |
 | `contamination-finding.json` | WP-158 | `ContaminationFinding` — training-corpus and **search-time** contamination, and the label a contaminated score carries permanently |
+| `efficiency-qualification-profile.json` | WP-149 · WP-153 | `EfficiencyQualificationProfile` — the sealed thresholds a coordination optimisation is judged against: quality ceiling, minimum reduction, statistical method, calibration and holdout digests with a no-overlap attestation, and a `frozen_at` after which a threshold change requires a new version. **The artifact exists so that "pre-declared tolerance" has a place to be declared**; without it the ceiling can be chosen once the release-candidate result is visible, which is not a ceiling |
 | `upstream-assimilation.json` | WP-159 · WP-141 | `UpstreamAssimilationRecord` — the admission record for adapted code: lineage, licence, pin, characterisation suite and `authority_boundary` |
 
 Three properties cut across the whole group, and each exists because of a
@@ -106,10 +107,10 @@ specific way this kind of record goes wrong:
 > Until these schemas exist and are enforced in CI, WP-020 (Schema Registry and
 > Contract SDK) cannot reach `TECH_COMPLETE`, let alone `ACCEPTED`.
 >
-> The seventeen contracts added at v1.3.0 are `SPECIFIED` in the same sense as
+> The eighteen contracts added at v1.3.0 and v1.3.1 are `SPECIFIED` in the same sense as
 > the rest of the table — named, owned by a work package, and unwritten. Listing
 > them is worth doing anyway: the table is what a schema author is handed, and
-> the alternative is re-deriving seventeen record shapes from twelve work
+> the alternative is re-deriving eighteen record shapes from twelve work
 > packages under deadline. It is not, and must not be read as, a claim that any
 > of them exists.
 

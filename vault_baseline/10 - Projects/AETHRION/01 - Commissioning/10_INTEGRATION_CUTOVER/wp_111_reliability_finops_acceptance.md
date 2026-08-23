@@ -138,7 +138,7 @@ which is why they are caused deliberately rather than waited for.
 
 ### Full prerequisite closure
 
-**109 of 160 packages (68%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
+**110 of 160 packages (69%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
 
 | Level | Packages |
 |---:|---|
@@ -170,7 +170,7 @@ which is why they are caused deliberately rather than waited for.
 | 26 | `WP-057` · `WP-059` · `WP-061` · `WP-092` |
 | 27 | `WP-058` · `WP-064` · `WP-075` |
 | 28 | `WP-060` · `WP-062` · `WP-081` |
-| 29 | `WP-063` · `WP-065` · `WP-066` · `WP-069` · `WP-082` |
+| 29 | `WP-063` · `WP-065` · `WP-066` · `WP-069` · `WP-082` · `WP-154` |
 | 30 | `WP-067` · `WP-070` · `WP-083` · `WP-084` · `WP-096` |
 | 31 | `WP-068` · `WP-071` · `WP-097` · `WP-099` · `WP-100` |
 | 32 | `WP-072` · `WP-076` · `WP-098` |
@@ -192,7 +192,7 @@ which is why they are caused deliberately rather than waited for.
 ### What acceptance of this package releases
 
 - **Directly unblocked:** 2 — `WP-115` · `WP-116`
-- **Transitively reachable:** **19 of 160 packages (12%)** cannot be accepted until this one is.
+- **Transitively reachable:** **16 of 160 packages (10%)** cannot be accepted until this one is.
 
 The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
 
@@ -216,8 +216,15 @@ The transitive figure is the leverage number. It does not appear anywhere else i
 | Scenario | Severity | What it must show |
 |---|---|---|
 | [ACC-09 — Budget Hard Stop](../12_ACCEPTANCE_SCENARIOS/acc_09_budget_hard_stop.md) | Critical | An 80% warning is raised; at 100% new expensive work is denied, the workflow pauses with state and checkpoints preserved, and no duplicate cost or reservation is created. |
+| [ACC-10 — Primary Model Provider Outage](../12_ACCEPTANCE_SCENARIOS/acc_10_provider_outage.md) | High | Only an admitted fallback is chosen; route, family and independence are recomputed, SLO and cost records are written, and the task is not duplicated. |
+| [ACC-11 — No Eligible Fallback](../12_ACCEPTANCE_SCENARIOS/acc_11_no_eligible_fallback.md) | Critical | No unsafe route is selected; the task and workflow become `BLOCKED` and a human planning/escalation queue item opens. |
+| [ACC-12 — Duplicate Event Delivery](../12_ACCEPTANCE_SCENARIOS/acc_12_duplicate_event.md) | Critical | Exactly one business effect occurs, the duplicate is acknowledged and audited, and the side effect is not performed a second time. |
+| [ACC-13 — Temporal Worker Crash](../12_ACCEPTANCE_SCENARIOS/acc_13_temporal_worker_crash.md) | Critical | Workflow history and state are not lost; the activity retries and reconciles, no duplicate effect is produced, and a new worker continues. |
+| [ACC-14 — Workflow Code Deployment and Replay](../12_ACCEPTANCE_SCENARIOS/acc_14_workflow_code_deploy.md) | Critical | Every golden and open history replays deterministically; an incompatible workflow stays on the appropriate worker version and no state drift occurs. |
 | [ACC-29 — Provider Invoice Variance](../12_ACCEPTANCE_SCENARIOS/acc_29_invoice_variance.md) | Medium | A `VarianceCase` opens with a provider/project/model/time-bucket breakdown, an owner, an SLA and an adjustment or dispute path; ledger history is never deleted. |
 | [ACC-33 — Kueue Preemption](../12_ACCEPTANCE_SCENARIOS/acc_33_kueue_preemption.md) | High | The scout is checkpointed, paused or evicted and the critical reproduction is admitted; canonical task state and artifacts are not lost and the scout resumes later. |
+| [ACC-34 — DLQ Repair and Corrected Replay](../12_ACCEPTANCE_SCENARIOS/acc_34_dlq_repair.md) | High | No consumer loop forms; owner, diagnostics and audit are complete, the corrected event is processed exactly once and the original causation is preserved. |
+| [ACC-35 — Tool Partial Failure](../12_ACCEPTANCE_SCENARIOS/acc_35_tool_partial_failure.md) | Critical | A blind retry does not produce a second side effect; a read and reconcile finds the remote effect, and exactly one `ToolReceipt` is finalized — or the call becomes `RECONCILIATION_REQUIRED`. |
 
 <!-- /generated:dependency-analysis -->
 

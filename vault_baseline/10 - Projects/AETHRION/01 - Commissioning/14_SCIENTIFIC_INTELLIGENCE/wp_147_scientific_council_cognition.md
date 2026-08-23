@@ -129,8 +129,6 @@ functions remain fourteen.
 
 ## Dependency and prerequisite analysis
 
-## Dependency and prerequisite analysis
-
 <!-- generated:dependency-analysis — produced by scripts/expand_packages.py; do not edit inside this block -->
 
 ### Direct hard dependencies
@@ -193,7 +191,7 @@ functions remain fourteen.
 ### What acceptance of this package releases
 
 - **Directly unblocked:** 1 — `WP-148`
-- **Transitively reachable:** **7 of 160 packages (4%)** cannot be accepted until this one is.
+- **Transitively reachable:** **9 of 160 packages (6%)** cannot be accepted until this one is.
 
 The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
 
@@ -201,7 +199,7 @@ The transitive figure is the leverage number. It does not appear anywhere else i
 
 | | |
 |---|---|
-| Wave | unassigned |
+| Wave | W-S — Scientific intelligence |
 | Dependency depth | level **37** of 55 |
 | On the documented critical path | no |
 | Effort class | **M** |
@@ -229,8 +227,6 @@ The transitive figure is the leverage number. It does not appear anywhere else i
 - `DataClass`, `CodeTrust`, `ToolEffect` and the network/credential scope are classified.
 - Test fixtures, the environment, the rollback point and the acceptance measurement method are reachable.
 - An O/M/P person-day estimate is recorded and real capacity is reserved against it.
-
-## Execution requirements
 
 ## Execution requirements
 

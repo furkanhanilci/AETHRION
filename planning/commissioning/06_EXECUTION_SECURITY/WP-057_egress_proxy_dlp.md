@@ -155,7 +155,7 @@ injection, memory poisoning and credential exfiltration.
 ### What acceptance of this package releases
 
 - **Directly unblocked:** 5 — `WP-058` · `WP-060` · `WP-096` · `WP-097` · `WP-158`
-- **Transitively reachable:** **82 of 160 packages (51%)** cannot be accepted until this one is.
+- **Transitively reachable:** **81 of 160 packages (51%)** cannot be accepted until this one is.
 
 The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
 
@@ -181,6 +181,8 @@ The transitive figure is the leverage number. It does not appear anywhere else i
 | [ACC-16 — Egress Exfiltration Attempt](../12_ACCEPTANCE_SCENARIOS/ACC-16_egress_exfiltration.md) | Critical | The traffic is denied, the canary never leaves, the credential lease is revoked and a security incident and audit record are created. |
 | [ACC-18 — D3 Data to a Public Provider](../12_ACCEPTANCE_SCENARIOS/ACC-18_d3_public_route.md) | Critical | No public provider call is made; a secure or local eligible route is chosen if one exists, otherwise the task is `BLOCKED`, and an audit record is written. |
 | [ACC-32 — Secret in Prompt or Trace](../12_ACCEPTANCE_SCENARIOS/ACC-32_secret_in_trace.md) | Critical | The secret never appears in raw telemetry, events or the UI; redaction or quarantine occurs, a security event is raised and the credential is revoked. |
+| [ACC-55 — Hidden Evaluation Data Access Attempt](../12_ACCEPTANCE_SCENARIOS/ACC-55_hidden_evaluation_data_access.md) | Critical | Access is denied under the supported threat model, no hidden content appears in any candidate artifact, log or trace, and each attempt raises a security finding. |
+| [ACC-118 — Search-Time Benchmark Contamination](../12_ACCEPTANCE_SCENARIOS/ACC-118_benchmark_search_time_contamination.md) | Critical | The run is labelled `CONTAMINATED` or `REVIEW_REQUIRED` and its score is never reported as a clean score. A run with no benchmark material in its log is reported clean, and a contaminated run is not silently rerun. |
 
 <!-- /generated:dependency-analysis -->
 

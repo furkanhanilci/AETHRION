@@ -56,7 +56,7 @@ The evidence layers this package must satisfy, derived from the gates it touches
 | **E0** Structural | Does the file, schema or reference exist? | **yes** | never optional — the artifact must exist and behave |
 | **E1** Mechanical | Is the behaviour correct under a deterministic test? | **yes** | never optional — the artifact must exist and behave |
 | **E2** Security | Is the forbidden path actually blocked? | **yes** | never optional — a control that has not been observed refusing is prose |
-| **E3** Independent review | Did an actor outside the producer examine the semantics? | **yes** | bound to 2 acceptance scenario(s) |
+| **E3** Independent review | Did an actor outside the producer examine the semantics? | **yes** | bound to 3 acceptance scenario(s) |
 | **E4** Reproduction | Does the same package run again in a clean environment? | no | no execution or reproduction gate |
 | **E5** Operations | Are failure, restore and observability correct? | no | no platform or day-2 gate |
 
@@ -134,8 +134,9 @@ ISO/IEC/IEEE 29119-3 §8.3.2. A coverage item is something the tests must reach.
 | C07 | Separate **data** from **control** at the boundary: human-readable content can never become a command, while an authenticated, signed, structured `CommandIntent` may — subject to its own authorisation | WP-136-T07 | *(name the test case)* |
 | C08 | Prompt-Injection PDF | [ACC-05](../12_ACCEPTANCE_SCENARIOS/acc_05_prompt_injection_pdf.md) — Critical | *(name the test case)* |
 | C09 | Inbound Content Attempts to Act as an Instruction | [ACC-44](../12_ACCEPTANCE_SCENARIOS/acc_44_inbound_message_is_not_an_instruction.md) — Critical | *(name the test case)* |
+| C10 | Prompt Injection Meets a Capability Gate | [ACC-117](../12_ACCEPTANCE_SCENARIOS/acc_117_prompt_injection_capability_gate.md) — Critical | *(name the test case)* |
 
-**9 coverage items.** Every one must appear in the *Covered by* column of at least one test case below before this package can reach `TECH_COMPLETE`.
+**10 coverage items.** Every one must appear in the *Covered by* column of at least one test case below before this package can reach `TECH_COMPLETE`.
 
 <!-- /generated:coverage -->
 

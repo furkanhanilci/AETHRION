@@ -109,7 +109,7 @@ which is why they are caused deliberately rather than waited for.
 
 ### Full prerequisite closure
 
-**120 of 160 packages (75%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
+**121 of 160 packages (76%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
 
 | Level | Packages |
 |---:|---|
@@ -141,7 +141,7 @@ which is why they are caused deliberately rather than waited for.
 | 26 | `WP-057` · `WP-059` · `WP-061` · `WP-092` |
 | 27 | `WP-058` · `WP-064` · `WP-075` |
 | 28 | `WP-060` · `WP-062` · `WP-081` |
-| 29 | `WP-063` · `WP-065` · `WP-066` · `WP-069` · `WP-082` |
+| 29 | `WP-063` · `WP-065` · `WP-066` · `WP-069` · `WP-082` · `WP-154` |
 | 30 | `WP-067` · `WP-070` · `WP-083` · `WP-084` · `WP-096` |
 | 31 | `WP-068` · `WP-071` · `WP-097` · `WP-099` · `WP-100` |
 | 32 | `WP-072` · `WP-076` · `WP-098` |
@@ -169,7 +169,7 @@ which is why they are caused deliberately rather than waited for.
 ### What acceptance of this package releases
 
 - **Directly unblocked:** 9 — `WP-122` · `WP-123` · `WP-124` · `WP-125` · `WP-126` · `WP-127` · `WP-128` · `WP-129` · `WP-130`
-- **Transitively reachable:** **11 of 160 packages (7%)** cannot be accepted until this one is.
+- **Transitively reachable:** **9 of 160 packages (6%)** cannot be accepted until this one is.
 
 The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
 

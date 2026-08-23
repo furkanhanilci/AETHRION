@@ -369,6 +369,137 @@ def self_test() -> int:
     return 1 if silent or noisy else 0
 
 
+# ---------------------------------------------------------------------------
+# Dynamic facts — the fourth rule family, added at baseline v1.3.1.
+#
+# The three families above match *phrasings*. This one guards *values whose
+# correct answer changes as the repository grows*, which is a different problem:
+# nobody typed a wrong number, they typed a right one and the repository moved.
+#
+# Seven live surfaces said "141 packages" or "fifty-one scenarios" while the
+# registries held 160 and 120, and every check in the bundle passed — because
+# check_doc_consistency.py enforces a derived count only where a rule names the
+# document AND the pattern, and none named these.
+#
+# Two deliberate restrictions, because the naive version of this rule is worse
+# than nothing:
+#
+#   1. Only LIVE surfaces are scanned. A dated audit report saying "51 scenarios
+#      existed at the time" is correct and must stay. That is the same exemption
+#      the historical-record rule above makes, and for the same reason.
+#   2. Only the facts listed here. Scanning every number in every document
+#      produces a wall of findings about page counts, port numbers and years,
+#      and a checker whose output is a wall is a checker nobody reads.
+# ---------------------------------------------------------------------------
+
+LIVE_SURFACES = (
+    "README.md",
+    "AGENTS.md",
+    "CLAUDE.md",
+    "docs/DOCUMENT_STANDARD.md",
+    "docs/OPERATIONS.md",
+    "docs/figures/README.md",
+    "planning/commissioning/README.md",
+    "planning/commissioning/00_PROGRAM/",
+    "scripts/README.md",
+    "tests/README.md",
+    "schemas/README.md",
+    "provenance/README.md",
+)
+
+NUMBER_WORDS = {
+    "eleven": 11, "twelve": 12, "thirteen": 13, "fourteen": 14, "fifteen": 15,
+    "twenty": 20, "thirty": 30, "forty": 40, "fifty": 50, "fifty-one": 51,
+    "eighty": 80, "one hundred": 100,
+}
+
+
+def _packages() -> int:
+    """Numbered packages — WP-001 upward, excluding the WP-000 bootstrap.
+
+    Two different true answers exist here and confusing them is its own defect:
+    the plan is 159 numbered packages *plus* a bootstrap package, and 160
+    package documents. check_doc_consistency.py already draws that line, and
+    this rule uses the same one so the two checkers cannot contradict."""
+    matrix = (ROOT / "planning" / "commissioning" / "00_PROGRAM"
+              / "package_dependency_matrix.csv")
+    rows = matrix.read_text(encoding="utf-8").strip().splitlines()[1:]
+    return sum(1 for r in rows if not r.startswith('"WP-000"'))
+
+
+def _baseline() -> str:
+    meta = (ROOT / "planning" / "commissioning" / "00_PROGRAM"
+            / "programme_metadata.json").read_text(encoding="utf-8")
+    return re.search(r'"version":\s*"(v[\d.]+)"', meta).group(1)
+
+
+class DynamicFact:
+    """A value the repository can compute, and the wordings that state it.
+
+    `stale` is the set of values that were once correct. Matching those rather
+    than "any number here" is what keeps the rule from firing on a sentence that
+    contains a number for an unrelated reason.
+    """
+
+    def __init__(self, name, current, pattern, correction) -> None:
+        self.name, self.current = name, current
+        self.pattern, self.correction = re.compile(pattern, re.I), correction
+
+    def findings(self, path: Path, text: str) -> list[str]:
+        rel = str(path.relative_to(ROOT))
+        if not any(rel.startswith(s) or rel == s for s in LIVE_SURFACES):
+            return []
+        out = []
+        actual = self.current()
+        for match in self.pattern.finditer(text):
+            raw = next((g for g in match.groups() if g), None)
+            if raw is None:
+                continue
+            claimed = NUMBER_WORDS.get(raw.lower(), None)
+            if claimed is None:
+                claimed = int(raw) if raw.isdigit() else raw
+            if claimed == actual:
+                continue
+            line_no = text[:match.start()].count("\n") + 1
+            if is_history(text.splitlines()[line_no - 1]):
+                continue
+            out.append(f"{rel}:{line_no}  {self.name} — says {claimed!r}, "
+                       f"the repository holds {actual!r}. {self.correction}")
+        return out
+
+
+DYNAMIC_FACTS = [
+    DynamicFact(
+        "programme package count", _packages,
+        r"\b(\d{2,4})\s+work packages are managed\b"
+        r"|\ball (\d{2,4}) work packages\b"
+        r"|\bindex of (\d{2,4}) packages\b"
+        r"|\bplan is (\d{2,4}) packages\b"
+        r"|\bacross (\d{2,4}) packages\b",
+        "Numbered packages, excluding the WP-000 bootstrap — the convention "
+        "check_doc_consistency.py already uses."),
+    DynamicFact(
+        "acceptance scenario count", _scenarios,
+        r"\bAll (\d{2,4}|fifty-one|eighty) scenarios\b"
+        r"|\bThe (fifty-one|\d{2,4}) (?:acceptance )?scenarios\b"
+        r"|\b(\d{2,4}|fifty-one) scenarios, by\b",
+        "Scenario totals belong to 12_ACCEPTANCE_SCENARIOS."),
+    DynamicFact(
+        "skill registry size", _skills,
+        r"\bregistry holds (\d{2,3}) skills\b|\ball (\d{2,3}) skills\b",
+        "Skill totals belong to skills/."),
+    DynamicFact(
+        "current commissioning baseline", _baseline,
+        r"[Tt]he current baseline is \*?\*?(v\d+\.\d+\.\d+)"
+        r"|\| Baseline \| `?(v\d+\.\d+\.\d+)"
+        r"|\bcommissioning baseline (v\d+\.\d+\.\d+) —",
+        "Only sentences asserting the CURRENT baseline are matched. "
+        "\"Added by baseline v1.2.0\" states when something changed and is "
+        "correct forever; matching that too would push a maintainer to rewrite "
+        "history, which DOCUMENT_STANDARD.md \u00a73 forbids."),
+]
+
+
 def paragraphs(text: str):
     """Yield (first_line_number, paragraph). Claims wrap across lines."""
     line_no = 1
@@ -418,6 +549,9 @@ def main(argv: list[str] | None = None) -> int:
 
         # A decision record closes a finding; prose may not still call it open.
         # The record itself is exempt, because it narrates the state it closed.
+        for fact in DYNAMIC_FACTS:
+            findings.extend(fact.findings(path, text))
+
         # Architectural regressions. Decision records are NOT exempt here —
         # unlike the undecided-finding rule below — because an ADR asserting a
         # regression is the worst place for one to live, not the safest.
@@ -449,7 +583,9 @@ def main(argv: list[str] | None = None) -> int:
     print(f"{scanned} documents scanned · {exempt} historical records exempt · "
           f"{len(CLAIMS)} literal rules · {len(contradiction_rules)} derived "
           f"contradiction rules · {len(REGRESSIONS)} architectural regression "
-          f"rules · {len(closed)} closed finding(s) tracked")
+          f"rules · {len(DYNAMIC_FACTS)} dynamic facts over "
+          f"{len(LIVE_SURFACES)} live surfaces · "
+          f"{len(closed)} closed finding(s) tracked")
     for finding in findings:
         print(f"  ✗ {finding}")
     if findings:

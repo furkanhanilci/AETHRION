@@ -136,7 +136,7 @@ injection, memory poisoning and credential exfiltration.
 ### What acceptance of this package releases
 
 - **Directly unblocked:** 7 — `WP-054` · `WP-060` · `WP-083` · `WP-084` · `WP-100` · `WP-111` · `WP-117`
-- **Transitively reachable:** **88 of 160 packages (55%)** cannot be accepted until this one is.
+- **Transitively reachable:** **87 of 160 packages (54%)** cannot be accepted until this one is.
 
 The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
 

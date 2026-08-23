@@ -144,7 +144,7 @@ skipped because nothing in the package's own subject matter changed.
 ### What acceptance of this package releases
 
 - **Directly unblocked:** 6 — `WP-065` · `WP-066` · `WP-067` · `WP-094` · `WP-103` · `WP-125`
-- **Transitively reachable:** **67 of 160 packages (42%)** cannot be accepted until this one is.
+- **Transitively reachable:** **66 of 160 packages (41%)** cannot be accepted until this one is.
 
 The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
 

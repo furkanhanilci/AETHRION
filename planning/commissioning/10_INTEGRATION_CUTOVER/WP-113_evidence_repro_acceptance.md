@@ -114,7 +114,7 @@ which is why they are caused deliberately rather than waited for.
 
 ### Full prerequisite closure
 
-**109 of 160 packages (68%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
+**110 of 160 packages (69%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
 
 | Level | Packages |
 |---:|---|
@@ -146,7 +146,7 @@ which is why they are caused deliberately rather than waited for.
 | 26 | `WP-057` · `WP-059` · `WP-061` · `WP-092` |
 | 27 | `WP-058` · `WP-064` · `WP-075` |
 | 28 | `WP-060` · `WP-062` · `WP-081` |
-| 29 | `WP-063` · `WP-065` · `WP-066` · `WP-069` · `WP-082` |
+| 29 | `WP-063` · `WP-065` · `WP-066` · `WP-069` · `WP-082` · `WP-154` |
 | 30 | `WP-067` · `WP-070` · `WP-083` · `WP-084` · `WP-096` |
 | 31 | `WP-068` · `WP-071` · `WP-097` · `WP-099` · `WP-100` |
 | 32 | `WP-072` · `WP-076` · `WP-098` |
@@ -168,7 +168,7 @@ which is why they are caused deliberately rather than waited for.
 ### What acceptance of this package releases
 
 - **Directly unblocked:** 2 — `WP-115` · `WP-126`
-- **Transitively reachable:** **19 of 160 packages (12%)** cannot be accepted until this one is.
+- **Transitively reachable:** **16 of 160 packages (10%)** cannot be accepted until this one is.
 
 The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
 
@@ -192,10 +192,16 @@ The transitive figure is the leverage number. It does not appear anywhere else i
 | Scenario | Severity | What it must show |
 |---|---|---|
 | [ACC-19 — Clean-Room Reproduction Pass](../12_ACCEPTANCE_SCENARIOS/ACC-19_clean_room_pass.md) | High | The result falls within tolerance; a `ReproductionReport`, certificate and independence attestation are produced, and G7 can pass. |
+| [ACC-20 — Clean-Room Reproduction Failure](../12_ACCEPTANCE_SCENARIOS/ACC-20_clean_room_fail.md) | Critical | G7 becomes FAIL/REVISE and the claim becomes `CHALLENGED`; an environment/data/code/stochastic/method root-cause classification is made and a controlled G4/G5 return is opened. |
+| [ACC-21 — Derived Graph Corruption and Rebuild](../12_ACCEPTANCE_SCENARIOS/ACC-21_graph_corruption.md) | High | Canonical services are unaffected; a new projection is built with the expected counts, hashes and lineage and promoted atomically. |
+| [ACC-22 — Obsidian Human Edit Preservation](../12_ACCEPTANCE_SCENARIOS/ACC-22_obsidian_human_edit.md) | High | The human field is preserved byte- and semantically; only the generated zone updates, and an unexpected conflict opens a curator case instead of an automatic overwrite. |
+| [ACC-23 — Artifact Overwrite Attempt](../12_ACCEPTANCE_SCENARIOS/ACC-23_artifact_overwrite.md) | Critical | The overwrite is rejected; the new bytes can only be written as a new content address and version, and existing references are unchanged. |
 | [ACC-30 — Publication Completeness](../12_ACCEPTANCE_SCENARIOS/ACC-30_publication_completeness.md) | Critical | No publication package, signature or release is produced; G9 is FAIL/REVISE and a correction queue opens. Once the missing link is supplied, a new package version can pass. |
 | [ACC-31 — Superseded Publication](../12_ACCEPTANCE_SCENARIOS/ACC-31_superseded_publication.md) | High | The old package stays reachable but is clearly marked superseded; the new package references its predecessor and the reason, and consumers receive an impact event. |
 | [ACC-38 — Critical Reviewer Unavailable](../12_ACCEPTANCE_SCENARIOS/ACC-38_reviewer_unavailable.md) | High | Neither the producer, a self-review, nor an ineligible fallback is used; the gate is `BLOCKED` and a human scheduling/escalation item and a capacity signal are produced. |
 | [ACC-39 — Negative Research Result](../12_ACCEPTANCE_SCENARIOS/ACC-39_negative_result.md) | Medium | The result is neither lost nor reframed as a success; a negative run and claim artifact, the limitations and a stop/pivot/continue `DecisionRecord` are produced. |
+| [ACC-52 — Claimless Publication Assertion](../12_ACCEPTANCE_SCENARIOS/ACC-52_claimless_publication_assertion.md) | Critical | The build fails; the sentence's location and the missing relation are reported; no signed `PublicationPackage` is produced. Prose whose `text_role` declares it structural or editorial is not affected. |
+| [ACC-67 — Claim–Code–Result Consistency Failure](../12_ACCEPTANCE_SCENARIOS/ACC-67_claim_code_result_consistency.md) | Critical | Both are reported `INCONSISTENT` and G7 does not pass. Exit code 0 is not a reproduction, and a matching number reached by the wrong method is not one either. |
 
 <!-- /generated:dependency-analysis -->
 

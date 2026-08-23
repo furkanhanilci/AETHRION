@@ -164,7 +164,7 @@ because the queue is long or the budget is tight.
 ### What acceptance of this package releases
 
 - **Directly unblocked:** 12 — `WP-080` · `WP-085` · `WP-086` · `WP-088` · `WP-089` · `WP-090` · `WP-093` · `WP-095` · `WP-104` · `WP-106` · `WP-108` · `WP-146`
-- **Transitively reachable:** **52 of 160 packages (32%)** cannot be accepted until this one is.
+- **Transitively reachable:** **51 of 160 packages (32%)** cannot be accepted until this one is.
 
 The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
 
@@ -190,6 +190,8 @@ The transitive figure is the leverage number. It does not appear anywhere else i
 | [ACC-08 — Strong Counter-Test](../12_ACCEPTANCE_SCENARIOS/ACC-08_strong_counter_test.md) | Critical | The majority vote does not override the test; the claim becomes `CHALLENGED`/`REJECTED`, a `DisagreementCase` opens and G6 does not pass. |
 | [ACC-19 — Clean-Room Reproduction Pass](../12_ACCEPTANCE_SCENARIOS/ACC-19_clean_room_pass.md) | High | The result falls within tolerance; a `ReproductionReport`, certificate and independence attestation are produced, and G7 can pass. |
 | [ACC-20 — Clean-Room Reproduction Failure](../12_ACCEPTANCE_SCENARIOS/ACC-20_clean_room_fail.md) | Critical | G7 becomes FAIL/REVISE and the claim becomes `CHALLENGED`; an environment/data/code/stochastic/method root-cause classification is made and a controlled G4/G5 return is opened. |
+| [ACC-70 — EvidenceGap Lifecycle](../12_ACCEPTANCE_SCENARIOS/ACC-70_evidence_gap_lifecycle.md) | High | The wrong evidence does not close the gap; the qualifying evidence satisfies it; the retraction reopens it with its full history intact. An open gap never authorises work by itself. |
+| [ACC-78 — Raw Evidence Versus Interpretation](../12_ACCEPTANCE_SCENARIOS/ACC-78_raw_evidence_versus_interpretation.md) | Critical | The finding gains a new version; every raw artifact's bytes and digest are unchanged. The direct raw edit is refused. Interpretation is revisable; evidence is not. |
 
 <!-- /generated:dependency-analysis -->
 

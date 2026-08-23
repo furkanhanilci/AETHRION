@@ -215,7 +215,7 @@ because the queue is long or the budget is tight.
 ### What acceptance of this package releases
 
 - **Directly unblocked:** 4 — `WP-085` · `WP-104` · `WP-111` · `WP-145`
-- **Transitively reachable:** **38 of 160 packages (24%)** cannot be accepted until this one is.
+- **Transitively reachable:** **34 of 160 packages (21%)** cannot be accepted until this one is.
 
 The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
 
@@ -241,6 +241,8 @@ The transitive figure is the leverage number. It does not appear anywhere else i
 | [ACC-09 — Budget Hard Stop](../12_ACCEPTANCE_SCENARIOS/acc_09_budget_hard_stop.md) | Critical | An 80% warning is raised; at 100% new expensive work is denied, the workflow pauses with state and checkpoints preserved, and no duplicate cost or reservation is created. |
 | [ACC-33 — Kueue Preemption](../12_ACCEPTANCE_SCENARIOS/acc_33_kueue_preemption.md) | High | The scout is checkpointed, paused or evicted and the critical reproduction is admitted; canonical task state and artifacts are not lost and the scout resumes later. |
 | [ACC-39 — Negative Research Result](../12_ACCEPTANCE_SCENARIOS/acc_39_negative_result.md) | Medium | The result is neither lost nor reframed as a success; a negative run and claim artifact, the limitations and a stop/pivot/continue `DecisionRecord` are produced. |
+| [ACC-54 — Producer Attempts Evaluator Mutation](../12_ACCEPTANCE_SCENARIOS/acc_54_evaluator_mutation_attempt.md) | Critical | Every write is denied at the policy and sandbox boundary and audited. If any write nonetheless lands, the evaluator digest mismatch invalidates the run and the scenario FAILs as a critical security defect. |
+| [ACC-60 — Failed Smoke Candidate Promotion Attempt](../12_ACCEPTANCE_SCENARIOS/acc_60_failed_smoke_promotion.md) | Critical | Both promotions are refused. Under a CONFIRMATORY study mode the rule is non-waivable; where an exceptional path exists at all it requires an explicit authorised exception with an owner and an expiry, and it is recorded as one. |
 
 <!-- /generated:dependency-analysis -->
 

@@ -29,6 +29,9 @@ defect rather than a shortcut.
 | `check_document.py` | placeholders, citation resolution, cross-reference resolution in a document source | whether a citation *supports* its sentence |
 | `check_reporting_registry.py` | every adopted component has a type, a source, a retrieval date and an **authority boundary** | whether the adoption was wise |
 | `check_upstream_lineage.py` | every assimilated mechanism names its upstream, its licence and what it may never decide; direct adaptation cannot reach `ADAPTING` without a pinned commit, a file list and a characterisation suite. **`--self-test` injects a defect per rule and fails if any rule stays silent** | whether the mechanism was worth taking, and whether the upstream code is correct |
+| `check_programme_graph.py` | the programme is **executable**: package, scenario and aggregation edges combined are acyclic; no pre-go-live or cutover package depends transitively on Day-2 or hypercare work; each declared aggregator's resolved scenario set equals its registry query. **`--self-test` injects each historical defect and fails if the rule written for it stays silent** | whether the execution order it admits is a sensible one, and whether any package is worth doing |
+| `check_figure_semantics.py` | the counts and labels a figure **renders** match the registries — read from the SVG, never through the generator that drew it | anything not mechanically derivable: a wrong arrow, a mislabelled relationship, a mechanism explained incorrectly |
+| `check_document_hygiene.py` | no duplicate heading, broken relative link, unbalanced generated marker or orphaned companion, reported as distinct error codes | whether the prose inside a well-formed document is correct |
 
 ## 2. Generators — output is derived, never hand-edited
 
@@ -64,7 +67,8 @@ defect rather than a shortcut.
 BVC-01 (deploy/bvc-01-verify.yml, written but not active)
     pytest · validate_skills · validate_commissioning_plan
     check_doc_consistency · check_stale_claims · check_reporting_registry
-    check_upstream_lineage
+    check_upstream_lineage · check_programme_graph
+    check_figure_semantics · check_document_hygiene
     sha256sum -c · make_figures --check
 
 Manual, because they need something CI does not have

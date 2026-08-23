@@ -173,6 +173,7 @@ record atomically with the change it describes.
 |---|---|---|
 | [ACC-23 — Artifact Overwrite Attempt](../12_ACCEPTANCE_SCENARIOS/ACC-23_artifact_overwrite.md) | Critical | The overwrite is rejected; the new bytes can only be written as a new content address and version, and existing references are unchanged. |
 | [ACC-40 — Complete Project Audit Export](../12_ACCEPTANCE_SCENARIOS/ACC-40_audit_export.md) | Critical | The signed export verifies with complete correlation and hash chain; a missing or tampered fixture fails verification and raises an incident. |
+| [ACC-45 — Irreversible External Record Submission](../12_ACCEPTANCE_SCENARIOS/ACC-45_external_record_submission.md) | Critical | The unapproved attempt is refused; the approved submission produces exactly one identifier; the repeat is idempotent; and the submitted payload hash matches the approved one. |
 
 <!-- /generated:dependency-analysis -->
 

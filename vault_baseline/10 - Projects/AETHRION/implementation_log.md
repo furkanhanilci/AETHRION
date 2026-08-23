@@ -160,6 +160,150 @@ quietly skipped.
 
 ---
 
+## Step 020 — Baseline v1.3.1: the plan made executable
+
+**Time:** 2026-08-23
+**Scope:** an external integration-consistency audit, adjudicated finding by
+finding · the canonical programme model · four dependency directions reversed ·
+four new controls · findings K1–K4
+
+### What the audit was for
+
+The two previous baselines added architecture. This one adds none. An external
+package attacked the **seam** between the architecture and the machinery that
+enforces it — which is exactly where the defects from those two expansions had
+collected, because adding a workstream touches the plan and nothing forces it to
+touch the generators, validators and figures that describe the plan.
+
+Its own README refuses "could not reproduce" as a disposition unless the current
+file, generator, registry and test evidence are cited. Every finding was
+therefore verified **computationally**, not by reading, and the results are in
+[`review/2026-08-23_integration_remediation_dispositions.md`](02%20-%20Reviews/integration_remediation_dispositions.md).
+
+### The defect the whole baseline turns on
+
+**A dependency graph can be perfectly acyclic and impossible to execute.**
+
+Two packages required before go-live depended on packages that exist only after
+it: WP-152 needed the Day-2 postmortem rhythm to define a failure taxonomy that
+rhythm should consume, and WP-155 needed recurring recalibration for an initial
+qualification it must have before anything runs. Neither is a cycle. The plan had
+no valid starting order, and every check in a 16/16 bundle passed.
+
+The plan validator *did* carry a phase rule. It read `Related packages` from the
+**scenario document** while the violating edge lived in a **matrix column**, and
+it only examined scenario→package edges while both real deadlocks are
+package→package. A rule pointed at the compliant source.
+
+### One relation, two owners, disagreeing 98 times
+
+That column turned out to be the deeper problem. The WP↔ACC binding was written
+in the scenario documents *and* in the matrix, and the two disagreed on **98 of
+120 scenarios** — including eleven `PRE_GO_LIVE` scenarios the column bound to
+Day-2 packages. It is the repository's own finding **M5**, open since the first
+audit, and it is the mechanism behind the audit's headline P0.
+
+The column was **deleted**, not synchronised. A cache with a drift check is still
+two representations of one fact, and `ADR-014`'s answer to that is not a better
+check.
+
+### The aggregate that meant 118 and said 2
+
+`WP-115`'s card, line 15: *"every scenario whose `Acceptance phase` is
+`PRE_GO_LIVE`; the set is derived, never enumerated here, because an enumeration
+drifts the moment a scenario is added."*
+
+185 lines below, inside the generated block an independent verifier actually
+works from: `ACC-01` and `ACC-40`. The prose was right, the machinery was wrong,
+and the machinery was the surface being trusted.
+
+Fixing it made **nine** cycles reachable. The audit predicted one.
+
+### A deterministic generator reproducing a false claim
+
+`aethrion_waves.svg` rendered *"141 work-package documents"* against a registry
+of 160, for two baselines. `aethrion_topology.svg` said *"221 planning files,
+byte-identical to baseline v1.0.5"* three baselines and 410 files later. Both
+passed the containment check, which measures text boxes, and both passed the
+drift check — which compares a figure to the generator that drew it, and the
+generator was the thing that was wrong.
+
+Wave membership was hard-coded in **two** places, both ending at `WP-140`, while
+the wave map document listed W-S and W-R in prose. `expand_packages.wave_of`
+returned the string `"unassigned"` for nineteen packages, and a string is not an
+error.
+
+### What was built
+
+One canonical model — `00_PROGRAM/programme_metadata.json` plus
+`scheduling_phase`, `wave_id` and `scenario_selector` columns — and four controls,
+each carrying a self-test that reproduces the defect it was written for:
+
+| Control | Rules | Its own mutations |
+|---|---|---|
+| `check_programme_graph.py` | 7 over package, scenario and milestone nodes | 6 |
+| `check_figure_semantics.py` | 4 derived claims, read from the rendered SVG | 4 |
+| `check_document_hygiene.py` | 5 distinct error codes | 3 + a clean specimen |
+| dynamic-fact family in `check_stale_claims.py` | 4 facts over 12 live surfaces | positive and negative |
+
+### The lesson from building them, which is the useful part
+
+**Four of the seven programme-graph rules were defective when first written**,
+and the self-test found all four before any of them ran on the corpus: two could
+not fire at all, one crashed before its own diagnostic printed, and one —
+`V-SCEN-002` — was *disabled by the very mutation it was meant to catch*.
+
+That last one deserves its own sentence. The rule iterated over packages that
+**had** a selector. Deleting `WP-115`'s selector therefore deleted the check
+along with it, silently restoring the two-scenario enumeration. **A check
+anchored on the thing it checks can be switched off by deleting that thing.** It
+now iterates over the aggregators *declared* in the metadata.
+
+And the figure checker's first bijection rule invented a naming convention —
+`fig_X.py → aethrion_X.svg` — then enforced it, reporting two findings against a
+repository with no defect (`fig_evidence.py` writes
+`aethrion_evidence_chain.svg`). **A checker that invents a rule and enforces it
+is worse than none, because its findings look like the real ones.**
+
+### Where this repair departs from the package
+
+Two places, both recorded as decisions rather than omissions:
+
+- the scenario column was **deleted** rather than kept alongside a selector, per
+  `ADR-014`;
+- **WP-119 was left selector-free.** It is the cutover *rehearsal*, and a
+  rehearsal that must first pass the entire commissioning suite is not a
+  rehearsal — it is the suite.
+
+### Evidence
+
+```text
+bundle                19/19   (three new checks added)
+plan seal             632/632 (one file added: programme_metadata.json)
+plan semantics        160 packages · 120 scenarios · 0 warnings
+programme graph       0 phase inversions · 0 cycles · aggregates = registry query
+figure semantics      4 claims match · 4 mutations caught
+document hygiene      748 governed documents · 0 structural defects
+tests                 93 passed
+vault                 well-formed
+attestation           signature OK · 9 subject digests OK
+```
+
+### Limits
+
+The plan is now executable. **That is a statement about the plan, not about the
+system it describes.** Nothing is `ACCEPTED`, nothing is `INTEGRATED`, nothing is
+`MEASURED`, and no skill has a behaviour baseline. Every performance figure in
+the plan remains a target awaiting a calibration run that has never been made.
+
+Two scope-matrix rows were deliberately **not** closed, though similarly-named
+packages now exist: agreement/error-correlation measurement, and programme-level
+control-injection rates. WP-155 qualifies a verifier and WP-126 recalibrates one;
+neither measures correlation *between* reviewers, which is the number deciding
+whether two agreeing verdicts are one observation or two.
+
+---
+
 ## Step 019 — Baseline v1.3.0 completion: the extension pass, and a checklist made mechanical
 
 **Time:** 2026-08-23

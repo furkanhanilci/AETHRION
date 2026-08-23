@@ -72,9 +72,10 @@ From `00_PROGRAM/05_definition_of_ready_and_done.md`, instantiated for this pack
 - [ ] The package purpose and its single delivery boundary are written.
 - [ ] Out-of-scope items are written down.
 - [ ] **Incident Commander / SRE Lead** is assigned accountable; an implementer is named; **Assurance Lead / Research Director** is assigned verifier and is **independent of the producer** under WP-007's profile.
+- [ ] `WP-015` — Event Envelope, Subject and Schema Taxonomy — is `ACCEPTED` (not `TECH_COMPLETE`).
 - [ ] `WP-082` — Run Registry and MLflow Lineage Integration — is `ACCEPTED` (not `TECH_COMPLETE`).
 - [ ] `WP-096` — OpenTelemetry End-to-End Correlation Spine — is `ACCEPTED` (not `TECH_COMPLETE`).
-- [ ] `WP-128` — Incident, Postmortem and Learning Closure — is `ACCEPTED` (not `TECH_COMPLETE`).
+- [ ] `WP-099` — WORM Audit Ledger and Independent Export — is `ACCEPTED` (not `TECH_COMPLETE`).
 - [ ] `WP-148` — Multi-Agent Collaboration Plane and Cohort Integrity — is `ACCEPTED` (not `TECH_COMPLETE`).
 - [ ] `DataClass`, `CodeTrust`, `ToolEffect` and the network/credential scope are classified — all four, with no `UNKNOWN`.
 - [ ] Acceptance criteria name **a number, a threshold or a command**. `00_PROGRAM/05` states that the generic template criteria are not measurable in the sense meant here; refinement is where that is fixed.
@@ -99,6 +100,7 @@ An `ACCEPTED` package is still not production-ready. Every scenario below must p
 
 - [ ] `ACC-091` passes. A `SKIPPED` scenario on a Critical row does not count as a pass.
 - [ ] `ACC-092` passes. A `SKIPPED` scenario on a Critical row does not count as a pass.
+- [ ] `ACC-093` passes. A `SKIPPED` scenario on a Critical row does not count as a pass.
 - [ ] `ACC-094` passes. A `SKIPPED` scenario on a Critical row does not count as a pass.
 - [ ] `ACC-095` passes. A `SKIPPED` scenario on a Critical row does not count as a pass.
 

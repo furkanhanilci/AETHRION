@@ -220,7 +220,7 @@ because the queue is long or the budget is tight.
 ### What acceptance of this package releases
 
 - **Directly unblocked:** 14 — `WP-083` · `WP-084` · `WP-085` · `WP-086` · `WP-087` · `WP-090` · `WP-095` · `WP-096` · `WP-099` · `WP-100` · `WP-104` · `WP-107` · `WP-144` · `WP-152`
-- **Transitively reachable:** **63 of 160 packages (39%)** cannot be accepted until this one is.
+- **Transitively reachable:** **62 of 160 packages (39%)** cannot be accepted until this one is.
 
 The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
 
@@ -244,6 +244,13 @@ The transitive figure is the leverage number. It does not appear anywhere else i
 | Scenario | Severity | What it must show |
 |---|---|---|
 | [ACC-39 — Negative Research Result](../12_ACCEPTANCE_SCENARIOS/acc_39_negative_result.md) | Medium | The result is neither lost nor reframed as a success; a negative run and claim artifact, the limitations and a stop/pivot/continue `DecisionRecord` are produced. |
+| [ACC-53 — Unverified Numeric Result](../12_ACCEPTANCE_SCENARIOS/acc_53_unverified_numeric_result.md) | Critical | The build fails regardless of the quality of the surrounding prose; the report lists the value refs that were permitted and the one that was not. A declared rounding or display transform of a registered value passes. |
+| [ACC-63 — Failed Experiment Must Be Recorded](../12_ACCEPTANCE_SCENARIOS/acc_63_failed_experiment_recorded.md) | High | It cannot advance until an immutable `ExperimentRun`, a `FailureAssessment` and a `FailedApproach` record exist, carrying the logs and artifacts the failure produced. |
+| [ACC-64 — Implementation Failure Must Not Refute a Hypothesis](../12_ACCEPTANCE_SCENARIOS/acc_64_implementation_failure_not_refutation.md) | Critical | Both are classified — IMPLEMENTATION and DATA — and any transition that would set `HYP-002` to REFUTED is refused. Only a validly executed run under the frozen plan can support a HYPOTHESIS failure class. |
+| [ACC-77 — VerifiedValue Rebinding Attempt](../12_ACCEPTANCE_SCENARIOS/acc_77_verified_value_rebinding.md) | Critical | Both are refused. The binding is immutable and digest-checked; a changed evaluation produces a new value, and a tampered raw artifact fails its digest. |
+| [ACC-095 — Failure Taxonomy Routing](../12_ACCEPTANCE_SCENARIOS/acc_095_failure_taxonomy_routing.md) | High | Each reaches its owning discipline. A `HYPOTHESIS` class is reachable only from a validly executed run under the frozen plan — the other classes cannot produce it however the run failed. |
+| [ACC-106 — A Number Without a VerifiedValue](../12_ACCEPTANCE_SCENARIOS/acc_106_numeric_value_without_verifiedvalue.md) | Critical | The build fails and names the ungrounded figure. A registered value passes, and a declared rounding of a registered value passes and records its display transform. |
+| [ACC-115 — Missing Model Execution Fingerprint](../12_ACCEPTANCE_SCENARIOS/acc_115_missing_model_execution_fingerprint.md) | Critical | An invocation without a complete fingerprint fails the run. The failover appears in the fingerprint's retry and fallback history and invalidates any `EXACT` claim. |
 
 <!-- /generated:dependency-analysis -->
 

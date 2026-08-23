@@ -52,6 +52,10 @@ environment manifest as every other scenario in the same acceptance round.
 
 - [ ] Both arms report the same metric schema; no metric exists for only one arm
 - [ ] The baseline is the fully connected cohort, and a single-agent arm is not substituted for it
+- [ ] The tolerance was frozen in a sealed `EfficiencyQualificationProfile` **before** the holdout was exposed, and the run records that profile's digest
+- [ ] Calibration and holdout data do not overlap, and the profile carries the attestation saying so
+- [ ] An attempt to edit a threshold after `frozen_at` is refused; a changed threshold requires a new profile version
+- [ ] Cost improving while quality exceeds the ceiling FAILS, and cost improving by less than the declared minimum is **not accepted as an efficiency improvement** — two distinct outcomes, neither recordable as a qualified success
 - [ ] Coordination cost falls measurably and the quality delta stays within tolerance
 - [ ] A quality regression beyond tolerance is reported rather than suppressed
 - [ ] The actual canonical state equals the expected state, or an explained safe failure state.

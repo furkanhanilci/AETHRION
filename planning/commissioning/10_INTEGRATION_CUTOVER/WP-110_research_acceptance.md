@@ -109,7 +109,7 @@ which is why they are caused deliberately rather than waited for.
 
 ### Full prerequisite closure
 
-**109 of 160 packages (68%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
+**110 of 160 packages (69%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
 
 | Level | Packages |
 |---:|---|
@@ -141,7 +141,7 @@ which is why they are caused deliberately rather than waited for.
 | 26 | `WP-057` · `WP-059` · `WP-061` · `WP-092` |
 | 27 | `WP-058` · `WP-064` · `WP-075` |
 | 28 | `WP-060` · `WP-062` · `WP-081` |
-| 29 | `WP-063` · `WP-065` · `WP-066` · `WP-069` · `WP-082` |
+| 29 | `WP-063` · `WP-065` · `WP-066` · `WP-069` · `WP-082` · `WP-154` |
 | 30 | `WP-067` · `WP-070` · `WP-083` · `WP-084` · `WP-096` |
 | 31 | `WP-068` · `WP-071` · `WP-097` · `WP-099` · `WP-100` |
 | 32 | `WP-072` · `WP-076` · `WP-098` |
@@ -163,7 +163,7 @@ which is why they are caused deliberately rather than waited for.
 ### What acceptance of this package releases
 
 - **Directly unblocked:** 1 — `WP-115`
-- **Transitively reachable:** **19 of 160 packages (12%)** cannot be accepted until this one is.
+- **Transitively reachable:** **16 of 160 packages (10%)** cannot be accepted until this one is.
 
 The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
 
@@ -188,6 +188,7 @@ The transitive figure is the leverage number. It does not appear anywhere else i
 |---|---|---|
 | [ACC-01 — Human Seed Literature](../12_ACCEPTANCE_SCENARIOS/ACC-01_human_seed_literature.md) | Critical | The source resolves to a single `SourceRecord`/representation, enters the G3 candidate and set chain, and **no field in personal Zotero is modified**. |
 | [ACC-08 — Strong Counter-Test](../12_ACCEPTANCE_SCENARIOS/ACC-08_strong_counter_test.md) | Critical | The majority vote does not override the test; the claim becomes `CHALLENGED`/`REJECTED`, a `DisagreementCase` opens and G6 does not pass. |
+| [ACC-80 — Governed Versus Ungoverned Research Harness](../12_ACCEPTANCE_SCENARIOS/ACC-80_governed_versus_ungoverned_harness.md) | Medium | The harness emits the task and integrity metrics for both, reproducibly, with the cost of each recorded. A worse governed task score is a valid published result and is not suppressed. |
 
 <!-- /generated:dependency-analysis -->
 

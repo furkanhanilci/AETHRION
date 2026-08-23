@@ -105,7 +105,7 @@ which is why they are caused deliberately rather than waited for.
 
 ### Direct hard dependencies
 
-16, each of which must be `ACCEPTED` — not `TECH_COMPLETE` — before this package is `READY`.
+17, each of which must be `ACCEPTED` — not `TECH_COMPLETE` — before this package is `READY`.
 
 | Package | Supplies to this package |
 |---|---|
@@ -125,10 +125,11 @@ which is why they are caused deliberately rather than waited for.
 | [WP-089 — DisagreementCase and Evidence-Weighted Arbitration](../08_EVIDENCE_ASSURANCE/WP-089_disagreement_arbitration.md) | `Disagreement service` · `Arbitration rubric` · `Disposition workflow` · `Appeal/decision integration` |
 | [WP-090 — PublicationPackage, RO-Crate and Provenance Export](../08_EVIDENCE_ASSURANCE/WP-090_publication_package.md) | `Publication builder` · `RO-Crate profile` · `Signed publication package` · `Release checklist` |
 | [WP-096 — OpenTelemetry End-to-End Correlation Spine](../09_EXPERIENCE_OBSERVABILITY/WP-096_otel_correlation.md) | `OTel platform` · `Semantic conventions` · `Instrumentation libraries` · `Trace completeness dashboard` |
+| [WP-154 — Engineering Discipline and Specification Conformance](../15_RELIABILITY_EFFICIENCY/WP-154_engineering_discipline_and_conformance.md) | `Dual-discipline task compilation` · `SpecificationConformanceRecord` · `Drift fixture suite` · `Extended WP-107 engineering slice` |
 
 ### Full prerequisite closure
 
-**84 of 160 packages (52%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
+**85 of 160 packages (53%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
 
 | Level | Packages |
 |---:|---|
@@ -160,7 +161,7 @@ which is why they are caused deliberately rather than waited for.
 | 26 | `WP-057` · `WP-059` · `WP-061` |
 | 27 | `WP-058` · `WP-064` · `WP-075` |
 | 28 | `WP-062` · `WP-081` |
-| 29 | `WP-063` · `WP-065` · `WP-066` · `WP-069` · `WP-082` |
+| 29 | `WP-063` · `WP-065` · `WP-066` · `WP-069` · `WP-082` · `WP-154` |
 | 30 | `WP-067` · `WP-070` · `WP-083` · `WP-084` · `WP-096` |
 | 31 | `WP-068` · `WP-071` |
 | 32 | `WP-072` · `WP-076` |
@@ -175,8 +176,8 @@ which is why they are caused deliberately rather than waited for.
 
 ### What acceptance of this package releases
 
-- **Directly unblocked:** 2 — `WP-109` · `WP-154`
-- **Transitively reachable:** **26 of 160 packages (16%)** cannot be accepted until this one is.
+- **Directly unblocked:** 1 — `WP-109`
+- **Transitively reachable:** **22 of 160 packages (14%)** cannot be accepted until this one is.
 
 The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
 
@@ -310,6 +311,10 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `Semantic conventions` | `WP-096` | `python3 scripts/progress.py show WP-096` |
 | `Instrumentation libraries` | `WP-096` | `python3 scripts/progress.py show WP-096` |
 | `Trace completeness dashboard` | `WP-096` | `python3 scripts/progress.py show WP-096` |
+| `Dual-discipline task compilation` | `WP-154` | `python3 scripts/progress.py show WP-154` |
+| `SpecificationConformanceRecord` | `WP-154` | `python3 scripts/progress.py show WP-154` |
+| `Drift fixture suite` | `WP-154` | `python3 scripts/progress.py show WP-154` |
+| `Extended WP-107 engineering slice` | `WP-154` | `python3 scripts/progress.py show WP-154` |
 
 ### Classification that must be recorded before work begins
 

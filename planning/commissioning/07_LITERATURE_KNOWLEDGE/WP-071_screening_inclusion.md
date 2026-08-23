@@ -149,7 +149,7 @@ skipped because nothing in the package's own subject matter changed.
 ### What acceptance of this package releases
 
 - **Directly unblocked:** 4 — `WP-072` · `WP-094` · `WP-103` · `WP-125`
-- **Transitively reachable:** **54 of 160 packages (34%)** cannot be accepted until this one is.
+- **Transitively reachable:** **53 of 160 packages (33%)** cannot be accepted until this one is.
 
 The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
 
@@ -168,9 +168,11 @@ The transitive figure is the leverage number. It does not appear anywhere else i
 
 ### Acceptance scenarios that exercise this package
 
-**None.** No acceptance scenario names this package.
+`COMMISSIONED` requires every scenario below to pass **on the same release candidate**. A `SKIPPED` scenario on a `Critical` row does not count as a pass.
 
-> `00_PROGRAM/11_scope_coverage_matrix.md` states the rule this trips: *a row with a primary package but no acceptance column is a capability nobody will ever be asked to demonstrate.* This package can reach `ACCEPTED` on its own tests, but it cannot reach `COMMISSIONED` through a scenario, because there is none to pass.
+| Scenario | Severity | What it must show |
+|---|---|---|
+| [ACC-75 — Literature Retrieval Budget and Stopping Rule](../12_ACCEPTANCE_SCENARIOS/ACC-75_retrieval_budget_and_stopping_rule.md) | High | The loop halts at the frozen budget, and the attempt to change the stopping rule is refused. The sufficiency assessment is advisory; the protocol is authority. |
 
 <!-- /generated:dependency-analysis -->
 

@@ -141,7 +141,7 @@ again.
 
 ### Full prerequisite closure
 
-**121 of 160 packages (76%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
+**122 of 160 packages (76%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
 
 | Level | Packages |
 |---:|---|
@@ -173,7 +173,7 @@ again.
 | 26 | `WP-057` · `WP-059` · `WP-061` · `WP-092` |
 | 27 | `WP-058` · `WP-064` · `WP-075` |
 | 28 | `WP-060` · `WP-062` · `WP-081` |
-| 29 | `WP-063` · `WP-065` · `WP-066` · `WP-069` · `WP-082` |
+| 29 | `WP-063` · `WP-065` · `WP-066` · `WP-069` · `WP-082` · `WP-154` |
 | 30 | `WP-067` · `WP-070` · `WP-083` · `WP-084` · `WP-096` |
 | 31 | `WP-068` · `WP-071` · `WP-097` · `WP-099` · `WP-100` |
 | 32 | `WP-072` · `WP-076` · `WP-098` |

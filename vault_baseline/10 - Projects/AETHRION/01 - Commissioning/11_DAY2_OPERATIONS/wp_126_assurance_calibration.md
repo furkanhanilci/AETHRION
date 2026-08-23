@@ -158,7 +158,7 @@ again.
 
 ### Direct hard dependencies
 
-9, each of which must be `ACCEPTED` — not `TECH_COMPLETE` — before this package is `READY`.
+10, each of which must be `ACCEPTED` — not `TECH_COMPLETE` — before this package is `READY`.
 
 | Package | Supplies to this package |
 |---|---|
@@ -171,10 +171,11 @@ again.
 | [WP-089 — DisagreementCase and Evidence-Weighted Arbitration](../08_EVIDENCE_ASSURANCE/wp_089_disagreement_arbitration.md) | `Disagreement service` · `Arbitration rubric` · `Disposition workflow` · `Appeal/decision integration` |
 | [WP-113 — Evidence, Reproduction and Publication Acceptance Package](../10_INTEGRATION_CUTOVER/wp_113_evidence_repro_acceptance.md) | `Evidence/repro scenario results` · `Reproduction certificates` · `Lineage/integrity reports` · `Assurance sign-off` |
 | [WP-121 — Hypercare, Stabilisation and Programme Closure](../10_INTEGRATION_CUTOVER/wp_121_hypercare_stabilization.md) | `Hypercare log` · `Incident/finding summary` · `Production KPI baseline` · `Day-2 handoff` |
+| [WP-155 — Adaptive Assurance, Verifier Qualification and Escalation](../15_RELIABILITY_EFFICIENCY/wp_155_adaptive_assurance_and_escalation.md) | `Assurance router` · `Cascade and escalation path` · `Abstention verdicts` · `Extended VerifierQualificationRecord` |
 
 ### Full prerequisite closure
 
-**121 of 160 packages (76%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
+**123 of 160 packages (77%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
 
 | Level | Packages |
 |---:|---|
@@ -206,7 +207,7 @@ again.
 | 26 | `WP-057` · `WP-059` · `WP-061` · `WP-092` |
 | 27 | `WP-058` · `WP-064` · `WP-075` |
 | 28 | `WP-060` · `WP-062` · `WP-081` |
-| 29 | `WP-063` · `WP-065` · `WP-066` · `WP-069` · `WP-082` |
+| 29 | `WP-063` · `WP-065` · `WP-066` · `WP-069` · `WP-082` · `WP-154` |
 | 30 | `WP-067` · `WP-070` · `WP-083` · `WP-084` · `WP-096` |
 | 31 | `WP-068` · `WP-071` · `WP-097` · `WP-099` · `WP-100` |
 | 32 | `WP-072` · `WP-076` · `WP-098` |
@@ -215,7 +216,7 @@ again.
 | 35 | `WP-080` |
 | 36 | `WP-086` |
 | 37 | `WP-087` |
-| 38 | `WP-088` |
+| 38 | `WP-088` · `WP-155` |
 | 39 | `WP-089` |
 | 40 | `WP-090` · `WP-093` |
 | 41 | `WP-095` · `WP-102` · `WP-107` |
@@ -234,8 +235,8 @@ again.
 
 ### What acceptance of this package releases
 
-- **Directly unblocked:** 2 — `WP-130` · `WP-155`
-- **Transitively reachable:** **2 of 160 packages (1%)** cannot be accepted until this one is.
+- **Directly unblocked:** 1 — `WP-130`
+- **Transitively reachable:** **1 of 160 packages (1%)** cannot be accepted until this one is.
 
 The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
 
@@ -254,13 +255,9 @@ The transitive figure is the leverage number. It does not appear anywhere else i
 
 ### Acceptance scenarios that exercise this package
 
-`COMMISSIONED` requires every scenario below to pass **on the same release candidate**. A `SKIPPED` scenario on a `Critical` row does not count as a pass.
+**None.** No acceptance scenario names this package.
 
-| Scenario | Severity | What it must show |
-|---|---|---|
-| [ACC-07 — Reviewer Order Bias](../12_ACCEPTANCE_SCENARIOS/acc_07_reviewer_order_bias.md) | High | A material order effect fails the profile's calibration; the reviewer is not admitted to a critical role, or is suspended from it. |
-| [ACC-08 — Strong Counter-Test](../12_ACCEPTANCE_SCENARIOS/acc_08_strong_counter_test.md) | Critical | The majority vote does not override the test; the claim becomes `CHALLENGED`/`REJECTED`, a `DisagreementCase` opens and G6 does not pass. |
-| [ACC-38 — Critical Reviewer Unavailable](../12_ACCEPTANCE_SCENARIOS/acc_38_reviewer_unavailable.md) | High | Neither the producer, a self-review, nor an ineligible fallback is used; the gate is `BLOCKED` and a human scheduling/escalation item and a capacity signal are produced. |
+> `00_PROGRAM/11_scope_coverage_matrix.md` states the rule this trips: *a row with a primary package but no acceptance column is a capability nobody will ever be asked to demonstrate.* This package can reach `ACCEPTED` on its own tests, but it cannot reach `COMMISSIONED` through a scenario, because there is none to pass.
 
 <!-- /generated:dependency-analysis -->
 
@@ -335,6 +332,10 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `Production KPI baseline` | `WP-121` | `python3 scripts/progress.py show WP-121` |
 | `Day-2 handoff` | `WP-121` | `python3 scripts/progress.py show WP-121` |
 | `Program closure report` | `WP-121` | `python3 scripts/progress.py show WP-121` |
+| `Assurance router` | `WP-155` | `python3 scripts/progress.py show WP-155` |
+| `Cascade and escalation path` | `WP-155` | `python3 scripts/progress.py show WP-155` |
+| `Abstention verdicts` | `WP-155` | `python3 scripts/progress.py show WP-155` |
+| `Extended VerifierQualificationRecord` | `WP-155` | `python3 scripts/progress.py show WP-155` |
 
 ### Classification that must be recorded before work begins
 

@@ -30,7 +30,7 @@ The evidence layers this package must satisfy, derived from the gates it touches
 | **E0** Structural | Does the file, schema or reference exist? | **yes** | never optional — the artifact must exist and behave |
 | **E1** Mechanical | Is the behaviour correct under a deterministic test? | **yes** | never optional — the artifact must exist and behave |
 | **E2** Security | Is the forbidden path actually blocked? | **yes** | never optional — a control that has not been observed refusing is prose |
-| **E3** Independent review | Did an actor outside the producer examine the semantics? | **yes** | bound to 6 acceptance scenario(s) · effort class L |
+| **E3** Independent review | Did an actor outside the producer examine the semantics? | **yes** | bound to 8 acceptance scenario(s) · effort class L |
 | **E4** Reproduction | Does the same package run again in a clean environment? | no | no execution or reproduction gate |
 | **E5** Operations | Are failure, restore and observability correct? | no | no platform or day-2 gate |
 
@@ -124,8 +124,10 @@ ISO/IEC/IEEE 29119-3 §8.3.2. A coverage item is something the tests must reach.
 | C15 | Superseded Publication | [ACC-31](../12_ACCEPTANCE_SCENARIOS/ACC-31_superseded_publication.md) — High | *(name the test case)* |
 | C16 | Model Snapshot Drift | [ACC-36](../12_ACCEPTANCE_SCENARIOS/ACC-36_model_snapshot_drift.md) — Critical | *(name the test case)* |
 | C17 | Complete Project Audit Export | [ACC-40](../12_ACCEPTANCE_SCENARIOS/ACC-40_audit_export.md) — Critical | *(name the test case)* |
+| C18 | Claimless Publication Assertion | [ACC-52](../12_ACCEPTANCE_SCENARIOS/ACC-52_claimless_publication_assertion.md) — Critical | *(name the test case)* |
+| C19 | Unverified Numeric Result | [ACC-53](../12_ACCEPTANCE_SCENARIOS/ACC-53_unverified_numeric_result.md) — Critical | *(name the test case)* |
 
-**17 coverage items.** Every one must appear in the *Covered by* column of at least one test case below before this package can reach `TECH_COMPLETE`.
+**19 coverage items.** Every one must appear in the *Covered by* column of at least one test case below before this package can reach `TECH_COMPLETE`.
 
 <!-- /generated:coverage -->
 

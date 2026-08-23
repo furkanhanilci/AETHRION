@@ -130,6 +130,8 @@ An `ACCEPTED` package is still not production-ready. Every scenario below must p
 
 - [ ] `ACC-15` passes. A `SKIPPED` scenario on a Critical row does not count as a pass.
 - [ ] `ACC-17` passes. A `SKIPPED` scenario on a Critical row does not count as a pass.
+- [ ] `ACC-54` passes. A `SKIPPED` scenario on a Critical row does not count as a pass.
+- [ ] `ACC-55` passes. A `SKIPPED` scenario on a Critical row does not count as a pass.
 
 <!-- /generated:dod -->
 

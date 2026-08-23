@@ -218,7 +218,7 @@ findings, and the quality/cost Pareto frontier.
 ### What acceptance of this package releases
 
 - **Directly unblocked:** 5 — `WP-102` · `WP-105` · `WP-106` · `WP-135` · `WP-156`
-- **Transitively reachable:** **31 of 160 packages (19%)** cannot be accepted until this one is.
+- **Transitively reachable:** **28 of 160 packages (18%)** cannot be accepted until this one is.
 
 The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
 
@@ -243,6 +243,10 @@ The transitive figure is the leverage number. It does not appear anywhere else i
 |---|---|---|
 | [ACC-25 — Human Approval Forgery](../12_ACCEPTANCE_SCENARIOS/acc_25_human_approval_forgery.md) | Critical | The decision is rejected; gate state does not change and a security event and audit record are produced. A valid owner with MFA and an idempotent request passes as the counter-example. |
 | [ACC-26 — Approval, Delegation and Exception Expiry](../12_ACCEPTANCE_SCENARIOS/acc_26_approval_expiry.md) | Critical | The authority is auto-revoked; new operations are denied and running tasks pause or are contained according to policy. There is no automatic extension or re-approval. |
+| [ACC-68 — Human Intervention Without an Audit Record](../12_ACCEPTANCE_SCENARIOS/acc_68_human_intervention_audit.md) | Critical | The edit fails and rolls back. There is no path by which a human action changes canonical state without an atomically written `HumanInterventionRecord` carrying before and after references. |
+| [ACC-69 — Human Decision Timeout Must Not Auto-Approve](../12_ACCEPTANCE_SCENARIOS/acc_69_decision_timeout_no_autoapproval.md) | Critical | The state escalates and pages; it never becomes approved. No timeout, no learned preference, no inbound message and no low attention score creates a `DecisionRecord`. |
+| [ACC-110 — Human Preliminary Assessment Precedes the Recommendation](../12_ACCEPTANCE_SCENARIOS/acc_110_human_preliminary_assessment.md) | Critical | Neither interface exposes the recommendation before the `HumanPreliminaryAssessment` is sealed. After sealing, the recommendation is revealed and any change produces a `DecisionDelta`. |
+| [ACC-112 — Correction Friction Symmetry](../12_ACCEPTANCE_SCENARIOS/acc_112_correction_friction_symmetry.md) | High | Rejecting, revising and declaring insufficient basis require no more actions than approving. Evidence deep links open in one action. An interface that makes correction more laborious than approval fails this scenario. |
 
 <!-- /generated:dependency-analysis -->
 

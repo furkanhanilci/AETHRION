@@ -56,7 +56,7 @@ The evidence layers this package must satisfy, derived from the gates it touches
 | **E0** Structural | Does the file, schema or reference exist? | **yes** | never optional — the artifact must exist and behave |
 | **E1** Mechanical | Is the behaviour correct under a deterministic test? | **yes** | never optional — the artifact must exist and behave |
 | **E2** Security | Is the forbidden path actually blocked? | **yes** | never optional — a control that has not been observed refusing is prose |
-| **E3** Independent review | Did an actor outside the producer examine the semantics? | **yes** | bound to 4 acceptance scenario(s) · effort class L |
+| **E3** Independent review | Did an actor outside the producer examine the semantics? | **yes** | bound to 5 acceptance scenario(s) · effort class L |
 | **E4** Reproduction | Does the same package run again in a clean environment? | **yes** | touches G5 |
 | **E5** Operations | Are failure, restore and observability correct? | **yes** | touches Platform |
 
@@ -76,9 +76,10 @@ ISO/IEC/IEEE 29119-3 §8.6 requires each environment item to name a description,
 | Environment manifest | Hardware, image digest, SBOM — captured, not described | Incident Commander / SRE Lead | Captured at the start of the run |
 | Isolated workspace | A worktree or container separate from the producer's | Implementation owner | For the whole run |
 | Evidence sink | Somewhere `EvidenceManifest` can be issued and verified | Assurance Lead / Research Director | At completion |
+| `WP-015` accepted output | Event Envelope, Subject and Schema Taxonomy | Event Platform Lead | Before the first test case runs |
 | `WP-082` accepted output | Run Registry and MLflow Lineage Integration | Experiment Platform Lead | Before the first test case runs |
 | `WP-096` accepted output | OpenTelemetry End-to-End Correlation Spine | Observability Lead | Before the first test case runs |
-| `WP-128` accepted output | Incident, Postmortem and Learning Closure | Incident Commander / SRE Lead | Before the first test case runs |
+| `WP-099` accepted output | WORM Audit Ledger and Independent Export | Internal Audit Platform Lead | Before the first test case runs |
 | `WP-148` accepted output | Multi-Agent Collaboration Plane and Cohort Integrity | Research Director | Before the first test case runs |
 
 ### Environment readiness report — §8.8
@@ -139,10 +140,11 @@ ISO/IEC/IEEE 29119-3 §8.3.2. A coverage item is something the tests must reach.
 | C11 | Emit failure-class distribution and attribution-confidence metrics | WP-152-T07 | *(name the test case)* |
 | C12 | Faulty Agent Output Does Not Propagate | [ACC-091](../12_ACCEPTANCE_SCENARIOS/acc_091_faulty_agent_challenge.md) — Critical | *(name the test case)* |
 | C13 | Inspector Reviews High-Consequence Output | [ACC-092](../12_ACCEPTANCE_SCENARIOS/acc_092_inspector_high_consequence_review.md) — High | *(name the test case)* |
-| C14 | An Unattributable Failure Is `UNKNOWN` | [ACC-094](../12_ACCEPTANCE_SCENARIOS/acc_094_failure_cause_unknown.md) — High | *(name the test case)* |
-| C15 | Failure Taxonomy Routing | [ACC-095](../12_ACCEPTANCE_SCENARIOS/acc_095_failure_taxonomy_routing.md) — High | *(name the test case)* |
+| C14 | A Malicious Agent Cannot Bind Authority | [ACC-093](../12_ACCEPTANCE_SCENARIOS/acc_093_malicious_agent_cannot_bind_authority.md) — Critical | *(name the test case)* |
+| C15 | An Unattributable Failure Is `UNKNOWN` | [ACC-094](../12_ACCEPTANCE_SCENARIOS/acc_094_failure_cause_unknown.md) — High | *(name the test case)* |
+| C16 | Failure Taxonomy Routing | [ACC-095](../12_ACCEPTANCE_SCENARIOS/acc_095_failure_taxonomy_routing.md) — High | *(name the test case)* |
 
-**15 coverage items.** Every one must appear in the *Covered by* column of at least one test case below before this package can reach `TECH_COMPLETE`.
+**16 coverage items.** Every one must appear in the *Covered by* column of at least one test case below before this package can reach `TECH_COMPLETE`.
 
 <!-- /generated:coverage -->
 

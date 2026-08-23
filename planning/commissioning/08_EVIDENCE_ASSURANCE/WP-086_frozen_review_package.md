@@ -196,7 +196,7 @@ because the queue is long or the budget is tight.
 ### What acceptance of this package releases
 
 - **Directly unblocked:** 6 — `WP-087` · `WP-088` · `WP-105` · `WP-107` · `WP-126` · `WP-147`
-- **Transitively reachable:** **47 of 160 packages (29%)** cannot be accepted until this one is.
+- **Transitively reachable:** **46 of 160 packages (29%)** cannot be accepted until this one is.
 
 The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
 
@@ -221,6 +221,7 @@ The transitive figure is the leverage number. It does not appear anywhere else i
 |---|---|---|
 | [ACC-06 — Planner Self-Approval Attempt](../12_ACCEPTANCE_SCENARIOS/ACC-06_plan_self_approval.md) | Critical | The assignment is rejected by policy; the gate becomes `BLOCKED` or waits for a suitable independent reviewer, and the violation attempt is audited. |
 | [ACC-07 — Reviewer Order Bias](../12_ACCEPTANCE_SCENARIOS/ACC-07_reviewer_order_bias.md) | High | A material order effect fails the profile's calibration; the reviewer is not admitted to a critical role, or is suspended from it. |
+| [ACC-72 — Reviewer Isolation Before Review Lock](../12_ACCEPTANCE_SCENARIOS/ACC-72_reviewer_isolation_before_lock.md) | Critical | Both requests are denied before the lock. After the lock, the protocol's disclosure step permits the reveal. A scientific council recommendation in the packet is labelled as advice and carries no verdict. |
 
 <!-- /generated:dependency-analysis -->
 

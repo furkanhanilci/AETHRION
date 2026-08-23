@@ -161,7 +161,7 @@ findings, and the quality/cost Pareto frontier.
 ### What acceptance of this package releases
 
 - **Directly unblocked:** 9 — `WP-101` · `WP-102` · `WP-104` · `WP-111` · `WP-117` · `WP-127` · `WP-145` · `WP-150` · `WP-153`
-- **Transitively reachable:** **36 of 160 packages (22%)** cannot be accepted until this one is.
+- **Transitively reachable:** **33 of 160 packages (21%)** cannot be accepted until this one is.
 
 The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
 
@@ -186,6 +186,8 @@ The transitive figure is the leverage number. It does not appear anywhere else i
 |---|---|---|
 | [ACC-09 — Budget Hard Stop](../12_ACCEPTANCE_SCENARIOS/ACC-09_budget_hard_stop.md) | Critical | An 80% warning is raised; at 100% new expensive work is denied, the workflow pauses with state and checkpoints preserved, and no duplicate cost or reservation is created. |
 | [ACC-29 — Provider Invoice Variance](../12_ACCEPTANCE_SCENARIOS/ACC-29_invoice_variance.md) | Medium | A `VarianceCase` opens with a provider/project/model/time-bucket breakdown, an owner, an SLA and an adjustment or dispute path; ledger history is never deleted. |
+| [ACC-59 — Discovery Search Stagnation](../12_ACCEPTANCE_SCENARIOS/ACC-59_discovery_search_stagnation.md) | High | The detector fires at the configured boundary, the configured action is taken, and the campaign terminates. An unbounded search is impossible even if every model in it recommends continuing. |
+| [ACC-100 — Token Ledger Classification](../12_ACCEPTANCE_SCENARIOS/ACC-100_token_ledger_classification.md) | High | Every token carries one of the seven categories, the categories sum to the total, and the coordination overhead ratio is derivable from the ledger rather than estimated. |
 
 <!-- /generated:dependency-analysis -->
 

@@ -30,7 +30,7 @@ The evidence layers this package must satisfy, derived from the gates it touches
 | **E0** Structural | Does the file, schema or reference exist? | **yes** | never optional — the artifact must exist and behave |
 | **E1** Mechanical | Is the behaviour correct under a deterministic test? | **yes** | never optional — the artifact must exist and behave |
 | **E2** Security | Is the forbidden path actually blocked? | **yes** | never optional — a control that has not been observed refusing is prose |
-| **E3** Independent review | Did an actor outside the producer examine the semantics? | **yes** | bound to 2 acceptance scenario(s) · effort class L |
+| **E3** Independent review | Did an actor outside the producer examine the semantics? | **yes** | bound to 6 acceptance scenario(s) · effort class L |
 | **E4** Reproduction | Does the same package run again in a clean environment? | no | no execution or reproduction gate |
 | **E5** Operations | Are failure, restore and observability correct? | no | no platform or day-2 gate |
 
@@ -120,8 +120,12 @@ ISO/IEC/IEEE 29119-3 §8.3.2. A coverage item is something the tests must reach.
 | C15 | Write the decision history, revoke and supersede views | WP-093-T06 | *(name the test case)* |
 | C16 | Human Approval Forgery | [ACC-25](../12_ACCEPTANCE_SCENARIOS/ACC-25_human_approval_forgery.md) — Critical | *(name the test case)* |
 | C17 | Approval, Delegation and Exception Expiry | [ACC-26](../12_ACCEPTANCE_SCENARIOS/ACC-26_approval_expiry.md) — Critical | *(name the test case)* |
+| C18 | Human Intervention Without an Audit Record | [ACC-68](../12_ACCEPTANCE_SCENARIOS/ACC-68_human_intervention_audit.md) — Critical | *(name the test case)* |
+| C19 | Human Decision Timeout Must Not Auto-Approve | [ACC-69](../12_ACCEPTANCE_SCENARIOS/ACC-69_decision_timeout_no_autoapproval.md) — Critical | *(name the test case)* |
+| C20 | Human Preliminary Assessment Precedes the Recommendation | [ACC-110](../12_ACCEPTANCE_SCENARIOS/ACC-110_human_preliminary_assessment.md) — Critical | *(name the test case)* |
+| C21 | Correction Friction Symmetry | [ACC-112](../12_ACCEPTANCE_SCENARIOS/ACC-112_correction_friction_symmetry.md) — High | *(name the test case)* |
 
-**17 coverage items.** Every one must appear in the *Covered by* column of at least one test case below before this package can reach `TECH_COMPLETE`.
+**21 coverage items.** Every one must appear in the *Covered by* column of at least one test case below before this package can reach `TECH_COMPLETE`.
 
 <!-- /generated:coverage -->
 

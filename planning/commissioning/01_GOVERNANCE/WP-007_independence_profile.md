@@ -186,6 +186,8 @@ The transitive figure is the leverage number. It does not appear anywhere else i
 |---|---|---|
 | [ACC-06 — Planner Self-Approval Attempt](../12_ACCEPTANCE_SCENARIOS/ACC-06_plan_self_approval.md) | Critical | The assignment is rejected by policy; the gate becomes `BLOCKED` or waits for a suitable independent reviewer, and the violation attempt is audited. |
 | [ACC-38 — Critical Reviewer Unavailable](../12_ACCEPTANCE_SCENARIOS/ACC-38_reviewer_unavailable.md) | High | Neither the producer, a self-review, nor an ineligible fallback is used; the gate is `BLOCKED` and a human scheduling/escalation item and a capacity signal are produced. |
+| [ACC-65 — Reproduction in the Producer Environment](../12_ACCEPTANCE_SCENARIOS/ACC-65_reproduction_in_producer_environment.md) | Critical | The `IndependenceProfile` detects the shared environment lineage and refuses to award reproduced status. A run may still be executed and recorded, but it is classified as repeatability, not reproducibility. |
+| [ACC-72 — Reviewer Isolation Before Review Lock](../12_ACCEPTANCE_SCENARIOS/ACC-72_reviewer_isolation_before_lock.md) | Critical | Both requests are denied before the lock. After the lock, the protocol's disclosure step permits the reveal. A scientific council recommendation in the packet is labelled as advice and carries no verdict. |
 
 <!-- /generated:dependency-analysis -->
 

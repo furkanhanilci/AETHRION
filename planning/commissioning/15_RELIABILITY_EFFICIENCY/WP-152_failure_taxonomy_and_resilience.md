@@ -88,24 +88,23 @@ as recommending, in a field rather than in prose.
 
 ## Dependency and prerequisite analysis
 
-## Dependency and prerequisite analysis
-
 <!-- generated:dependency-analysis — produced by scripts/expand_packages.py; do not edit inside this block -->
 
 ### Direct hard dependencies
 
-4, each of which must be `ACCEPTED` — not `TECH_COMPLETE` — before this package is `READY`.
+5, each of which must be `ACCEPTED` — not `TECH_COMPLETE` — before this package is `READY`.
 
 | Package | Supplies to this package |
 |---|---|
+| [WP-015 — Event Envelope, Subject and Schema Taxonomy](../02_CONTRACTS/WP-015_event_envelope_taxonomy.md) | `EventEnvelope schema` · `Event Catalog seed` · `Subject/retention table` · `Consumer contract` |
 | [WP-082 — Run Registry and MLflow Lineage Integration](../08_EVIDENCE_ASSURANCE/WP-082_run_registry_mlflow.md) | `Run Registry` · `Preflight validator` · `MLflow integration` · `Run lineage queries` |
 | [WP-096 — OpenTelemetry End-to-End Correlation Spine](../09_EXPERIENCE_OBSERVABILITY/WP-096_otel_correlation.md) | `OTel platform` · `Semantic conventions` · `Instrumentation libraries` · `Trace completeness dashboard` |
-| [WP-128 — Incident, Postmortem and Learning Closure](../11_DAY2_OPERATIONS/WP-128_incident_learning.md) | `IncidentRecords` · `Forensic packages` · `Postmortems` · `Learning/action register` |
+| [WP-099 — WORM Audit Ledger and Independent Export](../09_EXPERIENCE_OBSERVABILITY/WP-099_audit_worm_export.md) | `Audit Ledger` · `Hash-chain service` · `Audit export/verify tooling` · `Retention/access policy` |
 | [WP-148 — Multi-Agent Collaboration Plane and Cohort Integrity](../15_RELIABILITY_EFFICIENCY/WP-148_multi_agent_collaboration_plane.md) | `AgentCohortRecord` · `CognitiveDiversityProfile` · `InitialPositionArtifact` · `MaterialChallenge` |
 
 ### Full prerequisite closure
 
-**126 of 160 packages (79%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
+**81 of 160 packages (51%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
 
 | Level | Packages |
 |---:|---|
@@ -129,51 +128,38 @@ as recommending, in a field rather than in prose.
 | 18 | `WP-027` · `WP-030` · `WP-042` |
 | 19 | `WP-031` · `WP-043` · `WP-052` |
 | 20 | `WP-032` · `WP-044` · `WP-053` |
-| 21 | `WP-033` · `WP-037` · `WP-039` · `WP-045` |
-| 22 | `WP-034` · `WP-038` · `WP-046` |
+| 21 | `WP-033` · `WP-037` · `WP-045` |
+| 22 | `WP-034` · `WP-046` |
 | 23 | `WP-035` · `WP-047` · `WP-049` |
-| 24 | `WP-036` · `WP-048` · `WP-050` · `WP-054` · `WP-055` |
-| 25 | `WP-040` · `WP-056` · `WP-091` |
-| 26 | `WP-057` · `WP-059` · `WP-061` · `WP-092` |
+| 24 | `WP-050` · `WP-054` · `WP-055` |
+| 25 | `WP-056` |
+| 26 | `WP-057` · `WP-059` · `WP-061` |
 | 27 | `WP-058` · `WP-064` · `WP-075` · `WP-141` |
-| 28 | `WP-060` · `WP-062` · `WP-081` · `WP-142` |
+| 28 | `WP-062` · `WP-081` · `WP-142` |
 | 29 | `WP-063` · `WP-065` · `WP-066` · `WP-069` · `WP-082` |
-| 30 | `WP-067` · `WP-070` · `WP-083` · `WP-084` · `WP-096` |
-| 31 | `WP-068` · `WP-071` · `WP-097` · `WP-099` · `WP-100` |
-| 32 | `WP-072` · `WP-076` · `WP-098` |
-| 33 | `WP-073` · `WP-077` · `WP-078` · `WP-094` · `WP-101` |
-| 34 | `WP-074` · `WP-079` · `WP-085` · `WP-103` |
+| 30 | `WP-067` · `WP-070` · `WP-096` |
+| 31 | `WP-068` · `WP-071` · `WP-099` |
+| 32 | `WP-072` · `WP-076` |
+| 33 | `WP-077` · `WP-078` |
+| 34 | `WP-079` |
 | 35 | `WP-080` |
 | 36 | `WP-086` |
-| 37 | `WP-087` · `WP-147` |
-| 38 | `WP-088` · `WP-148` |
-| 39 | `WP-089` |
-| 40 | `WP-090` · `WP-093` |
-| 41 | `WP-095` · `WP-102` · `WP-107` |
-| 42 | `WP-104` |
-| 43 | `WP-105` |
-| 44 | `WP-106` |
-| 45 | `WP-108` |
-| 46 | `WP-109` |
-| 47 | `WP-110` · `WP-111` · `WP-112` · `WP-113` · `WP-114` |
-| 48 | `WP-115` |
-| 49 | `WP-116` · `WP-117` |
-| 50 | `WP-118` |
-| 51 | `WP-119` |
-| 52 | `WP-120` |
-| 53 | `WP-121` |
-| 54 | `WP-128` |
+| 37 | `WP-147` |
+| 38 | `WP-148` |
 
 ### What acceptance of this package releases
 
-**Nothing.** No package names this one as a hard dependency, so accepting it unblocks no other work. That is normal for a terminal package and is worth knowing before it is prioritised over one that unblocks many.
+- **Directly unblocked:** 1 — `WP-128`
+- **Transitively reachable:** **2 of 160 packages (1%)** cannot be accepted until this one is.
+
+The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
 
 ### Position in the programme
 
 | | |
 |---|---|
-| Wave | unassigned |
-| Dependency depth | level **55** of 55 |
+| Wave | W-R — Reliability and efficiency |
+| Dependency depth | level **39** of 55 |
 | On the documented critical path | no |
 | Effort class | **L** |
 | Accountable owner | Incident Commander / SRE Lead |
@@ -189,6 +175,7 @@ as recommending, in a field rather than in prose.
 |---|---|---|
 | [ACC-091 — Faulty Agent Output Does Not Propagate](../12_ACCEPTANCE_SCENARIOS/ACC-091_faulty_agent_challenge.md) | Critical | The faulty output is challenged rather than absorbed, does not reach any canonical record, and the failure is classified and routed. The Challenger's finding does not itself close a gate. |
 | [ACC-092 — Inspector Reviews High-Consequence Output](../12_ACCEPTANCE_SCENARIOS/ACC-092_inspector_high_consequence_review.md) | High | Inconsistencies are raised as findings and routed. The Inspector holds no gate authority, and a clean Inspector result does not by itself satisfy any required verification. |
+| [ACC-093 — A Malicious Agent Cannot Bind Authority](../12_ACCEPTANCE_SCENARIOS/ACC-093_malicious_agent_cannot_bind_authority.md) | Critical | Every attempt is denied and audited. No agent can bind authority under any circumstance — authority is held by Temporal, by the signed decision path and by policy, none of which an agent can reach. |
 | [ACC-094 — An Unattributable Failure Is `UNKNOWN`](../12_ACCEPTANCE_SCENARIOS/ACC-094_failure_cause_unknown.md) | High | The failure is classified `UNKNOWN` and routed to human diagnosis. It is not forced into a named class, and `UNKNOWN` is a terminal classification rather than a pipeline defect. |
 | [ACC-095 — Failure Taxonomy Routing](../12_ACCEPTANCE_SCENARIOS/ACC-095_failure_taxonomy_routing.md) | High | Each reaches its owning discipline. A `HYPOTHESIS` class is reachable only from a validly executed run under the frozen plan — the other classes cannot produce it however the run failed. |
 
@@ -205,8 +192,6 @@ as recommending, in a field rather than in prose.
 
 ## Execution requirements
 
-## Execution requirements
-
 <!-- generated:execution-requirements — produced by scripts/expand_packages.py; do not edit inside this block -->
 
 ### Inputs that must exist before the first task starts
@@ -215,6 +200,11 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 
 | Required input | Comes from | Accepted? |
 |---|---|---|
+| `EventEnvelope schema` | `WP-015` | `python3 scripts/progress.py show WP-015` |
+| `Event Catalog seed` | `WP-015` | `python3 scripts/progress.py show WP-015` |
+| `Subject/retention table` | `WP-015` | `python3 scripts/progress.py show WP-015` |
+| `Consumer contract` | `WP-015` | `python3 scripts/progress.py show WP-015` |
+| `Post-commit event taxonomy for the collaboration plane` | `WP-015` | `python3 scripts/progress.py show WP-015` |
 | `Run Registry` | `WP-082` | `python3 scripts/progress.py show WP-082` |
 | `Preflight validator` | `WP-082` | `python3 scripts/progress.py show WP-082` |
 | `MLflow integration` | `WP-082` | `python3 scripts/progress.py show WP-082` |
@@ -229,11 +219,11 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `Semantic conventions` | `WP-096` | `python3 scripts/progress.py show WP-096` |
 | `Instrumentation libraries` | `WP-096` | `python3 scripts/progress.py show WP-096` |
 | `Trace completeness dashboard` | `WP-096` | `python3 scripts/progress.py show WP-096` |
-| `IncidentRecords` | `WP-128` | `python3 scripts/progress.py show WP-128` |
-| `Forensic packages` | `WP-128` | `python3 scripts/progress.py show WP-128` |
-| `Postmortems` | `WP-128` | `python3 scripts/progress.py show WP-128` |
-| `Learning/action register` | `WP-128` | `python3 scripts/progress.py show WP-128` |
-| `Closure evidence` | `WP-128` | `python3 scripts/progress.py show WP-128` |
+| `Audit Ledger` | `WP-099` | `python3 scripts/progress.py show WP-099` |
+| `Hash-chain service` | `WP-099` | `python3 scripts/progress.py show WP-099` |
+| `Audit export/verify tooling` | `WP-099` | `python3 scripts/progress.py show WP-099` |
+| `Retention/access policy` | `WP-099` | `python3 scripts/progress.py show WP-099` |
+| `Integrity dashboard` | `WP-099` | `python3 scripts/progress.py show WP-099` |
 | `AgentCohortRecord` | `WP-148` | `python3 scripts/progress.py show WP-148` |
 | `CognitiveDiversityProfile` | `WP-148` | `python3 scripts/progress.py show WP-148` |
 | `InitialPositionArtifact` | `WP-148` | `python3 scripts/progress.py show WP-148` |

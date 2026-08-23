@@ -166,6 +166,9 @@ The transitive figure is the leverage number. It does not appear anywhere else i
 | [ACC-10 — Primary Model Provider Outage](../12_ACCEPTANCE_SCENARIOS/ACC-10_provider_outage.md) | High | Only an admitted fallback is chosen; route, family and independence are recomputed, SLO and cost records are written, and the task is not duplicated. |
 | [ACC-36 — Model Snapshot Drift](../12_ACCEPTANCE_SCENARIOS/ACC-36_model_snapshot_drift.md) | Critical | The profile moves to suspension or requalification, the router cache is invalidated and an `ImpactScan` opens for open tasks, runs and claims; there is no unsafe fallback. |
 | [ACC-37 — Evaluation Set Contamination](../12_ACCEPTANCE_SCENARIOS/ACC-37_eval_contamination.md) | Critical | The evaluation bundle is invalidated; the qualification and profile decisions that depended on it are suspended, and a clean set and re-evaluation process opens. |
+| [ACC-61 — Unqualified Semantic Verifier](../12_ACCEPTANCE_SCENARIOS/ACC-61_unqualified_semantic_verifier.md) | Critical | The verdict is recorded as advisory and cannot satisfy the requirement; the gate blocks with `INCONCLUSIVE` rather than passing or failing the claim on an unqualified judgement. |
+| [ACC-107 — Expired Verifier Qualification](../12_ACCEPTANCE_SCENARIOS/ACC-107_expired_verifier_qualification.md) | Critical | Both yield `INCONCLUSIVE` and block the gate. Their verdicts are retained as advisory. Only a current, matching qualification satisfies the requirement. |
+| [ACC-109 — Verifier Abstention Is a Valid Result](../12_ACCEPTANCE_SCENARIOS/ACC-109_verifier_abstention_is_valid.md) | High | The ambiguous case yields `ABSTAIN`, which escalates rather than passing or failing. The unambiguous cases yield verdicts. A verifier that never abstains on the ambiguous set fails qualification. |
 
 <!-- /generated:dependency-analysis -->
 

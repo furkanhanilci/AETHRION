@@ -221,7 +221,7 @@ because the queue is long or the budget is tight.
 ### What acceptance of this package releases
 
 - **Directly unblocked:** 7 — `WP-095` · `WP-106` · `WP-107` · `WP-108` · `WP-109` · `WP-113` · `WP-138`
-- **Transitively reachable:** **33 of 160 packages (21%)** cannot be accepted until this one is.
+- **Transitively reachable:** **29 of 160 packages (18%)** cannot be accepted until this one is.
 
 The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
 
@@ -247,6 +247,11 @@ The transitive figure is the leverage number. It does not appear anywhere else i
 | [ACC-30 — Publication Completeness](../12_ACCEPTANCE_SCENARIOS/ACC-30_publication_completeness.md) | Critical | No publication package, signature or release is produced; G9 is FAIL/REVISE and a correction queue opens. Once the missing link is supplied, a new package version can pass. |
 | [ACC-31 — Superseded Publication](../12_ACCEPTANCE_SCENARIOS/ACC-31_superseded_publication.md) | High | The old package stays reachable but is clearly marked superseded; the new package references its predecessor and the reason, and consumers receive an impact event. |
 | [ACC-40 — Complete Project Audit Export](../12_ACCEPTANCE_SCENARIOS/ACC-40_audit_export.md) | Critical | The signed export verifies with complete correlation and hash chain; a missing or tampered fixture fails verification and raises an incident. |
+| [ACC-52 — Claimless Publication Assertion](../12_ACCEPTANCE_SCENARIOS/ACC-52_claimless_publication_assertion.md) | Critical | The build fails; the sentence's location and the missing relation are reported; no signed `PublicationPackage` is produced. Prose whose `text_role` declares it structural or editorial is not affected. |
+| [ACC-53 — Unverified Numeric Result](../12_ACCEPTANCE_SCENARIOS/ACC-53_unverified_numeric_result.md) | Critical | The build fails regardless of the quality of the surrounding prose; the report lists the value refs that were permitted and the one that was not. A declared rounding or display transform of a registered value passes. |
+| [ACC-76 — Unsupported Publication Sentence](../12_ACCEPTANCE_SCENARIOS/ACC-76_unsupported_publication_sentence.md) | Critical | The reference-existence check passes at V0, and the entailment and scope checks fail at V2. Publication is blocked. A control sentence whose citation genuinely supports it passes both. |
+| [ACC-105 — A Claim Without a Complete Evidence Chain](../12_ACCEPTANCE_SCENARIOS/ACC-105_claim_without_evidence_chain.md) | Critical | The break is found and named at the failing link, and publication is blocked. A complete chain passes, so the audit discriminates rather than blocking every claim. |
+| [ACC-106 — A Number Without a VerifiedValue](../12_ACCEPTANCE_SCENARIOS/ACC-106_numeric_value_without_verifiedvalue.md) | Critical | The build fails and names the ungrounded figure. A registered value passes, and a declared rounding of a registered value passes and records its display transform. |
 
 <!-- /generated:dependency-analysis -->
 

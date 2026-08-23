@@ -55,7 +55,7 @@ The evidence layers this package must satisfy, derived from the gates it touches
 | **E0** Structural | Does the file, schema or reference exist? | **yes** | never optional — the artifact must exist and behave |
 | **E1** Mechanical | Is the behaviour correct under a deterministic test? | **yes** | never optional — the artifact must exist and behave |
 | **E2** Security | Is the forbidden path actually blocked? | **yes** | never optional — a control that has not been observed refusing is prose |
-| **E3** Independent review | Did an actor outside the producer examine the semantics? | **yes** | bound to 2 acceptance scenario(s) · effort class L |
+| **E3** Independent review | Did an actor outside the producer examine the semantics? | **yes** | bound to 5 acceptance scenario(s) · effort class L |
 | **E4** Reproduction | Does the same package run again in a clean environment? | no | no execution or reproduction gate |
 | **E5** Operations | Are failure, restore and observability correct? | **yes** | touches Platform |
 
@@ -148,8 +148,11 @@ ISO/IEC/IEEE 29119-3 §8.3.2. A coverage item is something the tests must reach.
 | C18 | Run **cross-model and cross-harness** compliance for every non-waivable skill | WP-043-T25 | *(name the test case)* |
 | C19 | Reviewer Order Bias | [ACC-07](../12_ACCEPTANCE_SCENARIOS/acc_07_reviewer_order_bias.md) — High | *(name the test case)* |
 | C20 | Evaluation Set Contamination | [ACC-37](../12_ACCEPTANCE_SCENARIOS/acc_37_eval_contamination.md) — Critical | *(name the test case)* |
+| C21 | Wrong or Competing Skill Selected | [ACC-48](../12_ACCEPTANCE_SCENARIOS/acc_48_wrong_skill_selected.md) — High | *(name the test case)* |
+| C22 | Non-Waivable Skill Ignored Under Pressure | [ACC-49](../12_ACCEPTANCE_SCENARIOS/acc_49_skill_ignored_under_pressure.md) — Critical | *(name the test case)* |
+| C23 | Governed Versus Ungoverned Research Harness | [ACC-80](../12_ACCEPTANCE_SCENARIOS/acc_80_governed_versus_ungoverned_harness.md) — Medium | *(name the test case)* |
 
-**20 coverage items.** Every one must appear in the *Covered by* column of at least one test case below before this package can reach `TECH_COMPLETE`.
+**23 coverage items.** Every one must appear in the *Covered by* column of at least one test case below before this package can reach `TECH_COMPLETE`.
 
 <!-- /generated:coverage -->
 

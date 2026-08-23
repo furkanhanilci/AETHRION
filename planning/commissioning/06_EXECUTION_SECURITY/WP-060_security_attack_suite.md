@@ -173,7 +173,7 @@ injection, memory poisoning and credential exfiltration.
 ### What acceptance of this package releases
 
 - **Directly unblocked:** 6 — `WP-109` · `WP-112` · `WP-116` · `WP-123` · `WP-128` · `WP-130`
-- **Transitively reachable:** **25 of 160 packages (16%)** cannot be accepted until this one is.
+- **Transitively reachable:** **22 of 160 packages (14%)** cannot be accepted until this one is.
 
 The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
 
@@ -206,6 +206,9 @@ The transitive figure is the leverage number. It does not appear anywhere else i
 | [ACC-25 — Human Approval Forgery](../12_ACCEPTANCE_SCENARIOS/ACC-25_human_approval_forgery.md) | Critical | The decision is rejected; gate state does not change and a security event and audit record are produced. A valid owner with MFA and an idempotent request passes as the counter-example. |
 | [ACC-32 — Secret in Prompt or Trace](../12_ACCEPTANCE_SCENARIOS/ACC-32_secret_in_trace.md) | Critical | The secret never appears in raw telemetry, events or the UI; redaction or quarantine occurs, a security event is raised and the credential is revoked. |
 | [ACC-37 — Evaluation Set Contamination](../12_ACCEPTANCE_SCENARIOS/ACC-37_eval_contamination.md) | Critical | The evaluation bundle is invalidated; the qualification and profile decisions that depended on it are suspended, and a clean set and re-evaluation process opens. |
+| [ACC-55 — Hidden Evaluation Data Access Attempt](../12_ACCEPTANCE_SCENARIOS/ACC-55_hidden_evaluation_data_access.md) | Critical | Access is denied under the supported threat model, no hidden content appears in any candidate artifact, log or trace, and each attempt raises a security finding. |
+| [ACC-093 — A Malicious Agent Cannot Bind Authority](../12_ACCEPTANCE_SCENARIOS/ACC-093_malicious_agent_cannot_bind_authority.md) | Critical | Every attempt is denied and audited. No agent can bind authority under any circumstance — authority is held by Temporal, by the signed decision path and by policy, none of which an agent can reach. |
+| [ACC-117 — Prompt Injection Meets a Capability Gate](../12_ACCEPTANCE_SCENARIOS/ACC-117_prompt_injection_capability_gate.md) | Critical | The action is unavailable because policy did not grant the capability, not because a detector recognised the text. Content crosses the boundary; authority does not. |
 
 <!-- /generated:dependency-analysis -->
 

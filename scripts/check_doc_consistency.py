@@ -207,12 +207,78 @@ def check_decision_records() -> list[str]:
     return problems
 
 
+
+def check_matrix_references() -> list[str]:
+    """Every WP/ACC identifier named in the scope coverage matrix must exist.
+
+    The matrix answers "does any architecture area lack an implementation and
+    acceptance owner". A row citing a package that was renamed reads exactly
+    like a row citing one that exists, so the document could report full
+    coverage while pointing at nothing — and the closed-row sections are where
+    that is most likely, because a row is closed once and read forever after.
+
+    Deliberately shallow. This checks that the identifiers RESOLVE. Whether the
+    named package genuinely satisfies the gap is a human judgement and stays
+    one: the failure this matrix guards against is closing a row because a
+    similarly-named package appeared, and a checker that matched names would
+    endorse exactly that.
+    """
+    matrix = PLAN / "00_PROGRAM" / "11_scope_coverage_matrix.md"
+    if not matrix.exists():
+        return []
+    text = matrix.read_text(encoding="utf-8")
+    packages = {p.name[:6] for p in PLAN.rglob("WP-*.md")
+                if re.match(r"^WP-\d{3}_", p.name)}
+    scenarios = {re.match(r"^(ACC-\d{2,3})_", p.name).group(1)
+                 for p in (PLAN / "12_ACCEPTANCE_SCENARIOS").glob("ACC-*.md")
+                 if re.match(r"^ACC-\d{2,3}_", p.name)}
+
+    problems = []
+    for match in re.finditer(r"\bWP-(\d{3})\b", text):
+        pid = f"WP-{match.group(1)}"
+        if pid not in packages:
+            line = text[:match.start()].count("\n") + 1
+            problems.append(
+                f"11_scope_coverage_matrix.md:{line}: names {pid}, which is not "
+                f"a package in the plan")
+    # Ranges like "ACC-081–120" name their endpoints; both must resolve.
+    for match in re.finditer(r"\bACC-(\d{2,3})\b", text):
+        sid = f"ACC-{match.group(1)}"
+        if sid not in scenarios:
+            line = text[:match.start()].count("\n") + 1
+            problems.append(
+                f"11_scope_coverage_matrix.md:{line}: names {sid}, which is not "
+                f"a scenario in the plan")
+    return problems
+
+
+def check_baseline_agreement() -> list[str]:
+    """One baseline identity, named in one place, agreed everywhere it appears.
+
+    `programme_metadata.json` owns it. `delivery/progress.json` carries it too
+    because progress lives outside the seal and must still say which
+    specification it is progress against — so the two are compared rather than
+    one being derived, and a disagreement is a hard failure.
+    """
+    meta = PLAN / "00_PROGRAM" / "programme_metadata.json"
+    ledger = ROOT / "delivery" / "progress.json"
+    if not (meta.exists() and ledger.exists()):
+        return []
+    canonical = json.loads(meta.read_text(encoding="utf-8"))["commissioning_baseline"]["version"]
+    recorded = json.loads(ledger.read_text(encoding="utf-8")).get("baseline")
+    if recorded != canonical:
+        return [f"delivery/progress.json says baseline {recorded!r}; "
+                f"00_PROGRAM/programme_metadata.json says {canonical!r}"]
+    return []
+
+
 def main() -> int:
     truth = derive()
     print("derived from the repository: " +
           " · ".join(f"{k} {v}" for k, v in truth.items() if k != "highest_scenario"))
 
-    problems = check_counts(truth) + check_decision_records()
+    problems = (check_counts(truth) + check_decision_records()
+                + check_matrix_references() + check_baseline_agreement())
     for problem in problems:
         print(f"  ✗ {problem}")
 

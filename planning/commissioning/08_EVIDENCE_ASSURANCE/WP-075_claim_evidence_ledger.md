@@ -197,6 +197,10 @@ The transitive figure is the leverage number. It does not appear anywhere else i
 | [ACC-08 — Strong Counter-Test](../12_ACCEPTANCE_SCENARIOS/ACC-08_strong_counter_test.md) | Critical | The majority vote does not override the test; the claim becomes `CHALLENGED`/`REJECTED`, a `DisagreementCase` opens and G6 does not pass. |
 | [ACC-30 — Publication Completeness](../12_ACCEPTANCE_SCENARIOS/ACC-30_publication_completeness.md) | Critical | No publication package, signature or release is produced; G9 is FAIL/REVISE and a correction queue opens. Once the missing link is supplied, a new package version can pass. |
 | [ACC-31 — Superseded Publication](../12_ACCEPTANCE_SCENARIOS/ACC-31_superseded_publication.md) | High | The old package stays reachable but is clearly marked superseded; the new package references its predecessor and the reason, and consumers receive an impact event. |
+| [ACC-70 — EvidenceGap Lifecycle](../12_ACCEPTANCE_SCENARIOS/ACC-70_evidence_gap_lifecycle.md) | High | The wrong evidence does not close the gap; the qualifying evidence satisfies it; the retraction reopens it with its full history intact. An open gap never authorises work by itself. |
+| [ACC-78 — Raw Evidence Versus Interpretation](../12_ACCEPTANCE_SCENARIOS/ACC-78_raw_evidence_versus_interpretation.md) | Critical | The finding gains a new version; every raw artifact's bytes and digest are unchanged. The direct raw edit is refused. Interpretation is revisable; evidence is not. |
+| [ACC-085 — A Blackboard Entry Is Not Evidence](../12_ACCEPTANCE_SCENARIOS/ACC-085_blackboard_entry_is_not_evidence.md) | Critical | Both attempts are refused. After deletion, no canonical scientific record is lost — everything that mattered was an artifact, a span, a claim or a finding, and the entry only pointed at it. |
+| [ACC-105 — A Claim Without a Complete Evidence Chain](../12_ACCEPTANCE_SCENARIOS/ACC-105_claim_without_evidence_chain.md) | Critical | The break is found and named at the failing link, and publication is blocked. A complete chain passes, so the audit discriminates rather than blocking every claim. |
 
 <!-- /generated:dependency-analysis -->
 

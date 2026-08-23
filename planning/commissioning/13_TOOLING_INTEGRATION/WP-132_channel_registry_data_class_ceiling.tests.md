@@ -30,7 +30,7 @@ The evidence layers this package must satisfy, derived from the gates it touches
 | **E0** Structural | Does the file, schema or reference exist? | **yes** | never optional — the artifact must exist and behave |
 | **E1** Mechanical | Is the behaviour correct under a deterministic test? | **yes** | never optional — the artifact must exist and behave |
 | **E2** Security | Is the forbidden path actually blocked? | **yes** | never optional — a control that has not been observed refusing is prose |
-| **E3** Independent review | Did an actor outside the producer examine the semantics? | **yes** | bound to 1 acceptance scenario(s) |
+| **E3** Independent review | Did an actor outside the producer examine the semantics? | **yes** | bound to 2 acceptance scenario(s) |
 | **E4** Reproduction | Does the same package run again in a clean environment? | no | no execution or reproduction gate |
 | **E5** Operations | Are failure, restore and observability correct? | **yes** | touches Platform |
 
@@ -105,8 +105,9 @@ ISO/IEC/IEEE 29119-3 §8.3.2. A coverage item is something the tests must reach.
 | C05 | First channels: ntfy (self-hosted) + Telegram | WP-132-T05 | *(name the test case)* |
 | C06 | Define the egress allowlist separately per channel | WP-132-T06 | *(name the test case)* |
 | C07 | Outbound Notification Exceeds the Channel Data-Class Ceiling | [ACC-41](../12_ACCEPTANCE_SCENARIOS/ACC-41_notification_data_class_ceiling.md) — Critical | *(name the test case)* |
+| C08 | Human Decision Timeout Must Not Auto-Approve | [ACC-69](../12_ACCEPTANCE_SCENARIOS/ACC-69_decision_timeout_no_autoapproval.md) — Critical | *(name the test case)* |
 
-**7 coverage items.** Every one must appear in the *Covered by* column of at least one test case below before this package can reach `TECH_COMPLETE`.
+**8 coverage items.** Every one must appear in the *Covered by* column of at least one test case below before this package can reach `TECH_COMPLETE`.
 
 <!-- /generated:coverage -->
 

@@ -2,7 +2,7 @@
 """Answer one question: which work packages can be started right now?
 
 Why this exists
-    The plan is 141 packages in a dependency graph. "What do I do next" is a
+    The plan is a dependency graph of every commissioning package. "What do I do next" is a
     graph query, and asking a human to run it by reading 141 documents is how a
     plan stops being used. This computes it.
 

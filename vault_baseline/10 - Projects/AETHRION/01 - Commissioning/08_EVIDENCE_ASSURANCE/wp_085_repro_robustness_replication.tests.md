@@ -54,7 +54,7 @@ The evidence layers this package must satisfy, derived from the gates it touches
 | **E0** Structural | Does the file, schema or reference exist? | **yes** | never optional — the artifact must exist and behave |
 | **E1** Mechanical | Is the behaviour correct under a deterministic test? | **yes** | never optional — the artifact must exist and behave |
 | **E2** Security | Is the forbidden path actually blocked? | **yes** | never optional — a control that has not been observed refusing is prose |
-| **E3** Independent review | Did an actor outside the producer examine the semantics? | **yes** | bound to 2 acceptance scenario(s) · effort class L |
+| **E3** Independent review | Did an actor outside the producer examine the semantics? | **yes** | bound to 7 acceptance scenario(s) · effort class L |
 | **E4** Reproduction | Does the same package run again in a clean environment? | **yes** | touches G7 |
 | **E5** Operations | Are failure, restore and observability correct? | no | no platform or day-2 gate |
 
@@ -145,8 +145,13 @@ ISO/IEC/IEEE 29119-3 §8.3.2. A coverage item is something the tests must reach.
 | C15 | Produce tolerance, pre-registration, root-cause, disposition and certificate records | WP-085-T06 | *(name the test case)* |
 | C16 | Clean-Room Reproduction Pass | [ACC-19](../12_ACCEPTANCE_SCENARIOS/acc_19_clean_room_pass.md) — High | *(name the test case)* |
 | C17 | Clean-Room Reproduction Failure | [ACC-20](../12_ACCEPTANCE_SCENARIOS/acc_20_clean_room_fail.md) — Critical | *(name the test case)* |
+| C18 | Reproduction in the Producer Environment | [ACC-65](../12_ACCEPTANCE_SCENARIOS/acc_65_reproduction_in_producer_environment.md) — Critical | *(name the test case)* |
+| C19 | Standalone Reproduction Package | [ACC-66](../12_ACCEPTANCE_SCENARIOS/acc_66_standalone_reproduction_package.md) — Critical | *(name the test case)* |
+| C20 | Claim–Code–Result Consistency Failure | [ACC-67](../12_ACCEPTANCE_SCENARIOS/acc_67_claim_code_result_consistency.md) — Critical | *(name the test case)* |
+| C21 | Reproduction Environment Lineage | [ACC-114](../12_ACCEPTANCE_SCENARIOS/acc_114_reproduction_in_producer_environment_hardened.md) — Critical | *(name the test case)* |
+| C22 | Distributional Reproduction for a Hosted Model | [ACC-116](../12_ACCEPTANCE_SCENARIOS/acc_116_distributional_hosted_model_reproduction.md) — High | *(name the test case)* |
 
-**17 coverage items.** Every one must appear in the *Covered by* column of at least one test case below before this package can reach `TECH_COMPLETE`.
+**22 coverage items.** Every one must appear in the *Covered by* column of at least one test case below before this package can reach `TECH_COMPLETE`.
 
 <!-- /generated:coverage -->
 

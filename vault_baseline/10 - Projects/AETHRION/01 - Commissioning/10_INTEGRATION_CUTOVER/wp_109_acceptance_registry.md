@@ -98,7 +98,7 @@ a way to pass.
 ### Baseline v1.2.0 — the registry is count-neutral by construction
 
 This package was titled *Forty Acceptance Scenario Registry and Harness* while the
-plan held fifty-one scenarios, and now holds eighty. The number in the title was
+plan held fifty-one scenarios; it now holds the number the registry reports, and the title stopped naming it for exactly this reason. The number in the title was
 wrong twice for the same reason, and the second time it was wrong in a document
 whose job is to know how many scenarios there are.
 
@@ -166,7 +166,7 @@ which is why they are caused deliberately rather than waited for.
 
 ### Full prerequisite closure
 
-**108 of 160 packages (68%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
+**109 of 160 packages (68%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
 
 | Level | Packages |
 |---:|---|
@@ -198,7 +198,7 @@ which is why they are caused deliberately rather than waited for.
 | 26 | `WP-057` · `WP-059` · `WP-061` · `WP-092` |
 | 27 | `WP-058` · `WP-064` · `WP-075` |
 | 28 | `WP-060` · `WP-062` · `WP-081` |
-| 29 | `WP-063` · `WP-065` · `WP-066` · `WP-069` · `WP-082` |
+| 29 | `WP-063` · `WP-065` · `WP-066` · `WP-069` · `WP-082` · `WP-154` |
 | 30 | `WP-067` · `WP-070` · `WP-083` · `WP-084` · `WP-096` |
 | 31 | `WP-068` · `WP-071` · `WP-097` · `WP-099` · `WP-100` |
 | 32 | `WP-072` · `WP-076` · `WP-098` |
@@ -219,7 +219,7 @@ which is why they are caused deliberately rather than waited for.
 ### What acceptance of this package releases
 
 - **Directly unblocked:** 6 — `WP-110` · `WP-111` · `WP-112` · `WP-113` · `WP-114` · `WP-130`
-- **Transitively reachable:** **24 of 160 packages (15%)** cannot be accepted until this one is.
+- **Transitively reachable:** **21 of 160 packages (13%)** cannot be accepted until this one is.
 
 The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
 
@@ -238,9 +238,11 @@ The transitive figure is the leverage number. It does not appear anywhere else i
 
 ### Acceptance scenarios that exercise this package
 
-**None.** No acceptance scenario names this package.
+`COMMISSIONED` requires every scenario below to pass **on the same release candidate**. A `SKIPPED` scenario on a `Critical` row does not count as a pass.
 
-> `00_PROGRAM/11_scope_coverage_matrix.md` states the rule this trips: *a row with a primary package but no acceptance column is a capability nobody will ever be asked to demonstrate.* This package can reach `ACCEPTED` on its own tests, but it cannot reach `COMMISSIONED` through a scenario, because there is none to pass.
+| Scenario | Severity | What it must show |
+|---|---|---|
+| [ACC-40 — Complete Project Audit Export](../12_ACCEPTANCE_SCENARIOS/acc_40_audit_export.md) | Critical | The signed export verifies with complete correlation and hash chain; a missing or tampered fixture fails verification and raises an incident. |
 
 <!-- /generated:dependency-analysis -->
 

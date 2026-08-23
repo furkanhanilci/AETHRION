@@ -45,6 +45,14 @@ import sys
 from collections import defaultdict
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import programme_model                                    # noqa: E402
+
+
+def _model():
+    return programme_model.load()
+
+
 ROOT = Path(__file__).resolve().parent.parent
 PLAN = ROOT / "planning" / "commissioning"
 MATRIX = PLAN / "00_PROGRAM" / "package_dependency_matrix.csv"
@@ -53,23 +61,12 @@ SCENARIOS = PLAN / "12_ACCEPTANCE_SCENARIOS"
 OPEN = "<!-- generated:{name} — produced by scripts/expand_packages.py; do not edit inside this block -->"
 CLOSE = "<!-- /generated:{name} -->"
 
-# Wave membership, from 00_PROGRAM/02_wave_and_dependency_map.md. Ranges are
-# inclusive. WP-000 and the tooling wave are named explicitly because neither
-# follows the numeric sequence.
-WAVES = [
-    ("WB — Bootstrap", {0}),
-    ("W0 — Programme lock", set(range(1, 11))),
-    ("W1 — Contract spine", set(range(11, 21))),
-    ("W2 — Platform backbone", set(range(21, 32)) | {51} | set(range(55, 60))),
-    ("W3 — Control and runtime", set(range(32, 51)) | {52, 53, 54, 60}),
-    ("W4 — Knowledge and evidence", set(range(61, 91))),
-    ("W5 — Human and visibility", set(range(91, 102))),
-    ("W6 — Vertical integration", set(range(102, 116))),
-    ("W7 — Commissioning", set(range(116, 120))),
-    ("W8 — Cutover", {120, 121}),
-    ("W9 — Day-2", set(range(122, 131))),
-    ("W-T — Tooling", set(range(131, 141))),
-]
+# Wave membership, phase and scenario bindings all come from the canonical
+# model now. This file used to carry its own WAVES table, ending at WP-140 —
+# and so did fig_waves.py, with a second copy that also ended at WP-140. Both
+# were written before WP-141–159 existed and neither noticed them: `wave_of`
+# returned "unassigned" for nineteen packages and the figure rendered a total
+# that was nineteen short, deterministically and reproducibly.
 
 # The critical path as the wave map draws it. Membership is a claim the plan
 # makes about itself, so it is quoted rather than recomputed: a package can sit
@@ -101,8 +98,13 @@ def load_packages() -> dict[str, dict]:
             "gates": [g.strip() for g in re.split(r"[;,]", row["gates"]) if g.strip()],
             # The matrix uses ";" in most rows and "," in others; both are separators.
             "controls": [c.strip() for c in re.split(r"[;,]", row["controls"]) if c.strip()],
-            "scenarios": [s.strip() for s in re.split(r"[;,]", row["scenarios"])
-                          if s.strip() and s.strip() != "—"],
+            "phase": row["scheduling_phase"].strip(),
+            "wave": row["wave_id"].strip(),
+            "selector": row["scenario_selector"].strip(),
+            # Resolved from the canonical model: explicit bindings come from the
+            # scenario documents, and an aggregator's selector adds the rest.
+            "scenarios": [s for s, _ in _model().resolve_scenarios(pid)],
+            "scenario_reasons": dict(_model().resolve_scenarios(pid)),
         }
     return packages
 
@@ -183,11 +185,14 @@ def build_graph(packages: dict[str, dict]):
 
 
 def wave_of(pid: str) -> str:
-    number = int(pid.split("-")[1])
-    for name, members in WAVES:
-        if number in members:
-            return name
-    return "unassigned"
+    """The wave a package is in, from the registry — never from its number.
+
+    The previous version read the number and matched it against a range table.
+    That silently returned "unassigned" for every package added after the table
+    was written, which is a defect no check could see: "unassigned" is a string,
+    and the block containing it regenerated cleanly forever.
+    """
+    return _model().wave_name(_model().packages[pid].wave)
 
 
 # ---- rendering -------------------------------------------------------------
@@ -289,12 +294,26 @@ def render_dependencies(pid, packages, forward, reverse, depth, closure, blast,
         add("`COMMISSIONED` requires every scenario below to pass **on the same release "
             "candidate**. A `SKIPPED` scenario on a `Critical` row does not count as a pass.")
         add("")
-        add("| Scenario | Severity | What it must show |")
-        add("|---|---|---|")
+        if package["selector"]:
+            add(f"This package is an **aggregator**: its commissioning set is the "
+                f"registry query `{package['selector']}`, evaluated at generation "
+                f"time. Adding a scenario in that phase adds it here, and nobody "
+                f"has to remember to. The `Why` column below distinguishes the "
+                f"rows that arrived by rule from the ones bound deliberately — "
+                f"an aggregate that cannot be audited row by row is a list with "
+                f"extra steps.")
+            add("")
+        reasons = package.get("scenario_reasons", {})
+        show_why = bool(package["selector"])
+        add("| Scenario | Severity | Why |"
+            if show_why else "| Scenario | Severity | What it must show |")
+        add("|---|---|---|" if show_why else "|---|---|---|")
         for scenario in bound:
             then = scenario["then"].replace("|", "\\|")
             link = f"../12_ACCEPTANCE_SCENARIOS/{scenario['path'].name}"
-            add(f"| [{scenario['id']} — {scenario['title']}]({link}) | {scenario['severity']} | {then} |")
+            last = reasons.get(scenario["id"], "explicit binding") if show_why else then
+            add(f"| [{scenario['id']} — {scenario['title']}]({link}) "
+                f"| {scenario['severity']} | {last} |")
     return lines
 
 

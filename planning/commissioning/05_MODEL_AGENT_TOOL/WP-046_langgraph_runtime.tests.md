@@ -30,7 +30,7 @@ The evidence layers this package must satisfy, derived from the gates it touches
 | **E0** Structural | Does the file, schema or reference exist? | **yes** | never optional — the artifact must exist and behave |
 | **E1** Mechanical | Is the behaviour correct under a deterministic test? | **yes** | never optional — the artifact must exist and behave |
 | **E2** Security | Is the forbidden path actually blocked? | **yes** | never optional — a control that has not been observed refusing is prose |
-| **E3** Independent review | Did an actor outside the producer examine the semantics? | **yes** | effort class L |
+| **E3** Independent review | Did an actor outside the producer examine the semantics? | **yes** | bound to 3 acceptance scenario(s) · effort class L |
 | **E4** Reproduction | Does the same package run again in a clean environment? | no | no execution or reproduction gate |
 | **E5** Operations | Are failure, restore and observability correct? | no | no platform or day-2 gate |
 
@@ -113,8 +113,11 @@ ISO/IEC/IEEE 29119-3 §8.3.2. A coverage item is something the tests must reach.
 | C09 | Apply node timeout, retry and cancellation semantics | WP-046-T04 | *(name the test case)* |
 | C10 | Block every side effect that does not go through the Tool or Execution Broker | WP-046-T05 | *(name the test case)* |
 | C11 | Add `AgentResult`/artifact upload and trace correlation | WP-046-T06 | *(name the test case)* |
+| C12 | Task Runs With No Skill Loaded | [ACC-46](../12_ACCEPTANCE_SCENARIOS/ACC-46_skill_not_loaded.md) — Critical | *(name the test case)* |
+| C13 | Non-Waivable Skill Ignored Under Pressure | [ACC-49](../12_ACCEPTANCE_SCENARIOS/ACC-49_skill_ignored_under_pressure.md) — Critical | *(name the test case)* |
+| C14 | Procedure Lost to Context Compaction or Restart | [ACC-50](../12_ACCEPTANCE_SCENARIOS/ACC-50_skill_lost_on_compaction.md) — High | *(name the test case)* |
 
-**11 coverage items.** Every one must appear in the *Covered by* column of at least one test case below before this package can reach `TECH_COMPLETE`.
+**14 coverage items.** Every one must appear in the *Covered by* column of at least one test case below before this package can reach `TECH_COMPLETE`.
 
 <!-- /generated:coverage -->
 

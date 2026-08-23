@@ -116,6 +116,7 @@ From `00_PROGRAM/05_definition_of_ready_and_done.md`, instantiated for this pack
 - [ ] `WP-089` — DisagreementCase and Evidence-Weighted Arbitration — is `ACCEPTED` (not `TECH_COMPLETE`).
 - [ ] `WP-113` — Evidence, Reproduction and Publication Acceptance Package — is `ACCEPTED` (not `TECH_COMPLETE`).
 - [ ] `WP-121` — Hypercare, Stabilisation and Programme Closure — is `ACCEPTED` (not `TECH_COMPLETE`).
+- [ ] `WP-155` — Adaptive Assurance, Verifier Qualification and Escalation — is `ACCEPTED` (not `TECH_COMPLETE`).
 - [ ] `DataClass`, `CodeTrust`, `ToolEffect` and the network/credential scope are classified — all four, with no `UNKNOWN`.
 - [ ] Acceptance criteria name **a number, a threshold or a command**. `00_PROGRAM/05` states that the generic template criteria are not measurable in the sense meant here; refinement is where that is fixed.
 - [ ] Migration, rollback or compensation behaviour is defined.
@@ -135,11 +136,7 @@ From `00_PROGRAM/05_definition_of_ready_and_done.md`, instantiated for this pack
 
 ### Definition of Commissioned
 
-An `ACCEPTED` package is still not production-ready. Every scenario below must pass **on the same release candidate**:
-
-- [ ] `ACC-07` passes. A `SKIPPED` scenario on a Critical row does not count as a pass.
-- [ ] `ACC-08` passes. A `SKIPPED` scenario on a Critical row does not count as a pass.
-- [ ] `ACC-38` passes. A `SKIPPED` scenario on a Critical row does not count as a pass.
+**No acceptance scenario names this package.** It can reach `ACCEPTED` on its own evidence and cannot reach `COMMISSIONED` through a scenario, because there is none to pass. `00_PROGRAM/11`'s completeness rule calls this an incomplete entry rather than a shorter one.
 
 <!-- /generated:dod -->
 

@@ -160,7 +160,7 @@ an agent's context is not a source, and pruning must never be able to lose one.
 ### What acceptance of this package releases
 
 - **Directly unblocked:** 7 — `WP-073` · `WP-074` · `WP-080` · `WP-090` · `WP-094` · `WP-103` · `WP-125`
-- **Transitively reachable:** **53 of 160 packages (33%)** cannot be accepted until this one is.
+- **Transitively reachable:** **52 of 160 packages (32%)** cannot be accepted until this one is.
 
 The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
 
@@ -187,6 +187,7 @@ The transitive figure is the leverage number. It does not appear anywhere else i
 | [ACC-02 — Agent-Used Source Write-Back](../12_ACCEPTANCE_SCENARIOS/ACC-02_agent_used_source_writeback.md) | Critical | The source is written idempotently **only** into `40_Used` and the relevant project collection of the correct AIRL group library; the registry binding and a receipt are created. |
 | [ACC-04 — Retraction Impact](../12_ACCEPTANCE_SCENARIOS/ACC-04_retraction_impact.md) | Critical | The old manifest and publication are unchanged; the claim becomes `CHALLENGED`/impact-pending, and an `ImpactCase` plus supersession or review work is opened for the correct projects and owners. |
 | [ACC-30 — Publication Completeness](../12_ACCEPTANCE_SCENARIOS/ACC-30_publication_completeness.md) | Critical | No publication package, signature or release is produced; G9 is FAIL/REVISE and a correction queue opens. Once the missing link is supplied, a new package version can pass. |
+| [ACC-75 — Literature Retrieval Budget and Stopping Rule](../12_ACCEPTANCE_SCENARIOS/ACC-75_retrieval_budget_and_stopping_rule.md) | High | The loop halts at the frozen budget, and the attempt to change the stopping rule is refused. The sufficiency assessment is advisory; the protocol is authority. |
 
 <!-- /generated:dependency-analysis -->
 

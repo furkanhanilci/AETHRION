@@ -54,7 +54,7 @@ The evidence layers this package must satisfy, derived from the gates it touches
 | **E0** Structural | Does the file, schema or reference exist? | **yes** | never optional — the artifact must exist and behave |
 | **E1** Mechanical | Is the behaviour correct under a deterministic test? | **yes** | never optional — the artifact must exist and behave |
 | **E2** Security | Is the forbidden path actually blocked? | **yes** | never optional — a control that has not been observed refusing is prose |
-| **E3** Independent review | Did an actor outside the producer examine the semantics? | **yes** | effort class L |
+| **E3** Independent review | Did an actor outside the producer examine the semantics? | **yes** | bound to 5 acceptance scenario(s) · effort class L |
 | **E4** Reproduction | Does the same package run again in a clean environment? | no | no execution or reproduction gate |
 | **E5** Operations | Are failure, restore and observability correct? | no | no platform or day-2 gate |
 
@@ -143,8 +143,13 @@ ISO/IEC/IEEE 29119-3 §8.3.2. A coverage item is something the tests must reach.
 | C14 | Compute and record `skill_bundle_hash`; bind it into `TaskContract` and the evidence chain | WP-047-T10 | *(name the test case)* |
 | C15 | Enforce the **two-family policy**: engineering, scientific-research and shared, selected from `work_domain` — never chosen freely by the agent | WP-047-T11 | *(name the test case)* |
 | C16 | Track **upstream provenance**: `airl.derived_from` + `airl.upstream_commit`, and flag derived skills when upstream moves | WP-047-T12 | *(name the test case)* |
+| C17 | Task Runs With No Skill Loaded | [ACC-46](../12_ACCEPTANCE_SCENARIOS/acc_46_skill_not_loaded.md) — Critical | *(name the test case)* |
+| C18 | Harness Starts Without the Skill Bootstrap | [ACC-47](../12_ACCEPTANCE_SCENARIOS/acc_47_skill_bootstrap_missing.md) — Critical | *(name the test case)* |
+| C19 | Wrong or Competing Skill Selected | [ACC-48](../12_ACCEPTANCE_SCENARIOS/acc_48_wrong_skill_selected.md) — High | *(name the test case)* |
+| C20 | Upstream Change Invalidates a Derived Skill | [ACC-51](../12_ACCEPTANCE_SCENARIOS/acc_51_upstream_skill_drift.md) — High | *(name the test case)* |
+| C21 | Multi-Agent Cohort Required | [ACC-081](../12_ACCEPTANCE_SCENARIOS/acc_081_multi_agent_cohort_required.md) — Critical | *(name the test case)* |
 
-**16 coverage items.** Every one must appear in the *Covered by* column of at least one test case below before this package can reach `TECH_COMPLETE`.
+**21 coverage items.** Every one must appear in the *Covered by* column of at least one test case below before this package can reach `TECH_COMPLETE`.
 
 <!-- /generated:coverage -->
 

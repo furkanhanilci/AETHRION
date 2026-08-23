@@ -102,8 +102,6 @@ talked too much, or keeps talking because its search is still improving.
 
 ## Dependency and prerequisite analysis
 
-## Dependency and prerequisite analysis
-
 <!-- generated:dependency-analysis — produced by scripts/expand_packages.py; do not edit inside this block -->
 
 ### Direct hard dependencies
@@ -165,7 +163,7 @@ The transitive figure is the leverage number. It does not appear anywhere else i
 
 | | |
 |---|---|
-| Wave | unassigned |
+| Wave | W-S — Scientific intelligence |
 | Dependency depth | level **32** of 55 |
 | On the documented critical path | no |
 | Effort class | **L** |
@@ -181,7 +179,9 @@ The transitive figure is the leverage number. It does not appear anywhere else i
 | Scenario | Severity | What it must show |
 |---|---|---|
 | [ACC-09 — Budget Hard Stop](../12_ACCEPTANCE_SCENARIOS/ACC-09_budget_hard_stop.md) | Critical | An 80% warning is raised; at 100% new expensive work is denied, the workflow pauses with state and checkpoints preserved, and no duplicate cost or reservation is created. |
+| [ACC-58 — Cross-Branch Fusion Lineage](../12_ACCEPTANCE_SCENARIOS/ACC-58_cross_branch_fusion_lineage.md) | High | D retains both input references and the named inherited mechanisms end to end — in the canonical graph, after a derived-graph rebuild, and in the export. Neither A nor C is modified. |
 | [ACC-59 — Discovery Search Stagnation](../12_ACCEPTANCE_SCENARIOS/ACC-59_discovery_search_stagnation.md) | High | The detector fires at the configured boundary, the configured action is taken, and the campaign terminates. An unbounded search is impossible even if every model in it recommends continuing. |
+| [ACC-101 — Reserved Assurance Budget Is Unreachable](../12_ACCEPTANCE_SCENARIOS/ACC-101_budget_hard_stop_reserved_assurance.md) | Critical | The reserve is unreachable from the exploration path. The campaign stops on its exploration ceiling with the reserve intact, and the assurance work it was reserved for can still run. |
 
 <!-- /generated:dependency-analysis -->
 
@@ -193,8 +193,6 @@ The transitive figure is the leverage number. It does not appear anywhere else i
 - `DataClass`, `CodeTrust`, `ToolEffect` and the network/credential scope are classified.
 - Test fixtures, the environment, the rollback point and the acceptance measurement method are reachable.
 - An O/M/P person-day estimate is recorded and real capacity is reserved against it.
-
-## Execution requirements
 
 ## Execution requirements
 

@@ -171,9 +171,36 @@ An idea that *adds* to it belongs in
 seal on purpose: a V2 candidate inside the V1 baseline would move the finish line
 while appearing to be part of it.
 
-**The current baseline is v1.3.0.** It adds the reliability and efficiency
-workstream — WP-148–159 and ACC-081–120 — and, like v1.2.0 before it, it is an
-**addition** rather than a refinement: it moves the finish line, and
+**The current baseline is v1.3.1.** It is the first baseline in this programme
+that is a **repair rather than an addition**, and it is worth being precise about
+what that means. It adds no package, no scenario and no scientific capability.
+It makes the v1.3.0 architecture *executable*, which it was not:
+
+- two packages required before go-live depended on Day-2 packages that only
+  exist afterwards, so the programme had no valid starting order — and the
+  dependency graph was acyclic the entire time, which is why nothing said so;
+- the two cutover aggregators bound **two** acceptance scenarios while their own
+  cards said the set was "derived, never enumerated", and the generated block —
+  the surface an independent verifier actually works from — carried the two;
+- the WP↔ACC relation had two owners that disagreed on 98 of 120 scenarios;
+- the engineering discipline that governs the engineering path was sequenced
+  after the vertical slice that demonstrates it;
+- the wave figure rendered a package total nineteen short, deterministically,
+  for two baselines.
+
+None of that is visible in prose, and all of it is visible to a check. So
+v1.3.1's real content is four new controls — the programme graph validator, the
+figure semantic checker, the dynamic-fact rules and the document hygiene checker
+— each carrying a self-test that reproduces the defect it was written for.
+
+By the rule in §*Not every idea is a plan change*, this is a **correction**: the
+finish line is where v1.3.0 left it. The go-live checklist gained no entry
+condition. What changed is that the conditions already there can now be
+evaluated.
+
+**The baseline before it was v1.3.0.** It added the reliability and efficiency
+workstream — WP-148–159 and ACC-081–120 — and, like v1.2.0 before it, it was an
+**addition** rather than a refinement: it moved the finish line, and
 `00_PROGRAM/10_go_live_checklist.md` gained entry conditions accordingly. That
 is recorded here in the same words used for every other change, because a
 baseline that moves the finish line while calling itself a refinement is the

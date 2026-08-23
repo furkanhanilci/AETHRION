@@ -174,7 +174,7 @@ result, and two concurrent gate transitions.
 ### What acceptance of this package releases
 
 - **Directly unblocked:** 7 — `WP-040` · `WP-063` · `WP-092` · `WP-106` · `WP-108` · `WP-128` · `WP-137`
-- **Transitively reachable:** **66 of 160 packages (41%)** cannot be accepted until this one is.
+- **Transitively reachable:** **65 of 160 packages (41%)** cannot be accepted until this one is.
 
 The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
 

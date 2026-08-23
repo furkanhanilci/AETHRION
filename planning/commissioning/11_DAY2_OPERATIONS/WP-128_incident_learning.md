@@ -100,7 +100,7 @@ again.
 
 ### Direct hard dependencies
 
-7, each of which must be `ACCEPTED` — not `TECH_COMPLETE` — before this package is `READY`.
+8, each of which must be `ACCEPTED` — not `TECH_COMPLETE` — before this package is `READY`.
 
 | Package | Supplies to this package |
 |---|---|
@@ -111,10 +111,11 @@ again.
 | [WP-116 — Resilience, Chaos and Failure-Injection Commissioning](../10_INTEGRATION_CUTOVER/WP-116_resilience_chaos.md) | `Chaos test suite/results` · `Steady-state hypotheses` · `Recovery/integrity report` · `Resilience sign-off` |
 | [WP-118 — Operational Readiness, On-Call and Runbook Simulation](../10_INTEGRATION_CUTOVER/WP-118_operational_readiness.md) | `Operational Readiness Review` · `Runbook execution records` · `On-call simulation` · `Training/ownership sign-offs` |
 | [WP-121 — Hypercare, Stabilisation and Programme Closure](../10_INTEGRATION_CUTOVER/WP-121_hypercare_stabilization.md) | `Hypercare log` · `Incident/finding summary` · `Production KPI baseline` · `Day-2 handoff` |
+| [WP-152 — Failure Taxonomy, Attribution and Resilience Controls](../15_RELIABILITY_EFFICIENCY/WP-152_failure_taxonomy_and_resilience.md) | `Extended FailureAssessment taxonomy` · `Attribution pipeline` · `Challenger and Inspector functions` · `Faulty-agent fixture suite` |
 
 ### Full prerequisite closure
 
-**121 of 160 packages (76%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
+**127 of 160 packages (79%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
 
 | Level | Packages |
 |---:|---|
@@ -144,9 +145,9 @@ again.
 | 24 | `WP-036` · `WP-048` · `WP-050` · `WP-054` · `WP-055` |
 | 25 | `WP-040` · `WP-056` · `WP-091` |
 | 26 | `WP-057` · `WP-059` · `WP-061` · `WP-092` |
-| 27 | `WP-058` · `WP-064` · `WP-075` |
-| 28 | `WP-060` · `WP-062` · `WP-081` |
-| 29 | `WP-063` · `WP-065` · `WP-066` · `WP-069` · `WP-082` |
+| 27 | `WP-058` · `WP-064` · `WP-075` · `WP-141` |
+| 28 | `WP-060` · `WP-062` · `WP-081` · `WP-142` |
+| 29 | `WP-063` · `WP-065` · `WP-066` · `WP-069` · `WP-082` · `WP-154` |
 | 30 | `WP-067` · `WP-070` · `WP-083` · `WP-084` · `WP-096` |
 | 31 | `WP-068` · `WP-071` · `WP-097` · `WP-099` · `WP-100` |
 | 32 | `WP-072` · `WP-076` · `WP-098` |
@@ -154,9 +155,9 @@ again.
 | 34 | `WP-074` · `WP-079` · `WP-085` · `WP-103` |
 | 35 | `WP-080` |
 | 36 | `WP-086` |
-| 37 | `WP-087` |
-| 38 | `WP-088` |
-| 39 | `WP-089` |
+| 37 | `WP-087` · `WP-147` |
+| 38 | `WP-088` · `WP-148` |
+| 39 | `WP-089` · `WP-152` |
 | 40 | `WP-090` · `WP-093` |
 | 41 | `WP-095` · `WP-102` · `WP-107` |
 | 42 | `WP-104` |
@@ -174,8 +175,8 @@ again.
 
 ### What acceptance of this package releases
 
-- **Directly unblocked:** 2 — `WP-130` · `WP-152`
-- **Transitively reachable:** **2 of 160 packages (1%)** cannot be accepted until this one is.
+- **Directly unblocked:** 1 — `WP-130`
+- **Transitively reachable:** **1 of 160 packages (1%)** cannot be accepted until this one is.
 
 The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
 
@@ -253,6 +254,10 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `Production KPI baseline` | `WP-121` | `python3 scripts/progress.py show WP-121` |
 | `Day-2 handoff` | `WP-121` | `python3 scripts/progress.py show WP-121` |
 | `Program closure report` | `WP-121` | `python3 scripts/progress.py show WP-121` |
+| `Extended FailureAssessment taxonomy` | `WP-152` | `python3 scripts/progress.py show WP-152` |
+| `Attribution pipeline` | `WP-152` | `python3 scripts/progress.py show WP-152` |
+| `Challenger and Inspector functions` | `WP-152` | `python3 scripts/progress.py show WP-152` |
+| `Faulty-agent fixture suite` | `WP-152` | `python3 scripts/progress.py show WP-152` |
 
 ### Classification that must be recorded before work begins
 

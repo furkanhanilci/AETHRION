@@ -206,6 +206,8 @@ The transitive figure is the leverage number. It does not appear anywhere else i
 |---|---|---|
 | [ACC-25 — Human Approval Forgery](../12_ACCEPTANCE_SCENARIOS/acc_25_human_approval_forgery.md) | Critical | The decision is rejected; gate state does not change and a security event and audit record are produced. A valid owner with MFA and an idempotent request passes as the counter-example. |
 | [ACC-26 — Approval, Delegation and Exception Expiry](../12_ACCEPTANCE_SCENARIOS/acc_26_approval_expiry.md) | Critical | The authority is auto-revoked; new operations are denied and running tasks pause or are contained according to policy. There is no automatic extension or re-approval. |
+| [ACC-69 — Human Decision Timeout Must Not Auto-Approve](../12_ACCEPTANCE_SCENARIOS/acc_69_decision_timeout_no_autoapproval.md) | Critical | The state escalates and pages; it never becomes approved. No timeout, no learned preference, no inbound message and no low attention score creates a `DecisionRecord`. |
+| [ACC-111 — Insufficient Basis Is Reachable](../12_ACCEPTANCE_SCENARIOS/acc_111_human_insufficient_basis.md) | High | `INSUFFICIENT_BASIS` is reachable in one action and returns the package for more evidence. It is a terminal decision value, not an error, and it does not approve anything. |
 
 <!-- /generated:dependency-analysis -->
 

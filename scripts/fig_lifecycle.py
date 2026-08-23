@@ -4,7 +4,7 @@
 Five-second message
     Every gate resolves in the same order — the mechanical check runs first and
     cannot be overridden, a model may produce but never decide, a human holds
-    authority — and two gates admit no model at all.
+    authority — and two rows admit no model at all.
 
 Archetype
     A matrix, not a pipeline: gates on the vertical axis (time) crossed with
@@ -59,8 +59,19 @@ ROWS = [
      ("LiteratureSetManifest", ""), ""),
     ("G4", "Baseline", ("the baseline run", ""), ("compute plan", "red-team pre-mortem"),
      ("budget approval", ""), ("BaselineBundle", "FalsificationPlan"), ""),
-    ("G5", "Execute", ("the experiment itself", ""), ("NO MODEL", "unless it is the subject"),
-     ("—", ""), ("ExperimentRun", ""), ""),
+    # G5 is one gate drawn as two lanes. Splitting it invents no lifecycle
+    # position — the gate, its owner and its artifacts are unchanged. What the
+    # split fixes is a false reading: a single row labelled "NO MODEL" says the
+    # discovery engine cannot run, and WP-144's search graph is model-driven
+    # candidate generation that happens exactly here. The boundary that matters
+    # is not "no model in G5"; it is "no producer, and no model, writes
+    # evaluator truth".
+    ("G5·D", "Discovery", ("candidate lineage recorded", ""),
+     ("bounded candidates", "search · fuse · debug"),
+     ("—", ""), ("SearchNode", "candidate workspace"), ""),
+    ("G5·E", "Execute", ("the experiment itself", "immutable raw output"),
+     ("NO EVALUATOR AUTHORITY", "may be the subject, never the judge"),
+     ("—", ""), ("RawEvaluatorArtifact", "ExperimentRun"), ""),
     ("G6", "Assurance", ("statcheck · GRIM · GRIMMER", "entailment · hashes"),
      ("blind + adversarial review", "different provider family"), ("—", ""),
      ("ReviewRecord", "ProducerResponse"), ""),
@@ -77,7 +88,11 @@ ROWS = [
      ("decides on a material signal", ""), ("supersession records", ""), ""),
 ]
 BRANCH_AFTER = 2
-NO_MODEL_ROWS = {6, 8}
+# Rows where no model is admitted at all. G5·D is deliberately absent: bounded
+# discovery cognition runs there. G5·E is hatched because nothing model-produced
+# may become evaluator truth, and G7a because a reproduction either reproduces
+# or it does not.
+NO_MODEL_ROWS = {7, 9}
 H = TOP + len(ROWS) * (ROW_H + ROW_GAP) + BRANCH_H + ROW_GAP + 132
 
 
@@ -97,7 +112,9 @@ def main() -> None:
                text_w, size=18, lh=24)
     y = c.para(L, y + 26,
                "Reading down the figure is time. Reading across is who may act. The hatched cells are not gaps in the "
-               "design — they are the design: G5 and G7a admit no model at all.",
+               "design — they are the design. G5 is drawn as two lanes because one label could not carry it: bounded "
+               "discovery cognition runs in G5·D, and nothing model-produced becomes evaluator truth in G5·E. "
+               "G5·E and G7a admit no model at all.",
                text_w, size=18, fill=INK, weight="500", lh=24)
 
     # legend

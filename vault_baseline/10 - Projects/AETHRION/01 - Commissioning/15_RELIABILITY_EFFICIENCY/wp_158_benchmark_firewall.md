@@ -118,24 +118,24 @@ meaning in different directions.
 
 ## Dependency and prerequisite analysis
 
-## Dependency and prerequisite analysis
-
 <!-- generated:dependency-analysis — produced by scripts/expand_packages.py; do not edit inside this block -->
 
 ### Direct hard dependencies
 
-4, each of which must be `ACCEPTED` — not `TECH_COMPLETE` — before this package is `READY`.
+6, each of which must be `ACCEPTED` — not `TECH_COMPLETE` — before this package is `READY`.
 
 | Package | Supplies to this package |
 |---|---|
+| [WP-019 — Run, Environment and Reproduction Schemas](../02_CONTRACTS/wp_019_run_environment_repro_contracts.md) | `Run schema bundle` · `EnvironmentManifest` · `ReproductionReport` · `Tolerance policy examples` |
+| [WP-026 — Content-Addressed Object Store and WORM](../03_FOUNDATION/wp_026_object_store_worm.md) | `Object storage IaC` · `Object address service` · `Retention matrix` · `Integrity scan job` |
 | [WP-043 — Role-Based Model and Skill Evaluation, and Golden Set Management](../05_MODEL_AGENT_TOOL/wp_043_model_eval_golden_sets.md) | `Eval dataset manifests` · `Role eval harness` · `Grader/rubric bundle` · `Contamination controls` |
 | [WP-057 — Default-Deny Egress Proxy, DLP and Allowlist](../06_EXECUTION_SECURITY/wp_057_egress_proxy_dlp.md) | `Egress proxy` · `Allowlist registry` · `DLP pipeline` · `Egress audit/alerts` |
-| [WP-115 — Full System Regression and Commissioning Dossier](../10_INTEGRATION_CUTOVER/wp_115_full_system_regression.md) | `Commissioning Dossier` · `RC evidence manifest` · `Finding/risk register snapshot` · `Readiness scorecard` |
+| [WP-081 — Protocol, Analysis, Baseline and Falsification Registry](../08_EVIDENCE_ASSURANCE/wp_081_protocol_baseline_registry.md) | `Method Registry` · `Protocol validators` · `Amendment workflow` · `Post-hoc change detector` |
 | [WP-149 — Sparse Communication Topology and the Scientific Blackboard](../15_RELIABILITY_EFFICIENCY/wp_149_sparse_topology_and_blackboard.md) | `BlackboardEntry` · `TypedAgentMessage` · `CommunicationGraph` · `CommunicationEdgePolicy` |
 
 ### Full prerequisite closure
 
-**120 of 160 packages (75%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
+**80 of 160 packages (50%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
 
 | Level | Packages |
 |---:|---|
@@ -159,34 +159,25 @@ meaning in different directions.
 | 18 | `WP-027` · `WP-030` · `WP-042` |
 | 19 | `WP-031` · `WP-043` · `WP-052` |
 | 20 | `WP-032` · `WP-044` · `WP-053` |
-| 21 | `WP-033` · `WP-037` · `WP-039` · `WP-045` |
-| 22 | `WP-034` · `WP-038` · `WP-046` |
+| 21 | `WP-033` · `WP-037` · `WP-045` |
+| 22 | `WP-034` · `WP-046` |
 | 23 | `WP-035` · `WP-047` · `WP-049` |
-| 24 | `WP-036` · `WP-048` · `WP-050` · `WP-054` · `WP-055` |
-| 25 | `WP-040` · `WP-056` · `WP-091` |
-| 26 | `WP-057` · `WP-059` · `WP-061` · `WP-092` |
+| 24 | `WP-050` · `WP-054` · `WP-055` |
+| 25 | `WP-056` |
+| 26 | `WP-057` · `WP-059` · `WP-061` |
 | 27 | `WP-058` · `WP-064` · `WP-075` · `WP-141` |
-| 28 | `WP-060` · `WP-062` · `WP-081` · `WP-142` |
+| 28 | `WP-062` · `WP-081` · `WP-142` |
 | 29 | `WP-063` · `WP-065` · `WP-066` · `WP-069` · `WP-082` |
-| 30 | `WP-067` · `WP-070` · `WP-083` · `WP-084` · `WP-096` |
-| 31 | `WP-068` · `WP-071` · `WP-097` · `WP-099` · `WP-100` |
-| 32 | `WP-072` · `WP-076` · `WP-098` |
-| 33 | `WP-073` · `WP-077` · `WP-078` · `WP-094` · `WP-101` |
-| 34 | `WP-074` · `WP-079` · `WP-085` · `WP-103` |
+| 30 | `WP-067` · `WP-070` |
+| 31 | `WP-068` · `WP-071` |
+| 32 | `WP-072` · `WP-076` |
+| 33 | `WP-077` · `WP-078` |
+| 34 | `WP-079` |
 | 35 | `WP-080` |
 | 36 | `WP-086` |
-| 37 | `WP-087` · `WP-147` |
-| 38 | `WP-088` · `WP-148` |
-| 39 | `WP-089` · `WP-149` |
-| 40 | `WP-090` · `WP-093` |
-| 41 | `WP-095` · `WP-102` · `WP-107` |
-| 42 | `WP-104` |
-| 43 | `WP-105` |
-| 44 | `WP-106` |
-| 45 | `WP-108` |
-| 46 | `WP-109` |
-| 47 | `WP-110` · `WP-111` · `WP-112` · `WP-113` · `WP-114` |
-| 48 | `WP-115` |
+| 37 | `WP-147` |
+| 38 | `WP-148` |
+| 39 | `WP-149` |
 
 ### What acceptance of this package releases
 
@@ -196,8 +187,8 @@ meaning in different directions.
 
 | | |
 |---|---|
-| Wave | unassigned |
-| Dependency depth | level **49** of 55 |
+| Wave | W-R — Reliability and efficiency |
+| Dependency depth | level **40** of 55 |
 | On the documented critical path | no |
 | Effort class | **L** |
 | Accountable owner | Eval Office |
@@ -211,6 +202,7 @@ meaning in different directions.
 
 | Scenario | Severity | What it must show |
 |---|---|---|
+| [ACC-086 — Sparse Topology Preserves Quality](../12_ACCEPTANCE_SCENARIOS/acc_086_sparse_topology_quality_preservation.md) | High | The optimised arm reports a meaningful reduction in coordination cost with quality within the declared tolerance. The comparison is against the fully connected cohort — not against a single agent — and both numbers are reported as a frontier. |
 | [ACC-118 — Search-Time Benchmark Contamination](../12_ACCEPTANCE_SCENARIOS/acc_118_benchmark_search_time_contamination.md) | Critical | The run is labelled `CONTAMINATED` or `REVIEW_REQUIRED` and its score is never reported as a clean score. A run with no benchmark material in its log is reported clean, and a contaminated run is not silently rerun. |
 
 <!-- /generated:dependency-analysis -->
@@ -226,8 +218,6 @@ meaning in different directions.
 
 ## Execution requirements
 
-## Execution requirements
-
 <!-- generated:execution-requirements — produced by scripts/expand_packages.py; do not edit inside this block -->
 
 ### Inputs that must exist before the first task starts
@@ -236,6 +226,18 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 
 | Required input | Comes from | Accepted? |
 |---|---|---|
+| `Run schema bundle` | `WP-019` | `python3 scripts/progress.py show WP-019` |
+| `EnvironmentManifest` | `WP-019` | `python3 scripts/progress.py show WP-019` |
+| `ReproductionReport` | `WP-019` | `python3 scripts/progress.py show WP-019` |
+| `Tolerance policy examples` | `WP-019` | `python3 scripts/progress.py show WP-019` |
+| `CandidateWorkspace` | `WP-019` | `python3 scripts/progress.py show WP-019` |
+| `ReproductionPackage` | `WP-019` | `python3 scripts/progress.py show WP-019` |
+| `ClaimConsistencyReport` | `WP-019` | `python3 scripts/progress.py show WP-019` |
+| `Object storage IaC` | `WP-026` | `python3 scripts/progress.py show WP-026` |
+| `Object address service` | `WP-026` | `python3 scripts/progress.py show WP-026` |
+| `Retention matrix` | `WP-026` | `python3 scripts/progress.py show WP-026` |
+| `Integrity scan job` | `WP-026` | `python3 scripts/progress.py show WP-026` |
+| `Restore procedure` | `WP-026` | `python3 scripts/progress.py show WP-026` |
 | `Eval dataset manifests` | `WP-043` | `python3 scripts/progress.py show WP-043` |
 | `Role eval harness` | `WP-043` | `python3 scripts/progress.py show WP-043` |
 | `Grader/rubric bundle` | `WP-043` | `python3 scripts/progress.py show WP-043` |
@@ -247,12 +249,11 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `DLP pipeline` | `WP-057` | `python3 scripts/progress.py show WP-057` |
 | `Egress audit/alerts` | `WP-057` | `python3 scripts/progress.py show WP-057` |
 | `Exception runbook` | `WP-057` | `python3 scripts/progress.py show WP-057` |
-| `Commissioning Dossier` | `WP-115` | `python3 scripts/progress.py show WP-115` |
-| `RC evidence manifest` | `WP-115` | `python3 scripts/progress.py show WP-115` |
-| `Finding/risk register snapshot` | `WP-115` | `python3 scripts/progress.py show WP-115` |
-| `Readiness scorecard` | `WP-115` | `python3 scripts/progress.py show WP-115` |
-| `Board verdict` | `WP-115` | `python3 scripts/progress.py show WP-115` |
-| `Faulty-agent, split-brain and contamination regression` | `WP-115` | `python3 scripts/progress.py show WP-115` |
+| `Method Registry` | `WP-081` | `python3 scripts/progress.py show WP-081` |
+| `Protocol validators` | `WP-081` | `python3 scripts/progress.py show WP-081` |
+| `Amendment workflow` | `WP-081` | `python3 scripts/progress.py show WP-081` |
+| `Post-hoc change detector` | `WP-081` | `python3 scripts/progress.py show WP-081` |
+| `SpecificationConformanceRecord binding` | `WP-081` | `python3 scripts/progress.py show WP-081` |
 | `BlackboardEntry` | `WP-149` | `python3 scripts/progress.py show WP-149` |
 | `TypedAgentMessage` | `WP-149` | `python3 scripts/progress.py show WP-149` |
 | `CommunicationGraph` | `WP-149` | `python3 scripts/progress.py show WP-149` |

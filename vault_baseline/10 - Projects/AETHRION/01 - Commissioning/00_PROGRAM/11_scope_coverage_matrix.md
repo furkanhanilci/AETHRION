@@ -47,7 +47,7 @@ acceptance column is a capability nobody will ever be asked to demonstrate.
 | LangGraph and runtime adapter | WP-046–048 | WP-107 |
 | Tool Broker and connectors | WP-049–050 | ACC-05/12/35 |
 | Kubernetes / Kueue / gVisor | WP-052–054 | WP-116/117, ACC-15/33 |
-| SPIFFE / Vault / OPA / egress | WP-055–057 | WP-112, ACC-16/18/25/26/32 |
+| SPIFFE / Vault / `PolicyDecision` contract + selected backend / egress | WP-055–057 | WP-112, ACC-16/18/25/26/32 |
 | Content quarantine | WP-058 | ACC-05 |
 | Sigstore / SLSA / supply chain | WP-027, WP-059 | ACC-17 |
 | Agentic red team | WP-060 | WP-112/123 |
@@ -67,7 +67,7 @@ acceptance column is a capability nobody will ever be asked to demonstrate.
 | Cost and FinOps | WP-100 | WP-111/127, ACC-09/29 |
 | Service SLO and runbooks | WP-101 | WP-118/122 |
 | Vertical integration | WP-102–108 | WP-109–115 |
-| The fifty-one acceptance scenarios | WP-109–114, `12_ACCEPTANCE_SCENARIOS/` | WP-115 |
+| The Acceptance Scenario Registry | WP-109–114, `12_ACCEPTANCE_SCENARIOS/` | WP-115 |
 | Chaos / capacity / operational readiness | WP-116–118 | WP-119–120 |
 | Pilot / cutover / hypercare | WP-119–121 | Production |
 | Continuous assurance and operations | WP-122–130 | Day-2 control evidence |
@@ -100,7 +100,7 @@ acceptance column is a capability nobody will ever be asked to demonstrate.
 | **Reproduction determinism and model fingerprint** | **WP-157**, WP-084, WP-085 | **ACC-113, ACC-114, ACC-115, ACC-116** |
 | **Benchmark firewall and evaluation isolation** | **WP-158**, WP-043, WP-057 | **ACC-118** |
 | **Supply chain, upstream drift and cross-plane integrity** | **WP-159**, WP-024, WP-059, WP-141 | **ACC-119, ACC-120** |
-| **Prompt injection and the capability gate** | **WP-058**, WP-060, WP-136 | **ACC-005, ACC-044, ACC-117** |
+| **Prompt injection and the capability gate** | **WP-058**, WP-060, WP-136 | **ACC-05, ACC-44, ACC-117** |
 
 ## Areas identified by the audit as not yet covered
 
@@ -114,8 +114,25 @@ area that is unnamed is an accident.
 | Agreement and error-correlation measurement | Independence is asserted throughout but measured nowhere | Metascience plane, alongside WP-007 |
 | Confidence calibration | Confidence numbers appear in contracts with no measurement basis | Metascience plane |
 | Control injection (positive and negative) | The lab's own false-positive and false-negative rates are unknown | Metascience plane |
-| Attention-budget telemetry | Human decision capacity is the binding constraint and is untracked | Alongside WP-004 / WP-091 |
-| Skill bundle governance | The skills in the registry change agent behaviour and are not under configuration control | Alongside WP-047 |
+| Control injection (positive and negative) | The lab's own false-positive and false-negative rates are unknown | Metascience plane |
+
+> **Two rows left this list at v1.3.1, and two deliberately did not.** The test
+> applied to each is the one `patch_specs/06` states and this document's own
+> completeness rule already required: a row closes only when a **primary**
+> package produces the capability, an **integration** package consumes it, and
+> **acceptance or operations evidence** exists. A similarly-named work package
+> is not any of those three.
+>
+> *Agreement and error-correlation measurement* and *confidence calibration*
+> stay open, and it is worth saying why, because WP-155 and WP-126 look like
+> they close them. WP-155 qualifies a verifier against a threshold and WP-126
+> recalibrates it; neither measures **correlation between reviewers**, which is
+> the quantity that decides whether two agreeing verdicts are one observation or
+> two. A cohort's whole value rests on that number and nothing in the plan
+> computes it. *Control injection* likewise stays open: individual controls
+> carry planted specimens — `monitor_sources.py`, and the four self-tests added
+> at v1.3.1 — but the lab has no programme-level false-positive and
+> false-negative rate, which is a different claim from "each detector fires".
 
 ### Closed by baseline v1.2.0
 
@@ -139,6 +156,24 @@ and a row that was addressed look identical afterwards.
 | Whether a benchmark score means anything — previously reported without the conditions it was produced under | **WP-158**, ADR-017, ACC-118 |
 | Whether a human decision was a judgement or a ratification — previously unmeasurable | **WP-156**, ADR-016, ACC-110–112 |
 
+### Closed by baseline v1.3.1
+
+Both rows below were open because a capability existed with **no integration
+consumer** — the exact incompleteness the rule at the foot of this document
+describes. Neither is closed by a new package; both are closed by a dependency
+direction being corrected so that something actually consumes them.
+
+| Area | Now covered by | What changed |
+|---|---|---|
+| Attention-budget telemetry | **WP-156** primary · **WP-093** integration · ACC-110–112 | The preliminary-assessment record and its `DecisionDelta` make human decision effort a measured quantity rather than an asserted constraint. It was listed as open because nothing consumed the measurement; WP-093's observability surface now does |
+| Skill bundle governance | **WP-047** primary · **WP-154** integration · **WP-141**/WP-159 lineage · ACC-46–51, ACC-73, ACC-120 | The skill bundle is a versioned baseline in `00_PROGRAM/09`, its upstream-derived members are pinned in `provenance/upstreams.json`, and WP-154 routes required skills by work domain. It stayed open while WP-154 was sequenced *after* WP-107, because a governance control that arrives after the thing it governs is not a control; v1.3.1 reversed that direction |
+
+> **What did not close, and is not being quietly reclassified.** No skill has a
+> behaviour baseline. Skill *bundle governance* — which skills exist, at which
+> version, under which licence, routed by which rule — is now covered. Whether
+> loading a skill changes what an agent does is not, and `AGENTS.md` §11 says so
+> in the same words it used before this baseline.
+
 ## Completeness rule
 
 When a new architecture area or binding invariant is added, the change is not
@@ -147,3 +182,13 @@ package, an integration package, and acceptance/operations evidence** for it.
 
 A row that lists a primary package but leaves the acceptance column empty is an
 incomplete entry, not a shorter one.
+
+**This rule is now mechanical, in the part that can be.**
+`scripts/check_doc_consistency.py` fails when a row in this document names a
+`WP-` or `ACC-` identifier that does not exist, which was previously possible
+and undetected — a closed row citing a package that had been renamed read
+exactly like a closed row citing one that existed. Whether the named package
+*genuinely satisfies* the gap remains a human judgement, and is deliberately not
+automated: the failure mode this document guards against is closing a row
+because a similarly-named package appeared, and a checker that matched names
+would endorse precisely that.

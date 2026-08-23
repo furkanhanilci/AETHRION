@@ -180,7 +180,7 @@ state**, and the schema is where that is enforced.
 
 ### What acceptance of this package releases
 
-- **Directly unblocked:** 10 — `WP-020` · `WP-035` · `WP-036` · `WP-043` · `WP-081` · `WP-082` · `WP-084` · `WP-085` · `WP-144` · `WP-157`
+- **Directly unblocked:** 11 — `WP-020` · `WP-035` · `WP-036` · `WP-043` · `WP-081` · `WP-082` · `WP-084` · `WP-085` · `WP-144` · `WP-157` · `WP-158`
 - **Transitively reachable:** **140 of 160 packages (88%)** cannot be accepted until this one is.
 
 The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.

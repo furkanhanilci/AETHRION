@@ -40,6 +40,14 @@ CHECKS = [
     ("Test suite", ["uv", "run", "pytest"], "passed"),
     ("Skill registry", [sys.executable, "scripts/validate_skills.py"], "conform"),
     ("Commissioning plan semantics", [sys.executable, "scripts/validate_commissioning_plan.py"], "OK"),
+    # Added at v1.3.1. The three below are the checks whose absence let the
+    # v1.3.0 baseline pass 16/16 while its plan could not be executed: nothing
+    # combined the package graph with scenario and aggregation edges, nothing
+    # compared a figure's claims to the registries, and nothing looked at
+    # document structure outside a generated block.
+    ("Programme graph", [sys.executable, "scripts/check_programme_graph.py"], "executable"),
+    ("Figure semantics", [sys.executable, "scripts/check_figure_semantics.py"], "claim"),
+    ("Document hygiene", [sys.executable, "scripts/check_document_hygiene.py"], "governed document"),
     ("Workstream indexes", [sys.executable, "scripts/make_plan_indexes.py", "--check"], "drift"),
     ("Declared counts", [sys.executable, "scripts/check_doc_consistency.py"], "agree"),
     ("Stale claims", [sys.executable, "scripts/check_stale_claims.py"], "contradicts the rules above"),

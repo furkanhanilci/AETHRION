@@ -185,9 +185,15 @@ The transitive figure is the leverage number. It does not appear anywhere else i
 
 ### Acceptance scenarios that exercise this package
 
-**None.** No acceptance scenario names this package.
+`COMMISSIONED` requires every scenario below to pass **on the same release candidate**. A `SKIPPED` scenario on a `Critical` row does not count as a pass.
 
-> `00_PROGRAM/11_scope_coverage_matrix.md` states the rule this trips: *a row with a primary package but no acceptance column is a capability nobody will ever be asked to demonstrate.* This package can reach `ACCEPTED` on its own tests, but it cannot reach `COMMISSIONED` through a scenario, because there is none to pass.
+| Scenario | Severity | What it must show |
+|---|---|---|
+| [ACC-46 — Task Runs With No Skill Loaded](../12_ACCEPTANCE_SCENARIOS/ACC-46_skill_not_loaded.md) | Critical | The task is blocked before any production step, the divergence between `skills_required` and `skills_loaded` is recorded as a finding, and no `AgentResult` is emitted. |
+| [ACC-47 — Harness Starts Without the Skill Bootstrap](../12_ACCEPTANCE_SCENARIOS/ACC-47_skill_bootstrap_missing.md) | Critical | The adapter refuses the task with an explicit bootstrap failure; it does not fall back to an unguided session, and the refusal is distinguishable in the audit trail from a task that ran and failed. |
+| [ACC-48 — Wrong or Competing Skill Selected](../12_ACCEPTANCE_SCENARIOS/ACC-48_wrong_skill_selected.md) | High | The correct skill is selected, the selection reason is recorded, and an unresolvable overlap fails closed rather than picking arbitrarily. |
+| [ACC-51 — Upstream Change Invalidates a Derived Skill](../12_ACCEPTANCE_SCENARIOS/ACC-51_upstream_skill_drift.md) | High | Every affected vendored and derived skill is flagged for re-examination, the pinned commit does not silently move, and a claim produced under the old bundle remains resolvable to the procedure that actually governed it. |
+| [ACC-081 — Multi-Agent Cohort Required](../12_ACCEPTANCE_SCENARIOS/ACC-081_multi_agent_cohort_required.md) | Critical | Compilation refuses, or adds the independent cognitive actors the invariant requires. There is no silent single-agent downgrade, and a cohort of several instances of the same model profile on the same context does not satisfy the requirement either. |
 
 <!-- /generated:dependency-analysis -->
 

@@ -171,7 +171,7 @@ because the queue is long or the budget is tight.
 ### What acceptance of this package releases
 
 - **Directly unblocked:** 4 — `WP-079` · `WP-080` · `WP-095` · `WP-104`
-- **Transitively reachable:** **50 of 160 packages (31%)** cannot be accepted until this one is.
+- **Transitively reachable:** **49 of 160 packages (31%)** cannot be accepted until this one is.
 
 The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
 

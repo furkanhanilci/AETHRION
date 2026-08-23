@@ -54,7 +54,7 @@ The evidence layers this package must satisfy, derived from the gates it touches
 | **E0** Structural | Does the file, schema or reference exist? | **yes** | never optional — the artifact must exist and behave |
 | **E1** Mechanical | Is the behaviour correct under a deterministic test? | **yes** | never optional — the artifact must exist and behave |
 | **E2** Security | Is the forbidden path actually blocked? | **yes** | never optional — a control that has not been observed refusing is prose |
-| **E3** Independent review | Did an actor outside the producer examine the semantics? | **yes** | bound to 2 acceptance scenario(s) |
+| **E3** Independent review | Did an actor outside the producer examine the semantics? | **yes** | bound to 3 acceptance scenario(s) |
 | **E4** Reproduction | Does the same package run again in a clean environment? | no | no execution or reproduction gate |
 | **E5** Operations | Are failure, restore and observability correct? | **yes** | touches Platform |
 
@@ -135,8 +135,9 @@ ISO/IEC/IEEE 29119-3 §8.3.2. A coverage item is something the tests must reach.
 | C10 | Define schema evolution and `replay_mode` semantics | WP-015-T05 | *(name the test case)* |
 | C11 | Duplicate Event Delivery | [ACC-12](../12_ACCEPTANCE_SCENARIOS/acc_12_duplicate_event.md) — Critical | *(name the test case)* |
 | C12 | DLQ Repair and Corrected Replay | [ACC-34](../12_ACCEPTANCE_SCENARIOS/acc_34_dlq_repair.md) — High | *(name the test case)* |
+| C13 | Typed Inter-Agent Message | [ACC-083](../12_ACCEPTANCE_SCENARIOS/acc_083_typed_inter_agent_message.md) — High | *(name the test case)* |
 
-**12 coverage items.** Every one must appear in the *Covered by* column of at least one test case below before this package can reach `TECH_COMPLETE`.
+**13 coverage items.** Every one must appear in the *Covered by* column of at least one test case below before this package can reach `TECH_COMPLETE`.
 
 <!-- /generated:coverage -->
 

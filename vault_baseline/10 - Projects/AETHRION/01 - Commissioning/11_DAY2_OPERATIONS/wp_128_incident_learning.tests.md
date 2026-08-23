@@ -82,6 +82,7 @@ ISO/IEC/IEEE 29119-3 §8.6 requires each environment item to name a description,
 | `WP-116` accepted output | Resilience, Chaos and Failure-Injection Commissioning | SRE Lead | Before the first test case runs |
 | `WP-118` accepted output | Operational Readiness, On-Call and Runbook Simulation | SRE Lead | Before the first test case runs |
 | `WP-121` accepted output | Hypercare, Stabilisation and Programme Closure | SRE Lead / Program Lead | Before the first test case runs |
+| `WP-152` accepted output | Failure Taxonomy, Attribution and Resilience Controls | Incident Commander / SRE Lead | Before the first test case runs |
 
 ### Environment readiness report — §8.8
 

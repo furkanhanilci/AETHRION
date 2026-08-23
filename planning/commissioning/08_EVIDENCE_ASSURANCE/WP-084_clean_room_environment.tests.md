@@ -30,7 +30,7 @@ The evidence layers this package must satisfy, derived from the gates it touches
 | **E0** Structural | Does the file, schema or reference exist? | **yes** | never optional — the artifact must exist and behave |
 | **E1** Mechanical | Is the behaviour correct under a deterministic test? | **yes** | never optional — the artifact must exist and behave |
 | **E2** Security | Is the forbidden path actually blocked? | **yes** | never optional — a control that has not been observed refusing is prose |
-| **E3** Independent review | Did an actor outside the producer examine the semantics? | **yes** | bound to 2 acceptance scenario(s) · effort class L |
+| **E3** Independent review | Did an actor outside the producer examine the semantics? | **yes** | bound to 6 acceptance scenario(s) · effort class L |
 | **E4** Reproduction | Does the same package run again in a clean environment? | **yes** | touches G7 |
 | **E5** Operations | Are failure, restore and observability correct? | no | no platform or day-2 gate |
 
@@ -121,8 +121,12 @@ ISO/IEC/IEEE 29119-3 §8.3.2. A coverage item is something the tests must reach.
 | C12 | Write environment destruction and forensic retention | WP-084-T06 | *(name the test case)* |
 | C13 | Clean-Room Reproduction Pass | [ACC-19](../12_ACCEPTANCE_SCENARIOS/ACC-19_clean_room_pass.md) — High | *(name the test case)* |
 | C14 | Clean-Room Reproduction Failure | [ACC-20](../12_ACCEPTANCE_SCENARIOS/ACC-20_clean_room_fail.md) — Critical | *(name the test case)* |
+| C15 | Producer Attempts Evaluator Mutation | [ACC-54](../12_ACCEPTANCE_SCENARIOS/ACC-54_evaluator_mutation_attempt.md) — Critical | *(name the test case)* |
+| C16 | Hidden Evaluation Data Access Attempt | [ACC-55](../12_ACCEPTANCE_SCENARIOS/ACC-55_hidden_evaluation_data_access.md) — Critical | *(name the test case)* |
+| C17 | Reproduction in the Producer Environment | [ACC-65](../12_ACCEPTANCE_SCENARIOS/ACC-65_reproduction_in_producer_environment.md) — Critical | *(name the test case)* |
+| C18 | Producer to Evaluator Leakage | [ACC-113](../12_ACCEPTANCE_SCENARIOS/ACC-113_producer_evaluator_leakage.md) — Critical | *(name the test case)* |
 
-**14 coverage items.** Every one must appear in the *Covered by* column of at least one test case below before this package can reach `TECH_COMPLETE`.
+**18 coverage items.** Every one must appear in the *Covered by* column of at least one test case below before this package can reach `TECH_COMPLETE`.
 
 <!-- /generated:coverage -->
 

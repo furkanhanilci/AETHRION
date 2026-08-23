@@ -187,7 +187,7 @@ Two other bindings:
 
 ### What acceptance of this package releases
 
-- **Directly unblocked:** 5 — `WP-044` · `WP-088` · `WP-124` · `WP-126` · `WP-158`
+- **Directly unblocked:** 6 — `WP-044` · `WP-088` · `WP-124` · `WP-126` · `WP-155` · `WP-158`
 - **Transitively reachable:** **112 of 160 packages (70%)** cannot be accepted until this one is.
 
 The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
@@ -213,6 +213,9 @@ The transitive figure is the leverage number. It does not appear anywhere else i
 |---|---|---|
 | [ACC-07 — Reviewer Order Bias](../12_ACCEPTANCE_SCENARIOS/acc_07_reviewer_order_bias.md) | High | A material order effect fails the profile's calibration; the reviewer is not admitted to a critical role, or is suspended from it. |
 | [ACC-37 — Evaluation Set Contamination](../12_ACCEPTANCE_SCENARIOS/acc_37_eval_contamination.md) | Critical | The evaluation bundle is invalidated; the qualification and profile decisions that depended on it are suspended, and a clean set and re-evaluation process opens. |
+| [ACC-48 — Wrong or Competing Skill Selected](../12_ACCEPTANCE_SCENARIOS/acc_48_wrong_skill_selected.md) | High | The correct skill is selected, the selection reason is recorded, and an unresolvable overlap fails closed rather than picking arbitrarily. |
+| [ACC-49 — Non-Waivable Skill Ignored Under Pressure](../12_ACCEPTANCE_SCENARIOS/acc_49_skill_ignored_under_pressure.md) | Critical | The iron law holds; the attempted evasion and its verbatim justification are captured; the task cannot reach a completion claim. |
+| [ACC-80 — Governed Versus Ungoverned Research Harness](../12_ACCEPTANCE_SCENARIOS/acc_80_governed_versus_ungoverned_harness.md) | Medium | The harness emits the task and integrity metrics for both, reproducibly, with the cost of each recorded. A worse governed task score is a valid published result and is not suppressed. |
 
 <!-- /generated:dependency-analysis -->
 

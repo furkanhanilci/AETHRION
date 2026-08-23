@@ -101,11 +101,7 @@ From `00_PROGRAM/05_definition_of_ready_and_done.md`, instantiated for this pack
 
 ### Definition of Commissioned
 
-An `ACCEPTED` package is still not production-ready. Every scenario below must pass **on the same release candidate**:
-
-- [ ] `ACC-10` passes. A `SKIPPED` scenario on a Critical row does not count as a pass.
-- [ ] `ACC-11` passes. A `SKIPPED` scenario on a Critical row does not count as a pass.
-- [ ] `ACC-36` passes. A `SKIPPED` scenario on a Critical row does not count as a pass.
+**No acceptance scenario names this package.** It can reach `ACCEPTED` on its own evidence and cannot reach `COMMISSIONED` through a scenario, because there is none to pass. `00_PROGRAM/11`'s completeness rule calls this an incomplete entry rather than a shorter one.
 
 <!-- /generated:dod -->
 

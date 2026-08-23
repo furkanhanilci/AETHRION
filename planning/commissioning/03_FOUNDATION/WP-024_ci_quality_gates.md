@@ -154,9 +154,11 @@ The transitive figure is the leverage number. It does not appear anywhere else i
 
 ### Acceptance scenarios that exercise this package
 
-**None.** No acceptance scenario names this package.
+`COMMISSIONED` requires every scenario below to pass **on the same release candidate**. A `SKIPPED` scenario on a `Critical` row does not count as a pass.
 
-> `00_PROGRAM/11_scope_coverage_matrix.md` states the rule this trips: *a row with a primary package but no acceptance column is a capability nobody will ever be asked to demonstrate.* This package can reach `ACCEPTED` on its own tests, but it cannot reach `COMMISSIONED` through a scenario, because there is none to pass.
+| Scenario | Severity | What it must show |
+|---|---|---|
+| [ACC-74 — Missing Upstream Lineage or Licence](../12_ACCEPTANCE_SCENARIOS/ACC-74_missing_upstream_lineage.md) | High | Admission fails at CI before merge. A second variant, correctly registered, passes — so the check discriminates rather than blocking all new files. |
 
 <!-- /generated:dependency-analysis -->
 

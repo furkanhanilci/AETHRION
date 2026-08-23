@@ -189,7 +189,7 @@ findings, and the quality/cost Pareto frontier.
 ### What acceptance of this package releases
 
 - **Directly unblocked:** 10 — `WP-097` · `WP-098` · `WP-099` · `WP-100` · `WP-101` · `WP-104` · `WP-107` · `WP-117` · `WP-150` · `WP-152`
-- **Transitively reachable:** **43 of 160 packages (27%)** cannot be accepted until this one is.
+- **Transitively reachable:** **40 of 160 packages (25%)** cannot be accepted until this one is.
 
 The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
 

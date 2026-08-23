@@ -30,11 +30,11 @@ The evidence layers this package must satisfy, derived from the gates it touches
 | **E0** Structural | Does the file, schema or reference exist? | **yes** | never optional — the artifact must exist and behave |
 | **E1** Mechanical | Is the behaviour correct under a deterministic test? | **yes** | never optional — the artifact must exist and behave |
 | **E2** Security | Is the forbidden path actually blocked? | **yes** | never optional — a control that has not been observed refusing is prose |
-| **E3** Independent review | Did an actor outside the producer examine the semantics? | no | no scenario and not L |
+| **E3** Independent review | Did an actor outside the producer examine the semantics? | **yes** | bound to 3 acceptance scenario(s) |
 | **E4** Reproduction | Does the same package run again in a clean environment? | no | no execution or reproduction gate |
 | **E5** Operations | Are failure, restore and observability correct? | no | no platform or day-2 gate |
 
-**Applicable layers: E0 · E1 · E2.** A layer marked *no* is not a waiver: it means this package cannot produce that evidence, and a claim that needs it must be earned by a package that can.
+**Applicable layers: E0 · E1 · E2 · E3.** A layer marked *no* is not a waiver: it means this package cannot produce that evidence, and a claim that needs it must be earned by a package that can.
 
 <!-- /generated:strategy -->
 
@@ -115,8 +115,11 @@ ISO/IEC/IEEE 29119-3 §8.3.2. A coverage item is something the tests must reach.
 | C11 | Add the **skill binding fields** to `TaskContract` (see below) and make `skill_bundle_hash` part of the evidence chain | WP-013-T06 | *(name the test case)* |
 | C12 | Add the **classification fields** `work_domain`, `research_mode` and `execution_path`, with fail-closed defaults | WP-013-T07 | *(name the test case)* |
 | C13 | Define `RoleBinding` so that a **role is a function, not a person**: separation and combination constraints instead of headcount | WP-013-T08 | *(name the test case)* |
+| C14 | Task Runs With No Skill Loaded | [ACC-46](../12_ACCEPTANCE_SCENARIOS/ACC-46_skill_not_loaded.md) — Critical | *(name the test case)* |
+| C15 | Wrong or Competing Skill Selected | [ACC-48](../12_ACCEPTANCE_SCENARIOS/ACC-48_wrong_skill_selected.md) — High | *(name the test case)* |
+| C16 | Upstream Change Invalidates a Derived Skill | [ACC-51](../12_ACCEPTANCE_SCENARIOS/ACC-51_upstream_skill_drift.md) — High | *(name the test case)* |
 
-**13 coverage items.** Every one must appear in the *Covered by* column of at least one test case below before this package can reach `TECH_COMPLETE`.
+**16 coverage items.** Every one must appear in the *Covered by* column of at least one test case below before this package can reach `TECH_COMPLETE`.
 
 <!-- /generated:coverage -->
 

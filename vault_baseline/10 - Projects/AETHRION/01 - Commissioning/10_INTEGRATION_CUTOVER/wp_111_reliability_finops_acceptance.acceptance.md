@@ -131,8 +131,15 @@ From `00_PROGRAM/05_definition_of_ready_and_done.md`, instantiated for this pack
 An `ACCEPTED` package is still not production-ready. Every scenario below must pass **on the same release candidate**:
 
 - [ ] `ACC-09` passes. A `SKIPPED` scenario on a Critical row does not count as a pass.
+- [ ] `ACC-10` passes. A `SKIPPED` scenario on a Critical row does not count as a pass.
+- [ ] `ACC-11` passes. A `SKIPPED` scenario on a Critical row does not count as a pass.
+- [ ] `ACC-12` passes. A `SKIPPED` scenario on a Critical row does not count as a pass.
+- [ ] `ACC-13` passes. A `SKIPPED` scenario on a Critical row does not count as a pass.
+- [ ] `ACC-14` passes. A `SKIPPED` scenario on a Critical row does not count as a pass.
 - [ ] `ACC-29` passes. A `SKIPPED` scenario on a Critical row does not count as a pass.
 - [ ] `ACC-33` passes. A `SKIPPED` scenario on a Critical row does not count as a pass.
+- [ ] `ACC-34` passes. A `SKIPPED` scenario on a Critical row does not count as a pass.
+- [ ] `ACC-35` passes. A `SKIPPED` scenario on a Critical row does not count as a pass.
 
 <!-- /generated:dod -->
 

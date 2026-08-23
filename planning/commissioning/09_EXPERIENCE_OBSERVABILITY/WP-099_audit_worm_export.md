@@ -169,8 +169,8 @@ findings, and the quality/cost Pareto frontier.
 
 ### What acceptance of this package releases
 
-- **Directly unblocked:** 8 — `WP-101` · `WP-103` · `WP-106` · `WP-109` · `WP-114` · `WP-118` · `WP-128` · `WP-129`
-- **Transitively reachable:** **31 of 160 packages (19%)** cannot be accepted until this one is.
+- **Directly unblocked:** 9 — `WP-101` · `WP-103` · `WP-106` · `WP-109` · `WP-114` · `WP-118` · `WP-128` · `WP-129` · `WP-152`
+- **Transitively reachable:** **29 of 160 packages (18%)** cannot be accepted until this one is.
 
 The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
 
@@ -194,6 +194,7 @@ The transitive figure is the leverage number. It does not appear anywhere else i
 | Scenario | Severity | What it must show |
 |---|---|---|
 | [ACC-40 — Complete Project Audit Export](../12_ACCEPTANCE_SCENARIOS/ACC-40_audit_export.md) | Critical | The signed export verifies with complete correlation and hash chain; a missing or tampered fixture fails verification and raises an incident. |
+| [ACC-68 — Human Intervention Without an Audit Record](../12_ACCEPTANCE_SCENARIOS/ACC-68_human_intervention_audit.md) | Critical | The edit fails and rolls back. There is no path by which a human action changes canonical state without an atomically written `HumanInterventionRecord` carrying before and after references. |
 
 <!-- /generated:dependency-analysis -->
 

@@ -131,8 +131,6 @@ refusal is by schema and by policy rather than by convention.
 
 ## Dependency and prerequisite analysis
 
-## Dependency and prerequisite analysis
-
 <!-- generated:dependency-analysis — produced by scripts/expand_packages.py; do not edit inside this block -->
 
 ### Direct hard dependencies
@@ -185,7 +183,7 @@ refusal is by schema and by policy rather than by convention.
 ### What acceptance of this package releases
 
 - **Directly unblocked:** 2 — `WP-143` · `WP-147`
-- **Transitively reachable:** **12 of 160 packages (8%)** cannot be accepted until this one is.
+- **Transitively reachable:** **14 of 160 packages (9%)** cannot be accepted until this one is.
 
 The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
 
@@ -193,7 +191,7 @@ The transitive figure is the leverage number. It does not appear anywhere else i
 
 | | |
 |---|---|
-| Wave | unassigned |
+| Wave | W-S — Scientific intelligence |
 | Dependency depth | level **28** of 55 |
 | On the documented critical path | no |
 | Effort class | **L** |
@@ -220,8 +218,6 @@ The transitive figure is the leverage number. It does not appear anywhere else i
 - `DataClass`, `CodeTrust`, `ToolEffect` and the network/credential scope are classified.
 - Test fixtures, the environment, the rollback point and the acceptance measurement method are reachable.
 - An O/M/P person-day estimate is recorded and real capacity is reserved against it.
-
-## Execution requirements
 
 ## Execution requirements
 

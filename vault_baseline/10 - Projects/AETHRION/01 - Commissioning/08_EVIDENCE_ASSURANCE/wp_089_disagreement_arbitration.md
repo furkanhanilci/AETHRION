@@ -204,7 +204,7 @@ because the queue is long or the budget is tight.
 ### What acceptance of this package releases
 
 - **Directly unblocked:** 8 — `WP-090` · `WP-093` · `WP-095` · `WP-105` · `WP-106` · `WP-107` · `WP-113` · `WP-126`
-- **Transitively reachable:** **38 of 160 packages (24%)** cannot be accepted until this one is.
+- **Transitively reachable:** **34 of 160 packages (21%)** cannot be accepted until this one is.
 
 The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
 
@@ -228,6 +228,7 @@ The transitive figure is the leverage number. It does not appear anywhere else i
 | Scenario | Severity | What it must show |
 |---|---|---|
 | [ACC-08 — Strong Counter-Test](../12_ACCEPTANCE_SCENARIOS/acc_08_strong_counter_test.md) | Critical | The majority vote does not override the test; the claim becomes `CHALLENGED`/`REJECTED`, a `DisagreementCase` opens and G6 does not pass. |
+| [ACC-090 — False Consensus Cannot Close a Challenge](../12_ACCEPTANCE_SCENARIOS/acc_090_false_consensus.md) | Critical | Convergence is refused while the challenge is unresolved. A majority cannot close it. It closes by being answered, by being explicitly accepted as a stated limitation, or by escalating. |
 
 <!-- /generated:dependency-analysis -->
 

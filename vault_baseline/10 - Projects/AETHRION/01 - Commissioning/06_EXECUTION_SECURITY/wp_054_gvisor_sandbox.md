@@ -178,7 +178,7 @@ injection, memory poisoning and credential exfiltration.
 ### What acceptance of this package releases
 
 - **Directly unblocked:** 7 — `WP-058` · `WP-059` · `WP-060` · `WP-083` · `WP-084` · `WP-104` · `WP-107`
-- **Transitively reachable:** **86 of 160 packages (54%)** cannot be accepted until this one is.
+- **Transitively reachable:** **85 of 160 packages (53%)** cannot be accepted until this one is.
 
 The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
 
@@ -203,6 +203,8 @@ The transitive figure is the leverage number. It does not appear anywhere else i
 |---|---|---|
 | [ACC-15 — Sandbox Escape Attempt](../12_ACCEPTANCE_SCENARIOS/acc_15_sandbox_escape.md) | Critical | Every escape path is denied or contained; no credential or host data leaks, the cell is stopped and a forensic `SecurityEvent` is produced. |
 | [ACC-17 — Unsigned or Mutable Image](../12_ACCEPTANCE_SCENARIOS/acc_17_unsigned_image.md) | Critical | The pod is not created; the signature, provenance and digest policy denies it and produces audit and alert records. A signed-digest counter-example passes. |
+| [ACC-54 — Producer Attempts Evaluator Mutation](../12_ACCEPTANCE_SCENARIOS/acc_54_evaluator_mutation_attempt.md) | Critical | Every write is denied at the policy and sandbox boundary and audited. If any write nonetheless lands, the evaluator digest mismatch invalidates the run and the scenario FAILs as a critical security defect. |
+| [ACC-55 — Hidden Evaluation Data Access Attempt](../12_ACCEPTANCE_SCENARIOS/acc_55_hidden_evaluation_data_access.md) | Critical | Access is denied under the supported threat model, no hidden content appears in any candidate artifact, log or trace, and each attempt raises a security finding. |
 
 <!-- /generated:dependency-analysis -->
 

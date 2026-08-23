@@ -56,7 +56,7 @@ The evidence layers this package must satisfy, derived from the gates it touches
 | **E0** Structural | Does the file, schema or reference exist? | **yes** | never optional — the artifact must exist and behave |
 | **E1** Mechanical | Is the behaviour correct under a deterministic test? | **yes** | never optional — the artifact must exist and behave |
 | **E2** Security | Is the forbidden path actually blocked? | **yes** | never optional — a control that has not been observed refusing is prose |
-| **E3** Independent review | Did an actor outside the producer examine the semantics? | **yes** | bound to 4 acceptance scenario(s) · effort class L |
+| **E3** Independent review | Did an actor outside the producer examine the semantics? | **yes** | bound to 5 acceptance scenario(s) · effort class L |
 | **E4** Reproduction | Does the same package run again in a clean environment? | **yes** | touches G5 |
 | **E5** Operations | Are failure, restore and observability correct? | no | no platform or day-2 gate |
 
@@ -139,12 +139,13 @@ ISO/IEC/IEEE 29119-3 §8.3.2. A coverage item is something the tests must reach.
 | C10 | Implement topology compilation from the task and the independence profile | WP-149-T05 | *(name the test case)* |
 | C11 | Implement the fully-connected control mode and the baseline harness | WP-149-T06 | *(name the test case)* |
 | C12 | Prove the blackboard is deletable without canonical loss | WP-149-T07 | *(name the test case)* |
-| C13 | Typed Inter-Agent Message | [ACC-083](../12_ACCEPTANCE_SCENARIOS/acc_083_typed_inter_agent_message.md) — High | *(name the test case)* |
-| C14 | Delta-Only Communication | [ACC-084](../12_ACCEPTANCE_SCENARIOS/acc_084_delta_only_communication.md) — High | *(name the test case)* |
-| C15 | A Blackboard Entry Is Not Evidence | [ACC-085](../12_ACCEPTANCE_SCENARIOS/acc_085_blackboard_entry_is_not_evidence.md) — Critical | *(name the test case)* |
-| C16 | Sparse Topology Preserves Quality | [ACC-086](../12_ACCEPTANCE_SCENARIOS/acc_086_sparse_topology_quality_preservation.md) — High | *(name the test case)* |
+| C13 | Independent-First Embargo | [ACC-082](../12_ACCEPTANCE_SCENARIOS/acc_082_independent_first_embargo.md) — Critical | *(name the test case)* |
+| C14 | Typed Inter-Agent Message | [ACC-083](../12_ACCEPTANCE_SCENARIOS/acc_083_typed_inter_agent_message.md) — High | *(name the test case)* |
+| C15 | Delta-Only Communication | [ACC-084](../12_ACCEPTANCE_SCENARIOS/acc_084_delta_only_communication.md) — High | *(name the test case)* |
+| C16 | A Blackboard Entry Is Not Evidence | [ACC-085](../12_ACCEPTANCE_SCENARIOS/acc_085_blackboard_entry_is_not_evidence.md) — Critical | *(name the test case)* |
+| C17 | Sparse Topology Preserves Quality | [ACC-086](../12_ACCEPTANCE_SCENARIOS/acc_086_sparse_topology_quality_preservation.md) — High | *(name the test case)* |
 
-**16 coverage items.** Every one must appear in the *Covered by* column of at least one test case below before this package can reach `TECH_COMPLETE`.
+**17 coverage items.** Every one must appear in the *Covered by* column of at least one test case below before this package can reach `TECH_COMPLETE`.
 
 <!-- /generated:coverage -->
 

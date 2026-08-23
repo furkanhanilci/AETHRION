@@ -138,7 +138,7 @@ which is why they are caused deliberately rather than waited for.
 
 ### Full prerequisite closure
 
-**119 of 160 packages (74%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
+**120 of 160 packages (75%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
 
 | Level | Packages |
 |---:|---|
@@ -170,7 +170,7 @@ which is why they are caused deliberately rather than waited for.
 | 26 | `WP-057` · `WP-059` · `WP-061` · `WP-092` |
 | 27 | `WP-058` · `WP-064` · `WP-075` |
 | 28 | `WP-060` · `WP-062` · `WP-081` |
-| 29 | `WP-063` · `WP-065` · `WP-066` · `WP-069` · `WP-082` |
+| 29 | `WP-063` · `WP-065` · `WP-066` · `WP-069` · `WP-082` · `WP-154` |
 | 30 | `WP-067` · `WP-070` · `WP-083` · `WP-084` · `WP-096` |
 | 31 | `WP-068` · `WP-071` · `WP-097` · `WP-099` · `WP-100` |
 | 32 | `WP-072` · `WP-076` · `WP-098` |
@@ -197,7 +197,7 @@ which is why they are caused deliberately rather than waited for.
 ### What acceptance of this package releases
 
 - **Directly unblocked:** 1 — `WP-121`
-- **Transitively reachable:** **12 of 160 packages (8%)** cannot be accepted until this one is.
+- **Transitively reachable:** **10 of 160 packages (6%)** cannot be accepted until this one is.
 
 The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
 
@@ -218,10 +218,128 @@ The transitive figure is the leverage number. It does not appear anywhere else i
 
 `COMMISSIONED` requires every scenario below to pass **on the same release candidate**. A `SKIPPED` scenario on a `Critical` row does not count as a pass.
 
-| Scenario | Severity | What it must show |
+This package is an **aggregator**: its commissioning set is the registry query `phase=PRE_GO_LIVE`, evaluated at generation time. Adding a scenario in that phase adds it here, and nobody has to remember to. The `Why` column below distinguishes the rows that arrived by rule from the ones bound deliberately — an aggregate that cannot be audited row by row is a list with extra steps.
+
+| Scenario | Severity | Why |
 |---|---|---|
-| [ACC-01 — Human Seed Literature](../12_ACCEPTANCE_SCENARIOS/acc_01_human_seed_literature.md) | Critical | The source resolves to a single `SourceRecord`/representation, enters the G3 candidate and set chain, and **no field in personal Zotero is modified**. |
-| [ACC-40 — Complete Project Audit Export](../12_ACCEPTANCE_SCENARIOS/acc_40_audit_export.md) | Critical | The signed export verifies with complete correlation and hash chain; a missing or tampered fixture fails verification and raises an incident. |
+| [ACC-01 — Human Seed Literature](../12_ACCEPTANCE_SCENARIOS/acc_01_human_seed_literature.md) | Critical | selected by phase=PRE_GO_LIVE |
+| [ACC-02 — Agent-Used Source Write-Back](../12_ACCEPTANCE_SCENARIOS/acc_02_agent_used_source_writeback.md) | Critical | selected by phase=PRE_GO_LIVE |
+| [ACC-03 — Duplicate and Metadata Collision](../12_ACCEPTANCE_SCENARIOS/acc_03_duplicate_collision.md) | High | selected by phase=PRE_GO_LIVE |
+| [ACC-04 — Retraction Impact](../12_ACCEPTANCE_SCENARIOS/acc_04_retraction_impact.md) | Critical | selected by phase=PRE_GO_LIVE |
+| [ACC-05 — Prompt-Injection PDF](../12_ACCEPTANCE_SCENARIOS/acc_05_prompt_injection_pdf.md) | Critical | selected by phase=PRE_GO_LIVE |
+| [ACC-06 — Planner Self-Approval Attempt](../12_ACCEPTANCE_SCENARIOS/acc_06_plan_self_approval.md) | Critical | selected by phase=PRE_GO_LIVE |
+| [ACC-07 — Reviewer Order Bias](../12_ACCEPTANCE_SCENARIOS/acc_07_reviewer_order_bias.md) | High | selected by phase=PRE_GO_LIVE |
+| [ACC-08 — Strong Counter-Test](../12_ACCEPTANCE_SCENARIOS/acc_08_strong_counter_test.md) | Critical | selected by phase=PRE_GO_LIVE |
+| [ACC-09 — Budget Hard Stop](../12_ACCEPTANCE_SCENARIOS/acc_09_budget_hard_stop.md) | Critical | selected by phase=PRE_GO_LIVE |
+| [ACC-10 — Primary Model Provider Outage](../12_ACCEPTANCE_SCENARIOS/acc_10_provider_outage.md) | High | selected by phase=PRE_GO_LIVE |
+| [ACC-11 — No Eligible Fallback](../12_ACCEPTANCE_SCENARIOS/acc_11_no_eligible_fallback.md) | Critical | selected by phase=PRE_GO_LIVE |
+| [ACC-12 — Duplicate Event Delivery](../12_ACCEPTANCE_SCENARIOS/acc_12_duplicate_event.md) | Critical | selected by phase=PRE_GO_LIVE |
+| [ACC-13 — Temporal Worker Crash](../12_ACCEPTANCE_SCENARIOS/acc_13_temporal_worker_crash.md) | Critical | selected by phase=PRE_GO_LIVE |
+| [ACC-14 — Workflow Code Deployment and Replay](../12_ACCEPTANCE_SCENARIOS/acc_14_workflow_code_deploy.md) | Critical | selected by phase=PRE_GO_LIVE |
+| [ACC-15 — Sandbox Escape Attempt](../12_ACCEPTANCE_SCENARIOS/acc_15_sandbox_escape.md) | Critical | selected by phase=PRE_GO_LIVE |
+| [ACC-16 — Egress Exfiltration Attempt](../12_ACCEPTANCE_SCENARIOS/acc_16_egress_exfiltration.md) | Critical | selected by phase=PRE_GO_LIVE |
+| [ACC-17 — Unsigned or Mutable Image](../12_ACCEPTANCE_SCENARIOS/acc_17_unsigned_image.md) | Critical | selected by phase=PRE_GO_LIVE |
+| [ACC-18 — D3 Data to a Public Provider](../12_ACCEPTANCE_SCENARIOS/acc_18_d3_public_route.md) | Critical | selected by phase=PRE_GO_LIVE |
+| [ACC-19 — Clean-Room Reproduction Pass](../12_ACCEPTANCE_SCENARIOS/acc_19_clean_room_pass.md) | High | selected by phase=PRE_GO_LIVE |
+| [ACC-20 — Clean-Room Reproduction Failure](../12_ACCEPTANCE_SCENARIOS/acc_20_clean_room_fail.md) | Critical | selected by phase=PRE_GO_LIVE |
+| [ACC-21 — Derived Graph Corruption and Rebuild](../12_ACCEPTANCE_SCENARIOS/acc_21_graph_corruption.md) | High | selected by phase=PRE_GO_LIVE |
+| [ACC-22 — Obsidian Human Edit Preservation](../12_ACCEPTANCE_SCENARIOS/acc_22_obsidian_human_edit.md) | High | selected by phase=PRE_GO_LIVE |
+| [ACC-23 — Artifact Overwrite Attempt](../12_ACCEPTANCE_SCENARIOS/acc_23_artifact_overwrite.md) | Critical | selected by phase=PRE_GO_LIVE |
+| [ACC-24 — Policy Bundle Rollback](../12_ACCEPTANCE_SCENARIOS/acc_24_policy_bundle_rollback.md) | High | selected by phase=PRE_GO_LIVE |
+| [ACC-25 — Human Approval Forgery](../12_ACCEPTANCE_SCENARIOS/acc_25_human_approval_forgery.md) | Critical | selected by phase=PRE_GO_LIVE |
+| [ACC-26 — Approval, Delegation and Exception Expiry](../12_ACCEPTANCE_SCENARIOS/acc_26_approval_expiry.md) | Critical | selected by phase=PRE_GO_LIVE |
+| [ACC-27 — Regional / Management Plane DR](../12_ACCEPTANCE_SCENARIOS/acc_27_regional_dr.md) | Critical | selected by phase=PRE_GO_LIVE |
+| [ACC-28 — Zotero Full Resync](../12_ACCEPTANCE_SCENARIOS/acc_28_zotero_full_resync.md) | High | selected by phase=PRE_GO_LIVE |
+| [ACC-29 — Provider Invoice Variance](../12_ACCEPTANCE_SCENARIOS/acc_29_invoice_variance.md) | Medium | selected by phase=PRE_GO_LIVE |
+| [ACC-30 — Publication Completeness](../12_ACCEPTANCE_SCENARIOS/acc_30_publication_completeness.md) | Critical | selected by phase=PRE_GO_LIVE |
+| [ACC-31 — Superseded Publication](../12_ACCEPTANCE_SCENARIOS/acc_31_superseded_publication.md) | High | selected by phase=PRE_GO_LIVE |
+| [ACC-32 — Secret in Prompt or Trace](../12_ACCEPTANCE_SCENARIOS/acc_32_secret_in_trace.md) | Critical | selected by phase=PRE_GO_LIVE |
+| [ACC-33 — Kueue Preemption](../12_ACCEPTANCE_SCENARIOS/acc_33_kueue_preemption.md) | High | selected by phase=PRE_GO_LIVE |
+| [ACC-34 — DLQ Repair and Corrected Replay](../12_ACCEPTANCE_SCENARIOS/acc_34_dlq_repair.md) | High | selected by phase=PRE_GO_LIVE |
+| [ACC-35 — Tool Partial Failure](../12_ACCEPTANCE_SCENARIOS/acc_35_tool_partial_failure.md) | Critical | selected by phase=PRE_GO_LIVE |
+| [ACC-36 — Model Snapshot Drift](../12_ACCEPTANCE_SCENARIOS/acc_36_model_snapshot_drift.md) | Critical | selected by phase=PRE_GO_LIVE |
+| [ACC-37 — Evaluation Set Contamination](../12_ACCEPTANCE_SCENARIOS/acc_37_eval_contamination.md) | Critical | selected by phase=PRE_GO_LIVE |
+| [ACC-38 — Critical Reviewer Unavailable](../12_ACCEPTANCE_SCENARIOS/acc_38_reviewer_unavailable.md) | High | selected by phase=PRE_GO_LIVE |
+| [ACC-39 — Negative Research Result](../12_ACCEPTANCE_SCENARIOS/acc_39_negative_result.md) | Medium | selected by phase=PRE_GO_LIVE |
+| [ACC-40 — Complete Project Audit Export](../12_ACCEPTANCE_SCENARIOS/acc_40_audit_export.md) | Critical | selected by phase=PRE_GO_LIVE |
+| [ACC-41 — Outbound Notification Exceeds the Channel Data-Class Ceiling](../12_ACCEPTANCE_SCENARIOS/acc_41_notification_data_class_ceiling.md) | Critical | selected by phase=PRE_GO_LIVE |
+| [ACC-42 — Notification Broker Unavailable During an Escalating Condition](../12_ACCEPTANCE_SCENARIOS/acc_42_notification_broker_outage.md) | High | selected by phase=PRE_GO_LIVE |
+| [ACC-43 — Escalation Timeout and Dead-Man's Switch](../12_ACCEPTANCE_SCENARIOS/acc_43_escalation_and_dead_mans_switch.md) | Critical | selected by phase=PRE_GO_LIVE |
+| [ACC-44 — Inbound Content Attempts to Act as an Instruction](../12_ACCEPTANCE_SCENARIOS/acc_44_inbound_message_is_not_an_instruction.md) | Critical | selected by phase=PRE_GO_LIVE |
+| [ACC-45 — Irreversible External Record Submission](../12_ACCEPTANCE_SCENARIOS/acc_45_external_record_submission.md) | Critical | selected by phase=PRE_GO_LIVE |
+| [ACC-46 — Task Runs With No Skill Loaded](../12_ACCEPTANCE_SCENARIOS/acc_46_skill_not_loaded.md) | Critical | selected by phase=PRE_GO_LIVE |
+| [ACC-47 — Harness Starts Without the Skill Bootstrap](../12_ACCEPTANCE_SCENARIOS/acc_47_skill_bootstrap_missing.md) | Critical | selected by phase=PRE_GO_LIVE |
+| [ACC-48 — Wrong or Competing Skill Selected](../12_ACCEPTANCE_SCENARIOS/acc_48_wrong_skill_selected.md) | High | selected by phase=PRE_GO_LIVE |
+| [ACC-49 — Non-Waivable Skill Ignored Under Pressure](../12_ACCEPTANCE_SCENARIOS/acc_49_skill_ignored_under_pressure.md) | Critical | selected by phase=PRE_GO_LIVE |
+| [ACC-50 — Procedure Lost to Context Compaction or Restart](../12_ACCEPTANCE_SCENARIOS/acc_50_skill_lost_on_compaction.md) | High | selected by phase=PRE_GO_LIVE |
+| [ACC-51 — Upstream Change Invalidates a Derived Skill](../12_ACCEPTANCE_SCENARIOS/acc_51_upstream_skill_drift.md) | High | selected by phase=PRE_GO_LIVE |
+| [ACC-52 — Claimless Publication Assertion](../12_ACCEPTANCE_SCENARIOS/acc_52_claimless_publication_assertion.md) | Critical | selected by phase=PRE_GO_LIVE |
+| [ACC-53 — Unverified Numeric Result](../12_ACCEPTANCE_SCENARIOS/acc_53_unverified_numeric_result.md) | Critical | selected by phase=PRE_GO_LIVE |
+| [ACC-54 — Producer Attempts Evaluator Mutation](../12_ACCEPTANCE_SCENARIOS/acc_54_evaluator_mutation_attempt.md) | Critical | selected by phase=PRE_GO_LIVE |
+| [ACC-55 — Hidden Evaluation Data Access Attempt](../12_ACCEPTANCE_SCENARIOS/acc_55_hidden_evaluation_data_access.md) | Critical | selected by phase=PRE_GO_LIVE |
+| [ACC-56 — Confirmatory Result Without a Frozen Analysis Plan](../12_ACCEPTANCE_SCENARIOS/acc_56_confirmatory_without_frozen_plan.md) | Critical | selected by phase=PRE_GO_LIVE |
+| [ACC-57 — Hypothesis In-Place Mutation Attempt](../12_ACCEPTANCE_SCENARIOS/acc_57_hypothesis_in_place_mutation.md) | High | selected by phase=PRE_GO_LIVE |
+| [ACC-58 — Cross-Branch Fusion Lineage](../12_ACCEPTANCE_SCENARIOS/acc_58_cross_branch_fusion_lineage.md) | High | selected by phase=PRE_GO_LIVE |
+| [ACC-59 — Discovery Search Stagnation](../12_ACCEPTANCE_SCENARIOS/acc_59_discovery_search_stagnation.md) | High | selected by phase=PRE_GO_LIVE |
+| [ACC-60 — Failed Smoke Candidate Promotion Attempt](../12_ACCEPTANCE_SCENARIOS/acc_60_failed_smoke_promotion.md) | Critical | selected by phase=PRE_GO_LIVE |
+| [ACC-61 — Unqualified Semantic Verifier](../12_ACCEPTANCE_SCENARIOS/acc_61_unqualified_semantic_verifier.md) | Critical | selected by phase=PRE_GO_LIVE |
+| [ACC-62 — Semantic Verifier Recorded as Mechanical](../12_ACCEPTANCE_SCENARIOS/acc_62_verifier_class_misdeclaration.md) | High | selected by phase=PRE_GO_LIVE |
+| [ACC-63 — Failed Experiment Must Be Recorded](../12_ACCEPTANCE_SCENARIOS/acc_63_failed_experiment_recorded.md) | High | selected by phase=PRE_GO_LIVE |
+| [ACC-64 — Implementation Failure Must Not Refute a Hypothesis](../12_ACCEPTANCE_SCENARIOS/acc_64_implementation_failure_not_refutation.md) | Critical | selected by phase=PRE_GO_LIVE |
+| [ACC-65 — Reproduction in the Producer Environment](../12_ACCEPTANCE_SCENARIOS/acc_65_reproduction_in_producer_environment.md) | Critical | selected by phase=PRE_GO_LIVE |
+| [ACC-66 — Standalone Reproduction Package](../12_ACCEPTANCE_SCENARIOS/acc_66_standalone_reproduction_package.md) | Critical | selected by phase=PRE_GO_LIVE |
+| [ACC-67 — Claim–Code–Result Consistency Failure](../12_ACCEPTANCE_SCENARIOS/acc_67_claim_code_result_consistency.md) | Critical | selected by phase=PRE_GO_LIVE |
+| [ACC-68 — Human Intervention Without an Audit Record](../12_ACCEPTANCE_SCENARIOS/acc_68_human_intervention_audit.md) | Critical | selected by phase=PRE_GO_LIVE |
+| [ACC-69 — Human Decision Timeout Must Not Auto-Approve](../12_ACCEPTANCE_SCENARIOS/acc_69_decision_timeout_no_autoapproval.md) | Critical | selected by phase=PRE_GO_LIVE |
+| [ACC-70 — EvidenceGap Lifecycle](../12_ACCEPTANCE_SCENARIOS/acc_70_evidence_gap_lifecycle.md) | High | selected by phase=PRE_GO_LIVE |
+| [ACC-71 — Multi-Parent Artifact Lineage](../12_ACCEPTANCE_SCENARIOS/acc_71_artifact_multi_parent_lineage.md) | Critical | selected by phase=PRE_GO_LIVE |
+| [ACC-72 — Reviewer Isolation Before Review Lock](../12_ACCEPTANCE_SCENARIOS/acc_72_reviewer_isolation_before_lock.md) | Critical | selected by phase=PRE_GO_LIVE |
+| [ACC-74 — Missing Upstream Lineage or Licence](../12_ACCEPTANCE_SCENARIOS/acc_74_missing_upstream_lineage.md) | High | selected by phase=PRE_GO_LIVE |
+| [ACC-75 — Literature Retrieval Budget and Stopping Rule](../12_ACCEPTANCE_SCENARIOS/acc_75_retrieval_budget_and_stopping_rule.md) | High | selected by phase=PRE_GO_LIVE |
+| [ACC-76 — Unsupported Publication Sentence](../12_ACCEPTANCE_SCENARIOS/acc_76_unsupported_publication_sentence.md) | Critical | selected by phase=PRE_GO_LIVE |
+| [ACC-77 — VerifiedValue Rebinding Attempt](../12_ACCEPTANCE_SCENARIOS/acc_77_verified_value_rebinding.md) | Critical | selected by phase=PRE_GO_LIVE |
+| [ACC-78 — Raw Evidence Versus Interpretation](../12_ACCEPTANCE_SCENARIOS/acc_78_raw_evidence_versus_interpretation.md) | Critical | selected by phase=PRE_GO_LIVE |
+| [ACC-79 — Epistemic Memory Retention Violation](../12_ACCEPTANCE_SCENARIOS/acc_79_memory_retention_violation.md) | High | selected by phase=PRE_GO_LIVE |
+| [ACC-081 — Multi-Agent Cohort Required](../12_ACCEPTANCE_SCENARIOS/acc_081_multi_agent_cohort_required.md) | Critical | selected by phase=PRE_GO_LIVE |
+| [ACC-082 — Independent-First Embargo](../12_ACCEPTANCE_SCENARIOS/acc_082_independent_first_embargo.md) | Critical | selected by phase=PRE_GO_LIVE |
+| [ACC-083 — Typed Inter-Agent Message](../12_ACCEPTANCE_SCENARIOS/acc_083_typed_inter_agent_message.md) | High | selected by phase=PRE_GO_LIVE |
+| [ACC-084 — Delta-Only Communication](../12_ACCEPTANCE_SCENARIOS/acc_084_delta_only_communication.md) | High | selected by phase=PRE_GO_LIVE |
+| [ACC-085 — A Blackboard Entry Is Not Evidence](../12_ACCEPTANCE_SCENARIOS/acc_085_blackboard_entry_is_not_evidence.md) | Critical | selected by phase=PRE_GO_LIVE |
+| [ACC-086 — Sparse Topology Preserves Quality](../12_ACCEPTANCE_SCENARIOS/acc_086_sparse_topology_quality_preservation.md) | High | selected by phase=PRE_GO_LIVE |
+| [ACC-087 — Communication Optimisation Rollback](../12_ACCEPTANCE_SCENARIOS/acc_087_communication_optimization_rollback.md) | High | selected by phase=PRE_GO_LIVE |
+| [ACC-088 — Strategic Silence Never Silences a Blocker](../12_ACCEPTANCE_SCENARIOS/acc_088_strategic_silence_never_silences_a_blocker.md) | Critical | selected by phase=PRE_GO_LIVE |
+| [ACC-089 — Sycophancy Anchor Attack](../12_ACCEPTANCE_SCENARIOS/acc_089_sycophancy_anchor_attack.md) | Critical | selected by phase=PRE_GO_LIVE |
+| [ACC-090 — False Consensus Cannot Close a Challenge](../12_ACCEPTANCE_SCENARIOS/acc_090_false_consensus.md) | Critical | selected by phase=PRE_GO_LIVE |
+| [ACC-091 — Faulty Agent Output Does Not Propagate](../12_ACCEPTANCE_SCENARIOS/acc_091_faulty_agent_challenge.md) | Critical | selected by phase=PRE_GO_LIVE |
+| [ACC-092 — Inspector Reviews High-Consequence Output](../12_ACCEPTANCE_SCENARIOS/acc_092_inspector_high_consequence_review.md) | High | selected by phase=PRE_GO_LIVE |
+| [ACC-093 — A Malicious Agent Cannot Bind Authority](../12_ACCEPTANCE_SCENARIOS/acc_093_malicious_agent_cannot_bind_authority.md) | Critical | selected by phase=PRE_GO_LIVE |
+| [ACC-094 — An Unattributable Failure Is `UNKNOWN`](../12_ACCEPTANCE_SCENARIOS/acc_094_failure_cause_unknown.md) | High | selected by phase=PRE_GO_LIVE |
+| [ACC-095 — Failure Taxonomy Routing](../12_ACCEPTANCE_SCENARIOS/acc_095_failure_taxonomy_routing.md) | High | selected by phase=PRE_GO_LIVE |
+| [ACC-096 — A Refuted Memory Does Not Re-Enter Reasoning](../12_ACCEPTANCE_SCENARIOS/acc_096_refuted_memory_mask.md) | High | selected by phase=PRE_GO_LIVE |
+| [ACC-097 — Proactive Reminder of a Frozen Constraint](../12_ACCEPTANCE_SCENARIOS/acc_097_proactive_frozen_constraint_reminder.md) | High | selected by phase=PRE_GO_LIVE |
+| [ACC-098 — Memory Poisoning Attempt](../12_ACCEPTANCE_SCENARIOS/acc_098_memory_poisoning_attempt.md) | Critical | selected by phase=PRE_GO_LIVE |
+| [ACC-099 — Budget Degrades Communication, Not the Cohort](../12_ACCEPTANCE_SCENARIOS/acc_099_communication_budget_degradation.md) | Critical | selected by phase=PRE_GO_LIVE |
+| [ACC-100 — Token Ledger Classification](../12_ACCEPTANCE_SCENARIOS/acc_100_token_ledger_classification.md) | High | selected by phase=PRE_GO_LIVE |
+| [ACC-101 — Reserved Assurance Budget Is Unreachable](../12_ACCEPTANCE_SCENARIOS/acc_101_budget_hard_stop_reserved_assurance.md) | Critical | selected by phase=PRE_GO_LIVE |
+| [ACC-102 — Deterministic Tool-Result Reuse](../12_ACCEPTANCE_SCENARIOS/acc_102_tool_result_reuse.md) | Medium | selected by phase=PRE_GO_LIVE |
+| [ACC-103 — Minor Specification Drift Is Recorded](../12_ACCEPTANCE_SCENARIOS/acc_103_scientific_minor_spec_drift.md) | High | selected by phase=PRE_GO_LIVE |
+| [ACC-104 — Major Specification Drift Blocks Confirmatory Status](../12_ACCEPTANCE_SCENARIOS/acc_104_scientific_major_spec_drift.md) | Critical | selected by phase=PRE_GO_LIVE |
+| [ACC-105 — A Claim Without a Complete Evidence Chain](../12_ACCEPTANCE_SCENARIOS/acc_105_claim_without_evidence_chain.md) | Critical | selected by phase=PRE_GO_LIVE |
+| [ACC-106 — A Number Without a VerifiedValue](../12_ACCEPTANCE_SCENARIOS/acc_106_numeric_value_without_verifiedvalue.md) | Critical | selected by phase=PRE_GO_LIVE |
+| [ACC-107 — Expired Verifier Qualification](../12_ACCEPTANCE_SCENARIOS/acc_107_expired_verifier_qualification.md) | Critical | selected by phase=PRE_GO_LIVE |
+| [ACC-108 — Escalation Is Not Selective Enforcement](../12_ACCEPTANCE_SCENARIOS/acc_108_selective_verifier_escalation.md) | Critical | selected by phase=PRE_GO_LIVE |
+| [ACC-109 — Verifier Abstention Is a Valid Result](../12_ACCEPTANCE_SCENARIOS/acc_109_verifier_abstention_is_valid.md) | High | selected by phase=PRE_GO_LIVE |
+| [ACC-110 — Human Preliminary Assessment Precedes the Recommendation](../12_ACCEPTANCE_SCENARIOS/acc_110_human_preliminary_assessment.md) | Critical | selected by phase=PRE_GO_LIVE |
+| [ACC-111 — Insufficient Basis Is Reachable](../12_ACCEPTANCE_SCENARIOS/acc_111_human_insufficient_basis.md) | High | selected by phase=PRE_GO_LIVE |
+| [ACC-112 — Correction Friction Symmetry](../12_ACCEPTANCE_SCENARIOS/acc_112_correction_friction_symmetry.md) | High | selected by phase=PRE_GO_LIVE |
+| [ACC-113 — Producer to Evaluator Leakage](../12_ACCEPTANCE_SCENARIOS/acc_113_producer_evaluator_leakage.md) | Critical | selected by phase=PRE_GO_LIVE |
+| [ACC-114 — Reproduction Environment Lineage](../12_ACCEPTANCE_SCENARIOS/acc_114_reproduction_in_producer_environment_hardened.md) | Critical | selected by phase=PRE_GO_LIVE |
+| [ACC-115 — Missing Model Execution Fingerprint](../12_ACCEPTANCE_SCENARIOS/acc_115_missing_model_execution_fingerprint.md) | Critical | selected by phase=PRE_GO_LIVE |
+| [ACC-116 — Distributional Reproduction for a Hosted Model](../12_ACCEPTANCE_SCENARIOS/acc_116_distributional_hosted_model_reproduction.md) | High | selected by phase=PRE_GO_LIVE |
+| [ACC-117 — Prompt Injection Meets a Capability Gate](../12_ACCEPTANCE_SCENARIOS/acc_117_prompt_injection_capability_gate.md) | Critical | selected by phase=PRE_GO_LIVE |
+| [ACC-118 — Search-Time Benchmark Contamination](../12_ACCEPTANCE_SCENARIOS/acc_118_benchmark_search_time_contamination.md) | Critical | selected by phase=PRE_GO_LIVE |
+| [ACC-119 — Destructive Projection Rebuild](../12_ACCEPTANCE_SCENARIOS/acc_119_derived_projection_destructive_rebuild.md) | Critical | selected by phase=PRE_GO_LIVE |
+| [ACC-120 — Missing Upstream Licence or Provenance](../12_ACCEPTANCE_SCENARIOS/acc_120_missing_upstream_license_provenance.md) | High | selected by phase=PRE_GO_LIVE |
 
 <!-- /generated:dependency-analysis -->
 

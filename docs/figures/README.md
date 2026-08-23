@@ -61,12 +61,12 @@ carries a **mechanism** that prose carries badly:
 
 | | Figure | Mechanism it carries | Prose alternative |
 |---|---|---|---|
-| 1 | `aethrion_lifecycle.svg` | Eleven gates × three actor classes, and the cells where no model is admitted | A table that hides the pattern |
+| 1 | `aethrion_lifecycle.svg` | Eleven gates × three actor classes, with G5 drawn as two lanes, and the cells where no model is admitted | A table that hides the pattern |
 | 2 | `aethrion_roles.svg` | Authority tiers, and constraint resolution replacing headcount | A list that reads as an org chart |
 | 3 | `aethrion_evidence_chain.svg` | The chain, plus how much of it exists | A status table nobody cross-reads |
 | 4 | `aethrion_stack.svg` | What is built here versus what is adopted, with the obligation each adoption type creates | A register nobody reads end to end |
 | 5 | `aethrion_reporting.svg` | That formatting is downstream, and that no tool in the pipeline decides | A procedure list, which hides the authority question |
-| 6 | `aethrion_waves.svg` | 141 packages in dependency order, against the one that has produced anything | A wave table that reads as progress |
+| 6 | `aethrion_waves.svg` | Every package in the registry in dependency order, against the one that has produced anything | A wave table that reads as progress |
 | 7 | `aethrion_trust.svg` | Where an injected instruction stops, and on whose authority | A policy paragraph that never names the attack |
 | 8 | `aethrion_verification.svg` | What each check proves *and* what it cannot see | A green dashboard, which is the failure mode |
 | 9 | `aethrion_topology.svg` | Direction on every edge between repository, vault and the outside world | A prose claim that the mirror is one-way |
@@ -116,12 +116,12 @@ generator module. If a reader takes away only that sentence, the figure worked.
 
 | Figure | Five-second message |
 |---|---|
-| 1 | Every gate resolves in the same order — mechanical first and unwaivable, then model production, then human authority — and three gates admit no model at all |
+| 1 | Every gate resolves in the same order — mechanical first and unwaivable, then model production, then human authority — and two rows admit no model at all — `G5·E` and `G7a` |
 | 2 | Fourteen functions ordered by authority; a role is a function, so legality is decided by separation constraints, not headcount |
 | 3 | A claim is admissible only if it resolves back to a source span and forward to a signed attestation — and one link of ten is implemented |
 | 4 | Almost every layer is someone else's component; what this project owns is the control layer, and it is the least built part |
 | 5 | A document is produced evidence-first and rendered last, and publication remains a human decision |
-| 6 | 141 packages run in eleven waves behind one bootstrap package, and today exactly one of them has produced anything |
+| 6 | Every package in the registry runs in a declared wave behind one bootstrap package, and today exactly one of them has produced anything |
 | 7 | A paper is data, never an instruction; the plane that can act never reads the plane a stranger can write |
 | 8 | The bundle keeps the corpus honest about its own state; none of them can tell you whether the research is any good |
 | 9 | The repository is the only place anything is authored; the vault is a one-way mirror; the outside world is read-only |
@@ -150,8 +150,21 @@ underlying structures is one.
   stage that is not mechanical.
 - **Figure 6** is a **dependency ladder with a progress channel** — explicitly
   not a Gantt chart, because the plan has no dates and drawing time it does not
-  have would be an invention. Its package counts are **derived from the plan
-  directory at generation time**, so the figure cannot disagree with the plan.
+  have would be an invention. Its package counts are **derived from the package
+  registry at generation time**, and independently **re-checked against that
+  registry from the rendered SVG** by `scripts/check_figure_semantics.py`.
+
+  > The second half of that sentence is the part that matters, and this entry
+  > used to lack it. It read *"derived from the plan directory at generation
+  > time, so the figure cannot disagree with the plan"* — and the figure
+  > disagreed with the plan by nineteen packages for two baselines. The counts
+  > were genuinely derived; they were derived through a hard-coded wave table
+  > that ended at `WP-140`, so `WP-141–159` fell outside every range and were
+  > counted by nothing. **Derived is not the same as true.** A generator that
+  > asks the wrong question reproduces the wrong answer perfectly, and a drift
+  > check comparing the figure to that generator can only confirm the generator
+  > has not changed its mind. The guarantee is now two independent paths meeting
+  > at an assertion, which is a claim that can fail.
 - **Figure 7** is a **two-lane separation diagram with one attack path** drawn to
   the point where it is cut. Two clean lanes with no adversary in them would
   flatter the design; the cut is the content.

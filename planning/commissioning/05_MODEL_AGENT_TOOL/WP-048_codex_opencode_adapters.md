@@ -158,7 +158,7 @@ Two other bindings:
 ### What acceptance of this package releases
 
 - **Directly unblocked:** 1 — `WP-107`
-- **Transitively reachable:** **27 of 160 packages (17%)** cannot be accepted until this one is.
+- **Transitively reachable:** **23 of 160 packages (14%)** cannot be accepted until this one is.
 
 The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
 
@@ -177,9 +177,14 @@ The transitive figure is the leverage number. It does not appear anywhere else i
 
 ### Acceptance scenarios that exercise this package
 
-**None.** No acceptance scenario names this package.
+`COMMISSIONED` requires every scenario below to pass **on the same release candidate**. A `SKIPPED` scenario on a `Critical` row does not count as a pass.
 
-> `00_PROGRAM/11_scope_coverage_matrix.md` states the rule this trips: *a row with a primary package but no acceptance column is a capability nobody will ever be asked to demonstrate.* This package can reach `ACCEPTED` on its own tests, but it cannot reach `COMMISSIONED` through a scenario, because there is none to pass.
+| Scenario | Severity | What it must show |
+|---|---|---|
+| [ACC-46 — Task Runs With No Skill Loaded](../12_ACCEPTANCE_SCENARIOS/ACC-46_skill_not_loaded.md) | Critical | The task is blocked before any production step, the divergence between `skills_required` and `skills_loaded` is recorded as a finding, and no `AgentResult` is emitted. |
+| [ACC-47 — Harness Starts Without the Skill Bootstrap](../12_ACCEPTANCE_SCENARIOS/ACC-47_skill_bootstrap_missing.md) | Critical | The adapter refuses the task with an explicit bootstrap failure; it does not fall back to an unguided session, and the refusal is distinguishable in the audit trail from a task that ran and failed. |
+| [ACC-49 — Non-Waivable Skill Ignored Under Pressure](../12_ACCEPTANCE_SCENARIOS/ACC-49_skill_ignored_under_pressure.md) | Critical | The iron law holds; the attempted evasion and its verbatim justification are captured; the task cannot reach a completion claim. |
+| [ACC-50 — Procedure Lost to Context Compaction or Restart](../12_ACCEPTANCE_SCENARIOS/ACC-50_skill_lost_on_compaction.md) | High | The procedure is restored or the task halts; it never continues silently without it, and the recovery is visible in the audit trail. |
 
 <!-- /generated:dependency-analysis -->
 

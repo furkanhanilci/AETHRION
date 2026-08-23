@@ -205,6 +205,7 @@ record atomically with the change it describes.
 
 | Scenario | Severity | What it must show |
 |---|---|---|
+| [ACC-42 — Notification Broker Unavailable During an Escalating Condition](../12_ACCEPTANCE_SCENARIOS/acc_42_notification_broker_outage.md) | High | The intent is queued and retried, the affected workflow does not proceed as though notification had succeeded, and the liveness signal reports the degraded path. |
 | [ACC-43 — Escalation Timeout and Dead-Man's Switch](../12_ACCEPTANCE_SCENARIOS/acc_43_escalation_and_dead_mans_switch.md) | Critical | The request expires closed, the gate remains blocked, the dead-man's switch fires, and at no point is the absence of a response treated as consent. |
 
 <!-- /generated:dependency-analysis -->

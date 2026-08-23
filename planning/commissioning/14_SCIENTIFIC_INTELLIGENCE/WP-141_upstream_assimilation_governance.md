@@ -102,8 +102,6 @@ Also added: SPDX and REUSE as the machine-readable form, and characterisation
 
 ## Dependency and prerequisite analysis
 
-## Dependency and prerequisite analysis
-
 <!-- generated:dependency-analysis — produced by scripts/expand_packages.py; do not edit inside this block -->
 
 ### Direct hard dependencies
@@ -153,7 +151,7 @@ Also added: SPDX and REUSE as the machine-readable form, and characterisation
 ### What acceptance of this package releases
 
 - **Directly unblocked:** 2 — `WP-142` · `WP-159`
-- **Transitively reachable:** **14 of 160 packages (9%)** cannot be accepted until this one is.
+- **Transitively reachable:** **16 of 160 packages (10%)** cannot be accepted until this one is.
 
 The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
 
@@ -161,7 +159,7 @@ The transitive figure is the leverage number. It does not appear anywhere else i
 
 | | |
 |---|---|
-| Wave | unassigned |
+| Wave | W-S — Scientific intelligence |
 | Dependency depth | level **27** of 55 |
 | On the documented critical path | no |
 | Effort class | **M** |
@@ -178,6 +176,7 @@ The transitive figure is the leverage number. It does not appear anywhere else i
 |---|---|---|
 | [ACC-73 — Upstream Assimilation Drift](../12_ACCEPTANCE_SCENARIOS/ACC-73_upstream_assimilation_drift.md) | High | The drift checker reports the divergence and opens a review item. Nothing is auto-merged, and the characterisation suite must be rerun and reviewed before the pin moves. |
 | [ACC-74 — Missing Upstream Lineage or Licence](../12_ACCEPTANCE_SCENARIOS/ACC-74_missing_upstream_lineage.md) | High | Admission fails at CI before merge. A second variant, correctly registered, passes — so the check discriminates rather than blocking all new files. |
+| [ACC-120 — Missing Upstream Licence or Provenance](../12_ACCEPTANCE_SCENARIOS/ACC-120_missing_upstream_license_provenance.md) | High | The unregistered file fails admission before merge. The correctly registered one passes. OSV, Scorecard, SLSA provenance and signature verification run over the release, and a dependency with no available fix becomes an owned, expiring residual risk rather than silence. |
 
 <!-- /generated:dependency-analysis -->
 
@@ -189,8 +188,6 @@ The transitive figure is the leverage number. It does not appear anywhere else i
 - `DataClass`, `CodeTrust`, `ToolEffect` and the network/credential scope are classified.
 - Test fixtures, the environment, the rollback point and the acceptance measurement method are reachable.
 - An O/M/P person-day estimate is recorded and real capacity is reserved against it.
-
-## Execution requirements
 
 ## Execution requirements
 

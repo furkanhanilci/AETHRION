@@ -48,6 +48,14 @@ import sys
 from collections import defaultdict
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import programme_model                                    # noqa: E402
+
+
+def _model():
+    return programme_model.load()
+
+
 ROOT = Path(__file__).resolve().parent.parent
 PLAN = ROOT / "planning" / "commissioning"
 MATRIX = PLAN / "00_PROGRAM" / "package_dependency_matrix.csv"
@@ -94,8 +102,10 @@ def load_packages() -> dict[str, dict]:
                      if d.strip() and d.strip() != "—"],
             "gates": [g.strip() for g in re.split(r"[;,]", row["gates"]) if g.strip()],
             "controls": [c.strip() for c in re.split(r"[;,]", row["controls"]) if c.strip()],
-            "scenarios": [s.strip() for s in re.split(r"[;,]", row["scenarios"])
-                          if s.strip() and s.strip() != "—"],
+            # Resolved through the canonical model rather than read from a
+            # column: an aggregator means "every scenario matching this rule",
+            # and an enumeration of that is stale the moment one is added.
+            "scenarios": [x for x, _ in _model().resolve_scenarios(pid)],
         }
     return out
 

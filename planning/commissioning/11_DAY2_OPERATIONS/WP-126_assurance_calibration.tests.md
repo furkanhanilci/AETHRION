@@ -30,7 +30,7 @@ The evidence layers this package must satisfy, derived from the gates it touches
 | **E0** Structural | Does the file, schema or reference exist? | **yes** | never optional — the artifact must exist and behave |
 | **E1** Mechanical | Is the behaviour correct under a deterministic test? | **yes** | never optional — the artifact must exist and behave |
 | **E2** Security | Is the forbidden path actually blocked? | **yes** | never optional — a control that has not been observed refusing is prose |
-| **E3** Independent review | Did an actor outside the producer examine the semantics? | **yes** | bound to 3 acceptance scenario(s) |
+| **E3** Independent review | Did an actor outside the producer examine the semantics? | **yes** |  |
 | **E4** Reproduction | Does the same package run again in a clean environment? | **yes** | touches G7 |
 | **E5** Operations | Are failure, restore and observability correct? | **yes** | touches Day-2 |
 
@@ -59,6 +59,7 @@ ISO/IEC/IEEE 29119-3 §8.6 requires each environment item to name a description,
 | `WP-089` accepted output | DisagreementCase and Evidence-Weighted Arbitration | Assurance Lead / Arbiter | Before the first test case runs |
 | `WP-113` accepted output | Evidence, Reproduction and Publication Acceptance Package | Assurance Lead | Before the first test case runs |
 | `WP-121` accepted output | Hypercare, Stabilisation and Programme Closure | SRE Lead / Program Lead | Before the first test case runs |
+| `WP-155` accepted output | Adaptive Assurance, Verifier Qualification and Escalation | Assurance Lead | Before the first test case runs |
 
 ### Environment readiness report — §8.8
 
@@ -117,11 +118,8 @@ ISO/IEC/IEEE 29119-3 §8.3.2. A coverage item is something the tests must reach.
 | C10 | Compute validated precision and recall, disagreement rates and triage time | WP-126-T03 | *(name the test case)* |
 | C11 | Establish reviewer and reproducer profile expiry and suspension | WP-126-T04 | *(name the test case)* |
 | C12 | Correct rubrics, training and bundles, then requalify | WP-126-T05 | *(name the test case)* |
-| C13 | Reviewer Order Bias | [ACC-07](../12_ACCEPTANCE_SCENARIOS/ACC-07_reviewer_order_bias.md) — High | *(name the test case)* |
-| C14 | Strong Counter-Test | [ACC-08](../12_ACCEPTANCE_SCENARIOS/ACC-08_strong_counter_test.md) — Critical | *(name the test case)* |
-| C15 | Critical Reviewer Unavailable | [ACC-38](../12_ACCEPTANCE_SCENARIOS/ACC-38_reviewer_unavailable.md) — High | *(name the test case)* |
 
-**15 coverage items.** Every one must appear in the *Covered by* column of at least one test case below before this package can reach `TECH_COMPLETE`.
+**12 coverage items.** Every one must appear in the *Covered by* column of at least one test case below before this package can reach `TECH_COMPLETE`.
 
 <!-- /generated:coverage -->
 

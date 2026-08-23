@@ -157,7 +157,7 @@ restore reproduces it exactly.
 
 ### What acceptance of this package releases
 
-- **Directly unblocked:** 23 — `WP-027` · `WP-029` · `WP-030` · `WP-031` · `WP-049` · `WP-058` · `WP-061` · `WP-063` · `WP-072` · `WP-075` · `WP-076` · `WP-081` · `WP-082` · `WP-084` · `WP-086` · `WP-087` · `WP-090` · `WP-097` · `WP-099` · `WP-101` · `WP-114` · `WP-139` · `WP-146`
+- **Directly unblocked:** 24 — `WP-027` · `WP-029` · `WP-030` · `WP-031` · `WP-049` · `WP-058` · `WP-061` · `WP-063` · `WP-072` · `WP-075` · `WP-076` · `WP-081` · `WP-082` · `WP-084` · `WP-086` · `WP-087` · `WP-090` · `WP-097` · `WP-099` · `WP-101` · `WP-114` · `WP-139` · `WP-146` · `WP-158`
 - **Transitively reachable:** **129 of 160 packages (81%)** cannot be accepted until this one is.
 
 The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
@@ -183,6 +183,9 @@ The transitive figure is the leverage number. It does not appear anywhere else i
 |---|---|---|
 | [ACC-23 — Artifact Overwrite Attempt](../12_ACCEPTANCE_SCENARIOS/acc_23_artifact_overwrite.md) | Critical | The overwrite is rejected; the new bytes can only be written as a new content address and version, and existing references are unchanged. |
 | [ACC-27 — Regional / Management Plane DR](../12_ACCEPTANCE_SCENARIOS/acc_27_regional_dr.md) | Critical | Temporal workflow state holds at RPO = 0, canonical registries, artifacts and audit records are intact, service returns within the RTO target, and derived views are rebuilt. |
+| [ACC-71 — Multi-Parent Artifact Lineage](../12_ACCEPTANCE_SCENARIOS/acc_71_artifact_multi_parent_lineage.md) | Critical | Parent identity, parent order and every digest are identical across all three operations. A lineage that survives export but not a rebuild is not lineage. |
+| [ACC-78 — Raw Evidence Versus Interpretation](../12_ACCEPTANCE_SCENARIOS/acc_78_raw_evidence_versus_interpretation.md) | Critical | The finding gains a new version; every raw artifact's bytes and digest are unchanged. The direct raw edit is refused. Interpretation is revisable; evidence is not. |
+| [ACC-79 — Epistemic Memory Retention Violation](../12_ACCEPTANCE_SCENARIOS/acc_79_memory_retention_violation.md) | High | It excludes the immutable classes, reports exactly what it excluded and why, and expires only procedural entries. A planted evidence control survives, and a planted stale procedure does not. |
 
 <!-- /generated:dependency-analysis -->
 

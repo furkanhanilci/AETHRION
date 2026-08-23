@@ -91,6 +91,7 @@ ISO/IEC/IEEE 29119-3 §8.6 requires each environment item to name a description,
 | `WP-089` accepted output | DisagreementCase and Evidence-Weighted Arbitration | Assurance Lead / Arbiter | Before the first test case runs |
 | `WP-090` accepted output | PublicationPackage, RO-Crate and Provenance Export | Provenance Curator | Before the first test case runs |
 | `WP-096` accepted output | OpenTelemetry End-to-End Correlation Spine | Observability Lead | Before the first test case runs |
+| `WP-154` accepted output | Engineering Discipline and Specification Conformance | Chief Architect | Before the first test case runs |
 
 ### Environment readiness report — §8.8
 

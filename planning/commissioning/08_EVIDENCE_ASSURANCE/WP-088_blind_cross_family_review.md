@@ -178,7 +178,7 @@ because the queue is long or the budget is tight.
 ### What acceptance of this package releases
 
 - **Directly unblocked:** 6 — `WP-089` · `WP-090` · `WP-095` · `WP-105` · `WP-113` · `WP-126`
-- **Transitively reachable:** **39 of 160 packages (24%)** cannot be accepted until this one is.
+- **Transitively reachable:** **35 of 160 packages (22%)** cannot be accepted until this one is.
 
 The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
 
@@ -205,6 +205,9 @@ The transitive figure is the leverage number. It does not appear anywhere else i
 | [ACC-07 — Reviewer Order Bias](../12_ACCEPTANCE_SCENARIOS/ACC-07_reviewer_order_bias.md) | High | A material order effect fails the profile's calibration; the reviewer is not admitted to a critical role, or is suspended from it. |
 | [ACC-08 — Strong Counter-Test](../12_ACCEPTANCE_SCENARIOS/ACC-08_strong_counter_test.md) | Critical | The majority vote does not override the test; the claim becomes `CHALLENGED`/`REJECTED`, a `DisagreementCase` opens and G6 does not pass. |
 | [ACC-38 — Critical Reviewer Unavailable](../12_ACCEPTANCE_SCENARIOS/ACC-38_reviewer_unavailable.md) | High | Neither the producer, a self-review, nor an ineligible fallback is used; the gate is `BLOCKED` and a human scheduling/escalation item and a capacity signal are produced. |
+| [ACC-49 — Non-Waivable Skill Ignored Under Pressure](../12_ACCEPTANCE_SCENARIOS/ACC-49_skill_ignored_under_pressure.md) | Critical | The iron law holds; the attempted evasion and its verbatim justification are captured; the task cannot reach a completion claim. |
+| [ACC-72 — Reviewer Isolation Before Review Lock](../12_ACCEPTANCE_SCENARIOS/ACC-72_reviewer_isolation_before_lock.md) | Critical | Both requests are denied before the lock. After the lock, the protocol's disclosure step permits the reveal. A scientific council recommendation in the packet is labelled as advice and carries no verdict. |
+| [ACC-089 — Sycophancy Anchor Attack](../12_ACCEPTANCE_SCENARIOS/ACC-089_sycophancy_anchor_attack.md) | Critical | The independent-first embargo means no member saw the wrong anchor before forming a position. The wrong position does not become consensus, and the sycophancy diagnostic reports the agreement pattern. |
 
 <!-- /generated:dependency-analysis -->
 

@@ -187,6 +187,8 @@ The transitive figure is the leverage number. It does not appear anywhere else i
 | Scenario | Severity | What it must show |
 |---|---|---|
 | [ACC-21 — Derived Graph Corruption and Rebuild](../12_ACCEPTANCE_SCENARIOS/acc_21_graph_corruption.md) | High | Canonical services are unaffected; a new projection is built with the expected counts, hashes and lineage and promoted atomically. |
+| [ACC-71 — Multi-Parent Artifact Lineage](../12_ACCEPTANCE_SCENARIOS/acc_71_artifact_multi_parent_lineage.md) | Critical | Parent identity, parent order and every digest are identical across all three operations. A lineage that survives export but not a rebuild is not lineage. |
+| [ACC-119 — Destructive Projection Rebuild](../12_ACCEPTANCE_SCENARIOS/acc_119_derived_projection_destructive_rebuild.md) | Critical | The rebuild is lossless. No injection produces a silent divergence: each ends with canonical state correct and the projection agreeing, or with an explicit recorded failure. |
 
 <!-- /generated:dependency-analysis -->
 

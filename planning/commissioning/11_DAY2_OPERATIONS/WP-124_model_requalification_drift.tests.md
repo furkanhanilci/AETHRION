@@ -30,11 +30,11 @@ The evidence layers this package must satisfy, derived from the gates it touches
 | **E0** Structural | Does the file, schema or reference exist? | **yes** | never optional — the artifact must exist and behave |
 | **E1** Mechanical | Is the behaviour correct under a deterministic test? | **yes** | never optional — the artifact must exist and behave |
 | **E2** Security | Is the forbidden path actually blocked? | **yes** | never optional — a control that has not been observed refusing is prose |
-| **E3** Independent review | Did an actor outside the producer examine the semantics? | **yes** | bound to 3 acceptance scenario(s) |
+| **E3** Independent review | Did an actor outside the producer examine the semantics? | no | no scenario and not L |
 | **E4** Reproduction | Does the same package run again in a clean environment? | no | no execution or reproduction gate |
 | **E5** Operations | Are failure, restore and observability correct? | **yes** | touches Day-2 |
 
-**Applicable layers: E0 · E1 · E2 · E3 · E5.** A layer marked *no* is not a waiver: it means this package cannot produce that evidence, and a claim that needs it must be earned by a package that can.
+**Applicable layers: E0 · E1 · E2 · E5.** A layer marked *no* is not a waiver: it means this package cannot produce that evidence, and a claim that needs it must be earned by a package that can.
 
 <!-- /generated:strategy -->
 
@@ -111,11 +111,8 @@ ISO/IEC/IEEE 29119-3 §8.3.2. A coverage item is something the tests must reach.
 | C07 | Analyse production validated precision, quality and cost drift | WP-124-T03 | *(name the test case)* |
 | C08 | Manage the SHADOW → admission and admitted → suspend/eject decisions | WP-124-T04 | *(name the test case)* |
 | C09 | Run the open task/run/claim impact scan and invalidate the router cache | WP-124-T05 | *(name the test case)* |
-| C10 | Primary Model Provider Outage | [ACC-10](../12_ACCEPTANCE_SCENARIOS/ACC-10_provider_outage.md) — High | *(name the test case)* |
-| C11 | No Eligible Fallback | [ACC-11](../12_ACCEPTANCE_SCENARIOS/ACC-11_no_eligible_fallback.md) — Critical | *(name the test case)* |
-| C12 | Model Snapshot Drift | [ACC-36](../12_ACCEPTANCE_SCENARIOS/ACC-36_model_snapshot_drift.md) — Critical | *(name the test case)* |
 
-**12 coverage items.** Every one must appear in the *Covered by* column of at least one test case below before this package can reach `TECH_COMPLETE`.
+**9 coverage items.** Every one must appear in the *Covered by* column of at least one test case below before this package can reach `TECH_COMPLETE`.
 
 <!-- /generated:coverage -->
 

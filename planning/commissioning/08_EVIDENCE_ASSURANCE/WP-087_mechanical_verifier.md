@@ -205,7 +205,7 @@ because the queue is long or the budget is tight.
 ### What acceptance of this package releases
 
 - **Directly unblocked:** 9 — `WP-088` · `WP-089` · `WP-090` · `WP-095` · `WP-105` · `WP-107` · `WP-113` · `WP-126` · `WP-155`
-- **Transitively reachable:** **40 of 160 packages (25%)** cannot be accepted until this one is.
+- **Transitively reachable:** **37 of 160 packages (23%)** cannot be accepted until this one is.
 
 The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
 
@@ -232,6 +232,13 @@ The transitive figure is the leverage number. It does not appear anywhere else i
 | [ACC-17 — Unsigned or Mutable Image](../12_ACCEPTANCE_SCENARIOS/ACC-17_unsigned_image.md) | Critical | The pod is not created; the signature, provenance and digest policy denies it and produces audit and alert records. A signed-digest counter-example passes. |
 | [ACC-23 — Artifact Overwrite Attempt](../12_ACCEPTANCE_SCENARIOS/ACC-23_artifact_overwrite.md) | Critical | The overwrite is rejected; the new bytes can only be written as a new content address and version, and existing references are unchanged. |
 | [ACC-30 — Publication Completeness](../12_ACCEPTANCE_SCENARIOS/ACC-30_publication_completeness.md) | Critical | No publication package, signature or release is produced; G9 is FAIL/REVISE and a correction queue opens. Once the missing link is supplied, a new package version can pass. |
+| [ACC-53 — Unverified Numeric Result](../12_ACCEPTANCE_SCENARIOS/ACC-53_unverified_numeric_result.md) | Critical | The build fails regardless of the quality of the surrounding prose; the report lists the value refs that were permitted and the one that was not. A declared rounding or display transform of a registered value passes. |
+| [ACC-60 — Failed Smoke Candidate Promotion Attempt](../12_ACCEPTANCE_SCENARIOS/ACC-60_failed_smoke_promotion.md) | Critical | Both promotions are refused. Under a CONFIRMATORY study mode the rule is non-waivable; where an exceptional path exists at all it requires an explicit authorised exception with an owner and an expiry, and it is recorded as one. |
+| [ACC-61 — Unqualified Semantic Verifier](../12_ACCEPTANCE_SCENARIOS/ACC-61_unqualified_semantic_verifier.md) | Critical | The verdict is recorded as advisory and cannot satisfy the requirement; the gate blocks with `INCONCLUSIVE` rather than passing or failing the claim on an unqualified judgement. |
+| [ACC-62 — Semantic Verifier Recorded as Mechanical](../12_ACCEPTANCE_SCENARIOS/ACC-62_verifier_class_misdeclaration.md) | High | It is refused. A verification class is set by the authorised verifier service from the procedure that actually ran, not by the caller, and the attempt raises an audit finding. |
+| [ACC-67 — Claim–Code–Result Consistency Failure](../12_ACCEPTANCE_SCENARIOS/ACC-67_claim_code_result_consistency.md) | Critical | Both are reported `INCONSISTENT` and G7 does not pass. Exit code 0 is not a reproduction, and a matching number reached by the wrong method is not one either. |
+| [ACC-76 — Unsupported Publication Sentence](../12_ACCEPTANCE_SCENARIOS/ACC-76_unsupported_publication_sentence.md) | Critical | The reference-existence check passes at V0, and the entailment and scope checks fail at V2. Publication is blocked. A control sentence whose citation genuinely supports it passes both. |
+| [ACC-77 — VerifiedValue Rebinding Attempt](../12_ACCEPTANCE_SCENARIOS/ACC-77_verified_value_rebinding.md) | Critical | Both are refused. The binding is immutable and digest-checked; a changed evaluation produces a new value, and a tampered raw artifact fails its digest. |
 
 <!-- /generated:dependency-analysis -->
 

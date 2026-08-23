@@ -23,7 +23,20 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from figure_kit import (BLUE, GREEN, INK, MUTE, ORANGE, PURPLE, RULE, VERM,
                         Canvas, text_width, tint)
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import programme_model                                    # noqa: E402
+
 ROOT = Path(__file__).resolve().parent.parent
+
+
+def _sealed_count() -> int:
+    seal = ROOT / "planning" / "commissioning" / "00_PROGRAM" / "SHA256SUMS.txt"
+    return len(seal.read_text(encoding="utf-8").strip().splitlines())
+
+
+def _baseline() -> str:
+    return programme_model.load().baseline["version"]
+
 W, L = 1200, 24
 
 
@@ -50,7 +63,14 @@ def main() -> None:
            col_w - 32, size=16, lh=21, max_lines=2)
     authored = [("Hand-authored", "architecture, decision records, planning corpus, skills", INK),
                 ("Generated, committed", "STATUS.md, workstream indexes, figures — never hand-edited", PURPLE),
-                ("Sealed", "221 planning files, byte-identical to baseline v1.0.5", VERM),
+                # Derived. This line read "221 planning files, byte-identical to
+                # baseline v1.0.5" through three baselines and 410 added files,
+                # and no check could see it: the drift check compares the figure
+                # to this generator, and the generator was the thing that was
+                # stale. check_figure_semantics.py now compares it to the seal
+                # itself, by a path that does not pass through here.
+                ("Sealed", f"{_sealed_count()} planning files, byte-identical to "
+                           f"baseline {_baseline()}", VERM),
                 ("Signed", "evidence manifests, Ed25519, interim profile", GREEN)]
     for i, (h, b, col) in enumerate(authored):
         c.cell(L + 16, top + 96 + i * 74, col_w - 32, 66, h, b, accent=col,

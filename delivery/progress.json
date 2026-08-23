@@ -5,11 +5,12 @@
     "not change, and progress is not the specification. Recording a day's work",
     "must not invalidate the integrity proof of the plan it was work against.",
     "The 'Status at baseline' field in each WP document is the value frozen when",
-    "true now. WP-000-140 were frozen at v1.0.5, WP-141-147 at v1.2.0, WP-148-159 at v1.3.0.",
-    "true now. WP-000-140 were frozen at v1.0.5, WP-141-147 at v2.0.0.",
-    "Regenerate the ready queue with: python3 scripts/ready_queue.py"
+    "Regenerate the ready queue with: python3 scripts/ready_queue.py",
+    "WP-000-140 were frozen at v1.0.5, WP-141-147 at v1.2.0, WP-148-159 at v1.3.0.",
+    "v1.3.1 is a repair baseline: it added no package, so no status here changed.",
+    "The canonical baseline identity lives in planning/commissioning/00_PROGRAM/programme_metadata.json; this field must equal it, and check_doc_consistency.py fails if it does not."
   ],
-  "baseline": "v1.3.0",
+  "baseline": "v1.3.1",
   "states": [
     "NOT_STARTED",
     "IN_PROGRESS",

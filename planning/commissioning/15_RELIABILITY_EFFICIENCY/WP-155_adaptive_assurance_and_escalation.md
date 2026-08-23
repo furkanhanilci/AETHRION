@@ -80,8 +80,6 @@ never assurance depth. A task that cannot afford its route blocks.
 
 ## Dependency and prerequisite analysis
 
-## Dependency and prerequisite analysis
-
 <!-- generated:dependency-analysis — produced by scripts/expand_packages.py; do not edit inside this block -->
 
 ### Direct hard dependencies
@@ -90,13 +88,13 @@ never assurance depth. A task that cannot afford its route blocks.
 
 | Package | Supplies to this package |
 |---|---|
+| [WP-043 — Role-Based Model and Skill Evaluation, and Golden Set Management](../05_MODEL_AGENT_TOOL/WP-043_model_eval_golden_sets.md) | `Eval dataset manifests` · `Role eval harness` · `Grader/rubric bundle` · `Contamination controls` |
 | [WP-044 — Model Qualification and Admission Pipeline](../05_MODEL_AGENT_TOOL/WP-044_model_qualification_admission.md) | `Qualification pipeline` · `Admission dossier` · `CapabilityProfile update` · `Regression schedule` |
 | [WP-087 — Mechanical Verification Engine](../08_EVIDENCE_ASSURANCE/WP-087_mechanical_verifier.md) | `Verification Engine` · `Validator catalog` · `VerificationRecord service` · `Regression fixtures` |
-| [WP-126 — Reviewer, Judge and Reproducer Calibration](../11_DAY2_OPERATIONS/WP-126_assurance_calibration.md) | `Calibration reports` · `Reviewer capability decisions` · `Bias/quality dashboard` · `Improvement actions` |
 
 ### Full prerequisite closure
 
-**122 of 160 packages (76%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
+**75 of 160 packages (47%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
 
 | Level | Packages |
 |---:|---|
@@ -120,51 +118,37 @@ never assurance depth. A task that cannot afford its route blocks.
 | 18 | `WP-027` · `WP-030` · `WP-042` |
 | 19 | `WP-031` · `WP-043` · `WP-052` |
 | 20 | `WP-032` · `WP-044` · `WP-053` |
-| 21 | `WP-033` · `WP-037` · `WP-039` · `WP-045` |
-| 22 | `WP-034` · `WP-038` · `WP-046` |
+| 21 | `WP-033` · `WP-037` · `WP-045` |
+| 22 | `WP-034` · `WP-046` |
 | 23 | `WP-035` · `WP-047` · `WP-049` |
-| 24 | `WP-036` · `WP-048` · `WP-050` · `WP-054` · `WP-055` |
-| 25 | `WP-040` · `WP-056` · `WP-091` |
-| 26 | `WP-057` · `WP-059` · `WP-061` · `WP-092` |
+| 24 | `WP-050` · `WP-054` · `WP-055` |
+| 25 | `WP-056` |
+| 26 | `WP-057` · `WP-061` |
 | 27 | `WP-058` · `WP-064` · `WP-075` |
-| 28 | `WP-060` · `WP-062` · `WP-081` |
+| 28 | `WP-062` · `WP-081` |
 | 29 | `WP-063` · `WP-065` · `WP-066` · `WP-069` · `WP-082` |
-| 30 | `WP-067` · `WP-070` · `WP-083` · `WP-084` · `WP-096` |
-| 31 | `WP-068` · `WP-071` · `WP-097` · `WP-099` · `WP-100` |
-| 32 | `WP-072` · `WP-076` · `WP-098` |
-| 33 | `WP-073` · `WP-077` · `WP-078` · `WP-094` · `WP-101` |
-| 34 | `WP-074` · `WP-079` · `WP-085` · `WP-103` |
+| 30 | `WP-067` · `WP-070` |
+| 31 | `WP-068` · `WP-071` |
+| 32 | `WP-072` · `WP-076` |
+| 33 | `WP-077` · `WP-078` |
+| 34 | `WP-079` |
 | 35 | `WP-080` |
 | 36 | `WP-086` |
 | 37 | `WP-087` |
-| 38 | `WP-088` |
-| 39 | `WP-089` |
-| 40 | `WP-090` · `WP-093` |
-| 41 | `WP-095` · `WP-102` · `WP-107` |
-| 42 | `WP-104` |
-| 43 | `WP-105` |
-| 44 | `WP-106` |
-| 45 | `WP-108` |
-| 46 | `WP-109` |
-| 47 | `WP-110` · `WP-111` · `WP-112` · `WP-113` · `WP-114` |
-| 48 | `WP-115` |
-| 49 | `WP-116` · `WP-117` |
-| 50 | `WP-118` |
-| 51 | `WP-119` |
-| 52 | `WP-120` |
-| 53 | `WP-121` |
-| 54 | `WP-126` |
 
 ### What acceptance of this package releases
 
-**Nothing.** No package names this one as a hard dependency, so accepting it unblocks no other work. That is normal for a terminal package and is worth knowing before it is prioritised over one that unblocks many.
+- **Directly unblocked:** 1 — `WP-126`
+- **Transitively reachable:** **2 of 160 packages (1%)** cannot be accepted until this one is.
+
+The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
 
 ### Position in the programme
 
 | | |
 |---|---|
-| Wave | unassigned |
-| Dependency depth | level **55** of 55 |
+| Wave | W-R — Reliability and efficiency |
+| Dependency depth | level **38** of 55 |
 | On the documented critical path | no |
 | Effort class | **L** |
 | Accountable owner | Assurance Lead |
@@ -178,6 +162,7 @@ never assurance depth. A task that cannot afford its route blocks.
 
 | Scenario | Severity | What it must show |
 |---|---|---|
+| [ACC-092 — Inspector Reviews High-Consequence Output](../12_ACCEPTANCE_SCENARIOS/ACC-092_inspector_high_consequence_review.md) | High | Inconsistencies are raised as findings and routed. The Inspector holds no gate authority, and a clean Inspector result does not by itself satisfy any required verification. |
 | [ACC-107 — Expired Verifier Qualification](../12_ACCEPTANCE_SCENARIOS/ACC-107_expired_verifier_qualification.md) | Critical | Both yield `INCONCLUSIVE` and block the gate. Their verdicts are retained as advisory. Only a current, matching qualification satisfies the requirement. |
 | [ACC-108 — Escalation Is Not Selective Enforcement](../12_ACCEPTANCE_SCENARIOS/ACC-108_selective_verifier_escalation.md) | Critical | The high-consequence claim is routed by consequence, not by queue length. No route is lowered because the queue is long or the budget is tight, and a downgrade attempt is refused and audited. |
 | [ACC-109 — Verifier Abstention Is a Valid Result](../12_ACCEPTANCE_SCENARIOS/ACC-109_verifier_abstention_is_valid.md) | High | The ambiguous case yields `ABSTAIN`, which escalates rather than passing or failing. The unambiguous cases yield verdicts. A verifier that never abstains on the ambiguous set fails qualification. |
@@ -195,8 +180,6 @@ never assurance depth. A task that cannot afford its route blocks.
 
 ## Execution requirements
 
-## Execution requirements
-
 <!-- generated:execution-requirements — produced by scripts/expand_packages.py; do not edit inside this block -->
 
 ### Inputs that must exist before the first task starts
@@ -205,6 +188,12 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 
 | Required input | Comes from | Accepted? |
 |---|---|---|
+| `Eval dataset manifests` | `WP-043` | `python3 scripts/progress.py show WP-043` |
+| `Role eval harness` | `WP-043` | `python3 scripts/progress.py show WP-043` |
+| `Grader/rubric bundle` | `WP-043` | `python3 scripts/progress.py show WP-043` |
+| `Contamination controls` | `WP-043` | `python3 scripts/progress.py show WP-043` |
+| `Eval scorecard` | `WP-043` | `python3 scripts/progress.py show WP-043` |
+| `Cross-model × cross-harness compliance matrix` | `WP-043` | `python3 scripts/progress.py show WP-043` |
 | `Qualification pipeline` | `WP-044` | `python3 scripts/progress.py show WP-044` |
 | `Admission dossier` | `WP-044` | `python3 scripts/progress.py show WP-044` |
 | `CapabilityProfile update` | `WP-044` | `python3 scripts/progress.py show WP-044` |
@@ -220,13 +209,6 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `Positive and negative control suite` | `WP-087` | `python3 scripts/progress.py show WP-087` |
 | `Adaptive assurance routing` | `WP-087` | `python3 scripts/progress.py show WP-087` |
 | `Abstention verdicts` | `WP-087` | `python3 scripts/progress.py show WP-087` |
-| `Calibration reports` | `WP-126` | `python3 scripts/progress.py show WP-126` |
-| `Reviewer capability decisions` | `WP-126` | `python3 scripts/progress.py show WP-126` |
-| `Bias/quality dashboard` | `WP-126` | `python3 scripts/progress.py show WP-126` |
-| `Improvement actions` | `WP-126` | `python3 scripts/progress.py show WP-126` |
-| `VerifierQualificationRecord` | `WP-126` | `python3 scripts/progress.py show WP-126` |
-| `Verifier and reviewer error correlation measurement` | `WP-126` | `python3 scripts/progress.py show WP-126` |
-| `Abstention-rate and error-correlation calibration` | `WP-126` | `python3 scripts/progress.py show WP-126` |
 
 ### Classification that must be recorded before work begins
 

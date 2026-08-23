@@ -71,9 +71,11 @@ From `00_PROGRAM/05_definition_of_ready_and_done.md`, instantiated for this pack
 - [ ] The package purpose and its single delivery boundary are written.
 - [ ] Out-of-scope items are written down.
 - [ ] **Eval Office** is assigned accountable; an implementer is named; **Assurance Lead / Research Director** is assigned verifier and is **independent of the producer** under WP-007's profile.
+- [ ] `WP-019` — Run, Environment and Reproduction Schemas — is `ACCEPTED` (not `TECH_COMPLETE`).
+- [ ] `WP-026` — Content-Addressed Object Store and WORM — is `ACCEPTED` (not `TECH_COMPLETE`).
 - [ ] `WP-043` — Role-Based Model and Skill Evaluation, and Golden Set Management — is `ACCEPTED` (not `TECH_COMPLETE`).
 - [ ] `WP-057` — Default-Deny Egress Proxy, DLP and Allowlist — is `ACCEPTED` (not `TECH_COMPLETE`).
-- [ ] `WP-115` — Full System Regression and Commissioning Dossier — is `ACCEPTED` (not `TECH_COMPLETE`).
+- [ ] `WP-081` — Protocol, Analysis, Baseline and Falsification Registry — is `ACCEPTED` (not `TECH_COMPLETE`).
 - [ ] `WP-149` — Sparse Communication Topology and the Scientific Blackboard — is `ACCEPTED` (not `TECH_COMPLETE`).
 - [ ] `DataClass`, `CodeTrust`, `ToolEffect` and the network/credential scope are classified — all four, with no `UNKNOWN`.
 - [ ] Acceptance criteria name **a number, a threshold or a command**. `00_PROGRAM/05` states that the generic template criteria are not measurable in the sense meant here; refinement is where that is fixed.
@@ -96,6 +98,7 @@ From `00_PROGRAM/05_definition_of_ready_and_done.md`, instantiated for this pack
 
 An `ACCEPTED` package is still not production-ready. Every scenario below must pass **on the same release candidate**:
 
+- [ ] `ACC-086` passes. A `SKIPPED` scenario on a Critical row does not count as a pass.
 - [ ] `ACC-118` passes. A `SKIPPED` scenario on a Critical row does not count as a pass.
 
 <!-- /generated:dod -->

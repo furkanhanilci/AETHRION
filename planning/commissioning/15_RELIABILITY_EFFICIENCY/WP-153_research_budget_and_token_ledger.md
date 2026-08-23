@@ -86,8 +86,6 @@ is what a release reports — WP-130.
 
 ## Dependency and prerequisite analysis
 
-## Dependency and prerequisite analysis
-
 <!-- generated:dependency-analysis — produced by scripts/expand_packages.py; do not edit inside this block -->
 
 ### Direct hard dependencies
@@ -155,7 +153,7 @@ is what a release reports — WP-130.
 
 | | |
 |---|---|
-| Wave | unassigned |
+| Wave | W-R — Reliability and efficiency |
 | Dependency depth | level **41** of 55 |
 | On the documented critical path | no |
 | Effort class | **L** |
@@ -185,8 +183,6 @@ is what a release reports — WP-130.
 - `DataClass`, `CodeTrust`, `ToolEffect` and the network/credential scope are classified.
 - Test fixtures, the environment, the rollback point and the acceptance measurement method are reachable.
 - An O/M/P person-day estimate is recorded and real capacity is reserved against it.
-
-## Execution requirements
 
 ## Execution requirements
 

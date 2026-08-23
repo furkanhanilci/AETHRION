@@ -30,11 +30,11 @@ The evidence layers this package must satisfy, derived from the gates it touches
 | **E0** Structural | Does the file, schema or reference exist? | **yes** | never optional — the artifact must exist and behave |
 | **E1** Mechanical | Is the behaviour correct under a deterministic test? | **yes** | never optional — the artifact must exist and behave |
 | **E2** Security | Is the forbidden path actually blocked? | **yes** | never optional — a control that has not been observed refusing is prose |
-| **E3** Independent review | Did an actor outside the producer examine the semantics? | **yes** | bound to 3 acceptance scenario(s) |
+| **E3** Independent review | Did an actor outside the producer examine the semantics? | no | no scenario and not L |
 | **E4** Reproduction | Does the same package run again in a clean environment? | no | no execution or reproduction gate |
 | **E5** Operations | Are failure, restore and observability correct? | **yes** | touches Day-2 |
 
-**Applicable layers: E0 · E1 · E2 · E3 · E5.** A layer marked *no* is not a waiver: it means this package cannot produce that evidence, and a claim that needs it must be earned by a package that can.
+**Applicable layers: E0 · E1 · E2 · E5.** A layer marked *no* is not a waiver: it means this package cannot produce that evidence, and a claim that needs it must be earned by a package that can.
 
 <!-- /generated:strategy -->
 
@@ -111,11 +111,8 @@ ISO/IEC/IEEE 29119-3 §8.3.2. A coverage item is something the tests must reach.
 | C08 | Run a full project audit export with hash verification | WP-129-T04 | *(name the test case)* |
 | C09 | Review patch, CVE, backup, retention and ownership gaps | WP-129-T05 | *(name the test case)* |
 | C10 | Close the drill findings and plan the next quarter | WP-129-T06 | *(name the test case)* |
-| C11 | Unsigned or Mutable Image | [ACC-17](../12_ACCEPTANCE_SCENARIOS/ACC-17_unsigned_image.md) — Critical | *(name the test case)* |
-| C12 | Regional / Management Plane DR | [ACC-27](../12_ACCEPTANCE_SCENARIOS/ACC-27_regional_dr.md) — Critical | *(name the test case)* |
-| C13 | Complete Project Audit Export | [ACC-40](../12_ACCEPTANCE_SCENARIOS/ACC-40_audit_export.md) — Critical | *(name the test case)* |
 
-**13 coverage items.** Every one must appear in the *Covered by* column of at least one test case below before this package can reach `TECH_COMPLETE`.
+**10 coverage items.** Every one must appear in the *Covered by* column of at least one test case below before this package can reach `TECH_COMPLETE`.
 
 <!-- /generated:coverage -->
 

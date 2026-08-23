@@ -54,7 +54,7 @@ The evidence layers this package must satisfy, derived from the gates it touches
 | **E0** Structural | Does the file, schema or reference exist? | **yes** | never optional — the artifact must exist and behave |
 | **E1** Mechanical | Is the behaviour correct under a deterministic test? | **yes** | never optional — the artifact must exist and behave |
 | **E2** Security | Is the forbidden path actually blocked? | **yes** | never optional — a control that has not been observed refusing is prose |
-| **E3** Independent review | Did an actor outside the producer examine the semantics? | **yes** | bound to 2 acceptance scenario(s) · effort class L |
+| **E3** Independent review | Did an actor outside the producer examine the semantics? | **yes** | bound to 118 acceptance scenario(s) · effort class L |
 | **E4** Reproduction | Does the same package run again in a clean environment? | no | no execution or reproduction gate |
 | **E5** Operations | Are failure, restore and observability correct? | **yes** | touches Cutover |
 
@@ -138,9 +138,125 @@ ISO/IEC/IEEE 29119-3 §8.3.2. A coverage item is something the tests must reach.
 | C11 | Record the go / no-go / abort decision with its evidence | WP-120-T06 | *(name the test case)* |
 | C12 | Take the post-cutover audit snapshot | WP-120-T07 | *(name the test case)* |
 | C13 | Human Seed Literature | [ACC-01](../12_ACCEPTANCE_SCENARIOS/acc_01_human_seed_literature.md) — Critical | *(name the test case)* |
-| C14 | Complete Project Audit Export | [ACC-40](../12_ACCEPTANCE_SCENARIOS/acc_40_audit_export.md) — Critical | *(name the test case)* |
+| C14 | Agent-Used Source Write-Back | [ACC-02](../12_ACCEPTANCE_SCENARIOS/acc_02_agent_used_source_writeback.md) — Critical | *(name the test case)* |
+| C15 | Duplicate and Metadata Collision | [ACC-03](../12_ACCEPTANCE_SCENARIOS/acc_03_duplicate_collision.md) — High | *(name the test case)* |
+| C16 | Retraction Impact | [ACC-04](../12_ACCEPTANCE_SCENARIOS/acc_04_retraction_impact.md) — Critical | *(name the test case)* |
+| C17 | Prompt-Injection PDF | [ACC-05](../12_ACCEPTANCE_SCENARIOS/acc_05_prompt_injection_pdf.md) — Critical | *(name the test case)* |
+| C18 | Planner Self-Approval Attempt | [ACC-06](../12_ACCEPTANCE_SCENARIOS/acc_06_plan_self_approval.md) — Critical | *(name the test case)* |
+| C19 | Reviewer Order Bias | [ACC-07](../12_ACCEPTANCE_SCENARIOS/acc_07_reviewer_order_bias.md) — High | *(name the test case)* |
+| C20 | Strong Counter-Test | [ACC-08](../12_ACCEPTANCE_SCENARIOS/acc_08_strong_counter_test.md) — Critical | *(name the test case)* |
+| C21 | Budget Hard Stop | [ACC-09](../12_ACCEPTANCE_SCENARIOS/acc_09_budget_hard_stop.md) — Critical | *(name the test case)* |
+| C22 | Primary Model Provider Outage | [ACC-10](../12_ACCEPTANCE_SCENARIOS/acc_10_provider_outage.md) — High | *(name the test case)* |
+| C23 | No Eligible Fallback | [ACC-11](../12_ACCEPTANCE_SCENARIOS/acc_11_no_eligible_fallback.md) — Critical | *(name the test case)* |
+| C24 | Duplicate Event Delivery | [ACC-12](../12_ACCEPTANCE_SCENARIOS/acc_12_duplicate_event.md) — Critical | *(name the test case)* |
+| C25 | Temporal Worker Crash | [ACC-13](../12_ACCEPTANCE_SCENARIOS/acc_13_temporal_worker_crash.md) — Critical | *(name the test case)* |
+| C26 | Workflow Code Deployment and Replay | [ACC-14](../12_ACCEPTANCE_SCENARIOS/acc_14_workflow_code_deploy.md) — Critical | *(name the test case)* |
+| C27 | Sandbox Escape Attempt | [ACC-15](../12_ACCEPTANCE_SCENARIOS/acc_15_sandbox_escape.md) — Critical | *(name the test case)* |
+| C28 | Egress Exfiltration Attempt | [ACC-16](../12_ACCEPTANCE_SCENARIOS/acc_16_egress_exfiltration.md) — Critical | *(name the test case)* |
+| C29 | Unsigned or Mutable Image | [ACC-17](../12_ACCEPTANCE_SCENARIOS/acc_17_unsigned_image.md) — Critical | *(name the test case)* |
+| C30 | D3 Data to a Public Provider | [ACC-18](../12_ACCEPTANCE_SCENARIOS/acc_18_d3_public_route.md) — Critical | *(name the test case)* |
+| C31 | Clean-Room Reproduction Pass | [ACC-19](../12_ACCEPTANCE_SCENARIOS/acc_19_clean_room_pass.md) — High | *(name the test case)* |
+| C32 | Clean-Room Reproduction Failure | [ACC-20](../12_ACCEPTANCE_SCENARIOS/acc_20_clean_room_fail.md) — Critical | *(name the test case)* |
+| C33 | Derived Graph Corruption and Rebuild | [ACC-21](../12_ACCEPTANCE_SCENARIOS/acc_21_graph_corruption.md) — High | *(name the test case)* |
+| C34 | Obsidian Human Edit Preservation | [ACC-22](../12_ACCEPTANCE_SCENARIOS/acc_22_obsidian_human_edit.md) — High | *(name the test case)* |
+| C35 | Artifact Overwrite Attempt | [ACC-23](../12_ACCEPTANCE_SCENARIOS/acc_23_artifact_overwrite.md) — Critical | *(name the test case)* |
+| C36 | Policy Bundle Rollback | [ACC-24](../12_ACCEPTANCE_SCENARIOS/acc_24_policy_bundle_rollback.md) — High | *(name the test case)* |
+| C37 | Human Approval Forgery | [ACC-25](../12_ACCEPTANCE_SCENARIOS/acc_25_human_approval_forgery.md) — Critical | *(name the test case)* |
+| C38 | Approval, Delegation and Exception Expiry | [ACC-26](../12_ACCEPTANCE_SCENARIOS/acc_26_approval_expiry.md) — Critical | *(name the test case)* |
+| C39 | Regional / Management Plane DR | [ACC-27](../12_ACCEPTANCE_SCENARIOS/acc_27_regional_dr.md) — Critical | *(name the test case)* |
+| C40 | Zotero Full Resync | [ACC-28](../12_ACCEPTANCE_SCENARIOS/acc_28_zotero_full_resync.md) — High | *(name the test case)* |
+| C41 | Provider Invoice Variance | [ACC-29](../12_ACCEPTANCE_SCENARIOS/acc_29_invoice_variance.md) — Medium | *(name the test case)* |
+| C42 | Publication Completeness | [ACC-30](../12_ACCEPTANCE_SCENARIOS/acc_30_publication_completeness.md) — Critical | *(name the test case)* |
+| C43 | Superseded Publication | [ACC-31](../12_ACCEPTANCE_SCENARIOS/acc_31_superseded_publication.md) — High | *(name the test case)* |
+| C44 | Secret in Prompt or Trace | [ACC-32](../12_ACCEPTANCE_SCENARIOS/acc_32_secret_in_trace.md) — Critical | *(name the test case)* |
+| C45 | Kueue Preemption | [ACC-33](../12_ACCEPTANCE_SCENARIOS/acc_33_kueue_preemption.md) — High | *(name the test case)* |
+| C46 | DLQ Repair and Corrected Replay | [ACC-34](../12_ACCEPTANCE_SCENARIOS/acc_34_dlq_repair.md) — High | *(name the test case)* |
+| C47 | Tool Partial Failure | [ACC-35](../12_ACCEPTANCE_SCENARIOS/acc_35_tool_partial_failure.md) — Critical | *(name the test case)* |
+| C48 | Model Snapshot Drift | [ACC-36](../12_ACCEPTANCE_SCENARIOS/acc_36_model_snapshot_drift.md) — Critical | *(name the test case)* |
+| C49 | Evaluation Set Contamination | [ACC-37](../12_ACCEPTANCE_SCENARIOS/acc_37_eval_contamination.md) — Critical | *(name the test case)* |
+| C50 | Critical Reviewer Unavailable | [ACC-38](../12_ACCEPTANCE_SCENARIOS/acc_38_reviewer_unavailable.md) — High | *(name the test case)* |
+| C51 | Negative Research Result | [ACC-39](../12_ACCEPTANCE_SCENARIOS/acc_39_negative_result.md) — Medium | *(name the test case)* |
+| C52 | Complete Project Audit Export | [ACC-40](../12_ACCEPTANCE_SCENARIOS/acc_40_audit_export.md) — Critical | *(name the test case)* |
+| C53 | Outbound Notification Exceeds the Channel Data-Class Ceiling | [ACC-41](../12_ACCEPTANCE_SCENARIOS/acc_41_notification_data_class_ceiling.md) — Critical | *(name the test case)* |
+| C54 | Notification Broker Unavailable During an Escalating Condition | [ACC-42](../12_ACCEPTANCE_SCENARIOS/acc_42_notification_broker_outage.md) — High | *(name the test case)* |
+| C55 | Escalation Timeout and Dead-Man's Switch | [ACC-43](../12_ACCEPTANCE_SCENARIOS/acc_43_escalation_and_dead_mans_switch.md) — Critical | *(name the test case)* |
+| C56 | Inbound Content Attempts to Act as an Instruction | [ACC-44](../12_ACCEPTANCE_SCENARIOS/acc_44_inbound_message_is_not_an_instruction.md) — Critical | *(name the test case)* |
+| C57 | Irreversible External Record Submission | [ACC-45](../12_ACCEPTANCE_SCENARIOS/acc_45_external_record_submission.md) — Critical | *(name the test case)* |
+| C58 | Task Runs With No Skill Loaded | [ACC-46](../12_ACCEPTANCE_SCENARIOS/acc_46_skill_not_loaded.md) — Critical | *(name the test case)* |
+| C59 | Harness Starts Without the Skill Bootstrap | [ACC-47](../12_ACCEPTANCE_SCENARIOS/acc_47_skill_bootstrap_missing.md) — Critical | *(name the test case)* |
+| C60 | Wrong or Competing Skill Selected | [ACC-48](../12_ACCEPTANCE_SCENARIOS/acc_48_wrong_skill_selected.md) — High | *(name the test case)* |
+| C61 | Non-Waivable Skill Ignored Under Pressure | [ACC-49](../12_ACCEPTANCE_SCENARIOS/acc_49_skill_ignored_under_pressure.md) — Critical | *(name the test case)* |
+| C62 | Procedure Lost to Context Compaction or Restart | [ACC-50](../12_ACCEPTANCE_SCENARIOS/acc_50_skill_lost_on_compaction.md) — High | *(name the test case)* |
+| C63 | Upstream Change Invalidates a Derived Skill | [ACC-51](../12_ACCEPTANCE_SCENARIOS/acc_51_upstream_skill_drift.md) — High | *(name the test case)* |
+| C64 | Claimless Publication Assertion | [ACC-52](../12_ACCEPTANCE_SCENARIOS/acc_52_claimless_publication_assertion.md) — Critical | *(name the test case)* |
+| C65 | Unverified Numeric Result | [ACC-53](../12_ACCEPTANCE_SCENARIOS/acc_53_unverified_numeric_result.md) — Critical | *(name the test case)* |
+| C66 | Producer Attempts Evaluator Mutation | [ACC-54](../12_ACCEPTANCE_SCENARIOS/acc_54_evaluator_mutation_attempt.md) — Critical | *(name the test case)* |
+| C67 | Hidden Evaluation Data Access Attempt | [ACC-55](../12_ACCEPTANCE_SCENARIOS/acc_55_hidden_evaluation_data_access.md) — Critical | *(name the test case)* |
+| C68 | Confirmatory Result Without a Frozen Analysis Plan | [ACC-56](../12_ACCEPTANCE_SCENARIOS/acc_56_confirmatory_without_frozen_plan.md) — Critical | *(name the test case)* |
+| C69 | Hypothesis In-Place Mutation Attempt | [ACC-57](../12_ACCEPTANCE_SCENARIOS/acc_57_hypothesis_in_place_mutation.md) — High | *(name the test case)* |
+| C70 | Cross-Branch Fusion Lineage | [ACC-58](../12_ACCEPTANCE_SCENARIOS/acc_58_cross_branch_fusion_lineage.md) — High | *(name the test case)* |
+| C71 | Discovery Search Stagnation | [ACC-59](../12_ACCEPTANCE_SCENARIOS/acc_59_discovery_search_stagnation.md) — High | *(name the test case)* |
+| C72 | Failed Smoke Candidate Promotion Attempt | [ACC-60](../12_ACCEPTANCE_SCENARIOS/acc_60_failed_smoke_promotion.md) — Critical | *(name the test case)* |
+| C73 | Unqualified Semantic Verifier | [ACC-61](../12_ACCEPTANCE_SCENARIOS/acc_61_unqualified_semantic_verifier.md) — Critical | *(name the test case)* |
+| C74 | Semantic Verifier Recorded as Mechanical | [ACC-62](../12_ACCEPTANCE_SCENARIOS/acc_62_verifier_class_misdeclaration.md) — High | *(name the test case)* |
+| C75 | Failed Experiment Must Be Recorded | [ACC-63](../12_ACCEPTANCE_SCENARIOS/acc_63_failed_experiment_recorded.md) — High | *(name the test case)* |
+| C76 | Implementation Failure Must Not Refute a Hypothesis | [ACC-64](../12_ACCEPTANCE_SCENARIOS/acc_64_implementation_failure_not_refutation.md) — Critical | *(name the test case)* |
+| C77 | Reproduction in the Producer Environment | [ACC-65](../12_ACCEPTANCE_SCENARIOS/acc_65_reproduction_in_producer_environment.md) — Critical | *(name the test case)* |
+| C78 | Standalone Reproduction Package | [ACC-66](../12_ACCEPTANCE_SCENARIOS/acc_66_standalone_reproduction_package.md) — Critical | *(name the test case)* |
+| C79 | Claim–Code–Result Consistency Failure | [ACC-67](../12_ACCEPTANCE_SCENARIOS/acc_67_claim_code_result_consistency.md) — Critical | *(name the test case)* |
+| C80 | Human Intervention Without an Audit Record | [ACC-68](../12_ACCEPTANCE_SCENARIOS/acc_68_human_intervention_audit.md) — Critical | *(name the test case)* |
+| C81 | Human Decision Timeout Must Not Auto-Approve | [ACC-69](../12_ACCEPTANCE_SCENARIOS/acc_69_decision_timeout_no_autoapproval.md) — Critical | *(name the test case)* |
+| C82 | EvidenceGap Lifecycle | [ACC-70](../12_ACCEPTANCE_SCENARIOS/acc_70_evidence_gap_lifecycle.md) — High | *(name the test case)* |
+| C83 | Multi-Parent Artifact Lineage | [ACC-71](../12_ACCEPTANCE_SCENARIOS/acc_71_artifact_multi_parent_lineage.md) — Critical | *(name the test case)* |
+| C84 | Reviewer Isolation Before Review Lock | [ACC-72](../12_ACCEPTANCE_SCENARIOS/acc_72_reviewer_isolation_before_lock.md) — Critical | *(name the test case)* |
+| C85 | Missing Upstream Lineage or Licence | [ACC-74](../12_ACCEPTANCE_SCENARIOS/acc_74_missing_upstream_lineage.md) — High | *(name the test case)* |
+| C86 | Literature Retrieval Budget and Stopping Rule | [ACC-75](../12_ACCEPTANCE_SCENARIOS/acc_75_retrieval_budget_and_stopping_rule.md) — High | *(name the test case)* |
+| C87 | Unsupported Publication Sentence | [ACC-76](../12_ACCEPTANCE_SCENARIOS/acc_76_unsupported_publication_sentence.md) — Critical | *(name the test case)* |
+| C88 | VerifiedValue Rebinding Attempt | [ACC-77](../12_ACCEPTANCE_SCENARIOS/acc_77_verified_value_rebinding.md) — Critical | *(name the test case)* |
+| C89 | Raw Evidence Versus Interpretation | [ACC-78](../12_ACCEPTANCE_SCENARIOS/acc_78_raw_evidence_versus_interpretation.md) — Critical | *(name the test case)* |
+| C90 | Epistemic Memory Retention Violation | [ACC-79](../12_ACCEPTANCE_SCENARIOS/acc_79_memory_retention_violation.md) — High | *(name the test case)* |
+| C91 | Multi-Agent Cohort Required | [ACC-081](../12_ACCEPTANCE_SCENARIOS/acc_081_multi_agent_cohort_required.md) — Critical | *(name the test case)* |
+| C92 | Independent-First Embargo | [ACC-082](../12_ACCEPTANCE_SCENARIOS/acc_082_independent_first_embargo.md) — Critical | *(name the test case)* |
+| C93 | Typed Inter-Agent Message | [ACC-083](../12_ACCEPTANCE_SCENARIOS/acc_083_typed_inter_agent_message.md) — High | *(name the test case)* |
+| C94 | Delta-Only Communication | [ACC-084](../12_ACCEPTANCE_SCENARIOS/acc_084_delta_only_communication.md) — High | *(name the test case)* |
+| C95 | A Blackboard Entry Is Not Evidence | [ACC-085](../12_ACCEPTANCE_SCENARIOS/acc_085_blackboard_entry_is_not_evidence.md) — Critical | *(name the test case)* |
+| C96 | Sparse Topology Preserves Quality | [ACC-086](../12_ACCEPTANCE_SCENARIOS/acc_086_sparse_topology_quality_preservation.md) — High | *(name the test case)* |
+| C97 | Communication Optimisation Rollback | [ACC-087](../12_ACCEPTANCE_SCENARIOS/acc_087_communication_optimization_rollback.md) — High | *(name the test case)* |
+| C98 | Strategic Silence Never Silences a Blocker | [ACC-088](../12_ACCEPTANCE_SCENARIOS/acc_088_strategic_silence_never_silences_a_blocker.md) — Critical | *(name the test case)* |
+| C99 | Sycophancy Anchor Attack | [ACC-089](../12_ACCEPTANCE_SCENARIOS/acc_089_sycophancy_anchor_attack.md) — Critical | *(name the test case)* |
+| C100 | False Consensus Cannot Close a Challenge | [ACC-090](../12_ACCEPTANCE_SCENARIOS/acc_090_false_consensus.md) — Critical | *(name the test case)* |
+| C101 | Faulty Agent Output Does Not Propagate | [ACC-091](../12_ACCEPTANCE_SCENARIOS/acc_091_faulty_agent_challenge.md) — Critical | *(name the test case)* |
+| C102 | Inspector Reviews High-Consequence Output | [ACC-092](../12_ACCEPTANCE_SCENARIOS/acc_092_inspector_high_consequence_review.md) — High | *(name the test case)* |
+| C103 | A Malicious Agent Cannot Bind Authority | [ACC-093](../12_ACCEPTANCE_SCENARIOS/acc_093_malicious_agent_cannot_bind_authority.md) — Critical | *(name the test case)* |
+| C104 | An Unattributable Failure Is `UNKNOWN` | [ACC-094](../12_ACCEPTANCE_SCENARIOS/acc_094_failure_cause_unknown.md) — High | *(name the test case)* |
+| C105 | Failure Taxonomy Routing | [ACC-095](../12_ACCEPTANCE_SCENARIOS/acc_095_failure_taxonomy_routing.md) — High | *(name the test case)* |
+| C106 | A Refuted Memory Does Not Re-Enter Reasoning | [ACC-096](../12_ACCEPTANCE_SCENARIOS/acc_096_refuted_memory_mask.md) — High | *(name the test case)* |
+| C107 | Proactive Reminder of a Frozen Constraint | [ACC-097](../12_ACCEPTANCE_SCENARIOS/acc_097_proactive_frozen_constraint_reminder.md) — High | *(name the test case)* |
+| C108 | Memory Poisoning Attempt | [ACC-098](../12_ACCEPTANCE_SCENARIOS/acc_098_memory_poisoning_attempt.md) — Critical | *(name the test case)* |
+| C109 | Budget Degrades Communication, Not the Cohort | [ACC-099](../12_ACCEPTANCE_SCENARIOS/acc_099_communication_budget_degradation.md) — Critical | *(name the test case)* |
+| C110 | Token Ledger Classification | [ACC-100](../12_ACCEPTANCE_SCENARIOS/acc_100_token_ledger_classification.md) — High | *(name the test case)* |
+| C111 | Reserved Assurance Budget Is Unreachable | [ACC-101](../12_ACCEPTANCE_SCENARIOS/acc_101_budget_hard_stop_reserved_assurance.md) — Critical | *(name the test case)* |
+| C112 | Deterministic Tool-Result Reuse | [ACC-102](../12_ACCEPTANCE_SCENARIOS/acc_102_tool_result_reuse.md) — Medium | *(name the test case)* |
+| C113 | Minor Specification Drift Is Recorded | [ACC-103](../12_ACCEPTANCE_SCENARIOS/acc_103_scientific_minor_spec_drift.md) — High | *(name the test case)* |
+| C114 | Major Specification Drift Blocks Confirmatory Status | [ACC-104](../12_ACCEPTANCE_SCENARIOS/acc_104_scientific_major_spec_drift.md) — Critical | *(name the test case)* |
+| C115 | A Claim Without a Complete Evidence Chain | [ACC-105](../12_ACCEPTANCE_SCENARIOS/acc_105_claim_without_evidence_chain.md) — Critical | *(name the test case)* |
+| C116 | A Number Without a VerifiedValue | [ACC-106](../12_ACCEPTANCE_SCENARIOS/acc_106_numeric_value_without_verifiedvalue.md) — Critical | *(name the test case)* |
+| C117 | Expired Verifier Qualification | [ACC-107](../12_ACCEPTANCE_SCENARIOS/acc_107_expired_verifier_qualification.md) — Critical | *(name the test case)* |
+| C118 | Escalation Is Not Selective Enforcement | [ACC-108](../12_ACCEPTANCE_SCENARIOS/acc_108_selective_verifier_escalation.md) — Critical | *(name the test case)* |
+| C119 | Verifier Abstention Is a Valid Result | [ACC-109](../12_ACCEPTANCE_SCENARIOS/acc_109_verifier_abstention_is_valid.md) — High | *(name the test case)* |
+| C120 | Human Preliminary Assessment Precedes the Recommendation | [ACC-110](../12_ACCEPTANCE_SCENARIOS/acc_110_human_preliminary_assessment.md) — Critical | *(name the test case)* |
+| C121 | Insufficient Basis Is Reachable | [ACC-111](../12_ACCEPTANCE_SCENARIOS/acc_111_human_insufficient_basis.md) — High | *(name the test case)* |
+| C122 | Correction Friction Symmetry | [ACC-112](../12_ACCEPTANCE_SCENARIOS/acc_112_correction_friction_symmetry.md) — High | *(name the test case)* |
+| C123 | Producer to Evaluator Leakage | [ACC-113](../12_ACCEPTANCE_SCENARIOS/acc_113_producer_evaluator_leakage.md) — Critical | *(name the test case)* |
+| C124 | Reproduction Environment Lineage | [ACC-114](../12_ACCEPTANCE_SCENARIOS/acc_114_reproduction_in_producer_environment_hardened.md) — Critical | *(name the test case)* |
+| C125 | Missing Model Execution Fingerprint | [ACC-115](../12_ACCEPTANCE_SCENARIOS/acc_115_missing_model_execution_fingerprint.md) — Critical | *(name the test case)* |
+| C126 | Distributional Reproduction for a Hosted Model | [ACC-116](../12_ACCEPTANCE_SCENARIOS/acc_116_distributional_hosted_model_reproduction.md) — High | *(name the test case)* |
+| C127 | Prompt Injection Meets a Capability Gate | [ACC-117](../12_ACCEPTANCE_SCENARIOS/acc_117_prompt_injection_capability_gate.md) — Critical | *(name the test case)* |
+| C128 | Search-Time Benchmark Contamination | [ACC-118](../12_ACCEPTANCE_SCENARIOS/acc_118_benchmark_search_time_contamination.md) — Critical | *(name the test case)* |
+| C129 | Destructive Projection Rebuild | [ACC-119](../12_ACCEPTANCE_SCENARIOS/acc_119_derived_projection_destructive_rebuild.md) — Critical | *(name the test case)* |
+| C130 | Missing Upstream Licence or Provenance | [ACC-120](../12_ACCEPTANCE_SCENARIOS/acc_120_missing_upstream_license_provenance.md) — High | *(name the test case)* |
 
-**14 coverage items.** Every one must appear in the *Covered by* column of at least one test case below before this package can reach `TECH_COMPLETE`.
+**130 coverage items.** Every one must appear in the *Covered by* column of at least one test case below before this package can reach `TECH_COMPLETE`.
 
 <!-- /generated:coverage -->
 

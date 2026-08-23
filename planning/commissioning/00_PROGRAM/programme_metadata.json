@@ -1,0 +1,200 @@
+{
+  "_comment": [
+    "Canonical machine-readable programme metadata. Written by hand, read by",
+    "scripts/programme_model.py and through it by every generator, validator and",
+    "figure that needs a wave name, a phase ordering or the baseline identity.",
+    "",
+    "It exists because each of these facts previously had two or three homes.",
+    "Wave membership was hard-coded in expand_packages.py AND in fig_waves.py,",
+    "both stopping at WP-140, so the nineteen packages added at v1.2.0 and",
+    "v1.3.0 were invisible to both while 02_wave_and_dependency_map.md listed",
+    "their waves in prose. The figure rendered '141 work-package documents' at a",
+    "moment the repository held 160, and nothing could see the difference.",
+    "",
+    "Per-package facts — which wave a package is in, which phase it belongs to,",
+    "whether it carries a selector — live in package_dependency_matrix.csv, one",
+    "row per package. This file holds only what is true of the programme rather",
+    "than of a package: what the waves and phases MEAN, and in what order."
+  ],
+  "commissioning_baseline": {
+    "version": "v1.3.1",
+    "supersedes": "v1.3.0",
+    "baseline_type": "integration-consistency-remediation",
+    "sealed_at": "2026-08-23",
+    "seal_file": "planning/commissioning/00_PROGRAM/SHA256SUMS.txt",
+    "programme_document_format_version": "1.4",
+    "product_version": null,
+    "note": [
+      "Three different things in this repository have been called a version, and",
+      "naming the kind is the whole point of this object. The COMMISSIONING",
+      "BASELINE is what the seal covers. The PROGRAMME DOCUMENT FORMAT VERSION is",
+      "the template generation the plan documents are written to. AETHRION itself",
+      "has no product version and will not have one until something ships.",
+      "",
+      "v1.3.1 is a patch baseline because it adds no scientific capability. It",
+      "makes the v1.3.0 architecture internally executable — which it was not,",
+      "because two pre-go-live packages depended on Day-2 packages and the",
+      "cutover packages bound two acceptance scenarios where they meant 118."
+    ]
+  },
+  "scheduling_phases": [
+    {
+      "id": "BOOTSTRAP",
+      "order": 0,
+      "name": "Bootstrap",
+      "meaning": "Makes acceptance possible at all; nothing else can be accepted before it"
+    },
+    {
+      "id": "PRE_GO_LIVE",
+      "order": 1,
+      "name": "Before go-live",
+      "meaning": "Must be ACCEPTED before the cutover decision can be taken"
+    },
+    {
+      "id": "CUTOVER",
+      "order": 2,
+      "name": "Cutover",
+      "meaning": "The production cutover and the go-live decision itself"
+    },
+    {
+      "id": "POST_GO_LIVE_HYPERCARE",
+      "order": 3,
+      "name": "Hypercare",
+      "meaning": "The bounded window immediately after cutover, with its own exit criteria"
+    },
+    {
+      "id": "DAY2_CONTINUOUS",
+      "order": 4,
+      "name": "Day-2 continuous",
+      "meaning": "A recurring rhythm that exists only once the system is running"
+    }
+  ],
+  "phase_invariant": {
+    "id": "V-PHASE-001",
+    "rule": "A package whose scheduling phase is BOOTSTRAP, PRE_GO_LIVE or CUTOVER may not depend, directly or transitively, on a package whose phase is POST_GO_LIVE_HYPERCARE or DAY2_CONTINUOUS.",
+    "why": [
+      "A dependency graph can be perfectly acyclic and still be impossible to",
+      "execute. If something required before go-live depends on something that",
+      "only exists after go-live, the programme has no valid starting order and",
+      "the acyclicity check will never say so.",
+      "",
+      "Both violations this rule was written for were real: WP-152 depended on",
+      "the Day-2 postmortem rhythm to define a failure taxonomy that the rhythm",
+      "should consume, and WP-155 depended on recurring verifier recalibration",
+      "for an initial qualification it needs before anything runs."
+    ]
+  },
+  "waves": [
+    {
+      "id": "WB",
+      "name": "Bootstrap",
+      "focus": "make acceptance possible at all"
+    },
+    {
+      "id": "W0",
+      "name": "Programme lock",
+      "focus": "scope, ownership, acceptance"
+    },
+    {
+      "id": "W1",
+      "name": "Contract spine",
+      "focus": "identity and schema ownership"
+    },
+    {
+      "id": "W2",
+      "name": "Platform backbone",
+      "focus": "environment, data, artifacts"
+    },
+    {
+      "id": "W3",
+      "name": "Control and runtime",
+      "focus": "workflow, model, sandbox"
+    },
+    {
+      "id": "W4",
+      "name": "Knowledge and evidence",
+      "focus": "literature, claims, runs, review"
+    },
+    {
+      "id": "W5",
+      "name": "Human and visibility",
+      "focus": "cockpit, decisions, telemetry"
+    },
+    {
+      "id": "W6",
+      "name": "Vertical integration",
+      "focus": "slices and acceptance suite"
+    },
+    {
+      "id": "W7",
+      "name": "Commissioning",
+      "focus": "security, resilience, pilot"
+    },
+    {
+      "id": "W8",
+      "name": "Cutover",
+      "focus": "rehearsal, go-live, hypercare"
+    },
+    {
+      "id": "W9",
+      "name": "Day-2",
+      "focus": "continuous assurance"
+    },
+    {
+      "id": "W-T",
+      "name": "Tooling",
+      "focus": "notification, records, timestamping"
+    },
+    {
+      "id": "W-S",
+      "name": "Scientific intelligence",
+      "focus": "study mode, search graph, epistemic memory"
+    },
+    {
+      "id": "W-R",
+      "name": "Reliability and efficiency",
+      "focus": "cohort, coordination cost, believable numbers"
+    }
+  ],
+  "scenario_selector_grammar": {
+    "form": "key=value",
+    "keys": {
+      "phase": [
+        "PRE_GO_LIVE",
+        "DAY2_CONTINUOUS"
+      ]
+    },
+    "why_tiny": [
+      "A general query language would need its own tests, its own failure modes",
+      "and its own document. The only aggregate this plan actually has is 'every",
+      "scenario of a given acceptance phase', so that is the only thing the",
+      "grammar expresses. An unknown key or value is a hard error, never an",
+      "empty result — an aggregate that silently resolves to nothing is the",
+      "failure mode a selector was introduced to remove."
+    ]
+  },
+  "aggregate_packages": {
+    "_comment": [
+      "Which packages MUST carry an aggregate selector, and which set they must",
+      "resolve to. Declared here rather than inferred from which packages happen",
+      "to have a selector column filled in, because a check anchored on the thing",
+      "it checks can be switched off by deleting that thing.",
+      "",
+      "The self-test found this directly: with V-SCEN-002 iterating over packages",
+      "that HAVE a selector, deleting WP-115's selector made the rule pass in",
+      "silence — restoring exactly the two-scenario enumeration it exists to",
+      "prevent. The rule now iterates over this list, so removing a selector is",
+      "a validation failure rather than a quiet regression.",
+      "",
+      "WP-119 is deliberately absent. It is the cutover REHEARSAL, and a",
+      "rehearsal that must first pass the entire commissioning suite is not a",
+      "rehearsal — it is the suite. It consumes WP-115's dossier through an",
+      "ordinary hard dependency instead. 04_P0 asks for this to be decided",
+      "rather than inferred; this is the decision."
+    ],
+    "required": {
+      "WP-115": "phase=PRE_GO_LIVE",
+      "WP-120": "phase=PRE_GO_LIVE"
+    }
+  }
+}

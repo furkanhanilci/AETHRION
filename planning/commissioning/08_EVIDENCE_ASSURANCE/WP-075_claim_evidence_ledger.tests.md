@@ -30,7 +30,7 @@ The evidence layers this package must satisfy, derived from the gates it touches
 | **E0** Structural | Does the file, schema or reference exist? | **yes** | never optional — the artifact must exist and behave |
 | **E1** Mechanical | Is the behaviour correct under a deterministic test? | **yes** | never optional — the artifact must exist and behave |
 | **E2** Security | Is the forbidden path actually blocked? | **yes** | never optional — a control that has not been observed refusing is prose |
-| **E3** Independent review | Did an actor outside the producer examine the semantics? | **yes** | bound to 4 acceptance scenario(s) · effort class L |
+| **E3** Independent review | Did an actor outside the producer examine the semantics? | **yes** | bound to 8 acceptance scenario(s) · effort class L |
 | **E4** Reproduction | Does the same package run again in a clean environment? | **yes** | touches G5–G10 |
 | **E5** Operations | Are failure, restore and observability correct? | no | no platform or day-2 gate |
 
@@ -120,8 +120,12 @@ ISO/IEC/IEEE 29119-3 §8.3.2. A coverage item is something the tests must reach.
 | C13 | Strong Counter-Test | [ACC-08](../12_ACCEPTANCE_SCENARIOS/ACC-08_strong_counter_test.md) — Critical | *(name the test case)* |
 | C14 | Publication Completeness | [ACC-30](../12_ACCEPTANCE_SCENARIOS/ACC-30_publication_completeness.md) — Critical | *(name the test case)* |
 | C15 | Superseded Publication | [ACC-31](../12_ACCEPTANCE_SCENARIOS/ACC-31_superseded_publication.md) — High | *(name the test case)* |
+| C16 | EvidenceGap Lifecycle | [ACC-70](../12_ACCEPTANCE_SCENARIOS/ACC-70_evidence_gap_lifecycle.md) — High | *(name the test case)* |
+| C17 | Raw Evidence Versus Interpretation | [ACC-78](../12_ACCEPTANCE_SCENARIOS/ACC-78_raw_evidence_versus_interpretation.md) — Critical | *(name the test case)* |
+| C18 | A Blackboard Entry Is Not Evidence | [ACC-085](../12_ACCEPTANCE_SCENARIOS/ACC-085_blackboard_entry_is_not_evidence.md) — Critical | *(name the test case)* |
+| C19 | A Claim Without a Complete Evidence Chain | [ACC-105](../12_ACCEPTANCE_SCENARIOS/ACC-105_claim_without_evidence_chain.md) — Critical | *(name the test case)* |
 
-**15 coverage items.** Every one must appear in the *Covered by* column of at least one test case below before this package can reach `TECH_COMPLETE`.
+**19 coverage items.** Every one must appear in the *Covered by* column of at least one test case below before this package can reach `TECH_COMPLETE`.
 
 <!-- /generated:coverage -->
 

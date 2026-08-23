@@ -136,8 +136,6 @@ evidence authority, including through a lesson derived from a failed approach.
 
 ## Dependency and prerequisite analysis
 
-## Dependency and prerequisite analysis
-
 <!-- generated:dependency-analysis — produced by scripts/expand_packages.py; do not edit inside this block -->
 
 ### Direct hard dependencies
@@ -204,7 +202,7 @@ The transitive figure is the leverage number. It does not appear anywhere else i
 
 | | |
 |---|---|
-| Wave | unassigned |
+| Wave | W-S — Scientific intelligence |
 | Dependency depth | level **34** of 55 |
 | On the documented critical path | no |
 | Effort class | **L** |
@@ -219,8 +217,11 @@ The transitive figure is the leverage number. It does not appear anywhere else i
 
 | Scenario | Severity | What it must show |
 |---|---|---|
+| [ACC-63 — Failed Experiment Must Be Recorded](../12_ACCEPTANCE_SCENARIOS/acc_63_failed_experiment_recorded.md) | High | It cannot advance until an immutable `ExperimentRun`, a `FailureAssessment` and a `FailedApproach` record exist, carrying the logs and artifacts the failure produced. |
 | [ACC-70 — EvidenceGap Lifecycle](../12_ACCEPTANCE_SCENARIOS/acc_70_evidence_gap_lifecycle.md) | High | The wrong evidence does not close the gap; the qualifying evidence satisfies it; the retraction reopens it with its full history intact. An open gap never authorises work by itself. |
 | [ACC-79 — Epistemic Memory Retention Violation](../12_ACCEPTANCE_SCENARIOS/acc_79_memory_retention_violation.md) | High | It excludes the immutable classes, reports exactly what it excluded and why, and expires only procedural entries. A planted evidence control survives, and a planted stale procedure does not. |
+| [ACC-096 — A Refuted Memory Does Not Re-Enter Reasoning](../12_ACCEPTANCE_SCENARIOS/acc_096_refuted_memory_mask.md) | High | None of the three enters ordinary reasoning context. All three remain fully visible to the failure-history query, because *what did we try* and *what is true* are different questions. |
+| [ACC-098 — Memory Poisoning Attempt](../12_ACCEPTANCE_SCENARIOS/acc_098_memory_poisoning_attempt.md) | Critical | The content is stored in a typed store whose authority field forbids claim support. It cannot be retrieved as evidence, cannot support a claim, and a lesson derived from a failed approach is not an accepted fact. |
 
 <!-- /generated:dependency-analysis -->
 
@@ -232,8 +233,6 @@ The transitive figure is the leverage number. It does not appear anywhere else i
 - `DataClass`, `CodeTrust`, `ToolEffect` and the network/credential scope are classified.
 - Test fixtures, the environment, the rollback point and the acceptance measurement method are reachable.
 - An O/M/P person-day estimate is recorded and real capacity is reserved against it.
-
-## Execution requirements
 
 ## Execution requirements
 

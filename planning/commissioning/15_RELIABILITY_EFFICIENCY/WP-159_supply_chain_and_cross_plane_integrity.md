@@ -97,8 +97,6 @@ cause, which turns every integrity test into a bug report with no next step.
 
 ## Dependency and prerequisite analysis
 
-## Dependency and prerequisite analysis
-
 <!-- generated:dependency-analysis — produced by scripts/expand_packages.py; do not edit inside this block -->
 
 ### Direct hard dependencies
@@ -154,7 +152,7 @@ cause, which turns every integrity test into a bug report with no next step.
 
 | | |
 |---|---|
-| Wave | unassigned |
+| Wave | W-R — Reliability and efficiency |
 | Dependency depth | level **28** of 55 |
 | On the documented critical path | no |
 | Effort class | **L** |
@@ -182,8 +180,6 @@ cause, which turns every integrity test into a bug report with no next step.
 - `DataClass`, `CodeTrust`, `ToolEffect` and the network/credential scope are classified.
 - Test fixtures, the environment, the rollback point and the acceptance measurement method are reachable.
 - An O/M/P person-day estimate is recorded and real capacity is reserved against it.
-
-## Execution requirements
 
 ## Execution requirements
 

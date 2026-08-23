@@ -200,7 +200,7 @@ which is why they are caused deliberately rather than waited for.
 ### What acceptance of this package releases
 
 - **Directly unblocked:** 3 — `WP-108` · `WP-109` · `WP-110`
-- **Transitively reachable:** **26 of 160 packages (16%)** cannot be accepted until this one is.
+- **Transitively reachable:** **23 of 160 packages (14%)** cannot be accepted until this one is.
 
 The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
 
@@ -229,6 +229,8 @@ The transitive figure is the leverage number. It does not appear anywhere else i
 | [ACC-31 — Superseded Publication](../12_ACCEPTANCE_SCENARIOS/acc_31_superseded_publication.md) | High | The old package stays reachable but is clearly marked superseded; the new package references its predecessor and the reason, and consumers receive an impact event. |
 | [ACC-36 — Model Snapshot Drift](../12_ACCEPTANCE_SCENARIOS/acc_36_model_snapshot_drift.md) | Critical | The profile moves to suspension or requalification, the router cache is invalidated and an `ImpactScan` opens for open tasks, runs and claims; there is no unsafe fallback. |
 | [ACC-40 — Complete Project Audit Export](../12_ACCEPTANCE_SCENARIOS/acc_40_audit_export.md) | Critical | The signed export verifies with complete correlation and hash chain; a missing or tampered fixture fails verification and raises an incident. |
+| [ACC-52 — Claimless Publication Assertion](../12_ACCEPTANCE_SCENARIOS/acc_52_claimless_publication_assertion.md) | Critical | The build fails; the sentence's location and the missing relation are reported; no signed `PublicationPackage` is produced. Prose whose `text_role` declares it structural or editorial is not affected. |
+| [ACC-53 — Unverified Numeric Result](../12_ACCEPTANCE_SCENARIOS/acc_53_unverified_numeric_result.md) | Critical | The build fails regardless of the quality of the surrounding prose; the report lists the value refs that were permitted and the one that was not. A declared rounding or display transform of a registered value passes. |
 
 <!-- /generated:dependency-analysis -->
 

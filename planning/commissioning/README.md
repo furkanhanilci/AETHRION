@@ -60,7 +60,7 @@ zero open critical findings.
 | Acceptance scenarios | **120** (ACC-01 – ACC-120) |
 | Programme documents | 12 |
 | Markdown files under this tree | 630 |
-| Files covered by the hash seal | 631 (630 Markdown + 1 CSV) |
+| Files covered by the hash seal | 632 (630 Markdown + 1 CSV) |
 
 > ### What V1 is
 >
@@ -114,7 +114,17 @@ zero open critical findings.
 > finish line is a thing that happens with a version bump, a tag and a stated
 > reason — not twice, and not quietly.
 
-> **Commissioning baseline v1.3.0 — 2026-08-23.** This is the baseline the
+> **Commissioning baseline v1.3.1 — 2026-08-23.** A repair baseline: no package,
+> no scenario and no capability added. It closes the integration defects that
+> made v1.3.0's plan unexecutable — two pre-go-live packages depending on Day-2
+> packages, two cutover aggregators binding two scenarios where they meant 118,
+> and a WP↔ACC relation with two owners disagreeing on 98 of 120 scenarios — and
+> it adds the four controls that would have caught each of them. The canonical
+> programme model now lives in
+> [`00_PROGRAM/programme_metadata.json`](00_PROGRAM/programme_metadata.json) and
+> the phase, wave and selector columns of the dependency matrix.
+>
+> **v1.3.0** was the baseline the
 > programme will actually be commissioned against. Everything after this point
 > is a **recorded change**: edit the canonical file, regenerate the seal
 > deliberately, and record the change in the implementation log. Improvements
@@ -256,7 +266,7 @@ with `--check`.
 | [`09_change_and_configuration_control.md`](00_PROGRAM/09_change_and_configuration_control.md) | How does the plan itself change without drifting? |
 | [`10_go_live_checklist.md`](00_PROGRAM/10_go_live_checklist.md) | What must be true before cutover? |
 | [`11_scope_coverage_matrix.md`](00_PROGRAM/11_scope_coverage_matrix.md) | Is anything in scope not covered by a package? |
-| [`12_ACCEPTANCE_SCENARIOS/acceptance_scenarios_index.md`](12_ACCEPTANCE_SCENARIOS/acceptance_scenarios_index.md) | All 51 scenarios, by severity and phase |
+| [`12_ACCEPTANCE_SCENARIOS/acceptance_scenarios_index.md`](12_ACCEPTANCE_SCENARIOS/acceptance_scenarios_index.md) | Every scenario, by severity and phase |
 
 ## 4. How a package is documented
 

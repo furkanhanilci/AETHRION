@@ -57,7 +57,7 @@ The evidence layers this package must satisfy, derived from the gates it touches
 | **E0** Structural | Does the file, schema or reference exist? | **yes** | never optional — the artifact must exist and behave |
 | **E1** Mechanical | Is the behaviour correct under a deterministic test? | **yes** | never optional — the artifact must exist and behave |
 | **E2** Security | Is the forbidden path actually blocked? | **yes** | never optional — a control that has not been observed refusing is prose |
-| **E3** Independent review | Did an actor outside the producer examine the semantics? | **yes** | bound to 4 acceptance scenario(s) · effort class L |
+| **E3** Independent review | Did an actor outside the producer examine the semantics? | **yes** | bound to 6 acceptance scenario(s) · effort class L |
 | **E4** Reproduction | Does the same package run again in a clean environment? | no | no execution or reproduction gate |
 | **E5** Operations | Are failure, restore and observability correct? | no | no platform or day-2 gate |
 
@@ -144,8 +144,10 @@ ISO/IEC/IEEE 29119-3 §8.3.2. A coverage item is something the tests must reach.
 | C14 | Independent-First Embargo | [ACC-082](../12_ACCEPTANCE_SCENARIOS/acc_082_independent_first_embargo.md) — Critical | *(name the test case)* |
 | C15 | Sycophancy Anchor Attack | [ACC-089](../12_ACCEPTANCE_SCENARIOS/acc_089_sycophancy_anchor_attack.md) — Critical | *(name the test case)* |
 | C16 | False Consensus Cannot Close a Challenge | [ACC-090](../12_ACCEPTANCE_SCENARIOS/acc_090_false_consensus.md) — Critical | *(name the test case)* |
+| C17 | Faulty Agent Output Does Not Propagate | [ACC-091](../12_ACCEPTANCE_SCENARIOS/acc_091_faulty_agent_challenge.md) — Critical | *(name the test case)* |
+| C18 | A Malicious Agent Cannot Bind Authority | [ACC-093](../12_ACCEPTANCE_SCENARIOS/acc_093_malicious_agent_cannot_bind_authority.md) — Critical | *(name the test case)* |
 
-**16 coverage items.** Every one must appear in the *Covered by* column of at least one test case below before this package can reach `TECH_COMPLETE`.
+**18 coverage items.** Every one must appear in the *Covered by* column of at least one test case below before this package can reach `TECH_COMPLETE`.
 
 <!-- /generated:coverage -->
 

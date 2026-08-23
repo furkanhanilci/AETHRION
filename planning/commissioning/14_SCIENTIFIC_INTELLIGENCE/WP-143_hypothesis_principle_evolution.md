@@ -98,8 +98,6 @@ refusal is by schema and by policy rather than by convention.
 
 ## Dependency and prerequisite analysis
 
-## Dependency and prerequisite analysis
-
 <!-- generated:dependency-analysis — produced by scripts/expand_packages.py; do not edit inside this block -->
 
 ### Direct hard dependencies
@@ -160,7 +158,7 @@ The transitive figure is the leverage number. It does not appear anywhere else i
 
 | | |
 |---|---|
-| Wave | unassigned |
+| Wave | W-S — Scientific intelligence |
 | Dependency depth | level **29** of 55 |
 | On the documented critical path | no |
 | Effort class | **L** |
@@ -176,6 +174,7 @@ The transitive figure is the leverage number. It does not appear anywhere else i
 | Scenario | Severity | What it must show |
 |---|---|---|
 | [ACC-57 — Hypothesis In-Place Mutation Attempt](../12_ACCEPTANCE_SCENARIOS/ACC-57_hypothesis_in_place_mutation.md) | High | The write is refused with a conflict. A successor version is required, and it must name its parent and the evolution operator that produced it. |
+| [ACC-64 — Implementation Failure Must Not Refute a Hypothesis](../12_ACCEPTANCE_SCENARIOS/ACC-64_implementation_failure_not_refutation.md) | Critical | Both are classified — IMPLEMENTATION and DATA — and any transition that would set `HYP-002` to REFUTED is refused. Only a validly executed run under the frozen plan can support a HYPOTHESIS failure class. |
 
 <!-- /generated:dependency-analysis -->
 
@@ -187,8 +186,6 @@ The transitive figure is the leverage number. It does not appear anywhere else i
 - `DataClass`, `CodeTrust`, `ToolEffect` and the network/credential scope are classified.
 - Test fixtures, the environment, the rollback point and the acceptance measurement method are reachable.
 - An O/M/P person-day estimate is recorded and real capacity is reserved against it.
-
-## Execution requirements
 
 ## Execution requirements
 

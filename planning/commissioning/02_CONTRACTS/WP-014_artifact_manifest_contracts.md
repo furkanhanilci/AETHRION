@@ -185,6 +185,8 @@ The transitive figure is the leverage number. It does not appear anywhere else i
 | Scenario | Severity | What it must show |
 |---|---|---|
 | [ACC-23 — Artifact Overwrite Attempt](../12_ACCEPTANCE_SCENARIOS/ACC-23_artifact_overwrite.md) | Critical | The overwrite is rejected; the new bytes can only be written as a new content address and version, and existing references are unchanged. |
+| [ACC-58 — Cross-Branch Fusion Lineage](../12_ACCEPTANCE_SCENARIOS/ACC-58_cross_branch_fusion_lineage.md) | High | D retains both input references and the named inherited mechanisms end to end — in the canonical graph, after a derived-graph rebuild, and in the export. Neither A nor C is modified. |
+| [ACC-71 — Multi-Parent Artifact Lineage](../12_ACCEPTANCE_SCENARIOS/ACC-71_artifact_multi_parent_lineage.md) | Critical | Parent identity, parent order and every digest are identical across all three operations. A lineage that survives export but not a rebuild is not lineage. |
 
 <!-- /generated:dependency-analysis -->
 

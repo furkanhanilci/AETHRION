@@ -70,9 +70,9 @@ From `00_PROGRAM/05_definition_of_ready_and_done.md`, instantiated for this pack
 - [ ] The package purpose and its single delivery boundary are written.
 - [ ] Out-of-scope items are written down.
 - [ ] **Assurance Lead** is assigned accountable; an implementer is named; **Eval Office / Internal Audit** is assigned verifier and is **independent of the producer** under WP-007's profile.
+- [ ] `WP-043` — Role-Based Model and Skill Evaluation, and Golden Set Management — is `ACCEPTED` (not `TECH_COMPLETE`).
 - [ ] `WP-044` — Model Qualification and Admission Pipeline — is `ACCEPTED` (not `TECH_COMPLETE`).
 - [ ] `WP-087` — Mechanical Verification Engine — is `ACCEPTED` (not `TECH_COMPLETE`).
-- [ ] `WP-126` — Reviewer, Judge and Reproducer Calibration — is `ACCEPTED` (not `TECH_COMPLETE`).
 - [ ] `DataClass`, `CodeTrust`, `ToolEffect` and the network/credential scope are classified — all four, with no `UNKNOWN`.
 - [ ] Acceptance criteria name **a number, a threshold or a command**. `00_PROGRAM/05` states that the generic template criteria are not measurable in the sense meant here; refinement is where that is fixed.
 - [ ] Migration, rollback or compensation behaviour is defined.
@@ -94,6 +94,7 @@ From `00_PROGRAM/05_definition_of_ready_and_done.md`, instantiated for this pack
 
 An `ACCEPTED` package is still not production-ready. Every scenario below must pass **on the same release candidate**:
 
+- [ ] `ACC-092` passes. A `SKIPPED` scenario on a Critical row does not count as a pass.
 - [ ] `ACC-107` passes. A `SKIPPED` scenario on a Critical row does not count as a pass.
 - [ ] `ACC-108` passes. A `SKIPPED` scenario on a Critical row does not count as a pass.
 - [ ] `ACC-109` passes. A `SKIPPED` scenario on a Critical row does not count as a pass.

@@ -115,8 +115,6 @@ number being watched and degrades the one that is not.
 
 ## Dependency and prerequisite analysis
 
-## Dependency and prerequisite analysis
-
 <!-- generated:dependency-analysis — produced by scripts/expand_packages.py; do not edit inside this block -->
 
 ### Direct hard dependencies
@@ -186,7 +184,7 @@ The transitive figure is the leverage number. It does not appear anywhere else i
 
 | | |
 |---|---|
-| Wave | unassigned |
+| Wave | W-R — Reliability and efficiency |
 | Dependency depth | level **40** of 55 |
 | On the documented critical path | no |
 | Effort class | **L** |
@@ -201,9 +199,11 @@ The transitive figure is the leverage number. It does not appear anywhere else i
 
 | Scenario | Severity | What it must show |
 |---|---|---|
+| [ACC-084 — Delta-Only Communication](../12_ACCEPTANCE_SCENARIOS/acc_084_delta_only_communication.md) | High | The message is rejected in favour of a delta plus an artifact pointer. The full content is written to the artifact store and the message carries its digest. |
 | [ACC-086 — Sparse Topology Preserves Quality](../12_ACCEPTANCE_SCENARIOS/acc_086_sparse_topology_quality_preservation.md) | High | The optimised arm reports a meaningful reduction in coordination cost with quality within the declared tolerance. The comparison is against the fully connected cohort — not against a single agent — and both numbers are reported as a frontier. |
 | [ACC-087 — Communication Optimisation Rollback](../12_ACCEPTANCE_SCENARIOS/acc_087_communication_optimization_rollback.md) | High | The topology rolls back automatically, without human intervention, and the regression and the rollback are both recorded. The campaign continues under the previous topology rather than stopping. |
 | [ACC-088 — Strategic Silence Never Silences a Blocker](../12_ACCEPTANCE_SCENARIOS/acc_088_strategic_silence_never_silences_a_blocker.md) | Critical | Neither the blocker nor the safety message can be silenced at any utility threshold. The low-calibration sender's message is not deleted either — its priority and corroboration requirement change. |
+| [ACC-099 — Budget Degrades Communication, Not the Cohort](../12_ACCEPTANCE_SCENARIOS/acc_099_communication_budget_degradation.md) | Critical | Communication policy degrades — structured, compressed, pointer-only, silence unless material. The cohort is not reduced, the assurance route is not lowered, and no non-waivable control is skipped. |
 
 <!-- /generated:dependency-analysis -->
 
@@ -215,8 +215,6 @@ The transitive figure is the leverage number. It does not appear anywhere else i
 - `DataClass`, `CodeTrust`, `ToolEffect` and the network/credential scope are classified.
 - Test fixtures, the environment, the rollback point and the acceptance measurement method are reachable.
 - An O/M/P person-day estimate is recorded and real capacity is reserved against it.
-
-## Execution requirements
 
 ## Execution requirements
 

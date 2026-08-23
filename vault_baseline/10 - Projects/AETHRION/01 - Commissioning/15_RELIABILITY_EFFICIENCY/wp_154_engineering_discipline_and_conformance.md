@@ -123,24 +123,21 @@ detector at all.
 
 ## Dependency and prerequisite analysis
 
-## Dependency and prerequisite analysis
-
 <!-- generated:dependency-analysis — produced by scripts/expand_packages.py; do not edit inside this block -->
 
 ### Direct hard dependencies
 
-4, each of which must be `ACCEPTED` — not `TECH_COMPLETE` — before this package is `READY`.
+3, each of which must be `ACCEPTED` — not `TECH_COMPLETE` — before this package is `READY`.
 
 | Package | Supplies to this package |
 |---|---|
 | [WP-023 — Git, Worktree and Protected-Path Policy](../03_FOUNDATION/wp_023_git_worktree_branch_policy.md) | `Git policy` · `Worktree controller contract` · `Protected-path rules` · `Freeze procedure` |
 | [WP-047 — Role and Skill Registries, and the Task Compiler](../05_MODEL_AGENT_TOOL/wp_047_role_bundle_registry.md) | `Role Bundle Registry` · `Core role bundles` · `Bundle conformance tests` · `Cohort, topology, projection and assurance-route compilation` |
 | [WP-081 — Protocol, Analysis, Baseline and Falsification Registry](../08_EVIDENCE_ASSURANCE/wp_081_protocol_baseline_registry.md) | `Method Registry` · `Protocol validators` · `Amendment workflow` · `Post-hoc change detector` |
-| [WP-107 — Engineering Vertical Slice — Spec, Worktree, Signed Release](../10_INTEGRATION_CUTOVER/wp_107_engineering_vertical_slice.md) | `Engineering vertical dossier` · `Frozen review packets` · `Validated findings` · `Signed OCI/release` |
 
 ### Full prerequisite closure
 
-**85 of 160 packages (53%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
+**50 of 160 packages (31%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
 
 | Level | Packages |
 |---:|---|
@@ -163,39 +160,29 @@ detector at all.
 | 17 | `WP-024` · `WP-028` · `WP-029` · `WP-041` |
 | 18 | `WP-027` · `WP-030` · `WP-042` |
 | 19 | `WP-031` · `WP-043` · `WP-052` |
-| 20 | `WP-032` · `WP-044` · `WP-053` |
-| 21 | `WP-033` · `WP-037` · `WP-045` |
+| 20 | `WP-032` · `WP-044` |
+| 21 | `WP-033` · `WP-045` |
 | 22 | `WP-034` · `WP-046` |
 | 23 | `WP-035` · `WP-047` · `WP-049` |
-| 24 | `WP-048` · `WP-050` · `WP-054` · `WP-055` |
+| 24 | `WP-055` |
 | 25 | `WP-056` |
-| 26 | `WP-057` · `WP-059` · `WP-061` |
-| 27 | `WP-058` · `WP-064` · `WP-075` |
-| 28 | `WP-062` · `WP-081` |
-| 29 | `WP-063` · `WP-065` · `WP-066` · `WP-069` · `WP-082` |
-| 30 | `WP-067` · `WP-070` · `WP-083` · `WP-084` · `WP-096` |
-| 31 | `WP-068` · `WP-071` |
-| 32 | `WP-072` · `WP-076` |
-| 33 | `WP-077` · `WP-078` |
-| 34 | `WP-079` · `WP-085` |
-| 35 | `WP-080` |
-| 36 | `WP-086` |
-| 37 | `WP-087` |
-| 38 | `WP-088` |
-| 39 | `WP-089` |
-| 40 | `WP-090` |
-| 41 | `WP-107` |
+| 26 | `WP-061` |
+| 27 | `WP-075` |
+| 28 | `WP-081` |
 
 ### What acceptance of this package releases
 
-**Nothing.** No package names this one as a hard dependency, so accepting it unblocks no other work. That is normal for a terminal package and is worth knowing before it is prioritised over one that unblocks many.
+- **Directly unblocked:** 1 — `WP-107`
+- **Transitively reachable:** **23 of 160 packages (14%)** cannot be accepted until this one is.
+
+The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
 
 ### Position in the programme
 
 | | |
 |---|---|
-| Wave | unassigned |
-| Dependency depth | level **42** of 55 |
+| Wave | W-R — Reliability and efficiency |
+| Dependency depth | level **29** of 55 |
 | On the documented critical path | no |
 | Effort class | **L** |
 | Accountable owner | Chief Architect |
@@ -225,8 +212,6 @@ detector at all.
 
 ## Execution requirements
 
-## Execution requirements
-
 <!-- generated:execution-requirements — produced by scripts/expand_packages.py; do not edit inside this block -->
 
 ### Inputs that must exist before the first task starts
@@ -248,12 +233,6 @@ Each row is a deliverable of a dependency. Its **absence is a stop condition**, 
 | `Amendment workflow` | `WP-081` | `python3 scripts/progress.py show WP-081` |
 | `Post-hoc change detector` | `WP-081` | `python3 scripts/progress.py show WP-081` |
 | `SpecificationConformanceRecord binding` | `WP-081` | `python3 scripts/progress.py show WP-081` |
-| `Engineering vertical dossier` | `WP-107` | `python3 scripts/progress.py show WP-107` |
-| `Frozen review packets` | `WP-107` | `python3 scripts/progress.py show WP-107` |
-| `Validated findings` | `WP-107` | `python3 scripts/progress.py show WP-107` |
-| `Signed OCI/release` | `WP-107` | `python3 scripts/progress.py show WP-107` |
-| `Merge DecisionRecord` | `WP-107` | `python3 scripts/progress.py show WP-107` |
-| `Engineering completion slice with attestation and eligibility` | `WP-107` | `python3 scripts/progress.py show WP-107` |
 
 ### Classification that must be recorded before work begins
 

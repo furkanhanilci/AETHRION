@@ -55,7 +55,7 @@ The evidence layers this package must satisfy, derived from the gates it touches
 | **E0** Structural | Does the file, schema or reference exist? | **yes** | never optional — the artifact must exist and behave |
 | **E1** Mechanical | Is the behaviour correct under a deterministic test? | **yes** | never optional — the artifact must exist and behave |
 | **E2** Security | Is the forbidden path actually blocked? | **yes** | never optional — a control that has not been observed refusing is prose |
-| **E3** Independent review | Did an actor outside the producer examine the semantics? | **yes** | bound to 3 acceptance scenario(s) · effort class L |
+| **E3** Independent review | Did an actor outside the producer examine the semantics? | **yes** | bound to 5 acceptance scenario(s) · effort class L |
 | **E4** Reproduction | Does the same package run again in a clean environment? | **yes** | touches G5 |
 | **E5** Operations | Are failure, restore and observability correct? | no | no platform or day-2 gate |
 
@@ -144,8 +144,10 @@ ISO/IEC/IEEE 29119-3 §8.3.2. A coverage item is something the tests must reach.
 | C15 | Budget Hard Stop | [ACC-09](../12_ACCEPTANCE_SCENARIOS/acc_09_budget_hard_stop.md) — Critical | *(name the test case)* |
 | C16 | Kueue Preemption | [ACC-33](../12_ACCEPTANCE_SCENARIOS/acc_33_kueue_preemption.md) — High | *(name the test case)* |
 | C17 | Negative Research Result | [ACC-39](../12_ACCEPTANCE_SCENARIOS/acc_39_negative_result.md) — Medium | *(name the test case)* |
+| C18 | Producer Attempts Evaluator Mutation | [ACC-54](../12_ACCEPTANCE_SCENARIOS/acc_54_evaluator_mutation_attempt.md) — Critical | *(name the test case)* |
+| C19 | Failed Smoke Candidate Promotion Attempt | [ACC-60](../12_ACCEPTANCE_SCENARIOS/acc_60_failed_smoke_promotion.md) — Critical | *(name the test case)* |
 
-**17 coverage items.** Every one must appear in the *Covered by* column of at least one test case below before this package can reach `TECH_COMPLETE`.
+**19 coverage items.** Every one must appear in the *Covered by* column of at least one test case below before this package can reach `TECH_COMPLETE`.
 
 <!-- /generated:coverage -->
 

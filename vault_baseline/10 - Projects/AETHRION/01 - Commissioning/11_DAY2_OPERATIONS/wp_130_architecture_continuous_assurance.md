@@ -177,7 +177,7 @@ again.
 
 ### Full prerequisite closure
 
-**128 of 160 packages (80%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
+**135 of 160 packages (84%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
 
 | Level | Packages |
 |---:|---|
@@ -207,9 +207,9 @@ again.
 | 24 | `WP-036` · `WP-048` · `WP-050` · `WP-054` · `WP-055` |
 | 25 | `WP-040` · `WP-056` · `WP-091` |
 | 26 | `WP-057` · `WP-059` · `WP-061` · `WP-092` |
-| 27 | `WP-058` · `WP-064` · `WP-075` |
-| 28 | `WP-060` · `WP-062` · `WP-081` |
-| 29 | `WP-063` · `WP-065` · `WP-066` · `WP-069` · `WP-082` |
+| 27 | `WP-058` · `WP-064` · `WP-075` · `WP-141` |
+| 28 | `WP-060` · `WP-062` · `WP-081` · `WP-142` |
+| 29 | `WP-063` · `WP-065` · `WP-066` · `WP-069` · `WP-082` · `WP-154` |
 | 30 | `WP-067` · `WP-070` · `WP-083` · `WP-084` · `WP-096` |
 | 31 | `WP-068` · `WP-071` · `WP-097` · `WP-099` · `WP-100` |
 | 32 | `WP-072` · `WP-076` · `WP-098` |
@@ -217,9 +217,9 @@ again.
 | 34 | `WP-074` · `WP-079` · `WP-085` · `WP-103` |
 | 35 | `WP-080` |
 | 36 | `WP-086` |
-| 37 | `WP-087` |
-| 38 | `WP-088` |
-| 39 | `WP-089` |
+| 37 | `WP-087` · `WP-147` |
+| 38 | `WP-088` · `WP-148` · `WP-155` |
+| 39 | `WP-089` · `WP-152` |
 | 40 | `WP-090` · `WP-093` |
 | 41 | `WP-095` · `WP-102` · `WP-107` |
 | 42 | `WP-104` |
@@ -255,9 +255,12 @@ again.
 
 ### Acceptance scenarios that exercise this package
 
-**None.** No acceptance scenario names this package.
+`COMMISSIONED` requires every scenario below to pass **on the same release candidate**. A `SKIPPED` scenario on a `Critical` row does not count as a pass.
 
-> `00_PROGRAM/11_scope_coverage_matrix.md` states the rule this trips: *a row with a primary package but no acceptance column is a capability nobody will ever be asked to demonstrate.* This package can reach `ACCEPTED` on its own tests, but it cannot reach `COMMISSIONED` through a scenario, because there is none to pass.
+| Scenario | Severity | What it must show |
+|---|---|---|
+| [ACC-73 — Upstream Assimilation Drift](../12_ACCEPTANCE_SCENARIOS/acc_73_upstream_assimilation_drift.md) | High | The drift checker reports the divergence and opens a review item. Nothing is auto-merged, and the characterisation suite must be rerun and reviewed before the pin moves. |
+| [ACC-80 — Governed Versus Ungoverned Research Harness](../12_ACCEPTANCE_SCENARIOS/acc_80_governed_versus_ungoverned_harness.md) | Medium | The harness emits the task and integrity metrics for both, reproducibly, with the cost of each recorded. A worse governed task score is a valid published result and is not suppressed. |
 
 <!-- /generated:dependency-analysis -->
 

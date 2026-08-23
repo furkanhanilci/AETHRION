@@ -173,7 +173,7 @@ state**, and the schema is where that is enforced.
 
 ### What acceptance of this package releases
 
-- **Directly unblocked:** 10 — `WP-020` · `WP-028` · `WP-032` · `WP-037` · `WP-039` · `WP-049` · `WP-096` · `WP-099` · `WP-100` · `WP-149`
+- **Directly unblocked:** 11 — `WP-020` · `WP-028` · `WP-032` · `WP-037` · `WP-039` · `WP-049` · `WP-096` · `WP-099` · `WP-100` · `WP-149` · `WP-152`
 - **Transitively reachable:** **140 of 160 packages (88%)** cannot be accepted until this one is.
 
 The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
@@ -199,6 +199,7 @@ The transitive figure is the leverage number. It does not appear anywhere else i
 |---|---|---|
 | [ACC-12 — Duplicate Event Delivery](../12_ACCEPTANCE_SCENARIOS/acc_12_duplicate_event.md) | Critical | Exactly one business effect occurs, the duplicate is acknowledged and audited, and the side effect is not performed a second time. |
 | [ACC-34 — DLQ Repair and Corrected Replay](../12_ACCEPTANCE_SCENARIOS/acc_34_dlq_repair.md) | High | No consumer loop forms; owner, diagnostics and audit are complete, the corrected event is processed exactly once and the original causation is preserved. |
+| [ACC-083 — Typed Inter-Agent Message](../12_ACCEPTANCE_SCENARIOS/acc_083_typed_inter_agent_message.md) | High | Both are rejected at the contract boundary. A correctly typed message passes, and its type is what makes a `CHALLENGE` trackable to resolution. |
 
 <!-- /generated:dependency-analysis -->
 

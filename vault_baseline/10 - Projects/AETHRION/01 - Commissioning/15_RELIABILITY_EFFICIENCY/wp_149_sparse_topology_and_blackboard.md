@@ -122,8 +122,6 @@ decision already taken on other grounds — rather than the pruning.
 
 ## Dependency and prerequisite analysis
 
-## Dependency and prerequisite analysis
-
 <!-- generated:dependency-analysis — produced by scripts/expand_packages.py; do not edit inside this block -->
 
 ### Direct hard dependencies
@@ -194,7 +192,7 @@ The transitive figure is the leverage number. It does not appear anywhere else i
 
 | | |
 |---|---|
-| Wave | unassigned |
+| Wave | W-R — Reliability and efficiency |
 | Dependency depth | level **39** of 55 |
 | On the documented critical path | no |
 | Effort class | **L** |
@@ -209,6 +207,7 @@ The transitive figure is the leverage number. It does not appear anywhere else i
 
 | Scenario | Severity | What it must show |
 |---|---|---|
+| [ACC-082 — Independent-First Embargo](../12_ACCEPTANCE_SCENARIOS/acc_082_independent_first_embargo.md) | Critical | The pre-seal request is denied and audited. The post-seal request succeeds through the protocol path, and only the material differences are exposed rather than the full prior output. |
 | [ACC-083 — Typed Inter-Agent Message](../12_ACCEPTANCE_SCENARIOS/acc_083_typed_inter_agent_message.md) | High | Both are rejected at the contract boundary. A correctly typed message passes, and its type is what makes a `CHALLENGE` trackable to resolution. |
 | [ACC-084 — Delta-Only Communication](../12_ACCEPTANCE_SCENARIOS/acc_084_delta_only_communication.md) | High | The message is rejected in favour of a delta plus an artifact pointer. The full content is written to the artifact store and the message carries its digest. |
 | [ACC-085 — A Blackboard Entry Is Not Evidence](../12_ACCEPTANCE_SCENARIOS/acc_085_blackboard_entry_is_not_evidence.md) | Critical | Both attempts are refused. After deletion, no canonical scientific record is lost — everything that mattered was an artifact, a span, a claim or a finding, and the entry only pointed at it. |
@@ -224,8 +223,6 @@ The transitive figure is the leverage number. It does not appear anywhere else i
 - `DataClass`, `CodeTrust`, `ToolEffect` and the network/credential scope are classified.
 - Test fixtures, the environment, the rollback point and the acceptance measurement method are reachable.
 - An O/M/P person-day estimate is recorded and real capacity is reserved against it.
-
-## Execution requirements
 
 ## Execution requirements
 
@@ -313,6 +310,59 @@ A package whose evidence cannot be produced is not `READY`, however complete its
 - `Naive fully-connected baseline harness`
 - An updated runbook or operations note, plus the service/contract ownership record
 - A signed `EvidenceManifest`
+
+## The threshold freeze — `EfficiencyQualificationProfile`
+
+"Quality stays inside a **pre-declared** tolerance" is the sentence this package
+turns on, and as written it is unenforceable. Nothing in the plan says *where*
+the tolerance is declared, *when* it stops being editable, or *who* would notice
+if it moved. A threshold that can be adjusted after the release-candidate result
+is visible is not a threshold; it is a description of whatever happened.
+
+So the declaration becomes an artifact with an identity and a freeze point.
+
+| Field group | Contents | What it prevents |
+|---|---|---|
+| Identity | `profile_id` · `version` · `study_or_release_id` · `created_at` · `frozen_at` · `approved_by` | A profile nobody owns, and a version that quietly replaces itself |
+| Arms under comparison | `baseline_cohort_manifest_digest` · `baseline_topology_digest` · `optimized_topology_policy_digest` | Comparing against a baseline that was itself tuned |
+| Data | `calibration_dataset_digest` · `holdout_dataset_digest` · `no_overlap_attestation` | Calibrating a threshold on the data it is later evaluated against |
+| Thresholds | `quality_metric` · `quality_direction` · `quality_loss_ceiling` · `coordination_metric` · `minimum_coordination_reduction` | The number chosen after the outcome |
+| Statistics | `confidence_interval_method` · `alpha` · `minimum_sample_size` | A reduction inside the noise, reported as a win |
+| Consequences | `rollback_trigger` · `non_waivable_floor` · `limitations` · `profile_digest` | An accepted optimisation with no automatic way back |
+
+### The freeze protocol
+
+1. Choose the metric family and the calibration data.
+2. Estimate variance and the plausible frontier.
+3. **Freeze** thresholds and statistical method; set `frozen_at`.
+4. Sign and seal the profile; record `profile_digest`.
+5. **Only then** expose the holdout and the release candidate.
+6. Run the baseline and optimised arms.
+7. Compare the quality delta and the cost reduction against the frozen profile.
+8. Roll the topology back automatically on a regression.
+9. **Retain the failed optimisation as metascience evidence** — an optimisation
+   that did not work is a measurement, and discarding it biases every summary
+   built from the ones that did.
+
+### The two failure modes this must distinguish
+
+A change can improve cost and damage quality, or improve quality and save
+nothing. Both are failures of an *efficiency* claim and they are not the same
+event:
+
+- cost improves, quality delta exceeds `quality_loss_ceiling` → **rejected**, and
+  the topology rolls back;
+- quality holds, reduction falls below `minimum_coordination_reduction` → **not
+  accepted as an efficiency improvement**, though nothing rolls back.
+
+Neither may be recorded as a success with a caveat attached.
+
+> **The numbers are targets, not constants.** `00_PROGRAM/06` states the release
+> targets — a communication reduction against the fully-connected baseline, and
+> a quality-loss ceiling — and states that they are to be frozen **after**
+> calibration, with intervals. This profile is the object that freezing produces.
+> Until a calibration run exists, every field above is `SPECIFIED` and no value
+> in it has been measured.
 
 ## Test and verification plan
 

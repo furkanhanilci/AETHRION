@@ -43,12 +43,12 @@ that document is the defect.
 
 ```bash
 cd /home/otonom/Desktop/FH/AETHRION
-uv run python scripts/write_status.py    # runs the 16-check bundle, rewrites docs/STATUS.md
+uv run python scripts/write_status.py    # runs the 19-check bundle, rewrites docs/STATUS.md
 python3 scripts/ready_queue.py           # rewrites docs/READY.md
 git log --oneline -5
 ```
 
-`write_status.py` must print **16/16**. If it does not, fix that before doing
+`write_status.py` must print **19/19**. If it does not, fix that before doing
 anything else — a session that starts on a red bundle cannot tell its own
 breakage from the breakage it inherited.
 
@@ -74,8 +74,8 @@ learn a number a script prints is how a session starts with a stale fact.
 | `src/airl_bridge/` | The working slice: Zotero client, SQLite registry, FastAPI, Obsidian projection, MCP server | no |
 | `src/airl_framework/` | Shared contract core. **Zero production consumers** — finding H4 | no |
 | `tests/` | 35 tests | no |
-| `scripts/` | Verification, generation and execution tooling — 43 scripts | no |
-| `planning/commissioning/` | The V1 plan: WP-000–159, ACC-01–120. **631 files, hash-sealed** | indexes only |
+| `scripts/` | Verification, generation and execution tooling — 47 scripts | no |
+| `planning/commissioning/` | The V1 plan: WP-000–159, ACC-01–120. **632 files, hash-sealed** | indexes only |
 | `docs/architecture/` | Target design, three ADRs, positioning | no |
 | `docs/figures/` | 14 SVG figures | **yes** — from `scripts/fig_*.py` |
 | `docs/STATUS.md`, `docs/READY.md` | Live state | **yes** |
@@ -212,7 +212,7 @@ the sandboxed shell here, so pinning a commit is work for a session that has one
 |---|---|
 | Zotero → SQLite → Obsidian bridge, read-only MCP (5 tools) | **Working**, 35 tests |
 | Evidence issuance/verification, signed, tamper-rejecting | **Working** — `TECH_COMPLETE`, not `ACCEPTED` |
-| Plan seal, figure generators, mirrors, 16-check bundle | **Working** |
+| Plan seal, figure generators, mirrors, 19-check bundle | **Working** |
 | Upstream lineage register and its checker, 11 firing controls | **Working** — the register is decisions, not adapted code |
 | Reference verification (Crossref/OpenAlex/arXiv) | **Working** — 27 of 33 corroborated |
 | Source monitoring (first slice of G10) | **Working** — positive control fires |
@@ -260,7 +260,7 @@ the bundle runs them.
 
 ### 7.2 The plan is sealed
 
-`planning/commissioning/` is 631 hash-sealed files. Verify:
+`planning/commissioning/` is 632 hash-sealed files. Verify:
 
 ```bash
 (cd planning/commissioning && sha256sum -c 00_PROGRAM/SHA256SUMS.txt)
@@ -345,7 +345,7 @@ keep upstream attribution and their pinned commit — do not rewrite them.
 ## 9. Before you finish anything
 
 ```bash
-uv run python scripts/write_status.py                                    # must print 16/16
+uv run python scripts/write_status.py                                    # must print 19/19
 python3 scripts/mirror_vault.py "vault_baseline/10 - Projects/AETHRION"
 python3 scripts/mirror_plan.py "vault_baseline/10 - Projects/AETHRION/01 - Commissioning"
 python3 scripts/mirror_vault.py "/home/otonom/Documents/Obsidian Vault/10 - Projects/AETHRION"

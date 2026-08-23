@@ -36,7 +36,7 @@ tags:
 | Hard dependencies | WP-115, WP-116, WP-117, WP-118 |
 | Related gates | Commissioning |
 | Related controls | All controls |
-| Related acceptance scenarios | ACC-01..ACC-40 |
+| Related acceptance scenarios | none directly; the rehearsal consumes `WP-115`'s Commissioning Dossier through a hard dependency |
 | Status at baseline | `NOT_STARTED` |
 
 ## Package documents
@@ -134,7 +134,7 @@ which is why they are caused deliberately rather than waited for.
 
 ### Full prerequisite closure
 
-**118 of 160 packages (74%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
+**119 of 160 packages (74%)** must reach `ACCEPTED` before this one can begin — the direct list above plus everything they in turn require. This is the number that determines when the package can actually start; the direct list is only its last layer.
 
 | Level | Packages |
 |---:|---|
@@ -166,7 +166,7 @@ which is why they are caused deliberately rather than waited for.
 | 26 | `WP-057` · `WP-059` · `WP-061` · `WP-092` |
 | 27 | `WP-058` · `WP-064` · `WP-075` |
 | 28 | `WP-060` · `WP-062` · `WP-081` |
-| 29 | `WP-063` · `WP-065` · `WP-066` · `WP-069` · `WP-082` |
+| 29 | `WP-063` · `WP-065` · `WP-066` · `WP-069` · `WP-082` · `WP-154` |
 | 30 | `WP-067` · `WP-070` · `WP-083` · `WP-084` · `WP-096` |
 | 31 | `WP-068` · `WP-071` · `WP-097` · `WP-099` · `WP-100` |
 | 32 | `WP-072` · `WP-076` · `WP-098` |
@@ -192,7 +192,7 @@ which is why they are caused deliberately rather than waited for.
 ### What acceptance of this package releases
 
 - **Directly unblocked:** 1 — `WP-120`
-- **Transitively reachable:** **13 of 160 packages (8%)** cannot be accepted until this one is.
+- **Transitively reachable:** **11 of 160 packages (7%)** cannot be accepted until this one is.
 
 The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
 
@@ -211,14 +211,27 @@ The transitive figure is the leverage number. It does not appear anywhere else i
 
 ### Acceptance scenarios that exercise this package
 
-`COMMISSIONED` requires every scenario below to pass **on the same release candidate**. A `SKIPPED` scenario on a `Critical` row does not count as a pass.
+**None.** No acceptance scenario names this package.
 
-| Scenario | Severity | What it must show |
-|---|---|---|
-| [ACC-01 — Human Seed Literature](../12_ACCEPTANCE_SCENARIOS/acc_01_human_seed_literature.md) | Critical | The source resolves to a single `SourceRecord`/representation, enters the G3 candidate and set chain, and **no field in personal Zotero is modified**. |
-| [ACC-40 — Complete Project Audit Export](../12_ACCEPTANCE_SCENARIOS/acc_40_audit_export.md) | Critical | The signed export verifies with complete correlation and hash chain; a missing or tampered fixture fails verification and raises an incident. |
+> `00_PROGRAM/11_scope_coverage_matrix.md` states the rule this trips: *a row with a primary package but no acceptance column is a capability nobody will ever be asked to demonstrate.* This package can reach `ACCEPTED` on its own tests, but it cannot reach `COMMISSIONED` through a scenario, because there is none to pass.
 
 <!-- /generated:dependency-analysis -->
+
+> **Why this package has no scenario selector, unlike WP-115 and WP-120.**
+> It is the cutover **rehearsal**, and a rehearsal that must first pass the
+> entire commissioning suite is not a rehearsal — it is the suite. What it
+> rehearses is the *procedure*: the sequence, the abort authority, the rollback
+> point and the decision record. It receives the scenario evidence the way the
+> real cutover will, as a dossier assembled by `WP-115`, which it depends on.
+>
+> This row previously read `ACC-01..ACC-40`, a range that stopped eighty
+> scenarios short of the registry and named two scenarios that had themselves
+> been made to name it back — the loop that produced the
+> `WP-115 → ACC-40 → WP-119 → WP-115` cycle. The decision to leave WP-119
+> selector-free is recorded in
+> [`00_PROGRAM/programme_metadata.json`](../00_PROGRAM/programme_metadata.json)
+> under `aggregate_packages`, so a later reader finds a decision rather than an
+> omission.
 
 ## Preconditions — Definition of Ready
 

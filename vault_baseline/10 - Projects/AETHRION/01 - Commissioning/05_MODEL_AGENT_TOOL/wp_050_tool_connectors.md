@@ -179,7 +179,7 @@ Two other bindings:
 ### What acceptance of this package releases
 
 - **Directly unblocked:** 8 — `WP-058` · `WP-060` · `WP-062` · `WP-063` · `WP-064` · `WP-065` · `WP-066` · `WP-069`
-- **Transitively reachable:** **75 of 160 packages (47%)** cannot be accepted until this one is.
+- **Transitively reachable:** **74 of 160 packages (46%)** cannot be accepted until this one is.
 
 The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
 

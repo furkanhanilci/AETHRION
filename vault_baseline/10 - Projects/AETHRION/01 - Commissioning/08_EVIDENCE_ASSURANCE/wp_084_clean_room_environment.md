@@ -202,7 +202,7 @@ because the queue is long or the budget is tight.
 ### What acceptance of this package releases
 
 - **Directly unblocked:** 3 — `WP-085` · `WP-105` · `WP-157`
-- **Transitively reachable:** **36 of 160 packages (22%)** cannot be accepted until this one is.
+- **Transitively reachable:** **32 of 160 packages (20%)** cannot be accepted until this one is.
 
 The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
 
@@ -227,6 +227,10 @@ The transitive figure is the leverage number. It does not appear anywhere else i
 |---|---|---|
 | [ACC-19 — Clean-Room Reproduction Pass](../12_ACCEPTANCE_SCENARIOS/acc_19_clean_room_pass.md) | High | The result falls within tolerance; a `ReproductionReport`, certificate and independence attestation are produced, and G7 can pass. |
 | [ACC-20 — Clean-Room Reproduction Failure](../12_ACCEPTANCE_SCENARIOS/acc_20_clean_room_fail.md) | Critical | G7 becomes FAIL/REVISE and the claim becomes `CHALLENGED`; an environment/data/code/stochastic/method root-cause classification is made and a controlled G4/G5 return is opened. |
+| [ACC-54 — Producer Attempts Evaluator Mutation](../12_ACCEPTANCE_SCENARIOS/acc_54_evaluator_mutation_attempt.md) | Critical | Every write is denied at the policy and sandbox boundary and audited. If any write nonetheless lands, the evaluator digest mismatch invalidates the run and the scenario FAILs as a critical security defect. |
+| [ACC-55 — Hidden Evaluation Data Access Attempt](../12_ACCEPTANCE_SCENARIOS/acc_55_hidden_evaluation_data_access.md) | Critical | Access is denied under the supported threat model, no hidden content appears in any candidate artifact, log or trace, and each attempt raises a security finding. |
+| [ACC-65 — Reproduction in the Producer Environment](../12_ACCEPTANCE_SCENARIOS/acc_65_reproduction_in_producer_environment.md) | Critical | The `IndependenceProfile` detects the shared environment lineage and refuses to award reproduced status. A run may still be executed and recorded, but it is classified as repeatability, not reproducibility. |
+| [ACC-113 — Producer to Evaluator Leakage](../12_ACCEPTANCE_SCENARIOS/acc_113_producer_evaluator_leakage.md) | Critical | Every path is closed. None of them looks like a boundary violation in a log, which is why each is tested explicitly rather than inferred from the zone configuration. |
 
 <!-- /generated:dependency-analysis -->
 

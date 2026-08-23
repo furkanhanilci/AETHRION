@@ -198,7 +198,7 @@ which is why they are caused deliberately rather than waited for.
 ### What acceptance of this package releases
 
 - **Directly unblocked:** 3 — `WP-106` · `WP-109` · `WP-110`
-- **Transitively reachable:** **27 of 160 packages (17%)** cannot be accepted until this one is.
+- **Transitively reachable:** **24 of 160 packages (15%)** cannot be accepted until this one is.
 
 The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
 
@@ -227,6 +227,7 @@ The transitive figure is the leverage number. It does not appear anywhere else i
 | [ACC-19 — Clean-Room Reproduction Pass](../12_ACCEPTANCE_SCENARIOS/acc_19_clean_room_pass.md) | High | The result falls within tolerance; a `ReproductionReport`, certificate and independence attestation are produced, and G7 can pass. |
 | [ACC-20 — Clean-Room Reproduction Failure](../12_ACCEPTANCE_SCENARIOS/acc_20_clean_room_fail.md) | Critical | G7 becomes FAIL/REVISE and the claim becomes `CHALLENGED`; an environment/data/code/stochastic/method root-cause classification is made and a controlled G4/G5 return is opened. |
 | [ACC-38 — Critical Reviewer Unavailable](../12_ACCEPTANCE_SCENARIOS/acc_38_reviewer_unavailable.md) | High | Neither the producer, a self-review, nor an ineligible fallback is used; the gate is `BLOCKED` and a human scheduling/escalation item and a capacity signal are produced. |
+| [ACC-66 — Standalone Reproduction Package](../12_ACCEPTANCE_SCENARIOS/acc_66_standalone_reproduction_package.md) | Critical | The package executes without any agent present and yields output and comparison artifacts. A package that depends on an undeclared local file fails here rather than silently at grading time. |
 
 <!-- /generated:dependency-analysis -->
 

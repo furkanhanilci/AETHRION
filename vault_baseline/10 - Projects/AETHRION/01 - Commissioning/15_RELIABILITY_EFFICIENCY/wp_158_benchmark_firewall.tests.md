@@ -55,7 +55,7 @@ The evidence layers this package must satisfy, derived from the gates it touches
 | **E0** Structural | Does the file, schema or reference exist? | **yes** | never optional — the artifact must exist and behave |
 | **E1** Mechanical | Is the behaviour correct under a deterministic test? | **yes** | never optional — the artifact must exist and behave |
 | **E2** Security | Is the forbidden path actually blocked? | **yes** | never optional — a control that has not been observed refusing is prose |
-| **E3** Independent review | Did an actor outside the producer examine the semantics? | **yes** | bound to 1 acceptance scenario(s) · effort class L |
+| **E3** Independent review | Did an actor outside the producer examine the semantics? | **yes** | bound to 2 acceptance scenario(s) · effort class L |
 | **E4** Reproduction | Does the same package run again in a clean environment? | no | no execution or reproduction gate |
 | **E5** Operations | Are failure, restore and observability correct? | **yes** | touches Platform |
 
@@ -75,9 +75,11 @@ ISO/IEC/IEEE 29119-3 §8.6 requires each environment item to name a description,
 | Environment manifest | Hardware, image digest, SBOM — captured, not described | Eval Office | Captured at the start of the run |
 | Isolated workspace | A worktree or container separate from the producer's | Implementation owner | For the whole run |
 | Evidence sink | Somewhere `EvidenceManifest` can be issued and verified | Assurance Lead / Research Director | At completion |
+| `WP-019` accepted output | Run, Environment and Reproduction Schemas | Experiment Platform Lead | Before the first test case runs |
+| `WP-026` accepted output | Content-Addressed Object Store and WORM | Data Platform Lead | Before the first test case runs |
 | `WP-043` accepted output | Role-Based Model and Skill Evaluation, and Golden Set Management | Eval Office | Before the first test case runs |
 | `WP-057` accepted output | Default-Deny Egress Proxy, DLP and Allowlist | Network Security Lead | Before the first test case runs |
-| `WP-115` accepted output | Full System Regression and Commissioning Dossier | Platform Assurance Lead | Before the first test case runs |
+| `WP-081` accepted output | Protocol, Analysis, Baseline and Falsification Registry | Method Office Lead | Before the first test case runs |
 | `WP-149` accepted output | Sparse Communication Topology and the Scientific Blackboard | Chief Architect | Before the first test case runs |
 
 ### Environment readiness report — §8.8
@@ -136,9 +138,10 @@ ISO/IEC/IEEE 29119-3 §8.3.2. A coverage item is something the tests must reach.
 | C09 | Enforce evaluator, rubric and gold-answer isolation from the agent environment | WP-158-T05 | *(name the test case)* |
 | C10 | Build the fully-connected baseline arm and the frontier report | WP-158-T06 | *(name the test case)* |
 | C11 | Bind labelled results into the release dossier | WP-158-T07 | *(name the test case)* |
-| C12 | Search-Time Benchmark Contamination | [ACC-118](../12_ACCEPTANCE_SCENARIOS/acc_118_benchmark_search_time_contamination.md) — Critical | *(name the test case)* |
+| C12 | Sparse Topology Preserves Quality | [ACC-086](../12_ACCEPTANCE_SCENARIOS/acc_086_sparse_topology_quality_preservation.md) — High | *(name the test case)* |
+| C13 | Search-Time Benchmark Contamination | [ACC-118](../12_ACCEPTANCE_SCENARIOS/acc_118_benchmark_search_time_contamination.md) — Critical | *(name the test case)* |
 
-**12 coverage items.** Every one must appear in the *Covered by* column of at least one test case below before this package can reach `TECH_COMPLETE`.
+**13 coverage items.** Every one must appear in the *Covered by* column of at least one test case below before this package can reach `TECH_COMPLETE`.
 
 <!-- /generated:coverage -->
 

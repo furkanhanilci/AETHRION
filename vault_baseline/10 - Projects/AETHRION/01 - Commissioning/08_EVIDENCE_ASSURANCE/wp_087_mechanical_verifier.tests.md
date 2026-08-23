@@ -54,7 +54,7 @@ The evidence layers this package must satisfy, derived from the gates it touches
 | **E0** Structural | Does the file, schema or reference exist? | **yes** | never optional — the artifact must exist and behave |
 | **E1** Mechanical | Is the behaviour correct under a deterministic test? | **yes** | never optional — the artifact must exist and behave |
 | **E2** Security | Is the forbidden path actually blocked? | **yes** | never optional — a control that has not been observed refusing is prose |
-| **E3** Independent review | Did an actor outside the producer examine the semantics? | **yes** | bound to 4 acceptance scenario(s) · effort class L |
+| **E3** Independent review | Did an actor outside the producer examine the semantics? | **yes** | bound to 11 acceptance scenario(s) · effort class L |
 | **E4** Reproduction | Does the same package run again in a clean environment? | no | no execution or reproduction gate |
 | **E5** Operations | Are failure, restore and observability correct? | no | no platform or day-2 gate |
 
@@ -149,8 +149,15 @@ ISO/IEC/IEEE 29119-3 §8.3.2. A coverage item is something the tests must reach.
 | C17 | Unsigned or Mutable Image | [ACC-17](../12_ACCEPTANCE_SCENARIOS/acc_17_unsigned_image.md) — Critical | *(name the test case)* |
 | C18 | Artifact Overwrite Attempt | [ACC-23](../12_ACCEPTANCE_SCENARIOS/acc_23_artifact_overwrite.md) — Critical | *(name the test case)* |
 | C19 | Publication Completeness | [ACC-30](../12_ACCEPTANCE_SCENARIOS/acc_30_publication_completeness.md) — Critical | *(name the test case)* |
+| C20 | Unverified Numeric Result | [ACC-53](../12_ACCEPTANCE_SCENARIOS/acc_53_unverified_numeric_result.md) — Critical | *(name the test case)* |
+| C21 | Failed Smoke Candidate Promotion Attempt | [ACC-60](../12_ACCEPTANCE_SCENARIOS/acc_60_failed_smoke_promotion.md) — Critical | *(name the test case)* |
+| C22 | Unqualified Semantic Verifier | [ACC-61](../12_ACCEPTANCE_SCENARIOS/acc_61_unqualified_semantic_verifier.md) — Critical | *(name the test case)* |
+| C23 | Semantic Verifier Recorded as Mechanical | [ACC-62](../12_ACCEPTANCE_SCENARIOS/acc_62_verifier_class_misdeclaration.md) — High | *(name the test case)* |
+| C24 | Claim–Code–Result Consistency Failure | [ACC-67](../12_ACCEPTANCE_SCENARIOS/acc_67_claim_code_result_consistency.md) — Critical | *(name the test case)* |
+| C25 | Unsupported Publication Sentence | [ACC-76](../12_ACCEPTANCE_SCENARIOS/acc_76_unsupported_publication_sentence.md) — Critical | *(name the test case)* |
+| C26 | VerifiedValue Rebinding Attempt | [ACC-77](../12_ACCEPTANCE_SCENARIOS/acc_77_verified_value_rebinding.md) — Critical | *(name the test case)* |
 
-**19 coverage items.** Every one must appear in the *Covered by* column of at least one test case below before this package can reach `TECH_COMPLETE`.
+**26 coverage items.** Every one must appear in the *Covered by* column of at least one test case below before this package can reach `TECH_COMPLETE`.
 
 <!-- /generated:coverage -->
 

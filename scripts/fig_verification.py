@@ -66,6 +66,19 @@ PROSE = {
                          "whether the mechanism was worth taking; its --self-test proves the rules can fire", ORANGE),
     "Obsidian vault": ("check_vault.py", "every vault link resolves, every projected page names its source, every tag is in the vocabulary",
                        "whether any note in it is worth reading", ORANGE),
+    "Programme graph": ("check_programme_graph.py",
+                        "package, scenario and aggregation edges combined are acyclic, and no "
+                        "pre-go-live package depends on Day-2 work",
+                        "whether the order it admits is a sensible one; its --self-test reproduces "
+                        "each historical defect", VERM),
+    "Figure semantics": ("check_figure_semantics.py",
+                         "the counts a figure renders match the registries, read from the SVG by a "
+                         "path that avoids the generator",
+                         "a figure can still draw the wrong arrow; only derivable claims are checked", BLUE),
+    "Document hygiene": ("check_document_hygiene.py",
+                         "no duplicate heading, broken link, unbalanced generated marker or orphaned "
+                         "companion in a governed document",
+                         "nothing about whether the prose is correct", MUTE),
     "Package analysis blocks": ("expand_packages.py --check", "each package states its true prerequisite closure and what its acceptance releases",
                                 "whether the package is well designed", PURPLE),
     "Package companions": ("make_package_companions.py --check", "every package carries a test procedure and an acceptance criteria document, both current",

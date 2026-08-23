@@ -53,7 +53,6 @@ ISO/IEC/IEEE 29119-3 §8.6 requires each environment item to name a description,
 | `WP-023` accepted output | Git, Worktree and Protected-Path Policy | Engineering Lead | Before the first test case runs |
 | `WP-047` accepted output | Role and Skill Registries, and the Task Compiler | Agent Platform Lead | Before the first test case runs |
 | `WP-081` accepted output | Protocol, Analysis, Baseline and Falsification Registry | Method Office Lead | Before the first test case runs |
-| `WP-107` accepted output | Engineering Vertical Slice — Spec, Worktree, Signed Release | Engineering Lead | Before the first test case runs |
 
 ### Environment readiness report — §8.8
 

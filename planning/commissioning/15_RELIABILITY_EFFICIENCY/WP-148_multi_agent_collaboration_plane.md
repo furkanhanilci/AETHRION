@@ -83,8 +83,6 @@ cohort and discarded the return.
 
 ## Dependency and prerequisite analysis
 
-## Dependency and prerequisite analysis
-
 <!-- generated:dependency-analysis — produced by scripts/expand_packages.py; do not edit inside this block -->
 
 ### Direct hard dependencies
@@ -146,7 +144,7 @@ cohort and discarded the return.
 ### What acceptance of this package releases
 
 - **Directly unblocked:** 2 — `WP-149` · `WP-152`
-- **Transitively reachable:** **6 of 160 packages (4%)** cannot be accepted until this one is.
+- **Transitively reachable:** **8 of 160 packages (5%)** cannot be accepted until this one is.
 
 The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
 
@@ -154,7 +152,7 @@ The transitive figure is the leverage number. It does not appear anywhere else i
 
 | | |
 |---|---|
-| Wave | unassigned |
+| Wave | W-R — Reliability and efficiency |
 | Dependency depth | level **38** of 55 |
 | On the documented critical path | no |
 | Effort class | **L** |
@@ -173,6 +171,8 @@ The transitive figure is the leverage number. It does not appear anywhere else i
 | [ACC-082 — Independent-First Embargo](../12_ACCEPTANCE_SCENARIOS/ACC-082_independent_first_embargo.md) | Critical | The pre-seal request is denied and audited. The post-seal request succeeds through the protocol path, and only the material differences are exposed rather than the full prior output. |
 | [ACC-089 — Sycophancy Anchor Attack](../12_ACCEPTANCE_SCENARIOS/ACC-089_sycophancy_anchor_attack.md) | Critical | The independent-first embargo means no member saw the wrong anchor before forming a position. The wrong position does not become consensus, and the sycophancy diagnostic reports the agreement pattern. |
 | [ACC-090 — False Consensus Cannot Close a Challenge](../12_ACCEPTANCE_SCENARIOS/ACC-090_false_consensus.md) | Critical | Convergence is refused while the challenge is unresolved. A majority cannot close it. It closes by being answered, by being explicitly accepted as a stated limitation, or by escalating. |
+| [ACC-091 — Faulty Agent Output Does Not Propagate](../12_ACCEPTANCE_SCENARIOS/ACC-091_faulty_agent_challenge.md) | Critical | The faulty output is challenged rather than absorbed, does not reach any canonical record, and the failure is classified and routed. The Challenger's finding does not itself close a gate. |
+| [ACC-093 — A Malicious Agent Cannot Bind Authority](../12_ACCEPTANCE_SCENARIOS/ACC-093_malicious_agent_cannot_bind_authority.md) | Critical | Every attempt is denied and audited. No agent can bind authority under any circumstance — authority is held by Temporal, by the signed decision path and by policy, none of which an agent can reach. |
 
 <!-- /generated:dependency-analysis -->
 
@@ -184,8 +184,6 @@ The transitive figure is the leverage number. It does not appear anywhere else i
 - `DataClass`, `CodeTrust`, `ToolEffect` and the network/credential scope are classified.
 - Test fixtures, the environment, the rollback point and the acceptance measurement method are reachable.
 - An O/M/P person-day estimate is recorded and real capacity is reserved against it.
-
-## Execution requirements
 
 ## Execution requirements
 

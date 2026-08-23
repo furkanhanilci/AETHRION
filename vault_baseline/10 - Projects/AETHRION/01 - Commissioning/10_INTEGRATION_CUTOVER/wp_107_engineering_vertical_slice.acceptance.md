@@ -120,6 +120,7 @@ From `00_PROGRAM/05_definition_of_ready_and_done.md`, instantiated for this pack
 - [ ] `WP-089` — DisagreementCase and Evidence-Weighted Arbitration — is `ACCEPTED` (not `TECH_COMPLETE`).
 - [ ] `WP-090` — PublicationPackage, RO-Crate and Provenance Export — is `ACCEPTED` (not `TECH_COMPLETE`).
 - [ ] `WP-096` — OpenTelemetry End-to-End Correlation Spine — is `ACCEPTED` (not `TECH_COMPLETE`).
+- [ ] `WP-154` — Engineering Discipline and Specification Conformance — is `ACCEPTED` (not `TECH_COMPLETE`).
 - [ ] `DataClass`, `CodeTrust`, `ToolEffect` and the network/credential scope are classified — all four, with no `UNKNOWN`.
 - [ ] Acceptance criteria name **a number, a threshold or a command**. `00_PROGRAM/05` states that the generic template criteria are not measurable in the sense meant here; refinement is where that is fixed.
 - [ ] Migration, rollback or compensation behaviour is defined.

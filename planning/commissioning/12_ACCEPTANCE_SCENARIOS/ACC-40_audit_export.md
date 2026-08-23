@@ -9,7 +9,7 @@
 | Severity | **Critical** |
 | Accountable owner | Internal Audit Lead |
 | Independent witness / verifier | Independent Auditor |
-| Related packages | `WP-090`, `WP-099`, `WP-106`, `WP-109`, `WP-112`, `WP-114`, `WP-119`, `WP-139` |
+| Related packages | `WP-090`, `WP-099`, `WP-106`, `WP-109`, `WP-112`, `WP-114`, `WP-139` |
 | Acceptance phase | `PRE_GO_LIVE` |
 | Production acceptance | A Critical scenario can never be counted as PASS through a SKIP or a waiver |
 

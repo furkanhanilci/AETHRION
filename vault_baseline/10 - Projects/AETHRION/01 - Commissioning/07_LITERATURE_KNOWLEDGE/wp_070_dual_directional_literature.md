@@ -176,7 +176,7 @@ an agent's context is not a source, and pruning must never be able to lose one.
 ### What acceptance of this package releases
 
 - **Directly unblocked:** 5 — `WP-071` · `WP-072` · `WP-094` · `WP-103` · `WP-125`
-- **Transitively reachable:** **55 of 160 packages (34%)** cannot be accepted until this one is.
+- **Transitively reachable:** **54 of 160 packages (34%)** cannot be accepted until this one is.
 
 The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
 

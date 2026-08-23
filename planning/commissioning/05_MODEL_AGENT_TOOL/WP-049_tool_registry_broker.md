@@ -199,6 +199,7 @@ The transitive figure is the leverage number. It does not appear anywhere else i
 | [ACC-05 — Prompt-Injection PDF](../12_ACCEPTANCE_SCENARIOS/ACC-05_prompt_injection_pdf.md) | Critical | The content stays untrusted quoted data; extraction continues read-only, no tool, secret or write call occurs, and security event and scan evidence is produced. |
 | [ACC-12 — Duplicate Event Delivery](../12_ACCEPTANCE_SCENARIOS/ACC-12_duplicate_event.md) | Critical | Exactly one business effect occurs, the duplicate is acknowledged and audited, and the side effect is not performed a second time. |
 | [ACC-35 — Tool Partial Failure](../12_ACCEPTANCE_SCENARIOS/ACC-35_tool_partial_failure.md) | Critical | A blind retry does not produce a second side effect; a read and reconcile finds the remote effect, and exactly one `ToolReceipt` is finalized — or the call becomes `RECONCILIATION_REQUIRED`. |
+| [ACC-102 — Deterministic Tool-Result Reuse](../12_ACCEPTANCE_SCENARIOS/ACC-102_tool_result_reuse.md) | Medium | The second is served from the recorded result and marked as reused. The third re-executes because the freshness boundary forbids reuse. A reused result is distinguishable from a fresh one in the record. |
 
 <!-- /generated:dependency-analysis -->
 

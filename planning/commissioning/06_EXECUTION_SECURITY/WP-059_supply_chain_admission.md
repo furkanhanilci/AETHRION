@@ -174,7 +174,7 @@ injection, memory poisoning and credential exfiltration.
 ### What acceptance of this package releases
 
 - **Directly unblocked:** 7 — `WP-060` · `WP-084` · `WP-099` · `WP-107` · `WP-129` · `WP-141` · `WP-159`
-- **Transitively reachable:** **56 of 160 packages (35%)** cannot be accepted until this one is.
+- **Transitively reachable:** **54 of 160 packages (34%)** cannot be accepted until this one is.
 
 The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
 
@@ -199,6 +199,9 @@ The transitive figure is the leverage number. It does not appear anywhere else i
 |---|---|---|
 | [ACC-17 — Unsigned or Mutable Image](../12_ACCEPTANCE_SCENARIOS/ACC-17_unsigned_image.md) | Critical | The pod is not created; the signature, provenance and digest policy denies it and produces audit and alert records. A signed-digest counter-example passes. |
 | [ACC-26 — Approval, Delegation and Exception Expiry](../12_ACCEPTANCE_SCENARIOS/ACC-26_approval_expiry.md) | Critical | The authority is auto-revoked; new operations are denied and running tasks pause or are contained according to policy. There is no automatic extension or re-approval. |
+| [ACC-73 — Upstream Assimilation Drift](../12_ACCEPTANCE_SCENARIOS/ACC-73_upstream_assimilation_drift.md) | High | The drift checker reports the divergence and opens a review item. Nothing is auto-merged, and the characterisation suite must be rerun and reviewed before the pin moves. |
+| [ACC-74 — Missing Upstream Lineage or Licence](../12_ACCEPTANCE_SCENARIOS/ACC-74_missing_upstream_lineage.md) | High | Admission fails at CI before merge. A second variant, correctly registered, passes — so the check discriminates rather than blocking all new files. |
+| [ACC-120 — Missing Upstream Licence or Provenance](../12_ACCEPTANCE_SCENARIOS/ACC-120_missing_upstream_license_provenance.md) | High | The unregistered file fails admission before merge. The correctly registered one passes. OSV, Scorecard, SLSA provenance and signature verification run over the release, and a dependency with no available fix becomes an owned, expiring residual risk rather than silence. |
 
 <!-- /generated:dependency-analysis -->
 

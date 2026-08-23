@@ -145,7 +145,7 @@ skipped because nothing in the package's own subject matter changed.
 ### What acceptance of this package releases
 
 - **Directly unblocked:** 11 — `WP-063` · `WP-065` · `WP-066` · `WP-067` · `WP-069` · `WP-070` · `WP-071` · `WP-072` · `WP-094` · `WP-103` · `WP-125`
-- **Transitively reachable:** **70 of 160 packages (44%)** cannot be accepted until this one is.
+- **Transitively reachable:** **69 of 160 packages (43%)** cannot be accepted until this one is.
 
 The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
 
@@ -168,6 +168,7 @@ The transitive figure is the leverage number. It does not appear anywhere else i
 
 | Scenario | Severity | What it must show |
 |---|---|---|
+| [ACC-01 — Human Seed Literature](../12_ACCEPTANCE_SCENARIOS/ACC-01_human_seed_literature.md) | Critical | The source resolves to a single `SourceRecord`/representation, enters the G3 candidate and set chain, and **no field in personal Zotero is modified**. |
 | [ACC-03 — Duplicate and Metadata Collision](../12_ACCEPTANCE_SCENARIOS/ACC-03_duplicate_collision.md) | High | The safe exact match binds to a single `SourceRecord`; conflicting fields are **not** silently overwritten and a curator `ConflictCase` is opened. |
 | [ACC-28 — Zotero Full Resync](../12_ACCEPTANCE_SCENARIOS/ACC-28_zotero_full_resync.md) | High | Item versions and bindings reconcile without producing duplicates or overwriting a human field; conflicts go to the curator queue. |
 

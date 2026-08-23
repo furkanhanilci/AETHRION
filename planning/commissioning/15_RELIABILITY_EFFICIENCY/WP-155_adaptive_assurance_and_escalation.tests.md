@@ -30,7 +30,7 @@ The evidence layers this package must satisfy, derived from the gates it touches
 | **E0** Structural | Does the file, schema or reference exist? | **yes** | never optional — the artifact must exist and behave |
 | **E1** Mechanical | Is the behaviour correct under a deterministic test? | **yes** | never optional — the artifact must exist and behave |
 | **E2** Security | Is the forbidden path actually blocked? | **yes** | never optional — a control that has not been observed refusing is prose |
-| **E3** Independent review | Did an actor outside the producer examine the semantics? | **yes** | bound to 3 acceptance scenario(s) · effort class L |
+| **E3** Independent review | Did an actor outside the producer examine the semantics? | **yes** | bound to 4 acceptance scenario(s) · effort class L |
 | **E4** Reproduction | Does the same package run again in a clean environment? | **yes** | touches G7 |
 | **E5** Operations | Are failure, restore and observability correct? | no | no platform or day-2 gate |
 
@@ -50,9 +50,9 @@ ISO/IEC/IEEE 29119-3 §8.6 requires each environment item to name a description,
 | Environment manifest | Hardware, image digest, SBOM — captured, not described | Assurance Lead | Captured at the start of the run |
 | Isolated workspace | A worktree or container separate from the producer's | Implementation owner | For the whole run |
 | Evidence sink | Somewhere `EvidenceManifest` can be issued and verified | Eval Office / Internal Audit | At completion |
+| `WP-043` accepted output | Role-Based Model and Skill Evaluation, and Golden Set Management | Eval Office | Before the first test case runs |
 | `WP-044` accepted output | Model Qualification and Admission Pipeline | Eval Office | Before the first test case runs |
 | `WP-087` accepted output | Mechanical Verification Engine | Verification Engineering Lead | Before the first test case runs |
-| `WP-126` accepted output | Reviewer, Judge and Reproducer Calibration | Assurance Lead | Before the first test case runs |
 
 ### Environment readiness report — §8.8
 
@@ -110,11 +110,12 @@ ISO/IEC/IEEE 29119-3 §8.3.2. A coverage item is something the tests must reach.
 | C09 | Extend `VerifierQualificationRecord` with fingerprint, coverage and human agreement | WP-155-T05 | *(name the test case)* |
 | C10 | Prevent consequence-based downgrade and budget-based route reduction | WP-155-T06 | *(name the test case)* |
 | C11 | Build the ambiguous fixture set that a calibrated verifier must abstain on | WP-155-T07 | *(name the test case)* |
-| C12 | Expired Verifier Qualification | [ACC-107](../12_ACCEPTANCE_SCENARIOS/ACC-107_expired_verifier_qualification.md) — Critical | *(name the test case)* |
-| C13 | Escalation Is Not Selective Enforcement | [ACC-108](../12_ACCEPTANCE_SCENARIOS/ACC-108_selective_verifier_escalation.md) — Critical | *(name the test case)* |
-| C14 | Verifier Abstention Is a Valid Result | [ACC-109](../12_ACCEPTANCE_SCENARIOS/ACC-109_verifier_abstention_is_valid.md) — High | *(name the test case)* |
+| C12 | Inspector Reviews High-Consequence Output | [ACC-092](../12_ACCEPTANCE_SCENARIOS/ACC-092_inspector_high_consequence_review.md) — High | *(name the test case)* |
+| C13 | Expired Verifier Qualification | [ACC-107](../12_ACCEPTANCE_SCENARIOS/ACC-107_expired_verifier_qualification.md) — Critical | *(name the test case)* |
+| C14 | Escalation Is Not Selective Enforcement | [ACC-108](../12_ACCEPTANCE_SCENARIOS/ACC-108_selective_verifier_escalation.md) — Critical | *(name the test case)* |
+| C15 | Verifier Abstention Is a Valid Result | [ACC-109](../12_ACCEPTANCE_SCENARIOS/ACC-109_verifier_abstention_is_valid.md) — High | *(name the test case)* |
 
-**14 coverage items.** Every one must appear in the *Covered by* column of at least one test case below before this package can reach `TECH_COMPLETE`.
+**15 coverage items.** Every one must appear in the *Covered by* column of at least one test case below before this package can reach `TECH_COMPLETE`.
 
 <!-- /generated:coverage -->
 

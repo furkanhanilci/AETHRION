@@ -60,7 +60,7 @@ the same binding, independently of how many operators exist.
 ### The scale problem this package will surface
 
 T01 maps 36 core roles. The dependency matrix assigns **74 distinct owners and
-119 distinct verifiers** across 141 packages. Those numbers cannot both be right
+119 distinct verifiers** across the whole package registry. Those numbers cannot both be right
 unless roles are functions and bindings are many-to-one — which is precisely the
 rule above. This package is where that reconciliation happens, and if it does not
 happen here it will happen implicitly at every gate for the rest of the programme.

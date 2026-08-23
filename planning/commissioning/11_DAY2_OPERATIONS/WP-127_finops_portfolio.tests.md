@@ -30,7 +30,7 @@ The evidence layers this package must satisfy, derived from the gates it touches
 | **E0** Structural | Does the file, schema or reference exist? | **yes** | never optional — the artifact must exist and behave |
 | **E1** Mechanical | Is the behaviour correct under a deterministic test? | **yes** | never optional — the artifact must exist and behave |
 | **E2** Security | Is the forbidden path actually blocked? | **yes** | never optional — a control that has not been observed refusing is prose |
-| **E3** Independent review | Did an actor outside the producer examine the semantics? | **yes** | bound to 2 acceptance scenario(s) |
+| **E3** Independent review | Did an actor outside the producer examine the semantics? | **yes** |  |
 | **E4** Reproduction | Does the same package run again in a clean environment? | no | no execution or reproduction gate |
 | **E5** Operations | Are failure, restore and observability correct? | **yes** | touches Day-2 |
 
@@ -110,10 +110,8 @@ ISO/IEC/IEEE 29119-3 §8.3.2. A coverage item is something the tests must reach.
 | C09 | Update the capacity, headroom and queue-wait plan | WP-127-T04 | *(name the test case)* |
 | C10 | Record the stop/pivot decision for low-value, high-cost projects | WP-127-T05 | *(name the test case)* |
 | C11 | Trigger the annual cost policy benchmark and reopen | WP-127-T06 | *(name the test case)* |
-| C12 | Budget Hard Stop | [ACC-09](../12_ACCEPTANCE_SCENARIOS/ACC-09_budget_hard_stop.md) — Critical | *(name the test case)* |
-| C13 | Provider Invoice Variance | [ACC-29](../12_ACCEPTANCE_SCENARIOS/ACC-29_invoice_variance.md) — Medium | *(name the test case)* |
 
-**13 coverage items.** Every one must appear in the *Covered by* column of at least one test case below before this package can reach `TECH_COMPLETE`.
+**11 coverage items.** Every one must appear in the *Covered by* column of at least one test case below before this package can reach `TECH_COMPLETE`.
 
 <!-- /generated:coverage -->
 

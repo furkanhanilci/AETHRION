@@ -156,7 +156,40 @@ belong to them.
 
 ---
 
-## 5. What this register does not do
+## 5. Findings from the 2026-08-23 integration-consistency remediation
+
+An external audit package attacked the seam between the architecture and the
+machinery that enforces it, which is where the defects from the v1.2.0 and
+v1.3.0 expansions had collected. Its findings are adjudicated one by one in
+[`review/2026-08-23_integration_remediation_dispositions.md`](review/2026-08-23_integration_remediation_dispositions.md).
+Recorded here are the ones that are defects *in this repository's own controls*
+rather than in the plan they check.
+
+| # | Finding | Fixed by | Regression guard |
+|---|---|---|---|
+| **K1** | **A dependency graph can be acyclic and impossible to execute, and nothing said so.** Two packages required before go-live depended on Day-2 packages that exist only after it. The plan validator did have a phase rule — but it read the *scenario document* while the violating edge lived in the *matrix*, and it only looked at scenario→package edges while both real deadlocks are package→package | `check_programme_graph.py`, seven rules over package, scenario and milestone nodes, with shortest-path diagnostics | `--self-test`, six mutations · `tests/test_programme_graph.py` |
+| **K2** | **A deterministic generator reproduced a false claim exactly as faithfully as a true one.** `aethrion_waves.svg` rendered "141 work-package documents" against a registry of 160 for two baselines, and `aethrion_topology.svg` said "221 planning files, baseline v1.0.5" against a seal of 631. Both passed the containment check and the drift check — the latter compares a figure to the generator that drew it, and the generator was the thing that was wrong | `check_figure_semantics.py`, reading the rendered SVG and comparing to the registries by a path that does not pass through any generator | four registry mutations · `tests/test_figure_and_hygiene_checks.py` |
+| **K3** | **One relation, two owners, disagreeing on 98 of 120 scenarios.** The WP↔ACC binding was written in the scenario documents *and* in a matrix column. Among the disagreements: eleven `PRE_GO_LIVE` scenarios the column bound to Day-2 packages, invisible because the validator read the document and the generator read the column. This is the repository's own finding **M5**, open since the first audit | the column was **deleted**. `programme_model` derives the reverse from the scenario documents, so there is no second representation left to drift | `test_the_wp_acc_binding_has_exactly_one_owner` |
+| **K4** | **Two aggregators enumerated two scenarios where their own cards said the set was derived.** `WP-115`'s card: *"the set is derived, never enumerated here, because an enumeration drifts the moment a scenario is added."* 185 lines below, inside the generated block an independent verifier actually works from, sat `ACC-01` and `ACC-40` | a `scenario_selector` grammar, with the required aggregators **declared** in `programme_metadata.json` | `test_removing_an_aggregate_selector_is_a_failure_not_a_silence` |
+
+> **K4's second half is the one worth keeping.** The first version of the rule
+> iterated over packages that *had* a selector — so deleting `WP-115`'s selector
+> made the check pass in silence and restored exactly the enumeration it was
+> written to prevent. **A check anchored on the thing it checks can be switched
+> off by deleting that thing.** The self-test found it, because the mutation
+> "remove the selector" was on the list before the rule was written.
+>
+> That happened four times while building `check_programme_graph.py`: two rules
+> could not fire at all, one crashed before its own diagnostic printed, and one
+> was disabled by the mutation it was meant to catch. And twice more in
+> `check_figure_semantics.py`, where the first bijection rule invented a naming
+> convention — `fig_X.py → aethrion_X.svg` — and reported two findings against a
+> repository that had no defect. **A checker that invents a rule and then
+> enforces it is worse than none, because its findings look like the real ones.**
+
+---
+
+## 6. What this register does not do
 
 It does not rank, schedule or assign. It records what is known to be wrong and
 whether it still is. Two limits are worth stating plainly:

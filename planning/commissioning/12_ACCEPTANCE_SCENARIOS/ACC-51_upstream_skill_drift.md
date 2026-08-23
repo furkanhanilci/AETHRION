@@ -9,7 +9,7 @@
 | Severity | **High** |
 | Accountable owner | Knowledge Steward |
 | Independent witness / verifier | Assurance Lead |
-| Related packages | `WP-013`, `WP-047`, `WP-115`, `WP-120` |
+| Related packages | `WP-013`, `WP-047` |
 | Acceptance phase | `PRE_GO_LIVE` |
 | Production acceptance | A Critical scenario can never be counted as PASS through a SKIP or a waiver |
 

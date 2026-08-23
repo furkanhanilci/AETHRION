@@ -186,7 +186,7 @@ because the queue is long or the budget is tight.
 
 ### What acceptance of this package releases
 
-- **Directly unblocked:** 7 — `WP-082` · `WP-085` · `WP-086` · `WP-087` · `WP-090` · `WP-104` · `WP-154`
+- **Directly unblocked:** 8 — `WP-082` · `WP-085` · `WP-086` · `WP-087` · `WP-090` · `WP-104` · `WP-154` · `WP-158`
 - **Transitively reachable:** **64 of 160 packages (40%)** cannot be accepted until this one is.
 
 The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
@@ -211,6 +211,9 @@ The transitive figure is the leverage number. It does not appear anywhere else i
 | Scenario | Severity | What it must show |
 |---|---|---|
 | [ACC-39 — Negative Research Result](../12_ACCEPTANCE_SCENARIOS/acc_39_negative_result.md) | Medium | The result is neither lost nor reframed as a success; a negative run and claim artifact, the limitations and a stop/pivot/continue `DecisionRecord` are produced. |
+| [ACC-56 — Confirmatory Result Without a Frozen Analysis Plan](../12_ACCEPTANCE_SCENARIOS/acc_56_confirmatory_without_frozen_plan.md) | Critical | The gate refuses. The work may be relabelled exploratory only through an explicit, recorded policy decision that lowers the claim ceiling; it can never be relabelled confirmatory afterwards on the same data. |
+| [ACC-103 — Minor Specification Drift Is Recorded](../12_ACCEPTANCE_SCENARIOS/acc_103_scientific_minor_spec_drift.md) | High | The bounded deviation is classified `SCIENTIFIC_MINOR`, recorded and reported with the result. The refactor is `ENGINEERING_ONLY` and changes no scientific status. |
+| [ACC-104 — Major Specification Drift Blocks Confirmatory Status](../12_ACCEPTANCE_SCENARIOS/acc_104_scientific_major_spec_drift.md) | Critical | The deviation is classified `SCIENTIFIC_MAJOR`. The confirmatory package cannot proceed: the minimum consequence is relabelling to exploratory, or a re-freeze and a re-run. A clean implementation passes. |
 
 <!-- /generated:dependency-analysis -->
 

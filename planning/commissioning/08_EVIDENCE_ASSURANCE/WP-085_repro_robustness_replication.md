@@ -197,7 +197,7 @@ because the queue is long or the budget is tight.
 ### What acceptance of this package releases
 
 - **Directly unblocked:** 7 — `WP-090` · `WP-095` · `WP-105` · `WP-106` · `WP-113` · `WP-126` · `WP-157`
-- **Transitively reachable:** **35 of 160 packages (22%)** cannot be accepted until this one is.
+- **Transitively reachable:** **31 of 160 packages (19%)** cannot be accepted until this one is.
 
 The transitive figure is the leverage number. It does not appear anywhere else in the plan, and it is the one that should drive sequencing when two packages are otherwise equally ready.
 
@@ -222,6 +222,11 @@ The transitive figure is the leverage number. It does not appear anywhere else i
 |---|---|---|
 | [ACC-19 — Clean-Room Reproduction Pass](../12_ACCEPTANCE_SCENARIOS/ACC-19_clean_room_pass.md) | High | The result falls within tolerance; a `ReproductionReport`, certificate and independence attestation are produced, and G7 can pass. |
 | [ACC-20 — Clean-Room Reproduction Failure](../12_ACCEPTANCE_SCENARIOS/ACC-20_clean_room_fail.md) | Critical | G7 becomes FAIL/REVISE and the claim becomes `CHALLENGED`; an environment/data/code/stochastic/method root-cause classification is made and a controlled G4/G5 return is opened. |
+| [ACC-65 — Reproduction in the Producer Environment](../12_ACCEPTANCE_SCENARIOS/ACC-65_reproduction_in_producer_environment.md) | Critical | The `IndependenceProfile` detects the shared environment lineage and refuses to award reproduced status. A run may still be executed and recorded, but it is classified as repeatability, not reproducibility. |
+| [ACC-66 — Standalone Reproduction Package](../12_ACCEPTANCE_SCENARIOS/ACC-66_standalone_reproduction_package.md) | Critical | The package executes without any agent present and yields output and comparison artifacts. A package that depends on an undeclared local file fails here rather than silently at grading time. |
+| [ACC-67 — Claim–Code–Result Consistency Failure](../12_ACCEPTANCE_SCENARIOS/ACC-67_claim_code_result_consistency.md) | Critical | Both are reported `INCONSISTENT` and G7 does not pass. Exit code 0 is not a reproduction, and a matching number reached by the wrong method is not one either. |
+| [ACC-114 — Reproduction Environment Lineage](../12_ACCEPTANCE_SCENARIOS/ACC-114_reproduction_in_producer_environment_hardened.md) | Critical | The first four are refused reproduced status. Only the independent environment yields reproducibility, and the classification is decided by environment digest lineage rather than by declaration. |
+| [ACC-116 — Distributional Reproduction for a Hosted Model](../12_ACCEPTANCE_SCENARIOS/ACC-116_distributional_hosted_model_reproduction.md) | High | `EXACT` is refused for hosted black-box execution. The distributional claim uses the pre-declared run count and interval, and choosing them after seeing the spread is refused. |
 
 <!-- /generated:dependency-analysis -->
 
